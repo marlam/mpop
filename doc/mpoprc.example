@@ -1,0 +1,35 @@
+# Default values for all accounts
+defaults
+delivery mda "/usr/bin/procmail -f %F -d $USER"
+#delivery mda "/usr/sbin/sendmail -oi -oem -f %F -- $USER"
+#delivery maildir ~/Mail/incoming
+#delivery mbox ~/Mail/new
+#delivery simple_mbox ~/Mail/new
+tls on
+tls_trust_file ~/.ca-bundle.pem
+
+# My provider, where I have two pop3 mailboxes 
+account provider1
+host mx.provider.example
+user joe_smith
+password secret
+tls_starttls off
+
+account provider2 : provider1
+user joey
+password secret2
+
+# A freemail service
+account freemail
+host pop.freemail.example
+user 1238476
+password pass
+
+# Be sure to never loose mail while testing a new 
+# filter script for the freemail service
+account freemail-test : freemail
+filter ~/bin/experimental-filter.sh --from=%F --size=%S
+keep on
+
+# Set a default account
+account default : provider1

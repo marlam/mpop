@@ -1,0 +1,15 @@
+# List of source files containing translatable strings.
+# Copyright (C) 2005 Martin Lambers <marlam@marlam.de>
+
+# Common library files
+gnulib/getopt.c
+
+# Package source files
+src/conf.c
+src/delivery.c
+src/mpop.c
+src/net.c
+src/pop3.c
+src/stream.c
+src/tls.c
+src/uidls.c

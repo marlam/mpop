@@ -1,0 +1,6 @@
+Thanks go to:
+
+- Dimitris Apostolou for the fast UID comparison algorithm, lots of good
+  suggestions about pipelining/UID/mbox support, and lots of testing
+
+- all senders of bug reports and problem descriptions

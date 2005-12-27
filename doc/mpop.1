@@ -1,0 +1,514 @@
+.\" -*-nroff-*-
+.\"
+.\" mpop version 0.8.3
+.\"
+.TH MPOP 1 2005-12
+.SH NAME
+mpop \- A POP3 client 
+.SH SYNOPSIS
+.IP "Mail retrieval mode (default):"
+.B mpop 
+[option...] [--] [account...]
+.br
+.B mpop
+--host=host [option...]
+.IP "Server information mode:"
+.B mpop 
+[option...] --serverinfo [account...]
+.br
+.B mpop 
+--host=host [option...] --serverinfo
+.SH DESCRIPTION
+In mail retrieval mode of operation, mpop retrieves mails from one or more POP3
+mailboxes, optionally does some filtering, and delivers them through a mail
+delivery agent (MDA) or to maildir folders or mbox files. Mails that were
+successfully delivered before will not be retrieved a second time, even if
+errors occur or mpop is terminated in the middle of a session.
+.br
+In server information mode, mpop prints information about one or more POP3
+servers.
+.br
+If no account names are given on the command line, the one named \fIdefault\fP
+will be used. 
+.SH EXIT STATUS
+The standard sendmail exit codes are used, as defined in sysexits.h.
+.SH OPTIONS
+Options override configuration file settings, for every used account.
+.IP "\fBGeneral Options\fP"
+.RS
+.IP "--version"
+Print version information. This includes information about the library used for
+TLS/SSL support (if any), the library used for authentication, and the
+authentication mechanisms supported by this library.
+.IP "--help"
+Print help.
+.IP "-P, --pretend"
+Print the configuration settings that would be used, but do not take further
+action.  An asterisk ('*') will be printed instead of your password.
+.IP "-d, --debug"
+Print lots of debugging information, including the whole conversation with the
+POP3 server. Be careful with this option: the (potentially dangerous) output 
+will not be sanitized, and your password may get printed in an easily decodable
+format!
+.br
+This option implies --quiet, because the normal output would interfere
+with the debugging output.
+.RE
+.IP "\fBChanging the mode of operation\fP"
+.RS
+.IP "-S, --serverinfo"
+Print information about the POP3 server(s) and exit. This includes information
+about supported features (authentication methods, TOP command, ...), about
+parameters (time for which mails will not be deleted, minimum time between
+logins, ...), and about the TLS certificate (if TLS is active).
+.RE
+.IP "\fBConfiguration options\fP"
+.RS
+.IP "-C, --file=\fIconffile\fP"
+Use the given file instead of $HOME/.mpoprc as configuration file.
+.IP "--host=\fIhostname\fP"
+Use this POP3 server with settings from the command line; do not use any
+configuration file data. You cannot use both this option and account names on
+the command line.
+.IP "--port=\fInumber\fP"
+Set the port number to connect to. See the
+.BR port
+command below.
+.IP "--timeout=(\fIoff\fP|\fIseconds\fP)"
+Set a network timeout. See the \fBtimeout\fP command below.
+.IP "--pipelining=(\fIon\fP|\fIoff)"
+Enable or disable POP3 pipelining for obsolete servers. See the \fBpipelining\fP
+command below.
+.IP "--auth[=(\fIon\fP|\fImethod\fP)]"
+Set the authentication method to automatic (with "on") or manually choose an
+authentication method. See the \fBauth\fP command below.
+.IP "--user=[\fIusername\fP]"
+Set or unset the user name for authentication. See the \fBuser\fP command
+below.
+.IP "--tls[=(\fIon\fP|\fIoff\fP)]"
+Enable or disable TLS encryption. See the \fBtls\fP command below.
+.IP "--tls-trust-file=[\fIfile\fP]"
+Set or unset a trust file for TLS encryption. See the \fBtls_trust_file\fP
+command below.
+.IP "--tls-key-file=[\fIfile\fP]"
+Set or unset a key file for TLS encryption. See the \fBtls_key_file\fP command
+below.
+.IP "--tls-cert-file=[\fIfile\fP]"
+Set or unset a cert file for TLS encryption. See the \fBtls_cert_file\fP
+command below.
+.IP "--tls-certcheck[=(\fIon\fP|\fIoff\fP)]"
+Enable or disable server certificate checks for TLS encryption. See the
+\fBtls_certcheck\fP command below.
+.IP "--tls-starttls[=(\fIon\fP|\fIoff\fP)]"
+Enable or disable the POP3 STLS command for TLS encryption. See the
+\fBtls_starttls\fP command below.
+.RE
+.IP "\fBOptions specific to mail retrieval mode\fP"
+.RS
+.IP "-q, --quiet"
+Do not print progress information.
+.IP "-a, --auth-only"
+Authenticate only; do not retrieve mail. Useful for SMTP-after-POP.
+.IP "-s, --status-only"
+Print number and size of mails in each account only; do not retrieve mail.
+.IP "-k, --keep[=(\fIon\fP|\fIoff\fP)]"
+Do not delete mails from POP3 servers, regardless of other options or settings.
+See the \fBkeep\fP command below.
+.IP "--killsize=(\fIoff\fP|\fIsize\fP)"
+Set or unset kill size. See the \fBkillsize\fP command below.
+.IP "--skipsize=(\fIoff\fP|\fIsize\fP)"
+Set or unset skip size. See the \fBskipsize\fP command below.
+.IP "--filter=[\fIprogram\fP]"
+Set a filter which will decide whether to retrieve, skip, or delete each mail
+by investigating the mail's headers. See the \fBfilter\fP command below.
+.IP "--delivery=\fImethod\fP,\fImethod_arguments...\fP"
+How to deliver messages received from this account. See the \fBdelivery\fP 
+command below. Note that a comma is used instead of a blank to separate the 
+method from its arguments.
+.IP "--uidls-file=\fIfilename\fP"
+File to store UIDLs in. See the \fBuidls_file\fP command below.
+.RE
+.SH USAGE
+mpop normally uses a configuration file ($HOME/.mpoprc by default) that
+contains information about your POP3 accounts.
+.PP
+Skip to the EXAMPLES section for a quick start.
+.PP
+The configuration file is a simple text file.  Empty lines and comment lines
+(whose first non-blank character is '#') are ignored.
+The file must have no more permissions than user read/write.
+.br
+Every other line must contain a command and may contain an argument to that
+command.
+.br
+The argument may be enclosed in double quotes ("), for example if its first or
+last character is a blank.
+.br 
+If the first character of a filename is the tilde (~), this tilde will be
+replaced by $HOME.
+.br
+If a command accepts the argument \fIon\fP, it also accepts an empty argument
+and treats that the same as \fIon\fP.
+.PP
+Commands are as follows:
+.IP "defaults"
+Set defaults. The following configuration commands will set default values for
+all following account definitions.
+.IP "account \fIname\fP [:\fIaccount\fP[,...]]"
+Start a new account definition with the given name. The current default values
+are filled in.
+.br
+If a colon and a list of previously defined accounts is given after the account
+name, the new account, with the filled in default values, will inherit all 
+settings from the accounts in the list.
+.IP "host \fIhostname\fP"
+The POP3 server to retrieve mails from.
+The argument may be a host name or a network address.
+Every account definition must contain this command.
+.IP "port \fInumber\fP"
+The port that the POP3 server listens on. The default is 110, unless TLS
+without STLS is used, in which case it is 995.
+.IP "timeout (\fIoff\fP|\fIseconds\fP)"
+Set or unset a network timeout, in seconds. The argument off means that no
+timeout will be set, which means that the operating system default will be used.
+.IP "pipelining (\fIon\fP|\fIoff\fP)"
+Enable or disable POP3 pipelining for obsolete servers.
+.br
+mpop can enable or disable POP3 pipelining automatically if the server supports
+the CAPA command; see --serverinfo.  If your server does not support the CAPA
+command, but you still want to use pipelining, you have to enable it manually
+with this command.
+.br 
+Pipelining works by sending up to \fIPIPELINE_MAX\fP commands to the server, 
+then begin to read its answers, and refill the command pipeline when the number
+of unanswered commands drops to \fIPIPELINE_MIN\fP. PIPELINE_MIN and 
+PIPELINE_MAX are compile time contants.
+.IP "delivery \fImethod\fP \fImethod_arguments...\fP
+How to deliver messages received from this account.
+.RS
+.IP "delivery mda \fIcommand\fP"
+Deliver the mails through a mail delivery agent (MDA). All occurences of %F in
+the command will be replaced with the envelope from address of the current
+message (or MAILER-DAEMON if none is found).
+.br
+Use "delivery mda /usr/bin/procmail -f %F -d $USER" for the procmail MDA.
+.br
+Use "delivery mda /usr/sbin/sendmail -oi -oem -f %F -- $USER" to let your MTA
+handle the mail.
+.IP "delivery maildir \fIdirectory\fP"
+Deliver the mails to the given maildir directory. The directory must exist and 
+it must be a valid maildir directory; mpop will not create directories.
+.IP "delivery mbox \fImbox-file\fP"
+Deliver the mails to the given file in mbox format. The file will be locked 
+with \fBfcntl(2)\fP. mpop uses the MBOXRD mbox format variant; see the
+documentation of the mbox format.
+.IP "delivery simple_mbox \fImbox-file\fP"
+This is the same as the mbox method, except that the mail headers are not
+parsed for the envelope from address. The From_ lines will just contain a
+dash (-) instead. This is usually sufficient since the envelope from address
+information in From_ lines is rarely used, and the mail still contains the 
+relevant headers.
+.PP
+If the delivery method needs to parse the mail headers for an envelope from 
+address (the mda method if the command contains %F, and the mbox method), then
+it needs to create a temporary file to store the mail headers (but not the body)
+in. See $TMPDIR in the FILES / ENVIRONMENT section.
+.RE
+.IP "uidls_file \fIfilename\fP"
+The file to store UIDLs in. These are needed to identify new messages.
+The file is only used for POP3 servers that support the UIDL command; see option 
+\fB--serverinfo\fP above. The default is $HOME/.mpop_uidls. One file may be 
+shared by multiple accounts.
+.IP "auth [(\fIon\fP|\fImethod\fP)]"
+This command chooses the POP3 authentication method. With the argument
+\fIon\fP, mpop will choose the best one available for you (see below). This
+is the default.
+.br
+You probably need to set a username (with \fBuser\fP) and password (with
+\fBpassword\fP). 
+If no password is set but one is needed during authentication, mpop will try to
+find it in ~/.netrc, and if that fails, mpop will prompt you for it.
+.br
+Available methods are \fIuser\fP, \fIapop\fP, \fIplain\fP, \fIlogin\fP,
+\fIcram-md5\fP, \fIdigest-md5\fP, \fIgssapi\fP, \fIexternal\fP, \fIlogin\fP,
+and \fIntlm\fP.
+Note that one or more of these methods may be unavailable due to lack of
+support in the underlying authentication library. Use the \fB--version\fP
+option to find out which methods are supported.
+.br
+The \fIuser\fP, \fIplain\fP and \fIlogin\fP methods send your authentication
+data in cleartext over the net and should therefore only be used together with
+the \fBtls\fP command.
+.br
+If you don't choose the method yourself, mpop chooses the best secure method
+that the POP3 server supports. Secure means that your authentication data will
+not be sent in cleartext over the net. For TLS encrypted connections, every
+authentication method is secure in this sense. If TLS is not active, only
+gssapi, digest-md5, cram-md5, apop, and ntlm are secure in this sense.
+.br
+The \fIexternal\fP is special: the actual authentication happens outside of the
+SMTP protocol, typically by sending a TLS client certificate (see the
+\fBtls_cert_file\fP command). The \fIexternal\fP method merely confirms that
+this authentication succeeded for the given user (or, if no user name is given,
+confirms that authentication succeeded). This authentication method is not
+chosen automatically; you have to request it manually.
+.IP "user \fIlogin\fP"
+Set your user name for POP3 authentication.
+.IP "password \fIsecret\fP"
+Set your password for POP3 authentication.
+If no password is set but one is needed during authentication, mpop will try to
+find it in ~/.netrc, and if that fails, mpop will prompt you for it.
+.IP "ntlmdomain [\fIdomain\fP]"
+Set a domain for the \fBntlm\fP authentication method. The default is to use no
+domain (equivalent to an empty argument), but some servers seem to require one,
+even if it is an arbitrary string.
+.br
+.IP "tls [(\fIon\fP|\fIoff\fP)]"
+This command enables or disables TLS/SSL encrypted connections to the POP3 
+server. Not every server supports TLS, and many that do require the additional 
+command \fBtls_starttls off\fP.  
+.br
+With TLS, the connection with the POP3 server will be protected against
+eavesdroppers. A sanity check will be performed on the server certificate
+(unless the \fBtls_certcheck\fP command is used to turn this off, see below).
+To make full use of the TLS/SSL capabilities, it is recommended to use the
+\fBtls_trust_file\fP command (see below).
+.IP "tls_trust_file \fIfile\fP"
+This command activates strict server certificate verification.
+.br
+The filename must be the absolute path name of a file in PEM format containing
+one or more certificates of trusted Certification Authorities (CAs), one of
+which certified the POP3 server you want to connect to.  An empty argument
+disables this feature.
+.br
+With a trust file, mpop can verify the authenticity of the server it connects
+to.
+.IP "tls_key_file \fIfile\fP"
+This command (together with the \fBtls_cert_file\fP command) enables mpop to
+send a client certificate to the POP3 server if requested.
+.br
+The filename must be the absolute path name of a file in PEM format containing
+a private key. Be sure that this file is only readable by yourself!
+.br
+An empty argument disables this feature.
+.IP "tls_cert_file \fIfile\fP"
+This command (together with the \fBtls_key_file\fP command) enables mpop to
+send a client certificate to the POP3 server if requested.
+.br
+The filename must be the absolute path name of a file in PEM format containing
+a certificate.
+.br
+An empty argument disables this feature.
+.IP "tls_certcheck [(\fIon\fP|\fIoff\fP)]"
+By default, sanity checks are performed on server certificate(s) when TLS is
+used.  If the certificate(s) don't pass the checks, the TLS connection is
+aborted.  This command can turn the checks off. 
+.IP "tls_starttls [(\fIon\fP|\fIoff\fP)]"
+By default, TLS encryption is activated using the STLS POP3 command.  By
+disabling this, TLS encryption is immediately started instead (this is known as
+POP3 tunneled through TLS/SSL). The default port is set to 995 for this mode of
+operation.
+.IP "keep [(\fIon\fP|\fIoff\fP)]"
+Keep all mails on the POP3 server, never delete them. The default behaviour is
+to delete mails that have been successfully retrieved or filtered by kill
+filters.
+.IP "killsize (\fIoff\fP|\fIsize\fP)"
+Mails larger than the given size will be deleted (unless the \fBkeep\fP command
+is used, in which case they will just be skipped).
+.br
+The size argument must be zero or greater. If it is followed by a 'k' or 
+an 'm', the size is measured in kilobytes/megabytes instead of bytes.
+.br
+Note that some POP3 servers report slightly incorrect sizes for mails; see
+\fBNOTES\fP below. 
+.IP "skipsize (\fIoff\fP|\fIsize\fP)"
+Mails larger than the given size will be skipped (not downloaded).
+.br
+The size argument must be zero or greater. If it is followed by a 'k' or 
+an 'm', the size is measured in kilobytes/megabytes instead of bytes.
+.br
+Note that some POP3 servers report slightly incorrect sizes for mails; see
+\fBNOTES\fP below. 
+.IP "filter [\fIcommand\fP]"
+Set a filter which will decide whether to retrieve, skip, or delete each mail
+by investigating the mail's headers. The POP3 server must support the POP3 TOP
+command for this to work; see option \fB--serverinfo\fP above. An empty argument
+disables filtering.
+.br
+All occurences of %F in the command will be replaced with the envelope from 
+address of the current message (or MAILER-DAEMON if none is found).
+All occurences of %S in the command will be replaced with the size of the 
+current mail as reported by the POP3 server.
+.br
+The mail headers (plus the blank line separating the headers from the body)
+will be piped to the command. Based on the return code, mpop decides
+what to do with the mail:
+.br
+0: proceed normally; no special action
+.br
+1: delete the mail; do not retrieve it
+.br
+2: skip the mail; do not retrieve it
+.br
+Return codes greater than or equal to 3 mean that an error occured. The
+sysexits.h error codes may be used to give information about the kind of the
+error, but this is not necessary.
+.RE
+.SH FILTERING
+There are three filtering commands available.  They will be executed in the
+following order:
+.br
+.B killsize
+.br
+.B skipsize
+.br
+.B filter
+.br
+If a filtering command applies to a mail, the remaining filters will not be
+executed.
+.SH EXAMPLES
+.B Configuration file
+.PP
+# Default values for all accounts
+.br
+defaults
+.br
+delivery mda "/usr/bin/procmail -f %F -d $USER"
+.br
+#delivery mda "/usr/sbin/sendmail -oi -oem -f %F -- $USER"
+.br
+#delivery maildir ~/Mail/incoming
+.br
+#delivery mbox ~/Mail/new
+.br
+#delivery simple_mbox ~/Mail/new
+.br
+tls on
+.br
+tls_trust_file ~/.ca-bundle.pem
+.br
+
+.br
+# My provider, where I have two pop3 mailboxes 
+.br
+account provider1
+.br
+host mx.provider.example
+.br
+user joe_smith
+.br
+password secret
+.br
+tls_starttls off
+.br
+
+.br
+account provider2 : provider1
+.br
+user joey
+.br
+password secret2
+.br
+
+.br
+# A freemail service
+.br
+account freemail
+.br
+host pop.freemail.example
+.br
+user 1238476
+.br
+password pass
+.br
+
+.br
+# Be sure to never loose mail while testing a new 
+.br
+# filter script for the freemail service
+.br
+account freemail-test : freemail
+.br
+filter ~/bin/experimental-filter.sh --from=%F --size=%S
+.br
+keep on
+.br
+
+.br
+# Set a default account
+.br
+account default : provider1
+.br
+
+.br
+.PP
+.B Filtering with SpamAssassin
+.PP
+The command
+.B filter\ "/path/to/spamc -c > /dev/null"
+will delete all mails that SpamAssassin thinks are spam. Since no message body
+is passed to SpamAssassin, you should disable all body-specific tests in the 
+SpamAssassin configuration file; for example set
+.B use_bayes 0.
+.PP
+If your mail provider runs SpamAssassin for you, you just have to check for the
+result. The following script can do that when used as an mpop filter:
+.br
+#!/bin/sh
+.br
+if [ "`grep "^X-Spam-Status: Yes"`" ]; then
+.br
+    exit 1  # kill this message
+.br
+else
+.br
+    exit 0  # proceed normally
+.br
+fi
+.br
+Since the filter command is passed to a shell, you can also use this directly:
+.br
+.B filter if [\ "`grep\ "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
+.SH FILES / ENVIRONMENT
+.IP $HOME/.mpoprc
+Default configuration file.
+.IP $HOME/.mpop_uidls
+Default file to store UIDLs in.
+.IP $HOME/.netrc
+The .netrc file contains login information. If a password is not found in the
+configuration file, msmtp will search it in .netrc before prompting the user for
+it. The syntax of .netrc is described in 
+.BR netrc (5)
+or 
+.BR ftp (1).
+.IP "$USER, $LOGNAME"
+These variables override the user's login name. $LOGNAME is only used if $USER
+is unset. The user's login name is used for Received headers.
+.IP "$TMPDIR"
+Directory to create temporary files in. If this is unset, a system specific
+default directory is used.
+.SH NOTES
+Some POP3 servers count end-of-line characters as two bytes (CRLF) instead 
+of one (LF), so that the size of a mail as reported by the POP3 server is 
+slightly larger than the actual size. This has the following consequences:
+.br
+The size filters are not accurate. Do not rely on exact size filtering.
+.br
+The progress output may display inaccurate (slightly too low) percentage values
+for the first mail retrieved from a POP3 server.  mpop will detect this after
+the first mail has been read and will display corrected values for subsequent
+mails.
+.SH AUTHOR
+mpop was written by Martin Lambers <marlam@marlam.de>
+.br
+Other authors are listed in the AUTHORS file in the source distribution.
+.SH SEE ALSO
+.BR procmail (1),
+.BR spamassassin (1),
+.BR fetchmail (1),
+.BR getmail (1),
+.BR netrc (5)
+or
+.BR ftp (1),
+.BR mbox (5),
+.BR fcntl (2)

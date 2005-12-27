@@ -1,0 +1,50 @@
+Notes on the POP3 implementation
+================================
+
+
+- LIST and UIDL are issued only once to get information about all mails
+
+  Therefore, mpop has to keep information about every mail in memory. Currently,
+  roughly 10 bytes plus the average length of an UID are required per mail on a 
+  32 bit system. In most cases, less than 30 bytes are needed, so you can handle
+  1000 mails in less than 30 KB, or 100000 mails in less than 3 MB.
+
+  A malicious server can send a very big total number of mails in response to
+  the STAT command. The maximum number accepted by mpop is POP3_MAX_MESSAGES
+  (currently 1000000). This means that mpop can try to allocate very large
+  amounts of memory, up to roughly 30 MB. This should not be a problem on most
+  systems, but if your system does not have that much free memory, the following
+  can happen:
+  1) xmalloc() fails, mpop aborts.
+  2) xmalloc() succeeds (for example on overcommitting OSes like Linux). The 
+     next thing mpop does is issuing the LIST command to request the size of 
+     each mail. Then two things can happen:
+     a) The server is not able to deliver them all, mpop terminates.
+     b) mpop tries to access much of the allocated memory and gets killed by the
+        OOM killer.
+
+
+- Pipelining can be used for TOP, RETR, and DELE.
+
+  Pipelining works by sending up to PIPELINE_MAX commands to the server, then 
+  begin to read its answers, and refill the command pipeline when the number of
+  unanswered commands drops to PIPELINE_MIN.
+  Pipelining results in great speed improvements because many round trips are 
+  saved. It is automatically enabled for modern servers that can announce their
+  capabilities. You can enable it with the command "pipelining on" for obsolete 
+  servers, too.
+  The values PIPELINE_MIN and PIPELINE_MAX are defined in pop3.c. If these 
+  defaults cause trouble for you or you find better values, please send a mail.
+
+
+- The UIDLs file is always updated
+
+  Once the first message is retrieved and successfully delivered, mpop cannot 
+  simply abort, because the information about the delivered mail would be lost.
+  So even if the session becomes unusable due to network errors, protocol 
+  violations, or signals, mpop makes sure that the UIDLs file is updated.
+  This means that no message that was successfully delivered before will be 
+  retrieved a second time. All successfully delivered messages will be deleted
+  at the end of a session (unless 'keep' is set, of course), regardless of when
+  they were delivered. Thus, once mpop can end a session normally (without 
+  errors or signals interrupting it), no stale mails will be left on the server.

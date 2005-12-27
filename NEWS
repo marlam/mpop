@@ -1,0 +1,124 @@
+Version 0.8.3:
+- UIDLS files created by versions prior to 0.5.0 are not accepted anymore.
+
+Version 0.8.2:
+- Removed the OpenSSL exception note from the license information.
+
+Version 0.8.1:
+- Bugfix: Don't leave stale messages on the server.
+
+Version 0.8.0:
+- Fixed handling of servers that do not support pipelining.
+- mpop will now always remember mails that were already retrieved and delivered,
+  even in case of errors or program termination. These mails will never be 
+  retrieved a second time. The only_new command and only-new option were 
+  therefore removed.
+- The 'connect_timeout' setting was replaced by a 'timeout' setting that applies
+  to all network operations.
+
+Version 0.7.0:
+- Native language support (NLS) was added. Currently the only supported language
+  besides english is german, but it is easy to add more translations (hint, 
+  hint)!
+- When delivering mail, mpop adds a Received header now
+- The parameters pipeline_min and pipeline_max are no longer configurable; they
+  are compile time constants now.
+- Minor improvements all over the place
+
+Version 0.6.3:
+- No new festures, just bugfixes.
+
+Version 0.6.2:
+- Delivery to maildir folder is now possible. Example:
+  delivery maildir ~/Mail/incoming
+- Filter scripts can now use the envelope from address and the size of a mail.
+  Example:
+  filter ~/bin/my-pop3-filter.sh --from=%F --size=%S  
+
+Version 0.6.1:
+- This is a hotfix release because of the following error:
+  If TLS is not used and a mail with a line longer than 1023 characters is read,
+  a null character was wrongly inserted into that line.
+
+Version 0.6.0:
+- Implemented delivery to mbox mailboxes. There are now two methods to deliver
+  mails: mda and mbox. You can choose one with the new "delivery" command.
+  BEWARE: When switching from 0.5.0, you need to convert your configuration
+          file to use the new command by inserting "delivery" before all "mda"
+	  commands.
+
+Version 0.5.0:
+- Speed improvements through network efficient POP3 command usage and faster 
+  UID comparison. Use the pipelining command to speed up your POP3 sessions.
+- Added support for the .netrc file: If a password is needed but none is given,
+  mpop will try to find it in ~/.netrc, and if that fails, mpop will prompt you 
+  for it.
+- Nicer output
+
+Version 0.4.3:
+- One important bugfix (potential segfault)
+
+Version 0.4.2:
+- mpop can now keep track of already retrieved mails. Use only_new=on (or
+  --only-new=on on the command line) to process only new messages and ignore
+  already retrieved messages. 
+  The file to store the lists of unique IDs of already retrieved messages in is
+  ~/.mpop_uidls by default. This can be changed with uidls_file/--uidls-file.
+
+Version 0.4.1:
+- Added the new connect_timeout command and --connect-timeout option.
+- Added specialisation to account definitions. See documentation of the
+  account command and the example files.
+
+Version 0.4.0:
+- The default_mda command is obsolete: there's a new defaults command to set
+  default values for all following commands.
+- The password will be prompted for if non is given in the configuration file
+- The user configuration file is required to have no more permissions than
+  0600 (user read/write).
+- Added support for AUTH EXTERNAL
+- Various cleanups
+- You need GnuTLS >= 1.2.0 now if you want GnuTLS support.
+
+Version 0.3.1:
+- --serverinfo is now usable without valid authentication data
+
+Version 0.3.0:
+- You can now filter your mails before downloading them by inspecting only the
+  mail headers: use the new filter command or --filter option. Your POP3 server
+  must support the POP3 TOP command for this to work.
+- Added --mda option
+- Various bugfixes and cleanups
+
+Version 0.2.0:
+- Update to the latest msmtp code base:
+  - New command line options; see the man page or the --help text
+  - Optional GNU SASL support. In addition to the built-in USER/PASS and APOP
+    methods, there's support for PLAIN, CRAM-MD5, DIGEST-MD5, GSSAPI, LOGIN,
+    and NTLM. Beware: This has not been tested yet!
+  - TLS certificate information output with --serverinfo and -debug
+  - Long option support on all platforms (thanks to gnulib)
+  - Enhanced almost all commands to allow unsetting of features
+  - Changed commands: "tls_nostarttls" is replaced by "tls_starttls off" and 
+    "tls_nocertcheck" by "tls_certcheck off"
+
+Version 0.1.4:
+- IPv6 support on Windows systems
+- *Lots* of small bug fixes and improvements
+
+Version 0.1.3:
+- When an error occurs, the so far successfully delivered mails will not be
+  undeleted on the server anymore. This should prevent double download of 
+  mails.
+  
+Version 0.1.2:
+- This version can be compiled without TLS/SSL support; use 
+  --disable-ssl if you really want that.
+
+Version 0.1.1:
+- New commands: default_mda, killsize, skipsize
+- Important bug fixes
+
+Version 0.1.0:
+- initial public release; 90% of the code comes from msmtp
+  read the TODO file to find out about missing and untested features!

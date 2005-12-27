@@ -1,0 +1,12 @@
+mpop was written by Martin Lambers <marlam@marlam.de>
+
+Most of the code is shared with msmtp (http://msmtp.sourceforge.net).
+
+This program might use some gnulib modules, depending on your platform.
+These gnulib modules were written by other authors and may have their own 
+licenses. Please check the source files in the subdirectory gnulib for more 
+information.
+
+The .netrc parsing code in netrc.[ch] was taken from fetchmail 6.2.5.
+
+Other contributors to mpop are listed in the THANKS file.
