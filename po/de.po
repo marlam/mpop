@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 0.8.1\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2005-11-13 09:57+0100\n"
+"POT-Creation-Date: 2005-12-27 22:39+0100\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -154,279 +154,279 @@ msgstr "muss Dir gehören"
 msgid "must have no more than user read/write permissions"
 msgstr "darf nicht mehr Rechte als Lese-/Schreibrecht für den Benutzer haben"
 
-#: src/delivery.c:90
+#: src/delivery.c:91
 msgid "EX_OK: no error"
 msgstr "EX_OK: kein Fehler"
 
-#: src/delivery.c:93
+#: src/delivery.c:94
 msgid "EX_USAGE: command line usage error"
 msgstr "EX_USAGE: Kommandozeilenbenutzung fehlerhaft"
 
-#: src/delivery.c:96
+#: src/delivery.c:97
 msgid "EX_DATAERR: data format error"
 msgstr "EX_DATAERR: Datenformatfehler"
 
-#: src/delivery.c:99
+#: src/delivery.c:100
 msgid "EX_NOINPUT: no input"
 msgstr "EX_NOINPUT: keine Eingabe"
 
-#: src/delivery.c:102
+#: src/delivery.c:103
 msgid "EX_NOUSER: user unknown"
 msgstr "EX_NOUSER: Benutzer unbekannt"
 
-#: src/delivery.c:105
+#: src/delivery.c:106
 msgid "EX_NOHOST: host name unknown"
 msgstr "EX_NOHOST: Unbekannter Hostname"
 
-#: src/delivery.c:108
+#: src/delivery.c:109
 msgid "EX_UNAVAILABLE: service unavailable"
 msgstr "EX_UNAVAILABLE: Dienst steht nicht zur Verfügung"
 
-#: src/delivery.c:111
+#: src/delivery.c:112
 msgid "EX_SOFTWARE: internal software error"
 msgstr "EX_SOFTWARE: interner Softwarefehler"
 
-#: src/delivery.c:114
+#: src/delivery.c:115
 msgid "EX_OSERR: system error"
 msgstr "EX_OSERR: Systemfehler"
 
-#: src/delivery.c:117
+#: src/delivery.c:118
 msgid "EX_OSFILE: system file missing"
 msgstr "EX_OSFILE: eine Systemdatei fehlt"
 
-#: src/delivery.c:120
+#: src/delivery.c:121
 msgid "EX_CANTCREAT: cannot create output file"
 msgstr "EX_CANTCREAT: kann Ausgabedatei nicht erzeugen"
 
-#: src/delivery.c:123
+#: src/delivery.c:124
 msgid "EX_IOERR: input/output error"
 msgstr "EX_IOERR: Eingabe-/Ausgabefehler"
 
-#: src/delivery.c:126
+#: src/delivery.c:127
 msgid "EX_TEMPFAIL: temporary failure"
 msgstr "EX_TEMPFAIL: vorübergehende Fehlfunktion"
 
-#: src/delivery.c:129
+#: src/delivery.c:130
 msgid "EX_PROTOCOL: remote error in protocol"
 msgstr "EX_PROTOCOL: Protokollfehler"
 
-#: src/delivery.c:132
+#: src/delivery.c:133
 msgid "EX_NOPERM: permission denied"
 msgstr "EX_NOPERM: keine Berechtigung"
 
-#: src/delivery.c:135
+#: src/delivery.c:136
 msgid "EX_CONFIG: configuration error"
 msgstr "EX_CONFIG: Konfigurationsfehler"
 
-#: src/delivery.c:196
+#: src/delivery.c:197
 #, c-format
 msgid "cannot execute %s"
 msgstr "kann %s nicht ausführen"
 
-#: src/delivery.c:215 src/delivery.c:275
+#: src/delivery.c:216 src/delivery.c:276
 #, c-format
 msgid "%s failed to execute"
 msgstr "%s konnte nicht ausgeführt werden"
 
-#: src/delivery.c:225 src/delivery.c:285
+#: src/delivery.c:226 src/delivery.c:286
 #, c-format
 msgid "%s returned exit status %d (%s)"
 msgstr "%s lieferte Rückgabewert %d (%s)"
 
-#: src/delivery.c:230 src/delivery.c:290
+#: src/delivery.c:231 src/delivery.c:291
 #, c-format
 msgid "%s returned exit status %d"
 msgstr "%s lieferte Rückgabewert %d"
 
-#: src/delivery.c:371 src/delivery.c:530 src/pop3.c:1583 src/tls.c:107
+#: src/delivery.c:367 src/delivery.c:526 src/pop3.c:1583 src/tls.c:107
 #, c-format
 msgid "cannot get system time: %s"
 msgstr "kann Systemzeit nicht feststellen: %s"
 
-#: src/delivery.c:387
+#: src/delivery.c:383
 #, c-format
 msgid "cannot create %s%c%s: %s"
 msgstr "kann %s%c%s nicht erzeugen: %s"
 
-#: src/delivery.c:428
+#: src/delivery.c:424
 #, c-format
 msgid "%s: cannot link %s to %s: %s"
 msgstr "%s: kann keinen Verweis von %s auf %s erstellen: %s"
 
-#: src/delivery.c:438
+#: src/delivery.c:434
 #, c-format
 msgid "%s: cannot move %s to %s: %s"
 msgstr "%s: kann %s nicht nach %s verschieben: %s"
 
-#: src/delivery.c:495
+#: src/delivery.c:491
 #, c-format
 msgid "cannot change to %s: %s"
 msgstr "kann nicht in %s wechseln: %s"
 
-#: src/delivery.c:538 src/delivery.c:549 src/delivery.c:562
+#: src/delivery.c:534 src/delivery.c:545 src/delivery.c:558
 #, c-format
 msgid "%s: output error"
 msgstr "%s: Ausgabefehler"
 
-#: src/delivery.c:583
+#: src/delivery.c:579
 #, c-format
 msgid "cannot open %s: %s"
 msgstr "kann %s nicht öffnen: %s"
 
-#: src/delivery.c:589 src/uidls.c:166 src/uidls.c:339
+#: src/delivery.c:585 src/uidls.c:160 src/uidls.c:316
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "kann %s nicht sperren (habe es %d Sekunden versucht): %s"
 
-#: src/mpop.c:103
+#: src/mpop.c:111
 #, c-format
 msgid "%s: FATAL: %s"
 msgstr "%s: FATAL: %s"
 
-#: src/mpop.c:260
+#: src/mpop.c:268
 #, c-format
 msgid "password for %s at %s: "
 msgstr "Passwort für %s auf %s: "
 
-#: src/mpop.c:298
+#: src/mpop.c:306
 msgid "Common Name"
 msgstr "Allgemeiner Name"
 
-#: src/mpop.c:298
+#: src/mpop.c:306
 msgid "Organization"
 msgstr "Organisation"
 
-#: src/mpop.c:299
+#: src/mpop.c:307
 msgid "Organizational unit"
 msgstr "Organisationseinheit"
 
-#: src/mpop.c:299
+#: src/mpop.c:307
 msgid "Locality"
 msgstr "Ort"
 
-#: src/mpop.c:299
+#: src/mpop.c:307
 msgid "State or Province"
 msgstr "Staat oder Provinz"
 
-#: src/mpop.c:300
+#: src/mpop.c:308
 msgid "Country"
 msgstr "Land"
 
-#: src/mpop.c:327
+#: src/mpop.c:335
 #, c-format
 msgid "TLS certificate information:\n"
 msgstr "TLS Zertifikatinformation:\n"
 
-#: src/mpop.c:328
+#: src/mpop.c:336
 msgid "Owner"
 msgstr "Eigentümer"
 
-#: src/mpop.c:339
+#: src/mpop.c:347
 msgid "Issuer"
 msgstr "Aussteller"
 
-#: src/mpop.c:350
+#: src/mpop.c:358
 msgid "Validity"
 msgstr "Gültigkeit"
 
-#: src/mpop.c:352
+#: src/mpop.c:360
 msgid "Activation time"
 msgstr "Aktivierungszeitpunkt"
 
-#: src/mpop.c:354
+#: src/mpop.c:362
 msgid "Expiration time"
 msgstr "Ablaufzeitpunkt"
 
-#: src/mpop.c:355
+#: src/mpop.c:363
 msgid "Fingerprints"
 msgstr "Fingerabdrücke"
 
-#: src/mpop.c:475 src/mpop.c:935
+#: src/mpop.c:483 src/mpop.c:943
 msgid "the POP3 server does not support TLS via the STLS command"
 msgstr "der POP3 Server unterstützt TLS über das STLS Kommando nicht"
 
-#: src/mpop.c:539
+#: src/mpop.c:547
 #, c-format
 msgid "POP3 server at %s (%s [%s]), port %d:\n"
 msgstr "POP3 Server auf %s (%s [%s]), Port %d:\n"
 
-#: src/mpop.c:544
+#: src/mpop.c:552
 #, c-format
 msgid "POP3 server at %s (%s), port %d:\n"
 msgstr "POP3 Server auf %s (%s), Port %d:\n"
 
-#: src/mpop.c:549
+#: src/mpop.c:557
 #, c-format
 msgid "POP3 server at %s ([%s]), port %d:\n"
 msgstr "POP3 Server auf %s ([%s]), Port %d:\n"
 
-#: src/mpop.c:554
+#: src/mpop.c:562
 #, c-format
 msgid "POP3 server at %s, port %d:\n"
 msgstr "POP3 Server auf %s, Port %d:\n"
 
-#: src/mpop.c:566
+#: src/mpop.c:574
 #, c-format
 msgid "POP3 capabilities:\n"
 msgstr "POP3 Leistungsmerkmale:\n"
 
-#: src/mpop.c:570
+#: src/mpop.c:578
 msgid "Support for the CAPA command (get list of capabilities)"
 msgstr "Unterstützung für CAPA (fordert Liste der Leistungsmerkmale an)"
 
-#: src/mpop.c:580
+#: src/mpop.c:588
 msgid "Support for command grouping for faster transmission"
 msgstr "Unterstützung für schnelle Übertragung durch Kommandogruppierung"
 
-#: src/mpop.c:585
+#: src/mpop.c:593
 msgid "Support for the TOP command (get mail headers)"
 msgstr "Unterstützung für TOP (fordert Kopfzeilen einer Mail an)"
 
-#: src/mpop.c:590
+#: src/mpop.c:598
 msgid "Support for the UIDL command (get unique mail identifiers)"
 msgstr "Unterstützung für UIDL (für eindeutige Mailidentifikation)"
 
-#: src/mpop.c:597
+#: src/mpop.c:605
 #, c-format
 msgid "minimum time between logins is %ld seconds"
 msgstr "Mindestzeit zwischen zwei Anmeldungen ist %ld Sekunden"
 
-#: src/mpop.c:601
+#: src/mpop.c:609
 #, c-format
 msgid " = %.2f hours"
 msgstr " = %.2f Stunden"
 
-#: src/mpop.c:606
+#: src/mpop.c:614
 #, c-format
 msgid " = %.2f minutes"
 msgstr " = %.2f Minuten"
 
-#: src/mpop.c:617
+#: src/mpop.c:625
 msgid "this POP3 server will never delete mails"
 msgstr "Dieser POP3 Server löscht keine Mails selbstständig"
 
-#: src/mpop.c:622
+#: src/mpop.c:630
 msgid "this POP3 server will not keep mails"
 msgstr "Dieser POP3 Server behält keine Mails"
 
-#: src/mpop.c:627
+#: src/mpop.c:635
 #, c-format
 msgid "this POP3 server will keep mails for %ld days"
 msgstr "Dieser POP3 Server hält Mails für %ld Tage vor"
 
-#: src/mpop.c:640
+#: src/mpop.c:648
 msgid "Support for TLS encryption via the STLS command"
 msgstr "Unterstützung für TLS Verschlüsselung über das STLS Kommando"
 
-#: src/mpop.c:643
+#: src/mpop.c:651
 msgid "Supported authentication methods:"
 msgstr "Unterstützte Authentifizierungsmethoden:"
 
-#: src/mpop.c:684 src/mpop.c:690
+#: src/mpop.c:692 src/mpop.c:698
 msgid "Server error messages in square brackets have a special meaning"
 msgstr "Serverfehlermeldungen in eckigen Klammern haben spezielle Bedeutung"
 
-#: src/mpop.c:699
+#: src/mpop.c:707
 #, c-format
 msgid ""
 "This server might advertise more or other capabilities\n"
@@ -435,7 +435,7 @@ msgstr ""
 "Dieser Server könnte mehr oder andere Leistungsmerkmale angeben\n"
 "    wenn TLS Verschlüsselung aktiviert ist.\n"
 
-#: src/mpop.c:704
+#: src/mpop.c:712
 #, c-format
 msgid ""
 "This server might advertise more or other capabilities\n"
@@ -444,7 +444,7 @@ msgstr ""
 "Dieser Server könnte mehr oder andere Leistungsmerkmale angeben\n"
 "    wenn eine erfolgreiche Authentifizierung stattfand.\n"
 
-#: src/mpop.c:709
+#: src/mpop.c:717
 #, c-format
 msgid ""
 "This server does not support the CAPA command, so this\n"
@@ -453,123 +453,123 @@ msgstr ""
 "Da dieser Server das CAPA Kommando nicht unterstützt, ist diese Liste\n"
 "    wahrscheinlich nicht komplett.\n"
 
-#: src/mpop.c:742
+#: src/mpop.c:750
 #, c-format
 msgid "%.2f GB"
 msgstr "%.2f GB"
 
-#: src/mpop.c:746
+#: src/mpop.c:754
 #, c-format
 msgid "%.2f MB"
 msgstr "%.2f MB"
 
-#: src/mpop.c:750
+#: src/mpop.c:758
 #, c-format
 msgid "%.2f KB"
 msgstr "%.2f KB"
 
-#: src/mpop.c:754
+#: src/mpop.c:762
 #, c-format
 msgid "%ld bytes"
 msgstr "%ld bytes"
 
-#: src/mpop.c:758
+#: src/mpop.c:766
 msgid "1 byte"
 msgstr "1 byte"
 
-#: src/mpop.c:775
+#: src/mpop.c:783
 #, c-format
 msgid "skipping message %ld of %ld (reason: filter + keep)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: filter + keep)\n"
 
-#: src/mpop.c:780
+#: src/mpop.c:788
 #, c-format
 msgid "deleting message %ld of %ld (reason: filter)\n"
 msgstr "lösche Nachricht %ld von %ld (Grund: filter)\n"
 
-#: src/mpop.c:786
+#: src/mpop.c:794
 #, c-format
 msgid "skipping message %ld of %ld (reason: filter)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: filter)\n"
 
-#: src/mpop.c:793
+#: src/mpop.c:801
 #, c-format
 msgid "retrieving message %ld of %ld (%s): "
 msgstr "empfange Nachricht %ld von %ld (%s): "
 
-#: src/mpop.c:1024 src/mpop.c:1214 src/mpop.c:1253 src/pop3.c:1062
+#: src/mpop.c:1032 src/mpop.c:1222 src/mpop.c:1261 src/pop3.c:1062
 #: src/pop3.c:1724
 msgid "operation aborted"
 msgstr "Operation abgebrochen"
 
-#: src/mpop.c:1112
+#: src/mpop.c:1120
 #, c-format
 msgid "%s at %s:\n"
 msgstr "%s auf %s:\n"
 
-#: src/mpop.c:1115
+#: src/mpop.c:1123
 #, c-format
 msgid "new: "
 msgstr "neu: "
 
-#: src/mpop.c:1118 src/mpop.c:1139
+#: src/mpop.c:1126 src/mpop.c:1147
 #, c-format
 msgid "no messages"
 msgstr "keine Nachrichten"
 
-#: src/mpop.c:1122 src/mpop.c:1143
+#: src/mpop.c:1130 src/mpop.c:1151
 #, c-format
 msgid "1 message"
 msgstr "1 Nachricht"
 
-#: src/mpop.c:1126 src/mpop.c:1147
+#: src/mpop.c:1134 src/mpop.c:1155
 #, c-format
 msgid "%ld messages"
 msgstr "%ld Nachrichten"
 
-#: src/mpop.c:1131 src/mpop.c:1152
+#: src/mpop.c:1139 src/mpop.c:1160
 #, c-format
 msgid " in %s"
 msgstr " in %s"
 
-#: src/mpop.c:1135
+#: src/mpop.c:1143
 #, c-format
 msgid "total: "
 msgstr "gesamt: "
 
-#: src/mpop.c:1183
+#: src/mpop.c:1191
 #, c-format
 msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: killsize + keep)\n"
 
-#: src/mpop.c:1189
+#: src/mpop.c:1197
 #, c-format
 msgid "deleting message %ld of %ld (reason: killsize)\n"
 msgstr "lösche Nachricht %ld von %ld (Grund: killsize)\n"
 
-#: src/mpop.c:1200
+#: src/mpop.c:1208
 #, c-format
 msgid "skipping message %ld of %ld (reason: skipsize)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: skipsize)\n"
 
-#: src/mpop.c:1224
+#: src/mpop.c:1232
 msgid "the POP3 server does not support the TOP command needed for filtering"
 msgstr ""
 "der POP3 Server unterstützt das für Filterung nötige TOP Kommando nicht"
 
-#: src/mpop.c:1373 src/mpop.c:1384
+#: src/mpop.c:1381 src/mpop.c:1392
 #, c-format
 msgid "%s: no account %s"
 msgstr "%s: Account %s nicht gefunden"
 
-#: src/mpop.c:1594 src/mpop.c:1611 src/mpop.c:1630 src/mpop.c:1649
-#: src/mpop.c:1674 src/mpop.c:1713 src/mpop.c:1731 src/mpop.c:1749
-#: src/mpop.c:1765 src/mpop.c:1782 src/mpop.c:1825
+#: src/mpop.c:1609 src/mpop.c:1626 src/mpop.c:1645 src/mpop.c:1664
+#: src/mpop.c:1689 src/mpop.c:1728 src/mpop.c:1746 src/mpop.c:1764
+#: src/mpop.c:1780 src/mpop.c:1797 src/mpop.c:1840
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "ungültiges Argument %s für %s"
 
-#: src/mpop.c:1855
+#: src/mpop.c:1870
 #, c-format
 msgid ""
 "%s version %s\n"
@@ -578,12 +578,12 @@ msgstr ""
 "%s Version %s\n"
 "NLS: "
 
-#: src/mpop.c:1857
+#: src/mpop.c:1872
 #, c-format
 msgid "enabled, LOCALEDIR is %s\n"
 msgstr "aktiviert, LOCALEDIR ist %s\n"
 
-#: src/mpop.c:1861
+#: src/mpop.c:1876
 #, c-format
 msgid ""
 "TLS/SSL library: %s\n"
@@ -594,19 +594,19 @@ msgstr ""
 "Authentifizierungsprogrammbibliothek: %s\n"
 "Unterstützte Authentifizierungsmethoden:\n"
 
-#: src/mpop.c:1869
+#: src/mpop.c:1884
 msgid "none"
 msgstr "keine"
 
-#: src/mpop.c:1873
+#: src/mpop.c:1888
 msgid "GNU SASL; user and apop: built-in"
 msgstr "GNU SASL; user und apop: eingebaut"
 
-#: src/mpop.c:1875
+#: src/mpop.c:1890
 msgid "built-in"
 msgstr "eingebaut"
 
-#: src/mpop.c:1914
+#: src/mpop.c:1929
 #, c-format
 msgid ""
 "\n"
@@ -623,7 +623,7 @@ msgstr ""
 "gibt keine Garantie; auch nicht für VERKAUFBARKEIT oder FÜR SPEZIELLE "
 "ZWECKE.\n"
 
-#: src/mpop.c:1922
+#: src/mpop.c:1937
 #, c-format
 msgid ""
 "USAGE:\n"
@@ -735,90 +735,90 @@ msgstr ""
 "\n"
 "Melde Fehler an <%s>.\n"
 
-#: src/mpop.c:1995
+#: src/mpop.c:2010
 msgid "cannot use both --host and accounts"
 msgstr "kann nicht gleichzeitig --host und Accounts benutzen"
 
-#: src/mpop.c:2074 src/mpop.c:2088
+#: src/mpop.c:2089 src/mpop.c:2103
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "Account %s aus %s: %s"
 
-#: src/mpop.c:2090 src/mpop.c:2094
+#: src/mpop.c:2105 src/mpop.c:2109
 msgid "no delivery information"
 msgstr "keine Informationen zur Auslieferungsmethode (delivery nicht gesetzt)"
 
-#: src/mpop.c:2111
+#: src/mpop.c:2126
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "benutze Account %s aus %s\n"
 
-#: src/mpop.c:2121 src/mpop.c:2194 src/mpop.c:2203
+#: src/mpop.c:2136 src/mpop.c:2209 src/mpop.c:2218
 #, c-format
 msgid "off\n"
 msgstr "aus\n"
 
-#: src/mpop.c:2127
+#: src/mpop.c:2142
 #, c-format
 msgid "1 second\n"
 msgstr "1 Sekunde\n"
 
-#: src/mpop.c:2131
+#: src/mpop.c:2146
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d Sekunden\n"
 
-#: src/mpop.c:2136 src/mpop.c:2157 src/mpop.c:2164 src/mpop.c:2165
-#: src/mpop.c:2190
+#: src/mpop.c:2151 src/mpop.c:2172 src/mpop.c:2179 src/mpop.c:2180
+#: src/mpop.c:2205
 msgid "on"
 msgstr "an"
 
-#: src/mpop.c:2136 src/mpop.c:2157 src/mpop.c:2164 src/mpop.c:2165
-#: src/mpop.c:2190
+#: src/mpop.c:2151 src/mpop.c:2172 src/mpop.c:2179 src/mpop.c:2180
+#: src/mpop.c:2205
 msgid "off"
 msgstr "aus"
 
-#: src/mpop.c:2139
+#: src/mpop.c:2154
 #, c-format
 msgid "choose\n"
 msgstr "automatisch\n"
 
-#: src/mpop.c:2154 src/mpop.c:2155 src/mpop.c:2156 src/mpop.c:2159
-#: src/mpop.c:2161 src/mpop.c:2163 src/mpop.c:2210
+#: src/mpop.c:2169 src/mpop.c:2170 src/mpop.c:2171 src/mpop.c:2174
+#: src/mpop.c:2176 src/mpop.c:2178 src/mpop.c:2225
 msgid "(not set)"
 msgstr "(nicht gesetzt)"
 
-#: src/mpop.c:2229
+#: src/mpop.c:2244
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr ""
 "Unterstützung für Authentifizierungsmethode %s ist nicht einkompiliert worden"
 
-#: src/mpop.c:2241
+#: src/mpop.c:2256
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "kann TLS Programmbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2249
+#: src/mpop.c:2264
 msgid "support for TLS is not compiled in"
 msgstr "Unterstützung für TLS ist nicht einkompiliert worden"
 
-#: src/mpop.c:2257
+#: src/mpop.c:2272
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "kann Netzwerkprogrammbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2285 src/mpop.c:2323
+#: src/mpop.c:2300 src/mpop.c:2338
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "Nachricht des POP3 Servers: %s"
 
-#: src/mpop.c:2330
+#: src/mpop.c:2345
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "Fehler während des Nachrichtenabrufens (Account %s aus %s)"
 
-#: src/mpop.c:2336
+#: src/mpop.c:2351
 msgid "error during mail retrieval"
 msgstr "Fehler während des Nachrichtenabrufens"
 
@@ -1107,7 +1107,7 @@ msgstr ""
 "keine Umgebungsvariablen RANDFILE oder HOME, oder Dateiname der Zufallsdatei "
 "zu lang"
 
-#: src/tls.c:100 src/uidls.c:305
+#: src/tls.c:100 src/uidls.c:282
 #, c-format
 msgid "%s: input error"
 msgstr "%s: Lesefehler"
@@ -1337,32 +1337,32 @@ msgstr "Schreibfehler in TLS Verbindung: %s"
 msgid "cannot write to TLS connection"
 msgstr "Schreibfehler in TLS Verbindung"
 
-#: src/uidls.c:188
+#: src/uidls.c:181
 #, c-format
 msgid "%s, line %ld: line longer than %d characters"
 msgstr "%s, Zeile %ld: Zeile länger als %d Zeichen"
 
-#: src/uidls.c:204
+#: src/uidls.c:197
 #, c-format
 msgid "%s, line %ld: UID without a list"
 msgstr "%s, Zeile %ld: UID außerhalb einer Liste"
 
-#: src/uidls.c:215
+#: src/uidls.c:208
 #, c-format
 msgid "%s, line %ld: invalid number of UIDs"
 msgstr "%s, Zeile %ld: ungültige Anzahl an UIDs"
 
-#: src/uidls.c:230
+#: src/uidls.c:223
 #, c-format
 msgid "%s, line %ld: invalid or missing host name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Hostname"
 
-#: src/uidls.c:242
+#: src/uidls.c:235
 #, c-format
 msgid "%s, line %ld: invalid or missing user name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Benutzername"
 
-#: src/uidls.c:256 src/uidls.c:290
+#: src/uidls.c:248 src/uidls.c:267
 #, c-format
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"
