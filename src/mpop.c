@@ -46,10 +46,6 @@ extern int optind;
 #ifdef HAVE_SIGACTION
 #include <signal.h>
 #endif
-#include <sysexits.h>
-#ifndef EX_OK
-#define EX_OK 0
-#endif
 #ifdef __MINGW32__
 #include <io.h>
 #include <fcntl.h>
@@ -64,6 +60,7 @@ extern int optind;
 #include <netdb.h>
 #include <arpa/inet.h>
 #endif
+#include <sysexits.h>
 
 #include "getpass.h"
 #include "gettext.h"

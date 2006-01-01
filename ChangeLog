@@ -1,3 +1,11 @@
+Version 1.0.0 (not yet released):
+- Changes taken from msmtp:
+  - Use a locally modified version of gnulibs sysexit_.h that defines EX_OK to
+    0, since the gnulib maintainers apparently won't fix this file.
+    Include the sysexits.h header after all other system headers to override 
+    previous definitions of EX_OK on systems that use EX_OK for other purposes.
+    This is needed on Interix, reported by Ben Collver.
+
 Version 0.8.3:
 - gnulib update.
 - Expect sorted UIDLS files. This means that files written by versions prior
