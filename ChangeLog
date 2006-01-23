@@ -1,5 +1,8 @@
 Version 1.0.0 (not yet released):
 - Changes taken from msmtp:
+  - configure.ac: Rely on PKG_CHECK_MODULES to find GSASL, do not fall back to
+    manual detection, to prevent using an incompatible version of GSASL.
+    Problem reported by Jari Aalto.
   - Gnulibs sysexit_.h now defines EX_OK; there's no need to use a locally
     modified version anymore.
   - Use a locally modified version of gnulibs sysexit_.h that defines EX_OK to
