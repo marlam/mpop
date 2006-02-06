@@ -412,7 +412,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     
     /* Create a new pop3_server_t. We won't actually retrieve any mail, so the
      * FQDN and the local user are meaningless. */
-    session = pop3_session_new(acc->pipelining, "", "", debug ? stderr : NULL);
+    session = pop3_session_new(acc->pipelining, "", "", debug ? stdout : NULL);
 
     /* prepare tls */
 #ifdef HAVE_SSL
@@ -867,7 +867,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     
     /* create a new pop3_server_t */
     session = pop3_session_new(acc->pipelining, canonical_hostname, local_user,
-	    debug ? stderr : NULL);
+	    debug ? stdout : NULL);
 
     /* prepare tls */
 #ifdef HAVE_SSL

@@ -1,4 +1,6 @@
 Version 1.0.0 (not yet released):
+- Print --debug output to stdout instead of stderr, since it is requested
+  output. Noted by Aliaksandr Lakhanko.
 - Changes taken from msmtp:
   - configure.ac: Rely on PKG_CHECK_MODULES to find GSASL, do not fall back to
     manual detection, to prevent using an incompatible version of GSASL.
