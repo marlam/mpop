@@ -1,8 +1,8 @@
 .\" -*-nroff-*-
 .\"
-.\" mpop version 0.8.3
+.\" mpop version 1.0.0
 .\"
-.TH MPOP 1 2005-12
+.TH MPOP 1 2006-01
 .SH NAME
 mpop \- A POP3 client 
 .SH SYNOPSIS
@@ -491,9 +491,7 @@ default directory is used.
 Some POP3 servers count end-of-line characters as two bytes (CRLF) instead 
 of one (LF), so that the size of a mail as reported by the POP3 server is 
 slightly larger than the actual size. This has the following consequences:
-.br
 The size filters are not accurate. Do not rely on exact size filtering.
-.br
 The progress output may display inaccurate (slightly too low) percentage values
 for the first mail retrieved from a POP3 server.  mpop will detect this after
 the first mail has been read and will display corrected values for subsequent
