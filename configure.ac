@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 #
 # This file is part of mpop, a POP3 client.
 #
-# Copyright (C) 2003, 2004, 2005
+# Copyright (C) 2003, 2004, 2005, 2006
 # Christophe Nowicki
 # Martin Lambers <marlam@marlam.de>
 #
@@ -23,7 +23,7 @@ dnl Process this file with autoconf to produce a configure script.
 #
 
 
-AC_INIT(mpop, 1.0.0, marlam@marlam.de)
+AC_INIT(mpop, 0.8.4, marlam@marlam.de)
 AC_CONFIG_SRCDIR(src/mpop.c)
 
 AM_INIT_AUTOMAKE
