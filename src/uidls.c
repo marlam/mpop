@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005
+ * Copyright (C) 2005, 2006
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -129,6 +129,13 @@ uidl_t *find_uidl(list_t *uidl_list, const char *hostname, const char *user)
 }
 
 
+/* Helper function for sorting a UID list with qsort() */
+int _uidls_qsort_strcmp(const void *a, const void *b)
+{
+    return strcmp(*(char **)a, *(char **)b);
+}
+
+
 /*
  * uidls_read()
  *
@@ -142,11 +149,14 @@ int uidls_read(const char *filename, list_t **uidl_list, char **errstr)
     long linecounter;
     uidl_t *uidl;
     long uidcounter;
+    int sorted;
     list_t *lp;
     char *p, *q;
     long i;
     int e;
     
+    uidcounter = 0;	/* shut up compiler warning */
+    sorted = 1;		/* shut up compiler warning */
 
     *uidl_list = list_new();
 
@@ -166,7 +176,6 @@ int uidls_read(const char *filename, list_t **uidl_list, char **errstr)
     lp = *uidl_list;
     uidl = NULL;
     linecounter = 0;
-    uidcounter = 0;
     e = UIDLS_EOK;
     while (fgets(line, (int)sizeof(line), f))
     {
@@ -239,6 +248,7 @@ int uidls_read(const char *filename, list_t **uidl_list, char **errstr)
 	    }
 	    uidl->user = xstrdup(p);
 	    uidcounter = 0;
+	    sorted = 1;
 	}
 	else
 	{
@@ -253,8 +263,23 @@ int uidls_read(const char *filename, list_t **uidl_list, char **errstr)
 	    }
 	    uidl->uidv[uidcounter] = xstrdup(line);
 	    uidcounter++;
+	    if (uidcounter >= 2 && sorted)
+    	    {
+  		if (strcmp(uidl->uidv[uidcounter - 2],
+   			    uidl->uidv[uidcounter - 1]) > 0)
+		{
+		    sorted = 0;
+ 		}
+ 	    }
 	    if (uidcounter == uidl->n)
 	    {
+		if (!sorted)
+   		{
+ 		    /* This should only happen when we read an UIDLS written by
+		     * a version <= 0.8.3. */
+ 		    qsort(uidl->uidv, (size_t)uidl->n, sizeof(char *),
+  			    _uidls_qsort_strcmp);
+ 		}
 		list_insert(lp, uidl);
 		lp = lp->next;
 		uidl = NULL;
@@ -337,6 +362,8 @@ int uidls_write(const char *filename, list_t *uidl_list, char **errstr)
 	{
 	    error = (fprintf(f, " %ld %s %s\n", uidl->n, uidl->hostname, 
 			uidl->user) < 0);
+	    qsort(uidl->uidv, (size_t)uidl->n, sizeof(char *), 
+		    _uidls_qsort_strcmp);
 	    for (i = 0; !error && i < uidl->n; i++)
 	    {
 		error = (fputs(uidl->uidv[i], f) == EOF 

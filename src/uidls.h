@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005
+ * Copyright (C) 2005, 2006
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -83,8 +83,7 @@ int uidls_read(const char *filename, list_t **uidl_list, char **errstr);
 /*
  * uidls_write()
  *
- * Writes the UIDLs from the list 'uidl_list' into a file. The UIDs in each uidl
- * in the list are expected to be in ascending order.
+ * Writes the UIDLs from the list 'uidl_list' into a file.
  * Used error codes: UIDLS_EIO
  */
 int uidls_write(const char *filename, list_t *uidl_list, char **errstr);

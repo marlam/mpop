@@ -1,4 +1,7 @@
 Version 1.0.0 (not yet released):
+- Fix UIDLS file handling: make sure that uids appear in ascending order.
+  Older versions wrote unsorted uid lists. If such a file is read, detect this
+  and sort the lists.
 - Print --debug output to stdout instead of stderr, since it is requested
   output. Noted by Aliaksandr Lakhanko.
 - Changes taken from msmtp:
