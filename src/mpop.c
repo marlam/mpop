@@ -1947,7 +1947,7 @@ int main(int argc, char *argv[])
 	{
 	    printf("ntlm ");
 	}
-	printf(_("\n\nCopyright (C) 2004, 2005 Martin Lambers and others.\n"
+	printf(_("\n\nCopyright (C) 2004, 2005, 2006 Martin Lambers and others.\n"
 		    "This is free software; see the source for copying "
 		    "conditions.  There is NO\n"
 		    "warranty; not even for MERCHANTABILITY or FITNESS FOR A "
