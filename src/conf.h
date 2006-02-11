@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -47,20 +47,21 @@
 #define ACC_PIPELINING		(1 << 3)
 #define ACC_DELIVERY		(1 << 4)
 #define ACC_UIDLS_FILE		(1 << 5)
-#define ACC_KEEP		(1 << 6)
-#define ACC_KILLSIZE		(1 << 7)
-#define ACC_SKIPSIZE		(1 << 8)
-#define ACC_FILTER		(1 << 9)
-#define ACC_AUTH_MECH		(1 << 10)
-#define ACC_USERNAME		(1 << 11)
-#define ACC_PASSWORD		(1 << 12)
-#define ACC_NTLMDOMAIN		(1 << 13)
-#define ACC_TLS			(1 << 14)
-#define ACC_TLS_KEY_FILE	(1 << 15)
-#define ACC_TLS_CERT_FILE	(1 << 16)
-#define ACC_TLS_TRUST_FILE	(1 << 17)
-#define ACC_TLS_NOCERTCHECK	(1 << 18)
-#define ACC_TLS_NOSTARTTLS	(1 << 19)
+#define ACC_ONLY_NEW		(1 << 6)
+#define ACC_KEEP		(1 << 7)
+#define ACC_KILLSIZE		(1 << 8)
+#define ACC_SKIPSIZE		(1 << 9)
+#define ACC_FILTER		(1 << 10)
+#define ACC_AUTH_MECH		(1 << 11)
+#define ACC_USERNAME		(1 << 12)
+#define ACC_PASSWORD		(1 << 13)
+#define ACC_NTLMDOMAIN		(1 << 14)
+#define ACC_TLS			(1 << 15)
+#define ACC_TLS_KEY_FILE	(1 << 16)
+#define ACC_TLS_CERT_FILE	(1 << 17)
+#define ACC_TLS_TRUST_FILE	(1 << 18)
+#define ACC_TLS_NOCERTCHECK	(1 << 19)
+#define ACC_TLS_NOSTARTTLS	(1 << 20)
 
 typedef struct
 {
@@ -79,6 +80,7 @@ typedef struct
     int delivery_method;	/* number of the method, from delivery.h */
     char *delivery_args;	/* arguments for the delivery method */
     char *uidls_file;		/* file to store UIDLs */
+    int only_new;		/* flag: retrieve only new messages? */
     int keep;			/* flag: keep messages on the server? */
     long killsize;		/* killsize, -1 when disabled */
     long skipsize;		/* skipsize, -1 when disabled */

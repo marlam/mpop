@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -1101,8 +1101,13 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    }
 	    else
 	    {
-		session->msg_action[session->uids_sorted[i]] = 
-		    POP3_MSG_ACTION_DELETE;
+		/* Set action to DELETE if we should retrieve only new messages.
+		 * Else leave it as NORMAL. */
+		if (acc->only_new)
+		{
+		    session->msg_action[session->uids_sorted[i]] = 
+			POP3_MSG_ACTION_DELETE;
+		}
 		session->is_old[session->uids_sorted[i]] = 1;
 		session->old_number++;
 		i++;
@@ -1170,7 +1175,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
 
     /* Size filtering */
-    if (session->new_number > 0 && (acc->killsize >= 0 || acc->skipsize >= 0))
+    if (session->total_number > 0 && (acc->killsize >= 0 || acc->skipsize >= 0))
     {
 	for (i = 1; i <= session->total_number; i++)
 	{
@@ -1221,7 +1226,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
 
     /* Header filtering */
-    if (session->new_number > 0 && acc->filter)
+    if (session->total_number > 0 && acc->filter)
     {
 	if ((session->cap.flags & POP3_CAP_CAPA) 
 	    	    && !(session->cap.flags & POP3_CAP_TOP))
@@ -1267,7 +1272,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     late_errstr = NULL;
     
     /* Retrieve */
-    if (session->new_number > 0)
+    if (session->total_number > 0)
     {
 	late_error = pop3_retr(session, 
 		&mpop_retrmail_abort,
@@ -1485,6 +1490,7 @@ int main(int argc, char *argv[])
 	{ "status-only",     no_argument,       0, 's' }, 
 	{ "delivery",        required_argument, 0, LONGONLYOPT_DELIVERY },
 	{ "uidls-file",      required_argument, 0, LONGONLYOPT_UIDLS_FILE },
+	{ "only-new",        optional_argument, 0, 'n' },
 	{ "keep",            optional_argument, 0, 'k' },
 	{ "killsize",        required_argument, 0, LONGONLYOPT_KILLSIZE },
 	{ "skipsize",        required_argument, 0, LONGONLYOPT_SKIPSIZE },
@@ -1747,6 +1753,24 @@ int main(int argc, char *argv[])
 		cmdline_account->mask |= ACC_TLS_NOSTARTTLS;
 		break;
 
+	    case 'n':
+	    	if (!optarg || is_on(optarg))
+    		{
+		    cmdline_account->only_new = 1;
+		}
+		else if (is_off(optarg))
+		{
+		    cmdline_account->only_new = 0;
+		}
+		else
+		{
+		    print_error(_("invalid argument %s for %s"), 
+			    optarg, "--only-new");
+		    error_code = 1;
+		}
+		cmdline_account->mask |= ACC_ONLY_NEW;
+		break;
+
 	    case 'k':
 	    	if (!optarg || is_on(optarg))
     		{
@@ -1982,6 +2006,7 @@ int main(int argc, char *argv[])
 			"retrieve mail\n"
 		"  -s, --status-only          print account status only; do "
 			"not retrieve mail\n"
+		"  -n, --only-new[=(on|off)]  process only new messages\n"
 	        "  -k, --keep[=(on|off)]      do not delete mails from POP3 "
 			"servers\n"
 		"  --killsize=(off|number)    set/unset kill size\n"
@@ -2197,8 +2222,10 @@ int main(int argc, char *argv[])
 		}
 		printf(" %s\n", account->delivery_args);
 		printf("uidls file      = %s\n"
+			"only_new        = %s\n"
 			"keep            = %s\n", 
 			account->uidls_file,
+			account->only_new ? _("on") : _("off"),
 			account->keep ? _("on") : _("off"));
 		printf("killsize        = ");
 		if (account->killsize < 0)

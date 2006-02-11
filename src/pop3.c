@@ -1850,8 +1850,11 @@ int pop3_delivery(pop3_session_t *session, int *abort,
 		}
 		else
 		{
-		    session->is_old[recv_index] = 1;
-		    session->old_number++;
+		    if (!session->is_old[recv_index])
+		    {
+			session->is_old[recv_index] = 1;
+			session->old_number++;
+		    }
 		    session->msg_action[recv_index] = POP3_MSG_ACTION_DELETE;
 		}
 	    }

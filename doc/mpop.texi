@@ -1,9 +1,9 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED December 27, 2005
-@set UPDATED-MONTH December 2005
-@set EDITION 0.8.3
-@set VERSION 0.8.3
+@set UPDATED February 11, 2006
+@set UPDATED-MONTH February 2006
+@set EDITION 0.8.4
+@set VERSION 0.8.4
 @settitle mpop @value{VERSION}
 
 @c Define new indices: for options (op) and commands (cm)
@@ -15,7 +15,7 @@
 This manual was last updated @value{UPDATED} for version
 @value{VERSION} of mpop.
 
-Copyright (C) 2005 Martin Lambers
+Copyright (C) 2005, 2006  Martin Lambers
 
 @quotation
 This program, including this manual,
@@ -302,6 +302,12 @@ The file is only used for POP3 servers that support the UIDL command; see
 @ref{Server information mode}. The default is @code{~/.mpop_uidls}.
 One file can be shared by multiple accounts. An UIDLs file contains at most as
 much UIDs as there are mails on the server, for each account it is used for.
+@anchor{only_new}
+@item only_new [(on|off)]
+@cmindex only_new
+By default, mpop processes only new messages (new messages are those that were
+not already successfully retrieved in an earlier session). If this option is 
+turned off, mpop will process all messages.
 @anchor{keep}
 @item keep [(on|off)]
 @cmindex keep
@@ -510,6 +516,11 @@ Authenticate only; do not retrieve mail. Useful for SMTP-after-POP.
 @opindex -s
 @opindex --status-only
 Print number and size of mails in each account only; do not retrieve mail.
+@anchor{--only-new}
+@item -n
+@itemx --only-new[=(on|off)]
+@opindex --only-new
+Process only new messages. @xref{only_new}.
 @anchor{--keep}
 @item -k
 @itemx --keep[=(on|off)]
@@ -547,6 +558,7 @@ File to store UIDLs in. @xref{uidls_file}.
 * Transport Layer Security::		How to use TLS/SSL
 * Authentication::			How to use authentication
 * Pipelining::				How to use POP3 pipelining
+* Defective POP3 servers::		Common defectives of POP3 servers
 @end menu
 
 @node Transport Layer Security
@@ -707,6 +719,24 @@ the CAPA command; see @ref{Server information mode}.
 If your server does not support the CAPA command, but you still want to use
 pipelining, you have to enable it manually with the @samp{pipelining} command
 or @samp{--pipelining} option.  See @ref{pipelining}, @ref{--pipelining}.
+
+@node Defective POP3 servers
+@section Defective POP3 servers
+
+Some POP3 servers still do not support the UIDL command. In this case, mpop 
+cannot recognize messages that were already successfully retrieved, and will
+treat all messages as new. Use the @samp{--serverinfo} option to find out if a 
+server supports the UIDL command.
+
+Some POP3 servers count end-of-line characters as two bytes (CRLF) instead 
+of one (LF), so that the size of a mail as reported by the POP3 server is 
+slightly larger than the actual size. This has the following consequences:
+The size filters are not accurate. Do not rely on exact size filtering.
+The progress output may display inaccurate (slightly too low) percentage values
+for the first mail retrieved from a POP3 server. mpop will detect this after
+the first mail has been read and will display corrected values for subsequent
+mails.
+
 
 @node Mail retrieval mode
 @chapter Mail retrieval mode

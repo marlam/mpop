@@ -1,8 +1,8 @@
 .\" -*-nroff-*-
 .\"
-.\" mpop version 1.0.0
+.\" mpop version 0.8.4
 .\"
-.TH MPOP 1 2006-01
+.TH MPOP 1 2006-02
 .SH NAME
 mpop \- A POP3 client 
 .SH SYNOPSIS
@@ -111,6 +111,8 @@ Do not print progress information.
 Authenticate only; do not retrieve mail. Useful for SMTP-after-POP.
 .IP "-s, --status-only"
 Print number and size of mails in each account only; do not retrieve mail.
+.IP "-n, --only-new[=(\fIon\fP|\fIoff\fP)]"
+Process only new messages. See the \fBonly_new\fP command below.
 .IP "-k, --keep[=(\fIon\fP|\fIoff\fP)]"
 Do not delete mails from POP3 servers, regardless of other options or settings.
 See the \fBkeep\fP command below.
@@ -308,6 +310,10 @@ By default, TLS encryption is activated using the STLS POP3 command.  By
 disabling this, TLS encryption is immediately started instead (this is known as
 POP3 tunneled through TLS/SSL). The default port is set to 995 for this mode of
 operation.
+.IP "only_new [(\fIon\fP|\fIoff\fP)]"
+By default, mpop processes only new messages (new messages are those that were
+not already successfully retrieved in an earlier session). If this option is 
+turned off, mpop will process all messages.
 .IP "keep [(\fIon\fP|\fIoff\fP)]"
 Keep all mails on the POP3 server, never delete them. The default behaviour is
 to delete mails that have been successfully retrieved or filtered by kill
@@ -488,6 +494,11 @@ is unset. The user's login name is used for Received headers.
 Directory to create temporary files in. If this is unset, a system specific
 default directory is used.
 .SH NOTES
+Some POP3 servers still do not support the UIDL command. In this case, mpop 
+cannot recognize messages that were already successfully retrieved, and will
+treat all messages as new. Use the \fB--serverinfo\fP option to find out if a 
+server supports the UIDL command.
+.br
 Some POP3 servers count end-of-line characters as two bytes (CRLF) instead 
 of one (LF), so that the size of a mail as reported by the POP3 server is 
 slightly larger than the actual size. This has the following consequences:

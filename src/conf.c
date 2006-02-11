@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -66,6 +66,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->delivery_method = -1;
     a->delivery_args = NULL;
     a->uidls_file = NULL;	/* this must be set later */
+    a->only_new = 1;
     a->keep = 0;
     a->killsize = -1;
     a->skipsize = -1;
@@ -108,6 +109,7 @@ account_t *account_copy(account_t *acc)
 	a->delivery_args = 
 	    acc->delivery_args ? xstrdup(acc->delivery_args) : NULL;
 	a->uidls_file = acc->uidls_file ? xstrdup(acc->uidls_file) : NULL;
+	a->only_new = acc->only_new;
 	a->keep = acc->keep;
 	a->killsize = acc->killsize;
 	a->skipsize = acc->skipsize;
@@ -337,6 +339,10 @@ void override_account(account_t *acc1, account_t *acc2)
     {
 	free(acc1->uidls_file);
 	acc1->uidls_file = acc2->uidls_file ? xstrdup(acc2->uidls_file) : NULL;
+    }
+    if (acc2->mask & ACC_ONLY_NEW)
+    {
+	acc1->only_new = acc2->only_new;
     }
     if (acc2->mask & ACC_KEEP)
     {
@@ -1018,6 +1024,26 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
 	    else if (is_off(arg))
 	    {
 		acc->tls_nostarttls = 1;
+	    }
+	    else
+	    {
+		*errstr = xasprintf(
+	    		_("line %d: invalid argument %s for command %s"),
+    			line, arg, cmd);
+		e = CONF_ESYNTAX;
+		break;
+	    }
+	}
+	else if (strcmp(cmd, "only_new") == 0)
+	{
+	    acc->mask |= ACC_ONLY_NEW;
+	    if (*arg == '\0' || is_on(arg))
+	    {	
+		acc->only_new = 1;
+	    }
+	    else if (is_off(arg))
+	    {
+		acc->only_new = 0;
 	    }
 	    else
 	    {
