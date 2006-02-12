@@ -197,6 +197,10 @@ Use "delivery mda /usr/bin/procmail -f %F -d $USER" for the procmail MDA.
 .br
 Use "delivery mda /usr/sbin/sendmail -oi -oem -f %F -- $USER" to let your MTA
 handle the mail.
+.br
+Use "delivery mda /usr/local/bin/msmtp --host=localhost --from=%F -- 
+$USER@`hostname`.`dnsdomainname`" to pass the mail to your MTA via SMTP. 
+(This is what fetchmail does by default.)
 .IP "delivery maildir \fIdirectory\fP"
 Deliver the mails to the given maildir directory. The directory must exist and 
 it must be a valid maildir directory; mpop will not create directories.
