@@ -1000,8 +1000,11 @@ filter if [ "`grep "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
 The homepage of mpop is @url{http://mpop.sourceforge.net/};
 the SourceForge project page is at @url{http://sourceforge.net/projects/mpop/}.
 
-Please send any questions, suggestions, and bug reports to Martin Lambers 
-(@email{marlam@@marlam.de}, OpenPGP key: @url{http://www.marlam.de/key.txt}).
+The mailing lists @code{mpop-users} can be accessed from the project page.
+
+Please send any questions, suggestions, and bug reports either to the mailing
+list or to Martin Lambers (@email{marlam@@marlam.de}, OpenPGP key: 
+@url{http://www.marlam.de/key.txt}).
 If you send a bug report, please include the output of @code{mpop --version}.
 
 
