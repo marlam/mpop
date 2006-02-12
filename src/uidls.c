@@ -348,8 +348,8 @@ int uidls_write(const char *filename, list_t *uidl_list, char **errstr)
 		"#\n"
 		"# Lines starting with a space begin a new UID list and have\n"
 		"# the following format: \" number-of-uids hostname user\".\n"
-		"# The list of UIDs follows in ascending order: "
-			"one UID per line, no spaces.\n"
+		"# The list of UIDs follows in ascending order, with one "
+			"UID per line.\n"
 		"#\n",
 		PACKAGE_NAME, PACKAGE_VERSION) < 0);
     
