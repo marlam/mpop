@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 0.8.1\n"
+"Project-Id-Version: mpop 0.8.4\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
 "POT-Creation-Date: 2006-02-12 19:03+0100\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
