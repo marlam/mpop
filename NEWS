@@ -1,3 +1,8 @@
+Version 0.8.4:
+- The only_new command and --only-new option were re-added, but with a slightly
+  different meaning. The default behaviour is compatible to previous 0.8.x 
+  versions.
+
 Version 0.8.3:
 - UIDLS files created by versions prior to 0.5.0 are not accepted anymore.
 

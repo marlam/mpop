@@ -1,5 +1,6 @@
-Version 0.8.4 (not yet released):
-- The only_new command and only-new option were re-added, but with slightly
+Version 0.8.4:
+- Documentation updates.
+- The only_new command and --only-new option were re-added, but with slightly
   different meaning and a different default value. The default behaviour is
   completely compatible to all 0.8.x version.
 - Fix UIDLS file handling: make sure that uids appear in ascending order.
