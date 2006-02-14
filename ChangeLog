@@ -1,4 +1,5 @@
 Version 0.8.4:
+- Minor Win32 portability/cross-compilation updates.
 - Gnulib update.
 - Documentation updates.
 - The only_new command and --only-new option were re-added, but with slightly
