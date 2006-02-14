@@ -1,4 +1,5 @@
 Version 0.8.4:
+- Gnulib update.
 - Documentation updates.
 - The only_new command and --only-new option were re-added, but with slightly
   different meaning and a different default value. The default behaviour is
