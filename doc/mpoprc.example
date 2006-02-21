@@ -1,7 +1,8 @@
 # Default values for all accounts
 defaults
-delivery mda "/usr/bin/procmail -f %F -d $USER"
-#delivery mda "/usr/sbin/sendmail -oi -oem -f %F -- $USER"
+delivery mda "/usr/bin/procmail -f '%F' -d $USER"
+#delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"
+#delivery mda "/usr/local/bin/msmtp --host=localhost --from='%F' -- $USER"
 #delivery maildir ~/Mail/incoming
 #delivery mbox ~/Mail/new
 #delivery simple_mbox ~/Mail/new
@@ -28,7 +29,7 @@ password pass
 # Be sure to never loose mail while testing a new 
 # filter script for the freemail service
 account freemail-test : freemail
-filter ~/bin/experimental-filter.sh --from=%F --size=%S
+filter ~/bin/experimental-filter.sh --from='%F' --size=%S
 keep on
 
 # Set a default account

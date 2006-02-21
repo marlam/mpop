@@ -1,3 +1,6 @@
+Version 1.0.0 (not yet released):
+- Minor documentation improvements.
+
 Version 0.8.4:
 - Minor Win32 portability/cross-compilation updates.
 - Gnulib update.

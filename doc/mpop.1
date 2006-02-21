@@ -191,14 +191,15 @@ How to deliver messages received from this account.
 .IP "delivery mda \fIcommand\fP"
 Deliver the mails through a mail delivery agent (MDA). All occurences of %F in
 the command will be replaced with the envelope from address of the current
-message (or MAILER-DAEMON if none is found).
+message (or MAILER-DAEMON if none is found). Although %F is guaranteed to expand
+to a valid mail address, you should put it into single quotes: '%F'.
 .br
-Use "delivery mda /usr/bin/procmail -f %F -d $USER" for the procmail MDA.
+Use "delivery mda /usr/bin/procmail -f '%F' -d $USER" for the procmail MDA.
 .br
-Use "delivery mda /usr/sbin/sendmail -oi -oem -f %F -- $USER" to let your MTA
+Use "delivery mda /usr/sbin/sendmail -oi -oem -f '%F' -- $USER" to let your MTA
 handle the mail.
 .br
-Use "delivery mda /usr/local/bin/msmtp --host=localhost --from=%F -- 
+Use "delivery mda /usr/local/bin/msmtp --host=localhost --from='%F' -- 
 $USER@`hostname`.`dnsdomainname`" to pass the mail to your MTA via SMTP. 
 (This is what fetchmail does by default.)
 .IP "delivery maildir \fIdirectory\fP"
@@ -347,6 +348,8 @@ disables filtering.
 .br
 All occurences of %F in the command will be replaced with the envelope from 
 address of the current message (or MAILER-DAEMON if none is found).
+Although %F is guaranteed to expand to a valid mail address, you should put it
+into single quotes: '%F'.
 All occurences of %S in the command will be replaced with the size of the 
 current mail as reported by the POP3 server.
 .br
@@ -383,9 +386,11 @@ executed.
 .br
 defaults
 .br
-delivery mda "/usr/bin/procmail -f %F -d $USER"
+delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 .br
-#delivery mda "/usr/sbin/sendmail -oi -oem -f %F -- $USER"
+#delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"
+.br
+#delivery mda "/usr/local/bin/msmtp --host=localhost --from='%F' -- $USER"
 .br
 #delivery maildir ~/Mail/incoming
 .br
@@ -439,7 +444,7 @@ password pass
 .br
 account freemail-test : freemail
 .br
-filter ~/bin/experimental-filter.sh --from=%F --size=%S
+filter ~/bin/experimental-filter.sh --from='%F' --size=%S
 .br
 keep on
 .br

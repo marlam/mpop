@@ -1,6 +1,6 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED February 11, 2006
+@set UPDATED February 21, 2006
 @set UPDATED-MONTH February 2006
 @set EDITION 0.8.4
 @set VERSION 0.8.4
@@ -272,12 +272,14 @@ How to deliver messages received from this account.
 @item delivery mda @var{command}@*
 Deliver the mails through a mail delivery agent (MDA). All occurences of 
 @code{%F} in the command will be replaced with the envelope from address of the
-current message (or MAILER-DAEMON if none is found).@*
-Use @code{delivery mda "/usr/bin/procmail -f %F -d $USER"} for the procmail 
+current message (or MAILER-DAEMON if none is found). Although @code{%F} is
+guaranteed to expand to a valid mail address, you should put it into single
+quotes: @code{'%F'}.@*
+Use @code{delivery mda "/usr/bin/procmail -f '%F' -d $USER"} for the procmail 
 MDA.@*
-Use @code{delivery mda "/usr/sbin/sendmail -oi -oem -f %F -- $USER"} to let
+Use @code{delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"} to let
 your MTA handle the mail.@*
-Use @code{delivery mda /usr/local/bin/msmtp --host=localhost --from=%F -- 
+Use @code{delivery mda /usr/local/bin/msmtp --host=localhost --from='%F' -- 
 $USER@@`hostname`.`dnsdomainname`"} to pass the mail to your MTA via SMTP.
 (This is what fetchmail does by default.)
 @item delivery maildir @var{directory}@*
@@ -340,10 +342,12 @@ Set a filter which will decide whether to retrieve, skip, or delete each mail
 by investigating the mail's headers. The POP3 server must support the POP3 TOP
 command for this to work; see @ref{Server information mode}. An empty argument
 disables filtering.@*
-All occurences of %F in the command will be replaced with the envelope from 
-address of the current message (or MAILER-DAEMON if none is found).
-All occurences of %S in the command will be replaced with the size of the 
-current mail as reported by the POP3 server.@*
+All occurences of @code{%F} in the command will be replaced with the envelope
+from address of the current message (or MAILER-DAEMON if none is found).
+Although @code{%F} is guaranteed to expand to a valid mail address, you should
+put it into single quotes: @code{'%F'}.
+All occurences of @code{%S} in the command will be replaced with the size of
+the current mail as reported by the POP3 server.@*
 The mail headers (plus the blank line separating the headers from the body)
 will be piped to the command. Based on the return code, mpop decides
 what to do with the mail:
@@ -930,8 +934,9 @@ rely on @emph{exact} size filtering.
 @example
 # Default values for all accounts
 defaults
-delivery mda "/usr/bin/procmail -f %F -d $USER"
-#delivery mda "/usr/sbin/sendmail -oi -oem -f %F -- $USER"
+delivery mda "/usr/bin/procmail -f '%F' -d $USER"
+#delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"
+#delivery mda "/usr/local/bin/msmtp --host=localhost --from='%F' -- $USER"
 #delivery maildir ~/Mail/incoming
 #delivery mbox ~/Mail/new
 #delivery simple_mbox ~/Mail/new
@@ -958,7 +963,7 @@ password pass
 # Be sure to never loose mail while testing a new 
 # filter script for the freemail service
 account freemail-test : freemail
-filter ~/bin/experimental-filter.sh --from=%F --size=%S
+filter ~/bin/experimental-filter.sh --from='%F' --size=%S
 keep on
 
 # Set a default account
