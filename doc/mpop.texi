@@ -1,7 +1,7 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED February 21, 2006
-@set UPDATED-MONTH February 2006
+@set UPDATED March 3, 2006
+@set UPDATED-MONTH March 2006
 @set EDITION 1.0.0
 @set VERSION 1.0.0
 @settitle mpop @value{VERSION}
@@ -289,12 +289,6 @@ it must be a valid maildir directory; mpop will not create directories.
 Deliver the mails to the given file in mbox format. The file will be locked 
 with @code{fcntl(2)}. mpop uses the MBOXRD mbox format variant; see the
 documentation of the mbox format.
-@item delivery simple_mbox @var{mbox-file}@*
-This is the same as the mbox method, except that the mail headers are not
-parsed for the envelope from address. The From_ lines will just contain a
-dash (-) instead. This is usually sufficient since the envelope from address
-information in From_ lines is rarely used, and the mail still contains the 
-relevant headers.
 @end itemize
 If the delivery method needs to parse the mail headers for an envelope from 
 address (the mda method if the command contains @code{%F}, and the mbox method),
@@ -939,7 +933,6 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 #delivery mda "/usr/local/bin/msmtp --host=localhost --from='%F' -- $USER"
 #delivery maildir ~/Mail/incoming
 #delivery mbox ~/Mail/new
-#delivery simple_mbox ~/Mail/new
 tls on
 tls_trust_file ~/.ca-bundle.pem
 

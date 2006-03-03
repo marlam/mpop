@@ -877,14 +877,6 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
 		acc->delivery_args = expand_tilde(t);
 		free(t);
 	    }
-	    else if (strncmp(arg, "simple_mbox", 11) == 0 && is_blank(arg[11]))
-	    {
-		acc->delivery_method = DELIVERY_METHOD_SIMPLE_MBOX;
-		free(acc->delivery_args);
-		t = trim_string(arg + 12);
-		acc->delivery_args = expand_tilde(t);
-		free(t);
-	    }
 	    else if (*arg == '\0')
 	    {	
 		*errstr = xasprintf(_("line %d: command %s needs an argument"),

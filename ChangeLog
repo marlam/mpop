@@ -1,4 +1,5 @@
 Version 1.0.0 (not yet released):
+- Removed the simple_mbox delivery method because it is unnecessary.
 - Minor documentation improvements.
 
 Version 0.8.4:

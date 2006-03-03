@@ -2,7 +2,7 @@
 .\"
 .\" mpop version 1.0.0
 .\"
-.TH MPOP 1 2006-02
+.TH MPOP 1 2006-03
 .SH NAME
 mpop \- A POP3 client 
 .SH SYNOPSIS
@@ -209,12 +209,6 @@ it must be a valid maildir directory; mpop will not create directories.
 Deliver the mails to the given file in mbox format. The file will be locked 
 with \fBfcntl(2)\fP. mpop uses the MBOXRD mbox format variant; see the
 documentation of the mbox format.
-.IP "delivery simple_mbox \fImbox-file\fP"
-This is the same as the mbox method, except that the mail headers are not
-parsed for the envelope from address. The From_ lines will just contain a
-dash (-) instead. This is usually sufficient since the envelope from address
-information in From_ lines is rarely used, and the mail still contains the 
-relevant headers.
 .PP
 If the delivery method needs to parse the mail headers for an envelope from 
 address (the mda method if the command contains %F, and the mbox method), then
@@ -395,8 +389,6 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 #delivery maildir ~/Mail/incoming
 .br
 #delivery mbox ~/Mail/new
-.br
-#delivery simple_mbox ~/Mail/new
 .br
 tls on
 .br

@@ -5,7 +5,6 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 #delivery mda "/usr/local/bin/msmtp --host=localhost --from='%F' -- $USER"
 #delivery maildir ~/Mail/incoming
 #delivery mbox ~/Mail/new
-#delivery simple_mbox ~/Mail/new
 tls on
 tls_trust_file ~/.ca-bundle.pem
 

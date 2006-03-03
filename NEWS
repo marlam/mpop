@@ -1,3 +1,7 @@
+Version 1.0.0:
+- Removed the simple_mbox delivery method because it is unnecessary. Please use
+  the mbox method instead.
+
 Version 0.8.4:
 - The only_new command and --only-new option were re-added, but with a slightly
   different meaning. The default behaviour is compatible to previous 0.8.x 

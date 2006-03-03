@@ -1849,13 +1849,6 @@ int main(int argc, char *argv[])
 		    free(cmdline_account->delivery_args);
 		    cmdline_account->delivery_args = expand_tilde(optarg + 5);
 		}
-		else if (strncmp(optarg, "simple_mbox,", 12) == 0)
-		{
-		    cmdline_account->delivery_method = 
-			DELIVERY_METHOD_SIMPLE_MBOX;
-		    free(cmdline_account->delivery_args);
-		    cmdline_account->delivery_args = expand_tilde(optarg + 12);
-		}
 		else
 		{
 		    print_error(_("invalid argument %s for %s"), 
@@ -2214,11 +2207,6 @@ int main(int argc, char *argv[])
 		else if (account->delivery_method == DELIVERY_METHOD_MBOX)
 		{
 		    printf("mbox");
-		}
-		else if (account->delivery_method == 
-			DELIVERY_METHOD_SIMPLE_MBOX)
-		{
-		    printf("simple_mbox");
 		}
 		printf(" %s\n", account->delivery_args);
 		printf("uidls file      = %s\n"

@@ -526,10 +526,8 @@ int delivery_method_mbox_open(delivery_method_t *dm, const char *from,
 	*errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
 	return DELIVERY_EUNKNOWN;
     }
-    /* Write the From_ line. This code is used by both the mbox and simple_mbox
-     * methods, that's why we test dm->want_from_addr here. */
-    if (fprintf(dm->pipe, "From %s %s", dm->want_from_addr ? from : "-",
-		asctime(gmtime(&t))) < 0)
+    /* Write the From_ line. */
+    if (fprintf(dm->pipe, "From %s %s", from, asctime(gmtime(&t))) < 0)
     {
 	*errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
 	return DELIVERY_EIO;
@@ -605,31 +603,6 @@ int delivery_method_mbox_deinit(delivery_method_t *dm, char **errstr)
 
 /*******************************************************************************
  *
- *  The simple_mbox method
- *
- ******************************************************************************/
-
-int delivery_method_simple_mbox_init(delivery_method_t *dm, void *data, 
-	char **errstr)
-{
-    int e;
-    
-    if ((e = delivery_method_mbox_init(dm, data, errstr)) != DELIVERY_EOK)
-    {
-	return e;
-    }
-    dm->want_from_addr = 0;
-    return DELIVERY_EOK;
-}
-
-int delivery_method_simple_mbox_deinit(delivery_method_t *dm, char **errstr)
-{
-    return delivery_method_mbox_deinit(dm, errstr);
-}
-
-
-/*******************************************************************************
- *
  *  Common functions
  *
  ******************************************************************************/
@@ -660,10 +633,6 @@ delivery_method_t *delivery_method_new(int method, void *data, char **errstr)
 
 	case DELIVERY_METHOD_MBOX:
 	    e = delivery_method_mbox_init(dm, data, errstr);
-	    break;
-
-	case DELIVERY_METHOD_SIMPLE_MBOX:
-	    e = delivery_method_simple_mbox_init(dm, data, errstr);
 	    break;
 
 	case DELIVERY_METHOD_FILTER:
@@ -704,10 +673,6 @@ int delivery_method_free(delivery_method_t *dm, char **errstr)
 
 	case DELIVERY_METHOD_MBOX:
 	    e = delivery_method_mbox_deinit(dm, errstr);
-	    break;
-
-	case DELIVERY_METHOD_SIMPLE_MBOX:
-	    e = delivery_method_simple_mbox_deinit(dm, errstr);
 	    break;
 
 	case DELIVERY_METHOD_FILTER:
