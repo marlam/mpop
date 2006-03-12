@@ -1,5 +1,7 @@
 Version 1.0.0 (not yet released):
 - Fixed a comment in net.h.
+- net_get_canonical_hostname(): Only call freeaddrinfo() if getaddrinfo()
+  succeeded. Reported and fixed by Raúl Núñez de Arenas Coronado.
 - Removed the simple_mbox delivery method because it is unnecessary.
 - Minor documentation improvements.
 
