@@ -374,14 +374,21 @@ int net_open_socket(const char *hostname, int port, int timeout, int *ret_fd,
     free(port_string);
     if (error_code)
     {
-	*errstr = xasprintf(_("cannot locate host %s: %s"), hostname,
+	if (error_code == EAI_SYSTEM && errno == EINTR)
+	{
+	    *errstr = xasprintf(_("operation aborted"));
+	}
+	else
+	{
+	    *errstr = xasprintf(_("cannot locate host %s: %s"), hostname,
 #ifdef _WIN32
-		wsa_strerror(error_code)
+	    	    wsa_strerror(error_code)
 #else
-		error_code == EAI_SYSTEM ? strerror(errno) 
-		    : gai_strerror(error_code)
+	    	    error_code == EAI_SYSTEM ? strerror(errno) 
+    		        : gai_strerror(error_code)
 #endif
-		);
+		    );
+	}
 	return NET_EHOSTNOTFOUND;
     }
 
@@ -452,14 +459,21 @@ int net_open_socket(const char *hostname, int port, int timeout, int *ret_fd,
 	}
 	else /* cause == 2 */
 	{
-	    *errstr = xasprintf(_("cannot connect to %s, port %d: %s"), 
-		    hostname, port,
+	    if (errno == EINTR)
+	    {
+		*errstr = xasprintf(_("operation aborted"));
+	    }
+	    else
+	    {
+		*errstr = xasprintf(_("cannot connect to %s, port %d: %s"), 
+			hostname, port,
 #ifdef _WIN32
-		    wsa_strerror(WSAGetLastError())
+			wsa_strerror(WSAGetLastError())
 #else
-		    strerror(errno)
+    			strerror(errno)
 #endif
-		    );
+    			);
+	    }
 	    return NET_ECONNECT;
 	}
     }
@@ -522,14 +536,21 @@ int net_open_socket(const char *hostname, int port, int timeout, int *ret_fd,
 
     if (net_connect(fd, (struct sockaddr *)(&sock), sizeof(sock), timeout) < 0)
     {
-	*errstr = xasprintf(_("cannot connect to %s, port %d: %s"),
-		hostname, port,
+	if (errno == EINTR)
+	{
+	    *errstr = xasprintf(_("operation aborted"));
+	}
+	else
+	{
+	    *errstr = xasprintf(_("cannot connect to %s, port %d: %s"),
+		    hostname, port,
 #ifdef _WIN32
-		wsa_strerror(WSAGetLastError())
+		    wsa_strerror(WSAGetLastError())
 #else
-		strerror(errno)
+    		    strerror(errno)
 #endif
-		);
+    		    );
+	}
 	return NET_ECONNECT;
     }
 
@@ -625,15 +646,14 @@ int net_readbuf_read(int fd, net_readbuf_t *readbuf, char *ptr,
 
     if (readbuf->count <= 0)
     {
-	do
-	{
-	    readbuf->count = (int)recv(fd, readbuf->buf, 
-		    sizeof(readbuf->buf), 0);
-	}
-	while (readbuf->count < 0 && errno == EINTR);
+    	readbuf->count = (int)recv(fd, readbuf->buf, sizeof(readbuf->buf), 0);
 	if (readbuf->count < 0)
 	{
-	    if (errno == EAGAIN)
+	    if (errno == EINTR)
+	    {
+		*errstr = xasprintf(_("operation aborted"));
+	    }
+	    else if (errno == EAGAIN)
 	    {
 		*errstr = xasprintf(_("network read error: %s"), 
 			_("the operation timed out"));
@@ -747,14 +767,13 @@ int net_puts(int fd, const char *s, size_t len, char **errstr)
     {
 	return NET_EOK;
     }
-    do
+    if ((ret = send(fd, s, len, 0)) < 0)
     {
-	ret = send(fd, s, len, 0);
-    }
-    while (ret < 0 && errno == EINTR);
-    if (ret < 0)
-    {
-	if (errno == EAGAIN)
+	if (errno == EINTR)
+	{
+	    *errstr = xasprintf(_("operation aborted"));
+	}
+	else if (errno == EAGAIN)
 	{
 	    *errstr = xasprintf(_("network write error: %s"), 
 		    _("the operation timed out"));

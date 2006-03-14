@@ -3,7 +3,7 @@
  *
  * This file is part of msmtp, an SMTP client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -1096,14 +1096,13 @@ int tls_start(tls_t *tls, int fd, const char *hostname, int no_certcheck,
     int error_code;
     
     gnutls_transport_set_ptr(tls->session, (gnutls_transport_ptr_t)fd);
-    do
+    if ((error_code = gnutls_handshake(tls->session)) < 0)
     {
-	error_code = gnutls_handshake(tls->session);
-    }
-    while (error_code == GNUTLS_E_INTERRUPTED);
-    if (error_code < 0)
-    {
-	if (error_code == GNUTLS_E_AGAIN)
+	if (error_code == GNUTLS_E_INTERRUPTED)
+	{
+	    *errstr = xasprintf(_("operation aborted"));
+	}
+	else if (error_code == GNUTLS_E_AGAIN)
 	{
 	    /* This error message makes more sense than what
 	     * gnutls_strerror() would return. */
@@ -1153,19 +1152,21 @@ int tls_start(tls_t *tls, int fd, const char *hostname, int no_certcheck,
 	SSL_CTX_free(tls->ssl_ctx);
 	return TLS_ELIBFAILED;
     }
-    do
+    if ((error_code = SSL_connect(tls->ssl)) < 1)
     {
-	error_code = SSL_connect(tls->ssl);
-    }
-    while (error_code < 1 
-	    && ((SSL_get_error(tls->ssl, error_code) == SSL_ERROR_WANT_READ
-		    || SSL_get_error(tls->ssl, error_code)
-		    == SSL_ERROR_WANT_WRITE)
-		&& errno == EINTR));
-    if (error_code < 1)
-    {
-	*errstr = openssl_io_error(error_code, 
-		SSL_get_error(tls->ssl, error_code), _("TLS handshake failed"));
+	if (errno == EINTR 
+		&& (SSL_get_error(tls->ssl, error_code) == SSL_ERROR_WANT_READ
+		    || SSL_get_error(tls->ssl, error_code) 
+		    == SSL_ERROR_WANT_WRITE))
+	{
+	    *errstr = xasprintf(_("operation aborted"));
+	}
+	else
+	{
+	    *errstr = openssl_io_error(error_code, 
+		    SSL_get_error(tls->ssl, error_code), 
+		    _("TLS handshake failed"));
+	}
 	SSL_free(tls->ssl);
 	SSL_CTX_free(tls->ssl_ctx);
 	return TLS_EIO;
@@ -1206,12 +1207,7 @@ int tls_getchar(tls_t *tls, char *c, int *eof, char **errstr)
 #ifdef HAVE_GNUTLS
     ssize_t ret;
     
-    do
-    {
-	ret = gnutls_record_recv(tls->session, c, 1);
-    }
-    while (ret == GNUTLS_E_INTERRUPTED);
-
+    ret = gnutls_record_recv(tls->session, c, 1);
     if (ret == 1)
     {
 	*eof = 0;
@@ -1224,7 +1220,11 @@ int tls_getchar(tls_t *tls, char *c, int *eof, char **errstr)
     }
     else
     {
-	if (ret == GNUTLS_E_AGAIN)
+	if (ret == GNUTLS_E_INTERRUPTED)
+	{
+	    *errstr = xasprintf(_("operation aborted"));
+	}
+	else if (ret == GNUTLS_E_AGAIN)
 	{
 	    /* This error message makes more sense than what
 	     * gnutls_strerror() would return. */
@@ -1246,16 +1246,7 @@ int tls_getchar(tls_t *tls, char *c, int *eof, char **errstr)
     int error_code;
     int error_code2;
     
-    do
-    {
-	error_code = SSL_read(tls->ssl, c, 1);
-    }
-    while (error_code < 1 
-	    && ((SSL_get_error(tls->ssl, error_code) == SSL_ERROR_WANT_READ
-		    || SSL_get_error(tls->ssl, error_code) 
-		    == SSL_ERROR_WANT_WRITE)
-		&& errno == EINTR));
-    if (error_code < 1)
+    if ((error_code = SSL_read(tls->ssl, c, 1)) < 1)
     {
 	if ((error_code2 = SSL_get_error(tls->ssl, error_code)) 
 		== SSL_ERROR_NONE)
@@ -1265,8 +1256,18 @@ int tls_getchar(tls_t *tls, char *c, int *eof, char **errstr)
 	}
 	else
 	{
-	    *errstr = openssl_io_error(error_code, error_code2, 
-		    _("cannot read from TLS connection"));
+	    if (errno == EINTR &&
+	    	    (SSL_get_error(tls->ssl, error_code) == SSL_ERROR_WANT_READ
+		     || SSL_get_error(tls->ssl, error_code) 
+		     == SSL_ERROR_WANT_WRITE))
+	    {
+		*errstr = xasprintf(_("operation aborted"));
+	    }
+	    else
+    	    {
+    		*errstr = openssl_io_error(error_code, error_code2, 
+    			_("cannot read from TLS connection"));
+    	    }
 	    return TLS_EIO;
 	}
     }
@@ -1337,15 +1338,13 @@ int tls_puts(tls_t *tls, const char *s, size_t len, char **errstr)
 	return TLS_EOK;
     }
     
-    do
+    if ((ret = gnutls_record_send(tls->session, s, len)) < 0)
     {
-	ret = gnutls_record_send(tls->session, s, len);
-    }
-    while (ret == GNUTLS_E_INTERRUPTED);
-    
-    if (ret < 0)
-    {
-	if (ret == GNUTLS_E_AGAIN)
+	if (ret == GNUTLS_E_INTERRUPTED)
+	{
+	    *errstr = xasprintf(_("operation aborted"));
+	}
+	else if (ret == GNUTLS_E_AGAIN)
 	{
 	    /* This error message makes more sense than what
 	     * gnutls_strerror() would return. */
@@ -1382,20 +1381,21 @@ int tls_puts(tls_t *tls, const char *s, size_t len, char **errstr)
 	return TLS_EOK;
     }
     
-    do
+    if ((error_code = SSL_write(tls->ssl, s, (int)len)) != (int)len)
     {
-	error_code = SSL_write(tls->ssl, s, (int)len);
-    }
-    while (error_code != (int)len 
-	    && ((SSL_get_error(tls->ssl, error_code) == SSL_ERROR_WANT_READ
-		    || SSL_get_error(tls->ssl, error_code) 
-		    == SSL_ERROR_WANT_WRITE)
-		&& errno == EINTR));
-    if (error_code != (int)len)
-    {
-	*errstr = openssl_io_error(error_code,
-		SSL_get_error(tls->ssl, error_code),
-		_("cannot write to TLS connection"));
+	if (errno == EINTR 
+		&& ((SSL_get_error(tls->ssl, error_code) == SSL_ERROR_WANT_READ
+		       	|| SSL_get_error(tls->ssl, error_code) 
+			== SSL_ERROR_WANT_WRITE)))
+	{
+	    *errstr = xasprintf(_("operation aborted"));	    
+	}
+	else
+	{
+	    *errstr = openssl_io_error(error_code,
+	    	    SSL_get_error(tls->ssl, error_code),
+	    	    _("cannot write to TLS connection"));
+	}
 	return TLS_EIO;
     }
 
