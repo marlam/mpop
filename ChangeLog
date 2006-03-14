@@ -1,4 +1,6 @@
 Version 1.0.0 (not yet released):
+- net_open_socket(): print correct error message if getaddrinfo() returns 
+  EAI_SYSTEM.
 - MDA delivery method: handle SIGPIPE. Now mpop gives a proper error message
   if the MDA process dies without reading the mail data.
   This also affects filtering since the filter delivery method largely reuses

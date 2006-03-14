@@ -377,7 +377,8 @@ int net_open_socket(const char *hostname, int port, int timeout, int *ret_fd,
 #ifdef _WIN32
 		wsa_strerror(error_code)
 #else
-		gai_strerror(error_code)
+		error_code == EAI_SYSTEM ? strerror(errno) 
+		    : gai_strerror(error_code)
 #endif
 		);
 	return NET_EHOSTNOTFOUND;
