@@ -1,6 +1,8 @@
 Version 1.0.0 (not yet released):
 - MDA delivery method: handle SIGPIPE. Now mpop gives a proper error message
   if the MDA process dies without reading the mail data.
+  This also affects filtering since the filter delivery method largely reuses
+  the MDA delivery method code.
 - delivery_method_mda_open(): flush stdout and stderr before calling the MDA,
   so that its output won't be intermingled with mpop's output.
 - Fixed a comment in net.h.

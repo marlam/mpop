@@ -300,12 +300,22 @@ int delivery_method_mda_deinit(delivery_method_t *dm UNUSED,
  *
  ******************************************************************************/
 
+/* This method reuses the MDA method's open, init, and deinit functions. */
+
 int delivery_method_filter_close(delivery_method_t *dm, char **errstr)
 {
     int status;
     const char *tmp;
     
     status = pclose(dm->pipe);
+#ifdef HAVE_SIGACTION
+    if (mda_caused_sigpipe)
+    {
+	*errstr = xasprintf(_("%s did not read mail data"), (char *)(dm->data));
+	return DELIVERY_EUNKNOWN;
+    }
+    else
+#endif /* HAVE_SIGACTION */
     if (status == -1 || !WIFEXITED(status))
     {
 	*errstr = xasprintf(_("%s failed to execute"), (char *)(dm->data));
@@ -349,10 +359,9 @@ int delivery_method_filter_init(delivery_method_t *dm, void *data,
     return DELIVERY_EOK;
 }
 
-int delivery_method_filter_deinit(delivery_method_t *dm UNUSED, 
-	char **errstr UNUSED)
+int delivery_method_filter_deinit(delivery_method_t *dm, char **errstr)
 {
-    return DELIVERY_EOK;
+    return delivery_method_mda_deinit(dm, errstr);
 }
 
 
