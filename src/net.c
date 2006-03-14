@@ -357,6 +357,7 @@ int net_open_socket(const char *hostname, int port, int timeout, int *ret_fd,
     struct addrinfo *res0;
     struct addrinfo *res;
     int error_code;
+    int saved_errno;
     int cause;
     char nameinfo_buffer[NI_MAXHOST];
     
@@ -397,7 +398,9 @@ int net_open_socket(const char *hostname, int port, int timeout, int *ret_fd,
 	if (net_connect(fd, res->ai_addr, res->ai_addrlen, timeout) < 0)
 	{
 	    cause = 2;
+	    saved_errno = errno;
 	    net_close_socket(fd);
+	    errno = saved_errno;
 	    fd = -1;
 	    continue;
 	}

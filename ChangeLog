@@ -1,4 +1,5 @@
 Version 1.0.0 (not yet released):
+- net_open_socket(): don't let net_close_socket() clobber errno.
 - net_open_socket(): print correct error message if getaddrinfo() returns 
   EAI_SYSTEM.
 - MDA delivery method: handle SIGPIPE. Now mpop gives a proper error message
