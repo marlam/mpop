@@ -192,7 +192,8 @@ int delivery_method_mda_open(delivery_method_t *dm, const char *from, long size,
 	cmd = string_replace(cmd, "%S", sizestr);
 	free(sizestr);
     }
-    if (!(dm->pipe = popen(cmd, "w")))
+    if (fflush(stdout) != 0 || fflush(stderr) != 0
+	    || !(dm->pipe = popen(cmd, "w")))
     {
 	*errstr = xasprintf(_("cannot execute %s"), cmd);
 	e = DELIVERY_EUNKNOWN;

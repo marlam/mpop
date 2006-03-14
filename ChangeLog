@@ -1,4 +1,6 @@
 Version 1.0.0 (not yet released):
+- delivery_method_mda_open(): flush stdout and stderr before calling the MDA,
+  so that its output won't be intermingled with mpop's output.
 - Fixed a comment in net.h.
 - net_get_canonical_hostname(): Only call freeaddrinfo() if getaddrinfo()
   succeeded. Reported and fixed by Raúl Núñez de Arenas Coronado.
