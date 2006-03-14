@@ -60,6 +60,9 @@ extern int errno;
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+#ifdef HAVE_SIGACTION
+#include <signal.h>
+#endif
 
 #include "gettext.h"
 #include "xalloc.h"
@@ -174,6 +177,15 @@ char *string_replace(char *str, const char *s, const char *r)
  *
  ******************************************************************************/
 
+#ifdef HAVE_SIGACTION
+static int mda_caused_sigpipe;
+static struct sigaction mda_old_sigpipe_handler;
+static void mda_sigpipe_handler(int signum UNUSED)
+{   
+    mda_caused_sigpipe = 1;
+}
+#endif /* HAVE_SIGACTION */
+
 int delivery_method_mda_open(delivery_method_t *dm, const char *from, long size,
 	char **errstr)
 {
@@ -212,6 +224,14 @@ int delivery_method_mda_close(delivery_method_t *dm, char **errstr)
     const char *tmp;
     
     status = pclose(dm->pipe);
+#ifdef HAVE_SIGACTION
+    if (mda_caused_sigpipe)
+    {
+	*errstr = xasprintf(_("%s did not read mail data"), (char *)(dm->data));
+	return DELIVERY_EUNKNOWN;
+    }
+    else
+#endif /* HAVE_SIGACTION */
     if (status == -1 || !WIFEXITED(status))
     {
 	*errstr = xasprintf(_("%s failed to execute"), (char *)(dm->data));
@@ -244,18 +264,32 @@ int delivery_method_mda_close(delivery_method_t *dm, char **errstr)
 int delivery_method_mda_init(delivery_method_t *dm, void *data, 
 	char **errstr UNUSED)
 {
+#ifdef HAVE_SIGACTION
+    struct sigaction signal_handler;
+#endif /* HAVE_SIGACTION */
+
     dm->data = data;
     dm->need_from_quoting = 0;
     dm->want_from_addr = (strstr((char *)data, "%F") != NULL);
     dm->want_size = 0;
     dm->open = delivery_method_mda_open;
     dm->close = delivery_method_mda_close;
+#ifdef HAVE_SIGACTION
+    mda_caused_sigpipe = 0;
+    signal_handler.sa_handler = mda_sigpipe_handler;
+    sigemptyset(&signal_handler.sa_mask);
+    signal_handler.sa_flags = 0;
+    (void)sigaction(SIGPIPE, &signal_handler, &mda_old_sigpipe_handler);
+#endif /* HAVE_SIGACTION */
     return DELIVERY_EOK;
 }
 
 int delivery_method_mda_deinit(delivery_method_t *dm UNUSED, 
 	char **errstr UNUSED)
 {
+#ifdef HAVE_SIGACTION
+    (void)sigaction(SIGPIPE, &mda_old_sigpipe_handler, NULL);
+#endif /* HAVE_SIGACTION */    
     return DELIVERY_EOK;
 }
 
