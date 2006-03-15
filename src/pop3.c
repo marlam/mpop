@@ -40,12 +40,12 @@ extern int errno;
 #include <gsasl.h>
 #else
 #include "base64.h"
+#include "hmac.h"
 #endif
 
 #include "c-ctype.h"
 #include "gettext.h"
 #include "md5.h"
-#include "hmac.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 
