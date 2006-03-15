@@ -1,4 +1,5 @@
 Version 1.0.0 (not yet released):
+- Prevent a double free if an invalid argument to --auth is given.
 - Replace crypto.[ch] with gnulib hmac-md5 module.
 - Gnulib update. Add hmac-md5 module.
 - net.c, tls.c: allow all network operations to be interrupted with CTRL+C,
