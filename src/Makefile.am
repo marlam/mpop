@@ -2,7 +2,6 @@ bin_PROGRAMS = mpop
 
 mpop_SOURCES = \
 	conf.c conf.h \
-	crypto.c crypto.h \
 	delivery.c delivery.h \
 	list.c list.h \
 	mpop.c \

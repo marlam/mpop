@@ -44,10 +44,11 @@ extern int errno;
 
 #include "c-ctype.h"
 #include "gettext.h"
+#include "md5.h"
+#include "hmac.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 
-#include "crypto.h"
 #include "net.h"
 #ifdef HAVE_SSL
 #include "tls.h"
@@ -2150,12 +2151,21 @@ int pop3_auth_apop(pop3_session_t *session,
 {
     int e;
     char *tmpstr;
-    char digest[33];
+    unsigned char digest[16];
+    char hex[] = "0123456789abcdef";
+    char digest_string[33];
+    int i;
     
     tmpstr = xasprintf("%s%s", session->cap.apop_timestamp, password);
-    md5_digest((unsigned char *)tmpstr, strlen(tmpstr), digest);
+    md5_buffer(tmpstr, strlen(tmpstr), digest);
+    for (i = 0; i < 16; i++)
+    {
+	digest_string[2 * i] = hex[(digest[i] & 0xf0) >> 4];
+	digest_string[2 * i + 1] = hex[digest[i] & 0x0f];
+    }
+    digest_string[32] = '\0';
     free(tmpstr);
-    if ((e = pop3_send_cmd(session, errstr, "APOP %s %s", user, digest))
+    if ((e = pop3_send_cmd(session, errstr, "APOP %s %s", user, digest_string))
 	    != POP3_EOK)
     {
 	return e;
@@ -2357,7 +2367,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
 		    "server sent invalid challenge"));
 	return POP3_EPROTO;
     }
-    md5_hmac(password, strlen(password), b64, len, digest);
+    hmac_md5(password, strlen(password), b64, len, digest);
     free(b64);
     
     /* construct username + ' ' + digest_in_hex */
