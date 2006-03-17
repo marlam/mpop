@@ -2593,6 +2593,7 @@ int pop3_auth(pop3_session_t *session,
     if (strcmp(auth_mech, "") == 0)
     {
 	/* Choose "best" authentication mechanism. */
+	/* TODO: use gsasl_client_suggest_mechanism()? */
 	if (gsasl_client_support_p(ctx, "GSSAPI") 
 		&& (session->cap.flags & POP3_CAP_AUTH_GSSAPI))
 	{
@@ -2711,7 +2712,7 @@ int pop3_auth(pop3_session_t *session,
 	gsasl_property_set(sctx, GSASL_AUTHID, user);
 	/* GSASL_AUTHZID must not be set for DIGEST-MD5, because otherwise
 	 * authentication may fail (tested with postfix). Set it only for
-	 *  EXTERNAL. */
+	 * EXTERNAL. */
  	if (strcmp(auth_mech, "EXTERNAL") == 0)
  	{
       	    gsasl_property_set(sctx, GSASL_AUTHZID, user);
