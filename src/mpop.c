@@ -530,7 +530,8 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     
     /* Get capabilities again, because some might have changed after
      * authentication. See RFC 2449. */
-    if ((session->cap.flags & POP3_CAP_CAPA)
+    if (auth_successful 
+	    && (session->cap.flags & POP3_CAP_CAPA)
 	    && (e = pop3_capa(session, errstr)) != POP3_EOK)
     {
 	mpop_endsession(session, 0);

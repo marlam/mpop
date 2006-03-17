@@ -1,4 +1,5 @@
 Version 1.0.0 (not yet released):
+- mpop_serverinfo(): Only resend CAPA if authentication succeeded.
 - pop3_auth(), GNU SASL variant: 
   - Check if authentication data is complete before trying to start
     authentication.
