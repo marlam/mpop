@@ -414,6 +414,16 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
      * FQDN and the local user are meaningless. */
     session = pop3_session_new(acc->pipelining, "", "", debug ? stdout : NULL);
 
+    /* connect */
+    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout, 
+		    &server_canonical_name, &server_address, errstr)) 
+	    != NET_EOK)
+    {
+	pop3_session_free(session);
+	e = exitcode_net(e);
+	goto error_exit;
+    }
+
     /* prepare tls */
 #ifdef HAVE_SSL
     if (acc->tls)
@@ -428,16 +438,6 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 	}
     }
 #endif /* HAVE_SSL */
-
-    /* connect */
-    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout, 
-		    &server_canonical_name, &server_address, errstr)) 
-	    != NET_EOK)
-    {
-	pop3_session_free(session);
-	e = exitcode_net(e);
-	goto error_exit;
-    }
 
     /* start tls for pop3s servers */
 #ifdef HAVE_SSL
@@ -874,6 +874,14 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     session = pop3_session_new(acc->pipelining, canonical_hostname, local_user,
 	    debug ? stdout : NULL);
 
+    /* connect */
+    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout, 
+		    NULL, NULL, errstr)) != NET_EOK)
+    {
+	pop3_session_free(session);
+	return exitcode_net(e);
+    }
+
     /* prepare tls */
 #ifdef HAVE_SSL
     if (acc->tls)
@@ -886,14 +894,6 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	}
     }
 #endif /* HAVE_SSL */
-
-    /* connect */
-    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout, 
-		    NULL, NULL, errstr)) != NET_EOK)
-    {
-	pop3_session_free(session);
-	return exitcode_net(e);
-    }
 
     /* start tls for pop3s servers */
 #ifdef HAVE_SSL

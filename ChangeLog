@@ -1,4 +1,5 @@
 Version 1.0.0 (not yet released):
+- Initialize TLS only if pop3_connect() succeeded.
 - Move SSL_LIBS and GSASL_LIBS into LIBS; do not put them in Makefile.am.
 - Fix memory leak in GNU SASL variant of pop3_auth().
 - Fix memory leak in GnuTLS variant of tls_cert_info_get().
