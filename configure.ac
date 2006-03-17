@@ -208,7 +208,7 @@ AC_OUTPUT
 
 echo
 echo "Install prefix ....... : $prefix"
-echo "NLS support .......... : $USE_NLS"
 echo "TLS/SSL support ...... : $have_tls (Library: $tls_lib)"
 echo "GNU SASL support ..... : $have_gsasl"
 echo "GNU Libidn support ... : $libidn"
+echo "NLS support .......... : $USE_NLS"
