@@ -2664,6 +2664,7 @@ int pop3_auth(pop3_session_t *session,
 	 * need a user name */
 	if (!user)
 	{
+	    gsasl_done(ctx);
 	    *errstr = xasprintf(_("authentication method %s needs a user name"),
 		    auth_mech);
 	    return POP3_EUNAVAIL;
@@ -2675,6 +2676,7 @@ int pop3_auth(pop3_session_t *session,
 	    if (!password_callback 
 		    || !(callback_password = password_callback(hostname, user)))
 	    {
+		gsasl_done(ctx);
 		*errstr = xasprintf(
 			_("authentication method %s needs a password"),
 			auth_mech);
