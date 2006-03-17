@@ -1,4 +1,5 @@
 Version 1.0.0 (not yet released):
+- Fix memory leak in GnuTLS variant of tls_cert_info_get().
 - mpop_serverinfo(): If auth fails and this is ignored, then reset
   the error message and error string.
 - Sync pop3_auth() with smtp_auth() from msmtp. Affects only comments.
