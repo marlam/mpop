@@ -2655,43 +2655,50 @@ int pop3_auth(pop3_session_t *session,
 #endif /* not HAVE_SSL */
 	return POP3_EUNAVAIL;
     }
-    
-    if (strcmp(auth_mech, "USER") == 0 || strcmp(auth_mech, "APOP") == 0)
+
+    /* Check availability of required authentication data */
+    if (strcmp(auth_mech, "EXTERNAL") != 0)
     {
-	gsasl_done(ctx);
-	/* Use the built-in methods USER/PASS or APOP. Both require username and
-	 * password. */
+	/* GSSAPI, DIGEST-MD5, CRAM-MD5, PLAIN, LOGIN, NTLM, USER, APOP all 
+	 * need a user name */
 	if (!user)
 	{
 	    *errstr = xasprintf(_("authentication method %s needs a user name"),
 		    auth_mech);
 	    return POP3_EUNAVAIL;
 	}
-	if (!password)
+	/* DIGEST-MD5, CRAM-MD5, PLAIN, LOGIN, NTLM, USER, APOP all need a 
+	 * password */
+	if (strcmp(auth_mech, "GSSAPI") != 0 && !password)
 	{
 	    if (!password_callback 
 		    || !(callback_password = password_callback(hostname, user)))
 	    {
 		*errstr = xasprintf(
-			_("authentication method %s needs a password"), 
+			_("authentication method %s needs a password"),
 			auth_mech);
 		return POP3_EUNAVAIL;
 	    }
 	    password = callback_password;
 	}
-	if (strcmp(auth_mech, "USER") == 0)
-	{
-	    e = pop3_auth_user(session, user, password, errmsg, errstr);
-	}
-	else if (strcmp(auth_mech, "APOP") == 0)
-	{
-	    e = pop3_auth_apop(session, user, password, errmsg, errstr);
-	}
+    }
+
+    /* USER and APOP are built-in, all other methods are provided by GNU SASL */
+    if (strcmp(auth_mech, "USER") == 0)
+    {
+	gsasl_done(ctx);
+	e = pop3_auth_user(session, user, password, errmsg, errstr);
 	free(callback_password);
 	return e;
     }
-
-    if ((error_code = gsasl_client_start(ctx, auth_mech, &sctx)) != GSASL_OK)
+    else if (strcmp(auth_mech, "APOP") == 0)
+    {
+	gsasl_done(ctx);
+    	e = pop3_auth_apop(session, user, password, errmsg, errstr);
+	free(callback_password);
+	return e;
+    }
+    else if ((error_code = gsasl_client_start(ctx, auth_mech, &sctx)) != GSASL_OK)
     {
 	gsasl_done(ctx);
 	*errstr = xasprintf(_("GNU SASL: %s"), gsasl_strerror(error_code));
@@ -2714,22 +2721,7 @@ int pop3_auth(pop3_session_t *session,
     {
 	gsasl_property_set(sctx, GSASL_PASSWORD, password);	
     }
-    /* If the callback fails, or there is none, leave the error message about a
-     * missing password to GSASL. */
-    else if (password_callback)
-    {
-	if (strcmp(auth_mech, "GSSAPI") != 0
-		&& strcmp(auth_mech, "EXTERNAL") != 0)
-	{
-	    /* All others (USER/PASS, APOP, PLAIN, LOGIN, CRAM-MD5, DIGEST-MD5,
-	     * NTLM) need a password. */
-	    if ((callback_password = password_callback(hostname, user)))
-	    {
-		gsasl_property_set(sctx, GSASL_PASSWORD, callback_password);
-		free(callback_password);
-	    }
-	}
-    }
+    free(callback_password);
     /* For DIGEST-MD5 and GSSAPI */
     gsasl_property_set(sctx, GSASL_SERVICE, "pop");
     if (hostname)
@@ -2934,9 +2926,10 @@ int pop3_auth(pop3_session_t *session,
 	return POP3_EUNAVAIL;
     }
     
+    /* Check availability of required authentication data */
     if (strcmp(auth_mech, "EXTERNAL") != 0)
     {
-	/* CRAMD-MD5, PLAIN, LOGIN, APOP, USER all need a user name and 
+	/* CRAM-MD5, PLAIN, LOGIN, APOP, USER all need a user name and 
 	 * password */
 	if (!user)
 	{

@@ -1,4 +1,8 @@
 Version 1.0.0 (not yet released):
+- pop3_auth(), GNU SASL variant: 
+  - Check if authentication data is complete before trying to start
+    authentication.
+  - Never call password_callback() when no user name is given.
 - Prevent a double free if an invalid argument to the auth command is given.
 - Prevent a double free if an invalid argument to --auth is given.
 - Replace crypto.[ch] with gnulib hmac-md5 module.
