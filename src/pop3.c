@@ -1625,10 +1625,11 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, char **errstr)
 	    
     /* Write the Received header */
 #ifdef USE_LIBIDN
-    if (idna_to_ascii_lz(hostname, &hostname_ascii, 0) != IDNA_SUCCESS)
+    if (idna_to_ascii_lz(session->server_hostname, &hostname_ascii, 0) 
+	    != IDNA_SUCCESS)
     {
 	/* This should never happen, because we are already connected. */
-	hostname_ascii = xstrdup(hostname);
+	hostname_ascii = xstrdup(session->server_hostname);
     }
     e = (fprintf(f, "Received: from %s", hostname_ascii) < 0);
     free(hostname_ascii);
