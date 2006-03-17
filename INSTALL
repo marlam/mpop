@@ -10,6 +10,9 @@ $ make
 $ make install
 
 The default behaviour of the configuration script is as follows:
+- Use GNU Libidn if it is available.
+  If it is not available, then disable support for Internationalized Domain
+  Names (IDN).
 - Use GnuTLS if it is available.
   If GnuTLS is not available, use OpenSSL instead.
   If neither GnuTLS nor OpenSSL are available, disable TLS/SSL support.
@@ -19,6 +22,7 @@ The default behaviour of the configuration script is as follows:
 - Enable native language support (NLS) if GNU gettext is available.
 
 You can change these defaults with the following options:
+- Disable IDN support with --without-libidn
 - Choose the TLS/SSL library with one of:
   --with-ssl=gnutls
   --with-ssl=openssl
