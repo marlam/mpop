@@ -36,6 +36,10 @@
 #include <errno.h>
 extern int errno;
 
+#ifdef USE_LIBIDN
+#include <idna.h>
+#endif
+
 #ifdef USE_GSASL
 #include <gsasl.h>
 #else
@@ -1574,6 +1578,9 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, char **errstr)
     const char *month[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 	"Aug", "Sep", "Oct", "Nov", "Dec" };
     char rfc2822_timestamp[32];
+#ifdef USE_LIBIDN
+    char *hostname_ascii;
+#endif
     int e;
     
     /* Calculate a RFC 2822 timestamp. strftime() is unreliable for this because
@@ -1617,7 +1624,17 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, char **errstr)
 	    tz_offset_sign, tz_offset_hours, tz_offset_minutes);
 	    
     /* Write the Received header */
+#ifdef USE_LIBIDN
+    if (idna_to_ascii_lz(hostname, &hostname_ascii, 0) != IDNA_SUCCESS)
+    {
+	/* This should never happen, because we are already connected. */
+	hostname_ascii = xstrdup(hostname);
+    }
+    e = (fprintf(f, "Received: from %s", hostname_ascii) < 0);
+    free(hostname_ascii);
+#else
     e = (fprintf(f, "Received: from %s", session->server_hostname) < 0);
+#endif
     if (!e)
     {
 	if (session->server_canonical_name && session->server_address)
