@@ -522,6 +522,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 	    goto error_exit;
 	}
 	/* ignore other errors, but later print a message about it */
+	free(*errstr);
+	*errstr = NULL;
+	free(*errmsg);
+	*errmsg = NULL;
     }
     else
     {

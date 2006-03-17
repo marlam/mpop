@@ -1,4 +1,6 @@
 Version 1.0.0 (not yet released):
+- mpop_serverinfo(): If auth fails and this is ignored, then reset
+  the error message and error string.
 - Sync pop3_auth() with smtp_auth() from msmtp. Affects only comments.
 - mpop_serverinfo(): Only resend CAPA if authentication succeeded.
 - pop3_auth(), GNU SASL variant: 
