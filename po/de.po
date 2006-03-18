@@ -1,13 +1,13 @@
 # German translations for mpop package.
-# Copyright (C) 2005 Martin Lambers <marlam@marlam.de>
+# Copyright (C) 2005, 2006 Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
-# Martin Lambers <marlam@marlam.de>, 2005.
+# Martin Lambers <marlam@marlam.de>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 0.8.4\n"
+"Project-Id-Version: mpop 0.8.5\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2006-03-17 17:55+0100\n"
+"POT-Creation-Date: 2006-03-18 20:34+0100\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -579,59 +579,74 @@ msgstr "ungültiges Argument %s für %s"
 
 #: src/mpop.c:1890
 #, c-format
-msgid ""
-"%s version %s\n"
-"NLS: "
-msgstr ""
-"%s Version %s\n"
-"NLS: "
+msgid "%s version %s\n"
+msgstr "%s Version %s\n"
 
 #: src/mpop.c:1892
 #, c-format
-msgid "enabled, LOCALEDIR is %s\n"
-msgstr "aktiviert, LOCALEDIR ist %s\n"
+msgid "TLS/SSL library: %s\n"
+msgstr "TLS/SSL Programmbibliothek: %s\n"
 
-#: src/mpop.c:1896
-#, c-format
-msgid ""
-"TLS/SSL library: %s\n"
-"Authentication library: %s\n"
-"Supported authentication methods:\n"
-msgstr ""
-"TLS/SSL Programmbibliothek: %s\n"
-"Authentifizierungsprogrammbibliothek: %s\n"
-"Unterstützte Authentifizierungsmethoden:\n"
-
-#: src/mpop.c:1904
+#: src/mpop.c:1898
 msgid "none"
 msgstr "keine"
 
-#: src/mpop.c:1908
+#: src/mpop.c:1902
+#, c-format
+msgid ""
+"Authentication library: %s\n"
+"Supported authentication methods:\n"
+msgstr ""
+"Authentifizierungsprogrammbibliothek: %s\n"
+"Unterstützte Authentifizierungsmethoden:\n"
+
+#: src/mpop.c:1905
 msgid "GNU SASL; user and apop: built-in"
 msgstr "GNU SASL; user und apop: eingebaut"
 
-#: src/mpop.c:1910
+#: src/mpop.c:1907
 msgid "built-in"
 msgstr "eingebaut"
 
-#: src/mpop.c:1949
+#: src/mpop.c:1948
+#, c-format
+msgid "IDN support: "
+msgstr "IDN Unterstützung: "
+
+#: src/mpop.c:1950 src/mpop.c:1958
+#, c-format
+msgid "enabled"
+msgstr "aktiviert"
+
+#: src/mpop.c:1952 src/mpop.c:1961
+#, c-format
+msgid "disabled"
+msgstr "deaktiviert"
+
+#: src/mpop.c:1956
+#, c-format
+msgid "NLS: "
+msgstr "NLS: "
+
+#: src/mpop.c:1959
+#, c-format
+msgid ", LOCALEDIR is %s"
+msgstr ", LOCALEDIR ist %s"
+
+#: src/mpop.c:1964
 #, c-format
 msgid ""
-"\n"
-"\n"
-"Copyright (C) 2004, 2005, 2006 Martin Lambers and others.\n"
+"Copyright (C) 2006 Martin Lambers and others.\n"
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"\n"
-"\n"
-"Copyright (C) 2004, 2005, 2006 Martin Lambers und andere.\n"
+"Copyright (C) 2006 Martin Lambers und Andere.\n"
 "Dies ist freie Software; die Kopierbedingungen stehen in den Quelltexten. "
 "Es\n"
 "gibt keine Garantie; auch nicht für VERKAUFBARKEIT oder FÜR SPEZIELLE "
 "ZWECKE.\n"
 
-#: src/mpop.c:1957
+#: src/mpop.c:1972
 #, c-format
 msgid ""
 "USAGE:\n"
@@ -745,90 +760,90 @@ msgstr ""
 "\n"
 "Melde Fehler an <%s>.\n"
 
-#: src/mpop.c:2031
+#: src/mpop.c:2046
 msgid "cannot use both --host and accounts"
 msgstr "kann nicht gleichzeitig --host und Accounts benutzen"
 
-#: src/mpop.c:2110 src/mpop.c:2124
+#: src/mpop.c:2125 src/mpop.c:2139
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "Account %s aus %s: %s"
 
-#: src/mpop.c:2126 src/mpop.c:2130
+#: src/mpop.c:2141 src/mpop.c:2145
 msgid "no delivery information"
 msgstr "keine Informationen zur Auslieferungsmethode (delivery nicht gesetzt)"
 
-#: src/mpop.c:2147
+#: src/mpop.c:2162
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "benutze Account %s aus %s\n"
 
-#: src/mpop.c:2157 src/mpop.c:2227 src/mpop.c:2236
+#: src/mpop.c:2172 src/mpop.c:2242 src/mpop.c:2251
 #, c-format
 msgid "off\n"
 msgstr "aus\n"
 
-#: src/mpop.c:2163
+#: src/mpop.c:2178
 #, c-format
 msgid "1 second\n"
 msgstr "1 Sekunde\n"
 
-#: src/mpop.c:2167
+#: src/mpop.c:2182
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d Sekunden\n"
 
-#: src/mpop.c:2172 src/mpop.c:2193 src/mpop.c:2200 src/mpop.c:2201
-#: src/mpop.c:2222 src/mpop.c:2223
+#: src/mpop.c:2187 src/mpop.c:2208 src/mpop.c:2215 src/mpop.c:2216
+#: src/mpop.c:2237 src/mpop.c:2238
 msgid "on"
 msgstr "an"
 
-#: src/mpop.c:2172 src/mpop.c:2193 src/mpop.c:2200 src/mpop.c:2201
-#: src/mpop.c:2222 src/mpop.c:2223
+#: src/mpop.c:2187 src/mpop.c:2208 src/mpop.c:2215 src/mpop.c:2216
+#: src/mpop.c:2237 src/mpop.c:2238
 msgid "off"
 msgstr "aus"
 
-#: src/mpop.c:2175
+#: src/mpop.c:2190
 #, c-format
 msgid "choose\n"
 msgstr "automatisch\n"
 
-#: src/mpop.c:2190 src/mpop.c:2191 src/mpop.c:2192 src/mpop.c:2195
-#: src/mpop.c:2197 src/mpop.c:2199 src/mpop.c:2243
+#: src/mpop.c:2205 src/mpop.c:2206 src/mpop.c:2207 src/mpop.c:2210
+#: src/mpop.c:2212 src/mpop.c:2214 src/mpop.c:2258
 msgid "(not set)"
 msgstr "(nicht gesetzt)"
 
-#: src/mpop.c:2262
+#: src/mpop.c:2277
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr ""
 "Unterstützung für Authentifizierungsmethode %s ist nicht einkompiliert worden"
 
-#: src/mpop.c:2274
+#: src/mpop.c:2289
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "kann TLS Programmbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2282
+#: src/mpop.c:2297
 msgid "support for TLS is not compiled in"
 msgstr "Unterstützung für TLS ist nicht einkompiliert worden"
 
-#: src/mpop.c:2290
+#: src/mpop.c:2305
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "kann Netzwerkprogrammbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2318 src/mpop.c:2356
+#: src/mpop.c:2333 src/mpop.c:2371
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "Nachricht des POP3 Servers: %s"
 
-#: src/mpop.c:2363
+#: src/mpop.c:2378
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "Fehler während des Nachrichtenabrufens (Account %s aus %s)"
 
-#: src/mpop.c:2369
+#: src/mpop.c:2384
 msgid "error during mail retrieval"
 msgstr "Fehler während des Nachrichtenabrufens"
 
@@ -1376,21 +1391,3 @@ msgstr "%s, Zeile %ld: ungültiger oder fehlender Benutzername"
 #, c-format
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"
-
-#~ msgid ""
-#~ "Maildir delivery is not supported on this platform. Patches are welcome."
-#~ msgstr ""
-#~ "Maildir Auslieferung ist auf dieser Plattform nicht verfügbar. Patches "
-#~ "sind willkommen."
-
-#~ msgid "mail retrieval aborted"
-#~ msgstr "Nachrichtenempfang abgebrochen"
-
-#~ msgid "data retrieval aborted"
-#~ msgstr "Datenübertragung abgebrochen"
-
-#~ msgid "mail filtering aborted"
-#~ msgstr "Nachrichtenfilterung abgebrochen"
-
-#~ msgid "could not retrieve mail"
-#~ msgstr "konnte Nachrichten nicht abrufen"
