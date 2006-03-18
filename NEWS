@@ -1,6 +1,11 @@
-Version 1.0.0:
+Version 0.8.5:
 - Removed the simple_mbox delivery method because it is unnecessary. Please use
   the mbox method instead.
+- Optional support for Internationalized Domain Names (IDN) was added.
+  GNU Libidn is required for this.
+- mpop will now respond to CTRL+C immediately, because all network operations
+  are now interruptible. 
+- Some minor bugfixes and improvements were made.
 
 Version 0.8.4:
 - The only_new command and --only-new option were re-added, but with a slightly

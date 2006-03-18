@@ -23,7 +23,7 @@ dnl Process this file with autoconf to produce a configure script.
 #
 
 
-AC_INIT(mpop, 1.0.0, marlam@marlam.de)
+AC_INIT(mpop, 0.8.5, marlam@marlam.de)
 AC_CONFIG_SRCDIR(src/mpop.c)
 
 AM_INIT_AUTOMAKE
