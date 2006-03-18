@@ -84,7 +84,7 @@ have_tls=no
 tls_lib=none
 want_tls=yes
 want_gnutls=yes
-want_openssl=no
+want_openssl=yes
 AC_ARG_WITH(ssl, AC_HELP_STRING([--with-ssl=[gnutls|openssl|no]],
         [TLS/SSL support: GnuTLS (default), OpenSSL, or none.]),
         if test "$withval" = "gnutls"; then
