@@ -1,4 +1,6 @@
 Version 0.8.5:
+- Improve checks for libraries in configure.ac. The ./configure options have
+  changed! See INSTALL for more info.
 - Improve --version output.
 - Add (optional) support for Internationalized Domain Names (IDN) via
   GNU Libidn.

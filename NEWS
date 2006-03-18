@@ -5,6 +5,8 @@ Version 0.8.5:
   GNU Libidn is required for this.
 - mpop will now respond to CTRL+C immediately, because all network operations
   are now interruptible. 
+- The options of the configure script have changed! Please read the file INSTALL
+  for more information.
 - Some minor bugfixes and improvements were made.
 
 Version 0.8.4:
