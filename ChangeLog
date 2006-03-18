@@ -1,4 +1,5 @@
-Version 1.0.0 (not yet released):
+Version 0.8.5:
+- Improve --version output.
 - Add (optional) support for Internationalized Domain Names (IDN) via
   GNU Libidn.
 - Initialize TLS only if pop3_connect() succeeded.
