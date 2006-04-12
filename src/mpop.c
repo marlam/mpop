@@ -1322,6 +1322,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	free(late_errmsg);
     	free(late_errstr);
 	list_xfree(uidl_list, uidl_free);
+	mpop_endsession(session, 0);
 	return exitcode_uidls(e);
     }
     list_xfree(uidl_list, uidl_free);
