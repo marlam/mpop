@@ -606,6 +606,7 @@ int delivery_method_mbox_close(delivery_method_t *dm, char **errstr)
 int delivery_method_mbox_init(delivery_method_t *dm, void *data, char **errstr)
 {
     const int lock_timeout = 10;
+    int e;
 
     dm->data = data;
     dm->need_from_quoting = 1;
@@ -622,8 +623,18 @@ int delivery_method_mbox_init(delivery_method_t *dm, void *data, char **errstr)
 		strerror(errno));
 	return DELIVERY_EUNKNOWN;
     }
-    if (lock_file(dm->pipe, OSENV_LOCK_WRITE, lock_timeout) != 0)
+    if ((e = lock_file(dm->pipe, OSENV_LOCK_WRITE, lock_timeout)) != 0)
     {
+	if (e == 1)
+	{
+	    *errstr = xasprintf(_("cannot lock %s (tried for %d seconds): %s"), 
+		    (char *)data, lock_timeout, strerror(errno));
+	}
+	else
+	{
+	    *errstr = xasprintf(_("cannot lock %s: %s"), 
+		    (char *)data, strerror(errno));
+	}
 	*errstr = xasprintf(_("cannot lock %s (tried for %d seconds): %s"), 
 		(char *)data, lock_timeout, strerror(errno));
 	fclose(dm->pipe);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 0.8.5\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2006-03-18 20:34+0100\n"
+"POT-Creation-Date: 2006-04-12 13:36+0200\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -274,15 +274,20 @@ msgstr "kann nicht in %s wechseln: %s"
 msgid "%s: output error"
 msgstr "%s: Ausgabefehler"
 
-#: src/delivery.c:621
+#: src/delivery.c:622
 #, c-format
 msgid "cannot open %s: %s"
 msgstr "kann %s nicht öffnen: %s"
 
-#: src/delivery.c:627 src/uidls.c:170 src/uidls.c:341
+#: src/delivery.c:630 src/delivery.c:638 src/uidls.c:172 src/uidls.c:351
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "kann %s nicht sperren (habe es %d Sekunden versucht): %s"
+
+#: src/delivery.c:635 src/uidls.c:177 src/uidls.c:356
+#, c-format
+msgid "cannot lock %s: %s"
+msgstr "kann %s nicht sperren: %s"
 
 #: src/mpop.c:108
 #, c-format
@@ -1132,7 +1137,7 @@ msgstr ""
 "keine Umgebungsvariablen RANDFILE oder HOME, oder Dateiname der Zufallsdatei "
 "zu lang"
 
-#: src/tls.c:104 src/uidls.c:307
+#: src/tls.c:104 src/uidls.c:315
 #, c-format
 msgid "%s: input error"
 msgstr "%s: Lesefehler"
@@ -1362,32 +1367,32 @@ msgstr "Schreibfehler in TLS Verbindung: %s"
 msgid "cannot write to TLS connection"
 msgstr "Schreibfehler in TLS Verbindung"
 
-#: src/uidls.c:190
+#: src/uidls.c:198
 #, c-format
 msgid "%s, line %ld: line longer than %d characters"
 msgstr "%s, Zeile %ld: Zeile länger als %d Zeichen"
 
-#: src/uidls.c:206
+#: src/uidls.c:214
 #, c-format
 msgid "%s, line %ld: UID without a list"
 msgstr "%s, Zeile %ld: UID außerhalb einer Liste"
 
-#: src/uidls.c:217
+#: src/uidls.c:225
 #, c-format
 msgid "%s, line %ld: invalid number of UIDs"
 msgstr "%s, Zeile %ld: ungültige Anzahl an UIDs"
 
-#: src/uidls.c:232
+#: src/uidls.c:240
 #, c-format
 msgid "%s, line %ld: invalid or missing host name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Hostname"
 
-#: src/uidls.c:244
+#: src/uidls.c:252
 #, c-format
 msgid "%s, line %ld: invalid or missing user name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Benutzername"
 
-#: src/uidls.c:258 src/uidls.c:292
+#: src/uidls.c:266 src/uidls.c:300
 #, c-format
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"

@@ -590,12 +590,14 @@ int lock_file(FILE *f, int lock_type, int timeout)
     seconds = 0;
     for (;;)
     {
+	errno = 0;
 #ifdef _WIN32
 	lock_success = (_locking(fd, _LK_NBLCK, LONG_MAX) != -1);
 #else /* UNIX, DJGPP */
 	lock_success = (fcntl(fd, F_SETLK, &lock) != -1);
 #endif
-	if (lock_success || seconds >= timeout)
+	if (lock_success || (errno != EACCES && errno != EAGAIN) 
+	    || seconds >= timeout)
 	{
 	    break;
 	}
@@ -609,5 +611,5 @@ int lock_file(FILE *f, int lock_type, int timeout)
 	    seconds++;
 	}
     }
-    return lock_success ? 0 : 1;
+    return (lock_success ? 0 : (seconds >= timeout ? 1 : 2));
 }

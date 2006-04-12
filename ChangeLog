@@ -1,4 +1,6 @@
 Version 1.0.0:
+- Improve error handling for file locking: differentiate between timeouts and
+  other errors.
 
 Version 0.8.5:
 - Improve checks for libraries in configure.ac. The ./configure options have
