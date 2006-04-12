@@ -1,3 +1,5 @@
+Version 1.0.0:
+
 Version 0.8.5:
 - Removed the simple_mbox delivery method because it is unnecessary. Please use
   the mbox method instead.

@@ -1,3 +1,5 @@
+Version 1.0.0:
+
 Version 0.8.5:
 - Improve checks for libraries in configure.ac. The ./configure options have
   changed! See INSTALL for more info.
