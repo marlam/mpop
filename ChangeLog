@@ -1,4 +1,5 @@
 Version 1.0.0:
+- Gnulib update. Added nanosleep module.
 - Improve error handling for file locking: differentiate between timeouts and
   other errors.
 
