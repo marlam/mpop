@@ -41,8 +41,11 @@ extern int errno;
 #include "os_env.h"
 
 
-/* The timeout for locking the UIDLs file, in seconds: */
-#define UIDLS_LOCK_TIMEOUT	10
+/* The timeout for locking the UIDLs file, in seconds. Wait longer when trying
+ * to lock for writing, because if we fail to write UIDs, then the user might 
+ * get lots of mails twice. */
+#define UIDLS_LOCK_TIMEOUT_READ		10
+#define UIDLS_LOCK_TIMEOUT_WRITE	40
 
 /* A line from an UIDLs file must fit into a buffer of this size: */
 #define UIDLS_LINEBUFSIZE 501
@@ -165,12 +168,12 @@ int uidls_read(const char *filename, list_t **uidl_list, char **errstr)
 	/* treat a nonexistant file as an empty file */
 	return UIDLS_EOK;
     }
-    if ((e = lock_file(f, OSENV_LOCK_READ, UIDLS_LOCK_TIMEOUT)) != 0)
+    if ((e = lock_file(f, OSENV_LOCK_READ, UIDLS_LOCK_TIMEOUT_READ)) != 0)
     {
 	if (e == 1)
 	{
 	    *errstr = xasprintf(_("cannot lock %s (tried for %d seconds): %s"), 
-		    filename, UIDLS_LOCK_TIMEOUT, strerror(errno));
+		    filename, UIDLS_LOCK_TIMEOUT_READ, strerror(errno));
 	}
 	else
 	{
@@ -344,12 +347,12 @@ int uidls_write(const char *filename, list_t *uidl_list, char **errstr)
 	*errstr = xasprintf("%s: %s", filename, strerror(errno));
 	return UIDLS_EIO;
     }
-    if ((error = lock_file(f, OSENV_LOCK_WRITE, UIDLS_LOCK_TIMEOUT)) != 0)
+    if ((error = lock_file(f, OSENV_LOCK_WRITE, UIDLS_LOCK_TIMEOUT_WRITE)) != 0)
     {
 	if (error == 1)
 	{
 	    *errstr = xasprintf(_("cannot lock %s (tried for %d seconds): %s"), 
-		    filename, UIDLS_LOCK_TIMEOUT, strerror(errno));
+		    filename, UIDLS_LOCK_TIMEOUT_WRITE, strerror(errno));
 	}
 	else
 	{
