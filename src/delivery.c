@@ -635,8 +635,6 @@ int delivery_method_mbox_init(delivery_method_t *dm, void *data, char **errstr)
 	    *errstr = xasprintf(_("cannot lock %s: %s"), 
 		    (char *)data, strerror(errno));
 	}
-	*errstr = xasprintf(_("cannot lock %s (tried for %d seconds): %s"), 
-		(char *)data, lock_timeout, strerror(errno));
 	fclose(dm->pipe);
 	return DELIVERY_EUNKNOWN;
     }
