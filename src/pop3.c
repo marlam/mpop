@@ -2719,7 +2719,8 @@ int pop3_auth(pop3_session_t *session,
 	free(callback_password);
 	return e;
     }
-    else if ((error_code = gsasl_client_start(ctx, auth_mech, &sctx)) != GSASL_OK)
+    else if ((error_code = gsasl_client_start(ctx, auth_mech, &sctx)) 
+	    != GSASL_OK)
     {
 	gsasl_done(ctx);
 	*errstr = xasprintf(_("GNU SASL: %s"), gsasl_strerror(error_code));

@@ -408,7 +408,8 @@ int mkstemp_unlink(char *template)
     int i;
     int try;
     int ret;
-    const char alnum[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; 
+    const char alnum[] 
+	= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; 
 
     templatelen = strlen(template);
     if (templatelen < 6)
@@ -434,10 +435,12 @@ int mkstemp_unlink(char *template)
 	    X[i] = alnum[rand() % 36];
 	}
 #ifdef _WIN32
-	ret = _open(template, _O_CREAT | _O_EXCL | _O_RDWR | _O_TEMPORARY | _O_BINARY, 
+	ret = _open(template, _O_CREAT | _O_EXCL | _O_RDWR 
+		| _O_TEMPORARY | _O_BINARY, 
 		_S_IREAD | _S_IWRITE);
 #else /* DJGPP */
-	ret = open(template, O_CREAT | O_EXCL | O_RDWR | O_TEMPORARY | _O_BINARY, 
+	ret = open(template, O_CREAT | O_EXCL | O_RDWR 
+		| O_TEMPORARY | _O_BINARY, 
 		S_IRUSR | S_IWUSR);
 #endif /* DJGPP */
     }
