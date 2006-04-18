@@ -857,6 +857,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     int e;
     long i, j;
     /* for identifying new messages: */
+    FILE *uidls_fileptr;
     list_t *uidl_list;
     uidl_t *uidl;
     int cmp;
@@ -1059,7 +1060,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 
     /* Load the list of UID lists (if the file does not exist, the returned
      * list will be empty) */
-    if ((e = uidls_read(acc->uidls_file, &uidl_list, errstr)) 
+    if ((e = uidls_read(acc->uidls_file, &uidls_fileptr, &uidl_list, errstr)) 
 	    != UIDLS_EOK)
     {
 	mpop_endsession(session, 0);
@@ -1175,6 +1176,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	{
 	    list_xfree(uidl_list, uidl_free);
 	}
+	fclose(uidls_fileptr);
 	mpop_endsession(session, 1);
 	return EX_OK;
     }
@@ -1225,6 +1227,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	{
 	    list_xfree(uidl_list, uidl_free);
 	}
+	fclose(uidls_fileptr);
 	mpop_endsession(session, 0);
 	*errstr = xasprintf(_("operation aborted"));
 	return EX_TEMPFAIL;
@@ -1242,6 +1245,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    {
 		list_xfree(uidl_list, uidl_free);
 	    }
+	    fclose(uidls_fileptr);
 	    mpop_endsession(session, 1);
 	    return EX_UNAVAILABLE;
 	}
@@ -1253,6 +1257,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    {
 		list_xfree(uidl_list, uidl_free);
 	    }
+	    fclose(uidls_fileptr);
 	    mpop_endsession(session, 0);
 	    return exitcode_pop3(e);
 	}
@@ -1264,6 +1269,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	{
 	    list_xfree(uidl_list, uidl_free);
 	}
+	fclose(uidls_fileptr);
 	mpop_endsession(session, 0);
 	*errstr = xasprintf(_("operation aborted"));
 	return EX_TEMPFAIL;
@@ -1317,7 +1323,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	}
     }
     /* Save the updated UIDL information */
-    if ((e = uidls_write(acc->uidls_file, uidl_list, errstr)) != UIDLS_EOK)
+    if ((e = uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, errstr)) 
+	    != UIDLS_EOK)
     {
 	free(late_errmsg);
     	free(late_errstr);

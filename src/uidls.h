@@ -72,20 +72,26 @@ uidl_t *find_uidl(list_t *uidl_list, const char *hostname, const char *user);
  * uidls_read()
  *
  * Reads the UIDLs for different user/hostname pairs from a file into the list
- * '*uidl_list', which is newly created.
- * If the file cannot be opened, it is assumed that it does not exist, and this
- * is not considered an error! The list will simply be empty in this case.
+ * 'uidl_list', which is newly created.
+ * The FILE pointer is stored in 'uidls_file'. This pointer must be used in a
+ * suqsequent call to uidls_write(), and for nothing else (except that it should
+ * be closed when no call to uidls_write() follows).
+ * A nonexistant file will be treated as an empty file.
  * The UIDs in each uidl in the list will be in ascending order.
  * Used error codes: UIDLS_EIO, UIDLS_EFORMAT
  */
-int uidls_read(const char *filename, list_t **uidl_list, char **errstr);
+int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list, 
+	char **errstr);
 
 /*
  * uidls_write()
  *
- * Writes the UIDLs from the list 'uidl_list' into a file.
+ * Writes the UIDLs from the list 'uidl_list' into a UIDLS file. Both 'filename'
+ * and 'uidls_file' must be the same as in the call to uidls_read(). This
+ * function will close 'uidls_file'.
  * Used error codes: UIDLS_EIO
  */
-int uidls_write(const char *filename, list_t *uidl_list, char **errstr);
+int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list, 
+	char **errstr);
 
 #endif
