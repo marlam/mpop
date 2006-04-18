@@ -1,7 +1,7 @@
 Version 1.0.0 (not yet released):
 - Try longer to obtain a lock on a UIDLs file when opening it for writing,
   because the user might get lots of mail twice if we fail to write the UIDs.
-- lock_file(): If another process holds a lock on the file, then wait 1/100 
+- lock_file(): If another process holds a lock on the file, then wait 1/10 
   second instead of 1 second before the next try.
 - Gnulib update. Added nanosleep module.
 - Improve error handling for file locking: differentiate between timeouts and
