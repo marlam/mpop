@@ -379,7 +379,9 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr);
  * Issues the POP3 UIDL command without an argument.
  * This initializes the following fields of 'session':
  * - msg_uid
- * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
+ * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EUNAVAIL.
+ * The error POP3_EUNAVAIL is not critical: it means that the POP3 server does
+ * not support the UIDL command.
  */
 int pop3_uidl(pop3_session_t *session, char **errmsg, char **errstr);
 

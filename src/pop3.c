@@ -807,7 +807,7 @@ int pop3_uidl_check_uid(const char *uid)
      * I don't know if any server needs these extensions, though. */
     while (*p != '\0')
     {
-	if (iscntrl((unsigned char)*p))
+	if (c_iscntrl((unsigned char)*p))
 	{
 	    return 0;
 	}
@@ -836,7 +836,7 @@ int pop3_uidl(pop3_session_t *session, char **errmsg, char **errstr)
     {
 	*errmsg = xstrdup(session->buffer);
 	*errstr = xasprintf(_("command %s failed"), "UIDL");
-	return POP3_EPROTO;
+	return POP3_EUNAVAIL;
     }
 
     /* initialize the UIDs so that we can later check if all of them were set */

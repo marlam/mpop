@@ -1,4 +1,10 @@
 Version 1.0.0 (not yet released):
+- Fixed handling of weird UIDs:
+  1. When checking for control characters, use c_iscntrl() instead of iscntrl(),
+     to be independent of the user's locale.
+  2. Use POP3_EUNAVAIL as the error code for "Server does not support the UIDL 
+     command". All other error codes are critical.
+  Bug reported by Marcelo. Thanks!
 - Lock the UIDLS file once and keep the lock as long as the UIDLS data is used.
   This prevents loss of UIDs (and therefore multiple deliveries of the 
   corresponding mails) when multiple mpop processes use the same UIDLS file.

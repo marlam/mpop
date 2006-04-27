@@ -1046,7 +1046,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	}
 	else if ((e = pop3_uidl(session, errmsg, errstr)) != POP3_EOK)
 	{
-	    if (e != POP3_EPROTO)
+	    if (e != POP3_EUNAVAIL)
 	    {
 		mpop_endsession(session, 0);
 		return exitcode_pop3(e);
