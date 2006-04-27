@@ -2,8 +2,6 @@ Version 1.0.0 (not yet released):
 - Lock the UIDLS file once and keep the lock as long as the UIDLS data is used.
   This prevents loss of UIDs (and therefore multiple deliveries of the 
   corresponding mails) when multiple mpop processes use the same UIDLS file.
-- Try longer to obtain a lock on a UIDLs file when opening it for writing,
-  because the user might get lots of mail twice if we fail to write the UIDs.
 - lock_file(): If another process holds a lock on the file, then wait 1/10 
   second instead of 1 second before the next try.
 - Gnulib update. Added nanosleep module.
