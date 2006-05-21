@@ -1374,7 +1374,8 @@ void print_error(const char *format, ...)
 
 /*
  * Construct a list of accounts from a list of account ids.
- * If there are no account ids, use the account "default".
+ * If there are no account ids (accountidc == 0), use the account "default".
+ * If accountidc is -1, then all accounts will be used.
  * account_list will be created, regardless of success or failure.
  * An error message will be printed in case of failure.
  * Used error codes: 1 = Account not found
@@ -1384,12 +1385,30 @@ int get_account_list(const char *conffile, list_t *conffile_account_list,
 	int accountidc, char **accountidv, list_t **account_list)
 {
     account_t *a;
-    list_t *lp;
+    list_t *lp, *lp2;
     int i;
     
     *account_list = list_new();
     lp = *account_list;
-    if (accountidc == 0)
+    if (accountidc == -1)
+    {
+	if (list_is_empty(conffile_account_list))
+	{
+	    print_error(_("%s: no accounts defined"), conffile);
+	    return 1;
+	}
+	else
+	{
+	    lp2 = conffile_account_list;
+	    while (!list_is_empty(lp2))
+	    {
+		lp2 = lp2->next;	
+		list_insert(lp, account_copy(lp2->data));
+		lp = lp->next;
+	    }
+	}
+    }
+    else if (accountidc == 0)
     {
 	if (!(a = find_account(conffile_account_list, "default")))
 	{
@@ -1453,6 +1472,7 @@ int main(int argc, char *argv[])
     /* mode of operation */
     int retrmail;
     int serverinfo;
+    int all_accounts;
     int auth_only;
     int status_only;
     /* account information from the command line */
@@ -1499,7 +1519,8 @@ int main(int argc, char *argv[])
   	{ "debug",           no_argument,       0, 'd' },
 	{ "serverinfo",      no_argument,       0, 'S' },
 	{ "file",            required_argument, 0, 'C' },
-	{ "auth-only",       no_argument,       0, 'a' },
+	{ "auth-only",       no_argument,       0, 'A' },
+	{ "all-accounts",    no_argument,       0, 'a' },
 	{ "status-only",     no_argument,       0, 's' }, 
 	{ "delivery",        required_argument, 0, LONGONLYOPT_DELIVERY },
 	{ "uidls-file",      required_argument, 0, LONGONLYOPT_UIDLS_FILE },
@@ -1553,12 +1574,13 @@ int main(int argc, char *argv[])
     quiet = 0;
     retrmail = 1;
     serverinfo = 0;
+    all_accounts = 0;
     auth_only = 0;
     status_only = 0;
     cmdline_account = account_new(NULL, NULL);
     for (;;)
     {
-	c = getopt_long(argc, argv, "qPdSC:asn::k::", options, NULL);
+	c = getopt_long(argc, argv, "qPdSC:aAsn::k::", options, NULL);
 	if (c == -1)
 	{
 	    break;
@@ -1600,6 +1622,10 @@ int main(int argc, char *argv[])
 		break;
 		
 	    case 'a':
+		all_accounts = 1;
+		break;
+
+	    case 'A':
 		auth_only = 1;
 		break;
 
@@ -1989,53 +2015,55 @@ int main(int argc, char *argv[])
 		"  Print information about one or more POP3 servers.\n"
 	        "\nOPTIONS:\n\n"
 		"General options:\n"
-		"  --version                  print version\n"
-		"  --help                     print help\n"
-     		"  -P, --pretend              print configuration info and "
-			"exit\n"
-      		"  -d, --debug                print debugging information\n"
+		"  --version                  Print version.\n"
+		"  --help                     Print help.\n"
+     		"  -P, --pretend              Print configuration info and "
+			"exit.\n"
+      		"  -d, --debug                Print debugging information.\n"
 		"Changing the mode of operation:\n"
-		"  -S, --serverinfo           print information about the POP3 "
-			"server\n"
+		"  -S, --serverinfo           Print information about the POP3 "
+			"server.\n"
 	        "Configuration options:\n"
-		"  -C, --file=filename        set configuration file\n"
-		"  --host=hostname            set POP3 server, use only "
+		"  -C, --file=filename        Set configuration file.\n"
+		"  --host=hostname            Set POP3 server, use only "
 			"command line settings;\n"
 		"                             do not use any configuration "
-			"file data\n"
-	        "  --port=number              set port number\n"
-	        "  --timeout=(off|seconds)    set/unset network timeout in "
-			"seconds\n"
-		"  --pipelining=(on|off)      enable/disable POP3 pipelining "
-			"for obsolete servers\n"
-		"  --auth[=(on|method)]       choose the authentication "
-			"method\n"
-		"  --user=[username]          set/unset user name for "
-			"authentication\n"
-	        "  --tls[=(on|off)]           enable/disable TLS encryption\n"
-		"  --tls-trust-file=[file]    set/unset trust file for TLS\n"
-	        "  --tls-key-file=[file]      set/unset private key file for "
-			"TLS\n"
-		"  --tls-cert-file=[file]     set/unset private cert file for "
-			"TLS\n"
-	        "  --tls-certcheck[=(on|off)] enable/disable server "
-			"certificate checks for TLS\n"
-		"  --tls-starttls[=(on|off)]  enable/disable STLS for TLS\n"
+			"file data.\n"
+	        "  --port=number              Set port number.\n"
+	        "  --timeout=(off|seconds)    Set/unset network timeout in "
+			"seconds.\n"
+		"  --pipelining=(on|off)      Enable/disable POP3 pipelining "
+			"for old servers.\n"
+		"  --auth[=(on|method)]       Choose the authentication "
+			"method.\n"
+		"  --user=[username]          Set/unset user name for "
+			"authentication.\n"
+	        "  --tls[=(on|off)]           Enable/disable TLS encryption.\n"
+		"  --tls-trust-file=[file]    Set/unset trust file for TLS.\n"
+	        "  --tls-key-file=[file]      Set/unset private key file for "
+			"TLS.\n"
+		"  --tls-cert-file=[file]     Set/unset private cert file for "
+			"TLS.\n"
+	        "  --tls-certcheck[=(on|off)] Enable/disable server "
+			"certificate checks for TLS.\n"
+		"  --tls-starttls[=(on|off)]  Enable/disable STLS for TLS.\n"
 	        "Options specific to mail retrieval mode:\n"
-		"  -q, --quiet                do not display progress "
-			"information\n"
-		"  -a, --auth-only            authenticate only; do not "
-			"retrieve mail\n"
-		"  -s, --status-only          print account status only; do "
-			"not retrieve mail\n"
-		"  -n, --only-new[=(on|off)]  process only new messages\n"
-	        "  -k, --keep[=(on|off)]      do not delete mails from POP3 "
-			"servers\n"
-		"  --killsize=(off|number)    set/unset kill size\n"
-		"  --skipsize=(off|number)    set/unset skip size\n"
-		"  --filter=[program]         set/unset header filter\n"
-		"  --delivery=method,arg      set the mail delivery method\n"
-		"  --uidls-file=filename      set file to store UIDLs\n"
+		"  -q, --quiet                Do not display progress "
+			"information.\n"
+		"  -a, --all-accounts         Query all accounts in the "
+			"configuration file.\n"
+		"  -A, --auth-only            Authenticate only; do not "
+			"retrieve mail.\n"
+		"  -s, --status-only          Print account status only; do "
+			"not retrieve mail.\n"
+		"  -n, --only-new[=(on|off)]  Process only new messages\n"
+	        "  -k, --keep[=(on|off)]      Do not delete mails from POP3 "
+			"servers.\n"
+		"  --killsize=(off|number)    Set/unset kill size.\n"
+		"  --skipsize=(off|number)    Set/unset skip size.\n"
+		"  --filter=[program]         Set/unset header filter.\n"
+		"  --delivery=method,arg      Set the mail delivery method.\n"
+		"  --uidls-file=filename      Set file to store UIDLs.\n"
 		"\nReport bugs to <%s>.\n"),
 		prgname, prgname, prgname, prgname, PACKAGE_BUGREPORT);
     }
@@ -2049,9 +2077,15 @@ int main(int argc, char *argv[])
     /* get the list of account ids from the command line */
     accountidc = argc - optind;
     accountidv = &(argv[optind]);
-    if (accountidc > 0 && cmdline_account->host)
+    if (cmdline_account->host && (accountidc > 0 || all_accounts))
     {
 	print_error(_("cannot use both --host and accounts"));
+	error_code = EX_USAGE;
+	goto exit;
+    }
+    if (all_accounts && accountidc > 0)
+    {
+	print_error(_("cannot use both --all-accounts and a list of accounts"));
 	error_code = EX_USAGE;
 	goto exit;
     }
@@ -2080,7 +2114,8 @@ int main(int argc, char *argv[])
 	}
 	/* construct list of accounts to be polled */
 	if ((e = get_account_list(conffile, conffile_account_list, 
-	    		accountidc, accountidv, &account_list)) != 0)
+			all_accounts ? -1 : accountidc, accountidv, 
+			&account_list)) != 0)
 	{
 	    /* an error message was already printed */
 	    error_code = EX_CONFIG;

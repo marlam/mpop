@@ -1,7 +1,7 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED April 12, 2006
-@set UPDATED-MONTH April 2006
+@set UPDATED May 21, 2006
+@set UPDATED-MONTH May 2006
 @set EDITION 1.0.0
 @set VERSION 1.0.0
 @settitle mpop @value{VERSION}
@@ -506,10 +506,16 @@ Enable or disable STARTTLS for TLS encryption. @xref{tls_starttls}.
 @opindex -q
 @opindex --quiet
 Do not print progress information.
-@anchor{--auth-only}
+@anchor{--all-accounts}
 @item -a
-@itemx --auth-only
+@itemx --all-accounts
 @opindex -a
+@opindex --all-accounts
+Query all accounts in the configuration file.
+@anchor{--auth-only}
+@item -A
+@itemx --auth-only
+@opindex -A
 @opindex --auth-only
 Authenticate only; do not retrieve mail. Useful for SMTP-after-POP.
 @anchor{--status-only}

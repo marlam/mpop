@@ -2,7 +2,7 @@
 .\"
 .\" mpop version 1.0.0
 .\"
-.TH MPOP 1 2006-04
+.TH MPOP 1 2006-05
 .SH NAME
 mpop \- A POP3 client 
 .SH SYNOPSIS
@@ -107,7 +107,9 @@ Enable or disable the POP3 STLS command for TLS encryption. See the
 .RS
 .IP "-q, --quiet"
 Do not print progress information.
-.IP "-a, --auth-only"
+.IP "-a, --all-accounts"
+Query all accounts in the configuration file.
+.IP "-A, --auth-only"
 Authenticate only; do not retrieve mail. Useful for SMTP-after-POP.
 .IP "-s, --status-only"
 Print number and size of mails in each account only; do not retrieve mail.
