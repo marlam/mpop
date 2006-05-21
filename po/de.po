@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 0.8.5\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2006-04-12 13:36+0200\n"
+"POT-Creation-Date: 2006-05-21 13:18+0200\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -279,12 +279,12 @@ msgstr "%s: Ausgabefehler"
 msgid "cannot open %s: %s"
 msgstr "kann %s nicht öffnen: %s"
 
-#: src/delivery.c:630 src/delivery.c:638 src/uidls.c:172 src/uidls.c:351
+#: src/delivery.c:630 src/uidls.c:183
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "kann %s nicht sperren (habe es %d Sekunden versucht): %s"
 
-#: src/delivery.c:635 src/uidls.c:177 src/uidls.c:356
+#: src/delivery.c:635 src/uidls.c:188
 #, c-format
 msgid "cannot lock %s: %s"
 msgstr "kann %s nicht sperren: %s"
@@ -352,7 +352,7 @@ msgstr "Ablaufzeitpunkt"
 msgid "Fingerprints"
 msgstr "Fingerabdrücke"
 
-#: src/mpop.c:480 src/mpop.c:945
+#: src/mpop.c:480 src/mpop.c:946
 msgid "the POP3 server does not support TLS via the STLS command"
 msgstr "der POP3 Server unterstützt TLS über das STLS Kommando nicht"
 
@@ -508,95 +508,100 @@ msgstr "überspringe Nachricht %ld von %ld (Grund: filter)\n"
 msgid "retrieving message %ld of %ld (%s): "
 msgstr "empfange Nachricht %ld von %ld (%s): "
 
-#: src/mpop.c:1034 src/mpop.c:1229 src/mpop.c:1268 src/net.c:90 src/net.c:400
+#: src/mpop.c:1035 src/mpop.c:1232 src/mpop.c:1274 src/net.c:90 src/net.c:400
 #: src/net.c:485 src/net.c:578 src/net.c:686 src/net.c:806 src/pop3.c:1067
 #: src/pop3.c:1743 src/tls.c:1144 src/tls.c:1203 src/tls.c:1266 src/tls.c:1305
 #: src/tls.c:1386 src/tls.c:1432
 msgid "operation aborted"
 msgstr "Operation abgebrochen"
 
-#: src/mpop.c:1127
+#: src/mpop.c:1128
 #, c-format
 msgid "%s at %s:\n"
 msgstr "%s auf %s:\n"
 
-#: src/mpop.c:1130
+#: src/mpop.c:1131
 #, c-format
 msgid "new: "
 msgstr "neu: "
 
-#: src/mpop.c:1133 src/mpop.c:1154
+#: src/mpop.c:1134 src/mpop.c:1155
 #, c-format
 msgid "no messages"
 msgstr "keine Nachrichten"
 
-#: src/mpop.c:1137 src/mpop.c:1158
+#: src/mpop.c:1138 src/mpop.c:1159
 #, c-format
 msgid "1 message"
 msgstr "1 Nachricht"
 
-#: src/mpop.c:1141 src/mpop.c:1162
+#: src/mpop.c:1142 src/mpop.c:1163
 #, c-format
 msgid "%ld messages"
 msgstr "%ld Nachrichten"
 
-#: src/mpop.c:1146 src/mpop.c:1167
+#: src/mpop.c:1147 src/mpop.c:1168
 #, c-format
 msgid " in %s"
 msgstr " in %s"
 
-#: src/mpop.c:1150
+#: src/mpop.c:1151
 #, c-format
 msgid "total: "
 msgstr "gesamt: "
 
-#: src/mpop.c:1198
+#: src/mpop.c:1200
 #, c-format
 msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: killsize + keep)\n"
 
-#: src/mpop.c:1204
+#: src/mpop.c:1206
 #, c-format
 msgid "deleting message %ld of %ld (reason: killsize)\n"
 msgstr "lösche Nachricht %ld von %ld (Grund: killsize)\n"
 
-#: src/mpop.c:1215
+#: src/mpop.c:1217
 #, c-format
 msgid "skipping message %ld of %ld (reason: skipsize)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: skipsize)\n"
 
-#: src/mpop.c:1239
+#: src/mpop.c:1242
 msgid "the POP3 server does not support the TOP command needed for filtering"
 msgstr ""
 "der POP3 Server unterstützt das für Filterung nötige TOP Kommando nicht"
 
-#: src/mpop.c:1388 src/mpop.c:1399
+#: src/mpop.c:1397
+#, c-format
+msgid "%s: no accounts defined"
+msgstr "%s: keine Accounts definiert"
+
+#: src/mpop.c:1415 src/mpop.c:1426
 #, c-format
 msgid "%s: no account %s"
 msgstr "%s: Account %s nicht gefunden"
 
-#: src/mpop.c:1617 src/mpop.c:1634 src/mpop.c:1653 src/mpop.c:1673
-#: src/mpop.c:1698 src/mpop.c:1737 src/mpop.c:1755 src/mpop.c:1773
-#: src/mpop.c:1791 src/mpop.c:1807 src/mpop.c:1824 src/mpop.c:1860
+#: src/mpop.c:1651 src/mpop.c:1668 src/mpop.c:1687 src/mpop.c:1707
+#: src/mpop.c:1732 src/mpop.c:1771 src/mpop.c:1789 src/mpop.c:1807
+#: src/mpop.c:1825 src/mpop.c:1841 src/mpop.c:1858 src/mpop.c:1894
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "ungültiges Argument %s für %s"
 
-#: src/mpop.c:1890
+#: src/mpop.c:1924
 #, c-format
 msgid "%s version %s\n"
 msgstr "%s Version %s\n"
 
-#: src/mpop.c:1892
+#: src/mpop.c:1926
 #, c-format
 msgid "TLS/SSL library: %s\n"
 msgstr "TLS/SSL Programmbibliothek: %s\n"
 
-#: src/mpop.c:1898
+#: src/mpop.c:1932
 msgid "none"
 msgstr "keine"
 
-#: src/mpop.c:1902
+#: src/mpop.c:1936
 #, c-format
 msgid ""
 "Authentication library: %s\n"
@@ -605,40 +610,40 @@ msgstr ""
 "Authentifizierungsprogrammbibliothek: %s\n"
 "Unterstützte Authentifizierungsmethoden:\n"
 
-#: src/mpop.c:1905
+#: src/mpop.c:1939
 msgid "GNU SASL; user and apop: built-in"
 msgstr "GNU SASL; user und apop: eingebaut"
 
-#: src/mpop.c:1907
+#: src/mpop.c:1941
 msgid "built-in"
 msgstr "eingebaut"
 
-#: src/mpop.c:1948
+#: src/mpop.c:1982
 #, c-format
 msgid "IDN support: "
 msgstr "IDN Unterstützung: "
 
-#: src/mpop.c:1950 src/mpop.c:1958
+#: src/mpop.c:1984 src/mpop.c:1992
 #, c-format
 msgid "enabled"
 msgstr "aktiviert"
 
-#: src/mpop.c:1952 src/mpop.c:1961
+#: src/mpop.c:1986 src/mpop.c:1995
 #, c-format
 msgid "disabled"
 msgstr "deaktiviert"
 
-#: src/mpop.c:1956
+#: src/mpop.c:1990
 #, c-format
 msgid "NLS: "
 msgstr "NLS: "
 
-#: src/mpop.c:1959
+#: src/mpop.c:1993
 #, c-format
 msgid ", LOCALEDIR is %s"
 msgstr ", LOCALEDIR ist %s"
 
-#: src/mpop.c:1964
+#: src/mpop.c:1998
 #, c-format
 msgid ""
 "Copyright (C) 2006 Martin Lambers and others.\n"
@@ -651,7 +656,7 @@ msgstr ""
 "gibt keine Garantie; auch nicht für VERKAUFBARKEIT oder FÜR SPEZIELLE "
 "ZWECKE.\n"
 
-#: src/mpop.c:1972
+#: src/mpop.c:2006
 #, c-format
 msgid ""
 "USAGE:\n"
@@ -668,42 +673,43 @@ msgid ""
 "OPTIONS:\n"
 "\n"
 "General options:\n"
-"  --version                  print version\n"
-"  --help                     print help\n"
-"  -P, --pretend              print configuration info and exit\n"
-"  -d, --debug                print debugging information\n"
+"  --version                  Print version.\n"
+"  --help                     Print help.\n"
+"  -P, --pretend              Print configuration info and exit.\n"
+"  -d, --debug                Print debugging information.\n"
 "Changing the mode of operation:\n"
-"  -S, --serverinfo           print information about the POP3 server\n"
+"  -S, --serverinfo           Print information about the POP3 server.\n"
 "Configuration options:\n"
-"  -C, --file=filename        set configuration file\n"
-"  --host=hostname            set POP3 server, use only command line "
+"  -C, --file=filename        Set configuration file.\n"
+"  --host=hostname            Set POP3 server, use only command line "
 "settings;\n"
-"                             do not use any configuration file data\n"
-"  --port=number              set port number\n"
-"  --timeout=(off|seconds)    set/unset network timeout in seconds\n"
-"  --pipelining=(on|off)      enable/disable POP3 pipelining for obsolete "
-"servers\n"
-"  --auth[=(on|method)]       choose the authentication method\n"
-"  --user=[username]          set/unset user name for authentication\n"
-"  --tls[=(on|off)]           enable/disable TLS encryption\n"
-"  --tls-trust-file=[file]    set/unset trust file for TLS\n"
-"  --tls-key-file=[file]      set/unset private key file for TLS\n"
-"  --tls-cert-file=[file]     set/unset private cert file for TLS\n"
-"  --tls-certcheck[=(on|off)] enable/disable server certificate checks for "
-"TLS\n"
-"  --tls-starttls[=(on|off)]  enable/disable STLS for TLS\n"
+"                             do not use any configuration file data.\n"
+"  --port=number              Set port number.\n"
+"  --timeout=(off|seconds)    Set/unset network timeout in seconds.\n"
+"  --pipelining=(on|off)      Enable/disable POP3 pipelining for old "
+"servers.\n"
+"  --auth[=(on|method)]       Choose the authentication method.\n"
+"  --user=[username]          Set/unset user name for authentication.\n"
+"  --tls[=(on|off)]           Enable/disable TLS encryption.\n"
+"  --tls-trust-file=[file]    Set/unset trust file for TLS.\n"
+"  --tls-key-file=[file]      Set/unset private key file for TLS.\n"
+"  --tls-cert-file=[file]     Set/unset private cert file for TLS.\n"
+"  --tls-certcheck[=(on|off)] Enable/disable server certificate checks for "
+"TLS.\n"
+"  --tls-starttls[=(on|off)]  Enable/disable STLS for TLS.\n"
 "Options specific to mail retrieval mode:\n"
-"  -q, --quiet                do not display progress information\n"
-"  -a, --auth-only            authenticate only; do not retrieve mail\n"
-"  -s, --status-only          print account status only; do not retrieve "
-"mail\n"
-"  -n, --only-new[=(on|off)]  process only new messages\n"
-"  -k, --keep[=(on|off)]      do not delete mails from POP3 servers\n"
-"  --killsize=(off|number)    set/unset kill size\n"
-"  --skipsize=(off|number)    set/unset skip size\n"
-"  --filter=[program]         set/unset header filter\n"
-"  --delivery=method,arg      set the mail delivery method\n"
-"  --uidls-file=filename      set file to store UIDLs\n"
+"  -q, --quiet                Do not display progress information.\n"
+"  -a, --all-accounts         Query all accounts in the configuration file.\n"
+"  -A, --auth-only            Authenticate only; do not retrieve mail.\n"
+"  -s, --status-only          Print account status only; do not retrieve "
+"mail.\n"
+"  -n, --only-new[=(on|off)]  Process only new messages\n"
+"  -k, --keep[=(on|off)]      Do not delete mails from POP3 servers.\n"
+"  --killsize=(off|number)    Set/unset kill size.\n"
+"  --skipsize=(off|number)    Set/unset skip size.\n"
+"  --filter=[program]         Set/unset header filter.\n"
+"  --delivery=method,arg      Set the mail delivery method.\n"
+"  --uidls-file=filename      Set file to store UIDLs.\n"
 "\n"
 "Report bugs to <%s>.\n"
 msgstr ""
@@ -721,134 +727,140 @@ msgstr ""
 "OPTIONEN:\n"
 "\n"
 "Allgemeine Optionen:\n"
-"  --version                  zeige Version\n"
-"  --help                     zeige Hilfstext\n"
-"  -P, --pretend              zeige Konfiguration und beende\n"
-"  -d, --debug                zeige ausführliche Informationen zur "
-"Fehlersuche\n"
+"  --version                  Zeige Version.\n"
+"  --help                     Zeige Hilfstext.\n"
+"  -P, --pretend              Zeige Konfiguration und beende.\n"
+"  -d, --debug                Zeige ausführliche Informationen zur "
+"Fehlersuche.\n"
 "Modus ändern:\n"
-"  -S, --serverinfo           aktiviere Serverinformationsmodus\n"
+"  -S, --serverinfo           Aktiviere Serverinformationsmodus.\n"
 "Konfigurationsoptionen:\n"
-"  -C, --file=dateiname       setze Konfigurationsdatei\n"
-"  --host=hostname            setze POP3 Server, benutze nur Einstellungen "
+"  -C, --file=dateiname       Setze Konfigurationsdatei.\n"
+"  --host=hostname            Setze POP3 Server, benutze nur Einstellungen "
 "der\n"
-"                             Kommandozeile statt einer Konfigurationsdatei\n"
-"  --port=numner              setze Portnummer\n"
-"  --timeout=(off|sekunden)   setze/lösche Netzwerktimeout in Sekunden\n"
-"  --pipelining=(on|off)      aktiviere/deaktiviere POP3 Kommandogruppierung\n"
-"                             für veraltete Server\n"
-"  --auth[=(on|methode)]      wähle Authentifizierungsmethode\n"
-"  --user=[benutzername]      setze/lösche Benutzernamen für "
-"Authentifizierung\n"
-"  --tls[=(on|off)]           aktiviere/deaktiviere TLS Verschlüsselung\n"
-"  --tls-trust-file=[datei]   setze/lösche Vertrauensdatei für TLS\n"
-"  --tls-key-file=[datei]     setze/lösche Datei mit privatem Schlüssel für "
-"TLS\n"
-"  --tls-cert-file=[datei]    setze/lösche Datei mit privatem Zertifikat für "
-"TLS\n"
-"  --tls-certcheck[=(on|off)] aktiviere/deaktiviere Zertifikatsprüfungen für "
-"TLS\n"
-"  --tls-starttls[=(on|off)]  aktiviere/deaktiviere STLS für TLS\n"
+"                             Kommandozeile statt einer Konfigurationsdatei.\n"
+"  --port=numner              Setze Portnummer.\n"
+"  --timeout=(off|sekunden)   Setze/lösche Netzwerktimeout in Sekunden.\n"
+"  --pipelining=(on|off)      Aktiviere/deaktiviere POP3 Kommandogruppierung\n"
+"                             für alte Server.\n"
+"  --auth[=(on|methode)]      Wähle Authentifizierungsmethode.\n"
+"  --user=[benutzername]      Setze/lösche Benutzernamen für "
+"Authentifizierung.\n"
+"  --tls[=(on|off)]           Aktiviere/deaktiviere TLS Verschlüsselung.\n"
+"  --tls-trust-file=[datei]   Setze/lösche Vertrauensdatei für TLS.\n"
+"  --tls-key-file=[datei]     Setze/lösche Datei mit privatem Schlüssel für "
+"TLS.\n"
+"  --tls-cert-file=[datei]    Setze/lösche Datei mit privatem Zertifikat für "
+"TLS.\n"
+"  --tls-certcheck[=(on|off)] Aktiviere/deaktiviere Zertifikatsprüfungen für "
+"TLS.\n"
+"  --tls-starttls[=(on|off)]  Aktiviere/deaktiviere STLS für TLS.\n"
 "Optionen für den Nachrichtenabfragemodus:\n"
-"  -q, --quiet                unterdrücke Fortschrittsanzeige\n"
-"  -a, --auth-only            authentifiziere nur; empfange keine "
-"Nachrichten\n"
-"  -s, --status-only          zeige nur Accountstatusinformationen; empfange\n"
-"                             keine Nachrichten\n"
-"  -n, --only-new[=(on|off)]  bearbeite nur neue Nachrichten\n"
-"  -k, --keep[=(on|off)]      lösche keine Nachrichten von POP3 Servern\n"
-"  --killsize=(off|größe)     setze/lösche Löschgröße\n"
-"  --skipsize=(off|größe)     setze/lösche Überspringgröße\n"
-"  --filter=[programm]        setze/lösche Kopfzeilenfilter\n"
-"  --delivery=methode,arg     wähle eine Auslieferungsmethode\n"
-"  --uidls-file=dateiname     setze Datei zum speichern von UIDLs\n"
+"  -q, --quiet                Unterdrücke Fortschrittsanzeige.\n"
+"  -a, --all-accounts         Frage all Accounts aus der Konfigurationsdatei "
+"ab.\n"
+"  -A, --auth-only            Authentifiziere nur; empfange keine "
+"Nachrichten.\n"
+"  -s, --status-only          Zeige nur Accountstatusinformationen; empfange\n"
+"                             keine Nachrichten.\n"
+"  -n, --only-new[=(on|off)]  Bearbeite nur neue Nachrichten.\n"
+"  -k, --keep[=(on|off)]      Lösche keine Nachrichten von POP3 Servern.\n"
+"  --killsize=(off|größe)     Setze/lösche Löschgröße.\n"
+"  --skipsize=(off|größe)     Setze/lösche Überspringgröße.\n"
+"  --filter=[programm]        Setze/lösche Kopfzeilenfilter.\n"
+"  --delivery=methode,arg     Wähle eine Auslieferungsmethode.\n"
+"  --uidls-file=dateiname     Setze Datei zum speichern von UIDLs.\n"
 "\n"
 "Melde Fehler an <%s>.\n"
 
-#: src/mpop.c:2046
+#: src/mpop.c:2082
 msgid "cannot use both --host and accounts"
 msgstr "kann nicht gleichzeitig --host und Accounts benutzen"
 
-#: src/mpop.c:2125 src/mpop.c:2139
+#: src/mpop.c:2088
+msgid "cannot use both --all-accounts and a list of accounts"
+msgstr "kann nicht gleichzeitig --all-accounts und eine Accountliste benutzen"
+
+#: src/mpop.c:2168 src/mpop.c:2182
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "Account %s aus %s: %s"
 
-#: src/mpop.c:2141 src/mpop.c:2145
+#: src/mpop.c:2184 src/mpop.c:2188
 msgid "no delivery information"
 msgstr "keine Informationen zur Auslieferungsmethode (delivery nicht gesetzt)"
 
-#: src/mpop.c:2162
+#: src/mpop.c:2205
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "benutze Account %s aus %s\n"
 
-#: src/mpop.c:2172 src/mpop.c:2242 src/mpop.c:2251
+#: src/mpop.c:2215 src/mpop.c:2285 src/mpop.c:2294
 #, c-format
 msgid "off\n"
 msgstr "aus\n"
 
-#: src/mpop.c:2178
+#: src/mpop.c:2221
 #, c-format
 msgid "1 second\n"
 msgstr "1 Sekunde\n"
 
-#: src/mpop.c:2182
+#: src/mpop.c:2225
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d Sekunden\n"
 
-#: src/mpop.c:2187 src/mpop.c:2208 src/mpop.c:2215 src/mpop.c:2216
-#: src/mpop.c:2237 src/mpop.c:2238
+#: src/mpop.c:2230 src/mpop.c:2251 src/mpop.c:2258 src/mpop.c:2259
+#: src/mpop.c:2280 src/mpop.c:2281
 msgid "on"
 msgstr "an"
 
-#: src/mpop.c:2187 src/mpop.c:2208 src/mpop.c:2215 src/mpop.c:2216
-#: src/mpop.c:2237 src/mpop.c:2238
+#: src/mpop.c:2230 src/mpop.c:2251 src/mpop.c:2258 src/mpop.c:2259
+#: src/mpop.c:2280 src/mpop.c:2281
 msgid "off"
 msgstr "aus"
 
-#: src/mpop.c:2190
+#: src/mpop.c:2233
 #, c-format
 msgid "choose\n"
 msgstr "automatisch\n"
 
-#: src/mpop.c:2205 src/mpop.c:2206 src/mpop.c:2207 src/mpop.c:2210
-#: src/mpop.c:2212 src/mpop.c:2214 src/mpop.c:2258
+#: src/mpop.c:2248 src/mpop.c:2249 src/mpop.c:2250 src/mpop.c:2253
+#: src/mpop.c:2255 src/mpop.c:2257 src/mpop.c:2301
 msgid "(not set)"
 msgstr "(nicht gesetzt)"
 
-#: src/mpop.c:2277
+#: src/mpop.c:2320
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr ""
 "Unterstützung für Authentifizierungsmethode %s ist nicht einkompiliert worden"
 
-#: src/mpop.c:2289
+#: src/mpop.c:2332
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "kann TLS Programmbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2297
+#: src/mpop.c:2340
 msgid "support for TLS is not compiled in"
 msgstr "Unterstützung für TLS ist nicht einkompiliert worden"
 
-#: src/mpop.c:2305
+#: src/mpop.c:2348
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "kann Netzwerkprogrammbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2333 src/mpop.c:2371
+#: src/mpop.c:2376 src/mpop.c:2414
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "Nachricht des POP3 Servers: %s"
 
-#: src/mpop.c:2378
+#: src/mpop.c:2421
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "Fehler während des Nachrichtenabrufens (Account %s aus %s)"
 
-#: src/mpop.c:2384
+#: src/mpop.c:2427
 msgid "error during mail retrieval"
 msgstr "Fehler während des Nachrichtenabrufens"
 
@@ -1026,7 +1038,7 @@ msgid "invalid reply to command %s"
 msgstr "ungültige Antwort auf Kommando %s"
 
 #: src/pop3.c:673 src/pop3.c:720 src/pop3.c:838 src/pop3.c:943 src/pop3.c:2288
-#: src/pop3.c:2374 src/pop3.c:2460 src/pop3.c:3033 src/pop3.c:3061
+#: src/pop3.c:2374 src/pop3.c:2460 src/pop3.c:3034 src/pop3.c:3062
 #, c-format
 msgid "command %s failed"
 msgstr "Kommando %s fehlgeschlagen"
@@ -1077,8 +1089,8 @@ msgstr "Kommando DELE %ld fehlgeschlagen"
 
 #: src/pop3.c:2099 src/pop3.c:2111 src/pop3.c:2134 src/pop3.c:2149
 #: src/pop3.c:2198 src/pop3.c:2249 src/pop3.c:2308 src/pop3.c:2328
-#: src/pop3.c:2421 src/pop3.c:2480 src/pop3.c:2813 src/pop3.c:2848
-#: src/pop3.c:2882
+#: src/pop3.c:2421 src/pop3.c:2480 src/pop3.c:2814 src/pop3.c:2849
+#: src/pop3.c:2883
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
@@ -1087,12 +1099,12 @@ msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr "Authentifizierungsmethode CRAM-MD5: Server sendete ungültige Challenge"
 
-#: src/pop3.c:2594 src/pop3.c:2899
+#: src/pop3.c:2594 src/pop3.c:2900
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "POP3 Server unterstützt Authentifizierungsmethode %s nicht"
 
-#: src/pop3.c:2600 src/pop3.c:2725 src/pop3.c:2768
+#: src/pop3.c:2600 src/pop3.c:2726 src/pop3.c:2769
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
@@ -1102,30 +1114,30 @@ msgstr "GNU SASL: %s"
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: Authentifizierungsmethode %s wird nicht unterstützt"
 
-#: src/pop3.c:2666 src/pop3.c:2938
+#: src/pop3.c:2666 src/pop3.c:2939
 msgid "cannot use a secure authentication method"
 msgstr "kann keine sichere Authentifizierungsmethode benutzen"
 
-#: src/pop3.c:2672 src/pop3.c:2944
+#: src/pop3.c:2672 src/pop3.c:2945
 msgid "cannot find a usable authentication method"
 msgstr "kann keine benutzbare Authentifizierungsmethode finden"
 
-#: src/pop3.c:2686 src/pop3.c:2957
+#: src/pop3.c:2686 src/pop3.c:2958
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "Authentifizierungsmethode %s braucht einen Benutzernamen"
 
-#: src/pop3.c:2699 src/pop3.c:2967
+#: src/pop3.c:2699 src/pop3.c:2968
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "Authentifizierungsmethode %s braucht ein Passwort"
 
-#: src/pop3.c:2861
+#: src/pop3.c:2862
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "Authentifizierung fehlgeschlagen: %s (Methode %s)"
 
-#: src/pop3.c:3001
+#: src/pop3.c:3002
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "Authentifizierungsmethode %s wird nicht unterstützt"
@@ -1137,7 +1149,7 @@ msgstr ""
 "keine Umgebungsvariablen RANDFILE oder HOME, oder Dateiname der Zufallsdatei "
 "zu lang"
 
-#: src/tls.c:104 src/uidls.c:315
+#: src/tls.c:104 src/uidls.c:326
 #, c-format
 msgid "%s: input error"
 msgstr "%s: Lesefehler"
@@ -1367,32 +1379,32 @@ msgstr "Schreibfehler in TLS Verbindung: %s"
 msgid "cannot write to TLS connection"
 msgstr "Schreibfehler in TLS Verbindung"
 
-#: src/uidls.c:198
+#: src/uidls.c:209
 #, c-format
 msgid "%s, line %ld: line longer than %d characters"
 msgstr "%s, Zeile %ld: Zeile länger als %d Zeichen"
 
-#: src/uidls.c:214
+#: src/uidls.c:225
 #, c-format
 msgid "%s, line %ld: UID without a list"
 msgstr "%s, Zeile %ld: UID außerhalb einer Liste"
 
-#: src/uidls.c:225
+#: src/uidls.c:236
 #, c-format
 msgid "%s, line %ld: invalid number of UIDs"
 msgstr "%s, Zeile %ld: ungültige Anzahl an UIDs"
 
-#: src/uidls.c:240
+#: src/uidls.c:251
 #, c-format
 msgid "%s, line %ld: invalid or missing host name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Hostname"
 
-#: src/uidls.c:252
+#: src/uidls.c:263
 #, c-format
 msgid "%s, line %ld: invalid or missing user name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Benutzername"
 
-#: src/uidls.c:266 src/uidls.c:300
+#: src/uidls.c:277 src/uidls.c:311
 #, c-format
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"
