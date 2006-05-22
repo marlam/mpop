@@ -1,5 +1,5 @@
 Version 1.0.0 (not yet released):
-- Include config.h in list.c
+- Include config.h in list.c.
 - Fix warnings emitted for configure.ac by autoreconf.
 - Added -a, --all-accounts option to query all accounts in the configuration
   file. Changed short option for --auth-only from -a to -A.
