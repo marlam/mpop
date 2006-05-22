@@ -1,4 +1,9 @@
 Version 1.0.0 (not yet released):
+- Replace '#ifdef _WIN32' with '#ifdef W32_NATIVE', where W32_NATIVE is defined
+  in config.h if the following is true:
+  '#if (defined _WIN32 || defined __WIN32__) && !defined __CYGWIN__'.
+  The reason is that Cygwin defines _WIN32 nowadays, but we want the UNIX API
+  on that platform.
 - Include config.h in list.c.
 - Fix warnings emitted for configure.ac by autoreconf.
 - Added -a, --all-accounts option to query all accounts in the configuration

@@ -46,7 +46,7 @@ extern int optind;
 #ifdef HAVE_SIGACTION
 #include <signal.h>
 #endif
-#ifdef _WIN32
+#ifdef W32_NATIVE
 #include <io.h>
 #include <fcntl.h>
 #include <windows.h>
@@ -80,7 +80,7 @@ extern int optind;
 #include "uidls.h"
 
 /* Default file names. */
-#ifdef _WIN32
+#ifdef W32_NATIVE
 #define CONFFILE	"mpoprc.txt"
 #define UIDLSFILE	"mpop_uidls.txt"
 #define NETRCFILE	"netrc.txt"
@@ -1545,7 +1545,7 @@ int main(int argc, char *argv[])
     };
     
     /* Avoid the side effects of text mode interpretations on DOS systems. */
-#ifdef _WIN32
+#ifdef W32_NATIVE
     _fmode = _O_BINARY;
 #elif defined DJGPP
     _fmode = O_BINARY;

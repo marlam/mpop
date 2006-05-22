@@ -39,7 +39,7 @@ extern int errno;
 #ifndef EX_OK
 #define EX_OK 0
 #endif
-#ifdef _WIN32
+#ifdef W32_NATIVE
 #include <winsock2.h>
 #include <io.h>
 #include <direct.h>
@@ -374,7 +374,7 @@ int delivery_method_filter_deinit(delivery_method_t *dm, char **errstr)
  ******************************************************************************/
 
 /* Win32 does not have gettimeofday() */
-#ifdef _WIN32
+#ifdef W32_NATIVE
 int gettimeofday(struct timeval *tv, void *tz UNUSED)
 {
     struct _timeb timebuf;    
@@ -445,7 +445,7 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
     char *newfilename;
     
     maildir_data = dm->data;
-#ifndef _WIN32
+#ifndef W32_NATIVE
     /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
     if (fsync(fileno(dm->pipe)) != 0)
     {
@@ -453,7 +453,7 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
 		maildir_data->filename, strerror(errno));
 	return DELIVERY_EIO;
     }
-#endif /* ! _WIN32 */
+#endif /* ! W32_NATIVE */
     if (fclose(dm->pipe) != 0)
     {
 	*errstr = xasprintf("%s%c%s: %s", maildir_data->maildir, PATH_SEP,
@@ -462,7 +462,7 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
     }
     newfilename = xstrdup(maildir_data->filename);
     strncpy(newfilename, "new", 3);
-#ifndef _WIN32
+#ifndef W32_NATIVE
     if (link(maildir_data->filename, newfilename) != 0)
     {
 	*errstr = xasprintf(_("%s: cannot link %s to %s: %s"), 
@@ -472,7 +472,7 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
 	return DELIVERY_EIO;
     }
     (void)unlink(maildir_data->filename);
-#else /* _WIN32 */
+#else /* W32_NATIVE */
     if (rename(maildir_data->filename, newfilename) != 0)
     {
 	*errstr = xasprintf(_("%s: cannot move %s to %s: %s"), 
@@ -481,7 +481,7 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
 	free(newfilename);
 	return DELIVERY_EIO;
     }
-#endif /* ! _WIN32 */	 
+#endif /* ! W32_NATIVE */	 
     free(newfilename);
     free(maildir_data->filename);
     maildir_data->filename = NULL;
@@ -511,12 +511,12 @@ int delivery_method_maildir_init(delivery_method_t *dm, void *data,
     maildir_data->hostname = xstrdup(hostname);
     /* replace invalid characters as described in
      * http://cr.yp.to/proto/maildir.html */
-#ifndef _WIN32
+#ifndef W32_NATIVE
     maildir_data->hostname = string_replace(maildir_data->hostname, "/", 
 	    "\\057");
     maildir_data->hostname = string_replace(maildir_data->hostname, ":", 
 	    "\\072");
-#else /* _WIN32 */
+#else /* W32_NATIVE */
     maildir_data->hostname = string_replace(maildir_data->hostname, "/", 
 	    "_057_");
     maildir_data->hostname = string_replace(maildir_data->hostname, ":", 
@@ -536,7 +536,7 @@ int delivery_method_maildir_init(delivery_method_t *dm, void *data,
 		strerror(errno));
 	return DELIVERY_EUNKNOWN;
     }
-#ifndef _WIN32
+#ifndef W32_NATIVE
     (void)umask(077);
 #endif
 
@@ -587,14 +587,14 @@ int delivery_method_mbox_close(delivery_method_t *dm, char **errstr)
 	*errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
 	return DELIVERY_EIO;
     }
-#ifndef _WIN32
+#ifndef W32_NATIVE
     /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
     if (fsync(fileno(dm->pipe)) != 0)
     {
 	*errstr = xasprintf("%s: %s", (char *)(dm->data), strerror(errno));
 	return DELIVERY_EIO;
     }
-#endif /* ! _WIN32 */
+#endif /* ! W32_NATIVE */
     if (ferror(dm->pipe))
     {
 	*errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
@@ -614,7 +614,7 @@ int delivery_method_mbox_init(delivery_method_t *dm, void *data, char **errstr)
     dm->want_size = 0;
     dm->open = delivery_method_mbox_open;
     dm->close = delivery_method_mbox_close;
-#ifndef _WIN32
+#ifndef W32_NATIVE
     (void)umask(077);
 #endif
     if (!(dm->pipe = fopen((char *)data, "a")))

@@ -32,7 +32,7 @@
 #include <errno.h>
 extern int errno;
 #include <unistd.h>
-#ifdef _WIN32
+#ifdef W32_NATIVE
 /* FIXME: Use gnulib ftruncate module once it is ported to Win32. */
 #include <io.h>
 #define ftruncate _chsize
