@@ -1,6 +1,7 @@
 Version 1.0.0:
 - Added the option --all-accounts (-a) to query all accounts in the 
-  configuration file. Changed the short option for --auth-only from -a to -A.
+  configuration file. This was suggested by Jimmy Lolla.
+  Changed the short option for --auth-only from -a to -A.
 
 Version 0.8.5:
 - Removed the simple_mbox delivery method because it is unnecessary. Please use

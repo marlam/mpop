@@ -8,7 +8,8 @@ Version 1.0.0 (not yet released):
 - Include config.h in list.c.
 - Fix warnings emitted for configure.ac by autoreconf.
 - Added -a, --all-accounts option to query all accounts in the configuration
-  file. Changed short option for --auth-only from -a to -A.
+  file (suggested by Jimmy Lolla). Changed short option for --auth-only from 
+  -a to -A.
 - Fixed handling of weird UIDs:
   1. When checking for control characters, use c_iscntrl() instead of iscntrl(),
      to be independent of the user's locale.
