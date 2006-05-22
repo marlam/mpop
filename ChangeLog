@@ -1,4 +1,5 @@
 Version 1.0.0 (not yet released):
+- Renamed README.win32 to README.w32. Updated README.w32 and README.dos.
 - Replace '#ifdef _WIN32' with '#ifdef W32_NATIVE', where W32_NATIVE is defined
   in config.h if the following is true:
   '#if (defined _WIN32 || defined __WIN32__) && !defined __CYGWIN__'.
