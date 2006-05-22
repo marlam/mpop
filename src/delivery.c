@@ -44,14 +44,6 @@ extern int errno;
 #include <io.h>
 #include <direct.h>
 #include <sys/timeb.h>
-#define getpid _getpid
-#define chdir _chdir
-#define fdopen _fdopen
-#define popen _popen
-#define pclose _pclose
-#define O_WRONLY _O_WRONLY
-#define O_CREAT _O_CREAT
-#define O_EXCL _O_EXCL
 #define WIFEXITED(s) (((s) & 0xff) == 0)
 #define WEXITSTATUS(s) (((s) >> 8) & 0xff)
 #else /* UNIX or DJGPP */
