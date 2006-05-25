@@ -1,4 +1,4 @@
-Version 1.0.0 (not yet released):
+Version 1.0.0:
 - Gnulib update. Added gettimeofday module.
   Note that a locally modified copy of gnulib was used. It contains patches for
   the getpass, nanosleep, and gettimeofday modules, plus the additional module 

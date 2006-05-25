@@ -30,6 +30,8 @@ usage instructions):
   all of the mechanisms USER/PASS, APOP, EXTERNAL, GSSAPI, DIGEST-MD5, CRAM-MD5,
   PLAIN, LOGIN, and NTLM are available, depending on the compile-time options 
   used for libgsasl. GNU SASL >= 0.2.4 is required.
+- Support for Internationalized Domain Names (IDN)
+  You need GNU Libidn if you want this.
 - Native language support (NLS)
   On systems other than GNU/Linux, you need GNU gettext if you want NLS.
 
