@@ -52,6 +52,7 @@ extern int errno;
 
 #include "xalloc.h"
 #include "timespec.h"
+#include "nanosleep.h"
 
 #include "os_env.h"
 
