@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 0.8.5\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2006-05-21 13:18+0200\n"
+"POT-Creation-Date: 2006-05-25 21:16+0200\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -155,136 +155,136 @@ msgstr "muss Dir gehören"
 msgid "must have no more than user read/write permissions"
 msgstr "darf nicht mehr Rechte als Lese-/Schreibrecht für den Benutzer haben"
 
-#: src/delivery.c:94
+#: src/delivery.c:87
 msgid "EX_OK: no error"
 msgstr "EX_OK: kein Fehler"
 
-#: src/delivery.c:97
+#: src/delivery.c:90
 msgid "EX_USAGE: command line usage error"
 msgstr "EX_USAGE: Kommandozeilenbenutzung fehlerhaft"
 
-#: src/delivery.c:100
+#: src/delivery.c:93
 msgid "EX_DATAERR: data format error"
 msgstr "EX_DATAERR: Datenformatfehler"
 
-#: src/delivery.c:103
+#: src/delivery.c:96
 msgid "EX_NOINPUT: no input"
 msgstr "EX_NOINPUT: keine Eingabe"
 
-#: src/delivery.c:106
+#: src/delivery.c:99
 msgid "EX_NOUSER: user unknown"
 msgstr "EX_NOUSER: Benutzer unbekannt"
 
-#: src/delivery.c:109
+#: src/delivery.c:102
 msgid "EX_NOHOST: host name unknown"
 msgstr "EX_NOHOST: Unbekannter Hostname"
 
-#: src/delivery.c:112
+#: src/delivery.c:105
 msgid "EX_UNAVAILABLE: service unavailable"
 msgstr "EX_UNAVAILABLE: Dienst steht nicht zur Verfügung"
 
-#: src/delivery.c:115
+#: src/delivery.c:108
 msgid "EX_SOFTWARE: internal software error"
 msgstr "EX_SOFTWARE: interner Softwarefehler"
 
-#: src/delivery.c:118
+#: src/delivery.c:111
 msgid "EX_OSERR: system error"
 msgstr "EX_OSERR: Systemfehler"
 
-#: src/delivery.c:121
+#: src/delivery.c:114
 msgid "EX_OSFILE: system file missing"
 msgstr "EX_OSFILE: eine Systemdatei fehlt"
 
-#: src/delivery.c:124
+#: src/delivery.c:117
 msgid "EX_CANTCREAT: cannot create output file"
 msgstr "EX_CANTCREAT: kann Ausgabedatei nicht erzeugen"
 
-#: src/delivery.c:127
+#: src/delivery.c:120
 msgid "EX_IOERR: input/output error"
 msgstr "EX_IOERR: Eingabe-/Ausgabefehler"
 
-#: src/delivery.c:130
+#: src/delivery.c:123
 msgid "EX_TEMPFAIL: temporary failure"
 msgstr "EX_TEMPFAIL: vorübergehende Fehlfunktion"
 
-#: src/delivery.c:133
+#: src/delivery.c:126
 msgid "EX_PROTOCOL: remote error in protocol"
 msgstr "EX_PROTOCOL: Protokollfehler"
 
-#: src/delivery.c:136
+#: src/delivery.c:129
 msgid "EX_NOPERM: permission denied"
 msgstr "EX_NOPERM: keine Berechtigung"
 
-#: src/delivery.c:139
+#: src/delivery.c:132
 msgid "EX_CONFIG: configuration error"
 msgstr "EX_CONFIG: Konfigurationsfehler"
 
-#: src/delivery.c:210
+#: src/delivery.c:203
 #, c-format
 msgid "cannot execute %s"
 msgstr "kann %s nicht ausführen"
 
-#: src/delivery.c:230 src/delivery.c:314
+#: src/delivery.c:223 src/delivery.c:307
 #, c-format
 msgid "%s did not read mail data"
 msgstr "%s hat keine Daten gelesen"
 
-#: src/delivery.c:237 src/delivery.c:321
+#: src/delivery.c:230 src/delivery.c:314
 #, c-format
 msgid "%s failed to execute"
 msgstr "%s konnte nicht ausgeführt werden"
 
-#: src/delivery.c:247 src/delivery.c:331
+#: src/delivery.c:240 src/delivery.c:324
 #, c-format
 msgid "%s returned exit status %d (%s)"
 msgstr "%s lieferte Rückgabewert %d (%s)"
 
-#: src/delivery.c:252 src/delivery.c:336
+#: src/delivery.c:245 src/delivery.c:329
 #, c-format
 msgid "%s returned exit status %d"
 msgstr "%s lieferte Rückgabewert %d"
 
-#: src/delivery.c:411 src/delivery.c:570 src/pop3.c:1591 src/tls.c:111
+#: src/delivery.c:392 src/delivery.c:551 src/pop3.c:1591 src/tls.c:111
 #, c-format
 msgid "cannot get system time: %s"
 msgstr "kann Systemzeit nicht feststellen: %s"
 
-#: src/delivery.c:427
+#: src/delivery.c:408
 #, c-format
 msgid "cannot create %s%c%s: %s"
 msgstr "kann %s%c%s nicht erzeugen: %s"
 
-#: src/delivery.c:468
+#: src/delivery.c:449
 #, c-format
 msgid "%s: cannot link %s to %s: %s"
 msgstr "%s: kann keinen Verweis von %s auf %s erstellen: %s"
 
-#: src/delivery.c:478
+#: src/delivery.c:459
 #, c-format
 msgid "%s: cannot move %s to %s: %s"
 msgstr "%s: kann %s nicht nach %s verschieben: %s"
 
-#: src/delivery.c:535
+#: src/delivery.c:516
 #, c-format
 msgid "cannot change to %s: %s"
 msgstr "kann nicht in %s wechseln: %s"
 
-#: src/delivery.c:576 src/delivery.c:587 src/delivery.c:600
+#: src/delivery.c:557 src/delivery.c:568 src/delivery.c:581
 #, c-format
 msgid "%s: output error"
 msgstr "%s: Ausgabefehler"
 
-#: src/delivery.c:622
+#: src/delivery.c:603
 #, c-format
 msgid "cannot open %s: %s"
 msgstr "kann %s nicht öffnen: %s"
 
-#: src/delivery.c:630 src/uidls.c:183
+#: src/delivery.c:611 src/uidls.c:178
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "kann %s nicht sperren (habe es %d Sekunden versucht): %s"
 
-#: src/delivery.c:635 src/uidls.c:188
+#: src/delivery.c:616 src/uidls.c:183
 #, c-format
 msgid "cannot lock %s: %s"
 msgstr "kann %s nicht sperren: %s"
@@ -1149,7 +1149,7 @@ msgstr ""
 "keine Umgebungsvariablen RANDFILE oder HOME, oder Dateiname der Zufallsdatei "
 "zu lang"
 
-#: src/tls.c:104 src/uidls.c:326
+#: src/tls.c:104 src/uidls.c:321
 #, c-format
 msgid "%s: input error"
 msgstr "%s: Lesefehler"
@@ -1379,32 +1379,32 @@ msgstr "Schreibfehler in TLS Verbindung: %s"
 msgid "cannot write to TLS connection"
 msgstr "Schreibfehler in TLS Verbindung"
 
-#: src/uidls.c:209
+#: src/uidls.c:204
 #, c-format
 msgid "%s, line %ld: line longer than %d characters"
 msgstr "%s, Zeile %ld: Zeile länger als %d Zeichen"
 
-#: src/uidls.c:225
+#: src/uidls.c:220
 #, c-format
 msgid "%s, line %ld: UID without a list"
 msgstr "%s, Zeile %ld: UID außerhalb einer Liste"
 
-#: src/uidls.c:236
+#: src/uidls.c:231
 #, c-format
 msgid "%s, line %ld: invalid number of UIDs"
 msgstr "%s, Zeile %ld: ungültige Anzahl an UIDs"
 
-#: src/uidls.c:251
+#: src/uidls.c:246
 #, c-format
 msgid "%s, line %ld: invalid or missing host name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Hostname"
 
-#: src/uidls.c:263
+#: src/uidls.c:258
 #, c-format
 msgid "%s, line %ld: invalid or missing user name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Benutzername"
 
-#: src/uidls.c:277 src/uidls.c:311
+#: src/uidls.c:272 src/uidls.c:306
 #, c-format
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"
