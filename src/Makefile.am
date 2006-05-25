@@ -12,7 +12,7 @@ mpop_SOURCES = \
 	stream.c stream.h \
 	uidls.c uidls.h
 
-mpop_LDADD = @tls_obj@ ../gnulib/libgnu.a @LIBINTL@
+mpop_LDADD = @tls_obj@ $(top_builddir)/gnulib/libgnu.a @LIBINTL@
 
 mpop_DEPENDENCIES = @tls_obj@
 
