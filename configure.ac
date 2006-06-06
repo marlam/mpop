@@ -23,7 +23,7 @@ dnl Process this file with autoconf to produce a configure script.
 #
 
 
-AC_INIT(mpop, 1.0.0, marlam@marlam.de)
+AC_INIT(mpop, 1.0.1, marlam@marlam.de)
 AC_CONFIG_SRCDIR(src/mpop.c)
 AC_CANONICAL_SYSTEM
 
