@@ -1,3 +1,6 @@
+Version 1.0.1:
+- Don't check configuration file permissions on Cygwin.
+
 Version 1.0.0:
 - Gnulib update. Added gettimeofday module.
   Note that a locally modified copy of gnulib was used. It contains patches for
