@@ -11,10 +11,6 @@ Differences between the UNIX and DOS versions
 - The default user configuration file is "$HOME/_mpoprc".
 - The default uidls file is "$HOME/_uidls".
 - The .netrc file is "$HOME/_netrc"  
-- User configuration file security checks are not done.
-- The timeout setting has no effect for connection attempts. See src/net.c,
-  function net_connect() for DJGPP. The timeout should work for network input
-  and output, though.
 - The maildir delivery method will only work on systems with long filename 
   support.
 
