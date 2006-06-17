@@ -78,7 +78,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 mpop is a POP3 client. 
 
-In its main mode of operation, it retrieves mails from one or more POP3
+In its default mode of operation, it retrieves mails from one or more POP3
 mailboxes, optionally does some filtering, and delivers them through a mail
 delivery agent (MDA) or to maildir folders or mbox files. Mails that were 
 successfully delivered before will not be retrieved a second time, even if
@@ -109,6 +109,7 @@ Supported features include:
 GSSAPI, DIGEST-MD5, and NTLM when GNU SASL is used)
 @item TLS encrypted connections (including server certificate verification and
 the possibility to send a client certificate)
+@item Support for Internationalized Domain Names (IDN)
 @item IPv6 support
 @item support for multiple accounts
 @end itemize
@@ -118,7 +119,7 @@ the possibility to send a client certificate)
 @chapter Configuration file
 
 If it exists and is readable, a user configuration file will be loaded
-(@code{$HOME/.mpoprc} by default).  This file must have no more permissions
+(@code{~/.mpoprc} by default).  This file must have no more permissions
 than user read/write.  Configuration file settings can be changed by command
 line options.
 					         
@@ -131,7 +132,7 @@ If the first character of a filename is the tilde (~), this tilde will be
 replaced by @code{$HOME}.
 
 If a command accepts the argument @samp{on}, it also accepts an empty argument
-and treats that the same as @samp{on}.
+and treats that as if it was @samp{on}.
 
 Commands form groups. Each group starts with the @samp{account} command and
 defines the settings for one POP3 server.
@@ -168,8 +169,9 @@ STARTTLS is used, in which case it is 995.
 @anchor{timeout}
 @item timeout (off|@var{seconds})
 @cmindex timeout
-Set or unset a network timeout, in seconds. The argument off means that no 
-timeout will be set, which means that the operating system default will be used.
+Set or unset a network timeout, in seconds. The argument @samp{off} means that
+no timeout will be set, which means that the operating system default will be
+used.
 @anchor{pipelining}
 @item pipelining (on|off)
 @cmindex pipelining
@@ -186,10 +188,11 @@ mpop if they support pipelining, so this command is usually ignored.
 @anchor{auth}
 @item auth [(on|@var{method})]
 @cmindex auth
-This command chooses the POP3 authentication method. With the argument on, mpop
-will choose the best one available for you (see below). This is the default.
-Accepted methods are user, apop, plain, cram-md5, digest-md5, gssapi, external, 
-login, and ntlm. @xref{Authentication}.@*
+This command chooses the POP3 authentication method. With the argument
+@samp{on}, mpop will choose the best one available for you (see below). This is
+the default.  Accepted methods are @samp{user}, @samp{apop}, @samp{plain}, 
+@samp{cram-md5}, @samp{digest-md5}, @samp{gssapi}, @samp{external}, 
+@samp{login}, and @samp{ntlm}. @xref{Authentication}.@*
 @anchor{user}
 @item user [@var{username}]
 @cmindex user
@@ -201,7 +204,7 @@ name.
 Set your password for POP3 authentication. An empty argument unsets the
 password.
 If no password is set but one is needed during authentication, mpop will try to
-find it in @code{~/.netrc}, and if that fails, mpop will prompt you for it.
+find it in @code{~/.netrc}, and if that fails, will prompt you for it.
 @xref{Authentication}.
 @anchor{ntlmdomain}
 @item ntlmdomain [@var{ntlmdomain}]
@@ -221,12 +224,13 @@ one, even if it is an arbitrary string.
 @cmindex tls
 This command enables or disables TLS/SSL encrypted connections to the POP3
 server. Not every server supports TLS, and many that do require the
-@samp{tls_starttls off} command. @xref{Transport Layer Security}.
+@samp{tls_starttls off} command. It is recommended to also use the 
+@samp{tls_trust_file} command. @xref{Transport Layer Security}.
 @anchor{tls_trust_file}
 @item tls_trust_file [@var{file}]
 @cmindex tls_trust_file
 This command activates strict server certificate verification.
-The file must contain one or more certificates of trusted Certification 
+The given file must contain one or more certificates of trusted Certification 
 Authorities (CAs) in PEM format. An empty argument disables this feature.
 @xref{Transport Layer Security}.
 @anchor{tls_key_file}
@@ -249,7 +253,7 @@ An empty argument disables this feature.
 @item tls_certcheck [(on|off)]
 @cmindex tls_certcheck
 This command enables or disables sanity checks for the server certificate.
-These checks are enabled by default, but can cause difficulties.
+These checks are enabled by default, but can cause difficulties in rare cases.
 @xref{Transport Layer Security}.
 @anchor{tls_starttls}
 @item tls_starttls [(on|off)]
@@ -375,11 +379,11 @@ The standard exit codes from @code{sysexits.h} are used.
 @anchor{Environment / Files}
 @section Environment / Files
 @table @samp
-@item @code{$HOME/.mpoprc}
+@item @code{~/.mpoprc}
 The default user configuration file.
-@item @code{$HOME/.mpop_uidls}
+@item @code{~/.mpop_uidls}
 Default file to store UIDLs in.
-@item @code{$HOME/.netrc}
+@item @code{~/.netrc}
 The @code{.netrc} file contains login information. If a password is not found 
 in the configuration file, msmtp will search it in @code{.netrc} before 
 prompting the user for it. The syntax of @code{.netrc} is described in the 
@@ -447,7 +451,7 @@ Please refer to @ref{Configuration file} for detailed information.
 @itemx --file=@var{filename}
 @opindex -C
 @opindex --file
-Use the given file instead of @code{$HOME/.mpoprc} as the configuration file.
+Use the given file instead of @code{~/.mpoprc} as the configuration file.
 @itemx --host=@var{hostname}
 @opindex --host
 Use this POP3 server with settings from the command line; do not use any
@@ -638,7 +642,7 @@ them.  Some methods send authentication data in plain text (or nearly plain
 text) to the server. These methods should only be used when TLS is active to
 prevent others from stealing the password. @xref{Transport Layer Security}.
 
-mpop supports a subset of the following authentication methods:
+mpop supports the following authentication methods:
 @itemize
 @item @samp{USER}@*
 This authentication method needs a user name and a password. 
@@ -661,7 +665,7 @@ The authentication data is not sent in plain text, which means this method can
 safely be used without TLS.
 @item @samp{GSSAPI}@*
 This authentication method needs a user name. The Kerberos framework takes care
-of secure authentication, therefore this method can be used without TLS.
+of secure authentication, therefore this method can safely be used without TLS.
 @item @samp{EXTERNAL}@*
 This is a special authentication method: The actual authentication happens
 outside of the POP3 protocol, typically by sending a TLS client certificate
@@ -681,7 +685,7 @@ This is a non-standard authentication method similar to (but worse than) PLAIN.
 It needs a user name and a password, both of which are send in BASE64 encoding, 
 which can be easily decoded to plain text.
 @item @samp{NTLM}@*
-This is a obscure non-standard authentication method. It needs a user name and
+This is an obscure non-standard authentication method. It needs a user name and
 a password and in some cases a special domain parameter (see @ref{ntlmdomain}). 
 The authentication data is not send in plain text.
 @end itemize

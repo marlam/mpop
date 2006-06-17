@@ -65,7 +65,7 @@ logins, ...), and about the TLS certificate (if TLS is active).
 .IP "\fBConfiguration options\fP"
 .RS
 .IP "-C, --file=\fIconffile\fP"
-Use the given file instead of $HOME/.mpoprc as configuration file.
+Use the given file instead of ~/.mpoprc as configuration file.
 .IP "--host=\fIhostname\fP"
 Use this POP3 server with settings from the command line; do not use any
 configuration file data. You cannot use both this option and account names on
@@ -133,7 +133,7 @@ method from its arguments.
 File to store UIDLs in. See the \fBuidls_file\fP command below.
 .RE
 .SH USAGE
-mpop normally uses a configuration file ($HOME/.mpoprc by default) that
+mpop normally uses a configuration file (~/.mpoprc by default) that
 contains information about your POP3 accounts.
 .PP
 Skip to the EXAMPLES section for a quick start.
@@ -152,7 +152,7 @@ If the first character of a filename is the tilde (~), this tilde will be
 replaced by $HOME.
 .br
 If a command accepts the argument \fIon\fP, it also accepts an empty argument
-and treats that the same as \fIon\fP.
+and treats that as if it was \fIon\fP.
 .PP
 Commands are as follows:
 .IP "defaults"
@@ -173,7 +173,7 @@ Every account definition must contain this command.
 The port that the POP3 server listens on. The default is 110, unless TLS
 without STLS is used, in which case it is 995.
 .IP "timeout (\fIoff\fP|\fIseconds\fP)"
-Set or unset a network timeout, in seconds. The argument off means that no
+Set or unset a network timeout, in seconds. The argument \fIoff\fP means that no
 timeout will be set, which means that the operating system default will be used.
 .IP "pipelining (\fIon\fP|\fIoff\fP)"
 Enable or disable POP3 pipelining for obsolete servers.
@@ -220,7 +220,7 @@ in. See $TMPDIR in the FILES / ENVIRONMENT section.
 .IP "uidls_file \fIfilename\fP"
 The file to store UIDLs in. These are needed to identify new messages.
 The file is only used for POP3 servers that support the UIDL command; see option 
-\fB--serverinfo\fP above. The default is $HOME/.mpop_uidls. One file may be 
+\fB--serverinfo\fP above. The default is ~/.mpop_uidls. One file may be 
 shared by multiple accounts.
 .IP "auth [(\fIon\fP|\fImethod\fP)]"
 This command chooses the POP3 authentication method. With the argument
@@ -479,11 +479,11 @@ Since the filter command is passed to a shell, you can also use this directly:
 .br
 .B filter if [\ "`grep\ "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
 .SH FILES / ENVIRONMENT
-.IP $HOME/.mpoprc
+.IP "~/.mpoprc"
 Default configuration file.
-.IP $HOME/.mpop_uidls
+.IP "~/.mpop_uidls"
 Default file to store UIDLs in.
-.IP $HOME/.netrc
+.IP "~/.netrc"
 The .netrc file contains login information. If a password is not found in the
 configuration file, msmtp will search it in .netrc before prompting the user for
 it. The syntax of .netrc is described in 
