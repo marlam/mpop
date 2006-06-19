@@ -1,4 +1,6 @@
 Version 1.0.1:
+- W32 port: Fixed the replacements for the WIFEXITED and WEXITSTATUS macros in
+  delivery.c. Thanks to Gizbern for the bug report.
 - Minor documentation improvements.
 - Enable network connection timeouts on DJGPP/Watt32. Thanks to Gisle Vanem for
   pointing out that this works just like it does with UNIX. The DJGPP/Watt32

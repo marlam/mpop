@@ -44,8 +44,8 @@ extern int errno;
 #include <io.h>
 #include <direct.h>
 #include <sys/timeb.h>
-#define WIFEXITED(s) (((s) & 0xff) == 0)
-#define WEXITSTATUS(s) (((s) >> 8) & 0xff)
+#define WIFEXITED(s) (1)
+#define WEXITSTATUS(s) (s)
 #else /* UNIX or DJGPP */
 #include <sys/wait.h>
 #endif
