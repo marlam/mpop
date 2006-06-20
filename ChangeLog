@@ -1,4 +1,7 @@
-Version 1.0.1:
+Version 1.0.1 (not yet released):
+- Check that the first command in the configuration file is either account or 
+  defaults. This fixes a crash (NULL pointer dereferencing) when the first 
+  command in the file is valid but does not belong to an account.
 - W32 port: Fixed the replacements for the WIFEXITED and WEXITSTATUS macros in
   delivery.c. Thanks to Gizbern for the bug report.
 - Minor documentation improvements.

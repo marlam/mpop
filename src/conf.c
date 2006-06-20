@@ -696,7 +696,15 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
 	    break;
 	}
 
-	if (strcmp(cmd, "defaults") == 0)
+	if (!acc && strcmp(cmd, "account") != 0 && strcmp(cmd, "defaults") != 0)
+	{
+	    *errstr = xasprintf(
+		    _("line %d: first command must be account or defaults"),
+		    line);
+	    e = CONF_ESYNTAX;
+	    break;
+	}
+	else if (strcmp(cmd, "defaults") == 0)
 	{
 	    if (*arg != '\0')
  	    {
