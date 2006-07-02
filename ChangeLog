@@ -1,4 +1,5 @@
 Version 1.0.1 (not yet released):
+- Define PATH_SEP_STR in addition to PATH_SEP in tools.h.
 - Move string_replace from delivery.c to tools.[ch] to make it available to
   other modules.
 - Renamed os_env.[ch] to tools.[ch].
