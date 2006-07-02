@@ -3,7 +3,7 @@
  *
  * This file is part of msmtp, an SMTP client.
  *
- * Copyright (C) 2004, 2005
+ * Copyright (C) 2004, 2005, 2006
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -26,7 +26,7 @@
 
 
 /* The path separator character */
-#ifdef __MINGW32__
+#ifdef W32_NATIVE
 #define PATH_SEP '\\'
 #else /* UNIX or DJGPP */
 #define PATH_SEP '/'
