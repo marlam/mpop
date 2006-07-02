@@ -1,4 +1,6 @@
 Version 1.0.1 (not yet released):
+- Move string_replace from delivery.c to tools.[ch] to make it available to
+  other modules.
 - Renamed os_env.[ch] to tools.[ch].
 - Replace __MINGW__ with W32_NATIVE in os_env.h.
 - Check that the first command in the configuration file is either account or 

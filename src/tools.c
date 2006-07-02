@@ -614,3 +614,30 @@ int lock_file(FILE *f, int lock_type, int timeout)
     }
     return (lock_success ? 0 : (tenth_seconds / 10 >= timeout ? 1 : 2));
 }
+
+
+/*
+ * string_replace()
+ *
+ * see tools.h
+ */
+
+char *string_replace(char *str, const char *s, const char *r)
+{
+    char *p, *new_str;
+    size_t next_pos = 0;
+    size_t rlen = strlen(r);
+
+    while ((p = strstr(str + next_pos, s)))
+    {
+	new_str = xmalloc((strlen(str) + rlen - 1) * sizeof(char));
+	strncpy(new_str, str, (size_t)(p - str));
+	strcpy(new_str + (size_t)(p - str), r);
+	strcpy(new_str + (size_t)(p - str) + rlen, 
+		str + (size_t)(p - str) + 2);
+	next_pos = (size_t)(p - str) + rlen;
+	free(str);
+	str = new_str;
+    }
+    return str;
+}
