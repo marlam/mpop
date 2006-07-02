@@ -1,5 +1,5 @@
 /*
- * os_env.c
+ * tools.c
  *
  * This file is part of msmtp, an SMTP client.
  *
@@ -54,13 +54,13 @@ extern int errno;
 #include "timespec.h"
 #include "nanosleep.h"
 
-#include "os_env.h"
+#include "tools.h"
 
 
 /*
  * get_prgname()
  *
- * see os_env.h
+ * see tools.h
  */
 
 const char *get_prgname(const char *argv0)
@@ -91,7 +91,7 @@ const char *get_prgname(const char *argv0)
 /*
  * get_sysconfdir()
  *
- * see os_env.h
+ * see tools.h
  */
 
 char *get_sysconfdir(void)
@@ -138,7 +138,7 @@ char *get_sysconfdir(void)
 /*
  * get_username()
  *
- * see os_env.h
+ * see tools.h
  */
 
 char *get_username(void)
@@ -212,7 +212,7 @@ char *get_username(void)
 /*
  * get_homedir()
  *
- * see os_env.h
+ * see tools.h
  */
 
 char *get_homedir(void)
@@ -300,7 +300,7 @@ char *get_homedir(void)
 /*
  * get_filename()
  *
- * see os_env.h
+ * see tools.h
  */
 
 char *get_filename(const char *directory, const char *name)
@@ -324,7 +324,7 @@ char *get_filename(const char *directory, const char *name)
 /*
  * expand_tilde()
  *
- * see os_env.h
+ * see tools.h
  */
 
 char *expand_tilde(const char *filename)
@@ -351,7 +351,7 @@ char *expand_tilde(const char *filename)
 /*
  * check_secure()
  *
- * see os_env.h
+ * see tools.h
  */
 
 int check_secure(const char *pathname)
@@ -454,7 +454,7 @@ int mkstemp_unlink(char *template)
 /*
  * tempfile()
  *
- * see os_env.h
+ * see tools.h
  */
 
 FILE *tempfile(const char *base)
@@ -572,7 +572,7 @@ error_exit:
 /*
  * lock_file()
  *
- * see os_env.h
+ * see tools.h
  */
 
 int lock_file(FILE *f, int lock_type, int timeout)
@@ -587,7 +587,7 @@ int lock_file(FILE *f, int lock_type, int timeout)
 
     fd = fileno(f);
 #ifndef W32_NATIVE   
-    lock.l_type = (lock_type == OSENV_LOCK_WRITE) ? F_WRLCK : F_RDLCK;
+    lock.l_type = (lock_type == TOOLS_LOCK_WRITE) ? F_WRLCK : F_RDLCK;
     lock.l_whence = SEEK_SET;
     lock.l_start = 0;
     lock.l_len = 0;

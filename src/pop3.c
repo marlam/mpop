@@ -58,7 +58,7 @@ extern int errno;
 #include "tls.h"
 #endif /* HAVE_SSL */
 #include "delivery.h"
-#include "os_env.h"
+#include "tools.h"
 #include "stream.h"
 #include "pop3.h"
 

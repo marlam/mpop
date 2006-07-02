@@ -68,7 +68,7 @@ extern int optind;
 #include "xvasprintf.h"
 
 #include "list.h"
-#include "os_env.h"
+#include "tools.h"
 #include "conf.h"
 #include "net.h"
 #include "netrc.h"

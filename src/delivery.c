@@ -62,7 +62,7 @@ extern int errno;
 #include "xvasprintf.h"
 
 #include "delivery.h"
-#include "os_env.h"
+#include "tools.h"
 
 
 /*******************************************************************************
@@ -604,7 +604,7 @@ int delivery_method_mbox_init(delivery_method_t *dm, void *data, char **errstr)
 		strerror(errno));
 	return DELIVERY_EUNKNOWN;
     }
-    if ((e = lock_file(dm->pipe, OSENV_LOCK_WRITE, lock_timeout)) != 0)
+    if ((e = lock_file(dm->pipe, TOOLS_LOCK_WRITE, lock_timeout)) != 0)
     {
 	if (e == 1)
 	{

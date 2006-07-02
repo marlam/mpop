@@ -39,7 +39,7 @@ extern int errno;
 
 #include "uidls.h"
 #include "list.h"
-#include "os_env.h"
+#include "tools.h"
 
 
 /* The timeout for locking the UIDLs file, in seconds. */
@@ -171,7 +171,7 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
 	}
 	return UIDLS_EOK;
     }
-    if ((e = lock_file(*uidls_file, OSENV_LOCK_WRITE, UIDLS_LOCK_TIMEOUT)) != 0)
+    if ((e = lock_file(*uidls_file, TOOLS_LOCK_WRITE, UIDLS_LOCK_TIMEOUT)) != 0)
     {
 	if (e == 1)
 	{

@@ -1,4 +1,5 @@
 Version 1.0.1 (not yet released):
+- Renamed os_env.[ch] to tools.[ch].
 - Replace __MINGW__ with W32_NATIVE in os_env.h.
 - Check that the first command in the configuration file is either account or 
   defaults. This fixes a crash (NULL pointer dereferencing) when the first 

@@ -37,7 +37,7 @@ extern int errno;
 #include "xalloc.h"
 #include "xvasprintf.h"
 
-#include "os_env.h"
+#include "tools.h"
 #include "list.h"
 #include "delivery.h"
 #include "conf.h"
