@@ -1,8 +1,8 @@
 .\" -*-nroff-*-
 .\"
-.\" mpop version 1.0.0
+.\" mpop version 1.0.1
 .\"
-.TH MPOP 1 2006-05
+.TH MPOP 1 2006-07
 .SH NAME
 mpop \- A POP3 client 
 .SH SYNOPSIS
@@ -219,9 +219,18 @@ in. See $TMPDIR in the FILES / ENVIRONMENT section.
 .RE
 .IP "uidls_file \fIfilename\fP"
 The file to store UIDLs in. These are needed to identify new messages.
-The file is only used for POP3 servers that support the UIDL command; see option 
-\fB--serverinfo\fP above. The default is ~/.mpop_uidls. One file may be 
-shared by multiple accounts.
+%U in the filename will be replaced by the username of the current account.
+%H in the filename will be replaced by the hostname of the current account.
+If the filename contains directories that do not exist, mpop will create them.
+mpop locks this file for exclusive access when accessing the associated POP3 
+account.
+.br
+The default value is "~/.mpop_uidls", which means that all accounts share one
+UIDLS file. This works, but you cannot poll multiple accounts that share a
+single UIDLS file at the same time. Therefore, the default will likely change
+to "~/.mpop_uidls/%U_at_%H" in future versions, which will cause mpop to use 
+different UIDLS files for each account, so that all accounts can be accessed 
+concurrently.
 .IP "auth [(\fIon\fP|\fImethod\fP)]"
 This command chooses the POP3 authentication method. With the argument
 \fIon\fP, mpop will choose the best one available for you (see below). This
@@ -395,6 +404,10 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 tls on
 .br
 tls_trust_file ~/.ca-bundle.pem
+.br
+# The following will likely become the built-in default in future versions:
+.br
+uidls_file ~/.mpop_uidls/%U_at_%H
 .br
 
 .br

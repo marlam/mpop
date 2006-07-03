@@ -1,4 +1,9 @@
 Version 1.0.1 (not yet released):
+- Added support for %U and %H expansion in UIDLS file names. This allows to 
+  have per-account UIDLS files with just one setting in the defaults
+  section. The default UIDLS file name was not changed yet to keep
+  compatibility with 1.0.0.
+- Automatically create directories needed to store the UIDLS file.
 - Gnulib update. Added the xstrndup module. The modules nanosleep and
   gettimeofday still differ from the official gnulib source.
 - Define PATH_SEP_STR in addition to PATH_SEP in tools.h.

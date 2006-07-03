@@ -1,9 +1,9 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED May 25, 2006
-@set UPDATED-MONTH May 2006
-@set EDITION 1.0.0
-@set VERSION 1.0.0
+@set UPDATED July 2, 2006
+@set UPDATED-MONTH July 2006
+@set EDITION 1.0.1
+@set VERSION 1.0.1
 @settitle mpop @value{VERSION}
 
 @c Define new indices: for options (op) and commands (cm)
@@ -302,10 +302,17 @@ body) in. See @code{$TMPDIR} in @ref{Environment / Files}.
 @item uidls_file @var{filename}
 @cmindex uidls_file
 The file to store UIDLs in. These are needed to identify new messages.
-The file is only used for POP3 servers that support the UIDL command; see 
-@ref{Server information mode}. The default is @code{~/.mpop_uidls}.
-One file can be shared by multiple accounts. An UIDLs file contains at most as
-much UIDs as there are mails on the server, for each account it is used for.
+@code{%U} in the filename will be replaced by the username of the current 
+account. @code{%H} in the filename will be replaced by the hostname of the 
+current account. If the filename contains directories that do not exist, mpop 
+will create them. mpop locks this file for exclusive access when accessing the 
+associated POP3 account.@*
+The default value is @code{~/.mpop_uidls}, which means that all accounts share
+one UIDLS file. This works, but you cannot poll multiple accounts that share a
+single UIDLS file at the same time. Therefore, the default will likely change
+to @code{~/.mpop_uidls/%U_at_%H} in future versions, which will cause mpop to 
+use different UIDLS files for each account, so that all accounts can be accessed
+concurrently.
 @anchor{only_new}
 @item only_new [(on|off)]
 @cmindex only_new
@@ -945,6 +952,8 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 #delivery mbox ~/Mail/new
 tls on
 tls_trust_file ~/.ca-bundle.pem
+# The following will likely become the built-in default in future versions:
+uidls_file ~/.mpop_uidls/%U_at_%H
 
 # My provider, where I have two pop3 mailboxes 
 account provider1

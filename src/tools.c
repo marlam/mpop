@@ -50,9 +50,13 @@ extern int errno;
 #include <pwd.h>
 #endif /* UNIX */
 
-#include "xalloc.h"
-#include "timespec.h"
+#include "c-ctype.h"
+#include "gettext.h"
 #include "nanosleep.h"
+#include "timespec.h"
+#include "xalloc.h"
+#include "xstrndup.h"
+#include "xvasprintf.h"
 
 #include "tools.h"
 
@@ -640,4 +644,66 @@ char *string_replace(char *str, const char *s, const char *r)
 	str = new_str;
     }
     return str;
+}
+
+
+/*
+ * make_needed_dirs()
+ *
+ * see tools.h
+ */
+
+int make_needed_dirs(const char *pathname)
+{
+    struct stat statbuf;
+    int statret;
+    int error;
+    const char *dir_part_end;
+    char *dir_part;
+    
+    if (pathname[0] == '\0')
+    {
+	return 0;
+    }
+
+    error = 0;
+    dir_part_end = strchr(pathname + 1, PATH_SEP);
+#if W32_NATIVE
+    /* skip a drive letter */
+    if (dir_part_end - pathname == 2 
+	    && c_isalpha((unsigned char)pathname[0]) && pathname[1] == ':')
+    {
+	dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+    }
+#endif
+    while (dir_part_end && !error)
+    {
+	dir_part = xstrndup(pathname, dir_part_end - pathname);
+	statret = stat(dir_part, &statbuf);
+	if (statret == 0 && !S_ISDIR(statbuf.st_mode))
+	{
+	    /* "'dir_part' exists but is not a directory" */
+	    errno = ENOTDIR;
+	    error = 1;
+	}
+	else if (statret != 0 && errno != ENOENT)
+	{
+	    /* "cannot stat 'dir_part'" */
+	    /* errno was set by stat() */
+	    error = 1;
+	}
+	else if (statret != 0)	/* errno is ENOENT */
+	{
+	    if (mkdir(dir_part, 0700) != 0)
+	    {
+		/* "cannot create 'dir_part'" */
+		/* errno was set by mkdir() */
+		error = 1;
+	    }
+	}
+	free(dir_part);
+	dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+    }
+
+    return error;
 }

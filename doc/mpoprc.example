@@ -7,6 +7,8 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 #delivery mbox ~/Mail/new
 tls on
 tls_trust_file ~/.ca-bundle.pem
+# The following will likely become the built-in default in future versions:
+uidls_file ~/.mpop_uidls/%U_at_%H
 
 # My provider, where I have two pop3 mailboxes 
 account provider1

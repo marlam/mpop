@@ -2175,6 +2175,18 @@ int main(int argc, char *argv[])
 	    error_code = EX_CONFIG;
 	    goto exit;
 	}
+	/* construct the complete, absolute UIDLS file name */
+	account->uidls_file = string_replace(account->uidls_file, "%U", 
+		account->username ? account->username : "");
+	account->uidls_file = string_replace(account->uidls_file, "%H", 
+		account->host);
+	/* create directories needed for uidls_file */
+	if (retrmail && !pretend && make_needed_dirs(account->uidls_file) != 0)
+	{
+	    print_error("%s: %s", account->uidls_file, strerror(errno));
+	    error_code = EX_IOERR;
+	    goto exit;
+	}
 	if (retrmail && account->delivery_method == -1)
 	{
 	    if (account->id && account->conffile)

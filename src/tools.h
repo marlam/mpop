@@ -144,4 +144,14 @@ int lock_file(FILE *f, int lock_type, int timeout);
  */
 char *string_replace(char *str, const char *s, const char *r);
 
+/*
+ * make_needed_dirs()
+ *
+ * Takes a pathname as an argument, and checks that all the directories in the
+ * pathname exist. Otherwise, they are created. Returns 0 if the directory
+ * component of 'pathname' exists when done, and 1 otherwise. In this case,
+ * errno will be set.
+ */
+int make_needed_dirs(const char *pathname);
+
 #endif
