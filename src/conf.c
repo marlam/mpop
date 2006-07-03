@@ -420,7 +420,7 @@ void override_account(account_t *acc1, account_t *acc2)
  * see conf.h
  */
 
-int check_account(account_t *acc, char **errstr)
+int check_account(account_t *acc, int retrmail, char **errstr)
 {
     if (!acc->host)
     {
@@ -441,6 +441,11 @@ int check_account(account_t *acc, char **errstr)
     {
 	*errstr = xasprintf(
 		_("cannot use tls_trust_file with tls_cert_check turned off"));
+	return CONF_ESYNTAX;
+    }
+    if (retrmail && acc->delivery_method == -1)
+    {
+	*errstr = xasprintf(_("no delivery information"));
 	return CONF_ESYNTAX;
     }
 

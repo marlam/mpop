@@ -2161,7 +2161,7 @@ int main(int argc, char *argv[])
 	    account->uidls_file = get_filename(homedir, UIDLSFILE);
 	}
 	/* check for consistency and completeness */
-	if (check_account(account, &errstr) != CONF_EOK)
+	if (check_account(account, retrmail, &errstr) != CONF_EOK)
 	{
 	    if (account->id && account->conffile)
 	    {
@@ -2185,21 +2185,6 @@ int main(int argc, char *argv[])
 	{
 	    print_error("%s: %s", account->uidls_file, strerror(errno));
 	    error_code = EX_IOERR;
-	    goto exit;
-	}
-	if (retrmail && account->delivery_method == -1)
-	{
-	    if (account->id && account->conffile)
-	    {
-		print_error(_("account %s from %s: %s"),
-			account->id, account->conffile,
-			_("no delivery information"));
-	    }
-	    else
-	    {
-		print_error(_("no delivery information"));
-	    }
-	    error_code = EX_CONFIG;
 	    goto exit;
 	}
     }

@@ -180,11 +180,13 @@ void override_account(account_t *acc1, account_t *acc2);
 /*
  * check_account()
  * 
- * Check an account_t. If this function returns CONF_ESYNTAX, *errstr will
- * always point to an error string.
+ * Check an account_t. 'retrmail' must indicate whether mpop works in mail
+ * retrieval mode, because some checks depend on this.
+ * If this function returns CONF_ESYNTAX, *errstr will always point to an
+ * error string.
  * Used error codes: CONF_ESYNTAX
  */
-int check_account(account_t *acc, char **errstr);
+int check_account(account_t *acc, int retrmail, char **errstr);
 
 /*
  * get_conf()
