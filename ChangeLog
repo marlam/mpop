@@ -1,4 +1,6 @@
 Version 1.0.1 (not yet released):
+- Gnulib update. Added the xstrndup module. The modules nanosleep and
+  gettimeofday still differ from the official gnulib source.
 - Define PATH_SEP_STR in addition to PATH_SEP in tools.h.
 - Move string_replace from delivery.c to tools.[ch] to make it available to
   other modules.

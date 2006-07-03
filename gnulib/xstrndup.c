@@ -1,6 +1,6 @@
-/* size_max.h -- declare SIZE_MAX through system headers
-   Copyright (C) 2005-2006 Free Software Foundation, Inc.
-   Written by Simon Josefsson.
+/* Duplicate a bounded initial segment of a string, with out-of-memory
+   checking.
+   Copyright (C) 2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,16 +16,24 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef GNULIB_SIZE_MAX_H
-#define GNULIB_SIZE_MAX_H
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
 
-/* Get SIZE_MAX declaration on systems like Solaris 7/8/9.  */
-# include <limits.h>
-/* Get SIZE_MAX declaration on systems like glibc 2.  */
-# if HAVE_STDINT_H
-#  include <stdint.h>
-# endif
-/* On systems where these include files don't define it, SIZE_MAX is defined
-   in config.h.  */
+/* Specification.  */
+#include "xstrndup.h"
 
-#endif /* GNULIB_SIZE_MAX_H */
+#include "strndup.h"
+#include "xalloc.h"
+
+/* Return a newly allocated copy of at most N bytes of STRING.
+   In other words, return a copy of the initial segment of length N of
+   STRING.  */
+char *
+xstrndup (const char *string, size_t n)
+{
+  char *s = strndup (string, n);
+  if (! s)
+    xalloc_die ();
+  return s;
+}

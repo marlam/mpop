@@ -1,5 +1,5 @@
-/* size_max.h -- declare SIZE_MAX through system headers
-   Copyright (C) 2005-2006 Free Software Foundation, Inc.
+/* Find the length of STRING, but scan at most MAXLEN characters.
+   Copyright (C) 2005 Free Software Foundation, Inc.
    Written by Simon Josefsson.
 
    This program is free software; you can redistribute it and/or modify
@@ -16,16 +16,17 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef GNULIB_SIZE_MAX_H
-#define GNULIB_SIZE_MAX_H
+#ifndef STRNLEN_H
+#define STRNLEN_H
 
-/* Get SIZE_MAX declaration on systems like Solaris 7/8/9.  */
-# include <limits.h>
-/* Get SIZE_MAX declaration on systems like glibc 2.  */
-# if HAVE_STDINT_H
-#  include <stdint.h>
-# endif
-/* On systems where these include files don't define it, SIZE_MAX is defined
-   in config.h.  */
+/* Get strnlen declaration, if available.  */
+#include <string.h>
 
-#endif /* GNULIB_SIZE_MAX_H */
+#if defined HAVE_DECL_STRNLEN && !HAVE_DECL_STRNLEN
+/* Find the length (number of bytes) of STRING, but scan at most
+   MAXLEN bytes.  If no '\0' terminator is found in that many bytes,
+   return MAXLEN.  */
+extern size_t strnlen(const char *string, size_t maxlen);
+#endif
+
+#endif /* STRNLEN_H */

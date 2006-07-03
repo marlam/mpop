@@ -49,6 +49,8 @@ AC_DEFUN([gl_INIT],
   gl_STDARG_H
   AM_STDBOOL_H
   gl_STDINT_H
+  gl_FUNC_STRNDUP
+  gl_FUNC_STRNLEN
   gl_HEADER_SYS_SELECT
   gl_HEADER_SYS_SOCKET
   gl_SYSEXITS
@@ -58,6 +60,7 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_VASPRINTF
   gl_XALLOC
   gl_XSIZE
+  gl_XSTRNDUP
   gl_XVASPRINTF
 ])
 
@@ -97,11 +100,14 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-args.h
   lib/printf-parse.c
   lib/printf-parse.h
-  lib/select_.h
   lib/size_max.h
   lib/socket_.h
   lib/stdbool_.h
   lib/stdint_.h
+  lib/strndup.c
+  lib/strndup.h
+  lib/strnlen.c
+  lib/strnlen.h
   lib/sysexit_.h
   lib/timespec.h
   lib/vasnprintf.c
@@ -112,6 +118,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/xasprintf.c
   lib/xmalloc.c
   lib/xsize.h
+  lib/xstrndup.c
+  lib/xstrndup.h
   lib/xvasprintf.c
   lib/xvasprintf.h
   m4/alloca.m4
@@ -119,6 +127,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/codeset.m4
   m4/eoverflow.m4
   m4/extensions.m4
+  m4/full-header-path.m4
   m4/getdelim.m4
   m4/getline.m4
   m4/getopt.m4
@@ -158,6 +167,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdbool.m4
   m4/stdint.m4
   m4/stdint_h.m4
+  m4/strndup.m4
+  m4/strnlen.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
   m4/sysexits.m4
@@ -171,5 +182,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wint_t.m4
   m4/xalloc.m4
   m4/xsize.m4
+  m4/xstrndup.m4
   m4/xvasprintf.m4
 ])

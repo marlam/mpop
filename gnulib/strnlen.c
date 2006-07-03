@@ -1,6 +1,6 @@
-/* Provide a sys/select header file for systems lacking it (read: mingw32).
-   Copyright (C) 2006 Free Software Foundation, Inc.
-   Adapted from socket_.h, written by Simon Josefsson.
+/* Find the length of STRING, but scan at most MAXLEN characters.
+   Copyright (C) 2005, 2006 Free Software Foundation, Inc.
+   Written by Simon Josefsson.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,18 +16,18 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef _SYS_SELECT_H
-#define _SYS_SELECT_H
-
-/* This file is supposed to be used on platforms that lack
-   sys/select.h.  It is intended to provide definitions and prototypes
-   needed by an application.
-
-   Currently only mingw32 is supported, which has the header file
-   winsock2.h that declares select(). */
-
-#if HAVE_WINSOCK2_H
-# include <winsock2.h>
+#ifdef HAVE_CONFIG_H
+# include <config.h>
 #endif
 
-#endif /* _SYS_SELECT_H */
+#include "strnlen.h"
+
+/* Find the length of STRING, but scan at most MAXLEN characters.
+   If no '\0' terminator is found in that many characters, return MAXLEN.  */
+
+size_t
+strnlen (const char *string, size_t maxlen)
+{
+  const char *end = memchr (string, '\0', maxlen);
+  return end ? (size_t) (end - string) : maxlen;
+}
