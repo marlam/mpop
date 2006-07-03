@@ -38,9 +38,11 @@ extern int errno;
 #ifdef W32_NATIVE
 #include <windows.h>
 #include <io.h>
+#include <direct.h>
 #include <lmcons.h>
 #include <sys/locking.h>
 #include <limits.h>
+#define mkdir(dir, mode) _mkdir(dir)
 #elif defined DJGPP
 #include <unistd.h>
 #else /* UNIX */
@@ -53,7 +55,6 @@ extern int errno;
 #include "c-ctype.h"
 #include "gettext.h"
 #include "nanosleep.h"
-#include "timespec.h"
 #include "xalloc.h"
 #include "xstrndup.h"
 #include "xvasprintf.h"
