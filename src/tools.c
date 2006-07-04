@@ -22,7 +22,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+# include "config.h"
 #endif
 
 #include <stdio.h>
@@ -34,21 +34,16 @@ extern int errno;
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <time.h>
-
+#include <unistd.h>
 #ifdef W32_NATIVE
-#include <windows.h>
-#include <io.h>
-#include <lmcons.h>
-#include <sys/locking.h>
-#include <limits.h>
-#elif defined DJGPP
-#include <unistd.h>
-#else /* UNIX */
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
+# include <windows.h>
+# include <io.h>
+# include <lmcons.h>
+# include <sys/locking.h>
+# include <limits.h>
+#else
+# include <pwd.h>
 #endif
-#include <pwd.h>
-#endif /* UNIX */
 
 #include "gettext.h"
 #include "nanosleep.h"

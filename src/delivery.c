@@ -22,7 +22,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+# include "config.h"
 #endif
 
 #include <stdio.h>
@@ -35,25 +35,20 @@
 extern int errno;
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <sysexits.h>
-#ifndef EX_OK
-#define EX_OK 0
+#ifdef HAVE_SIGACTION
+# include <signal.h>
 #endif
 #ifdef W32_NATIVE
-#include <winsock2.h>
-#include <io.h>
-#include <direct.h>
-#include <sys/timeb.h>
-#define WIFEXITED(s) (1)
-#define WEXITSTATUS(s) (s)
-#else /* UNIX or DJGPP */
-#include <sys/wait.h>
-#endif
-#ifdef HAVE_UNISTD_H
-#include <unistd.h>
-#endif
-#ifdef HAVE_SIGACTION
-#include <signal.h>
+# include <winsock2.h>
+# include <io.h>
+# include <direct.h>
+# include <sys/timeb.h>
+# define WIFEXITED(s) (1)
+# define WEXITSTATUS(s) (s)
+#else
+# include <sys/wait.h>
 #endif
 
 #include "gettext.h"
@@ -61,8 +56,8 @@ extern int errno;
 #include "xalloc.h"
 #include "xvasprintf.h"
 
-#include "delivery.h"
 #include "tools.h"
+#include "delivery.h"
 
 
 /*******************************************************************************

@@ -22,7 +22,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+# include "config.h"
 #endif
 
 #include <stdlib.h>
@@ -37,9 +37,9 @@ extern int errno;
 #include "xalloc.h"
 #include "xvasprintf.h"
 
-#include "uidls.h"
 #include "list.h"
 #include "tools.h"
+#include "uidls.h"
 
 
 /* The timeout for locking the UIDLs file, in seconds. */

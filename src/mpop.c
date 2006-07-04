@@ -22,7 +22,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+# include "config.h"
 #endif
 
 #include <stdio.h>
@@ -39,32 +39,30 @@ extern char *optarg;
 extern int optind;
 #include <sys/types.h>
 #include <sys/stat.h>
-#ifdef ENABLE_NLS
-#include <locale.h>
-#endif
-#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#include <sysexits.h>
+#ifdef ENABLE_NLS
+# include <locale.h>
 #endif
 #ifdef HAVE_SIGACTION
-#include <signal.h>
+# include <signal.h>
 #endif
 #ifdef W32_NATIVE
-#include <io.h>
-#include <direct.h>
-#include <fcntl.h>
-#include <windows.h>
-#include <winsock2.h>
-#define mkdir(dir, mode) _mkdir(dir)
+# include <io.h>
+# include <direct.h>
+# include <fcntl.h>
+# include <windows.h>
+# include <winsock2.h>
+# define mkdir(dir, mode) _mkdir(dir)
 #elif defined DJGPP
-#include <io.h>
-#include <fcntl.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#else /* UNIX */
-#include <netdb.h>
-#include <arpa/inet.h>
+# include <io.h>
+# include <fcntl.h>
+# include <netdb.h>
+# include <arpa/inet.h>
+#else
+# include <netdb.h>
+# include <arpa/inet.h>
 #endif
-#include <sysexits.h>
 
 #include "c-ctype.h"
 #include "getpass.h"

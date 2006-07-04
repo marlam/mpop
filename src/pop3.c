@@ -22,7 +22,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+# include "config.h"
 #endif
 
 #include <stdio.h>
@@ -37,14 +37,14 @@
 extern int errno;
 
 #ifdef USE_LIBIDN
-#include <idna.h>
+# include <idna.h>
 #endif
 
 #ifdef USE_GSASL
-#include <gsasl.h>
+# include <gsasl.h>
 #else
-#include "base64.h"
-#include "hmac.h"
+# include "base64.h"
+# include "hmac.h"
 #endif
 
 #include "c-ctype.h"
@@ -53,13 +53,13 @@ extern int errno;
 #include "xalloc.h"
 #include "xvasprintf.h"
 
-#include "net.h"
-#ifdef HAVE_SSL
-#include "tls.h"
-#endif /* HAVE_SSL */
 #include "delivery.h"
+#include "net.h"
 #include "tools.h"
 #include "stream.h"
+#ifdef HAVE_SSL
+# include "tls.h"
+#endif /* HAVE_SSL */
 #include "pop3.h"
 
 
