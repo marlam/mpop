@@ -37,6 +37,8 @@ extern int errno;
 #include <getopt.h>
 extern char *optarg;
 extern int optind;
+#include <sys/types.h>
+#include <sys/stat.h>
 #ifdef ENABLE_NLS
 #include <locale.h>
 #endif
@@ -48,9 +50,11 @@ extern int optind;
 #endif
 #ifdef W32_NATIVE
 #include <io.h>
+#include <direct.h>
 #include <fcntl.h>
 #include <windows.h>
 #include <winsock2.h>
+#define mkdir(dir, mode) _mkdir(dir)
 #elif defined DJGPP
 #include <io.h>
 #include <fcntl.h>
@@ -62,9 +66,11 @@ extern int optind;
 #endif
 #include <sysexits.h>
 
+#include "c-ctype.h"
 #include "getpass.h"
 #include "gettext.h"
 #include "xalloc.h"
+#include "xstrndup.h"
 #include "xvasprintf.h"
 
 #include "list.h"
@@ -1431,6 +1437,69 @@ int get_account_list(const char *conffile, list_t *conffile_account_list,
 	}
     }
     return 0;
+}
+
+
+/*
+ * Takes a pathname as an argument, and checks that all the directories in the
+ * pathname exist. Otherwise, they are created. Returns 0 if the directory
+ * component of 'pathname' exists when done, and 1 otherwise. In this case,
+ * errno will be set.
+ */
+
+int make_needed_dirs(const char *pathname)
+{
+    struct stat statbuf;
+    int statret;
+    int error;
+    const char *dir_part_end;
+    char *dir_part;
+    
+    if (pathname[0] == '\0')
+    {
+	return 0;
+    }
+
+    error = 0;
+    dir_part_end = strchr(pathname + 1, PATH_SEP);
+#if W32_NATIVE
+    /* skip a drive letter */
+    if (dir_part_end - pathname == 2 
+	    && c_isalpha((unsigned char)pathname[0]) && pathname[1] == ':')
+    {
+	dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+    }
+#endif
+    while (dir_part_end && !error)
+    {
+	dir_part = xstrndup(pathname, dir_part_end - pathname);
+	statret = stat(dir_part, &statbuf);
+	if (statret == 0 && !S_ISDIR(statbuf.st_mode))
+	{
+	    /* "'dir_part' exists but is not a directory" */
+	    errno = ENOTDIR;
+	    error = 1;
+	}
+	else if (statret != 0 && errno != ENOENT)
+	{
+	    /* "cannot stat 'dir_part'" */
+	    /* errno was set by stat() */
+	    error = 1;
+	}
+	else if (statret != 0)	/* errno is ENOENT */
+	{
+	    if (mkdir(dir_part, 0700) != 0)
+	    {
+		/* "cannot create 'dir_part'" */
+		/* errno was set by mkdir() */
+		error = 1;
+	    }
+	}
+	free(dir_part);
+	dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+    }
+
+    return error;
 }
 
 
