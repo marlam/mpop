@@ -27,11 +27,9 @@
 
 /* The path separator character */
 #ifdef W32_NATIVE
-#define PATH_SEP '\\'
-#define PATH_SEP_STR "\\"
-#else /* UNIX or DJGPP */
-#define PATH_SEP '/'
-#define PATH_SEP_STR "/"
+# define PATH_SEP '\\'
+#else
+# define PATH_SEP '/'
 #endif
 
 
