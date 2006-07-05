@@ -1,4 +1,6 @@
 Version 1.0.1 (not yet released):
+- Gnulib update. The modules nanosleep and gettimeofday still differ from the
+  official gnulib source.
 - Adapt --version output to the latest GNU conventions.
 - Clean up #includes.
 - Move check for delivery information from main() into check_account().

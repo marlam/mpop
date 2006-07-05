@@ -122,12 +122,12 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/xstrndup.h
   lib/xvasprintf.c
   lib/xvasprintf.h
+  m4/absolute-header.m4
   m4/alloca.m4
   m4/base64.m4
   m4/codeset.m4
   m4/eoverflow.m4
   m4/extensions.m4
-  m4/full-header-path.m4
   m4/getdelim.m4
   m4/getline.m4
   m4/getopt.m4
