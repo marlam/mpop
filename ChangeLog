@@ -1,4 +1,5 @@
 Version 1.0.1 (not yet released):
+- Adapt --version output to the latest GNU conventions.
 - Clean up #includes.
 - Move check for delivery information from main() into check_account().
 - Added support for %U and %H expansion in UIDLS file names. This allows to 
