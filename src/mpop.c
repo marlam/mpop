@@ -44,7 +44,7 @@ extern int optind;
 #ifdef ENABLE_NLS
 # include <locale.h>
 #endif
-#ifdef HAVE_SIGACTION
+#if HAVE_SIGACTION
 # include <signal.h>
 #endif
 #ifdef W32_NATIVE
@@ -841,13 +841,13 @@ void mpop_retr_progress_abort(long i UNUSED, long number UNUSED,
  * to one, for example by a signal handler.
  */
 
-int mpop_retrmail_abort = 0;
-#ifdef HAVE_SIGACTION
+#if HAVE_SIGACTION
+volatile sig_atomic_t mpop_retrmail_abort = 0;
 void mpop_retrmail_signal_handler(int signum UNUSED)
 {   
     mpop_retrmail_abort = 1;
 }
-#endif /* HAVE_SIGACTION */
+#endif
 
 int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	account_t *acc, int debug, 
@@ -1033,12 +1033,14 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	}
     }
     
+#if HAVE_SIGACTION
     if (mpop_retrmail_abort)
     {
 	mpop_endsession(session, 0);
 	*errstr = xasprintf(_("operation aborted"));
 	return EX_TEMPFAIL;
     }
+#endif
 
     /* retrieve the UIDs */
     if (session->total_number > 0)
@@ -1225,6 +1227,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	}
     }
 
+#if HAVE_SIGACTION
     if (mpop_retrmail_abort)
     {
 	if (uidl_list)
@@ -1236,6 +1239,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	*errstr = xasprintf(_("operation aborted"));
 	return EX_TEMPFAIL;
     }
+#endif
 
     /* Header filtering */
     if (session->total_number > 0 && acc->filter)
@@ -1253,8 +1257,11 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    mpop_endsession(session, 1);
 	    return EX_UNAVAILABLE;
 	}
-	if ((e = pop3_filter(session, &mpop_retrmail_abort, acc->filter, 
-			quiet ? NULL : mpop_filter_output, acc,
+	if ((e = pop3_filter(session, 
+#if HAVE_SIGACTION
+			&mpop_retrmail_abort, 
+#endif
+			acc->filter, quiet ? NULL : mpop_filter_output, acc,
 			errmsg, errstr)) != POP3_EOK)
 	{
 	    if (uidl_list)
@@ -1267,6 +1274,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	}
     }
     
+#if HAVE_SIGACTION
     if (mpop_retrmail_abort)
     {
 	if (uidl_list)
@@ -1278,6 +1286,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	*errstr = xasprintf(_("operation aborted"));
 	return EX_TEMPFAIL;
     }
+#endif
 
     /* Once pop3_retr() is called, we cannot just abort the session and forget
      * everything we've done so far, because that would mean double mail
@@ -1290,7 +1299,9 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     if (session->total_number > 0)
     {
 	late_error = pop3_retr(session, 
+#if HAVE_SIGACTION
 		&mpop_retrmail_abort,
+#endif
 		acc->delivery_method, acc->delivery_args,
 		quiet ? NULL : mpop_retr_progress_start,
 		quiet ? NULL : mpop_retr_progress,
@@ -1563,12 +1574,12 @@ int main(int argc, char *argv[])
     char *errstr;
     char *errmsg;
     /* signal handling */
-#ifdef HAVE_SIGACTION
+#if HAVE_SIGACTION
     struct sigaction signal_handler;
     struct sigaction old_sigterm_handler;
     struct sigaction old_sighup_handler;
     struct sigaction old_sigint_handler;
-#endif /* HAVE_SIGACTION */
+#endif
     /* misc */
     struct servent *se;	    
     int c;
@@ -2455,15 +2466,15 @@ int main(int argc, char *argv[])
 	    {
 		local_user = get_username();
 	    }
+#if HAVE_SIGACTION
 	    mpop_retrmail_abort = 0;
-#ifdef HAVE_SIGACTION
     	    signal_handler.sa_handler = mpop_retrmail_signal_handler;
 	    sigemptyset(&signal_handler.sa_mask);
     	    signal_handler.sa_flags = 0;
     	    (void)sigaction(SIGTERM, &signal_handler, &old_sigterm_handler);
 	    (void)sigaction(SIGHUP, &signal_handler, &old_sighup_handler);
 	    (void)sigaction(SIGINT, &signal_handler, &old_sigint_handler);
-#endif /* HAVE_SIGACTION */
+#endif
 	    if ((error_code = mpop_retrmail(canonical_hostname, local_user,
 			    account, debug, quiet, auth_only, status_only,
 	    		    &errmsg, &errstr)) != EX_OK)
@@ -2492,15 +2503,15 @@ int main(int argc, char *argv[])
 		    print_error(_("error during mail retrieval"));
 		}
 	    }
-#ifdef HAVE_SIGACTION
+#if HAVE_SIGACTION
     	    (void)sigaction(SIGTERM, &old_sigterm_handler, NULL);
 	    (void)sigaction(SIGHUP, &old_sighup_handler, NULL);
 	    (void)sigaction(SIGINT, &old_sigint_handler, NULL);
-#endif /* HAVE_SIGACTION */    
 	    if (mpop_retrmail_abort)
 	    {
 		break;
 	    }
+#endif
 	}
     }
     free(canonical_hostname);

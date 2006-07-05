@@ -35,6 +35,9 @@
 #include <ctype.h>
 #include <errno.h>
 extern int errno;
+#if HAVE_SIGACTION
+# include <signal.h>
+#endif
 
 #ifdef USE_LIBIDN
 # include <idna.h>
@@ -1027,7 +1030,10 @@ invalid_reply:
  * Used error codes: POP3_EIO, POP3_EPROTO
  */
 
-int pop3_pipe(pop3_session_t *session, int *abort,
+int pop3_pipe(pop3_session_t *session, 
+#if HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
 	FILE *tmpf, FILE *f, long i, 
 	int full_mail, int from_quoting,	
 	void (*progress_start)(long i, long number, long size),
@@ -1057,6 +1063,7 @@ int pop3_pipe(pop3_session_t *session, int *abort,
     line_continues = 0;
     for (;;)
     {
+#if HAVE_SIGACTION
 	if (*abort)
 	{
 	    if (progress_abort)
@@ -1067,6 +1074,7 @@ int pop3_pipe(pop3_session_t *session, int *abort,
 	    *errstr = xasprintf(_("operation aborted"));
 	    return POP3_EABORT;
 	}
+#endif
 	line_starts = !line_continues;
 	if (read_from_tmpf)
 	{
@@ -1682,7 +1690,10 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, char **errstr)
  * unsuable thereafter.
  */
 
-int pop3_delivery(pop3_session_t *session, int *abort,
+int pop3_delivery(pop3_session_t *session,
+#if HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
 	int filter, 
 	void (*filter_output)(long i, long number, int new_status, 
 	    void *filter_output_data),
@@ -1737,12 +1748,14 @@ int pop3_delivery(pop3_session_t *session, int *abort,
 		    ? pipeline_min : 0);
 		recv_index++)
 	{
+#if HAVE_SIGACTION
 	    if (*abort)
 	    {
 		e = POP3_EABORT;
 		*errstr = xasprintf(_("operation aborted"));
 		goto error_exit;
 	    }
+#endif
 	    if (session->msg_action[recv_index] != POP3_MSG_ACTION_NORMAL)
 	    {
 		continue;
@@ -1812,7 +1825,11 @@ int pop3_delivery(pop3_session_t *session, int *abort,
 		}
 	    }
 	    /* pipe the message (headers) */
-	    if ((e = pop3_pipe(session, abort, tmpf, delivery->pipe, 
+	    if ((e = pop3_pipe(session, 
+#if HAVE_SIGACTION
+			    abort, 
+#endif
+			    tmpf, delivery->pipe, 
 			    recv_index + 1, !filter, 
 			    delivery->need_from_quoting,
 		    	    progress_start, progress, progress_end, 
@@ -1943,14 +1960,21 @@ error_exit:
  * see pop3.h
  */
 
-int pop3_filter(pop3_session_t *session, int *abort,
+int pop3_filter(pop3_session_t *session,
+#if HAVE_SIGACTION
+	volatile sig_atomic_t *abort, 
+#endif
 	const char *filtercmd,
 	void (*filter_output)(long i, long number, int new_action, 
 	    void *filter_output_data),
 	void *filter_output_data, 
 	char **errmsg, char **errstr)
 {
-    return pop3_delivery(session, abort, 1, filter_output, filter_output_data,
+    return pop3_delivery(session, 
+#if HAVE_SIGACTION
+	    abort, 
+#endif
+	    1, filter_output, filter_output_data,
 	    DELIVERY_METHOD_FILTER, filtercmd, 
 	    NULL, NULL, NULL, NULL, errmsg, errstr);
 }
@@ -1962,7 +1986,10 @@ int pop3_filter(pop3_session_t *session, int *abort,
  * see pop3.h
  */
 
-int pop3_retr(pop3_session_t *session, int *abort,
+int pop3_retr(pop3_session_t *session,
+#if HAVE_SIGACTION
+	volatile sig_atomic_t *abort, 
+#endif
 	int delivery_method, const char *delivery_method_arguments,
 	void (*progress_start)(long i, long number, long size),
 	void (*progress)(long i, long number, long rcvd, long size, 
@@ -1971,7 +1998,11 @@ int pop3_retr(pop3_session_t *session, int *abort,
 	void (*progress_abort)(long i, long number, long size),
 	char **errmsg, char **errstr)
 {
-    return pop3_delivery(session, abort, 0, NULL, NULL,
+    return pop3_delivery(session, 
+#if HAVE_SIGACTION
+	    abort, 
+#endif
+	    0, NULL, NULL,
 	    delivery_method, delivery_method_arguments,
 	    progress_start, progress, progress_end, progress_abort,
 	    errmsg, errstr);

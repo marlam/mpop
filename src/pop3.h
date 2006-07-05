@@ -25,6 +25,9 @@
 #define POP3_H
 
 #include <stdio.h>
+#ifdef HAVE_SIGACTION
+# include <signal.h>
+#endif
 
 #include "net.h"
 #ifdef HAVE_SSL
@@ -411,11 +414,14 @@ int pop3_list(pop3_session_t *session, char **errmsg, char **errstr);
  * be called. 'data' can point to arbitrary user data that is passed to the
  * output function.
  * If 'abort' is externally set, this function will abort the filtering and
- * return POP3_EABORTEDThe POP3 session is not usable thereafter.
+ * return POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EDELIVERY,
  * POP3_EABORT.
  */
-int pop3_filter(pop3_session_t *session, int *abort,
+int pop3_filter(pop3_session_t *session, 
+#ifdef HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
 	const char *filtercmd,
 	void (*filter_output)(long i, long number, int new_action, void *data),
 	void *data, char **errmsg, char **errstr);
@@ -442,7 +448,10 @@ int pop3_filter(pop3_session_t *session, int *abort,
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EDELIVERY,
  * POP3_EABORT
  */
-int pop3_retr(pop3_session_t *session, int *abort,
+int pop3_retr(pop3_session_t *session,
+#ifdef HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
 	int delivery_method, const char *delivery_method_arguments,
 	void (*progress_start)(long i, long number, long size),
 	void (*progress)(long i, long number, long rcvd, long size, 
