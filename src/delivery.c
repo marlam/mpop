@@ -540,9 +540,15 @@ int delivery_method_mbox_close(delivery_method_t *dm, char **errstr)
     /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
     if (fsync(fileno(dm->pipe)) != 0)
     {
-	*errstr = xasprintf(_("cannot sync %s: %s"), (char *)(dm->data), 
-		strerror(errno));
-	return DELIVERY_EIO;
+	/* Ignore the condition (errno == EINVAL): fsync() is not possible with
+	 * this file; the user probably used /dev/null or some other special
+	 * file as an mbox. */
+	if (errno != EINVAL)
+	{
+	    *errstr = xasprintf(_("cannot sync %s: %s"), (char *)(dm->data), 
+	    	    strerror(errno));
+	    return DELIVERY_EIO;
+	}
     }
 #endif /* ! W32_NATIVE */
     if (ferror(dm->pipe))

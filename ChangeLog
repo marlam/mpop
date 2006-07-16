@@ -1,4 +1,7 @@
 Version 1.0.1 (not yet released):
+- Allow to use special files like /dev/null to be used as an MBOX file,
+  by ignoring an fsync() failure if and only if (errno == EINVAL). Suggested by
+  Marco Ferra. Thanks!
 - Make error messages of the maildir and mbox delivery methods more verbose.
 - Fixed types of variables that are changed by signal handlers: they are
   'volatile sig_atomic_t' now.
