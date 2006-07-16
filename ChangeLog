@@ -1,4 +1,5 @@
 Version 1.0.1 (not yet released):
+- Make error messages of the maildir and mbox delivery methods more verbose.
 - Fixed types of variables that are changed by signal handlers: they are
   'volatile sig_atomic_t' now.
 - Gnulib update. The modules nanosleep and gettimeofday still differ from the

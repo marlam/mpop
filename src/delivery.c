@@ -381,8 +381,8 @@ int delivery_method_maildir_open(delivery_method_t *dm, const char *from UNUSED,
     maildir_data->filename = filename;
     if (!(dm->pipe = fdopen(fd, "w")))
     {
-	*errstr = xasprintf("%s%c%s: %s", maildir_data->maildir, PATH_SEP,
-		maildir_data->filename, strerror(errno));
+	*errstr = xasprintf(_("cannot open %s%c%s: %s"), maildir_data->maildir,
+		PATH_SEP, maildir_data->filename, strerror(errno));
 	return DELIVERY_EIO;
     }
     return DELIVERY_EOK;
@@ -398,15 +398,15 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
     /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
     if (fsync(fileno(dm->pipe)) != 0)
     {
-	*errstr = xasprintf("%s%c%s: %s", maildir_data->maildir, PATH_SEP,
-		maildir_data->filename, strerror(errno));
+	*errstr = xasprintf(_("cannot sync %s%c%s: %s"), maildir_data->maildir, 
+		PATH_SEP, maildir_data->filename, strerror(errno));
 	return DELIVERY_EIO;
     }
 #endif /* ! W32_NATIVE */
     if (fclose(dm->pipe) != 0)
     {
-	*errstr = xasprintf("%s%c%s: %s", maildir_data->maildir, PATH_SEP,
-		maildir_data->filename, strerror(errno));
+	*errstr = xasprintf(_("cannot close %s%c%s: %s"), maildir_data->maildir, 
+		PATH_SEP, maildir_data->filename, strerror(errno));
 	return DELIVERY_EIO;
     }
     newfilename = xstrdup(maildir_data->filename);
@@ -540,7 +540,8 @@ int delivery_method_mbox_close(delivery_method_t *dm, char **errstr)
     /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
     if (fsync(fileno(dm->pipe)) != 0)
     {
-	*errstr = xasprintf("%s: %s", (char *)(dm->data), strerror(errno));
+	*errstr = xasprintf(_("cannot sync %s: %s"), (char *)(dm->data), 
+		strerror(errno));
 	return DELIVERY_EIO;
     }
 #endif /* ! W32_NATIVE */
@@ -596,7 +597,8 @@ int delivery_method_mbox_deinit(delivery_method_t *dm, char **errstr)
     /* unlocking is done automatically with fclose() */
     if (fclose(dm->pipe) != 0)
     {
-	*errstr = xasprintf("%s: %s", (char *)(dm->data), strerror(errno));
+	*errstr = xasprintf(_("cannot close %s: %s"), (char *)(dm->data),
+		strerror(errno));
 	return DELIVERY_EIO;
     }
     return DELIVERY_EOK;
