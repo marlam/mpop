@@ -1,4 +1,4 @@
-Version 1.0.1 (not yet released):
+Version 1.0.1:
 - Changed the default UIDLS file from "~/.mpop_uidls" to
   "~/.mpop_uidls/%U_at_%H".
 - Gnulib update. The modules nanosleep and gettimeofday still differ from the

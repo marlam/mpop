@@ -12,8 +12,6 @@ Version 1.0.1:
     configuration file:
     defaults uidls_file ~/.mpop_uidls
 
-  !!! IMPORTANT !!!
-
 Version 1.0.0:
 - Added the option --all-accounts (-a) to query all accounts in the 
   configuration file. Changed the short option for --auth-only from -a to -A.
