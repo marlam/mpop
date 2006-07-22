@@ -2262,7 +2262,11 @@ int main(int argc, char *argv[])
 	/* create directories needed for uidls_file */
 	if (retrmail && !pretend && make_needed_dirs(account->uidls_file) != 0)
 	{
-	    print_error("%s: %s", account->uidls_file, strerror(errno));
+	    print_error(_("cannot create directories for %s: %s"), 
+		    account->uidls_file, 
+		    errno == ENOTDIR 
+		    ? _("a component already exists but is not a directory")
+		    : strerror(errno));
 	    error_code = EX_IOERR;
 	    goto exit;
 	}
