@@ -1,4 +1,5 @@
 Version 1.0.1 (not yet released):
+- Update to gettext-0.15.
 - Improve error message if directories for the UIDLS files cannot be created.
 - Allow to use special files like /dev/null to be used as an MBOX file,
   by ignoring an fsync() failure if and only if (errno == EINVAL). Suggested by
