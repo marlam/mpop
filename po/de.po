@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 0.8.5\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2006-07-16 12:23+0200\n"
+"POT-Creation-Date: 2006-07-22 16:38+0200\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -293,32 +293,32 @@ msgstr "%s: kann %s nicht nach %s verschieben: %s"
 msgid "cannot change to %s: %s"
 msgstr "kann nicht in %s wechseln: %s"
 
-#: src/delivery.c:525 src/delivery.c:536 src/delivery.c:550
+#: src/delivery.c:525 src/delivery.c:536 src/delivery.c:556
 #, c-format
 msgid "%s: output error"
 msgstr "%s: Ausgabefehler"
 
-#: src/delivery.c:543
+#: src/delivery.c:548
 #, c-format
 msgid "cannot sync %s: %s"
 msgstr "kann %s nicht synchronisieren: %s"
 
-#: src/delivery.c:572
+#: src/delivery.c:578
 #, c-format
 msgid "cannot open %s: %s"
 msgstr "kann %s nicht öffnen: %s"
 
-#: src/delivery.c:580 src/uidls.c:178
+#: src/delivery.c:586 src/uidls.c:178
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "kann %s nicht sperren (habe es %d Sekunden versucht): %s"
 
-#: src/delivery.c:585 src/uidls.c:183
+#: src/delivery.c:591 src/uidls.c:183
 #, c-format
 msgid "cannot lock %s: %s"
 msgstr "kann %s nicht sperren: %s"
 
-#: src/delivery.c:600
+#: src/delivery.c:606
 #, c-format
 msgid "cannot close %s: %s"
 msgstr "kann %s nicht schließen: %s"
@@ -822,77 +822,86 @@ msgstr "kann nicht gleichzeitig --all-accounts und eine Accountliste benutzen"
 msgid "account %s from %s: %s"
 msgstr "Account %s aus %s: %s"
 
-#: src/mpop.c:2281
+#: src/mpop.c:2265
+#, c-format
+msgid "cannot create directories for %s: %s"
+msgstr "kann Verzeichnisse für %s nicht erzeugen: %s"
+
+#: src/mpop.c:2268
+msgid "a component already exists but is not a directory"
+msgstr "eine Komponente existiert bereits, ist aber kein Verzeichnis"
+
+#: src/mpop.c:2285
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "benutze Account %s aus %s\n"
 
-#: src/mpop.c:2291 src/mpop.c:2361 src/mpop.c:2370
+#: src/mpop.c:2295 src/mpop.c:2365 src/mpop.c:2374
 #, c-format
 msgid "off\n"
 msgstr "aus\n"
 
-#: src/mpop.c:2297
+#: src/mpop.c:2301
 #, c-format
 msgid "1 second\n"
 msgstr "1 Sekunde\n"
 
-#: src/mpop.c:2301
+#: src/mpop.c:2305
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d Sekunden\n"
 
-#: src/mpop.c:2306 src/mpop.c:2327 src/mpop.c:2334 src/mpop.c:2335
-#: src/mpop.c:2356 src/mpop.c:2357
+#: src/mpop.c:2310 src/mpop.c:2331 src/mpop.c:2338 src/mpop.c:2339
+#: src/mpop.c:2360 src/mpop.c:2361
 msgid "on"
 msgstr "an"
 
-#: src/mpop.c:2306 src/mpop.c:2327 src/mpop.c:2334 src/mpop.c:2335
-#: src/mpop.c:2356 src/mpop.c:2357
+#: src/mpop.c:2310 src/mpop.c:2331 src/mpop.c:2338 src/mpop.c:2339
+#: src/mpop.c:2360 src/mpop.c:2361
 msgid "off"
 msgstr "aus"
 
-#: src/mpop.c:2309
+#: src/mpop.c:2313
 #, c-format
 msgid "choose\n"
 msgstr "automatisch\n"
 
-#: src/mpop.c:2324 src/mpop.c:2325 src/mpop.c:2326 src/mpop.c:2329
-#: src/mpop.c:2331 src/mpop.c:2333 src/mpop.c:2377
+#: src/mpop.c:2328 src/mpop.c:2329 src/mpop.c:2330 src/mpop.c:2333
+#: src/mpop.c:2335 src/mpop.c:2337 src/mpop.c:2381
 msgid "(not set)"
 msgstr "(nicht gesetzt)"
 
-#: src/mpop.c:2396
+#: src/mpop.c:2400
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr ""
 "Unterstützung für Authentifizierungsmethode %s ist nicht einkompiliert worden"
 
-#: src/mpop.c:2408
+#: src/mpop.c:2412
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "kann TLS Programmbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2416
+#: src/mpop.c:2420
 msgid "support for TLS is not compiled in"
 msgstr "Unterstützung für TLS ist nicht einkompiliert worden"
 
-#: src/mpop.c:2424
+#: src/mpop.c:2428
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "kann Netzwerkprogrammbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2452 src/mpop.c:2490
+#: src/mpop.c:2456 src/mpop.c:2494
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "Nachricht des POP3 Servers: %s"
 
-#: src/mpop.c:2497
+#: src/mpop.c:2501
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "Fehler während des Nachrichtenabrufens (Account %s aus %s)"
 
-#: src/mpop.c:2503
+#: src/mpop.c:2507
 msgid "error during mail retrieval"
 msgstr "Fehler während des Nachrichtenabrufens"
 
