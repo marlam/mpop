@@ -29,3 +29,5 @@
 int nanosleep (const struct timespec *req, struct timespec *rem);
 
 #endif
+
+#endif /* _NANOSLEEP_H */
