@@ -86,7 +86,7 @@ extern int optind;
 /* Default file names. */
 #ifdef W32_NATIVE
 #define CONFFILE	"mpoprc.txt"
-#define UIDLSFILE	"mpop_uidls.txt"
+#define UIDLSFILE	"mpop_uidls/%U_at_%H.txt"
 #define NETRCFILE	"netrc.txt"
 #elif defined (DJGPP)
 #define CONFFILE	"_mpoprc"
@@ -94,7 +94,7 @@ extern int optind;
 #define NETRCFILE	"_netrc"
 #else /* UNIX */
 #define CONFFILE	".mpoprc"
-#define UIDLSFILE	".mpop_uidls"
+#define UIDLSFILE	".mpop_uidls/%U_at_%H"
 #define NETRCFILE	".netrc"
 #endif
 

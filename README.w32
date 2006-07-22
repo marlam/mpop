@@ -6,7 +6,7 @@ Differences between the UNIX and Windows versions
 =================================================
 
 - The default configuration file name is "mpoprc.txt", the default uidls file
-  is "mpop_uidls.txt", and the name of the .netrc file is "netrc.txt".
+  is "mpop_uidls/%U_at_%H.txt", and the name of the .netrc file is "netrc.txt".
   All these files are expected to be in %HOME%, if this environment variable
   is set. If it is unset, your local application data directory will be used 
   instead. The name of this directory depends on your user name and/or your 

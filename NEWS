@@ -1,13 +1,18 @@
 Version 1.0.1:
-- Added support for %U and %H expansion in UIDLS file names. This allows 
-  per-account UIDLS files (and thus concurrent polling of all accounts) with
-  just one line in the defaults section of the configuration file:
-  uidls_file ~/.mpop_uidls/%U_at_%H
-  The built-in default UIDLS file is still ~/.mpop_uidls, to keep compatibility
-  with version 1.0.0.
-- Automatically create directories needed to store the UIDLS file. For example,
-  with "mpop_uidls /var/uidls/%H/%U", the directories /var, /var/uidls, and
-  /var/uidls/<hostname> are created if they don't exist.
+- The default UIDLS file changed from "~/.mpop_uidls" to 
+  "~/.mpop_uidls/%U_at_%H".
+  %U and %H will be replaced with the user and host name of an account.
+  This means that every account uses its own UIDLS file now.
+
+  !!! IMPORTANT !!!
+
+  If you update from mpop-1.0.0, you *must* do one of the following:
+  - If your ~/.mpop_uidls file contains no UIDs, delete it.
+  - If you want to keep using it, add the folloing line to your mpop 
+    configuration file:
+    defaults uidls_file ~/.mpop_uidls
+
+  !!! IMPORTANT !!!
 
 Version 1.0.0:
 - Added the option --all-accounts (-a) to query all accounts in the 
