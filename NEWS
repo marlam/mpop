@@ -8,9 +8,9 @@ Version 1.0.1:
 
   If you update from mpop-1.0.0, you *must* do one of the following:
   - If your ~/.mpop_uidls file contains no UIDs, delete it.
-  - If you want to keep using it, add the folloing line to your mpop 
-    configuration file:
-    defaults uidls_file ~/.mpop_uidls
+  - If you want to keep using it, add the following line to the "defaults"
+    section of your configuration file:
+    uidls_file ~/.mpop_uidls
 
 Version 1.0.0:
 - Added the option --all-accounts (-a) to query all accounts in the 
