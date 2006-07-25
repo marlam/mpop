@@ -1,3 +1,8 @@
+Version 1.0.2 (not yet released):
+- Allow '+' and '/' in Return-Path mail addresses; do not replace them with '_'.
+  Fix documentation of which characters are allowed and which are replaced,
+  both in the code and in the user documentation for %F expansion.
+
 Version 1.0.1:
 - Changed the default UIDLS file from "~/.mpop_uidls" to
   "~/.mpop_uidls/%U_at_%H".

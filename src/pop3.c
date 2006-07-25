@@ -1224,10 +1224,10 @@ int pop3_pipe(pop3_session_t *session,
  *
  * Reads the next mail address from the given string and returns it in an
  * allocated buffer. If no mail address is found, NULL will be returned.
- * If a buffer is returned, the string in it will contain only characters that
- * are valid in a mail address: letters, digits, or any of "@-_.".
+ * If a buffer is returned, the string in it will only contain the following
+ * characters: letters a-z and A-Z, digits 0-9, and any of ".@_-+/".
+ * Note that this is only a subset of what the RFCs 2821 and 2822 allow!
  */
-
 char *pop3_get_addr(const char *s)
 {
     enum states { STATE_DEFAULT, STATE_DQUOTE, 
@@ -1449,7 +1449,8 @@ char *pop3_get_addr(const char *s)
 	    }
 	    /* sanitize characters */
 	    if (c_isalpha((unsigned char)*p) || c_isdigit((unsigned char)*p)
-		    || *p == '-' || *p == '_' || *p == '.' || *p == '@')
+		    || *p == '.' || *p == '@' || *p == '_' || *p == '-' 
+		    || *p == '+' || *p == '/')
 	    {
 		addr[addr_len - 1] = *p;
 	    }
@@ -1476,8 +1477,9 @@ char *pop3_get_addr(const char *s)
  * from address from the headers. Stop after writing the blank line that
  * separates header and body into 'f'. 'from_addr' will always be an allocated
  * buffer with a valid mail address or "MAILER-DAEMON" as a fallback. If an
- * envelope from address is found, it will only contain characters that are
- * allowed in a mail address: letters, digits, or any of "@-_.".
+ * envelope from address is found, it will only contain the following
+ * characters: letters a-z and A-Z, digits 0-9, and any of ".@_-+/".
+ * Note that this is only a subset of what the RFCs 2821 and 2822 allow!
  * Used error codes: POP3_EIO
  */
 
