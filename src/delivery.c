@@ -405,7 +405,7 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
 #endif /* ! W32_NATIVE */
     if (fclose(dm->pipe) != 0)
     {
-	*errstr = xasprintf(_("cannot close %s%c%s: %s"), maildir_data->maildir, 
+	*errstr = xasprintf(_("cannot close %s%c%s: %s"), maildir_data->maildir,
 		PATH_SEP, maildir_data->filename, strerror(errno));
 	return DELIVERY_EIO;
     }
