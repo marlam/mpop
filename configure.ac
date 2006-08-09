@@ -50,6 +50,7 @@ AC_CHECK_FUNCS(sigaction,,)
 
 dnl gnulib 
 gl_INIT
+LIBS="$LIBS $LIB_NANOSLEEP"
 
 
 dnl Gettext

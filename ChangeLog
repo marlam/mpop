@@ -1,4 +1,7 @@
 Version 1.0.2 (not yet released):
+- Link with LIB_NANOSLEEP as determined by the gnulib nanosleep module. This
+  fixes build problems on Solaris. Reported by Daniel Rechsteiner for msmtp. 
+  Thanks!
 - Allow '+' and '/' in Return-Path mail addresses; do not replace them with '_'.
   Fix documentation of which characters are allowed and which are replaced,
   both in the code and in the user documentation for %F expansion.
