@@ -2002,7 +2002,7 @@ int main(int argc, char *argv[])
 	printf(_("%s version %s\n"), PACKAGE_NAME, VERSION);
 	/* TLS/SSL support */
 	printf(_("TLS/SSL library: %s\n"),
-#ifdef HAVE_GNUTLS
+#ifdef HAVE_LIBGNUTLS
 		"GnuTLS"
 #elif defined (HAVE_OPENSSL)
 		"OpenSSL"
@@ -2013,11 +2013,11 @@ int main(int argc, char *argv[])
 	/* Authentication support */
 	printf(_("Authentication library: %s\n"
 		    "Supported authentication methods:\n"),
-#ifdef USE_GSASL
+#ifdef HAVE_GSASL
 		_("GNU SASL; user and apop: built-in")
 #else
 		_("built-in")
-#endif /* USE_GSASL */
+#endif /* HAVE_GSASL */
 	      );
 	if (pop3_client_supports_authmech("USER"))
 	{
@@ -2058,7 +2058,7 @@ int main(int argc, char *argv[])
 	printf("\n");
 	/* Internationalized Domain Names support */
 	printf(_("IDN support: "));
-#ifdef USE_LIBIDN
+#ifdef HAVE_LIBIDN
 	printf(_("enabled"));
 #else
 	printf(_("disabled"));

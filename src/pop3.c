@@ -39,11 +39,11 @@ extern int errno;
 # include <signal.h>
 #endif
 
-#ifdef USE_LIBIDN
+#ifdef HAVE_LIBIDN
 # include <idna.h>
 #endif
 
-#ifdef USE_GSASL
+#ifdef HAVE_GSASL
 # include <gsasl.h>
 #else
 # include "base64.h"
@@ -1588,7 +1588,7 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, char **errstr)
     const char *month[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 	"Aug", "Sep", "Oct", "Nov", "Dec" };
     char rfc2822_timestamp[32];
-#ifdef USE_LIBIDN
+#ifdef HAVE_LIBIDN
     char *hostname_ascii;
 #endif
     int e;
@@ -1634,7 +1634,7 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, char **errstr)
 	    tz_offset_sign, tz_offset_hours, tz_offset_minutes);
 	    
     /* Write the Received header */
-#ifdef USE_LIBIDN
+#ifdef HAVE_LIBIDN
     if (idna_to_ascii_lz(session->server_hostname, &hostname_ascii, 0) 
 	    != IDNA_SUCCESS)
     {
@@ -2247,7 +2247,7 @@ int pop3_auth_apop(pop3_session_t *session,
  * Used error codes: POP3_EIO, POP3_EINVAL, POP3_EPROTO, POP3_EAUTHFAIL
  */
 
-#ifndef USE_GSASL
+#ifndef HAVE_GSASL
 int pop3_auth_plain(pop3_session_t *session,
 	const char *user, const char *password, 
 	char **errmsg, char **errstr)
@@ -2285,7 +2285,7 @@ int pop3_auth_plain(pop3_session_t *session,
 
     return POP3_EOK;
 }
-#endif /* !USE_GSASL */
+#endif /* !HAVE_GSASL */
 
 
 /*
@@ -2296,7 +2296,7 @@ int pop3_auth_plain(pop3_session_t *session,
  * Used error codes: POP3_EIO, POP3_EINVAL, POP3_EPROTO, POP3_EAUTHFAIL
  */
 
-#ifndef USE_GSASL
+#ifndef HAVE_GSASL
 int pop3_auth_login(pop3_session_t *session,
 	const char *user, const char *password, 
 	char **errmsg, char **errstr)
@@ -2364,7 +2364,7 @@ int pop3_auth_login(pop3_session_t *session,
 
     return POP3_EOK;
 }
-#endif /* !USE_GSASL */
+#endif /* !HAVE_GSASL */
 
 
 /*
@@ -2376,7 +2376,7 @@ int pop3_auth_login(pop3_session_t *session,
  * POP3_ELIBFAILED
  */
 
-#ifndef USE_GSASL
+#ifndef HAVE_GSASL
 int pop3_auth_cram_md5(pop3_session_t *session,
 	const char *user, const char *password, 
 	char **errmsg, char **errstr)
@@ -2457,7 +2457,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
 
     return POP3_EOK;
 }
-#endif /* !USE_GSASL */
+#endif /* !HAVE_GSASL */
 
 
 /*
@@ -2470,7 +2470,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EAUTHFAIL, POP3_EINVAL
  */
 
-#ifndef USE_GSASL
+#ifndef HAVE_GSASL
 int pop3_auth_external(pop3_session_t *session, const char *user, 
 	char **errmsg, char **errstr)
 {
@@ -2516,7 +2516,7 @@ int pop3_auth_external(pop3_session_t *session, const char *user,
 
     return POP3_EOK;
 }
-#endif /* !USE_GSASL */
+#endif /* !HAVE_GSASL */
 
 
 /*
@@ -2556,7 +2556,7 @@ int pop3_server_supports_authmech(pop3_session_t *session, const char *mech)
 
 int pop3_client_supports_authmech(const char *mech)
 {
-#ifdef USE_GSASL
+#ifdef HAVE_GSASL
 
     int supported = 0;
     Gsasl *ctx;
@@ -2576,7 +2576,7 @@ int pop3_client_supports_authmech(const char *mech)
     }
     return supported;
     
-#else /* not USE_GSASL */
+#else /* not HAVE_GSASL */
     
     return (strcmp(mech, "USER") == 0
 	    || strcmp(mech, "APOP") == 0
@@ -2585,7 +2585,7 @@ int pop3_client_supports_authmech(const char *mech)
 	    || strcmp(mech, "EXTERNAL") == 0
 	    || strcmp(mech, "LOGIN") == 0);
     
-#endif /* not USE_GSASL */
+#endif /* not HAVE_GSASL */
 }
 
 
@@ -2600,7 +2600,7 @@ int pop3_auth(pop3_session_t *session,
 	const char *user, 
 	const char *password, 
 	const char *hostname,
-#ifdef USE_GSASL
+#ifdef HAVE_GSASL
 	const char *ntlmdomain,
 #else
 	const char *ntlmdomain UNUSED,
@@ -2609,7 +2609,7 @@ int pop3_auth(pop3_session_t *session,
 	char **errmsg,
 	char **errstr)
 {
-#ifdef USE_GSASL
+#ifdef HAVE_GSASL
     int e = POP3_EOK;
     Gsasl *ctx;
     Gsasl_session *sctx;
@@ -2920,7 +2920,7 @@ int pop3_auth(pop3_session_t *session,
     }
     return POP3_EOK;
 
-#else /* not USE_GSASL */
+#else /* not HAVE_GSASL */
 
     char *callback_password = NULL;
     int e;
@@ -3039,7 +3039,7 @@ int pop3_auth(pop3_session_t *session,
     free(callback_password);
     return e;
 
-#endif /* not USE_GSASL */
+#endif /* not HAVE_GSASL */
 }
 
 
