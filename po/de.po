@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 0.8.5\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2006-07-22 16:38+0200\n"
+"POT-Creation-Date: 2006-08-09 17:53+0200\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -253,7 +253,7 @@ msgstr "%s lieferte Rückgabewert %d (%s)"
 msgid "%s returned exit status %d"
 msgstr "%s lieferte Rückgabewert %d"
 
-#: src/delivery.c:360 src/delivery.c:519 src/pop3.c:1599 src/tls.c:111
+#: src/delivery.c:360 src/delivery.c:519 src/pop3.c:1601 src/tls.c:111
 #, c-format
 msgid "cannot get system time: %s"
 msgstr "kann Systemzeit nicht feststellen: %s"
@@ -544,7 +544,7 @@ msgstr "empfange Nachricht %ld von %ld (%s): "
 
 #: src/mpop.c:1040 src/mpop.c:1239 src/mpop.c:1286 src/net.c:85 src/net.c:392
 #: src/net.c:477 src/net.c:570 src/net.c:678 src/net.c:798 src/pop3.c:1074
-#: src/pop3.c:1755 src/tls.c:1144 src/tls.c:1203 src/tls.c:1266 src/tls.c:1305
+#: src/pop3.c:1757 src/tls.c:1144 src/tls.c:1203 src/tls.c:1266 src/tls.c:1305
 #: src/tls.c:1386 src/tls.c:1432
 msgid "operation aborted"
 msgstr "Operation abgebrochen"
@@ -1078,8 +1078,8 @@ msgstr "kann keine initiale OK Nachricht des Servers empfangen"
 msgid "invalid reply to command %s"
 msgstr "ungültige Antwort auf Kommando %s"
 
-#: src/pop3.c:676 src/pop3.c:723 src/pop3.c:841 src/pop3.c:946 src/pop3.c:2319
-#: src/pop3.c:2405 src/pop3.c:2491 src/pop3.c:3065 src/pop3.c:3093
+#: src/pop3.c:676 src/pop3.c:723 src/pop3.c:841 src/pop3.c:946 src/pop3.c:2321
+#: src/pop3.c:2407 src/pop3.c:2493 src/pop3.c:3067 src/pop3.c:3095
 #, c-format
 msgid "command %s failed"
 msgstr "Kommando %s fehlgeschlagen"
@@ -1094,91 +1094,91 @@ msgstr ""
 msgid "cannot write mail: output error"
 msgstr "kann Nachricht nicht schreiben: Ausgabefehler"
 
-#: src/pop3.c:1538
+#: src/pop3.c:1540
 msgid "cannot write to temporary file: output error"
 msgstr "kann nicht in temporäre Datei schreiben: Ausgabefehler"
 
-#: src/pop3.c:1671
+#: src/pop3.c:1673
 #, c-format
 msgid "cannot add Received header: %s"
 msgstr "kann Received Kopfzeile nicht schreiben: %s"
 
-#: src/pop3.c:1772
+#: src/pop3.c:1774
 #, c-format
 msgid "command TOP %ld 0 failed"
 msgstr "Kommando TOP %ld 0 fehlgeschlagen"
 
-#: src/pop3.c:1777
+#: src/pop3.c:1779
 #, c-format
 msgid "command RETR %ld failed"
 msgstr "Kommando RETR %ld fehlgeschlagen"
 
-#: src/pop3.c:1788
+#: src/pop3.c:1790
 #, c-format
 msgid "cannot create temporary file: %s"
 msgstr "kann keine temporäre Datei erzeugen: %s"
 
-#: src/pop3.c:1800
+#: src/pop3.c:1802
 #, c-format
 msgid "cannot rewind temporary file: %s"
 msgstr "kann temporäre Datei nicht zurückspulen: %s"
 
-#: src/pop3.c:2060
+#: src/pop3.c:2062
 #, c-format
 msgid "command DELE %ld failed"
 msgstr "Kommando DELE %ld fehlgeschlagen"
 
-#: src/pop3.c:2130 src/pop3.c:2142 src/pop3.c:2165 src/pop3.c:2180
-#: src/pop3.c:2229 src/pop3.c:2280 src/pop3.c:2339 src/pop3.c:2359
-#: src/pop3.c:2452 src/pop3.c:2511 src/pop3.c:2845 src/pop3.c:2880
-#: src/pop3.c:2914
+#: src/pop3.c:2132 src/pop3.c:2144 src/pop3.c:2167 src/pop3.c:2182
+#: src/pop3.c:2231 src/pop3.c:2282 src/pop3.c:2341 src/pop3.c:2361
+#: src/pop3.c:2454 src/pop3.c:2513 src/pop3.c:2847 src/pop3.c:2882
+#: src/pop3.c:2916
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
 
-#: src/pop3.c:2415
+#: src/pop3.c:2417
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr "Authentifizierungsmethode CRAM-MD5: Server sendete ungültige Challenge"
 
-#: src/pop3.c:2625 src/pop3.c:2931
+#: src/pop3.c:2627 src/pop3.c:2933
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "POP3 Server unterstützt Authentifizierungsmethode %s nicht"
 
-#: src/pop3.c:2631 src/pop3.c:2757 src/pop3.c:2800
+#: src/pop3.c:2633 src/pop3.c:2759 src/pop3.c:2802
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2638
+#: src/pop3.c:2640
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: Authentifizierungsmethode %s wird nicht unterstützt"
 
-#: src/pop3.c:2697 src/pop3.c:2970
+#: src/pop3.c:2699 src/pop3.c:2972
 msgid "cannot use a secure authentication method"
 msgstr "kann keine sichere Authentifizierungsmethode benutzen"
 
-#: src/pop3.c:2703 src/pop3.c:2976
+#: src/pop3.c:2705 src/pop3.c:2978
 msgid "cannot find a usable authentication method"
 msgstr "kann keine benutzbare Authentifizierungsmethode finden"
 
-#: src/pop3.c:2717 src/pop3.c:2989
+#: src/pop3.c:2719 src/pop3.c:2991
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "Authentifizierungsmethode %s braucht einen Benutzernamen"
 
-#: src/pop3.c:2730 src/pop3.c:2999
+#: src/pop3.c:2732 src/pop3.c:3001
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "Authentifizierungsmethode %s braucht ein Passwort"
 
-#: src/pop3.c:2893
+#: src/pop3.c:2895
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "Authentifizierung fehlgeschlagen: %s (Methode %s)"
 
-#: src/pop3.c:3033
+#: src/pop3.c:3035
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "Authentifizierungsmethode %s wird nicht unterstützt"
