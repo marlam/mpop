@@ -78,9 +78,9 @@ extern int optind;
 #include "netrc.h"
 #include "delivery.h"
 #include "pop3.h"
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 #include "tls.h"
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 #include "uidls.h"
 
 /* Default file names. */
@@ -141,7 +141,7 @@ int exitcode_net(int net_error_code)
     }
 }
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 int exitcode_tls(int tls_error_code)
 {
     switch (tls_error_code)
@@ -165,7 +165,7 @@ int exitcode_tls(int tls_error_code)
 	    return EX_SOFTWARE;
     }
 }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 int exitcode_pop3(int pop3_error_code)
 {
@@ -285,7 +285,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
  * Prints information about a TLS certificate.
  */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 /* Convert the given time into a string. */
 void mpop_time_to_string(time_t *t, char *buf, size_t bufsize)
 {
@@ -405,9 +405,9 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 {
     pop3_session_t *session;
     char server_greeting[POP3_BUFSIZE - 4];
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     tls_cert_info_t *tci = NULL;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     const char *server_canonical_name;
     const char *server_address;
     int auth_successful;
@@ -429,7 +429,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     }
 
     /* prepare tls */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (acc->tls)
     {
 	tci = tls_cert_info_new();
@@ -441,10 +441,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 	    goto error_exit;
 	}
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     /* start tls for pop3s servers */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (acc->tls && acc->tls_nostarttls)
     {
 	if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci, 
@@ -455,7 +455,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 	    goto error_exit;
 	}
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     /* get greeting */
     if ((e = pop3_get_greeting(session, server_greeting, errmsg, errstr))
@@ -475,7 +475,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     }
     
     /* start tls for starttls servers */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (acc->tls && !acc->tls_nostarttls)
     {
 	if ((session->cap.flags & POP3_CAP_CAPA) 
@@ -509,7 +509,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 	    goto error_exit;
 	}
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     /* authenticate */
     auth_successful = 0;
@@ -571,12 +571,12 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
 	printf("    %s\n", mpop_sanitize_string(server_greeting));
     }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (acc->tls)
     {
 	mpop_print_tls_cert_info(tci);
     }
-#endif /* not HAVE_SSL */
+#endif /* not HAVE_TLS */
     printf(_("POP3 capabilities:\n"));
     if (session->cap.flags & POP3_CAP_CAPA)
     {
@@ -643,12 +643,12 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 	    printf("\n");
 	}
     }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if ((acc->tls && !acc->tls_nostarttls) 
 	    || (session->cap.flags & POP3_CAP_STLS))
 #else
     if (session->cap.flags & POP3_CAP_STLS)
-#endif /* not HAVE_SSL */
+#endif /* not HAVE_TLS */
     {
 	printf("    STLS:\n        %s\n", 
 		_("Support for TLS encryption via the STLS command"));
@@ -704,11 +704,11 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 		_("Server error messages in square brackets "
 		    "have a special meaning"));
     }
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if ((session->cap.flags & POP3_CAP_STLS) && !acc->tls)
 #else
     if (session->cap.flags & POP3_CAP_STLS)
-#endif /* not HAVE_SSL */
+#endif /* not HAVE_TLS */
     {
 	printf(_("This server might advertise more or other capabilities\n"
     		    "    when TLS is active.\n"));
@@ -730,12 +730,12 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     e = EX_OK;
 
 error_exit:
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (tci)
     {
 	tls_cert_info_free(tci);
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     return e;
 }
 
@@ -855,9 +855,9 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	char **errmsg, char **errstr)
 {
     pop3_session_t *session;
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     tls_cert_info_t *tci = NULL;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     int e;
     long i, j;
     /* for identifying new messages: */
@@ -888,7 +888,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
 
     /* prepare tls */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (acc->tls)
     {
 	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
@@ -898,10 +898,10 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    return exitcode_tls(e);
 	}
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     /* start tls for pop3s servers */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (acc->tls && acc->tls_nostarttls)
     {
 	if (debug)
@@ -924,7 +924,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    tls_cert_info_free(tci);
 	}
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     /* get greeting */
     if ((e = pop3_get_greeting(session, NULL, errmsg, errstr)) != POP3_EOK)
@@ -941,7 +941,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
     
     /* start tls for starttls servers */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (acc->tls && !acc->tls_nostarttls)
     {
 	if ((session->cap.flags & POP3_CAP_CAPA) 
@@ -984,7 +984,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    return exitcode_pop3(e);
 	}
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
     /* authenticate */
     if ((e = pop3_auth(session, acc->auth_mech, acc->username, 
@@ -1584,9 +1584,9 @@ int main(int argc, char *argv[])
     struct servent *se;	    
     int c;
     int net_lib_initialized = 0;
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     int tls_lib_initialized = 0;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     /* option handling */
     struct option options[] =
     {
@@ -2404,7 +2404,7 @@ int main(int argc, char *argv[])
 	}
 	if (account->tls)
 	{
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	    if (!tls_lib_initialized)
 	    {
 		if (tls_lib_init(&errstr) != TLS_EOK)
@@ -2416,11 +2416,11 @@ int main(int argc, char *argv[])
 		}
 		tls_lib_initialized = 1;
 	    }
-#else /* not HAVE_SSL */
+#else /* not HAVE_TLS */
 	    print_error(_("support for TLS is not compiled in"));
 	    error_code = EX_UNAVAILABLE;
 	    goto exit;
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	}
     }
     if (net_lib_init(&errstr) != NET_EOK)
@@ -2526,12 +2526,12 @@ exit:
     free(errstr);
     free(errmsg);
     free(homedir);
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (tls_lib_initialized)
     {
 	tls_lib_deinit();
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     if (net_lib_initialized)
     {
 	net_lib_deinit();

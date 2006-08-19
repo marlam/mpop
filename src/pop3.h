@@ -30,9 +30,9 @@
 #endif
 
 #include "net.h"
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 # include "tls.h"
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 
 /* POP3 errors */
@@ -176,9 +176,9 @@ typedef struct
     int pipelining;		/* whether to use pipelining */
     int count_newline_as_crlf;	/* does the server count newline as 2 chars? */
     int fd;			/* the socket */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     tls_t tls;			/* TLS descriptor */
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     char buffer[POP3_BUFSIZE];	/* input/output buffer */
     net_readbuf_t readbuf;	/* input buffering for 'fd', for net_gets() */
     FILE *debug;		/* stream for debugging output, or NULL */
@@ -280,10 +280,10 @@ int pop3_capa(pop3_session_t *session, char **errstr);
  * Prepare TLS encryption. See tls_init() for a description of the arguments.
  * Used error codes: TLS_ELIBFAILED, TLS_EFILE
  */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 int pop3_tls_init(pop3_session_t *session, const char *tls_key_file, 
 	const char *tls_ca_file, const char *tls_trust_file, char **errstr);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 /*
  * pop3_tls_stls()
@@ -297,9 +297,9 @@ int pop3_tls_init(pop3_session_t *session, const char *tls_key_file,
  * text authentication mechanisms).
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 /*
  * pop3_tls()
@@ -309,10 +309,10 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr);
  * See tls_start() for a description of the arguments.
  * Used error codes: TLS_ELIBFAILED, TLS_ECERT, TLS_EHANDSHAKE
  */
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 int pop3_tls(pop3_session_t *session, const char *hostname, int tls_nocertcheck,
 	tls_cert_info_t *tci, char **errstr);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 /*
  * pop3_client_supports_authmech()

@@ -60,9 +60,9 @@ extern int errno;
 #include "net.h"
 #include "tools.h"
 #include "stream.h"
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 # include "tls.h"
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 #include "pop3.h"
 
 
@@ -127,9 +127,9 @@ pop3_session_t *pop3_session_new(int force_pipelining,
     session->server_canonical_name = NULL;
     session->server_address = NULL;
     net_readbuf_init(&(session->readbuf));
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     tls_clear(&session->tls);
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     session->cap.flags = 0;
     session->pipelining = force_pipelining;
     /* every POP3 server supports this: */
@@ -230,7 +230,7 @@ int pop3_gets(pop3_session_t *session, size_t *len, char **errstr)
 {
     int e = 0;
     
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (tls_is_active(&session->tls))
     {
 	e = (tls_gets(&session->tls, session->buffer, POP3_BUFSIZE, len, errstr)
@@ -238,12 +238,12 @@ int pop3_gets(pop3_session_t *session, size_t *len, char **errstr)
     }
     else
     {
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	e = (net_gets(session->fd, &(session->readbuf), 
 		    session->buffer, POP3_BUFSIZE, len, errstr) != NET_EOK);
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     if (e)
     {
 	*len = 0;
@@ -375,18 +375,18 @@ int pop3_send_cmd(pop3_session_t *session, char **errstr,
     line[count++] = '\r';
     line[count++] = '\n';
     line[count] = '\0';
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (tls_is_active(&session->tls))
     {
 	e = (tls_puts(&session->tls, line, (size_t)count, errstr) != TLS_EOK);
     }
     else
     {
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	e = (net_puts(session->fd, line, (size_t)count, errstr) != NET_EOK);
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     if (e)
     {
 	return POP3_EIO;
@@ -641,14 +641,14 @@ int pop3_capa(pop3_session_t *session, char **errstr)
  * see pop3.h
  */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 int pop3_tls_init(pop3_session_t *session, const char *tls_key_file, 
 	const char *tls_ca_file, const char *tls_trust_file, char **errstr)
 {
     return tls_init(&session->tls, tls_key_file, tls_ca_file, tls_trust_file, 
 	    errstr);
 }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 
 /*
@@ -657,7 +657,7 @@ int pop3_tls_init(pop3_session_t *session, const char *tls_key_file,
  * see pop3.h
  */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr)
 {
     int e;
@@ -678,7 +678,7 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr)
     }
     return POP3_EOK;
 }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 
 /*
@@ -687,14 +687,14 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr)
  * see pop3.h
  */
 
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 int pop3_tls(pop3_session_t *session, const char *hostname, int tls_nocertcheck,
 	tls_cert_info_t *tci, char **errstr)
 {
     return tls_start(&session->tls, session->fd, hostname, tls_nocertcheck, tci,
 	    errstr);
 }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 
 
 /*
@@ -2669,7 +2669,7 @@ int pop3_auth(pop3_session_t *session,
 	{
 	    auth_mech = "NTLM";
 	}
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	else if (tls_is_active(&session->tls))
 	{
 	    if (gsasl_client_support_p(ctx, "PLAIN") 
@@ -2687,24 +2687,24 @@ int pop3_auth(pop3_session_t *session,
 		auth_mech = "LOGIN";
 	    }
 	}
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     }
     if (strcmp(auth_mech, "") == 0)
     {
 	gsasl_done(ctx);
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	if (!tls_is_active(&session->tls))
 	{
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	    *errstr = xasprintf(_("cannot use a secure authentication method"));
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	}
 	else
 	{
 	    *errstr = xasprintf(
 		    _("cannot find a usable authentication method"));
 	}
-#endif /* not HAVE_SSL */
+#endif /* not HAVE_TLS */
 	return POP3_EUNAVAIL;
     }
 
@@ -2945,7 +2945,7 @@ int pop3_auth(pop3_session_t *session,
 	{
 	    auth_mech = "APOP";
 	}
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	else if (tls_is_active(&session->tls))
 	{
 	    if (session->cap.flags & POP3_CAP_AUTH_PLAIN)
@@ -2961,23 +2961,23 @@ int pop3_auth(pop3_session_t *session,
 		auth_mech = "LOGIN";
 	    }
 	}
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     }
     if (strcmp(auth_mech, "") == 0)
     {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	if (!tls_is_active(&session->tls))
 	{
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
 	    *errstr = xasprintf(_("cannot use a secure authentication method"));
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
 	}
 	else
 	{
 	    *errstr = xasprintf(
 		    _("cannot find a usable authentication method"));
 	}
-#endif /* not HAVE_SSL */
+#endif /* not HAVE_TLS */
 	return POP3_EUNAVAIL;
     }
     
@@ -3107,11 +3107,11 @@ int pop3_quit(pop3_session_t *session, char **errmsg, char **errstr)
 
 void pop3_close(pop3_session_t *session)
 {
-#ifdef HAVE_SSL
+#ifdef HAVE_TLS
     if (tls_is_active(&session->tls))
     {
 	tls_close(&session->tls);
     }
-#endif /* HAVE_SSL */
+#endif /* HAVE_TLS */
     net_close_socket(session->fd);
 }
