@@ -1,4 +1,6 @@
 Version 1.0.2 (not yet released):
+- Gnulib update. The modules nanosleep and gettimeofday still differ from the
+  official gnulib source.
 - Disable SSLv2 because it has known flaws. This only affects the OpenSSL
   version because GNU TLS does not implement SSLv2.
 - Add new command tls_force_sslv3 and option --tls-force-sslv3 to force
