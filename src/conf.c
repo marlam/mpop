@@ -76,11 +76,12 @@ account_t *account_new(const char *conffile, const char *id)
     a->password = NULL;
     a->ntlmdomain = NULL;
     a->tls = 0;
+    a->tls_nostarttls = 0;
     a->tls_key_file = NULL;
     a->tls_cert_file = NULL;
     a->tls_trust_file = NULL;
-    a->tls_nostarttls = 0;
     a->tls_nocertcheck = 0;
+    a->tls_force_sslv3 = 0;
     return a;
 }
 
@@ -119,13 +120,14 @@ account_t *account_copy(account_t *acc)
 	a->password = acc->password ? xstrdup(acc->password) : NULL;
 	a->ntlmdomain = acc->ntlmdomain ? xstrdup(acc->ntlmdomain) : NULL;
 	a->tls = acc->tls;
+	a->tls_nostarttls = acc->tls_nostarttls;
 	a->tls_key_file = acc->tls_key_file ? xstrdup(acc->tls_key_file) : NULL;
 	a->tls_cert_file = 
 	    acc->tls_cert_file ? xstrdup(acc->tls_cert_file) : NULL;
 	a->tls_trust_file = 
 	    acc->tls_trust_file ? xstrdup(acc->tls_trust_file) : NULL;
-	a->tls_nostarttls = acc->tls_nostarttls;
 	a->tls_nocertcheck = acc->tls_nocertcheck;
+	a->tls_force_sslv3 = acc->tls_force_sslv3;
     }
     return a;
 }
@@ -384,6 +386,10 @@ void override_account(account_t *acc1, account_t *acc2)
     {
 	acc1->tls = acc2->tls;
     }
+    if (acc2->mask & ACC_TLS_NOSTARTTLS)
+    {
+	acc1->tls_nostarttls = acc2->tls_nostarttls;
+    }
     if (acc2->mask & ACC_TLS_KEY_FILE)
     {
 	free(acc1->tls_key_file);
@@ -402,13 +408,13 @@ void override_account(account_t *acc1, account_t *acc2)
 	acc1->tls_trust_file = 
 	    acc2->tls_trust_file ? xstrdup(acc2->tls_trust_file) : NULL;
     }
-    if (acc2->mask & ACC_TLS_NOSTARTTLS)
-    {
-	acc1->tls_nostarttls = acc2->tls_nostarttls;
-    }
     if (acc2->mask & ACC_TLS_NOCERTCHECK)
     {
 	acc1->tls_nocertcheck = acc2->tls_nocertcheck;
+    }
+    if (acc2->mask & ACC_TLS_FORCE_SSLV3)
+    {
+	acc1->tls_force_sslv3 = acc2->tls_force_sslv3;
     }
     acc1->mask |= acc2->mask;
 }
@@ -982,6 +988,26 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
 		break;
 	    }
 	}
+	else if (strcmp(cmd, "tls_starttls") == 0)
+	{
+	    acc->mask |= ACC_TLS_NOSTARTTLS;
+	    if (*arg == '\0' || is_on(arg))
+	    {	
+		acc->tls_nostarttls = 0;
+	    }
+	    else if (is_off(arg))
+	    {
+		acc->tls_nostarttls = 1;
+	    }
+	    else
+	    {
+		*errstr = xasprintf(
+	    		_("line %d: invalid argument %s for command %s"),
+    			line, arg, cmd);
+		e = CONF_ESYNTAX;
+		break;
+	    }
+	}
 	else if (strcmp(cmd, "tls_key_file") == 0)
 	{
 	    acc->mask |= ACC_TLS_KEY_FILE;
@@ -1020,16 +1046,16 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
 		break;
 	    }
 	}
-	else if (strcmp(cmd, "tls_starttls") == 0)
+	else if (strcmp(cmd, "tls_force_sslv3") == 0)
 	{
-	    acc->mask |= ACC_TLS_NOSTARTTLS;
+	    acc->mask |= ACC_TLS_FORCE_SSLV3;
 	    if (*arg == '\0' || is_on(arg))
 	    {	
-		acc->tls_nostarttls = 0;
+		acc->tls_force_sslv3 = 1;
 	    }
 	    else if (is_off(arg))
 	    {
-		acc->tls_nostarttls = 1;
+		acc->tls_force_sslv3 = 0;
 	    }
 	    else
 	    {

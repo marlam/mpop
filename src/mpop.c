@@ -434,7 +434,8 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
 	tci = tls_cert_info_new();
 	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
-			acc->tls_trust_file, errstr)) != TLS_EOK)
+			acc->tls_trust_file, acc->tls_force_sslv3, errstr)) 
+		!= TLS_EOK)
 	{
 	    pop3_session_free(session);
 	    e = exitcode_tls(e);
@@ -892,7 +893,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     if (acc->tls)
     {
 	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
-			acc->tls_trust_file, errstr)) != TLS_EOK)
+			acc->tls_trust_file, acc->tls_force_sslv3, errstr)) 
+		!= TLS_EOK)
 	{
 	    pop3_session_free(session);
 	    return exitcode_tls(e);
@@ -1527,16 +1529,17 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_AUTH		6
 #define LONGONLYOPT_USER		7
 #define LONGONLYOPT_TLS			8
-#define LONGONLYOPT_TLS_TRUST_FILE	9
-#define LONGONLYOPT_TLS_KEY_FILE	10
-#define LONGONLYOPT_TLS_CERT_FILE	11
-#define LONGONLYOPT_TLS_CERTCHECK	12
-#define LONGONLYOPT_TLS_STARTTLS	13
-#define LONGONLYOPT_KILLSIZE		14
-#define LONGONLYOPT_SKIPSIZE		15
-#define LONGONLYOPT_FILTER		16
-#define LONGONLYOPT_DELIVERY		17
-#define LONGONLYOPT_UIDLS_FILE		18
+#define LONGONLYOPT_TLS_STARTTLS	9
+#define LONGONLYOPT_TLS_TRUST_FILE	10
+#define LONGONLYOPT_TLS_KEY_FILE	11
+#define LONGONLYOPT_TLS_CERT_FILE	12
+#define LONGONLYOPT_TLS_CERTCHECK	13
+#define LONGONLYOPT_TLS_FORCE_SSLV3	14
+#define LONGONLYOPT_KILLSIZE		15
+#define LONGONLYOPT_SKIPSIZE		16
+#define LONGONLYOPT_FILTER		17
+#define LONGONLYOPT_DELIVERY		18
+#define LONGONLYOPT_UIDLS_FILE		19
 
 int main(int argc, char *argv[])
 {
@@ -1614,11 +1617,12 @@ int main(int argc, char *argv[])
 	{ "auth",            optional_argument, 0, LONGONLYOPT_AUTH },
 	{ "user",            required_argument, 0, LONGONLYOPT_USER },
 	{ "tls",             optional_argument, 0, LONGONLYOPT_TLS },
+	{ "tls-starttls",    optional_argument, 0, LONGONLYOPT_TLS_STARTTLS },
 	{ "tls-trust-file",  required_argument, 0, LONGONLYOPT_TLS_TRUST_FILE },
 	{ "tls-key-file",    required_argument, 0, LONGONLYOPT_TLS_KEY_FILE },
 	{ "tls-cert-file",   required_argument, 0, LONGONLYOPT_TLS_CERT_FILE },
 	{ "tls-certcheck",   optional_argument, 0, LONGONLYOPT_TLS_CERTCHECK },
-	{ "tls-starttls",    optional_argument, 0, LONGONLYOPT_TLS_STARTTLS },
+	{ "tls-force-sslv3", optional_argument, 0, LONGONLYOPT_TLS_FORCE_SSLV3},
 	{ 0, 0, 0, 0 }
     };
     
@@ -1814,6 +1818,24 @@ int main(int argc, char *argv[])
 		cmdline_account->mask |= ACC_TLS;
 		break;
 
+	    case LONGONLYOPT_TLS_STARTTLS:
+	    	if (!optarg || is_on(optarg))
+    		{
+		    cmdline_account->tls_nostarttls = 0;
+		}
+		else if (is_off(optarg))
+		{
+		    cmdline_account->tls_nostarttls = 1;
+		}
+		else
+		{
+		    print_error(_("invalid argument %s for %s"), 
+			    optarg, "--tls-starttls");
+		    error_code = 1;
+		}
+		cmdline_account->mask |= ACC_TLS_NOSTARTTLS;
+		break;
+
 	    case LONGONLYOPT_TLS_TRUST_FILE:
 		free(cmdline_account->tls_trust_file);
 		cmdline_account->tls_trust_file = (*optarg == '\0')
@@ -1853,22 +1875,22 @@ int main(int argc, char *argv[])
 		cmdline_account->mask |= ACC_TLS_NOCERTCHECK;
 		break;
 
-	    case LONGONLYOPT_TLS_STARTTLS:
+	    case LONGONLYOPT_TLS_FORCE_SSLV3:
 	    	if (!optarg || is_on(optarg))
     		{
-		    cmdline_account->tls_nostarttls = 0;
+		    cmdline_account->tls_force_sslv3 = 1;
 		}
 		else if (is_off(optarg))
 		{
-		    cmdline_account->tls_nostarttls = 1;
+		    cmdline_account->tls_force_sslv3 = 0;
 		}
 		else
 		{
 		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--tls-starttls");
+			    optarg, "--tls-force-sslv3");
 		    error_code = 1;
 		}
-		cmdline_account->mask |= ACC_TLS_NOSTARTTLS;
+		cmdline_account->mask |= ACC_TLS_FORCE_SSLV3;
 		break;
 
 	    case 'n':
@@ -2094,55 +2116,58 @@ int main(int argc, char *argv[])
 		"  Print information about one or more POP3 servers.\n"
 	        "\nOPTIONS:\n\n"
 		"General options:\n"
-		"  --version                  Print version.\n"
-		"  --help                     Print help.\n"
-     		"  -P, --pretend              Print configuration info and "
+		"  --version                    Print version.\n"
+		"  --help                       Print help.\n"
+     		"  -P, --pretend                Print configuration info and "
 			"exit.\n"
-      		"  -d, --debug                Print debugging information.\n"
+      		"  -d, --debug                  Print debugging information.\n"
 		"Changing the mode of operation:\n"
-		"  -S, --serverinfo           Print information about the POP3 "
-			"server.\n"
+		"  -S, --serverinfo             Print information about the "
+			"POP3 server.\n"
 	        "Configuration options:\n"
-		"  -C, --file=filename        Set configuration file.\n"
-		"  --host=hostname            Set POP3 server, use only "
+		"  -C, --file=filename          Set configuration file.\n"
+		"  --host=hostname              Set POP3 server, use only "
 			"command line settings;\n"
-		"                             do not use any configuration "
+		"                               do not use any configuration "
 			"file data.\n"
-	        "  --port=number              Set port number.\n"
-	        "  --timeout=(off|seconds)    Set/unset network timeout in "
+	        "  --port=number                Set port number.\n"
+	        "  --timeout=(off|seconds)      Set/unset network timeout in "
 			"seconds.\n"
-		"  --pipelining=(on|off)      Enable/disable POP3 pipelining "
+		"  --pipelining=(on|off)        Enable/disable POP3 pipelining "
 			"for old servers.\n"
-		"  --auth[=(on|method)]       Choose the authentication "
+		"  --auth[=(on|method)]         Choose the authentication "
 			"method.\n"
-		"  --user=[username]          Set/unset user name for "
+		"  --user=[username]            Set/unset user name for "
 			"authentication.\n"
-	        "  --tls[=(on|off)]           Enable/disable TLS encryption.\n"
-		"  --tls-trust-file=[file]    Set/unset trust file for TLS.\n"
-	        "  --tls-key-file=[file]      Set/unset private key file for "
+	        "  --tls[=(on|off)]             Enable/disable TLS "
+			"encryption.\n"
+		"  --tls-starttls[=(on|off)]    Enable/disable STLS for TLS.\n"
+		"  --tls-trust-file=[file]      Set/unset trust file for TLS.\n"
+	        "  --tls-key-file=[file]        Set/unset private key file for "
 			"TLS.\n"
-		"  --tls-cert-file=[file]     Set/unset private cert file for "
-			"TLS.\n"
-	        "  --tls-certcheck[=(on|off)] Enable/disable server "
+		"  --tls-cert-file=[file]       Set/unset private cert file "
+			"for TLS.\n"
+	        "  --tls-certcheck[=(on|off)]   Enable/disable server "
 			"certificate checks for TLS.\n"
-		"  --tls-starttls[=(on|off)]  Enable/disable STLS for TLS.\n"
+		"  --tls-force-sslv3[=(on|off)] Enable/disable restriction to "
+			"SSLv3.\n"
 	        "Options specific to mail retrieval mode:\n"
-		"  -q, --quiet                Do not display progress "
+		"  -q, --quiet                  Do not display progress "
 			"information.\n"
-		"  -a, --all-accounts         Query all accounts in the "
+		"  -a, --all-accounts           Query all accounts in the "
 			"configuration file.\n"
-		"  -A, --auth-only            Authenticate only; do not "
+		"  -A, --auth-only              Authenticate only; do not "
 			"retrieve mail.\n"
-		"  -s, --status-only          Print account status only; do "
+		"  -s, --status-only            Print account status only; do "
 			"not retrieve mail.\n"
-		"  -n, --only-new[=(on|off)]  Process only new messages\n"
-	        "  -k, --keep[=(on|off)]      Do not delete mails from POP3 "
+		"  -n, --only-new[=(on|off)]    Process only new messages\n"
+	        "  -k, --keep[=(on|off)]        Do not delete mails from POP3 "
 			"servers.\n"
-		"  --killsize=(off|number)    Set/unset kill size.\n"
-		"  --skipsize=(off|number)    Set/unset skip size.\n"
-		"  --filter=[program]         Set/unset header filter.\n"
-		"  --delivery=method,arg      Set the mail delivery method.\n"
-		"  --uidls-file=filename      Set file to store UIDLs.\n"
+		"  --killsize=(off|number)      Set/unset kill size.\n"
+		"  --skipsize=(off|number)      Set/unset skip size.\n"
+		"  --filter=[program]           Set/unset header filter.\n"
+		"  --delivery=method,arg        Set the mail delivery method.\n"
+		"  --uidls-file=filename        Set file to store UIDLs.\n"
 		"\nReport bugs to <%s>.\n"),
 		prgname, prgname, prgname, prgname, PACKAGE_BUGREPORT);
     }
@@ -2320,23 +2345,25 @@ int main(int argc, char *argv[])
 		    "password        = %s\n"
 		    "ntlmdomain      = %s\n"
 		    "tls             = %s\n"
+		    "tls_starttls    = %s\n"
 		    "tls_trust_file  = %s\n"
 		    "tls_key_file    = %s\n"
 		    "tls_cert_file   = %s\n"
-		    "tls_starttls    = %s\n"
-		    "tls_certcheck   = %s\n",
+		    "tls_certcheck   = %s\n"
+		    "tls_force_sslv3 = %s\n",
 		    account->username ? account->username : _("(not set)"),
 		    account->password ? "*" : _("(not set)"),
 		    account->ntlmdomain ? account->ntlmdomain : _("(not set)"),
 		    account->tls ? _("on") : _("off"), 
+		    account->tls_nostarttls ? _("off") : _("on"),
 		    account->tls_trust_file ? 
 		    	account->tls_trust_file : _("(not set)"),
 		    account->tls_key_file ? 
 		    	account->tls_key_file : _("(not set)"),
 		    account->tls_cert_file ? 
 		    	account->tls_cert_file : _("(not set)"),
-		    account->tls_nostarttls ? _("off") : _("on"),
-		    account->tls_nocertcheck ? _("off") : _("on"));
+		    account->tls_nocertcheck ? _("off") : _("on"),
+		    account->tls_force_sslv3 ? _("on") : _("off"));
 	    if (retrmail)
 	    {
 		printf("delivery        = ");

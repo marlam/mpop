@@ -62,6 +62,7 @@
 #define ACC_TLS_TRUST_FILE	(1 << 18)
 #define ACC_TLS_NOCERTCHECK	(1 << 19)
 #define ACC_TLS_NOSTARTTLS	(1 << 20)
+#define ACC_TLS_FORCE_SSLV3	(1 << 21)
 
 typedef struct
 {
@@ -93,12 +94,13 @@ typedef struct
     char *ntlmdomain;		/* domain for NTLM authentication */
     /* TLS / SSL */
     int tls;			/* flag: use TLS? */
+    int tls_nostarttls;		/* flag: start TLS immediatly 
+				   (without STARTTLS command)? */
     char *tls_key_file;		/* file in PEM format */
     char *tls_cert_file;	/* file in PEM format */
     char *tls_trust_file;	/* file in PEM format */
     int tls_nocertcheck;	/* flag: do not check certificate? */
-    int tls_nostarttls;		/* flag: start TLS immediatly 
-				   (without STARTTLS command)? */
+    int tls_force_sslv3;	/* flag: force SSLv3? */
 } account_t;
 
 /* 

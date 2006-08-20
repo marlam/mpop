@@ -226,6 +226,12 @@ This command enables or disables TLS/SSL encrypted connections to the POP3
 server. Not every server supports TLS, and many that do require the
 @samp{tls_starttls off} command. It is recommended to also use the 
 @samp{tls_trust_file} command. @xref{Transport Layer Security}.
+@anchor{tls_starttls}
+@item tls_starttls [(on|off)]
+@cmindex tls_starttls
+This command enables or disables the use of the STARTTLS POP3 command to start 
+TLS encryption. It is enabled by default.
+@xref{Transport Layer Security}.
 @anchor{tls_trust_file}
 @item tls_trust_file [@var{file}]
 @cmindex tls_trust_file
@@ -255,11 +261,11 @@ An empty argument disables this feature.
 This command enables or disables sanity checks for the server certificate.
 These checks are enabled by default, but can cause difficulties in rare cases.
 @xref{Transport Layer Security}.
-@anchor{tls_starttls}
-@item tls_starttls [(on|off)]
-@cmindex tls_starttls
-This command enables or disables the use of the STARTTLS POP3 command to start 
-TLS encryption. It is enabled by default.
+@anchor{tls_force_sslv3}
+@item tls_force_sslv3 [(on|off)]
+@cmindex tls_force_sslv3
+Force TLS/SSL version SSLv3. This might be needed to use SSL with some old and
+broken servers. Do not use this unless you have to.
 @xref{Transport Layer Security}.
 @end table
 
@@ -491,6 +497,10 @@ Set or unset the user name for authentication. @xref{user}.
 @itemx --tls[=(on|off)]
 @opindex --tls
 Enable or disable TLS. @xref{tls}.
+@anchor{--tls-starttls}
+@itemx --tls-starttls[=(on|off)]
+@opindex --tls-starttls
+Enable or disable STARTTLS for TLS encryption. @xref{tls_starttls}.
 @anchor{--tls-trust-file}
 @itemx --tls-trust-file=[@var{file}]
 @opindex --tls-trust-file
@@ -508,10 +518,10 @@ Set or unset a cert file for TLS encryption. @xref{tls_cert_file}.
 @opindex --tls-certcheck
 Enable or disable server certificate checks for TLS encryption.  
 @xref{tls_certcheck}.
-@anchor{--tls-starttls}
-@itemx --tls-starttls[=(on|off)]
-@opindex --tls-starttls
-Enable or disable STARTTLS for TLS encryption. @xref{tls_starttls}.
+@anchor{--tls-force-sslv3}
+@itemx --tls-force-sslv3=(on|off)]
+@opindex --tls-force-sslv3
+Force TLS/SSL version SSLv3. @xref{tls_force_sslv3}.
 @end table
 
 @subsection Options specific to mail retrieval mode
