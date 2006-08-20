@@ -8,7 +8,6 @@
 AC_DEFUN([gl_FUNC_GETTIMEOFDAY],
 [
   AC_LIBSOURCES([gettimeofday.c, gettimeofday.h])
-  AC_REQUIRE([gl_C_RESTRICT])
   AC_CHECK_FUNCS([gettimeofday])
   
   AC_CHECK_TYPE([suseconds_t], ,
