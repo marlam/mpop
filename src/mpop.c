@@ -1622,7 +1622,8 @@ int main(int argc, char *argv[])
 	{ "tls-key-file",    required_argument, 0, LONGONLYOPT_TLS_KEY_FILE },
 	{ "tls-cert-file",   required_argument, 0, LONGONLYOPT_TLS_CERT_FILE },
 	{ "tls-certcheck",   optional_argument, 0, LONGONLYOPT_TLS_CERTCHECK },
-	{ "tls-force-sslv3", optional_argument, 0, LONGONLYOPT_TLS_FORCE_SSLV3},
+	{ "tls-force-sslv3", optional_argument, 0, 
+	    LONGONLYOPT_TLS_FORCE_SSLV3 },
 	{ 0, 0, 0, 0 }
     };
     
