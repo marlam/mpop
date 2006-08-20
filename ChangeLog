@@ -1,4 +1,4 @@
-Version 1.0.2 (not yet released):
+Version 1.0.2:
 - Gnulib update. The modules nanosleep and gettimeofday still differ from the
   official gnulib source.
 - Disable SSLv2 because it has known flaws. This only affects the OpenSSL
