@@ -1,3 +1,9 @@
+Version 1.0.3 (not yet released):
+- Gnulib update. Removes the initialization of pkgdata_DATA from
+  gnulib/Makefile.am, thanks to a fix by Bruno Haible. 'make install' will no
+  longer create an empty directory $(pkgdatadir) anymore (the default for
+  $(pkgdatadir) is /usr/local/share/mpop). Reported by Roman Bogorodskiy.
+
 Version 1.0.2:
 - Gnulib update. The modules nanosleep and gettimeofday still differ from the
   official gnulib source.
