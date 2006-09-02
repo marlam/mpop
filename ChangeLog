@@ -1,4 +1,5 @@
 Version 1.0.3 (not yet released):
+- Correct the documentation of "~/.mpop_uidls" in mpop.1 and mpop.texi.
 - Gnulib update. Removes the initialization of pkgdata_DATA from
   gnulib/Makefile.am, thanks to a fix by Bruno Haible. 'make install' will no
   longer create an empty directory $(pkgdatadir) anymore (the default for

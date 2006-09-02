@@ -400,7 +400,7 @@ The standard exit codes from @code{sysexits.h} are used.
 @item @code{~/.mpoprc}
 The default user configuration file.
 @item @code{~/.mpop_uidls}
-Default file to store UIDLs in.
+Default directory to store UIDLs files in.
 @item @code{~/.netrc}
 The @code{.netrc} file contains login information. If a password is not found 
 in the configuration file, msmtp will search it in @code{.netrc} before 
