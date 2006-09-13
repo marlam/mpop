@@ -806,9 +806,15 @@ int pop3_uidl_check_uid(const char *uid)
     const char *p = uid;
     
     /* According to RFC 1939, a valid UID must consist of one to 70 characters
-     * in the range 0x21 to 0x7e. We allow longer UIDs, spaces inside UIDs, and
-     * non-ASCII characters in UIDs as long as they are not control characters.
-     * I don't know if any server needs these extensions, though. */
+     * in the range 0x21 to 0x7e. We allow longer UIDs, spaces inside UIDs (but
+     * no space at the beginning of an UID), and non-ASCII characters in UIDs
+     * as long as they are not control characters.
+     * I know of one case where the POP3 server uses non-ASCII characters in 
+     * UIDs. I don't know if any server needs the other extensions, though. */
+    if (*p == ' ')
+    {
+	return 0;
+    }
     while (*p != '\0')
     {
 	if (c_iscntrl((unsigned char)*p))

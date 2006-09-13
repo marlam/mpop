@@ -1,4 +1,8 @@
 Version 1.0.3 (not yet released):
+- Prevent to write UIDLs files that we cannot read back:
+  - Do not allow UIDs to start with a space.
+  - Allow UIDLs file lines to be long enough to hold the longest
+    UID that we would accept from a server.
 - Added spanish translation by Carlos Martín Nieto. Thanks a lot!
 - Correct the documentation of "~/.mpop_uidls" in mpop.1 and mpop.texi.
 - Gnulib update. Removes the initialization of pkgdata_DATA from

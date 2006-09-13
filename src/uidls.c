@@ -39,14 +39,17 @@ extern int errno;
 
 #include "list.h"
 #include "tools.h"
+#include "pop3.h"
 #include "uidls.h"
 
 
 /* The timeout for locking the UIDLs file, in seconds. */
 #define UIDLS_LOCK_TIMEOUT	10
 
-/* A line from an UIDLs file must fit into a buffer of this size: */
-#define UIDLS_LINEBUFSIZE	501
+/* A line from an UIDLs file must fit into a buffer of size UIDLS_LINEBUFSIZE.
+ * The longest UIDs that we allow in pop3_uidl() must still fit into a buffer 
+ * of size POP3_BUFSIZE. We use the same value here. */
+#define UIDLS_LINEBUFSIZE	POP3_BUFSIZE
 
 
 /*
