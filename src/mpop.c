@@ -2036,11 +2036,11 @@ int main(int argc, char *argv[])
 	/* Authentication support */
 	printf(_("Authentication library: %s\n"
 		    "Supported authentication methods:\n"),
-#ifdef HAVE_GSASL
+#ifdef HAVE_LIBGSASL
 		_("GNU SASL; user and apop: built-in")
 #else
 		_("built-in")
-#endif /* HAVE_GSASL */
+#endif /* HAVE_LIBGSASL */
 	      );
 	if (pop3_client_supports_authmech("USER"))
 	{

@@ -43,7 +43,7 @@ extern int errno;
 # include <idna.h>
 #endif
 
-#ifdef HAVE_GSASL
+#ifdef HAVE_LIBGSASL
 # include <gsasl.h>
 #else
 # include "base64.h"
@@ -2254,7 +2254,7 @@ int pop3_auth_apop(pop3_session_t *session,
  * Used error codes: POP3_EIO, POP3_EINVAL, POP3_EPROTO, POP3_EAUTHFAIL
  */
 
-#ifndef HAVE_GSASL
+#ifndef HAVE_LIBGSASL
 int pop3_auth_plain(pop3_session_t *session,
 	const char *user, const char *password, 
 	char **errmsg, char **errstr)
@@ -2292,7 +2292,7 @@ int pop3_auth_plain(pop3_session_t *session,
 
     return POP3_EOK;
 }
-#endif /* !HAVE_GSASL */
+#endif /* !HAVE_LIBGSASL */
 
 
 /*
@@ -2303,7 +2303,7 @@ int pop3_auth_plain(pop3_session_t *session,
  * Used error codes: POP3_EIO, POP3_EINVAL, POP3_EPROTO, POP3_EAUTHFAIL
  */
 
-#ifndef HAVE_GSASL
+#ifndef HAVE_LIBGSASL
 int pop3_auth_login(pop3_session_t *session,
 	const char *user, const char *password, 
 	char **errmsg, char **errstr)
@@ -2371,7 +2371,7 @@ int pop3_auth_login(pop3_session_t *session,
 
     return POP3_EOK;
 }
-#endif /* !HAVE_GSASL */
+#endif /* !HAVE_LIBGSASL */
 
 
 /*
@@ -2383,7 +2383,7 @@ int pop3_auth_login(pop3_session_t *session,
  * POP3_ELIBFAILED
  */
 
-#ifndef HAVE_GSASL
+#ifndef HAVE_LIBGSASL
 int pop3_auth_cram_md5(pop3_session_t *session,
 	const char *user, const char *password, 
 	char **errmsg, char **errstr)
@@ -2464,7 +2464,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
 
     return POP3_EOK;
 }
-#endif /* !HAVE_GSASL */
+#endif /* !HAVE_LIBGSASL */
 
 
 /*
@@ -2477,7 +2477,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EAUTHFAIL, POP3_EINVAL
  */
 
-#ifndef HAVE_GSASL
+#ifndef HAVE_LIBGSASL
 int pop3_auth_external(pop3_session_t *session, const char *user, 
 	char **errmsg, char **errstr)
 {
@@ -2523,7 +2523,7 @@ int pop3_auth_external(pop3_session_t *session, const char *user,
 
     return POP3_EOK;
 }
-#endif /* !HAVE_GSASL */
+#endif /* !HAVE_LIBGSASL */
 
 
 /*
@@ -2563,7 +2563,7 @@ int pop3_server_supports_authmech(pop3_session_t *session, const char *mech)
 
 int pop3_client_supports_authmech(const char *mech)
 {
-#ifdef HAVE_GSASL
+#ifdef HAVE_LIBGSASL
 
     int supported = 0;
     Gsasl *ctx;
@@ -2583,7 +2583,7 @@ int pop3_client_supports_authmech(const char *mech)
     }
     return supported;
     
-#else /* not HAVE_GSASL */
+#else /* not HAVE_LIBGSASL */
     
     return (strcmp(mech, "USER") == 0
 	    || strcmp(mech, "APOP") == 0
@@ -2592,7 +2592,7 @@ int pop3_client_supports_authmech(const char *mech)
 	    || strcmp(mech, "EXTERNAL") == 0
 	    || strcmp(mech, "LOGIN") == 0);
     
-#endif /* not HAVE_GSASL */
+#endif /* not HAVE_LIBGSASL */
 }
 
 
@@ -2607,7 +2607,7 @@ int pop3_auth(pop3_session_t *session,
 	const char *user, 
 	const char *password, 
 	const char *hostname,
-#ifdef HAVE_GSASL
+#ifdef HAVE_LIBGSASL
 	const char *ntlmdomain,
 #else
 	const char *ntlmdomain UNUSED,
@@ -2616,7 +2616,7 @@ int pop3_auth(pop3_session_t *session,
 	char **errmsg,
 	char **errstr)
 {
-#ifdef HAVE_GSASL
+#ifdef HAVE_LIBGSASL
     int e = POP3_EOK;
     Gsasl *ctx;
     Gsasl_session *sctx;
@@ -2927,7 +2927,7 @@ int pop3_auth(pop3_session_t *session,
     }
     return POP3_EOK;
 
-#else /* not HAVE_GSASL */
+#else /* not HAVE_LIBGSASL */
 
     char *callback_password = NULL;
     int e;
@@ -3046,7 +3046,7 @@ int pop3_auth(pop3_session_t *session,
     free(callback_password);
     return e;
 
-#endif /* not HAVE_GSASL */
+#endif /* not HAVE_LIBGSASL */
 }
 
 
