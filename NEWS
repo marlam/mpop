@@ -1,5 +1,8 @@
-Version 1.0.2:
+Version 1.0.3:
 - A spanish translation was added by Carlos Martín Nieto. Thanks a lot!
+- GNU SASL support works again (it was broken in 1.0.2).
+
+Version 1.0.2:
 - The configuration command tls_force_sslv3 was added. This is needed to use
   TLS/SSL with some old and broken servers.
 
