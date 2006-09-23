@@ -1,8 +1,8 @@
 .\" -*-nroff-*-
 .\"
-.\" mpop version 1.0.2
+.\" mpop version 1.0.3
 .\"
-.TH MPOP 1 2006-08
+.TH MPOP 1 2006-09
 .SH NAME
 mpop \- A POP3 client 
 .SH SYNOPSIS
@@ -398,39 +398,53 @@ executed.
 .SH EXAMPLES
 .B Configuration file
 .PP
-# Default values for all accounts
+# Default values for all accounts.
 .br
 defaults
 .br
-delivery mda "/usr/bin/procmail -f '%F' -d $USER"
-.br
-#delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"
-.br
-#delivery mda "/usr/local/bin/msmtp --host=localhost --from='%F' -- $USER"
-.br
-#delivery maildir ~/Mail/incoming
-.br
-#delivery mbox ~/Mail/new
+# Activate TLS.
 .br
 tls on
 .br
-tls_trust_file ~/.ca-bundle.pem
+# Use the POP3-over-TLS variant instead of the STARTTLS variant.
+.br
+tls_starttls off
+.br
+# Use the procmail mail delivery agent.
+.br
+delivery mda "/usr/bin/procmail -f '%F' -d $USER"
+.br
+# For Sendmail:
+.br
+#delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"
+.br
+# For msmtp (delivery via SMTP):
+.br
+#delivery mda "/usr/bin/msmtp --host=localhost --from='%F' -- $USER"
+.br
+# Delivery to a maildir folder:
+.br
+#delivery maildir ~/Mail/incoming
+.br
+# Delivery to a MBOX mail folder:
+.br
+#delivery mbox ~/Mail/new
 .br
 
 .br
-# My provider, where I have two pop3 mailboxes 
+# Two pop3 mailboxes at the provider.
 .br
 account provider1
 .br
 host mx.provider.example
 .br
-user joe_smith
+user john_smith
 .br
 password secret
 .br
-tls_starttls off
+# Copy the settings from the previous account, and only override the
 .br
-
+# settings that differ.
 .br
 account provider2 : provider1
 .br
@@ -440,7 +454,7 @@ password secret2
 .br
 
 .br
-# A freemail service
+# A freemail service.
 .br
 account freemail
 .br
@@ -452,19 +466,7 @@ password pass
 .br
 
 .br
-# Be sure to never loose mail while testing a new 
-.br
-# filter script for the freemail service
-.br
-account freemail-test : freemail
-.br
-filter ~/bin/experimental-filter.sh --from='%F' --size=%S
-.br
-keep on
-.br
-
-.br
-# Set a default account
+# Set a default account (optional).
 .br
 account default : provider1
 .br

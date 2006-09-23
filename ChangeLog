@@ -1,4 +1,5 @@
-Version 1.0.3 (not yet released):
+Version 1.0.3:
+- Improved configuration file examples in the documentation.
 - Fix GNU SASL support: replace #ifdef HAVE_GSASL with #ifdef HAVE_LIBGSASL.
   The old code did not actually use GNU SASL. This bug was introduced in 1.0.2.
 - Prevent to write UIDLs files that we cannot read back:
