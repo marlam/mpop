@@ -1,3 +1,6 @@
+Version 1.0.4:
+- Fix a bug in string_replace(). This bug did not affect mpop.
+
 Version 1.0.3:
 - Improved configuration file examples in the documentation.
 - Fix GNU SASL support: replace #ifdef HAVE_GSASL with #ifdef HAVE_LIBGSASL.
