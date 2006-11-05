@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.2\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2006-08-20 16:55+0200\n"
+"POT-Creation-Date: 2006-11-05 21:09+0100\n"
 "PO-Revision-Date: 2006-09-03 14:51+0200\n"
 "Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
 "Language-Team: Spanish\n"
@@ -164,162 +164,162 @@ msgstr "debe ser poseido por tí"
 msgid "must have no more than user read/write permissions"
 msgstr "no puede tener más que permiso de lectura/escritura del usuario"
 
-#: src/delivery.c:82
+#: src/delivery.c:81
 msgid "EX_OK: no error"
 msgstr "EX_OK: ningún error"
 
-#: src/delivery.c:85
+#: src/delivery.c:84
 msgid "EX_USAGE: command line usage error"
 msgstr "EX_USAGE: error de uso de la linea de órdenes"
 
-#: src/delivery.c:88
+#: src/delivery.c:87
 msgid "EX_DATAERR: data format error"
 msgstr "EX_DATAERR: error en el formato de datos"
 
-#: src/delivery.c:91
+#: src/delivery.c:90
 msgid "EX_NOINPUT: no input"
 msgstr "EX_NOINPUT: ninguna entrada"
 
 # FIXME: ¿cuál es la traducción de input?
-#: src/delivery.c:94
+#: src/delivery.c:93
 msgid "EX_NOUSER: user unknown"
 msgstr "EX_NOUSER: usuario desconocido"
 
-#: src/delivery.c:97
+#: src/delivery.c:96
 msgid "EX_NOHOST: host name unknown"
 msgstr "EX_NOHOST: host desconocido"
 
-#: src/delivery.c:100
+#: src/delivery.c:99
 msgid "EX_UNAVAILABLE: service unavailable"
 msgstr "EX_UNAVAILABLE: servicio no disponible"
 
-#: src/delivery.c:103
+#: src/delivery.c:102
 msgid "EX_SOFTWARE: internal software error"
 msgstr "EX_SOFTWARE: error interno de software"
 
-#: src/delivery.c:106
+#: src/delivery.c:105
 msgid "EX_OSERR: system error"
 msgstr "EX_OSERR: error del sistema"
 
-#: src/delivery.c:109
+#: src/delivery.c:108
 msgid "EX_OSFILE: system file missing"
 msgstr "EX_OSFILE: falta un archivo del sistema"
 
-#: src/delivery.c:112
+#: src/delivery.c:111
 msgid "EX_CANTCREAT: cannot create output file"
 msgstr "EX_CANTCREAT: no se puede crear el archivo de salida"
 
-#: src/delivery.c:115
+#: src/delivery.c:114
 msgid "EX_IOERR: input/output error"
 msgstr "EX_IOERR: error de entrada/salida"
 
-#: src/delivery.c:118
+#: src/delivery.c:117
 msgid "EX_TEMPFAIL: temporary failure"
 msgstr "EX_TEMPFAIL: fallo temporal"
 
-#: src/delivery.c:121
+#: src/delivery.c:120
 msgid "EX_PROTOCOL: remote error in protocol"
 msgstr "EX_PROTOCOL: error remote en el protocolo"
 
-#: src/delivery.c:124
+#: src/delivery.c:123
 msgid "EX_NOPERM: permission denied"
 msgstr "EX_NOPERM: permiso denegado"
 
-#: src/delivery.c:127
+#: src/delivery.c:126
 msgid "EX_CONFIG: configuration error"
 msgstr "EX_CONFIG: error de configuración"
 
-#: src/delivery.c:171
+#: src/delivery.c:170
 #, c-format
 msgid "cannot execute %s"
 msgstr "no se puede ejecutar %s"
 
-#: src/delivery.c:191 src/delivery.c:275
+#: src/delivery.c:190 src/delivery.c:274
 #, c-format
 msgid "%s did not read mail data"
 msgstr "%s no leí datos de correo"
 
-#: src/delivery.c:198 src/delivery.c:282
+#: src/delivery.c:197 src/delivery.c:281
 #, c-format
 msgid "%s failed to execute"
 msgstr "%s no pudo ser ejecutado"
 
-#: src/delivery.c:208 src/delivery.c:292
+#: src/delivery.c:207 src/delivery.c:291
 #, c-format
 msgid "%s returned exit status %d (%s)"
 msgstr "%s devolvió estado de salida %d (%s)"
 
-#: src/delivery.c:213 src/delivery.c:297
+#: src/delivery.c:212 src/delivery.c:296
 #, c-format
 msgid "%s returned exit status %d"
 msgstr "%s devolvió estado de salida %d"
 
-#: src/delivery.c:360 src/delivery.c:519 src/pop3.c:1602 src/tls.c:111
+#: src/delivery.c:371 src/delivery.c:530 src/pop3.c:1608 src/tls.c:111
 #, c-format
 msgid "cannot get system time: %s"
 msgstr "no se puede averiguar la hora del sistema %s"
 
-#: src/delivery.c:376
+#: src/delivery.c:387
 #, c-format
 msgid "cannot create %s%c%s: %s"
 msgstr "no se puede crear %s%c%s: %s"
 
-#: src/delivery.c:384
+#: src/delivery.c:395
 #, c-format
 msgid "cannot open %s%c%s: %s"
 msgstr "no se puede abrir %s%c%s: %s"
 
-#: src/delivery.c:401
+#: src/delivery.c:412
 #, c-format
 msgid "cannot sync %s%c%s: %s"
 msgstr "no se puede sincronizar %s%c%s: %s"
 
-#: src/delivery.c:408
+#: src/delivery.c:419
 #, c-format
 msgid "cannot close %s%c%s: %s"
 msgstr "no se puede cerrar %s%c%s: %s"
 
-#: src/delivery.c:417
+#: src/delivery.c:428
 #, c-format
 msgid "%s: cannot link %s to %s: %s"
 msgstr "%s: no se puede vincular %s a %s: %s"
 
-#: src/delivery.c:427
+#: src/delivery.c:438
 #, c-format
 msgid "%s: cannot move %s to %s: %s"
 msgstr "%s: no se puede mover %s a %s: %s"
 
-#: src/delivery.c:484
+#: src/delivery.c:495
 #, c-format
 msgid "cannot change to %s: %s"
 msgstr "no se puede cambiar a %s: %s"
 
-#: src/delivery.c:525 src/delivery.c:536 src/delivery.c:556
+#: src/delivery.c:536 src/delivery.c:547 src/delivery.c:567
 #, c-format
 msgid "%s: output error"
 msgstr "%s: error de salida"
 
-#: src/delivery.c:548
+#: src/delivery.c:559
 #, c-format
 msgid "cannot sync %s: %s"
 msgstr "no se puede sincronizar %s: %s"
 
-#: src/delivery.c:578
+#: src/delivery.c:589
 #, c-format
 msgid "cannot open %s: %s"
 msgstr "no se puede abrir %s: %s"
 
-#: src/delivery.c:586 src/uidls.c:178
+#: src/delivery.c:597 src/uidls.c:181
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "no se puede bloquear %s (se intentó durante %d segundos): %s"
 
-#: src/delivery.c:591 src/uidls.c:183
+#: src/delivery.c:602 src/uidls.c:186
 #, c-format
 msgid "cannot lock %s: %s"
 msgstr "no se puede bloquear %s: %s"
 
-#: src/delivery.c:606
+#: src/delivery.c:617
 #, c-format
 msgid "cannot close %s: %s"
 msgstr "no se puede cerrar %s: %s"
@@ -547,8 +547,8 @@ msgid "retrieving message %ld of %ld (%s): "
 msgstr "descargando mensaje %ld de %ld (%s): "
 
 #: src/mpop.c:1042 src/mpop.c:1241 src/mpop.c:1288 src/net.c:85 src/net.c:392
-#: src/net.c:477 src/net.c:570 src/net.c:678 src/net.c:798 src/pop3.c:1075
-#: src/pop3.c:1758 src/tls.c:1158 src/tls.c:1217 src/tls.c:1280 src/tls.c:1319
+#: src/net.c:477 src/net.c:570 src/net.c:678 src/net.c:798 src/pop3.c:1081
+#: src/pop3.c:1764 src/tls.c:1158 src/tls.c:1217 src/tls.c:1280 src/tls.c:1319
 #: src/tls.c:1400 src/tls.c:1446
 msgid "operation aborted"
 msgstr "operación calcelada"
@@ -1079,14 +1079,14 @@ msgstr ""
 msgid "cannot get initial OK message from POP3 server"
 msgstr "no se puede recibir el mensaje inicial OK del servidor POP3"
 
-#: src/pop3.c:477 src/pop3.c:616 src/pop3.c:732 src/pop3.c:740 src/pop3.c:907
-#: src/pop3.c:1015
+#: src/pop3.c:477 src/pop3.c:616 src/pop3.c:732 src/pop3.c:740 src/pop3.c:913
+#: src/pop3.c:1021
 #, c-format
 msgid "invalid reply to command %s"
 msgstr "respuesta inválida a la orden %s"
 
-#: src/pop3.c:677 src/pop3.c:724 src/pop3.c:842 src/pop3.c:947 src/pop3.c:2322
-#: src/pop3.c:2408 src/pop3.c:2494 src/pop3.c:3068 src/pop3.c:3096
+#: src/pop3.c:677 src/pop3.c:724 src/pop3.c:848 src/pop3.c:953 src/pop3.c:2328
+#: src/pop3.c:2414 src/pop3.c:2500 src/pop3.c:3074 src/pop3.c:3102
 #, c-format
 msgid "command %s failed"
 msgstr "fallo de la orden %s"
@@ -1096,96 +1096,96 @@ msgstr "fallo de la orden %s"
 msgid "Cannot handle more than %lu messages. Increase POP3_MAX_MESSAGES."
 msgstr "no se pueden manejas más de %lu mensajes. Incremente POP3_MAX_MESSAGES"
 
-#: src/pop3.c:1185
+#: src/pop3.c:1191
 msgid "cannot write mail: output error"
 msgstr "no se puede escribir correo: error de salida"
 
-#: src/pop3.c:1541
+#: src/pop3.c:1547
 msgid "cannot write to temporary file: output error"
 msgstr "no se puede escribir en el archivo temporal: error de salida"
 
-#: src/pop3.c:1674
+#: src/pop3.c:1680
 #, c-format
 msgid "cannot add Received header: %s"
 msgstr "no se puede añadir el encabezamiento Received: %s"
 
-#: src/pop3.c:1775
+#: src/pop3.c:1781
 #, c-format
 msgid "command TOP %ld 0 failed"
 msgstr "fallo en la orden TOP %ld 0"
 
-#: src/pop3.c:1780
+#: src/pop3.c:1786
 #, c-format
 msgid "command RETR %ld failed"
 msgstr "fallo en la orden RETR %ld"
 
-#: src/pop3.c:1791
+#: src/pop3.c:1797
 #, c-format
 msgid "cannot create temporary file: %s"
 msgstr "no se puede crear un archivo temporal: %s"
 
-#: src/pop3.c:1803
+#: src/pop3.c:1809
 #, c-format
 msgid "cannot rewind temporary file: %s"
 msgstr "no se puede rebobinar el archivo temporal: %s"
 
-#: src/pop3.c:2063
+#: src/pop3.c:2069
 #, c-format
 msgid "command DELE %ld failed"
 msgstr "fallo en la orden DELE %ld"
 
-#: src/pop3.c:2133 src/pop3.c:2145 src/pop3.c:2168 src/pop3.c:2183
-#: src/pop3.c:2232 src/pop3.c:2283 src/pop3.c:2342 src/pop3.c:2362
-#: src/pop3.c:2455 src/pop3.c:2514 src/pop3.c:2848 src/pop3.c:2883
-#: src/pop3.c:2917
+#: src/pop3.c:2139 src/pop3.c:2151 src/pop3.c:2174 src/pop3.c:2189
+#: src/pop3.c:2238 src/pop3.c:2289 src/pop3.c:2348 src/pop3.c:2368
+#: src/pop3.c:2461 src/pop3.c:2520 src/pop3.c:2854 src/pop3.c:2889
+#: src/pop3.c:2923
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "fallo en la autentificación (método %s)"
 
-#: src/pop3.c:2418
+#: src/pop3.c:2424
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr ""
 "método de autentificación CRAM-MD5: el servidor mandó un desfío inválido"
 
-#: src/pop3.c:2628 src/pop3.c:2934
+#: src/pop3.c:2634 src/pop3.c:2940
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "el servidor POP3 no es compatible con el método de autentificación %s"
 
-#: src/pop3.c:2634 src/pop3.c:2760 src/pop3.c:2803
+#: src/pop3.c:2640 src/pop3.c:2766 src/pop3.c:2809
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2641
+#: src/pop3.c:2647
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: no es compatible con el método de autentificación %s"
 
-#: src/pop3.c:2700 src/pop3.c:2973
+#: src/pop3.c:2706 src/pop3.c:2979
 msgid "cannot use a secure authentication method"
 msgstr "no se puede usar ningún método de autentificación seguro"
 
-#: src/pop3.c:2706 src/pop3.c:2979
+#: src/pop3.c:2712 src/pop3.c:2985
 msgid "cannot find a usable authentication method"
 msgstr "no se puede encontrar ningún método usable de autentificación"
 
-#: src/pop3.c:2720 src/pop3.c:2992
+#: src/pop3.c:2726 src/pop3.c:2998
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "el método de autentificación %s necesita un nombre de usuario"
 
-#: src/pop3.c:2733 src/pop3.c:3002
+#: src/pop3.c:2739 src/pop3.c:3008
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "el método de autentificación %s necesita una contraseña"
 
-#: src/pop3.c:2896
+#: src/pop3.c:2902
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "fallo en la autentificación: %s (método %s)"
 
-#: src/pop3.c:3036
+#: src/pop3.c:3042
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "el programa no es compatible con el método de autntificación %s"
@@ -1197,7 +1197,7 @@ msgstr ""
 "no existen las variables de entorno RANDFILE o HOME, or el nombre del "
 "archivorand es demasiado largo"
 
-#: src/tls.c:104 src/uidls.c:321
+#: src/tls.c:104 src/uidls.c:324
 #, c-format
 msgid "%s: input error"
 msgstr "%s: error de entrada"
@@ -1435,32 +1435,32 @@ msgstr "no se puede escribir en la conexión TLS: %s"
 msgid "cannot write to TLS connection"
 msgstr "no se puede escribir en la conexión TLS"
 
-#: src/uidls.c:204
+#: src/uidls.c:207
 #, c-format
 msgid "%s, line %ld: line longer than %d characters"
 msgstr "%s, línea %ld: la línea es más larga de %d caracteres"
 
-#: src/uidls.c:220
+#: src/uidls.c:223
 #, c-format
 msgid "%s, line %ld: UID without a list"
 msgstr "%s, línea %ld: UID sin lista"
 
-#: src/uidls.c:231
+#: src/uidls.c:234
 #, c-format
 msgid "%s, line %ld: invalid number of UIDs"
 msgstr "%s, línea %ld: número inválido de UIDs"
 
-#: src/uidls.c:246
+#: src/uidls.c:249
 #, c-format
 msgid "%s, line %ld: invalid or missing host name"
 msgstr "%s, línea %ld: nombre de host inválido u omitido"
 
-#: src/uidls.c:258
+#: src/uidls.c:261
 #, c-format
 msgid "%s, line %ld: invalid or missing user name"
 msgstr "%s, línea %ld: nombre de usuario inválido u omitido"
 
-#: src/uidls.c:272 src/uidls.c:306
+#: src/uidls.c:275 src/uidls.c:309
 #, c-format
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, línea %ld: faltan UIDs para el usuario %s, host %s"
