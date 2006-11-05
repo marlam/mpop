@@ -1,3 +1,6 @@
+Version 1.0.4:
+- No significant changes.
+
 Version 1.0.3:
 - A spanish translation was added by Carlos Martín Nieto. Thanks a lot!
 - GNU SASL support works again (it was broken in 1.0.2).
