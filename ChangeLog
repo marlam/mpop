@@ -1,4 +1,6 @@
 Version 1.0.4 (not yet released):
+- Gnulib update. Remove the gettimeofday module. There are no local changes
+  to the gnulib code anymore.
 - Do not use the gnulib gettimeofday module anymore. Use a local replacement
   in delivery.c instead.
 - Do not use nanosleep() on W32 anymore. Use Sleep() instead.

@@ -1,4 +1,4 @@
-# strndup.m4 serial 7
+# strndup.m4 serial 11
 dnl Copyright (C) 2002-2003, 2005-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -6,8 +6,6 @@ dnl with or without modifications, as long as this notice is preserved.
 
 AC_DEFUN([gl_FUNC_STRNDUP],
 [
-  AC_LIBSOURCES([strndup.c, strndup.h])
-
   dnl Persuade glibc <string.h> to declare strndup().
   AC_REQUIRE([AC_GNU_SOURCE])
 
@@ -16,7 +14,8 @@ AC_DEFUN([gl_FUNC_STRNDUP],
   # AIX 4.3.3, AIX 5.1 have a function that fails to add the terminating '\0'.
   AC_CACHE_CHECK([for working strndup], gl_cv_func_strndup,
     [AC_RUN_IFELSE([
-       AC_LANG_PROGRAM([#include <string.h>], [[
+       AC_LANG_PROGRAM([#include <string.h>
+		 	#include <stdlib.h>], [[
 #ifndef HAVE_DECL_STRNDUP
   extern char *strndup (const char *, size_t);
 #endif
@@ -41,8 +40,6 @@ AC_DEFUN([gl_FUNC_STRNDUP],
       [Define if you have the strndup() function and it works.])
   else
     AC_LIBOBJ([strndup])
-    AC_DEFINE(strndup, rpl_strndup,
-      [Define to rpl_strndup if the replacement function should be used,])
     gl_PREREQ_STRNDUP
   fi
 ])
