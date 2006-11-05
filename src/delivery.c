@@ -52,7 +52,6 @@ extern int errno;
 #endif
 
 #include "gettext.h"
-#include "gettimeofday.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 
@@ -333,6 +332,18 @@ int delivery_method_filter_deinit(delivery_method_t *dm, char **errstr)
  *  You can use it on DJGPP systems, but you need long file name support.
  *
  ******************************************************************************/
+
+/* W32 does not have gettimeofday(). */
+#ifdef W32_NATIVE
+int gettimeofday(struct timeval *tv, void *tz UNUSED)
+{
+    struct _timeb timebuf;
+    _ftime(&timebuf);
+    tv->tv_sec = timebuf.time;
+    tv->tv_usec = timebuf.millitm * 1000;
+    return 0;
+}
+#endif
 
 /* This number is unique for the current process. It is used to create unique
  * maildir filenames. */

@@ -1,4 +1,6 @@
 Version 1.0.4 (not yet released):
+- Do not use the gnulib gettimeofday module anymore. Use a local replacement
+  in delivery.c instead.
 - Do not use nanosleep() on W32 anymore. Use Sleep() instead.
   Do not use nanosleep() on DJGPP anymore. Use usleep() instead.
 - Update gettext files to gettext-0.16.
