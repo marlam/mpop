@@ -1,8 +1,10 @@
 .\" -*-nroff-*-
 .\"
-.\" mpop version 1.0.5
+.\" mpop version 1.0.6
 .\"
-.TH MPOP 1 2006-11
+.\" Copyright (C) 2005, 2006, 2007  Martin Lambers
+.\"
+.TH MPOP 1 2007-12
 .SH NAME
 mpop \- A POP3 client 
 .SH SYNOPSIS
@@ -58,9 +60,9 @@ with the debugging output.
 .RS
 .IP "-S, --serverinfo"
 Print information about the POP3 server(s) and exit. This includes information
-about supported features (authentication methods, TOP command, ...), about
-parameters (time for which mails will not be deleted, minimum time between
-logins, ...), and about the TLS certificate (if TLS is active).
+about supported features (pipelining, authentication methods, TOP command, ...),
+about parameters (time for which mails will not be deleted, minimum time
+between logins, ...), and about the TLS certificate (if TLS is active).
 .RE
 .IP "\fBConfiguration options\fP"
 .RS
@@ -178,12 +180,11 @@ without STLS is used, in which case it is 995.
 Set or unset a network timeout, in seconds. The argument \fIoff\fP means that no
 timeout will be set, which means that the operating system default will be used.
 .IP "pipelining (\fIon\fP|\fIoff\fP)"
-Enable or disable POP3 pipelining for obsolete servers.
-.br
-mpop can enable or disable POP3 pipelining automatically if the server supports
-the CAPA command; see --serverinfo.  If your server does not support the CAPA
+Enable or disable POP3 pipelining for obsolete servers. Modern servers support
+the CAPA command and can tell mpop if they support pipelining. For these
+servers, this command is ignored.  If your server does not support the CAPA
 command, but you still want to use pipelining, you have to enable it manually
-with this command.
+with this command. See also --serverinfo.
 .br 
 Pipelining works by sending up to \fIPIPELINE_MAX\fP commands to the server, 
 then begin to read its answers, and refill the command pipeline when the number

@@ -1,4 +1,7 @@
 Version 1.0.6 (not yet released):
+- Improve documentation of the pipelining command and option. It did not state
+  clear enough that the setting is ignored if the server supports the CAPA
+  command. Thanks to Jeremy C. Reed for the suggestion.
 - Remove the obsolete "extern int errno;" declaration. It does not conform to
   POSIX and causes trouble. Thanks to Jeremy C. Reed for the patch.
 - Added AC_SYS_LARGEFILE to configure.ac, for large file support. Removed the
