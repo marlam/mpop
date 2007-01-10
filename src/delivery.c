@@ -32,7 +32,6 @@
 #include <sys/time.h>
 #include <time.h>
 #include <errno.h>
-extern int errno;
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>

@@ -30,7 +30,6 @@
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
-extern int errno;
 #include <unistd.h>
 
 #include "gettext.h"

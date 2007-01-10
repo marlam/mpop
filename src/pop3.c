@@ -34,7 +34,6 @@
 #include <strings.h>
 #include <ctype.h>
 #include <errno.h>
-extern int errno;
 #if HAVE_SIGACTION
 # include <signal.h>
 #endif
