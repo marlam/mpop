@@ -88,8 +88,12 @@
  * begin to read its answers, and refill the command pipeline when the number of
  * unanswered commands drops to PIPELINE_MIN.
  */
+#ifndef POP3_PIPELINE_MIN
 #define POP3_PIPELINE_MIN	20
+#endif
+#ifndef POP3_PIPELINE_MAX
 #define POP3_PIPELINE_MAX	100
+#endif
 
 
 /*

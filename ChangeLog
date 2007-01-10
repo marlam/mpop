@@ -1,4 +1,7 @@
 Version 1.0.6 (not yet released):
+- Put the POP3_PIPELINE_MIN and POP3_PIPELINE_MAX definitions into #ifndef ...
+  #endif so that they can easily be set via CFLAGS. Thanks to Jeremy C. Reed
+  for the patch.
 - Improve documentation of the pipelining command and option. It did not state
   clear enough that the setting is ignored if the server supports the CAPA
   command. Thanks to Jeremy C. Reed for the suggestion.
