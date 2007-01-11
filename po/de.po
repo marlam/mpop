@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.0.2\n"
+"Project-Id-Version: mpop 1.0.6\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2006-11-05 21:09+0100\n"
+"POT-Creation-Date: 2007-01-11 09:28+0100\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -73,405 +73,405 @@ msgstr "%s: Option `-W %s' ist nicht eindeutig\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: Option `-W %s' akzeptiert kein Argument\n"
 
-#: src/conf.c:433
+#: src/conf.c:432
 msgid "host not set"
 msgstr "host nicht angegeben"
 
-#: src/conf.c:438
+#: src/conf.c:437
 msgid "tls_key_file requires tls_cert_file"
 msgstr "tls_key_file benötigt tls_cert_file"
 
-#: src/conf.c:443
+#: src/conf.c:442
 msgid "tls_cert_file requires tls_key_file"
 msgstr "tls_cert_file benötigt tls_key_file"
 
-#: src/conf.c:449
+#: src/conf.c:448
 msgid "cannot use tls_trust_file with tls_cert_check turned off"
 msgstr "um tls_trust_file zu nutzen muss tls_cert_check aktiviert sein"
 
-#: src/conf.c:454
+#: src/conf.c:453
 msgid "no delivery information"
 msgstr "keine Informationen zur Auslieferungsmethode (delivery nicht gesetzt)"
 
-#: src/conf.c:559 src/stream.c:63
+#: src/conf.c:558 src/stream.c:63
 msgid "input error"
 msgstr "Lesefehler"
 
-#: src/conf.c:581
+#: src/conf.c:580
 #, c-format
 msgid "line longer than %d characters"
 msgstr "Zeile länger als %d Zeichen"
 
-#: src/conf.c:632 src/conf.c:751
+#: src/conf.c:631 src/conf.c:750
 #, c-format
 msgid "line %d: missing account name"
 msgstr "Zeile %d: Accountname fehlt"
 
-#: src/conf.c:637
+#: src/conf.c:636
 #, c-format
 msgid "line %d: account %s not (yet) defined"
 msgstr "Zeile %d: Account %s ist (noch) nicht definiert"
 
-#: src/conf.c:713
+#: src/conf.c:712
 #, c-format
 msgid "line %d: first command must be account or defaults"
 msgstr "Zeile %d: Erstes Kommando muss account oder defaults sein"
 
-#: src/conf.c:723
+#: src/conf.c:722
 #, c-format
 msgid "line %d: command %s does not take an argument"
 msgstr "Zeile %d: Kommando %s akzeptiert kein Argument"
 
-#: src/conf.c:758
+#: src/conf.c:757
 #, c-format
 msgid "line %d: an account name must not contain colons or commas"
 msgstr ""
 "Zeile %d: Ein Accountname darf keine Doppelpunkte oder Kommata enthalten"
 
-#: src/conf.c:767
+#: src/conf.c:766
 #, c-format
 msgid "line %d: account %s was already defined"
 msgstr "Zeile %d: Account %s wurde bereits definiert"
 
-#: src/conf.c:791 src/conf.c:807 src/conf.c:830 src/conf.c:901 src/conf.c:921
-#: src/conf.c:1114 src/conf.c:1139
+#: src/conf.c:790 src/conf.c:806 src/conf.c:829 src/conf.c:904 src/conf.c:924
+#: src/conf.c:1117 src/conf.c:1142
 #, c-format
 msgid "line %d: command %s needs an argument"
 msgstr "Zeile %d: Kommando %s benötigt ein Argument"
 
-#: src/conf.c:818 src/conf.c:846 src/conf.c:868 src/conf.c:909 src/conf.c:947
-#: src/conf.c:985 src/conf.c:1005 src/conf.c:1043 src/conf.c:1063
-#: src/conf.c:1083 src/conf.c:1103
+#: src/conf.c:817 src/conf.c:845 src/conf.c:871 src/conf.c:912 src/conf.c:950
+#: src/conf.c:988 src/conf.c:1008 src/conf.c:1046 src/conf.c:1066
+#: src/conf.c:1086 src/conf.c:1106
 #, c-format
 msgid "line %d: invalid argument %s for command %s"
 msgstr "Zeile %d: Ungültiges Argument %s für Kommando %s"
 
-#: src/conf.c:1127 src/conf.c:1152
+#: src/conf.c:1130 src/conf.c:1155
 #, c-format
 msgid "line %d: invalid size (not a number or out of range): %s"
 msgstr "Zeile %d: Ungültige Größenangabe (keine Zahl oder zu klein/groß): %s"
 
-#: src/conf.c:1174
+#: src/conf.c:1177
 #, c-format
 msgid "line %d: unknown command %s"
 msgstr "Zeile %d: Unbekanntes Kommando %s"
 
-#: src/conf.c:1217
+#: src/conf.c:1220
 msgid "must be owned by you"
 msgstr "muss Dir gehören"
 
-#: src/conf.c:1222
+#: src/conf.c:1225
 msgid "must have no more than user read/write permissions"
 msgstr "darf nicht mehr Rechte als Lese-/Schreibrecht für den Benutzer haben"
 
-#: src/delivery.c:81
+#: src/delivery.c:80
 msgid "EX_OK: no error"
 msgstr "EX_OK: kein Fehler"
 
-#: src/delivery.c:84
+#: src/delivery.c:83
 msgid "EX_USAGE: command line usage error"
 msgstr "EX_USAGE: Kommandozeilenbenutzung fehlerhaft"
 
-#: src/delivery.c:87
+#: src/delivery.c:86
 msgid "EX_DATAERR: data format error"
 msgstr "EX_DATAERR: Datenformatfehler"
 
-#: src/delivery.c:90
+#: src/delivery.c:89
 msgid "EX_NOINPUT: no input"
 msgstr "EX_NOINPUT: keine Eingabe"
 
-#: src/delivery.c:93
+#: src/delivery.c:92
 msgid "EX_NOUSER: user unknown"
 msgstr "EX_NOUSER: Benutzer unbekannt"
 
-#: src/delivery.c:96
+#: src/delivery.c:95
 msgid "EX_NOHOST: host name unknown"
 msgstr "EX_NOHOST: Unbekannter Hostname"
 
-#: src/delivery.c:99
+#: src/delivery.c:98
 msgid "EX_UNAVAILABLE: service unavailable"
 msgstr "EX_UNAVAILABLE: Dienst steht nicht zur Verfügung"
 
-#: src/delivery.c:102
+#: src/delivery.c:101
 msgid "EX_SOFTWARE: internal software error"
 msgstr "EX_SOFTWARE: interner Softwarefehler"
 
-#: src/delivery.c:105
+#: src/delivery.c:104
 msgid "EX_OSERR: system error"
 msgstr "EX_OSERR: Systemfehler"
 
-#: src/delivery.c:108
+#: src/delivery.c:107
 msgid "EX_OSFILE: system file missing"
 msgstr "EX_OSFILE: eine Systemdatei fehlt"
 
-#: src/delivery.c:111
+#: src/delivery.c:110
 msgid "EX_CANTCREAT: cannot create output file"
 msgstr "EX_CANTCREAT: kann Ausgabedatei nicht erzeugen"
 
-#: src/delivery.c:114
+#: src/delivery.c:113
 msgid "EX_IOERR: input/output error"
 msgstr "EX_IOERR: Eingabe-/Ausgabefehler"
 
-#: src/delivery.c:117
+#: src/delivery.c:116
 msgid "EX_TEMPFAIL: temporary failure"
 msgstr "EX_TEMPFAIL: vorübergehende Fehlfunktion"
 
-#: src/delivery.c:120
+#: src/delivery.c:119
 msgid "EX_PROTOCOL: remote error in protocol"
 msgstr "EX_PROTOCOL: Protokollfehler"
 
-#: src/delivery.c:123
+#: src/delivery.c:122
 msgid "EX_NOPERM: permission denied"
 msgstr "EX_NOPERM: keine Berechtigung"
 
-#: src/delivery.c:126
+#: src/delivery.c:125
 msgid "EX_CONFIG: configuration error"
 msgstr "EX_CONFIG: Konfigurationsfehler"
 
-#: src/delivery.c:170
+#: src/delivery.c:169
 #, c-format
 msgid "cannot execute %s"
 msgstr "kann %s nicht ausführen"
 
-#: src/delivery.c:190 src/delivery.c:274
+#: src/delivery.c:189 src/delivery.c:273
 #, c-format
 msgid "%s did not read mail data"
 msgstr "%s hat keine Daten gelesen"
 
-#: src/delivery.c:197 src/delivery.c:281
+#: src/delivery.c:196 src/delivery.c:280
 #, c-format
 msgid "%s failed to execute"
 msgstr "%s konnte nicht ausgeführt werden"
 
-#: src/delivery.c:207 src/delivery.c:291
+#: src/delivery.c:206 src/delivery.c:290
 #, c-format
 msgid "%s returned exit status %d (%s)"
 msgstr "%s lieferte Rückgabewert %d (%s)"
 
-#: src/delivery.c:212 src/delivery.c:296
+#: src/delivery.c:211 src/delivery.c:295
 #, c-format
 msgid "%s returned exit status %d"
 msgstr "%s lieferte Rückgabewert %d"
 
-#: src/delivery.c:371 src/delivery.c:530 src/pop3.c:1608 src/tls.c:111
+#: src/delivery.c:370 src/delivery.c:529 src/pop3.c:1612 src/tls.c:110
 #, c-format
 msgid "cannot get system time: %s"
 msgstr "kann Systemzeit nicht feststellen: %s"
 
-#: src/delivery.c:387
+#: src/delivery.c:386
 #, c-format
 msgid "cannot create %s%c%s: %s"
 msgstr "kann %s%c%s nicht erzeugen: %s"
 
-#: src/delivery.c:395
+#: src/delivery.c:394
 #, c-format
 msgid "cannot open %s%c%s: %s"
 msgstr "kann %s%c%s nicht öffnen: %s"
 
-#: src/delivery.c:412
+#: src/delivery.c:411
 #, c-format
 msgid "cannot sync %s%c%s: %s"
 msgstr "kann %s%c%s nicht synchronisieren: %s"
 
-#: src/delivery.c:419
+#: src/delivery.c:418
 #, c-format
 msgid "cannot close %s%c%s: %s"
 msgstr "kann %s%c%s nicht schließen: %s"
 
-#: src/delivery.c:428
+#: src/delivery.c:427
 #, c-format
 msgid "%s: cannot link %s to %s: %s"
 msgstr "%s: kann keinen Verweis von %s auf %s erstellen: %s"
 
-#: src/delivery.c:438
+#: src/delivery.c:437
 #, c-format
 msgid "%s: cannot move %s to %s: %s"
 msgstr "%s: kann %s nicht nach %s verschieben: %s"
 
-#: src/delivery.c:495
+#: src/delivery.c:494
 #, c-format
 msgid "cannot change to %s: %s"
 msgstr "kann nicht in %s wechseln: %s"
 
-#: src/delivery.c:536 src/delivery.c:547 src/delivery.c:567
+#: src/delivery.c:535 src/delivery.c:546 src/delivery.c:566
 #, c-format
 msgid "%s: output error"
 msgstr "%s: Ausgabefehler"
 
-#: src/delivery.c:559
+#: src/delivery.c:558
 #, c-format
 msgid "cannot sync %s: %s"
 msgstr "kann %s nicht synchronisieren: %s"
 
-#: src/delivery.c:589
+#: src/delivery.c:588
 #, c-format
 msgid "cannot open %s: %s"
 msgstr "kann %s nicht öffnen: %s"
 
-#: src/delivery.c:597 src/uidls.c:181
+#: src/delivery.c:596 src/uidls.c:180
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "kann %s nicht sperren (habe es %d Sekunden versucht): %s"
 
-#: src/delivery.c:602 src/uidls.c:186
+#: src/delivery.c:601 src/uidls.c:185
 #, c-format
 msgid "cannot lock %s: %s"
 msgstr "kann %s nicht sperren: %s"
 
-#: src/delivery.c:617
+#: src/delivery.c:616
 #, c-format
 msgid "cannot close %s: %s"
 msgstr "kann %s nicht schließen: %s"
 
-#: src/mpop.c:112
+#: src/mpop.c:111
 #, c-format
 msgid "%s: FATAL: %s"
 msgstr "%s: FATAL: %s"
 
-#: src/mpop.c:269
+#: src/mpop.c:268
 #, c-format
 msgid "password for %s at %s: "
 msgstr "Passwort für %s auf %s: "
 
-#: src/mpop.c:307
+#: src/mpop.c:306
 msgid "Common Name"
 msgstr "Allgemeiner Name"
 
-#: src/mpop.c:307
+#: src/mpop.c:306
 msgid "Organization"
 msgstr "Organisation"
 
-#: src/mpop.c:308
+#: src/mpop.c:307
 msgid "Organizational unit"
 msgstr "Organisationseinheit"
 
-#: src/mpop.c:308
+#: src/mpop.c:307
 msgid "Locality"
 msgstr "Ort"
 
-#: src/mpop.c:308
+#: src/mpop.c:307
 msgid "State or Province"
 msgstr "Staat oder Provinz"
 
-#: src/mpop.c:309
+#: src/mpop.c:308
 msgid "Country"
 msgstr "Land"
 
-#: src/mpop.c:336
+#: src/mpop.c:335
 #, c-format
 msgid "TLS certificate information:\n"
 msgstr "TLS Zertifikatinformation:\n"
 
-#: src/mpop.c:337
+#: src/mpop.c:336
 msgid "Owner"
 msgstr "Eigentümer"
 
-#: src/mpop.c:348
+#: src/mpop.c:347
 msgid "Issuer"
 msgstr "Aussteller"
 
-#: src/mpop.c:359
+#: src/mpop.c:358
 msgid "Validity"
 msgstr "Gültigkeit"
 
-#: src/mpop.c:361
+#: src/mpop.c:360
 msgid "Activation time"
 msgstr "Aktivierungszeitpunkt"
 
-#: src/mpop.c:363
+#: src/mpop.c:362
 msgid "Expiration time"
 msgstr "Ablaufzeitpunkt"
 
-#: src/mpop.c:364
+#: src/mpop.c:363
 msgid "Fingerprints"
 msgstr "Fingerabdrücke"
 
-#: src/mpop.c:485 src/mpop.c:952
+#: src/mpop.c:484 src/mpop.c:951
 msgid "the POP3 server does not support TLS via the STLS command"
 msgstr "der POP3 Server unterstützt TLS über das STLS Kommando nicht"
 
-#: src/mpop.c:554
+#: src/mpop.c:553
 #, c-format
 msgid "POP3 server at %s (%s [%s]), port %d:\n"
 msgstr "POP3 Server auf %s (%s [%s]), Port %d:\n"
 
-#: src/mpop.c:559
+#: src/mpop.c:558
 #, c-format
 msgid "POP3 server at %s (%s), port %d:\n"
 msgstr "POP3 Server auf %s (%s), Port %d:\n"
 
-#: src/mpop.c:564
+#: src/mpop.c:563
 #, c-format
 msgid "POP3 server at %s ([%s]), port %d:\n"
 msgstr "POP3 Server auf %s ([%s]), Port %d:\n"
 
-#: src/mpop.c:569
+#: src/mpop.c:568
 #, c-format
 msgid "POP3 server at %s, port %d:\n"
 msgstr "POP3 Server auf %s, Port %d:\n"
 
-#: src/mpop.c:581
+#: src/mpop.c:580
 #, c-format
 msgid "POP3 capabilities:\n"
 msgstr "POP3 Leistungsmerkmale:\n"
 
-#: src/mpop.c:585
+#: src/mpop.c:584
 msgid "Support for the CAPA command (get list of capabilities)"
 msgstr "Unterstützung für CAPA (fordert Liste der Leistungsmerkmale an)"
 
-#: src/mpop.c:595
+#: src/mpop.c:594
 msgid "Support for command grouping for faster transmission"
 msgstr "Unterstützung für schnelle Übertragung durch Kommandogruppierung"
 
-#: src/mpop.c:600
+#: src/mpop.c:599
 msgid "Support for the TOP command (get mail headers)"
 msgstr "Unterstützung für TOP (fordert Kopfzeilen einer Mail an)"
 
-#: src/mpop.c:605
+#: src/mpop.c:604
 msgid "Support for the UIDL command (get unique mail identifiers)"
 msgstr "Unterstützung für UIDL (für eindeutige Mailidentifikation)"
 
-#: src/mpop.c:612
+#: src/mpop.c:611
 #, c-format
 msgid "minimum time between logins is %ld seconds"
 msgstr "Mindestzeit zwischen zwei Anmeldungen ist %ld Sekunden"
 
-#: src/mpop.c:616
+#: src/mpop.c:615
 #, c-format
 msgid " = %.2f hours"
 msgstr " = %.2f Stunden"
 
-#: src/mpop.c:621
+#: src/mpop.c:620
 #, c-format
 msgid " = %.2f minutes"
 msgstr " = %.2f Minuten"
 
-#: src/mpop.c:632
+#: src/mpop.c:631
 msgid "this POP3 server will never delete mails"
 msgstr "Dieser POP3 Server löscht keine Mails selbstständig"
 
-#: src/mpop.c:637
+#: src/mpop.c:636
 msgid "this POP3 server will not keep mails"
 msgstr "Dieser POP3 Server behält keine Mails"
 
-#: src/mpop.c:642
+#: src/mpop.c:641
 #, c-format
 msgid "this POP3 server will keep mails for %ld days"
 msgstr "Dieser POP3 Server hält Mails für %ld Tage vor"
 
-#: src/mpop.c:655
+#: src/mpop.c:654
 msgid "Support for TLS encryption via the STLS command"
 msgstr "Unterstützung für TLS Verschlüsselung über das STLS Kommando"
 
-#: src/mpop.c:658
+#: src/mpop.c:657
 msgid "Supported authentication methods:"
 msgstr "Unterstützte Authentifizierungsmethoden:"
 
-#: src/mpop.c:699 src/mpop.c:705
+#: src/mpop.c:698 src/mpop.c:704
 msgid "Server error messages in square brackets have a special meaning"
 msgstr "Serverfehlermeldungen in eckigen Klammern haben spezielle Bedeutung"
 
-#: src/mpop.c:714
+#: src/mpop.c:713
 #, c-format
 msgid ""
 "This server might advertise more or other capabilities\n"
@@ -480,7 +480,7 @@ msgstr ""
 "Dieser Server könnte mehr oder andere Leistungsmerkmale angeben\n"
 "    wenn TLS Verschlüsselung aktiviert ist.\n"
 
-#: src/mpop.c:719
+#: src/mpop.c:718
 #, c-format
 msgid ""
 "This server might advertise more or other capabilities\n"
@@ -489,7 +489,7 @@ msgstr ""
 "Dieser Server könnte mehr oder andere Leistungsmerkmale angeben\n"
 "    wenn eine erfolgreiche Authentifizierung stattfand.\n"
 
-#: src/mpop.c:724
+#: src/mpop.c:723
 #, c-format
 msgid ""
 "This server does not support the CAPA command, so this\n"
@@ -498,145 +498,145 @@ msgstr ""
 "Da dieser Server das CAPA Kommando nicht unterstützt, ist diese Liste\n"
 "    wahrscheinlich nicht komplett.\n"
 
-#: src/mpop.c:757
+#: src/mpop.c:756
 #, c-format
 msgid "%.2f GB"
 msgstr "%.2f GB"
 
-#: src/mpop.c:761
+#: src/mpop.c:760
 #, c-format
 msgid "%.2f MB"
 msgstr "%.2f MB"
 
-#: src/mpop.c:765
+#: src/mpop.c:764
 #, c-format
 msgid "%.2f KB"
 msgstr "%.2f KB"
 
-#: src/mpop.c:769
+#: src/mpop.c:768
 #, c-format
 msgid "%ld bytes"
 msgstr "%ld bytes"
 
-#: src/mpop.c:773
+#: src/mpop.c:772
 msgid "1 byte"
 msgstr "1 byte"
 
-#: src/mpop.c:790
+#: src/mpop.c:789
 #, c-format
 msgid "skipping message %ld of %ld (reason: filter + keep)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: filter + keep)\n"
 
-#: src/mpop.c:795
+#: src/mpop.c:794
 #, c-format
 msgid "deleting message %ld of %ld (reason: filter)\n"
 msgstr "lösche Nachricht %ld von %ld (Grund: filter)\n"
 
-#: src/mpop.c:801
+#: src/mpop.c:800
 #, c-format
 msgid "skipping message %ld of %ld (reason: filter)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: filter)\n"
 
-#: src/mpop.c:808
+#: src/mpop.c:807
 #, c-format
 msgid "retrieving message %ld of %ld (%s): "
 msgstr "empfange Nachricht %ld von %ld (%s): "
 
-#: src/mpop.c:1042 src/mpop.c:1241 src/mpop.c:1288 src/net.c:85 src/net.c:392
-#: src/net.c:477 src/net.c:570 src/net.c:678 src/net.c:798 src/pop3.c:1081
-#: src/pop3.c:1764 src/tls.c:1158 src/tls.c:1217 src/tls.c:1280 src/tls.c:1319
-#: src/tls.c:1400 src/tls.c:1446
+#: src/mpop.c:1041 src/mpop.c:1240 src/mpop.c:1287 src/net.c:84 src/net.c:391
+#: src/net.c:476 src/net.c:569 src/net.c:677 src/net.c:797 src/pop3.c:1085
+#: src/pop3.c:1768 src/tls.c:1157 src/tls.c:1216 src/tls.c:1279 src/tls.c:1318
+#: src/tls.c:1399 src/tls.c:1445
 msgid "operation aborted"
 msgstr "Operation abgebrochen"
 
-#: src/mpop.c:1136
+#: src/mpop.c:1135
 #, c-format
 msgid "%s at %s:\n"
 msgstr "%s auf %s:\n"
 
-#: src/mpop.c:1139
+#: src/mpop.c:1138
 #, c-format
 msgid "new: "
 msgstr "neu: "
 
-#: src/mpop.c:1142 src/mpop.c:1163
+#: src/mpop.c:1141 src/mpop.c:1162
 #, c-format
 msgid "no messages"
 msgstr "keine Nachrichten"
 
-#: src/mpop.c:1146 src/mpop.c:1167
+#: src/mpop.c:1145 src/mpop.c:1166
 #, c-format
 msgid "1 message"
 msgstr "1 Nachricht"
 
-#: src/mpop.c:1150 src/mpop.c:1171
+#: src/mpop.c:1149 src/mpop.c:1170
 #, c-format
 msgid "%ld messages"
 msgstr "%ld Nachrichten"
 
-#: src/mpop.c:1155 src/mpop.c:1176
+#: src/mpop.c:1154 src/mpop.c:1175
 #, c-format
 msgid " in %s"
 msgstr " in %s"
 
-#: src/mpop.c:1159
+#: src/mpop.c:1158
 #, c-format
 msgid "total: "
 msgstr "gesamt: "
 
-#: src/mpop.c:1208
+#: src/mpop.c:1207
 #, c-format
 msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: killsize + keep)\n"
 
-#: src/mpop.c:1214
+#: src/mpop.c:1213
 #, c-format
 msgid "deleting message %ld of %ld (reason: killsize)\n"
 msgstr "lösche Nachricht %ld von %ld (Grund: killsize)\n"
 
-#: src/mpop.c:1225
+#: src/mpop.c:1224
 #, c-format
 msgid "skipping message %ld of %ld (reason: skipsize)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: skipsize)\n"
 
-#: src/mpop.c:1252
+#: src/mpop.c:1251
 msgid "the POP3 server does not support the TOP command needed for filtering"
 msgstr ""
 "der POP3 Server unterstützt das für Filterung nötige TOP Kommando nicht"
 
-#: src/mpop.c:1414
+#: src/mpop.c:1413
 #, c-format
 msgid "%s: no accounts defined"
 msgstr "%s: keine Accounts definiert"
 
-#: src/mpop.c:1432 src/mpop.c:1443
+#: src/mpop.c:1431 src/mpop.c:1442
 #, c-format
 msgid "%s: no account %s"
 msgstr "%s: Account %s nicht gefunden"
 
-#: src/mpop.c:1734 src/mpop.c:1751 src/mpop.c:1770 src/mpop.c:1790
-#: src/mpop.c:1815 src/mpop.c:1833 src/mpop.c:1872 src/mpop.c:1890
-#: src/mpop.c:1908 src/mpop.c:1926 src/mpop.c:1942 src/mpop.c:1959
-#: src/mpop.c:1995
+#: src/mpop.c:1733 src/mpop.c:1750 src/mpop.c:1773 src/mpop.c:1793
+#: src/mpop.c:1818 src/mpop.c:1836 src/mpop.c:1875 src/mpop.c:1893
+#: src/mpop.c:1911 src/mpop.c:1929 src/mpop.c:1945 src/mpop.c:1962
+#: src/mpop.c:1998
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "ungültiges Argument %s für %s"
 
-#: src/mpop.c:2025
+#: src/mpop.c:2028
 #, c-format
 msgid "%s version %s\n"
 msgstr "%s Version %s\n"
 
-#: src/mpop.c:2027
+#: src/mpop.c:2030
 #, c-format
 msgid "TLS/SSL library: %s\n"
 msgstr "TLS/SSL Programmbibliothek: %s\n"
 
-#: src/mpop.c:2033
+#: src/mpop.c:2036
 msgid "none"
 msgstr "keine"
 
-#: src/mpop.c:2037
+#: src/mpop.c:2040
 #, c-format
 msgid ""
 "Authentication library: %s\n"
@@ -645,55 +645,55 @@ msgstr ""
 "Authentifizierungsprogrammbibliothek: %s\n"
 "Unterstützte Authentifizierungsmethoden:\n"
 
-#: src/mpop.c:2040
+#: src/mpop.c:2043
 msgid "GNU SASL; user and apop: built-in"
 msgstr "GNU SASL; user und apop: eingebaut"
 
-#: src/mpop.c:2042
+#: src/mpop.c:2045
 msgid "built-in"
 msgstr "eingebaut"
 
-#: src/mpop.c:2083
+#: src/mpop.c:2086
 #, c-format
 msgid "IDN support: "
 msgstr "IDN Unterstützung: "
 
-#: src/mpop.c:2085 src/mpop.c:2093
+#: src/mpop.c:2088 src/mpop.c:2096
 #, c-format
 msgid "enabled"
 msgstr "aktiviert"
 
-#: src/mpop.c:2087 src/mpop.c:2096
+#: src/mpop.c:2090 src/mpop.c:2099
 #, c-format
 msgid "disabled"
 msgstr "deaktiviert"
 
-#: src/mpop.c:2091
+#: src/mpop.c:2094
 #, c-format
 msgid "NLS: "
 msgstr "NLS: "
 
-#: src/mpop.c:2094
+#: src/mpop.c:2097
 #, c-format
 msgid ", LOCALEDIR is %s"
 msgstr ", LOCALEDIR ist %s"
 
-#: src/mpop.c:2099
+#: src/mpop.c:2102
 #, c-format
 msgid ""
-"Copyright (C) 2006 Martin Lambers and others.\n"
+"Copyright (C) 2007 Martin Lambers and others.\n"
 "This is free software.  You may redistribute copies of it under the terms "
 "of\n"
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Copyright (C) 2006 Martin Lambers und andere.\n"
+"Copyright (C) 2007 Martin Lambers und andere.\n"
 "Dieses Programm ist freie Software. Sie dürfen Kopien davon weitergeben "
 "gemäß\n"
 "der GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "Es gibt KEINERLEI GARANTIE, so weit das Gesetz es erlaubt.\n"
 
-#: src/mpop.c:2108
+#: src/mpop.c:2111
 #, c-format
 msgid ""
 "USAGE:\n"
@@ -723,8 +723,7 @@ msgid ""
 "                               do not use any configuration file data.\n"
 "  --port=number                Set port number.\n"
 "  --timeout=(off|seconds)      Set/unset network timeout in seconds.\n"
-"  --pipelining=(on|off)        Enable/disable POP3 pipelining for old "
-"servers.\n"
+"  --pipelining=(auto|on|off)   Enable/disable POP3 pipelining.\n"
 "  --auth[=(on|method)]         Choose the authentication method.\n"
 "  --user=[username]            Set/unset user name for authentication.\n"
 "  --tls[=(on|off)]             Enable/disable TLS encryption.\n"
@@ -781,9 +780,8 @@ msgstr ""
 "Konfigurationsdatei.\n"
 "  --port=numner                Setze Portnummer.\n"
 "  --timeout=(off|sekunden)     Setze/lösche Netzwerktimeout in Sekunden.\n"
-"  --pipelining=(on|off)        Aktiviere/deaktiviere POP3 "
-"Kommandogruppierung\n"
-"                               für alte Server.\n"
+"  --pipelining=(auto|on|off)   Aktiviere/deaktiviere POP3 "
+"Kommandogruppierung.\n"
 "  --auth[=(on|methode)]        Wähle Authentifizierungsmethode.\n"
 "  --user=[benutzername]        Setze/lösche Benutzernamen für "
 "Authentifizierung.\n"
@@ -821,257 +819,261 @@ msgstr ""
 "\n"
 "Melde Fehler an <%s>.\n"
 
-#: src/mpop.c:2187
+#: src/mpop.c:2190
 msgid "cannot use both --host and accounts"
 msgstr "kann nicht gleichzeitig --host und Accounts benutzen"
 
-#: src/mpop.c:2193
+#: src/mpop.c:2196
 msgid "cannot use both --all-accounts and a list of accounts"
 msgstr "kann nicht gleichzeitig --all-accounts und eine Accountliste benutzen"
 
-#: src/mpop.c:2273
+#: src/mpop.c:2276
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "Account %s aus %s: %s"
 
-#: src/mpop.c:2291
+#: src/mpop.c:2294
 #, c-format
 msgid "cannot create directories for %s: %s"
 msgstr "kann Verzeichnisse für %s nicht erzeugen: %s"
 
-#: src/mpop.c:2294
+#: src/mpop.c:2297
 msgid "a component already exists but is not a directory"
 msgstr "eine Komponente existiert bereits, ist aber kein Verzeichnis"
 
-#: src/mpop.c:2311
+#: src/mpop.c:2314
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "benutze Account %s aus %s\n"
 
-#: src/mpop.c:2321 src/mpop.c:2393 src/mpop.c:2402
+#: src/mpop.c:2324 src/mpop.c:2397 src/mpop.c:2406
 #, c-format
 msgid "off\n"
 msgstr "aus\n"
 
-#: src/mpop.c:2327
+#: src/mpop.c:2330
 #, c-format
 msgid "1 second\n"
 msgstr "1 Sekunde\n"
 
-#: src/mpop.c:2331
+#: src/mpop.c:2334
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d Sekunden\n"
 
-#: src/mpop.c:2336 src/mpop.c:2358 src/mpop.c:2359 src/mpop.c:2366
-#: src/mpop.c:2367 src/mpop.c:2388 src/mpop.c:2389
-msgid "on"
-msgstr "an"
-
-#: src/mpop.c:2336 src/mpop.c:2358 src/mpop.c:2359 src/mpop.c:2366
-#: src/mpop.c:2367 src/mpop.c:2388 src/mpop.c:2389
+#: src/mpop.c:2338 src/mpop.c:2362 src/mpop.c:2363 src/mpop.c:2370
+#: src/mpop.c:2371 src/mpop.c:2392 src/mpop.c:2393
 msgid "off"
 msgstr "aus"
 
+#: src/mpop.c:2339 src/mpop.c:2362 src/mpop.c:2363 src/mpop.c:2370
+#: src/mpop.c:2371 src/mpop.c:2392 src/mpop.c:2393
+msgid "on"
+msgstr "an"
+
 #: src/mpop.c:2339
+msgid "auto"
+msgstr "automatisch"
+
+#: src/mpop.c:2343
 #, c-format
 msgid "choose\n"
 msgstr "automatisch\n"
 
-#: src/mpop.c:2355 src/mpop.c:2356 src/mpop.c:2357 src/mpop.c:2361
-#: src/mpop.c:2363 src/mpop.c:2365 src/mpop.c:2409
+#: src/mpop.c:2359 src/mpop.c:2360 src/mpop.c:2361 src/mpop.c:2365
+#: src/mpop.c:2367 src/mpop.c:2369 src/mpop.c:2413
 msgid "(not set)"
 msgstr "(nicht gesetzt)"
 
-#: src/mpop.c:2428
+#: src/mpop.c:2432
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr ""
 "Unterstützung für Authentifizierungsmethode %s ist nicht einkompiliert worden"
 
-#: src/mpop.c:2440
+#: src/mpop.c:2444
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "kann TLS Programmbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2448
+#: src/mpop.c:2452
 msgid "support for TLS is not compiled in"
 msgstr "Unterstützung für TLS ist nicht einkompiliert worden"
 
-#: src/mpop.c:2456
+#: src/mpop.c:2460
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "kann Netzwerkprogrammbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2484 src/mpop.c:2522
+#: src/mpop.c:2488 src/mpop.c:2526
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "Nachricht des POP3 Servers: %s"
 
-#: src/mpop.c:2529
+#: src/mpop.c:2533
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "Fehler während des Nachrichtenabrufens (Account %s aus %s)"
 
-#: src/mpop.c:2535
+#: src/mpop.c:2539
 msgid "error during mail retrieval"
 msgstr "Fehler während des Nachrichtenabrufens"
 
-#: src/net.c:82
+#: src/net.c:81
 msgid "not enough memory"
 msgstr "nicht genug Speicher"
 
-#: src/net.c:88
+#: src/net.c:87
 msgid "invalid argument"
 msgstr "ungültiges Argument"
 
-#: src/net.c:91
+#: src/net.c:90
 msgid "class type not found"
 msgstr "Klassentyp nicht gefunden"
 
-#: src/net.c:94
+#: src/net.c:93
 msgid "the network subsystem has failed"
 msgstr "Das Netzwerksystem versagte"
 
-#: src/net.c:97
+#: src/net.c:96
 msgid "host not found (authoritative)"
 msgstr "Host nicht gefunden (endgültig)"
 
-#: src/net.c:100
+#: src/net.c:99
 msgid "host not found (nonauthoritative) or server failure"
 msgstr "Host nicht gefunden (nicht endgültig) oder Serverfehlfunktion"
 
-#: src/net.c:103
+#: src/net.c:102
 msgid "nonrecoverable error"
 msgstr "Nichtbehebbarer Fehler"
 
-#: src/net.c:106
+#: src/net.c:105
 msgid "valid name, but no data record of requested type"
 msgstr "gültiger Name, aber keine Daten des angeforderten Typs gefunden"
 
-#: src/net.c:109
+#: src/net.c:108
 msgid "address family not supported"
 msgstr "Adressfamilie nicht unterstützt"
 
-#: src/net.c:112
+#: src/net.c:111
 msgid "no socket descriptors available"
 msgstr "keine Socketdeskriptoren verfügbar"
 
-#: src/net.c:115
+#: src/net.c:114
 msgid "no buffer space available"
 msgstr "kein Pufferplatz verfügbar"
 
-#: src/net.c:118
+#: src/net.c:117
 msgid "protocol not supported"
 msgstr "Protokoll nicht unterstützt"
 
-#: src/net.c:121
+#: src/net.c:120
 msgid "wrong protocol type for this socket"
 msgstr "falsches Protokoll für diesen Socket"
 
-#: src/net.c:124
+#: src/net.c:123
 msgid "socket type is not supported in this address family"
 msgstr "Sockettyp ist in dieser Adressfamilie nicht unterstützt"
 
-#: src/net.c:127
+#: src/net.c:126
 msgid "remote address is not valid"
 msgstr "Partneradresse ist ungültig"
 
-#: src/net.c:130
+#: src/net.c:129
 msgid "connection refused"
 msgstr "Verbindung abgelehnt"
 
-#: src/net.c:133
+#: src/net.c:132
 msgid "network unreachable"
 msgstr "Netzwerk nicht erreichbar"
 
-#: src/net.c:136
+#: src/net.c:135
 msgid "timeout"
 msgstr "Timeout"
 
-#: src/net.c:139
+#: src/net.c:138
 msgid "socket not connected"
 msgstr "Socket nicht verbunden"
 
-#: src/net.c:142
+#: src/net.c:141
 msgid "the socket was shut down"
 msgstr "der Socket wurde beendet"
 
-#: src/net.c:145
+#: src/net.c:144
 msgid "host unreachable"
 msgstr "Host nicht erreichbar"
 
-#: src/net.c:148
+#: src/net.c:147
 msgid "connection reset by peer"
 msgstr "Verbidung vom Partner zurückgesetzt"
 
-#: src/net.c:151
+#: src/net.c:150
 msgid "the underlying network subsystem is not ready"
 msgstr "das Netzwerksubsystem ist nicht bereit"
 
-#: src/net.c:154
+#: src/net.c:153
 msgid "the requested version is not available"
 msgstr "angeforderte Version ist nicht verfügbar"
 
-#: src/net.c:157
+#: src/net.c:156
 msgid "a blocking operation is in progress"
 msgstr "eine blockende Operation läuft"
 
-#: src/net.c:160
+#: src/net.c:159
 msgid "limit on the number of tasks has been reached"
 msgstr "Grenze der Anzahl der Abläufe wurde erreicht"
 
-#: src/net.c:163
+#: src/net.c:162
 msgid "invalid request"
 msgstr "ungültige Anfrage"
 
-#: src/net.c:166 src/tls.c:1109 src/tls.c:1133 src/tls.c:1423
+#: src/net.c:165 src/tls.c:1108 src/tls.c:1132 src/tls.c:1422
 msgid "unknown error"
 msgstr "unbekannter Fehler"
 
-#: src/net.c:387 src/net.c:396 src/net.c:535
+#: src/net.c:386 src/net.c:395 src/net.c:534
 #, c-format
 msgid "cannot locate host %s: %s"
 msgstr "kann Host %s nicht finden: %s"
 
-#: src/net.c:460 src/net.c:547
+#: src/net.c:459 src/net.c:546
 #, c-format
 msgid "cannot create socket: %s"
 msgstr "kann Socket nicht erstellen: %s"
 
-#: src/net.c:472 src/net.c:481 src/net.c:565 src/net.c:574
+#: src/net.c:471 src/net.c:480 src/net.c:564 src/net.c:573
 #, c-format
 msgid "cannot connect to %s, port %d: %s"
 msgstr "kann keine Verbindung zu %s, Port %d herstellen: %s"
 
-#: src/net.c:649 src/net.c:654 src/net.c:682 src/net.c:687
+#: src/net.c:648 src/net.c:653 src/net.c:681 src/net.c:686
 #, c-format
 msgid "network read error: %s"
 msgstr "Netzwerk Lesefehler: %s"
 
-#: src/net.c:650 src/net.c:683 src/net.c:767 src/net.c:803 src/tls.c:1128
-#: src/tls.c:1165 src/tls.c:1287 src/tls.c:1407
+#: src/net.c:649 src/net.c:682 src/net.c:766 src/net.c:802 src/tls.c:1127
+#: src/tls.c:1164 src/tls.c:1286 src/tls.c:1406
 msgid "the operation timed out"
 msgstr "die Wartezeit ist abgelaufen"
 
-#: src/net.c:766 src/net.c:771 src/net.c:802 src/net.c:807
+#: src/net.c:765 src/net.c:770 src/net.c:801 src/net.c:806
 #, c-format
 msgid "network write error: %s"
 msgstr "Netzwerk Ausgabefehler: %s"
 
-#: src/net.c:782 src/net.c:818
+#: src/net.c:781 src/net.c:817
 msgid "network write error"
 msgstr "Netzwerk Ausgabefehler"
 
-#: src/pop3.c:311
+#: src/pop3.c:314
 msgid "POP3 server sent an empty reply"
 msgstr "POP3 Server sendete eine leere Antwort"
 
-#: src/pop3.c:315
+#: src/pop3.c:318
 msgid "POP3 server sent an invalid reply"
 msgstr "POP3 Server sendete eine ungültige Antwort"
 
-#: src/pop3.c:370
+#: src/pop3.c:373
 #, c-format
 msgid ""
 "Cannot send POP3 command because it is longer than %d characters. Increase "
@@ -1080,277 +1082,277 @@ msgstr ""
 "Kann POP3 Kommando nicht versenden weil es länger als %d Zeichen ist. Erhöhe "
 "POP3_BUFSIZE."
 
-#: src/pop3.c:424
+#: src/pop3.c:427
 msgid "cannot get initial OK message from POP3 server"
 msgstr "kann keine initiale OK Nachricht des Servers empfangen"
 
-#: src/pop3.c:477 src/pop3.c:616 src/pop3.c:732 src/pop3.c:740 src/pop3.c:913
-#: src/pop3.c:1021
+#: src/pop3.c:480 src/pop3.c:619 src/pop3.c:736 src/pop3.c:744 src/pop3.c:917
+#: src/pop3.c:1025
 #, c-format
 msgid "invalid reply to command %s"
 msgstr "ungültige Antwort auf Kommando %s"
 
-#: src/pop3.c:677 src/pop3.c:724 src/pop3.c:848 src/pop3.c:953 src/pop3.c:2328
-#: src/pop3.c:2414 src/pop3.c:2500 src/pop3.c:3074 src/pop3.c:3102
+#: src/pop3.c:681 src/pop3.c:728 src/pop3.c:852 src/pop3.c:957 src/pop3.c:2332
+#: src/pop3.c:2418 src/pop3.c:2504 src/pop3.c:3078 src/pop3.c:3106
 #, c-format
 msgid "command %s failed"
 msgstr "Kommando %s fehlgeschlagen"
 
-#: src/pop3.c:747
+#: src/pop3.c:751
 #, c-format
 msgid "Cannot handle more than %lu messages. Increase POP3_MAX_MESSAGES."
 msgstr ""
 "kann nicht mehr als %lu Nachrichten verarbeiten. Erhöhe POP3_MAX_MESSAGES."
 
-#: src/pop3.c:1191
+#: src/pop3.c:1195
 msgid "cannot write mail: output error"
 msgstr "kann Nachricht nicht schreiben: Ausgabefehler"
 
-#: src/pop3.c:1547
+#: src/pop3.c:1551
 msgid "cannot write to temporary file: output error"
 msgstr "kann nicht in temporäre Datei schreiben: Ausgabefehler"
 
-#: src/pop3.c:1680
+#: src/pop3.c:1684
 #, c-format
 msgid "cannot add Received header: %s"
 msgstr "kann Received Kopfzeile nicht schreiben: %s"
 
-#: src/pop3.c:1781
+#: src/pop3.c:1785
 #, c-format
 msgid "command TOP %ld 0 failed"
 msgstr "Kommando TOP %ld 0 fehlgeschlagen"
 
-#: src/pop3.c:1786
+#: src/pop3.c:1790
 #, c-format
 msgid "command RETR %ld failed"
 msgstr "Kommando RETR %ld fehlgeschlagen"
 
-#: src/pop3.c:1797
+#: src/pop3.c:1801
 #, c-format
 msgid "cannot create temporary file: %s"
 msgstr "kann keine temporäre Datei erzeugen: %s"
 
-#: src/pop3.c:1809
+#: src/pop3.c:1813
 #, c-format
 msgid "cannot rewind temporary file: %s"
 msgstr "kann temporäre Datei nicht zurückspulen: %s"
 
-#: src/pop3.c:2069
+#: src/pop3.c:2073
 #, c-format
 msgid "command DELE %ld failed"
 msgstr "Kommando DELE %ld fehlgeschlagen"
 
-#: src/pop3.c:2139 src/pop3.c:2151 src/pop3.c:2174 src/pop3.c:2189
-#: src/pop3.c:2238 src/pop3.c:2289 src/pop3.c:2348 src/pop3.c:2368
-#: src/pop3.c:2461 src/pop3.c:2520 src/pop3.c:2854 src/pop3.c:2889
-#: src/pop3.c:2923
+#: src/pop3.c:2143 src/pop3.c:2155 src/pop3.c:2178 src/pop3.c:2193
+#: src/pop3.c:2242 src/pop3.c:2293 src/pop3.c:2352 src/pop3.c:2372
+#: src/pop3.c:2465 src/pop3.c:2524 src/pop3.c:2858 src/pop3.c:2893
+#: src/pop3.c:2927
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
 
-#: src/pop3.c:2424
+#: src/pop3.c:2428
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr "Authentifizierungsmethode CRAM-MD5: Server sendete ungültige Challenge"
 
-#: src/pop3.c:2634 src/pop3.c:2940
+#: src/pop3.c:2638 src/pop3.c:2944
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "POP3 Server unterstützt Authentifizierungsmethode %s nicht"
 
-#: src/pop3.c:2640 src/pop3.c:2766 src/pop3.c:2809
+#: src/pop3.c:2644 src/pop3.c:2770 src/pop3.c:2813
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2647
+#: src/pop3.c:2651
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: Authentifizierungsmethode %s wird nicht unterstützt"
 
-#: src/pop3.c:2706 src/pop3.c:2979
+#: src/pop3.c:2710 src/pop3.c:2983
 msgid "cannot use a secure authentication method"
 msgstr "kann keine sichere Authentifizierungsmethode benutzen"
 
-#: src/pop3.c:2712 src/pop3.c:2985
+#: src/pop3.c:2716 src/pop3.c:2989
 msgid "cannot find a usable authentication method"
 msgstr "kann keine benutzbare Authentifizierungsmethode finden"
 
-#: src/pop3.c:2726 src/pop3.c:2998
+#: src/pop3.c:2730 src/pop3.c:3002
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "Authentifizierungsmethode %s braucht einen Benutzernamen"
 
-#: src/pop3.c:2739 src/pop3.c:3008
+#: src/pop3.c:2743 src/pop3.c:3012
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "Authentifizierungsmethode %s braucht ein Passwort"
 
-#: src/pop3.c:2902
+#: src/pop3.c:2906
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "Authentifizierung fehlgeschlagen: %s (Methode %s)"
 
-#: src/pop3.c:3042
+#: src/pop3.c:3046
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "Authentifizierungsmethode %s wird nicht unterstützt"
 
-#: src/tls.c:98
+#: src/tls.c:97
 msgid ""
 "no environment variables RANDFILE or HOME, or filename of rand file too long"
 msgstr ""
 "keine Umgebungsvariablen RANDFILE oder HOME, oder Dateiname der Zufallsdatei "
 "zu lang"
 
-#: src/tls.c:104 src/uidls.c:324
+#: src/tls.c:103 src/uidls.c:323
 #, c-format
 msgid "%s: input error"
 msgstr "%s: Lesefehler"
 
-#: src/tls.c:131
+#: src/tls.c:130
 msgid "random file + time + pseudo randomness is not enough, giving up"
 msgstr ""
 "Zufallsdatei + Zeit + Pseudozufallszahlen sind nicht genug, ich gebe auf"
 
-#: src/tls.c:372 src/tls.c:486
+#: src/tls.c:371 src/tls.c:485
 msgid "cannot get TLS certificate info"
 msgstr "kann nicht auf TLS Zertifikatinformation zugreifen"
 
-#: src/tls.c:377 src/tls.c:489 src/tls.c:713
+#: src/tls.c:376 src/tls.c:488 src/tls.c:712
 #, c-format
 msgid "%s: no certificate was found"
 msgstr "%s: kein Zertifikat gefunden"
 
-#: src/tls.c:382 src/tls.c:731
+#: src/tls.c:381 src/tls.c:730
 #, c-format
 msgid "%s: cannot initialize certificate structure"
 msgstr "%s: kann Zertifikatstruktur nicht initialisieren"
 
-#: src/tls.c:388
+#: src/tls.c:387
 #, c-format
 msgid "%s: error parsing certificate"
 msgstr "%s: Fehler beim Parsen des Zertifikats"
 
-#: src/tls.c:398 src/tls.c:509
+#: src/tls.c:397 src/tls.c:508
 #, c-format
 msgid "%s: error getting SHA1 fingerprint"
 msgstr "%s: kann nicht auf SHA1 Fingerabdruck zugreifen"
 
-#: src/tls.c:406 src/tls.c:515
+#: src/tls.c:405 src/tls.c:514
 #, c-format
 msgid "%s: error getting MD5 fingerprint"
 msgstr "%s: kann nicht auf MD5 Fingerabdruck zugreifen"
 
-#: src/tls.c:412 src/tls.c:523
+#: src/tls.c:411 src/tls.c:522
 #, c-format
 msgid "%s: cannot get activation time"
 msgstr "%s: kann nicht auf Aktivierungszeitpunkt zugreifen"
 
-#: src/tls.c:418 src/tls.c:533
+#: src/tls.c:417 src/tls.c:532
 #, c-format
 msgid "%s: cannot get expiration time"
 msgstr "%s: kann nicht auf Ablaufzeitpunkt zugreifen"
 
-#: src/tls.c:494 src/tls.c:885
+#: src/tls.c:493 src/tls.c:884
 #, c-format
 msgid "%s: cannot get certificate subject"
 msgstr "%s: kann nicht auf Zertifikatobjekt zugreifen"
 
-#: src/tls.c:500
+#: src/tls.c:499
 #, c-format
 msgid "%s: cannot get certificate issuer"
 msgstr "%s: kann nicht auf Zertifikatsaussteller zugreifen"
 
-#: src/tls.c:664 src/tls.c:821
+#: src/tls.c:663 src/tls.c:820
 msgid "TLS certificate verification failed"
 msgstr "TLS Zertifikatverifikation fehlgschlagen"
 
-#: src/tls.c:668 src/tls.c:825
+#: src/tls.c:667 src/tls.c:824
 msgid "TLS certificate check failed"
 msgstr "TLS Zertifikatüberprüfung fehlgeschlagen"
 
-#: src/tls.c:687
+#: src/tls.c:686
 #, c-format
 msgid "%s: the certificate hasn't got a known issuer"
 msgstr "%s: das Zertifikat hat keinen bekannten Aussteller"
 
-#: src/tls.c:693
+#: src/tls.c:692
 #, c-format
 msgid "%s: the certificate is not trusted"
 msgstr "%s: das Zertifikat ist nicht vertrauenswürdig"
 
-#: src/tls.c:700
+#: src/tls.c:699
 #, c-format
 msgid "%s: the certificate has been revoked"
 msgstr "%s: das Zertifikat wurde widerrufen"
 
-#: src/tls.c:706
+#: src/tls.c:705
 #, c-format
 msgid "%s: the certificate type is not X509"
 msgstr "%s: der Zertifikattyp ist nicht X509"
 
-#: src/tls.c:738
+#: src/tls.c:737
 #, c-format
 msgid "%s: error parsing certificate %u of %u"
 msgstr "%s: Fehler beim Parsen von Zertifikat %u von %u"
 
-#: src/tls.c:750 src/tls.c:761 src/tls.c:912
+#: src/tls.c:749 src/tls.c:760 src/tls.c:911
 #, c-format
 msgid "%s: the certificate owner does not match hostname %s"
 msgstr "%s: der Zertifikatseigner stimmt nicht mit dem Hostnamen %s überein"
 
-#: src/tls.c:769
+#: src/tls.c:768
 #, c-format
 msgid "%s: cannot get activation time for certificate %u of %u"
 msgstr ""
 "%s: kann nicht auf Aktivierungszeitpunkt von Zertifikat %u von %u zugreifen"
 
-#: src/tls.c:777
+#: src/tls.c:776
 #, c-format
 msgid "%s: certificate %u of %u is not yet activated"
 msgstr "%s: Zertifikat %u von %u wurde noch nicht aktiviert"
 
-#: src/tls.c:783
+#: src/tls.c:782
 #, c-format
 msgid "%s: cannot get expiration time for certificate %u of %u"
 msgstr "%s: kann nicht auf Ablaufzeitpunkt von Zertifikat %u von %u zugreifen"
 
-#: src/tls.c:790
+#: src/tls.c:789
 #, c-format
 msgid "%s: certificate %u of %u has expired"
 msgstr "%s: Zertifikat %u von %u ist abgelaufen"
 
-#: src/tls.c:831
+#: src/tls.c:830
 #, c-format
 msgid "%s: no certificate was sent"
 msgstr "%s: kein Zertifikat gefunden"
 
-#: src/tls.c:897
+#: src/tls.c:896
 #, c-format
 msgid "%s: cannot get certificate common name"
 msgstr "%s: kann nicht auf allgemeinen Namen des Zertifikats zugreifen"
 
-#: src/tls.c:936
+#: src/tls.c:935
 #, c-format
 msgid "cannot initialize TLS Session: %s"
 msgstr "kann TLS Sitzung nicht initialisieren: %s"
 
-#: src/tls.c:942
+#: src/tls.c:941
 #, c-format
 msgid "cannot set priorities on TLS Session: %s"
 msgstr "kann Prioritäten der TLS Sitzung nicht setzen: %s"
 
-#: src/tls.c:953
+#: src/tls.c:952
 #, c-format
 msgid "cannot force SSLv3: %s"
 msgstr "kann SSLv3 nicht erzwingen: %s"
 
-#: src/tls.c:962
+#: src/tls.c:961
 #, c-format
 msgid "cannot allocate certificate for TLS Session: %s"
 msgstr "kann kein Zertifikat für TLS Sitzung reservieren: %s"
 
-#: src/tls.c:972
+#: src/tls.c:971
 #, c-format
 msgid ""
 "cannot set X509 key file %s and/or X509 cert file %s for TLS Session: %s"
@@ -1358,111 +1360,111 @@ msgstr ""
 "kann X509 Schlüsseldatei %s und/oder X509 Zertifikatdatei %s für TLS Sitzung "
 "nicht setzen: %s"
 
-#: src/tls.c:986
+#: src/tls.c:985
 #, c-format
 msgid "cannot set X509 trust file %s for TLS Session: %s"
 msgstr "kann X509 Vertrauensdatei %s für TLS Sitzung nicht setzen: %s"
 
-#: src/tls.c:997
+#: src/tls.c:996
 #, c-format
 msgid "cannot set credentials for TLS Session: %s"
 msgstr "kann Berechtigungsnachweise für TLS Sitzung nicht setzen: %s"
 
-#: src/tls.c:1014
+#: src/tls.c:1013
 msgid "cannot set TLS method"
 msgstr "kann TLS Methode nicht setzen"
 
-#: src/tls.c:1019
+#: src/tls.c:1018
 #, c-format
 msgid "cannot create TLS context: %s"
 msgstr "kann keinen TLS Kontext erzeugen: %s"
 
-#: src/tls.c:1030
+#: src/tls.c:1029
 #, c-format
 msgid "cannot load key file %s: %s"
 msgstr "kann Schlüsseldatei %s nicht laden: %s"
 
-#: src/tls.c:1038
+#: src/tls.c:1037
 #, c-format
 msgid "cannot load certificate file %s: %s"
 msgstr "kann Zertifikatdatei %s nicht laden: %s"
 
-#: src/tls.c:1049
+#: src/tls.c:1048
 #, c-format
 msgid "cannot load trust file %s: %s"
 msgstr "kann Vertrauensdatei %s nicht laden: %s"
 
-#: src/tls.c:1059
+#: src/tls.c:1058
 #, c-format
 msgid "cannot create a TLS structure: %s"
 msgstr "kann keine TLS Struktur erzeugen: %s"
 
-#: src/tls.c:1101
+#: src/tls.c:1100
 msgid "a protocol violating EOF occured"
 msgstr "erwartete Daten waren nicht verfügbar"
 
-#: src/tls.c:1119
+#: src/tls.c:1118
 msgid "the connection was closed unexpectedly"
 msgstr "die Verbindung wurde unerwartet getrennt"
 
-#: src/tls.c:1164 src/tls.c:1169
+#: src/tls.c:1163 src/tls.c:1168
 #, c-format
 msgid "TLS handshake failed: %s"
 msgstr "TLS Aushandlung fehlgeschlagen: %s"
 
-#: src/tls.c:1204
+#: src/tls.c:1203
 #, c-format
 msgid "cannot set the file descriptor for TLS: %s"
 msgstr "kann Dateideskriptor für TLS nicht setzen: %s"
 
-#: src/tls.c:1223
+#: src/tls.c:1222
 msgid "TLS handshake failed"
 msgstr "TLS Aushandlung fehlgeschlagen"
 
-#: src/tls.c:1286 src/tls.c:1291
+#: src/tls.c:1285 src/tls.c:1290
 #, c-format
 msgid "cannot read from TLS connection: %s"
 msgstr "Lesefehler in TLS Verbindung: %s"
 
-#: src/tls.c:1324
+#: src/tls.c:1323
 msgid "cannot read from TLS connection"
 msgstr "Lesefehler in TLS Verbindung"
 
-#: src/tls.c:1406 src/tls.c:1411 src/tls.c:1422
+#: src/tls.c:1405 src/tls.c:1410 src/tls.c:1421
 #, c-format
 msgid "cannot write to TLS connection: %s"
 msgstr "Schreibfehler in TLS Verbindung: %s"
 
-#: src/tls.c:1452
+#: src/tls.c:1451
 msgid "cannot write to TLS connection"
 msgstr "Schreibfehler in TLS Verbindung"
 
-#: src/uidls.c:207
+#: src/uidls.c:206
 #, c-format
 msgid "%s, line %ld: line longer than %d characters"
 msgstr "%s, Zeile %ld: Zeile länger als %d Zeichen"
 
-#: src/uidls.c:223
+#: src/uidls.c:222
 #, c-format
 msgid "%s, line %ld: UID without a list"
 msgstr "%s, Zeile %ld: UID außerhalb einer Liste"
 
-#: src/uidls.c:234
+#: src/uidls.c:233
 #, c-format
 msgid "%s, line %ld: invalid number of UIDs"
 msgstr "%s, Zeile %ld: ungültige Anzahl an UIDs"
 
-#: src/uidls.c:249
+#: src/uidls.c:248
 #, c-format
 msgid "%s, line %ld: invalid or missing host name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Hostname"
 
-#: src/uidls.c:261
+#: src/uidls.c:260
 #, c-format
 msgid "%s, line %ld: invalid or missing user name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Benutzername"
 
-#: src/uidls.c:275 src/uidls.c:309
+#: src/uidls.c:274 src/uidls.c:308
 #, c-format
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"

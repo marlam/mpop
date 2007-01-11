@@ -1,4 +1,5 @@
 Version 1.0.6 (not yet released):
+- Updated copyright info to 2007.
 - Added an "auto" setting for pipelining and made it the default. "on" and
   "off" now force pipelining on or off regardless of server capabilities.
   Thanks to Jeremy C. Reed for suggestions on this.
