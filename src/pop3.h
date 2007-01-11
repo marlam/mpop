@@ -173,7 +173,7 @@ typedef struct
     char *server_address;	/* network address of the POP3 server connected
 				   with 'fd', in human readable form */
     pop3_cap_t cap;		/* capabilities of the POP3 server */
-    int pipelining;		/* whether to use pipelining */
+    int pipelining;		/* pipelining: 0=off, 1=on, 2=auto */
     int count_newline_as_crlf;	/* does the server count newline as 2 chars? */
     int fd;			/* the socket */
 #ifdef HAVE_TLS
@@ -207,13 +207,15 @@ typedef struct
  * which mail will be retrieved during this session. Both strings are only used
  * when mail is retrieved and delivered, so if this session will not be used to
  * actually retrieve any mail, these values may be empty strings.
- * If 'force_pipelining' is set, pipelining will be used even if the server does
- * not support the CAPA command to advertize the pipelining capability.
+ * Pipelining will be enabled/disabled according to 'pipelining': 0 means off, 1
+ * means on, and auto means to enable it for servers that advertize the
+ * PIPELINING capability in response to the CAPA command and disable it for all
+ * other servers.
  * If 'debug' is not NULL, the complete conversation with the POP3 server will
  * be logged to the referenced file. 
  * Beware: this log may contain user passwords.
  */
-pop3_session_t *pop3_session_new(int force_pipelining,
+pop3_session_t *pop3_session_new(int pipelining,
 	const char *canonical_hostname, const char *local_user,
 	FILE *debug);
 
@@ -265,11 +267,9 @@ int pop3_get_greeting(pop3_session_t *session, char *greeting,
  * The capability flags will not be resetted before adding capabilities, so
  * capabilities that were set in previous calls to CAPA (in other POP3 states)
  * will still be set.
- * This command may alter the session->pipelining flag:
- * 1) If the server supports CAPA and advertizes PIPELINING, it will be set to 1
- * 2) If the server supports CAPA and does not advertize PIPELINING, it will be
- *    set to 0.
- * 3) If the server does not support CAPA, it will not be altered.
+ * If session->pipelining is 2 ("auto"), then this command will alter it:
+ * it will be set to 1 ("on") if the server supports CAPA and advertizes
+ * PIPELINING, and to 0 ("off") in all other cases.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
 int pop3_capa(pop3_session_t *session, char **errstr);

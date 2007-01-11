@@ -102,7 +102,7 @@
  * see pop3.h
  */
 
-pop3_session_t *pop3_session_new(int force_pipelining,
+pop3_session_t *pop3_session_new(int pipelining,
 	const char *local_hostname, const char *local_user,
 	FILE *debug)
 {
@@ -134,7 +134,7 @@ pop3_session_t *pop3_session_new(int force_pipelining,
     tls_clear(&session->tls);
 #endif /* HAVE_TLS */
     session->cap.flags = 0;
-    session->pipelining = force_pipelining;
+    session->pipelining = pipelining;
     /* every POP3 server supports this: */
     session->cap.flags |= POP3_CAP_AUTH_USER;
     session->cap.apop_timestamp = NULL;
@@ -620,11 +620,12 @@ int pop3_capa(pop3_session_t *session, char **errstr)
 	return POP3_EPROTO;
     }
     
-    /* Set the pipelining flag if we know whether pipelining is supported or
-     * not. Otherwise don't change it. */
-    if (session->cap.flags & POP3_CAP_CAPA) 
+    /* Automatically set the pipelining flag to off (0) or on (1) if it is not
+     * already set. */
+    if (session->pipelining == 2)
     {
-	if (session->cap.flags & POP3_CAP_PIPELINING)
+	if (session->cap.flags & POP3_CAP_CAPA 
+		&& session->cap.flags & POP3_CAP_PIPELINING)
 	{
 	    session->pipelining = 1;
 	}

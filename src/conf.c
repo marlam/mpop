@@ -61,7 +61,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->host = NULL;
     a->port = 0;		/* this must be set later */
     a->timeout = 0;
-    a->pipelining = 0;
+    a->pipelining = 2;
     a->delivery_method = -1;
     a->delivery_args = NULL;
     a->uidls_file = NULL;	/* this must be set later */
@@ -860,6 +860,10 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
 	    else if (is_off(arg))
 	    {
 		acc->pipelining = 0;
+	    }
+	    else if (strcmp(arg, "auto") == 0)
+	    {
+		acc->pipelining = 2;
 	    }
 	    else
 	    {

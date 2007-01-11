@@ -78,9 +78,8 @@ Set the port number to connect to. See the
 command below.
 .IP "--timeout=(\fIoff\fP|\fIseconds\fP)"
 Set a network timeout. See the \fBtimeout\fP command below.
-.IP "--pipelining=(\fIon\fP|\fIoff)"
-Enable or disable POP3 pipelining for obsolete servers. See the \fBpipelining\fP
-command below.
+.IP "--pipelining=(\fIauto\fP|\fIon\fP|\fIoff)"
+Enable or disable POP3 pipelining. See the \fBpipelining\fP command below.
 .IP "--auth[=(\fIon\fP|\fImethod\fP)]"
 Set the authentication method to automatic (with "on") or manually choose an
 authentication method. See the \fBauth\fP command below.
@@ -179,12 +178,13 @@ without STLS is used, in which case it is 995.
 .IP "timeout (\fIoff\fP|\fIseconds\fP)"
 Set or unset a network timeout, in seconds. The argument \fIoff\fP means that no
 timeout will be set, which means that the operating system default will be used.
-.IP "pipelining (\fIon\fP|\fIoff\fP)"
-Enable or disable POP3 pipelining for obsolete servers. Modern servers support
-the CAPA command and can tell mpop if they support pipelining. For these
-servers, this command is ignored.  If your server does not support the CAPA
-command, but you still want to use pipelining, you have to enable it manually
-with this command. See also --serverinfo.
+.IP "pipelining (\fIauto\fP|\fIon\fP|\fIoff\fP)"
+Enable or disable POP3 pipelining. The default is \fIauto\fP, which means that
+mpop enables pipelining for POP3 servers that advertize this capability, and 
+disables it for all other servers. See also --serverinfo.
+.br
+It is always safe to disable pipelining. It is not recommended to force
+pipelining for servers that are not known to support it.
 .br 
 Pipelining works by sending up to \fIPIPELINE_MAX\fP commands to the server, 
 then begin to read its answers, and refill the command pipeline when the number

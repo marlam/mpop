@@ -77,7 +77,7 @@ typedef struct
     int port;			/* port number */
     int timeout;		/* connect/input/output timeout in seconds */
     /* POP3 settings */
-    int pipelining;		/* flag: use pipelining? */
+    int pipelining;		/* use pipelining? 0=off, 1=on, 2=auto */
     int delivery_method;	/* number of the method, from delivery.h */
     char *delivery_args;	/* arguments for the delivery method */
     char *uidls_file;		/* file to store UIDLs */

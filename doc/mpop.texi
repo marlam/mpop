@@ -173,11 +173,11 @@ Set or unset a network timeout, in seconds. The argument @samp{off} means that
 no timeout will be set, which means that the operating system default will be
 used.
 @anchor{pipelining}
-@item pipelining (on|off)
+@item pipelining (auto|on|off)
 @cmindex pipelining
-Enable or disable POP3 pipelining for obsolete servers. Modern servers can tell
-mpop if they support pipelining, so this command is usually ignored.
-@xref{Pipelining}.
+Enable or disable POP3 pipelining. The default is @samp{auto}, which means that
+mpop enables pipelining for POP3 servers that advertize this capability, and 
+disables it for all other servers. @xref{Pipelining}.
 @end table
 
 @section Authentication commands
@@ -483,9 +483,9 @@ Set the port number to connect to. @xref{port}.
 @opindex --timeout
 Set or unset a network timeout, in seconds. @xref{timeout}.
 @anchor{--pipelining}
-@itemx --pipelining=(on|off)
+@itemx --pipelining=(auto|on|off)
 @opindex --pipelining
-Enable or disable POP3 pipelining for obsolete servers. @xref{pipelining}.
+Enable or disable POP3 pipelining. @xref{pipelining}.
 @anchor{--auth}
 @itemx --auth[=(on|@var{method})]
 @opindex --auth
@@ -748,12 +748,14 @@ server, then begin to read its answers, and refill the command pipeline when the
 number of unanswered commands drops to @samp{PIPELINE_MIN}. @samp{PIPELINE_MIN}
 and @samp{PIPELINE_MAX} are compile time constants.
 
-mpop can enable or disable POP3 pipelining automatically if the server supports
-the CAPA command; see @ref{Server information mode}.
+By default, mpop will enable pipelining automatically if the server supports
+the CAPA command and advertizes the pipelining capability, and disable it for 
+all other servers. @xref{Server information mode}.
 
-If your server does not support the CAPA command, but you still want to use
-pipelining, you have to enable it manually with the @samp{pipelining} command
-or @samp{--pipelining} option.  See @ref{pipelining}, @ref{--pipelining}.
+You can change this behaviour with the @samp{pipelining} command or
+@samp{--pipelining} option. See @ref{pipelining}, @ref{--pipelining}. It is
+always safe to disable pipelining. It is not recommended to force pipelining
+for servers that are not known to support it.
 
 @node Defective POP3 servers
 @section Defective POP3 servers

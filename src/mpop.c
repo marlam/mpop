@@ -1764,6 +1764,10 @@ int main(int argc, char *argv[])
 		{
 		    cmdline_account->pipelining = 0;
 		}
+		else if (strcmp(optarg, "auto") == 0)
+		{
+		    cmdline_account->pipelining = 2;
+		}
 		else
 		{
 		    print_error(_("invalid argument %s for %s"), 
@@ -2133,8 +2137,8 @@ int main(int argc, char *argv[])
 	        "  --port=number                Set port number.\n"
 	        "  --timeout=(off|seconds)      Set/unset network timeout in "
 			"seconds.\n"
-		"  --pipelining=(on|off)        Enable/disable POP3 pipelining "
-			"for old servers.\n"
+		"  --pipelining=(auto|on|off)   Enable/disable POP3 "
+			"pipelining.\n"
 		"  --auth[=(on|method)]         Choose the authentication "
 			"method.\n"
 		"  --user=[username]            Set/unset user name for "
@@ -2330,9 +2334,10 @@ int main(int argc, char *argv[])
 		    printf(_("%d seconds\n"), account->timeout);
 		}
 	    }
-	    printf("pipelining      = %s\n"
-		    "auth            = ",
-		    account->pipelining ? _("on") : _("off"));
+	    printf("pipelining      = %s\n", 
+		    account->pipelining == 0 ? _("off") 
+		    : account->pipelining == 1 ? _("on") : _("auto"));
+	    printf("auth            = ");
 	    if (account->auth_mech[0] == '\0')
 	    {
 		printf(_("choose\n"));
