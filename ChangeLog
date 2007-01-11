@@ -1,6 +1,8 @@
 Version 1.0.6 (not yet released):
 - Gnulib update to 2007-01-10.
-- Switch to autoconf-2.61 and automake-1.10.
+- Switch to autoconf-2.61 and automake-1.10, to avoid problems with configure
+  trying to run "sh /usr/bin/install" where /usr/bin/install is not a shell
+  script on NetBSD. Reported by Jeremy C. Reed.
 - Put the POP3_PIPELINE_MIN and POP3_PIPELINE_MAX definitions into #ifndef ...
   #endif so that they can easily be set via CFLAGS. Thanks to Jeremy C. Reed
   for the patch.
