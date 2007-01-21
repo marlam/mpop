@@ -5,10 +5,6 @@ Version 1.0.6:
   If you use pipelining=on and your POP3 sessions hang, switch to 
   pipelining=auto.
 
-Added an "auto" setting for pipelining and made it the default. "on" and
-  "off" now force pipelining on or off regardless of server capabilities.
-  Thanks to Jeremy C. Reed for suggestions on this.
-
 Version 1.0.5:
 - No significant changes.
 
