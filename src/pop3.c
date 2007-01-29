@@ -810,15 +810,10 @@ int pop3_uidl_check_uid(const char *uid)
     const char *p = uid;
     
     /* According to RFC 1939, a valid UID must consist of one to 70 characters
-     * in the range 0x21 to 0x7e. We allow longer UIDs, spaces inside UIDs (but
-     * no space at the beginning of an UID), and non-ASCII characters in UIDs
-     * as long as they are not control characters.
+     * in the range 0x21 to 0x7e. We allow longer UIDs, spaces inside UIDs, and
+     * non-ASCII characters in UIDs as long as they are not control characters.
      * I know of one case where the POP3 server uses non-ASCII characters in 
      * UIDs. I don't know if any server needs the other extensions, though. */
-    if (*p == ' ')
-    {
-	return 0;
-    }
     while (*p != '\0')
     {
 	if (c_iscntrl((unsigned char)*p))
@@ -894,8 +889,19 @@ int pop3_uidl(pop3_session_t *session, char **errmsg, char **errstr)
 	    if (p == session->buffer || *p != ' ' 
 		    || (n == LONG_MAX && errno == ERANGE)
 		    || n < 1 || n > session->total_number
-		    || session->msg_uid[n - 1]
-		    || !pop3_uidl_check_uid(p + 1))
+		    || session->msg_uid[n - 1])
+	    {
+		goto invalid_reply;
+	    }
+	    /* Allow more than one space between the number and the UID, even
+	     * though RFC 1939 says it must be exactly one. Needed for the
+	     * "Maillennium V05.00c++" POP3 server used by Comcast.net as of
+	     * 2007-01-29. */
+	    while (*p == ' ')
+	    {
+		p++;
+	    }
+	    if (!pop3_uidl_check_uid(p))
 	    {
 		goto invalid_reply;
 	    }

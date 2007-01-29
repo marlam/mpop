@@ -1,3 +1,8 @@
+Version 1.0.7:
+- Add a workaround for the Comcast.net POP3 server: allow more than one space
+  before the UID in an UIDL response, even though RFC 1939 says it must be
+  exactly one. Reported and fixed by Benji Fisher.
+
 Version 1.0.6:
 - Updated copyright info to 2007.
 - Added an "auto" setting for pipelining and made it the default. "on" and
