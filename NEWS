@@ -1,3 +1,7 @@
+Version 1.0.7:
+- Mpop now works with the Comcast.net POP3 server, thanks to a patch by 
+  Benji Fisher.
+
 Version 1.0.6:
 - The default setting for pipelining is now "auto". "on" and "off" now have a 
   slightly different meaning: they force pipelining on or off regardless of 
