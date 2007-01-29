@@ -22,7 +22,7 @@ dnl Process this file with autoconf to produce a configure script.
 #   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 
-AC_INIT([mpop], [1.0.6], [marlam@marlam.de])
+AC_INIT([mpop], [1.0.7], [marlam@marlam.de])
 AC_CONFIG_SRCDIR([src/mpop.c])
 AC_CANONICAL_SYSTEM
 
