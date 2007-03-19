@@ -1,4 +1,5 @@
 Version 1.0.8 (not yet released):
+- Gnulib update 2007-03-19.
 - Improve and generalize workaround for pop.gmail.com RFC violations. This
   enables automatic pipelining support for this server.
 - Provide a hstrerror() function for systems that lack getaddrinfo(), so that
