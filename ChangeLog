@@ -1,4 +1,6 @@
 Version 1.0.8 (not yet released):
+- Improve and generalize workaround for pop.gmail.com RFC violations. This
+  enables automatic pipelining support for this server.
 - Provide a hstrerror() function for systems that lack getaddrinfo(), so that
   gethostbyname() must be used instead, and do not provide hstrerror()
   themselves. Needed for Solaris 2.6. Reported and tested by Chris Green.

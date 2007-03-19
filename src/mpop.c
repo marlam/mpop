@@ -1003,15 +1003,29 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
     /* In theory, it is not necessary to get the capabilities again at this
      * point, because we won't use capabilities that may change between
-     * AUTHENTICATION and TRANSACTION state (see RFC 2449)
+     * AUTHENTICATION and TRANSACTION state (see RFC 2449).
      * However, as of 2005-01-17, at least pop.gmail.com violates this part of
      * the RFC by announcing the PIPELINING, UIDL, and TOP capabilities only
-     * after authentication. Since UIDL and/or TOP may be needed, we need to
-     * get the capabilities again... */
+     * after authentication. (Update 2007-03-19: now UIDL is announced before
+     * authentication, but TOP and PIPELINING still are not).
+     * This general workaround issues CAPA again if it is supported and
+     * - filtering is used and the TOP capability was not seen or
+     * - pipelining is to be set automatically and the PIPELINING capability
+     *   was not seen or
+     * - the UIDL capability was not seen.
+     * Other capabilities won't be used, so we do not care about them.
+     */
     if ((session->cap.flags & POP3_CAP_CAPA)
-	    && ((acc->filter && !(session->cap.flags & POP3_CAP_TOP))
+	    && ((acc->filter 
+		    && !(session->cap.flags & POP3_CAP_TOP))
+		|| (acc->pipelining == 2 
+		    && !(session->cap.flags & POP3_CAP_PIPELINING))
 		|| !(session->cap.flags & POP3_CAP_UIDL)))
     {
+	if (acc->pipelining == 2)
+	{
+	    session->pipelining = 2;
+	}
 	if ((e = pop3_capa(session, errstr)) != POP3_EOK)
 	{
 	    mpop_endsession(session, 0);
