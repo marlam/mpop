@@ -24,6 +24,8 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT([mpop], [1.0.8], [marlam@marlam.de])
 AC_CONFIG_SRCDIR([src/mpop.c])
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([build-aux])
 AC_CANONICAL_SYSTEM
 
 AM_INIT_AUTOMAKE

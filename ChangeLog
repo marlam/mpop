@@ -1,4 +1,5 @@
 Version 1.0.8 (not yet released):
+- Move build-aux files to separate directory build-aux.
 - Gnulib update 2007-03-19.
 - Improve and generalize workaround for pop.gmail.com RFC violations. This
   enables automatic pipelining support for this server.

@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=gnulib --m4-base=gnulib/m4 --doc-base=doc --aux-dir=. --avoid=xalloc-die --no-libtool --macro-prefix=gl base64 c-ctype getopt getpass gettext hmac-md5 md5 socklen sysexits xalloc xstrndup xvasprintf
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=gnulib --m4-base=gnulib/m4 --doc-base=doc --aux-dir=build-aux --avoid=xalloc-die --no-libtool --macro-prefix=gl base64 c-ctype getopt getpass gettext hmac-md5 md5 socklen sysexits xalloc xstrndup xvasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
