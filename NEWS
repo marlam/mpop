@@ -1,3 +1,8 @@
+Version 1.0.8:
+- Improved workarounds for POP3 servers that are not exactly RFC conformant.
+  For example, pipelining is now enabled automatically for pop.gmail.com and
+  some other servers.
+
 Version 1.0.7:
 - Mpop now works with the Comcast.net POP3 server, thanks to a patch by 
   Benji Fisher.

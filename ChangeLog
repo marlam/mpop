@@ -1,10 +1,11 @@
-Version 1.0.8 (not yet released):
+Version 1.0.8:
 - Move build-aux files to separate directory build-aux.
 - Gnulib update 2007-03-19.
 - Improve and generalize workaround for pop.gmail.com RFC violations. This
-  enables automatic pipelining support for this server.
-- Provide a hstrerror() function for systems that lack getaddrinfo(), so that
-  gethostbyname() must be used instead, and do not provide hstrerror()
+  enables automatic pipelining support for pop.gmail.com and some other 
+  servers.
+- Provide a hstrerror() function for systems that lack getaddrinfo() (so that
+  gethostbyname() must be used instead) and that do not provide hstrerror()
   themselves. Needed for Solaris 2.6. Reported and tested by Chris Green.
 
 Version 1.0.7:
