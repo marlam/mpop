@@ -445,7 +445,14 @@ int check_account(account_t *acc, int retrmail, char **errstr)
     if (acc->tls_nocertcheck && acc->tls_trust_file)
     {
 	*errstr = xasprintf(
-		_("cannot use tls_trust_file with tls_cert_check turned off"));
+		_("cannot use tls_trust_file with tls_certcheck turned off"));
+	return CONF_ESYNTAX;
+    }
+    if (acc->tls && !acc->tls_trust_file && !acc->tls_nocertcheck)
+    {
+	*errstr = xasprintf(
+		_("tls requires either tls_trust_file (highly recommended) or "
+		    "a disabled tls_certcheck"));
 	return CONF_ESYNTAX;
     }
     if (retrmail && acc->delivery_method == -1)

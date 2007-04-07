@@ -1,4 +1,6 @@
 Version 1.0.9:
+- Require either tls_trust_file or tls_certcheck=off for TLS sessions, so that
+  mpop is not silently vulnerable to man-in-the-middle attacks.
 - Gnulib update 2007-04-07.
 - Protect against the man-in-the-middle attack on APOP authentication as
   described in CVE-2007-1558. This is done by doing sanity checks on the

@@ -283,14 +283,13 @@ even if it is an arbitrary string.
 .br
 .IP "tls [(\fIon\fP|\fIoff\fP)]"
 This command enables or disables TLS/SSL encrypted connections to the POP3 
-server. Not every server supports TLS, and many that do require the additional 
-command \fBtls_starttls off\fP.  
+server. Not every server supports TLS, and many that support it require the 
+additional command \fBtls_starttls off\fP. 
 .br
 With TLS, the connection with the POP3 server will be protected against
-eavesdroppers. A sanity check will be performed on the server certificate
-(unless the \fBtls_certcheck\fP command is used to turn this off, see below).
-To make full use of the TLS/SSL capabilities, it is recommended to use the
-\fBtls_trust_file\fP command (see below).
+eavesdroppers and man-in-the-middle attacks. To use TLS/SSL, it is required to 
+either use the \fBtls_trust_file\fP command (highly recommended) or to disable 
+\fBtls_certcheck\fP.
 .IP "tls_starttls [(\fIon\fP|\fIoff\fP)]"
 By default, TLS encryption is activated using the STLS POP3 command.  By
 disabling this, TLS encryption is immediately started instead (this is known as
@@ -300,12 +299,12 @@ operation.
 This command activates strict server certificate verification.
 .br
 The filename must be the absolute path name of a file in PEM format containing
-one or more certificates of trusted Certification Authorities (CAs), one of
-which certified the POP3 server you want to connect to.  An empty argument
-disables this feature.
+one or more certificates of trusted Certification Authorities (CAs).
 .br
-With a trust file, mpop can verify the authenticity of the server it connects
-to.
+On Debian based systems, you can install the \fBca-certificates\fP package and
+use the file \fB/etc/ssl/certs/ca-certificates.crt\fP.
+.br
+An empty argument disables this feature.
 .IP "tls_key_file \fIfile\fP"
 This command (together with the \fBtls_cert_file\fP command) enables mpop to
 send a client certificate to the POP3 server if requested.
@@ -323,9 +322,10 @@ a certificate.
 .br
 An empty argument disables this feature.
 .IP "tls_certcheck [(\fIon\fP|\fIoff\fP)]"
-By default, sanity checks are performed on server certificate(s) when TLS is
-used.  If the certificate(s) don't pass the checks, the TLS connection is
-aborted.  This command can turn the checks off. 
+This command enables or disables checks for the server certificate.
+.br
+\fBWARNING\fP: When the checks are disabled, TLS/SSL sessions will be vulnerable
+to man-in-the-middle attacks!
 .IP "tls_force_sslv3 [(\fIon\fP|\fIoff\fP)]"
 Force TLS/SSL version SSLv3. This might be needed to use SSL with some old and
 broken servers. Do not use this unless you have to.
@@ -407,6 +407,10 @@ defaults
 # Activate TLS.
 .br
 tls on
+.br
+# Enable full TLS certificate checks.
+.br
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
 .br
 # Use the POP3-over-TLS variant instead of the STARTTLS variant.
 .br
