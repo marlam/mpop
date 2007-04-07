@@ -1,6 +1,6 @@
 .\" -*-nroff-*-
 .\"
-.\" mpop version 1.0.8
+.\" mpop version 1.0.9
 .\"
 .\" Copyright (C) 2005, 2006, 2007  Martin Lambers
 .\"
@@ -254,14 +254,15 @@ support in the underlying authentication library. Use the \fB--version\fP
 option to find out which methods are supported.
 .br
 The \fIuser\fP, \fIplain\fP and \fIlogin\fP methods send your authentication
-data in cleartext over the net and should therefore only be used together with
+data in cleartext over the net, and the \fIapop\fP and \fIntlm\fP methods are 
+vulnerable to attacks. These methods should therefore only be used together with
 the \fBtls\fP command.
 .br
 If you don't choose the method yourself, mpop chooses the best secure method
 that the POP3 server supports. Secure means that your authentication data will
 not be sent in cleartext over the net. For TLS encrypted connections, every
 authentication method is secure in this sense. If TLS is not active, only
-gssapi, digest-md5, cram-md5, apop, and ntlm are secure in this sense.
+gssapi, digest-md5, and cram-md5 ntlm are secure in this sense.
 .br
 The \fIexternal\fP is special: the actual authentication happens outside of the
 SMTP protocol, typically by sending a TLS client certificate (see the

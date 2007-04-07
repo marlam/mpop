@@ -405,6 +405,257 @@ int pop3_send_cmd(pop3_session_t *session, char **errstr,
 
 
 /*
+ * pop3_get_addr()
+ *
+ * Reads the next mail address from the given string and returns it in an
+ * allocated buffer. If no mail address is found, NULL will be returned.
+ * If a buffer is returned, the string in it will only contain the following
+ * characters: letters a-z and A-Z, digits 0-9, and any of ".@_-+/".
+ * Note that this is only a subset of what the RFCs 2821 and 2822 allow!
+ */
+char *pop3_get_addr(const char *s)
+{
+    enum states { STATE_DEFAULT, STATE_DQUOTE, 
+	STATE_BRACKETS_START, STATE_IN_BRACKETS, 
+	STATE_PARENTH_START, STATE_IN_PARENTH,
+	STATE_IN_ADDRESS, STATE_BACKQUOTE,
+        STATE_END };
+    int state = STATE_DEFAULT;
+    int oldstate = STATE_DEFAULT;
+    int backquote_savestate = STATE_DEFAULT;
+    int parentheses_depth = 0;
+    int parentheses_savestate = STATE_DEFAULT;
+    char *addr = NULL;
+    size_t addr_len = 0;
+    int forget_addr = 0;
+    int finish_addr = 0;
+    size_t bufsize = 0;
+    /* The buffer that is filled with the mail address grows by
+     * 'bufsize_step' if the remaining space becomes too small. This value must
+     * be at least 2. Wasted characters are at most (bufsize_step - 1). A value
+     * of 10 means low wasted space and a low number of realloc()s per
+     * recipient. */
+    const size_t bufsize_step = 10;
+    const char *p = s;
+ 
+    for (;;)
+    {
+	oldstate = state;
+	if (!*p)
+	{
+	    if (addr)
+		finish_addr = 1;
+	    state = STATE_END;
+	}
+	else
+	{
+	    switch (state)
+	    {
+	       	case STATE_DEFAULT:
+	    	    if (*p == '\\')
+	    	    {
+	       		backquote_savestate = state;
+	    		state = STATE_BACKQUOTE;
+	    	    }
+	    	    else if (*p == '(')
+	    	    {
+	    		parentheses_savestate = state;
+	    		state = STATE_PARENTH_START;
+	    	    }
+	    	    else if (*p == '"')
+	    	    {
+	    		if (addr)
+	    		    forget_addr = 1;
+	    		state = STATE_DQUOTE;
+	    	    }
+	    	    else if (*p == '<')
+	    	    {
+	    		if (addr)
+	    		    forget_addr = 1;
+	    		state = STATE_BRACKETS_START;
+	    	    }
+	    	    else if (*p == ' ' || *p == '\t')
+	    		; /* keep state */
+	    	    else if (*p == ':')
+	    	    {
+	    		if (addr)
+	    		    forget_addr = 1;
+	    	    }
+	    	    else if (*p == ';' || *p == ',')
+	    	    {
+	    		if (addr)
+			{
+	    		    finish_addr = 1;
+			    state = STATE_END;
+			}
+	    	    }
+	    	    else
+	    	    {
+	    		if (addr)
+	    		    forget_addr = 1;
+	    		state = STATE_IN_ADDRESS;
+	    	    }
+	    	    break;
+
+		case STATE_DQUOTE:
+	    	    if (*p == '\\')
+	    	    {
+	    		backquote_savestate = state;
+	    		state = STATE_BACKQUOTE;
+	    	    }
+	    	    else if (*p == '"')
+	    		state = STATE_DEFAULT;
+	    	    break;
+
+		case STATE_BRACKETS_START:
+	    	    if (*p == '(')
+	    	    {
+	    		parentheses_savestate = state;
+	    		state = STATE_PARENTH_START;
+	    	    }
+	    	    else if (*p == '>')
+	    		state = STATE_DEFAULT;
+	    	    else
+	    		state = STATE_IN_BRACKETS;
+	    	    break;
+
+		case STATE_IN_BRACKETS:
+	    	    if (*p == '\\')
+	    	    {
+	    		backquote_savestate = state;
+	    		state = STATE_BACKQUOTE;
+	    	    }
+	    	    else if (*p == '(')
+	    	    {
+	    		parentheses_savestate = state;
+	    		state = STATE_PARENTH_START;
+	    	    }
+	    	    else if (*p == '>')
+		    {
+			finish_addr = 1;
+	    		state = STATE_END;
+    		    }
+	    	    break;
+
+		case STATE_PARENTH_START:
+	    	    if (*p == ')')
+	    		state = parentheses_savestate;
+	    	    else
+	    	    {
+	    		parentheses_depth++;
+	    		state = STATE_IN_PARENTH;
+	    	    }
+	    	    break;
+
+		case STATE_IN_PARENTH:
+	    	    if (*p == '\\')
+	    	    {
+	    		backquote_savestate = state;
+	    		state = STATE_BACKQUOTE;
+	    	    }
+	    	    else if (*p == '(')
+	    		state = STATE_PARENTH_START;
+	    	    else if (*p == ')')
+	    	    {
+	    		parentheses_depth--;
+	    		if (parentheses_depth == 0)
+	    		    state = parentheses_savestate;
+	    	    }
+	    	    break;
+
+		case STATE_IN_ADDRESS:
+	    	    if (*p == '\\')
+	    	    {
+	    		backquote_savestate = state;
+	    		state = STATE_BACKQUOTE;
+	    	    }
+	    	    else if (*p == '"')
+	    	    {
+	    		forget_addr = 1;
+	    		state = STATE_DQUOTE;
+	    	    }
+	    	    else if (*p == '(')
+	    	    {
+	    		parentheses_savestate = state;
+	    		state = STATE_PARENTH_START;
+	    	    }
+	    	    else if (*p == '<')
+	    	    {
+	    		forget_addr = 1;
+	    		state = STATE_BRACKETS_START;
+	    	    }
+	    	    else if (*p == ' ' || *p == '\t')
+	    		state = STATE_DEFAULT;
+	    	    else if (*p == ':')
+	    	    {
+	    		forget_addr = 1;
+	    		state = STATE_DEFAULT;
+	    	    }
+	    	    else if (*p == ',' || *p == ';')
+		    {
+	    		finish_addr = 1;
+	    		state = STATE_END;
+    		    }
+	    	    break;
+
+		case STATE_BACKQUOTE:
+		    state = backquote_savestate;
+		    break;
+	    }
+	}
+
+	if (forget_addr)
+	{
+	    /* this was just junk */
+	    free(addr);
+	    addr = NULL;
+	    addr_len = 0;
+	    bufsize = 0;
+	    forget_addr = 0;
+	}
+	if (finish_addr)
+	{
+	    addr[addr_len] = '\0';
+	}
+	if (state == STATE_END)
+	{
+	    break;
+	}
+	if ((state == STATE_IN_ADDRESS || state == STATE_IN_BRACKETS)
+		&& oldstate != STATE_PARENTH_START
+		&& oldstate != STATE_IN_PARENTH)
+	{
+    	    /* Add this character to the current recipient */
+	    addr_len++;
+	    if (bufsize < addr_len + 1)
+	    {
+		bufsize += bufsize_step;
+		addr = xrealloc(addr, bufsize * sizeof(char));
+	    }
+	    /* sanitize characters */
+	    if (c_isalpha((unsigned char)*p) || c_isdigit((unsigned char)*p)
+		    || *p == '.' || *p == '@' || *p == '_' || *p == '-' 
+		    || *p == '+' || *p == '/')
+	    {
+		addr[addr_len - 1] = *p;
+	    }
+	    else if (c_isspace((unsigned char)*p))
+	    {
+		addr[addr_len - 1] = '-';
+	    }
+	    else
+	    {
+		addr[addr_len - 1] = '_';
+	    }
+	}
+	p++;
+    }
+
+    return addr;
+}
+
+
+/*
  * pop3_get_greeting()
  *
  * see pop3.h
@@ -414,7 +665,7 @@ int pop3_get_greeting(pop3_session_t *session, char *greeting,
 	char **errmsg, char **errstr)
 {
     int e;
-    char *p, *q;
+    char *p, *q, *a;
     
     if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
     {
@@ -432,11 +683,17 @@ int pop3_get_greeting(pop3_session_t *session, char *greeting,
 	/* 'greeting' is large enough */
 	strcpy(greeting, session->buffer + 4);
     }
-    /* search APOP timestamp */
-    if ((p = strchr(session->buffer, '<')) != NULL)
+    /* Search APOP timestamp. Make sure that it is a valid RFC822 message id as
+     * required by RFC 1939 and that it is reasonably long. This should make
+     * man-in-the-middle attacks as described in CVE-2007-1558 a little bit
+     * harder. Nevertheless, APOP is considered broken, and is never used
+     * automatically unless TLS is active. */
+    if ((p = strchr(session->buffer, '<')) != NULL
+	    && (q = strchr(p + 1, '>')) != NULL)
     {
-	if ((q = strchr(p, '>')) != NULL)
+	if ((a = pop3_get_addr(p)) && strlen(a) >= 14)
 	{
+	    free(a);
 	    session->cap.flags |= POP3_CAP_AUTH_APOP;
 	    session->cap.apop_timestamp = xmalloc((q - p + 2) * sizeof(char));
 	    strncpy(session->cap.apop_timestamp, p, q - p + 1);
@@ -1233,257 +1490,6 @@ int pop3_pipe(pop3_session_t *session,
     }
 
     return POP3_EOK;
-}
-
-
-/*
- * pop3_get_addr()
- *
- * Reads the next mail address from the given string and returns it in an
- * allocated buffer. If no mail address is found, NULL will be returned.
- * If a buffer is returned, the string in it will only contain the following
- * characters: letters a-z and A-Z, digits 0-9, and any of ".@_-+/".
- * Note that this is only a subset of what the RFCs 2821 and 2822 allow!
- */
-char *pop3_get_addr(const char *s)
-{
-    enum states { STATE_DEFAULT, STATE_DQUOTE, 
-	STATE_BRACKETS_START, STATE_IN_BRACKETS, 
-	STATE_PARENTH_START, STATE_IN_PARENTH,
-	STATE_IN_ADDRESS, STATE_BACKQUOTE,
-        STATE_END };
-    int state = STATE_DEFAULT;
-    int oldstate = STATE_DEFAULT;
-    int backquote_savestate = STATE_DEFAULT;
-    int parentheses_depth = 0;
-    int parentheses_savestate = STATE_DEFAULT;
-    char *addr = NULL;
-    size_t addr_len = 0;
-    int forget_addr = 0;
-    int finish_addr = 0;
-    size_t bufsize = 0;
-    /* The buffer that is filled with the mail address grows by
-     * 'bufsize_step' if the remaining space becomes too small. This value must
-     * be at least 2. Wasted characters are at most (bufsize_step - 1). A value
-     * of 10 means low wasted space and a low number of realloc()s per
-     * recipient. */
-    const size_t bufsize_step = 10;
-    const char *p = s;
- 
-    for (;;)
-    {
-	oldstate = state;
-	if (!*p)
-	{
-	    if (addr)
-		finish_addr = 1;
-	    state = STATE_END;
-	}
-	else
-	{
-	    switch (state)
-	    {
-	       	case STATE_DEFAULT:
-	    	    if (*p == '\\')
-	    	    {
-	       		backquote_savestate = state;
-	    		state = STATE_BACKQUOTE;
-	    	    }
-	    	    else if (*p == '(')
-	    	    {
-	    		parentheses_savestate = state;
-	    		state = STATE_PARENTH_START;
-	    	    }
-	    	    else if (*p == '"')
-	    	    {
-	    		if (addr)
-	    		    forget_addr = 1;
-	    		state = STATE_DQUOTE;
-	    	    }
-	    	    else if (*p == '<')
-	    	    {
-	    		if (addr)
-	    		    forget_addr = 1;
-	    		state = STATE_BRACKETS_START;
-	    	    }
-	    	    else if (*p == ' ' || *p == '\t')
-	    		; /* keep state */
-	    	    else if (*p == ':')
-	    	    {
-	    		if (addr)
-	    		    forget_addr = 1;
-	    	    }
-	    	    else if (*p == ';' || *p == ',')
-	    	    {
-	    		if (addr)
-			{
-	    		    finish_addr = 1;
-			    state = STATE_END;
-			}
-	    	    }
-	    	    else
-	    	    {
-	    		if (addr)
-	    		    forget_addr = 1;
-	    		state = STATE_IN_ADDRESS;
-	    	    }
-	    	    break;
-
-		case STATE_DQUOTE:
-	    	    if (*p == '\\')
-	    	    {
-	    		backquote_savestate = state;
-	    		state = STATE_BACKQUOTE;
-	    	    }
-	    	    else if (*p == '"')
-	    		state = STATE_DEFAULT;
-	    	    break;
-
-		case STATE_BRACKETS_START:
-	    	    if (*p == '(')
-	    	    {
-	    		parentheses_savestate = state;
-	    		state = STATE_PARENTH_START;
-	    	    }
-	    	    else if (*p == '>')
-	    		state = STATE_DEFAULT;
-	    	    else
-	    		state = STATE_IN_BRACKETS;
-	    	    break;
-
-		case STATE_IN_BRACKETS:
-	    	    if (*p == '\\')
-	    	    {
-	    		backquote_savestate = state;
-	    		state = STATE_BACKQUOTE;
-	    	    }
-	    	    else if (*p == '(')
-	    	    {
-	    		parentheses_savestate = state;
-	    		state = STATE_PARENTH_START;
-	    	    }
-	    	    else if (*p == '>')
-		    {
-			finish_addr = 1;
-	    		state = STATE_END;
-    		    }
-	    	    break;
-
-		case STATE_PARENTH_START:
-	    	    if (*p == ')')
-	    		state = parentheses_savestate;
-	    	    else
-	    	    {
-	    		parentheses_depth++;
-	    		state = STATE_IN_PARENTH;
-	    	    }
-	    	    break;
-
-		case STATE_IN_PARENTH:
-	    	    if (*p == '\\')
-	    	    {
-	    		backquote_savestate = state;
-	    		state = STATE_BACKQUOTE;
-	    	    }
-	    	    else if (*p == '(')
-	    		state = STATE_PARENTH_START;
-	    	    else if (*p == ')')
-	    	    {
-	    		parentheses_depth--;
-	    		if (parentheses_depth == 0)
-	    		    state = parentheses_savestate;
-	    	    }
-	    	    break;
-
-		case STATE_IN_ADDRESS:
-	    	    if (*p == '\\')
-	    	    {
-	    		backquote_savestate = state;
-	    		state = STATE_BACKQUOTE;
-	    	    }
-	    	    else if (*p == '"')
-	    	    {
-	    		forget_addr = 1;
-	    		state = STATE_DQUOTE;
-	    	    }
-	    	    else if (*p == '(')
-	    	    {
-	    		parentheses_savestate = state;
-	    		state = STATE_PARENTH_START;
-	    	    }
-	    	    else if (*p == '<')
-	    	    {
-	    		forget_addr = 1;
-	    		state = STATE_BRACKETS_START;
-	    	    }
-	    	    else if (*p == ' ' || *p == '\t')
-	    		state = STATE_DEFAULT;
-	    	    else if (*p == ':')
-	    	    {
-	    		forget_addr = 1;
-	    		state = STATE_DEFAULT;
-	    	    }
-	    	    else if (*p == ',' || *p == ';')
-		    {
-	    		finish_addr = 1;
-	    		state = STATE_END;
-    		    }
-	    	    break;
-
-		case STATE_BACKQUOTE:
-		    state = backquote_savestate;
-		    break;
-	    }
-	}
-
-	if (forget_addr)
-	{
-	    /* this was just junk */
-	    free(addr);
-	    addr = NULL;
-	    addr_len = 0;
-	    bufsize = 0;
-	    forget_addr = 0;
-	}
-	if (finish_addr)
-	{
-	    addr[addr_len] = '\0';
-	}
-	if (state == STATE_END)
-	{
-	    break;
-	}
-	if ((state == STATE_IN_ADDRESS || state == STATE_IN_BRACKETS)
-		&& oldstate != STATE_PARENTH_START
-		&& oldstate != STATE_IN_PARENTH)
-	{
-    	    /* Add this character to the current recipient */
-	    addr_len++;
-	    if (bufsize < addr_len + 1)
-	    {
-		bufsize += bufsize_step;
-		addr = xrealloc(addr, bufsize * sizeof(char));
-	    }
-	    /* sanitize characters */
-	    if (c_isalpha((unsigned char)*p) || c_isdigit((unsigned char)*p)
-		    || *p == '.' || *p == '@' || *p == '_' || *p == '-' 
-		    || *p == '+' || *p == '/')
-	    {
-		addr[addr_len - 1] = *p;
-	    }
-	    else if (c_isspace((unsigned char)*p))
-	    {
-		addr[addr_len - 1] = '-';
-	    }
-	    else
-	    {
-		addr[addr_len - 1] = '_';
-	    }
-	}
-	p++;
-    }
-
-    return addr;
 }
 
 
@@ -2677,19 +2683,14 @@ int pop3_auth(pop3_session_t *session,
 	{
 	    auth_mech = "CRAM-MD5";
 	}
-	else if (session->cap.flags & POP3_CAP_AUTH_APOP)
-	{
-	    auth_mech = "APOP";
-	}
-	else if (gsasl_client_support_p(ctx, "NTLM") 
-		&& (session->cap.flags & POP3_CAP_AUTH_NTLM))
-	{
-	    auth_mech = "NTLM";
-	}
 #ifdef HAVE_TLS
 	else if (tls_is_active(&session->tls))
 	{
-	    if (gsasl_client_support_p(ctx, "PLAIN") 
+	    if (session->cap.flags & POP3_CAP_AUTH_APOP)
+	    {
+		auth_mech = "APOP";
+	    }
+	    else if (gsasl_client_support_p(ctx, "PLAIN") 
 		    && (session->cap.flags & POP3_CAP_AUTH_PLAIN))
 	    {
 		auth_mech = "PLAIN";
@@ -2702,6 +2703,11 @@ int pop3_auth(pop3_session_t *session,
 		    && (session->cap.flags & POP3_CAP_AUTH_LOGIN))
 	    {
 		auth_mech = "LOGIN";
+	    }
+	    else if (gsasl_client_support_p(ctx, "NTLM") 
+		    && (session->cap.flags & POP3_CAP_AUTH_NTLM))
+	    {
+		auth_mech = "NTLM";
 	    }
 	}
 #endif /* HAVE_TLS */

@@ -1,3 +1,13 @@
+Version 1.0.9:
+- Protect against the man-in-the-middle attack on APOP authentication as
+  described in CVE-2007-1558. This is done by doing sanity checks on the
+  APOP timestamp in the server greeting. 
+  However, this probably makes attacks only harder. It will not make them
+  impossible. Therefore, APOP authentication is never used automatically 
+  anymore unless TLS is active.
+- Do not use NTLM authentication automatically anymore unless TLS is active.
+  NTLM is not an open standard and must therefore be considered broken.
+
 Version 1.0.8:
 - Move build-aux files to separate directory build-aux.
 - Gnulib update 2007-03-19.
