@@ -48,21 +48,24 @@ AC_DEFUN([gl_INIT],
   gl_source_base='gnulib'
   gl_FUNC_ALLOCA
   gl_FUNC_BASE64
+  gl_HMAC_MD5
+  gl_MD5
   gl_FUNC_GETDELIM
   gl_FUNC_GETLINE
   gl_GETOPT
   gl_FUNC_GETPASS
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.16.1])
-  gl_HMAC_MD5
+  AC_SUBST([LIBINTL])
+  AC_SUBST([LTLIBINTL])
   gl_INLINE
-  gl_MD5
   gl_MEMXOR
   gl_SIZE_MAX
   gl_TYPE_SOCKLEN_T
   gl_STDARG_H
   AM_STDBOOL_H
   gl_STDINT_H
+  gl_STDIO_H
   gl_HEADER_STRING_H
   gl_FUNC_STRNDUP
   gl_STRING_MODULE_INDICATOR([strndup])
@@ -74,6 +77,7 @@ AC_DEFUN([gl_INIT],
   gl_UNISTD_H
   gl_FUNC_VASNPRINTF
   gl_FUNC_VASPRINTF
+  gl_STDIO_MODULE_INDICATOR([vasprintf])
   gl_WCHAR_H
   gl_XALLOC
   gl_XSIZE
@@ -154,6 +158,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/socket_.h
   lib/stdbool_.h
   lib/stdint_.h
+  lib/stdio_.h
   lib/string_.h
   lib/strndup.c
   lib/strnlen.c
@@ -162,7 +167,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/vasnprintf.c
   lib/vasnprintf.h
   lib/vasprintf.c
-  lib/vasprintf.h
   lib/wchar_.h
   lib/xalloc.h
   lib/xasprintf.c
@@ -201,7 +205,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-link.m4
   m4/lib-prefix.m4
   m4/lock.m4
-  m4/longdouble.m4
   m4/longlong.m4
   m4/md5.m4
   m4/memxor.m4
@@ -217,6 +220,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdbool.m4
   m4/stdint.m4
   m4/stdint_h.m4
+  m4/stdio_h.m4
   m4/string_h.m4
   m4/strndup.m4
   m4/strnlen.m4

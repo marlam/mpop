@@ -1,4 +1,5 @@
 Version 1.0.9:
+- Gnulib update 2007-04-07.
 - Protect against the man-in-the-middle attack on APOP authentication as
   described in CVE-2007-1558. This is done by doing sanity checks on the
   APOP timestamp in the server greeting. 

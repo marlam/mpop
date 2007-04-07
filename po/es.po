@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2007-03-19 20:46+0100\n"
+"POT-Creation-Date: 2007-04-07 13:42+0200\n"
 "PO-Revision-Date: 2006-09-03 14:51+0200\n"
 "Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
 "Language-Team: Spanish\n"
@@ -254,7 +254,7 @@ msgstr "%s devolvió estado de salida %d (%s)"
 msgid "%s returned exit status %d"
 msgstr "%s devolvió estado de salida %d"
 
-#: src/delivery.c:370 src/delivery.c:529 src/pop3.c:1618 src/tls.c:110
+#: src/delivery.c:370 src/delivery.c:529 src/pop3.c:1624 src/tls.c:110
 #, c-format
 msgid "cannot get system time: %s"
 msgstr "no se puede averiguar la hora del sistema %s"
@@ -547,8 +547,8 @@ msgid "retrieving message %ld of %ld (%s): "
 msgstr "descargando mensaje %ld de %ld (%s): "
 
 #: src/mpop.c:1055 src/mpop.c:1254 src/mpop.c:1301 src/net.c:120 src/net.c:427
-#: src/net.c:512 src/net.c:605 src/net.c:713 src/net.c:833 src/pop3.c:1091
-#: src/pop3.c:1774 src/tls.c:1157 src/tls.c:1216 src/tls.c:1279 src/tls.c:1318
+#: src/net.c:512 src/net.c:605 src/net.c:713 src/net.c:833 src/pop3.c:1348
+#: src/pop3.c:1780 src/tls.c:1157 src/tls.c:1216 src/tls.c:1279 src/tls.c:1318
 #: src/tls.c:1399 src/tls.c:1445
 msgid "operation aborted"
 msgstr "operación calcelada"
@@ -1078,117 +1078,118 @@ msgstr ""
 "No se puede mandar una orden POP3 más larga que %d caracteres. Incremente "
 "POP3_BUFSIZE."
 
-#: src/pop3.c:427
+#: src/pop3.c:678
 msgid "cannot get initial OK message from POP3 server"
 msgstr "no se puede recibir el mensaje inicial OK del servidor POP3"
 
-#: src/pop3.c:480 src/pop3.c:619 src/pop3.c:736 src/pop3.c:744 src/pop3.c:923
-#: src/pop3.c:1031
+#: src/pop3.c:737 src/pop3.c:876 src/pop3.c:993 src/pop3.c:1001
+#: src/pop3.c:1180 src/pop3.c:1288
 #, c-format
 msgid "invalid reply to command %s"
 msgstr "respuesta inválida a la orden %s"
 
-#: src/pop3.c:681 src/pop3.c:728 src/pop3.c:847 src/pop3.c:963 src/pop3.c:2338
-#: src/pop3.c:2424 src/pop3.c:2510 src/pop3.c:3084 src/pop3.c:3112
+#: src/pop3.c:938 src/pop3.c:985 src/pop3.c:1104 src/pop3.c:1220
+#: src/pop3.c:2344 src/pop3.c:2430 src/pop3.c:2516 src/pop3.c:3090
+#: src/pop3.c:3118
 #, c-format
 msgid "command %s failed"
 msgstr "fallo de la orden %s"
 
-#: src/pop3.c:751
+#: src/pop3.c:1008
 #, c-format
 msgid "Cannot handle more than %lu messages. Increase POP3_MAX_MESSAGES."
 msgstr "no se pueden manejas más de %lu mensajes. Incremente POP3_MAX_MESSAGES"
 
-#: src/pop3.c:1201
+#: src/pop3.c:1458
 msgid "cannot write mail: output error"
 msgstr "no se puede escribir correo: error de salida"
 
-#: src/pop3.c:1557
+#: src/pop3.c:1563
 msgid "cannot write to temporary file: output error"
 msgstr "no se puede escribir en el archivo temporal: error de salida"
 
-#: src/pop3.c:1690
+#: src/pop3.c:1696
 #, c-format
 msgid "cannot add Received header: %s"
 msgstr "no se puede añadir el encabezamiento Received: %s"
 
-#: src/pop3.c:1791
+#: src/pop3.c:1797
 #, c-format
 msgid "command TOP %ld 0 failed"
 msgstr "fallo en la orden TOP %ld 0"
 
-#: src/pop3.c:1796
+#: src/pop3.c:1802
 #, c-format
 msgid "command RETR %ld failed"
 msgstr "fallo en la orden RETR %ld"
 
-#: src/pop3.c:1807
+#: src/pop3.c:1813
 #, c-format
 msgid "cannot create temporary file: %s"
 msgstr "no se puede crear un archivo temporal: %s"
 
-#: src/pop3.c:1819
+#: src/pop3.c:1825
 #, c-format
 msgid "cannot rewind temporary file: %s"
 msgstr "no se puede rebobinar el archivo temporal: %s"
 
-#: src/pop3.c:2079
+#: src/pop3.c:2085
 #, c-format
 msgid "command DELE %ld failed"
 msgstr "fallo en la orden DELE %ld"
 
-#: src/pop3.c:2149 src/pop3.c:2161 src/pop3.c:2184 src/pop3.c:2199
-#: src/pop3.c:2248 src/pop3.c:2299 src/pop3.c:2358 src/pop3.c:2378
-#: src/pop3.c:2471 src/pop3.c:2530 src/pop3.c:2864 src/pop3.c:2899
-#: src/pop3.c:2933
+#: src/pop3.c:2155 src/pop3.c:2167 src/pop3.c:2190 src/pop3.c:2205
+#: src/pop3.c:2254 src/pop3.c:2305 src/pop3.c:2364 src/pop3.c:2384
+#: src/pop3.c:2477 src/pop3.c:2536 src/pop3.c:2870 src/pop3.c:2905
+#: src/pop3.c:2939
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "fallo en la autentificación (método %s)"
 
-#: src/pop3.c:2434
+#: src/pop3.c:2440
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr ""
 "método de autentificación CRAM-MD5: el servidor mandó un desfío inválido"
 
-#: src/pop3.c:2644 src/pop3.c:2950
+#: src/pop3.c:2650 src/pop3.c:2956
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "el servidor POP3 no es compatible con el método de autentificación %s"
 
-#: src/pop3.c:2650 src/pop3.c:2776 src/pop3.c:2819
+#: src/pop3.c:2656 src/pop3.c:2782 src/pop3.c:2825
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2657
+#: src/pop3.c:2663
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: no es compatible con el método de autentificación %s"
 
-#: src/pop3.c:2716 src/pop3.c:2989
+#: src/pop3.c:2722 src/pop3.c:2995
 msgid "cannot use a secure authentication method"
 msgstr "no se puede usar ningún método de autentificación seguro"
 
-#: src/pop3.c:2722 src/pop3.c:2995
+#: src/pop3.c:2728 src/pop3.c:3001
 msgid "cannot find a usable authentication method"
 msgstr "no se puede encontrar ningún método usable de autentificación"
 
-#: src/pop3.c:2736 src/pop3.c:3008
+#: src/pop3.c:2742 src/pop3.c:3014
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "el método de autentificación %s necesita un nombre de usuario"
 
-#: src/pop3.c:2749 src/pop3.c:3018
+#: src/pop3.c:2755 src/pop3.c:3024
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "el método de autentificación %s necesita una contraseña"
 
-#: src/pop3.c:2912
+#: src/pop3.c:2918
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "fallo en la autentificación: %s (método %s)"
 
-#: src/pop3.c:3052
+#: src/pop3.c:3058
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "el programa no es compatible con el método de autntificación %s"

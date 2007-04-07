@@ -3,3 +3,4 @@ Makefile.in
 string_.h
 unistd_.h
 wchar_.h
+stdio_.h
