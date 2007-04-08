@@ -688,18 +688,20 @@ int pop3_get_greeting(pop3_session_t *session, char *greeting,
      * man-in-the-middle attacks as described in CVE-2007-1558 a little bit
      * harder. Nevertheless, APOP is considered broken, and is never used
      * automatically unless TLS is active. */
-    if ((p = strchr(session->buffer, '<')) != NULL
-	    && (q = strchr(p + 1, '>')) != NULL)
+    a = NULL;
+    if ((p = strchr(session->buffer, '<')) != NULL	/* start of timestamp */
+	    && (q = strchr(p + 1, '>')) != NULL		/* end of timestamp */
+	    && (q - p + 1) >= 12			/* minimum length */
+	    && (a = pop3_get_addr(p))			/* valid address */
+	    && strlen(a) + 2 == (size_t)(q - p + 1)	/* no specials */
+	    && strncmp(p + 1, a, q - p - 1) == 0)	/* no invalid chars */
     {
-	if ((a = pop3_get_addr(p)) && strlen(a) >= 14)
-	{
-	    free(a);
-	    session->cap.flags |= POP3_CAP_AUTH_APOP;
-	    session->cap.apop_timestamp = xmalloc((q - p + 2) * sizeof(char));
-	    strncpy(session->cap.apop_timestamp, p, q - p + 1);
-	    session->cap.apop_timestamp[q - p + 1] = '\0';
-	}
+	session->cap.flags |= POP3_CAP_AUTH_APOP;
+	session->cap.apop_timestamp = xmalloc((q - p + 2) * sizeof(char));
+	strncpy(session->cap.apop_timestamp, p, q - p + 1);
+	session->cap.apop_timestamp[q - p + 1] = '\0';
     }
+    free(a);
 
     return POP3_EOK;
 }
