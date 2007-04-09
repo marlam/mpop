@@ -1,12 +1,15 @@
-Version 1.0.9: Security fixes.
-- APOP authentication is vulnerable to man-in-the-middle attacks. See
-  CVE-2007-1558. These attacks have been made harder with this release, but
-  they are not impossible. Therefore, APOP is not used automatically without
-  TLS anymore.
-- NTLM authentication is considered insecure because it is undocumented. It is
-  therefore not used automatically without TLS anymore.
-- TLS requires tls_trust_file or a disabled tls_certcheck now, so that it is 
-  not silently vulnerable to man-in-the-middle attacks.
+Version 1.0.9: 
+- Security fix:
+  - APOP authentication is vulnerable to man-in-the-middle attacks. See 
+    CVE-2007-1558. Such attacks might lead to password disclosure.
+    Therefore, mpop does not use APOP automatically without TLS anymore.
+    Additionally, mpop's checks on the APOP challenge were too lax in previous
+    versions, making attacks easier than necessary. This has been fixed.
+- Security improvements:
+  - NTLM authentication is considered insecure because it is undocumented. It 
+    is therefore not used automatically without TLS anymore.
+  - TLS requires tls_trust_file or a disabled tls_certcheck now, so that it is 
+    not silently vulnerable to man-in-the-middle attacks.
 
 Version 1.0.8:
 - Improved workarounds for POP3 servers that are not exactly RFC conformant.
