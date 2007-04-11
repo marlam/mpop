@@ -94,6 +94,8 @@ msgid ""
 "tls requires either tls_trust_file (highly recommended) or a disabled "
 "tls_certcheck"
 msgstr ""
+"tls requiere o bien tls_trust_file (muy recomendado) o que tls_certcheck "
+"esté desactivado"
 
 #: src/conf.c:460
 msgid "no delivery information"
