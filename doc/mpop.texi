@@ -231,8 +231,9 @@ To use TLS/SSL, it is required to either use the @samp{tls_trust_file} command
 @anchor{tls_starttls}
 @item tls_starttls [(on|off)]
 @cmindex tls_starttls
-This command enables or disables the use of the STARTTLS POP3 command to start 
-TLS encryption. It is enabled by default.
+This command chooses the TLS/SSL variant: with STARTTLS (@samp{on}, default) or 
+POP3-over-TLS (@samp{off}). Most servers support the latter variant, which is 
+also commonly referred to as "POP3 with SSL".
 @xref{Transport Layer Security}.
 @anchor{tls_trust_file}
 @item tls_trust_file [@var{file}]
@@ -503,7 +504,7 @@ authentication method. @xref{auth}.
 Set or unset the user name for authentication. @xref{user}.
 @itemx --tls[=(on|off)]
 @opindex --tls
-Enable or disable TLS. @xref{tls}.
+Enable or disable TLS/SSL. @xref{tls}.
 @anchor{--tls-starttls}
 @itemx --tls-starttls[=(on|off)]
 @opindex --tls-starttls
@@ -605,6 +606,10 @@ File to store UIDLs in. @xref{uidls_file}.
 @node Transport Layer Security
 @section Transport Layer Security
 
+Transport Layer Security (TLS) is a new name for Secure Socket Layer (SSL).
+The TLS 1.0 protocol is an updated version of the SSL 3.0 protocol. TLS and
+SSL mean the same thing.
+
 Quoting from RFC2246 - the TLS 1.0 protocol specification:@*
 "The TLS protocol provides communications privacy over the Internet.
 The protocol allows client/server applications to communicate in a way that
@@ -614,7 +619,8 @@ POP3 servers can use TLS in one of two modes:
 @itemize
 @item Immediately@*
 This is known as POP3 tunneled through TLS. The default port for this mode is 
-995 (pop3s).
+995 (pop3s). This is what most servers support, and is often simply called 
+"POP3 with SSL".
 @item Via the STARTTLS POP3 command@*
 The POP3 session begins normally. The client sends the STLS command when it
 wishes to begin TLS encryption. The default port for this mode is the default 
@@ -637,6 +643,37 @@ disable all certificate checks using @samp{tls_certcheck off} or
 TLS/SSL sessions are vulnerable to man-in-the-middle attacks!
 See @ref{tls_trust_file}, @ref{--tls-trust-file}, @ref{tls_certcheck}, 
 @ref{--tls-certcheck}.
+
+If your system has a file that collects all system-wide trusted CA
+certificates, it is easiest to just use this in the @samp{defaults} section of
+your configuration file. On Debian-based systems, for example, the adequate
+command would be @samp{tls_trust_file /etc/ssl/certs/ca-certificates.crt}.
+
+But you can also find out manually which CA certificate you need to
+trust. The following example works as of 2007-04-18.
+
+For the Gmail POP server, you first issue the following command:
+@example
+$ mpop --serverinfo --host=pop.gmail.com --tls=on --tls-starttls=off \
+  --tls-certcheck=off
+@end example
+The option @samp{--tls-starttls=off} is needed for Gmail, but may not be 
+necessary for other servers. The option @samp{--tls-certcheck=off} allows
+mpop to accept any certificate, so that it can print some information about it.
+
+According to the output of this command, the issuer of the server certificate 
+is "Equifax Secure Certificate Authority". This means that you have to trust the
+Equifax CA to use full TLS security. You can download the appropriate
+certificate from 
+@url{http://www.geotrust.com/resources/root_certificates/index.asp} (Equifax was
+bought by GeoTrust). The file you need for the @samp{tls_trust_file} command is
+@file{Equifax_Secure_Certificate_Authority.cer}.
+
+The following command should now succeed:
+@example
+$ mpop --serverinfo --host=pop.gmail.com --tls=on --tls-starttls=off \
+  --tls-trust-file=Equifax_Secure_Certificate_Authority.cer
+@end example
 
 If the server requests it, the client can send a certificate, too. This allows
 the server to verify the identity of the client. See the EXTERNAL mechanism in
@@ -972,6 +1009,7 @@ tls on
 # Enable full TLS certificate checks.
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
 # Use the POP3-over-TLS variant instead of the STARTTLS variant.
+# This is also known as "POP3 with SSL". Most servers support this.
 tls_starttls off
 # Use the procmail mail delivery agent.
 delivery mda "/usr/bin/procmail -f '%F' -d $USER"

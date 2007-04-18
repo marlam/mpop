@@ -3,11 +3,12 @@
 #
 
 defaults
-# Activate TLS.
+# Activate TLS (also known as SSL) security.
 tls on
-# Enable full TLS certificate checks.
+# Enable full TLS/SSL certificate checks.
 tls_trust_file /etc/ssl/certs/ca-certificates.crt
 # Use the POP3-over-TLS variant instead of the STARTTLS variant.
+# This is often called "POP3 with SSL". Most servers support this.
 tls_starttls off
 # Use the procmail mail delivery agent.
 delivery mda "/usr/bin/procmail -f '%F' -d $USER"

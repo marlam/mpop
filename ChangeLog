@@ -1,4 +1,8 @@
-Version 1.0.10:
+Version 1.0.10 (not yet released):
+- Add documentation on how to find the right CA certificate for
+  tls_trust_file. Thanks to Bryan Kam for suggestions.
+- Improve the documentation for TLS vs. SSL and STARTTLS vs. POP3-over-TLS.
+  Thanks to Carlos Martín Nieto for suggestions.
 - Update the spanish translation (Carlos Martín Nieto).
 
 Version 1.0.9:

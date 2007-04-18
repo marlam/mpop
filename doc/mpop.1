@@ -87,7 +87,7 @@ authentication method. See the \fBauth\fP command below.
 Set or unset the user name for authentication. See the \fBuser\fP command
 below.
 .IP "--tls[=(\fIon\fP|\fIoff\fP)]"
-Enable or disable TLS encryption. See the \fBtls\fP command below.
+Enable or disable TLS/SSL encryption. See the \fBtls\fP command below.
 .IP "--tls-starttls[=(\fIon\fP|\fIoff\fP)]"
 Enable or disable the POP3 STLS command for TLS encryption. See the
 \fBtls_starttls\fP command below.
@@ -174,7 +174,7 @@ The argument may be a host name or a network address.
 Every account definition must contain this command.
 .IP "port \fInumber\fP"
 The port that the POP3 server listens on. The default is 110, unless TLS
-without STLS is used, in which case it is 995.
+without STARTTLS is used, in which case it is 995.
 .IP "timeout (\fIoff\fP|\fIseconds\fP)"
 Set or unset a network timeout, in seconds. The argument \fIoff\fP means that no
 timeout will be set, which means that the operating system default will be used.
@@ -282,19 +282,18 @@ domain (equivalent to an empty argument), but some servers seem to require one,
 even if it is an arbitrary string.
 .br
 .IP "tls [(\fIon\fP|\fIoff\fP)]"
-This command enables or disables TLS/SSL encrypted connections to the POP3 
-server. Not every server supports TLS, and many that support it require the 
-additional command \fBtls_starttls off\fP. 
+This command enables or disables TLS (also known as SSL) encrypted connections
+to the POP3 server. Not every server supports this, and many that support it 
+require the additional command \fBtls_starttls off\fP. 
 .br
-With TLS, the connection with the POP3 server will be protected against
+With TLS/SSL, the connection with the POP3 server will be protected against
 eavesdroppers and man-in-the-middle attacks. To use TLS/SSL, it is required to 
 either use the \fBtls_trust_file\fP command (highly recommended) or to disable 
 \fBtls_certcheck\fP.
 .IP "tls_starttls [(\fIon\fP|\fIoff\fP)]"
-By default, TLS encryption is activated using the STLS POP3 command.  By
-disabling this, TLS encryption is immediately started instead (this is known as
-POP3 tunneled through TLS/SSL). The default port is set to 995 for this mode of
-operation.
+This command chooses the TLS/SSL variant: with STARTTLS (\fIon\fP, default) or 
+POP3-over-TLS (\fIoff\fP). Most servers support the latter variant, which is 
+also commonly referred to as "POP3 with SSL".
 .IP "tls_trust_file \fIfile\fP"
 This command activates strict server certificate verification.
 .br
@@ -414,6 +413,8 @@ tls_trust_file /etc/ssl/certs/ca-certificates.crt
 .br
 # Use the POP3-over-TLS variant instead of the STARTTLS variant.
 .br
+# This is often called "POP3 with SSL". Most servers support this.
+.br
 tls_starttls off
 .br
 # Use the procmail mail delivery agent.
@@ -475,6 +476,34 @@ password pass
 # Set a default account (optional).
 .br
 account default : provider1
+.br
+
+.br
+.PP
+.B Manually finding the right CA certificate for \fBtls_trust_file\fP
+.PP
+The following example works as of 2007-04-18.
+.br
+For the Gmail POP server, you first issue the following command:
+.br
+.B mpop --serverinfo --host=pop.gmail.com --tls=on --tls-starttls=off 
+.B   --tls-certcheck=off
+.br
+The option \fI--tls-starttls=off\fP is needed for Gmail, but may not be 
+necessary for other servers. The option \fI--tls-certcheck=off\fP allows
+mpop to accept any certificate, so that it can print some information about it.
+.br
+According to the output of this command, the issuer of the server certificate 
+is "Equifax Secure Certificate Authority". This means that you have to trust the
+Equifax CA to use full TLS security. You can download the appropriate
+certificate from http://www.geotrust.com/resources/root_certificates/index.asp 
+(Equifax was bought by GeoTrust). The file you need for the \fBtls_trust_file\fP
+command is \fIEquifax_Secure_Certificate_Authority.cer\fP.
+.br
+The following command should now succeed:
+.br
+.B mpop --serverinfo --host=pop.gmail.com --tls=on --tls-starttls=off
+.B  --tls-trust-file=Equifax_Secure_Certificate_Authority.cer
 .br
 
 .br
