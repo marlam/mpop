@@ -684,15 +684,15 @@ int pop3_get_greeting(pop3_session_t *session, char *greeting,
 	strcpy(greeting, session->buffer + 4);
     }
     /* Search APOP timestamp. Make sure that it is a valid RFC822 message id as
-     * required by RFC 1939 and that it is reasonably long. This should make
-     * man-in-the-middle attacks as described in CVE-2007-1558 a little bit
-     * harder. Nevertheless, APOP is considered broken, and is never used
-     * automatically unless TLS is active. */
+     * required by RFC 1939. This should make man-in-the-middle attacks as 
+     * described in CVE-2007-1558 a little bit harder. Nevertheless, APOP is 
+     * considered broken, and is never used automatically unless TLS is active.
+     */
     a = NULL;
     if ((p = strchr(session->buffer, '<')) != NULL	/* start of timestamp */
 	    && (q = strchr(p + 1, '>')) != NULL		/* end of timestamp */
-	    && (q - p + 1) >= 12			/* minimum length */
 	    && (a = pop3_get_addr(p))			/* valid address */
+	    && strchr(a, '@')				/* has domain part */
 	    && strlen(a) + 2 == (size_t)(q - p + 1)	/* no specials */
 	    && strncmp(p + 1, a, q - p - 1) == 0)	/* no invalid chars */
     {
