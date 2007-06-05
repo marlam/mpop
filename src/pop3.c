@@ -1164,7 +1164,7 @@ int pop3_uidl(pop3_session_t *session, char **errmsg, char **errstr)
 	    {
 		goto invalid_reply;
 	    }
-	    session->msg_uid[n - 1] = xstrdup(p + 1);
+	    session->msg_uid[n - 1] = xstrdup(p);
 	    insert_sorted(session->uids_sorted, i, session->msg_uid, n - 1);
 	}
     }

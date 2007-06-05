@@ -1,4 +1,5 @@
 Version 1.0.10 (not yet released):
+- Fix UIDL handling: the first character of UIDs was ignored.
 - Improve APOP timestamp checks. Thanks to Carlos Martín Nieto for a
   discussion of this.
 - Add documentation on how to find the right CA certificate for
