@@ -1,4 +1,4 @@
-Version 1.0.10 (not yet released):
+Version 1.0.10:
 - Fix UIDL handling: the first character of UIDs was ignored.
 - Improve APOP timestamp checks. Thanks to Carlos Martín Nieto for a
   discussion of this.
