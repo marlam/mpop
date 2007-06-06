@@ -1,8 +1,7 @@
 Version 1.0.10:
 - A bug in the UID handling code was fixed. The bug was introduced in version
-  1.0.7. As a consequence, if you update from version 1.0.7-1.0.9, the first 
-  invocation of this new mpop version will download all mails from the server, 
-  even mails that were retrieved before.
+  1.0.7. As a consequence, the first invocation of this new mpop version will
+  download all mails from the server, even mails that were retrieved before.
 
 Version 1.0.9: 
 - Security fix:
