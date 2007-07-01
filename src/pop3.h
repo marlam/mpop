@@ -383,11 +383,17 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr);
  * Issues the POP3 UIDL command without an argument.
  * This initializes the following fields of 'session':
  * - msg_uid
+ * If 'abort' is externally set, this function will abort and return
+ * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EUNAVAIL.
  * The error POP3_EUNAVAIL is not critical: it means that the POP3 server does
  * not support the UIDL command.
  */
-int pop3_uidl(pop3_session_t *session, char **errmsg, char **errstr);
+int pop3_uidl(pop3_session_t *session,
+#ifdef HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
+	char **errmsg, char **errstr);
 
 /*
  * pop3_list()
@@ -395,9 +401,15 @@ int pop3_uidl(pop3_session_t *session, char **errmsg, char **errstr);
  * Issues the POP3 LIST command without an argument.
  * This initializes the following fields of 'session':
  * - msg_size
+ * If 'abort' is externally set, this function will abort and return
+ * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
-int pop3_list(pop3_session_t *session, char **errmsg, char **errstr);
+int pop3_list(pop3_session_t *session,
+#ifdef HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
+	char **errmsg, char **errstr);
 
 /*
  * pop3_filter()
@@ -414,8 +426,8 @@ int pop3_list(pop3_session_t *session, char **errmsg, char **errstr);
  * If the action changed and filter_output is not NULL, the output function will
  * be called. 'data' can point to arbitrary user data that is passed to the
  * output function.
- * If 'abort' is externally set, this function will abort the filtering and
- * return POP3_EABORTED. The POP3 session is not usable thereafter.
+ * If 'abort' is externally set, this function will abort and return
+ * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EDELIVERY,
  * POP3_EABORT.
  */
@@ -444,8 +456,8 @@ int pop3_filter(pop3_session_t *session,
  *    from 1 to 99
  * - 'progress_end' once, after everything was retrieved successfully
  * - 'progress_abort' only if an error occured, to clean up the output
- * If 'abort' is externally set, this function will abort the filtering and
- * return POP3_EABORTED. The POP3 session is not usable thereafter.
+ * If 'abort' is externally set, this function will abort and return
+ * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EDELIVERY,
  * POP3_EABORT
  */
@@ -468,9 +480,15 @@ int pop3_retr(pop3_session_t *session,
  * POP3_MSG_ACTION_DELETE.
  * If it was set before, the is_old flag will be unset for each deleted message,
  * and old_number will be updated.
+ * If 'abort' is externally set, this function will abort and return
+ * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
-int pop3_dele(pop3_session_t *session, char **errmsg, char **errstr);
+int pop3_dele(pop3_session_t *session, 
+#ifdef HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
+	char **errmsg, char **errstr);
     
 /*
  * pop3_rset()

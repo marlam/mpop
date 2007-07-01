@@ -1084,7 +1084,11 @@ int pop3_uidl_check_uid(const char *uid)
     return (p != uid);
 }
 
-int pop3_uidl(pop3_session_t *session, char **errmsg, char **errstr)
+int pop3_uidl(pop3_session_t *session, 
+#if HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
+	char **errmsg, char **errstr)
 {
     int e;
     long i;
@@ -1120,6 +1124,14 @@ int pop3_uidl(pop3_session_t *session, char **errmsg, char **errstr)
     /* get 'total_number' UIDs plus one stop line (".") */
     for (i = 0; i < session->total_number + 1; i++)
     {
+#if HAVE_SIGACTION
+	if (*abort)
+	{
+	    e = POP3_EABORT;
+	    *errstr = xasprintf(_("operation aborted"));
+	    goto error_exit;
+	}
+#endif
 	if ((e = pop3_gets(session, &l, errstr)) != POP3_EOK)
 	{
 	    goto error_exit;
@@ -1199,7 +1211,11 @@ error_exit:
  * see pop3.h
  */
 
-int pop3_list(pop3_session_t *session, char **errmsg, char **errstr)
+int pop3_list(pop3_session_t *session,
+#if HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
+	char **errmsg, char **errstr)
 {
     int e;
     long i;
@@ -1234,6 +1250,13 @@ int pop3_list(pop3_session_t *session, char **errmsg, char **errstr)
     /* get 'total_number' sizes plus one stop line (".") */
     for (i = 0; i < session->total_number + 1; i++)
     {
+#if HAVE_SIGACTION
+	if (*abort)
+	{
+	    *errstr = xasprintf(_("operation aborted"));
+	    return POP3_EABORT;
+	}
+#endif
 	if ((e = pop3_gets(session, &l, errstr)) != POP3_EOK)
 	{
 	    return e;
@@ -2042,7 +2065,11 @@ int pop3_retr(pop3_session_t *session,
  * see pop3.h
  */
 
-int pop3_dele(pop3_session_t *session, char **errmsg, char **errstr)
+int pop3_dele(pop3_session_t *session, 
+#if HAVE_SIGACTION
+	volatile sig_atomic_t *abort,
+#endif
+	char **errmsg, char **errstr)
 {
     int e;
     int pipeline_min;
@@ -2073,6 +2100,13 @@ int pop3_dele(pop3_session_t *session, char **errmsg, char **errstr)
 		    ? pipeline_min : 0);
 		recv_index++)
 	{
+#if HAVE_SIGACTION
+    	    if (*abort)
+    	    {
+    		*errstr = xasprintf(_("operation aborted"));
+    		return POP3_EABORT;
+    	    }
+#endif
 	    if (session->msg_action[recv_index] != POP3_MSG_ACTION_DELETE)
 	    {
 		continue;

@@ -349,7 +349,10 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
     if (fseek(uidls_file, 0, SEEK_SET) != 0 
 	    || ftruncate(fileno(uidls_file), 0) != 0)
     {
-	*errstr = xasprintf("%s: %s", filename, strerror(errno));
+	if (errstr)
+	{
+	    *errstr = xasprintf("%s: %s", filename, strerror(errno));
+	}
 	return UIDLS_EOK;
     }
 
@@ -384,7 +387,10 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
 
     if (error)
     {
-	*errstr = xasprintf("%s: %s", filename, strerror(errno));
+	if (errstr)
+	{
+	    *errstr = xasprintf("%s: %s", filename, strerror(errno));
+	}
 	(void)fclose(uidls_file);
 	return UIDLS_EIO;
     }

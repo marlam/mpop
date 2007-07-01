@@ -1,3 +1,12 @@
+Version 1.0.11:
+- Make the POP3 commands UIDL, LIST, and DELE abortable. This is useful for
+  mailboxes with many thousand mails.
+- Update the UIDL state after mail retrieval, and save this state in case of
+  errors in DELE or QUIT. Only update the UIDL state again after successful
+  DELE and QUIT, and then save this state. This prevents an incorrect UIDL
+  state if the DELE commands are aborted, for example. Bug reported by 
+  Dimitrios Apostolou.
+
 Version 1.0.10:
 - Fix UIDL handling: the first character of UIDs was ignored.
 - Improve APOP timestamp checks. Thanks to Carlos Martín Nieto for a

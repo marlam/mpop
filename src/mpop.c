@@ -873,6 +873,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     int late_error;
     char *late_errmsg;
     char *late_errstr;
+    /* Whether QUIT was sent: */
+    int quit_was_sent = 0;
     
     
     /* create a new pop3_server_t */
@@ -986,6 +988,15 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	}
     }
 #endif /* HAVE_TLS */
+    
+#if HAVE_SIGACTION
+    if (mpop_retrmail_abort)
+    {
+	mpop_endsession(session, 0);
+	*errstr = xasprintf(_("operation aborted"));
+	return EX_TEMPFAIL;
+    }
+#endif
 
     /* authenticate */
     if ((e = pop3_auth(session, acc->auth_mech, acc->username, 
@@ -1032,6 +1043,15 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    return exitcode_pop3(e);
 	}
     }
+    
+#if HAVE_SIGACTION
+    if (mpop_retrmail_abort)
+    {
+	mpop_endsession(session, 0);
+	*errstr = xasprintf(_("operation aborted"));
+	return EX_TEMPFAIL;
+    }
+#endif
 
     /* get status and scan listing */
     if ((e = pop3_stat(session, errmsg, errstr)) != POP3_EOK)
@@ -1041,7 +1061,11 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
     if (session->total_number > 0)
     {
-	if ((e = pop3_list(session, errmsg, errstr)) != POP3_EOK)
+	if ((e = pop3_list(session, 
+#if HAVE_SIGACTION
+			&mpop_retrmail_abort, 
+#endif
+			errmsg, errstr)) != POP3_EOK)
 	{
 	    mpop_endsession(session, 0);
 	    return exitcode_pop3(e);
@@ -1065,7 +1089,11 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	{
 	    /* the POP3 server does not support UIDL */
 	}
-	else if ((e = pop3_uidl(session, errmsg, errstr)) != POP3_EOK)
+	else if ((e = pop3_uidl(session,
+#if HAVE_SIGACTION
+			&mpop_retrmail_abort, 
+#endif
+			errmsg, errstr)) != POP3_EOK)
 	{
 	    if (e != POP3_EUNAVAIL)
 	    {
@@ -1288,20 +1316,6 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    return exitcode_pop3(e);
 	}
     }
-    
-#if HAVE_SIGACTION
-    if (mpop_retrmail_abort)
-    {
-	if (uidl_list)
-	{
-	    list_xfree(uidl_list, uidl_free);
-	}
-	fclose(uidls_fileptr);
-	mpop_endsession(session, 0);
-	*errstr = xasprintf(_("operation aborted"));
-	return EX_TEMPFAIL;
-    }
-#endif
 
     /* Once pop3_retr() is called, we cannot just abort the session and forget
      * everything we've done so far, because that would mean double mail
@@ -1310,7 +1324,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     late_errmsg = NULL;
     late_errstr = NULL;
     
-    /* Retrieve */
+    /* Retrieve mails and update the UIDL accordingly */
     if (session->total_number > 0)
     {
 	late_error = pop3_retr(session, 
@@ -1323,49 +1337,80 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 		quiet ? NULL : mpop_retr_progress_end,
 	    	quiet ? NULL : mpop_retr_progress_abort,
     		&late_errmsg, &late_errstr);
-    }
-    
-    /* Delete */
-    if (late_error == POP3_EOK && !acc->keep)
-    {
-	late_error = pop3_dele(session, &late_errmsg, &late_errstr);
-    }
-
-    /* Update the UIDL: only insert UIDs of messages that are retrieved and
-     * not deleted. */
-    for (i = 0; i < uidl->n; i++)
-    {
-	free(uidl->uidv[i]);
-    }
-    free(uidl->uidv);
-    uidl->uidv = NULL;
-    uidl->n = session->old_number;
-    if (uidl->n > 0)
-    {
-	uidl->uidv = xmalloc(uidl->n * sizeof(char *));
-	j = 0;
-	for (i = 0; i < session->total_number; i++)
+	for (i = 0; i < uidl->n; i++)
 	{
-	    if (session->is_old[i])
+	    free(uidl->uidv[i]);
+	}
+	free(uidl->uidv);
+	uidl->uidv = NULL;
+	uidl->n = session->old_number;
+	if (uidl->n > 0)
+	{
+	    uidl->uidv = xmalloc(uidl->n * sizeof(char *));
+	    j = 0;
+	    for (i = 0; i < session->total_number; i++)
 	    {
-		uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
+		if (session->is_old[i])
+		{
+		    uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
+		}
 	    }
 	}
     }
-    /* Save the updated UIDL information */
+
+    /* Delete mails. If a failure occurs, save the current UIDL state. 
+     * Otherwise, end the session to commit the changes, then
+     * update the UIDL state and save it. */
+    if (late_error == POP3_EOK && !acc->keep)
+    {
+	if ((e = pop3_dele(session, 
+#if HAVE_SIGACTION
+		&mpop_retrmail_abort,
+#endif
+		errmsg, errstr)) != POP3_EOK)
+	{
+	    (void)uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, NULL);
+	    list_xfree(uidl_list, uidl_free);
+    	    mpop_endsession(session, 0);
+	    return exitcode_uidls(e);
+	}
+	if ((e = pop3_quit(session, errmsg, errstr)) != POP3_EOK)
+	{
+	    (void)uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, NULL);
+	    list_xfree(uidl_list, uidl_free);
+    	    mpop_endsession(session, 0);
+	    return exitcode_uidls(e);
+	}
+	quit_was_sent = 1;
+	for (i = 0; i < uidl->n; i++)
+	{
+	    free(uidl->uidv[i]);
+	}
+	free(uidl->uidv);
+	uidl->uidv = NULL;
+	uidl->n = session->old_number;
+	if (uidl->n > 0)
+	{
+	    uidl->uidv = xmalloc(uidl->n * sizeof(char *));
+	    j = 0;
+	    for (i = 0; i < session->total_number; i++)
+	    {
+		if (session->is_old[i])
+		{
+		    uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
+		}
+	    }
+	}
+    }
     if ((e = uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, errstr)) 
 	    != UIDLS_EOK)
     {
-	free(late_errmsg);
-    	free(late_errstr);
 	list_xfree(uidl_list, uidl_free);
 	mpop_endsession(session, 0);
 	return exitcode_uidls(e);
     }
     list_xfree(uidl_list, uidl_free);
-
-    /* End session */
-    mpop_endsession(session, (late_error == POP3_EOK) ? 1 : 0);
+    mpop_endsession(session, late_error == POP3_EOK && !quit_was_sent);
 
     if (late_errmsg)
     {

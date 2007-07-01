@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006
+ * Copyright (C) 2005, 2006, 2007
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -88,7 +88,8 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
  *
  * Writes the UIDLs from the list 'uidl_list' into a UIDLS file. Both 'filename'
  * and 'uidls_file' must be the same as in the call to uidls_read(). This
- * function will close 'uidls_file'.
+ * function will close 'uidls_file'. 'errstr' may be NULL, in which case no
+ * error message will be returned.
  * Used error codes: UIDLS_EIO
  */
 int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list, 
