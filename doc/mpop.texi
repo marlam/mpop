@@ -169,9 +169,9 @@ STARTTLS is used, in which case it is 995.
 @anchor{timeout}
 @item timeout (off|@var{seconds})
 @cmindex timeout
-Set or unset a network timeout, in seconds. The argument @samp{off} means that
-no timeout will be set, which means that the operating system default will be
-used.
+Set or unset a network timeout, in seconds. The default is 180 seconds. The 
+argument @samp{off} means that no timeout will be set, which means that the
+operating system default will be used.
 @anchor{pipelining}
 @item pipelining (auto|on|off)
 @cmindex pipelining

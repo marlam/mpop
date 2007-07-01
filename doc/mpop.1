@@ -176,8 +176,9 @@ Every account definition must contain this command.
 The port that the POP3 server listens on. The default is 110, unless TLS
 without STARTTLS is used, in which case it is 995.
 .IP "timeout (\fIoff\fP|\fIseconds\fP)"
-Set or unset a network timeout, in seconds. The argument \fIoff\fP means that no
-timeout will be set, which means that the operating system default will be used.
+Set or unset a network timeout, in seconds. The default is 180 seconds. The 
+argument \fIoff\fP means that no timeout will be set, which means that the
+operating system default will be used.
 .IP "pipelining (\fIauto\fP|\fIon\fP|\fIoff\fP)"
 Enable or disable POP3 pipelining. The default is \fIauto\fP, which means that
 mpop enables pipelining for POP3 servers that advertize this capability, and 
