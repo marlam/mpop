@@ -1,4 +1,6 @@
 Version 1.0.11:
+- Add new option -Q / --half-quiet to print only status information but no
+  progress information. Suggested by Dimitrios Apostolou.
 - Set the default timeout to 180 seconds = 3 minutes. This prevents sessions
   from hanging forever. Suggested by Dimitrios Apostolou.
 - Make the POP3 commands UIDL, LIST, and DELE abortable. This is useful for

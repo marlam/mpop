@@ -851,7 +851,7 @@ void mpop_retrmail_signal_handler(int signum UNUSED)
 
 int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	account_t *acc, int debug, 
-	int quiet, int auth_only, int status_only,
+	int print_status, int print_progress, int auth_only, int status_only,
 	char **errmsg, char **errstr)
 {
     pop3_session_t *session;
@@ -1172,7 +1172,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
     
     /* Print status */
-    if (!quiet)
+    if (print_status)
     {
 	printf(_("%s at %s:\n"), acc->username, acc->host);
 	if (session->total_number > 0)
@@ -1242,7 +1242,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    if (acc->killsize >= 0 && session->msg_size[i - 1] >= acc->killsize)
 	    {
 		session->msg_action[i - 1] = POP3_MSG_ACTION_DELETE;
-		if (!quiet)
+		if (print_progress)
 		{
 		    if (acc->keep)
 		    {
@@ -1261,7 +1261,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 		    && session->msg_size[i - 1] >= acc->skipsize)
 	    {
 		session->msg_action[i - 1] = POP3_MSG_ACTION_IGNORE;
-		if (!quiet)
+		if (print_progress)
 		{
 		    printf(_("skipping message %ld of %ld (reason: "
     				"skipsize)\n"), i, session->total_number);
@@ -1304,7 +1304,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 #if HAVE_SIGACTION
 			&mpop_retrmail_abort, 
 #endif
-			acc->filter, quiet ? NULL : mpop_filter_output, acc,
+			acc->filter, 
+			print_progress ? mpop_filter_output : NULL, acc,
 			errmsg, errstr)) != POP3_EOK)
 	{
 	    if (uidl_list)
@@ -1332,10 +1333,10 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 		&mpop_retrmail_abort,
 #endif
 		acc->delivery_method, acc->delivery_args,
-		quiet ? NULL : mpop_retr_progress_start,
-		quiet ? NULL : mpop_retr_progress,
-		quiet ? NULL : mpop_retr_progress_end,
-	    	quiet ? NULL : mpop_retr_progress_abort,
+		print_progress ? mpop_retr_progress_start : NULL,
+		print_progress ? mpop_retr_progress : NULL,
+		print_progress ? mpop_retr_progress_end : NULL,
+	    	print_progress ? mpop_retr_progress_abort : NULL,
     		&late_errmsg, &late_errstr);
 	for (i = 0; i < uidl->n; i++)
 	{
@@ -1607,7 +1608,8 @@ int main(int argc, char *argv[])
     int print_conf;
     int debug;
     int pretend;
-    int quiet;
+    int print_status;
+    int print_progress;
     /* mode of operation */
     int retrmail;
     int serverinfo;
@@ -1654,6 +1656,7 @@ int main(int argc, char *argv[])
 	{ "version",         no_argument,       0, LONGONLYOPT_VERSION },
 	{ "help",            no_argument,       0, LONGONLYOPT_HELP },
 	{ "quiet",           no_argument,       0, 'q' },
+	{ "half-quiet",      no_argument,       0, 'Q' },
  	{ "pretend",         no_argument,       0, 'P' },
   	{ "debug",           no_argument,       0, 'd' },
 	{ "serverinfo",      no_argument,       0, 'S' },
@@ -1712,7 +1715,8 @@ int main(int argc, char *argv[])
     print_conf = 0;
     debug = 0;
     pretend = 0;
-    quiet = 0;
+    print_status = 1;
+    print_progress = 1;
     retrmail = 1;
     serverinfo = 0;
     all_accounts = 0;
@@ -1721,7 +1725,7 @@ int main(int argc, char *argv[])
     cmdline_account = account_new(NULL, NULL);
     for (;;)
     {
-	c = getopt_long(argc, argv, "qPdSC:aAsn::k::", options, NULL);
+	c = getopt_long(argc, argv, "qQPdSC:aAsn::k::", options, NULL);
 	if (c == -1)
 	{
 	    break;
@@ -1741,7 +1745,12 @@ int main(int argc, char *argv[])
 		break;
 
 	    case 'q':
-		quiet = 1;
+		print_status = 0;
+		print_progress = 0;
+		break;
+		
+	    case 'Q':
+		print_progress = 0;
 		break;
 		
   	    case 'P':
@@ -1752,9 +1761,8 @@ int main(int argc, char *argv[])
        	    case 'd':
 		print_conf = 1;
 	 	debug = 1;
-		/* normal output would interfere with
-		 * debugging output */
-		quiet = 1;
+		/* progress output would interfere with debugging output */
+		print_progress = 0;
 	 	break;
 
 	    case 'S':
@@ -2215,8 +2223,10 @@ int main(int argc, char *argv[])
 		"  --tls-force-sslv3[=(on|off)] Enable/disable restriction to "
 			"SSLv3.\n"
 	        "Options specific to mail retrieval mode:\n"
-		"  -q, --quiet                  Do not display progress "
-			"information.\n"
+		"  -q, --quiet                  Do not display status or "
+			"progress information.\n"
+		"  -Q, --half-quiet             Display status but not "
+			"progress information.\n"
 		"  -a, --all-accounts           Query all accounts in the "
 			"configuration file.\n"
 		"  -A, --auth-only              Authenticate only; do not "
@@ -2571,8 +2581,8 @@ int main(int argc, char *argv[])
 	    (void)sigaction(SIGINT, &signal_handler, &old_sigint_handler);
 #endif
 	    if ((error_code = mpop_retrmail(canonical_hostname, local_user,
-			    account, debug, quiet, auth_only, status_only,
-	    		    &errmsg, &errstr)) != EX_OK)
+			    account, debug, print_status, print_progress, 
+			    auth_only, status_only, &errmsg, &errstr)) != EX_OK)
 	    {
 		if (errstr)
 		{
