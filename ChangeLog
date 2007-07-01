@@ -1,4 +1,6 @@
 Version 1.0.11:
+- Set the default timeout to 180 seconds = 3 minutes. This prevents sessions
+  from hanging forever. Suggested by Dimitrios Apostolou.
 - Make the POP3 commands UIDL, LIST, and DELE abortable. This is useful for
   mailboxes with many thousand mails.
 - Update the UIDL state after mail retrieval, and save this state in case of

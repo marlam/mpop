@@ -60,7 +60,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->mask = 0;
     a->host = NULL;
     a->port = 0;		/* this must be set later */
-    a->timeout = 0;
+    a->timeout = 180;
     a->pipelining = 2;
     a->delivery_method = -1;
     a->delivery_args = NULL;
