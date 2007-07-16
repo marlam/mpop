@@ -1,4 +1,6 @@
 Version 1.0.11:
+- Update the license of the source code to GPLv3 or later, and change the 
+  license of the documentation to the GFDLv1.2 or later.
 - Gnulib update to 2007-07-15.
 - Add new option -Q / --half-quiet to print only status information but no
   progress information. Suggested by Dimitrios Apostolou.
