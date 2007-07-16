@@ -27,6 +27,7 @@ AC_DEFUN([gl_EARLY],
   AC_REQUIRE([AC_PROG_RANLIB])
   AC_REQUIRE([AC_GNU_SOURCE])
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
+  AC_REQUIRE([AC_FUNC_FSEEKO])
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
   dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
   dnl AC_PROG_CC_STDC arranges for this.  With older Autoconf AC_PROG_CC_STDC
@@ -50,6 +51,9 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_BASE64
   gl_HMAC_MD5
   gl_MD5
+  gl_FLOAT_H
+  gl_FUNC_FSEEKO
+  gl_STDIO_MODULE_INDICATOR([fseeko])
   gl_FUNC_GETDELIM
   gl_FUNC_GETLINE
   gl_GETOPT
@@ -59,6 +63,8 @@ AC_DEFUN([gl_INIT],
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
   gl_INLINE
+  gl_FUNC_LSEEK
+  gl_UNISTD_MODULE_INDICATOR([lseek])
   gl_MEMXOR
   gl_SIZE_MAX
   gl_TYPE_SOCKLEN_T
@@ -133,6 +139,9 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/base64.h
   lib/c-ctype.c
   lib/c-ctype.h
+  lib/float+.h
+  lib/float_.h
+  lib/fseeko.c
   lib/getdelim.c
   lib/getdelim.h
   lib/getline.c
@@ -146,6 +155,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/gettext.h
   lib/hmac-md5.c
   lib/hmac.h
+  lib/lseek.c
   lib/md5.c
   lib/md5.h
   lib/memxor.c
@@ -155,14 +165,14 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-parse.c
   lib/printf-parse.h
   lib/size_max.h
-  lib/socket_.h
   lib/stdbool_.h
   lib/stdint_.h
   lib/stdio_.h
   lib/string_.h
   lib/strndup.c
   lib/strnlen.c
-  lib/sysexit_.h
+  lib/sys_socket_.h
+  lib/sysexits_.h
   lib/unistd_.h
   lib/vasnprintf.c
   lib/vasnprintf.h
@@ -176,12 +186,13 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/xstrndup.h
   lib/xvasprintf.c
   lib/xvasprintf.h
-  m4/absolute-header.m4
   m4/alloca.m4
   m4/base64.m4
   m4/codeset.m4
   m4/eoverflow.m4
   m4/extensions.m4
+  m4/float_h.m4
+  m4/fseeko.m4
   m4/getdelim.m4
   m4/getline.m4
   m4/getopt.m4
@@ -192,10 +203,12 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/gnulib-common.m4
   m4/hmac-md5.m4
   m4/iconv.m4
+  m4/include_next.m4
   m4/inline.m4
   m4/intdiv0.m4
   m4/intl.m4
   m4/intldir.m4
+  m4/intlmacosx.m4
   m4/intmax.m4
   m4/intmax_t.m4
   m4/inttypes-pri.m4
@@ -206,6 +219,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-prefix.m4
   m4/lock.m4
   m4/longlong.m4
+  m4/lseek.m4
   m4/md5.m4
   m4/memxor.m4
   m4/nls.m4

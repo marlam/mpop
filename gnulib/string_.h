@@ -16,22 +16,13 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifdef __DECC
-# include_next <string.h>
-#endif
+#ifndef _GL_STRING_H
+
+/* The include_next requires a split double-inclusion guard.  */
+#@INCLUDE_NEXT@ @NEXT_STRING_H@
 
 #ifndef _GL_STRING_H
 #define _GL_STRING_H
-
-/* This #pragma avoids a warning with "gcc -Wmissing-prototypes" on some
-   mingw systems.  */
-#ifdef __GNUC__
-# pragma GCC system_header
-#endif
-
-#ifndef __DECC
-# include @ABSOLUTE_STRING_H@
-#endif
 
 
 /* The definition of GL_LINK_WARNING is copied here.  */
@@ -406,6 +397,12 @@ extern char *strtok_r (char *restrict s, char const *restrict delim,
 extern size_t mbslen (const char *string);
 #endif
 
+#if @GNULIB_MBSNLEN@
+/* Return the number of multibyte characters in the character string starting
+   at STRING and ending at STRING + LEN.  */
+extern size_t mbsnlen (const char *string, size_t len);
+#endif
+
 #if @GNULIB_MBSCHR@
 /* Locate the first single-byte character C in the character string STRING,
    and return a pointer to it.  Return NULL if C is not found in STRING.
@@ -547,4 +544,5 @@ extern char * mbstok_r (char *string, const char *delim, char **save_ptr);
 }
 #endif
 
-#endif
+#endif /* _GL_STRING_H */
+#endif /* _GL_STRING_H */

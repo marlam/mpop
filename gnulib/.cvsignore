@@ -4,3 +4,9 @@ string_.h
 unistd_.h
 wchar_.h
 stdio_.h
+float+.h
+float_.h
+fseeko.c
+lseek.c
+sys_socket_.h
+sysexits_.h
