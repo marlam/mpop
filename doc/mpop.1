@@ -53,7 +53,7 @@ POP3 server. Be careful with this option: the (potentially dangerous) output
 will not be sanitized, and your password may get printed in an easily decodable
 format!
 .br
-This option implies --quiet, because the normal output would interfere
+This option implies --half-quiet, because the progress output would interfere
 with the debugging output.
 .RE
 .IP "\fBChanging the mode of operation\fP"
@@ -109,7 +109,9 @@ Force TLS/SSL version SSLv3. See the \fBtls_force_sslv3\fP command below.
 .IP "\fBOptions specific to mail retrieval mode\fP"
 .RS
 .IP "-q, --quiet"
-Do not print progress information.
+Do not print status or progress information.
+.IP "-Q, --half-quiet"
+Print status but not progress information.
 .IP "-a, --all-accounts"
 Query all accounts in the configuration file.
 .IP "-A, --auth-only"

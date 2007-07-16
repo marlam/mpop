@@ -450,8 +450,8 @@ Print lots of debugging information, including the whole conversation with the
 POP3 server. Be careful with this option: the (potentially dangerous) output 
 will not be sanitized, and your password may get printed in an easily decodable
 format!@*
-This option implies @samp{--quiet}, because the debugging output would otherwise
-interfere with the normal output.
+This option implies @samp{--half-quiet}, because the debugging output would 
+otherwise interfere with the progress output.
 @end table
 
 @subsection Changing the mode of operation
@@ -539,7 +539,13 @@ Force TLS/SSL version SSLv3. @xref{tls_force_sslv3}.
 @itemx --quiet
 @opindex -q
 @opindex --quiet
-Do not print progress information.
+Do not print status or progress information.
+@anchor{--half-quiet}
+@item -Q
+@itemx --half-quiet
+@opindex -Q
+@opindex --half-quiet
+Print status but not progress information.
 @anchor{--all-accounts}
 @item -a
 @itemx --all-accounts
@@ -821,7 +827,8 @@ each of them using the method that was given with the @samp{delivery} command
 or @samp{--delivery} option. See @ref{delivery}, @ref{--delivery}.
 
 While retrieving the mail, mpop displays approximate progress information,
-which can be turned off with the @samp{--quiet} option; see @ref{--quiet}.
+which can be turned off with the @samp{--half-quiet} or @samp{--quiet} options;
+see @ref{--half-quiet}, @ref{--quiet}.
 
 If the delivery succeeded, the mail is deleted from the POP3 server by default.
 The @samp{keep} command and @samp{--keep} option can prevent the deletion of
