@@ -1,7 +1,7 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED July 16, 2007
-@set UPDATED-MONTH July 2007
+@set UPDATED August 1, 2007
+@set UPDATED-MONTH August 2007
 @set EDITION 1.0.11
 @set VERSION 1.0.11
 @settitle mpop @value{VERSION}
