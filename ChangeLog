@@ -1,3 +1,7 @@
+Version 1.0.12:
+- Fix default UIDLS file on the W32 platform: Use '\' as directory separator,
+  not '/'. Reported by Ricky Thomas.
+
 Version 1.0.11:
 - Update the license of the source code to GPLv3 or later, and change the 
   license of the documentation to the GFDLv1.2 or later.
