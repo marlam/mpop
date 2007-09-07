@@ -1,4 +1,7 @@
 Version 1.0.12:
+- If a filter decides to delete a mail, then additionally mark it as
+  retrieved. This prevents to filter the mail again in a later session when 
+  the 'keep' option is set.
 - Fix default UIDLS file on the W32 platform: Use '\' as directory separator,
   not '/'. Reported by Ricky Thomas.
 

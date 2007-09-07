@@ -1903,6 +1903,8 @@ int pop3_delivery(pop3_session_t *session,
 		{
 		    /* kill mail */
 		    session->msg_action[recv_index] = POP3_MSG_ACTION_DELETE;
+		    session->is_old[recv_index] = 1;
+		    session->old_number++;
 		    if (filter_output)
 		    {
 			filter_output(recv_index + 1, session->total_number, 
@@ -1919,7 +1921,7 @@ int pop3_delivery(pop3_session_t *session,
 			     	POP3_MSG_ACTION_IGNORE, filter_output_data);
 		    }
 		}
-		else /* filter_exit_code == 3 */
+		else /* filter_exit_code unknown */
 		{
 		    e = POP3_EDELIVERY;
 		    goto error_exit;
