@@ -1241,8 +1241,11 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	    if (acc->killsize >= 0 && session->msg_size[i - 1] >= acc->killsize)
 	    {
 		session->msg_action[i - 1] = POP3_MSG_ACTION_DELETE;
-		session->is_old[i - 1] = 1;
-		session->old_number++;
+		if (!(session->is_old[i - 1]))
+		{
+		    session->is_old[i - 1] = 1;
+       		    session->old_number++;
+		}
 		if (print_progress)
 		{
 		    if (acc->keep)

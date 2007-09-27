@@ -1,4 +1,7 @@
 Version 1.0.12:
+- Don't count already retrieved messages twice. This fixes a segfault when
+  only_new is off and header or size filtering is on. The bug was introduced in
+  the previous change; no released version is affected.
 - If a filter decides to delete a mail, then additionally mark it as
   retrieved. This prevents to filter the mail again in a later session when 
   the 'keep' option is set.
