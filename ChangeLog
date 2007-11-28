@@ -1,4 +1,5 @@
 Version 1.0.12:
+- Gnulib update to 2007-11-27.
 - Don't count already retrieved messages twice. This fixes a segfault when
   only_new is off and header or size filtering is on. The bug was introduced in
   the previous change; no released version is affected.

@@ -10,3 +10,16 @@ fseeko.c
 lseek.c
 sys_socket_.h
 sysexits_.h
+alloca.in.h
+float.in.h
+getopt.in.h
+realloc.c
+stdbool.in.h
+stdint.in.h
+stdio.in.h
+stdlib.in.h
+string.in.h
+sys_socket.in.h
+sysexits.in.h
+unistd.in.h
+wchar.in.h

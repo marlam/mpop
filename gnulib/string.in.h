@@ -4,7 +4,7 @@
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
+   the Free Software Foundation; either version 3, or (at your option)
    any later version.
 
    This program is distributed in the hope that it will be useful,
@@ -537,6 +537,21 @@ extern char * mbssep (char **stringp, const char *delim);
 
    See also mbssep().  */
 extern char * mbstok_r (char *string, const char *delim, char **save_ptr);
+#endif
+
+/* Map any int, typically from errno, into an error message.  */
+#if @GNULIB_STRERROR@
+# if @REPLACE_STRERROR@
+#  undef strerror
+#  define strerror rpl_strerror
+extern char *strerror (int);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef strerror
+# define strerror(e) \
+    (GL_LINK_WARNING ("strerror is unportable - " \
+                      "use gnulib module strerror to guarantee non-NULL result"), \
+     strerror (e))
 #endif
 
 
