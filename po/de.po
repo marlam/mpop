@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2007-07-16 22:33+0200\n"
+"POT-Creation-Date: 2007-11-28 22:15+0100\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -16,80 +16,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gnulib/getopt.c:531 gnulib/getopt.c:547
+#: gnulib/getopt.c:530 gnulib/getopt.c:546
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: Option `%s' ist nicht eindeutig\n"
 
-#: gnulib/getopt.c:580 gnulib/getopt.c:584
+#: gnulib/getopt.c:579 gnulib/getopt.c:583
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: Option `--%s' akzeptiert kein Argument\n"
 
-#: gnulib/getopt.c:593 gnulib/getopt.c:598
+#: gnulib/getopt.c:592 gnulib/getopt.c:597
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: Option `%c%s' akzeptiert kein Argument\n"
 
-#: gnulib/getopt.c:641 gnulib/getopt.c:660 gnulib/getopt.c:976
-#: gnulib/getopt.c:995
+#: gnulib/getopt.c:640 gnulib/getopt.c:659 gnulib/getopt.c:975
+#: gnulib/getopt.c:994
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: Option `%s' erwartet ein Argument\n"
 
-#: gnulib/getopt.c:698 gnulib/getopt.c:701
+#: gnulib/getopt.c:697 gnulib/getopt.c:700
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: unbekannte Option `--%s'\n"
 
-#: gnulib/getopt.c:709 gnulib/getopt.c:712
+#: gnulib/getopt.c:708 gnulib/getopt.c:711
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: unbekannte Option `%c%s'\n"
 
-#: gnulib/getopt.c:764 gnulib/getopt.c:767
+#: gnulib/getopt.c:763 gnulib/getopt.c:766
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: ungültige Option `%c'\n"
 
-#: gnulib/getopt.c:773 gnulib/getopt.c:776
+#: gnulib/getopt.c:772 gnulib/getopt.c:775
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: ungültige Option `%c'\n"
 
-#: gnulib/getopt.c:828 gnulib/getopt.c:844 gnulib/getopt.c:1048
-#: gnulib/getopt.c:1066
+#: gnulib/getopt.c:827 gnulib/getopt.c:843 gnulib/getopt.c:1047
+#: gnulib/getopt.c:1065
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: Option `%c' erwartet ein Argument\n"
 
-#: gnulib/getopt.c:897 gnulib/getopt.c:913
+#: gnulib/getopt.c:896 gnulib/getopt.c:912
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: Option `-W %s' ist nicht eindeutig\n"
 
-#: gnulib/getopt.c:937 gnulib/getopt.c:955
+#: gnulib/getopt.c:936 gnulib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: Option `-W %s' akzeptiert kein Argument\n"
 
 #: src/conf.c:431
+#, c-format
 msgid "host not set"
 msgstr "host nicht angegeben"
 
 #: src/conf.c:436
+#, c-format
 msgid "tls_key_file requires tls_cert_file"
 msgstr "tls_key_file benötigt tls_cert_file"
 
 #: src/conf.c:441
+#, c-format
 msgid "tls_cert_file requires tls_key_file"
 msgstr "tls_cert_file benötigt tls_key_file"
 
 #: src/conf.c:447
+#, c-format
 msgid "cannot use tls_trust_file with tls_certcheck turned off"
 msgstr "um tls_trust_file zu nutzen muss tls_certcheck aktiviert sein"
 
 #: src/conf.c:453
+#, c-format
 msgid ""
 "tls requires either tls_trust_file (highly recommended) or a disabled "
 "tls_certcheck"
@@ -98,10 +103,12 @@ msgstr ""
 "tls_certcheck"
 
 #: src/conf.c:459
+#, c-format
 msgid "no delivery information"
 msgstr "keine Informationen zur Auslieferungsmethode (delivery nicht gesetzt)"
 
 #: src/conf.c:564 src/stream.c:62
+#, c-format
 msgid "input error"
 msgstr "Lesefehler"
 
@@ -165,10 +172,12 @@ msgid "line %d: unknown command %s"
 msgstr "Zeile %d: Unbekanntes Kommando %s"
 
 #: src/conf.c:1226
+#, c-format
 msgid "must be owned by you"
 msgstr "muss Dir gehören"
 
 #: src/conf.c:1231
+#, c-format
 msgid "must have no more than user read/write permissions"
 msgstr "darf nicht mehr Rechte als Lese-/Schreibrecht für den Benutzer haben"
 
@@ -395,6 +404,7 @@ msgid "Fingerprints"
 msgstr "Fingerabdrücke"
 
 #: src/mpop.c:483 src/mpop.c:952
+#, c-format
 msgid "the POP3 server does not support TLS via the STLS command"
 msgstr "der POP3 Server unterstützt TLS über das STLS Kommando nicht"
 
@@ -527,6 +537,7 @@ msgid "%ld bytes"
 msgstr "%ld bytes"
 
 #: src/mpop.c:771
+#, c-format
 msgid "1 byte"
 msgstr "1 byte"
 
@@ -550,11 +561,12 @@ msgstr "überspringe Nachricht %ld von %ld (Grund: filter)\n"
 msgid "retrieving message %ld of %ld (%s): "
 msgstr "empfange Nachricht %ld von %ld (%s): "
 
-#: src/mpop.c:995 src/mpop.c:1050 src/mpop.c:1078 src/mpop.c:1281
+#: src/mpop.c:995 src/mpop.c:1050 src/mpop.c:1078 src/mpop.c:1286
 #: src/net.c:119 src/net.c:426 src/net.c:511 src/net.c:604 src/net.c:712
 #: src/net.c:832 src/pop3.c:1130 src/pop3.c:1255 src/pop3.c:1372
-#: src/pop3.c:1804 src/pop3.c:2105 src/tls.c:1156 src/tls.c:1215
+#: src/pop3.c:1804 src/pop3.c:2110 src/tls.c:1156 src/tls.c:1215
 #: src/tls.c:1278 src/tls.c:1317 src/tls.c:1398 src/tls.c:1444
+#, c-format
 msgid "operation aborted"
 msgstr "Operation abgebrochen"
 
@@ -593,59 +605,60 @@ msgstr " in %s"
 msgid "total: "
 msgstr "gesamt: "
 
-#: src/mpop.c:1248
+#: src/mpop.c:1253
 #, c-format
 msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: killsize + keep)\n"
 
-#: src/mpop.c:1254
+#: src/mpop.c:1259
 #, c-format
 msgid "deleting message %ld of %ld (reason: killsize)\n"
 msgstr "lösche Nachricht %ld von %ld (Grund: killsize)\n"
 
-#: src/mpop.c:1265
+#: src/mpop.c:1270
 #, c-format
 msgid "skipping message %ld of %ld (reason: skipsize)\n"
 msgstr "überspringe Nachricht %ld von %ld (Grund: skipsize)\n"
 
-#: src/mpop.c:1292
+#: src/mpop.c:1297
+#, c-format
 msgid "the POP3 server does not support the TOP command needed for filtering"
 msgstr ""
 "der POP3 Server unterstützt das für Filterung nötige TOP Kommando nicht"
 
-#: src/mpop.c:1472
+#: src/mpop.c:1477
 #, c-format
 msgid "%s: no accounts defined"
 msgstr "%s: keine Accounts definiert"
 
-#: src/mpop.c:1490 src/mpop.c:1501
+#: src/mpop.c:1495 src/mpop.c:1506
 #, c-format
 msgid "%s: no account %s"
 msgstr "%s: Account %s nicht gefunden"
 
-#: src/mpop.c:1799 src/mpop.c:1816 src/mpop.c:1839 src/mpop.c:1859
-#: src/mpop.c:1884 src/mpop.c:1902 src/mpop.c:1941 src/mpop.c:1959
-#: src/mpop.c:1977 src/mpop.c:1995 src/mpop.c:2011 src/mpop.c:2028
-#: src/mpop.c:2064
+#: src/mpop.c:1804 src/mpop.c:1821 src/mpop.c:1844 src/mpop.c:1864
+#: src/mpop.c:1889 src/mpop.c:1907 src/mpop.c:1946 src/mpop.c:1964
+#: src/mpop.c:1982 src/mpop.c:2000 src/mpop.c:2016 src/mpop.c:2033
+#: src/mpop.c:2069
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "ungültiges Argument %s für %s"
 
-#: src/mpop.c:2094
+#: src/mpop.c:2099
 #, c-format
 msgid "%s version %s\n"
 msgstr "%s Version %s\n"
 
-#: src/mpop.c:2096
+#: src/mpop.c:2101
 #, c-format
 msgid "TLS/SSL library: %s\n"
 msgstr "TLS/SSL Programmbibliothek: %s\n"
 
-#: src/mpop.c:2102
+#: src/mpop.c:2107
 msgid "none"
 msgstr "keine"
 
-#: src/mpop.c:2106
+#: src/mpop.c:2111
 #, c-format
 msgid ""
 "Authentication library: %s\n"
@@ -654,40 +667,40 @@ msgstr ""
 "Authentifizierungsprogrammbibliothek: %s\n"
 "Unterstützte Authentifizierungsmethoden:\n"
 
-#: src/mpop.c:2109
+#: src/mpop.c:2114
 msgid "GNU SASL; user and apop: built-in"
 msgstr "GNU SASL; user und apop: eingebaut"
 
-#: src/mpop.c:2111
+#: src/mpop.c:2116
 msgid "built-in"
 msgstr "eingebaut"
 
-#: src/mpop.c:2152
+#: src/mpop.c:2157
 #, c-format
 msgid "IDN support: "
 msgstr "IDN Unterstützung: "
 
-#: src/mpop.c:2154 src/mpop.c:2162
+#: src/mpop.c:2159 src/mpop.c:2167
 #, c-format
 msgid "enabled"
 msgstr "aktiviert"
 
-#: src/mpop.c:2156 src/mpop.c:2165
+#: src/mpop.c:2161 src/mpop.c:2170
 #, c-format
 msgid "disabled"
 msgstr "deaktiviert"
 
-#: src/mpop.c:2160
+#: src/mpop.c:2165
 #, c-format
 msgid "NLS: "
 msgstr "NLS: "
 
-#: src/mpop.c:2163
+#: src/mpop.c:2168
 #, c-format
 msgid ", LOCALEDIR is %s"
 msgstr ", LOCALEDIR ist %s"
 
-#: src/mpop.c:2168
+#: src/mpop.c:2173
 #, c-format
 msgid ""
 "Copyright (C) 2007 Martin Lambers and others.\n"
@@ -702,7 +715,7 @@ msgstr ""
 "der GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "Es gibt KEINERLEI GARANTIE, so weit das Gesetz es erlaubt.\n"
 
-#: src/mpop.c:2177
+#: src/mpop.c:2182
 #, c-format
 msgid ""
 "USAGE:\n"
@@ -832,103 +845,103 @@ msgstr ""
 "\n"
 "Melde Fehler an <%s>.\n"
 
-#: src/mpop.c:2258
+#: src/mpop.c:2263
 msgid "cannot use both --host and accounts"
 msgstr "kann nicht gleichzeitig --host und Accounts benutzen"
 
-#: src/mpop.c:2264
+#: src/mpop.c:2269
 msgid "cannot use both --all-accounts and a list of accounts"
 msgstr "kann nicht gleichzeitig --all-accounts und eine Accountliste benutzen"
 
-#: src/mpop.c:2344
+#: src/mpop.c:2349
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "Account %s aus %s: %s"
 
-#: src/mpop.c:2362
+#: src/mpop.c:2367
 #, c-format
 msgid "cannot create directories for %s: %s"
 msgstr "kann Verzeichnisse für %s nicht erzeugen: %s"
 
-#: src/mpop.c:2365
+#: src/mpop.c:2370
 msgid "a component already exists but is not a directory"
 msgstr "eine Komponente existiert bereits, ist aber kein Verzeichnis"
 
-#: src/mpop.c:2382
+#: src/mpop.c:2387
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "benutze Account %s aus %s\n"
 
-#: src/mpop.c:2392 src/mpop.c:2465 src/mpop.c:2474
+#: src/mpop.c:2397 src/mpop.c:2470 src/mpop.c:2479
 #, c-format
 msgid "off\n"
 msgstr "aus\n"
 
-#: src/mpop.c:2398
+#: src/mpop.c:2403
 #, c-format
 msgid "1 second\n"
 msgstr "1 Sekunde\n"
 
-#: src/mpop.c:2402
+#: src/mpop.c:2407
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d Sekunden\n"
 
-#: src/mpop.c:2406 src/mpop.c:2430 src/mpop.c:2431 src/mpop.c:2438
-#: src/mpop.c:2439 src/mpop.c:2460 src/mpop.c:2461
+#: src/mpop.c:2411 src/mpop.c:2435 src/mpop.c:2436 src/mpop.c:2443
+#: src/mpop.c:2444 src/mpop.c:2465 src/mpop.c:2466
 msgid "off"
 msgstr "aus"
 
-#: src/mpop.c:2407 src/mpop.c:2430 src/mpop.c:2431 src/mpop.c:2438
-#: src/mpop.c:2439 src/mpop.c:2460 src/mpop.c:2461
+#: src/mpop.c:2412 src/mpop.c:2435 src/mpop.c:2436 src/mpop.c:2443
+#: src/mpop.c:2444 src/mpop.c:2465 src/mpop.c:2466
 msgid "on"
 msgstr "an"
 
-#: src/mpop.c:2407
+#: src/mpop.c:2412
 msgid "auto"
 msgstr "automatisch"
 
-#: src/mpop.c:2411
+#: src/mpop.c:2416
 #, c-format
 msgid "choose\n"
 msgstr "automatisch\n"
 
-#: src/mpop.c:2427 src/mpop.c:2428 src/mpop.c:2429 src/mpop.c:2433
-#: src/mpop.c:2435 src/mpop.c:2437 src/mpop.c:2481
+#: src/mpop.c:2432 src/mpop.c:2433 src/mpop.c:2434 src/mpop.c:2438
+#: src/mpop.c:2440 src/mpop.c:2442 src/mpop.c:2486
 msgid "(not set)"
 msgstr "(nicht gesetzt)"
 
-#: src/mpop.c:2500
+#: src/mpop.c:2505
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr ""
 "Unterstützung für Authentifizierungsmethode %s ist nicht einkompiliert worden"
 
-#: src/mpop.c:2512
+#: src/mpop.c:2517
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "kann TLS Programmbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2520
+#: src/mpop.c:2525
 msgid "support for TLS is not compiled in"
 msgstr "Unterstützung für TLS ist nicht einkompiliert worden"
 
-#: src/mpop.c:2528
+#: src/mpop.c:2533
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "kann Netzwerkprogrammbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2556 src/mpop.c:2594
+#: src/mpop.c:2561 src/mpop.c:2599
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "Nachricht des POP3 Servers: %s"
 
-#: src/mpop.c:2601
+#: src/mpop.c:2606
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "Fehler während des Nachrichtenabrufens (Account %s aus %s)"
 
-#: src/mpop.c:2607
+#: src/mpop.c:2612
 msgid "error during mail retrieval"
 msgstr "Fehler während des Nachrichtenabrufens"
 
@@ -1075,14 +1088,17 @@ msgid "network write error: %s"
 msgstr "Netzwerk Ausgabefehler: %s"
 
 #: src/net.c:816 src/net.c:852
+#, c-format
 msgid "network write error"
 msgstr "Netzwerk Ausgabefehler"
 
 #: src/pop3.c:313
+#, c-format
 msgid "POP3 server sent an empty reply"
 msgstr "POP3 Server sendete eine leere Antwort"
 
 #: src/pop3.c:317
+#, c-format
 msgid "POP3 server sent an invalid reply"
 msgstr "POP3 Server sendete eine ungültige Antwort"
 
@@ -1096,6 +1112,7 @@ msgstr ""
 "POP3_BUFSIZE."
 
 #: src/pop3.c:677
+#, c-format
 msgid "cannot get initial OK message from POP3 server"
 msgstr "kann keine initiale OK Nachricht des Servers empfangen"
 
@@ -1106,8 +1123,8 @@ msgid "invalid reply to command %s"
 msgstr "ungültige Antwort auf Kommando %s"
 
 #: src/pop3.c:939 src/pop3.c:986 src/pop3.c:1109 src/pop3.c:1237
-#: src/pop3.c:2379 src/pop3.c:2465 src/pop3.c:2551 src/pop3.c:3125
-#: src/pop3.c:3153
+#: src/pop3.c:2384 src/pop3.c:2470 src/pop3.c:2556 src/pop3.c:3130
+#: src/pop3.c:3158
 #, c-format
 msgid "command %s failed"
 msgstr "Kommando %s fehlgeschlagen"
@@ -1119,10 +1136,12 @@ msgstr ""
 "kann nicht mehr als %lu Nachrichten verarbeiten. Erhöhe POP3_MAX_MESSAGES."
 
 #: src/pop3.c:1482
+#, c-format
 msgid "cannot write mail: output error"
 msgstr "kann Nachricht nicht schreiben: Ausgabefehler"
 
 #: src/pop3.c:1587
+#, c-format
 msgid "cannot write to temporary file: output error"
 msgstr "kann nicht in temporäre Datei schreiben: Ausgabefehler"
 
@@ -1151,67 +1170,71 @@ msgstr "kann keine temporäre Datei erzeugen: %s"
 msgid "cannot rewind temporary file: %s"
 msgstr "kann temporäre Datei nicht zurückspulen: %s"
 
-#: src/pop3.c:2120
+#: src/pop3.c:2125
 #, c-format
 msgid "command DELE %ld failed"
 msgstr "Kommando DELE %ld fehlgeschlagen"
 
-#: src/pop3.c:2190 src/pop3.c:2202 src/pop3.c:2225 src/pop3.c:2240
-#: src/pop3.c:2289 src/pop3.c:2340 src/pop3.c:2399 src/pop3.c:2419
-#: src/pop3.c:2512 src/pop3.c:2571 src/pop3.c:2905 src/pop3.c:2940
-#: src/pop3.c:2974
+#: src/pop3.c:2195 src/pop3.c:2207 src/pop3.c:2230 src/pop3.c:2245
+#: src/pop3.c:2294 src/pop3.c:2345 src/pop3.c:2404 src/pop3.c:2424
+#: src/pop3.c:2517 src/pop3.c:2576 src/pop3.c:2910 src/pop3.c:2945
+#: src/pop3.c:2979
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
 
-#: src/pop3.c:2475
+#: src/pop3.c:2480
+#, c-format
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr "Authentifizierungsmethode CRAM-MD5: Server sendete ungültige Challenge"
 
-#: src/pop3.c:2685 src/pop3.c:2991
+#: src/pop3.c:2690 src/pop3.c:2996
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "POP3 Server unterstützt Authentifizierungsmethode %s nicht"
 
-#: src/pop3.c:2691 src/pop3.c:2817 src/pop3.c:2860
+#: src/pop3.c:2696 src/pop3.c:2822 src/pop3.c:2865
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2698
+#: src/pop3.c:2703
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: Authentifizierungsmethode %s wird nicht unterstützt"
 
-#: src/pop3.c:2757 src/pop3.c:3030
+#: src/pop3.c:2762 src/pop3.c:3035
+#, c-format
 msgid "cannot use a secure authentication method"
 msgstr "kann keine sichere Authentifizierungsmethode benutzen"
 
-#: src/pop3.c:2763 src/pop3.c:3036
+#: src/pop3.c:2768 src/pop3.c:3041
+#, c-format
 msgid "cannot find a usable authentication method"
 msgstr "kann keine benutzbare Authentifizierungsmethode finden"
 
-#: src/pop3.c:2777 src/pop3.c:3049
+#: src/pop3.c:2782 src/pop3.c:3054
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "Authentifizierungsmethode %s braucht einen Benutzernamen"
 
-#: src/pop3.c:2790 src/pop3.c:3059
+#: src/pop3.c:2795 src/pop3.c:3064
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "Authentifizierungsmethode %s braucht ein Passwort"
 
-#: src/pop3.c:2953
+#: src/pop3.c:2958
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "Authentifizierung fehlgeschlagen: %s (Methode %s)"
 
-#: src/pop3.c:3093
+#: src/pop3.c:3098
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "Authentifizierungsmethode %s wird nicht unterstützt"
 
 #: src/tls.c:96
+#, c-format
 msgid ""
 "no environment variables RANDFILE or HOME, or filename of rand file too long"
 msgstr ""
@@ -1224,6 +1247,7 @@ msgid "%s: input error"
 msgstr "%s: Lesefehler"
 
 #: src/tls.c:129
+#, c-format
 msgid "random file + time + pseudo randomness is not enough, giving up"
 msgstr ""
 "Zufallsdatei + Zeit + Pseudozufallszahlen sind nicht genug, ich gebe auf"
@@ -1385,6 +1409,7 @@ msgid "cannot set credentials for TLS Session: %s"
 msgstr "kann Berechtigungsnachweise für TLS Sitzung nicht setzen: %s"
 
 #: src/tls.c:1012
+#, c-format
 msgid "cannot set TLS method"
 msgstr "kann TLS Methode nicht setzen"
 
