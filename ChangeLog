@@ -1,3 +1,7 @@
+Version 1.0.13:
+- Fix network input/output timeouts for W32. Bug reported and fixed by
+  Shoorick. Thanks!
+
 Version 1.0.12:
 - Gnulib update to 2007-11-27.
 - Don't count already retrieved messages twice. This fixes a segfault when

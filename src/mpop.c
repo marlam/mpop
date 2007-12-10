@@ -2651,6 +2651,10 @@ exit:
 	list_xfree(account_list, account_free);
     }
     account_free(cmdline_account);
+#if W32_NATIVE
+    fflush(stdout);
+    fflush(stderr);
+#endif
 
     return error_code;
 }
