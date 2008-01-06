@@ -1,4 +1,5 @@
 Version 1.0.13:
+- Fix typos in the man page.
 - Fix network input/output timeouts for W32. Bug reported and fixed by
   Shoorick. Thanks!
 

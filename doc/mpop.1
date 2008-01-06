@@ -269,10 +269,10 @@ If you don't choose the method yourself, mpop chooses the best secure method
 that the POP3 server supports. Secure means that your authentication data will
 not be sent in cleartext over the net. For TLS encrypted connections, every
 authentication method is secure in this sense. If TLS is not active, only
-gssapi, digest-md5, and cram-md5 ntlm are secure in this sense.
+gssapi, digest-md5, and cram-md5 are secure in this sense.
 .br
-The \fIexternal\fP is special: the actual authentication happens outside of the
-SMTP protocol, typically by sending a TLS client certificate (see the
+The \fIexternal\fP method is special: the actual authentication happens outside
+of the SMTP protocol, typically by sending a TLS client certificate (see the
 \fBtls_cert_file\fP command). The \fIexternal\fP method merely confirms that
 this authentication succeeded for the given user (or, if no user name is given,
 confirms that authentication succeeded). This authentication method is not
