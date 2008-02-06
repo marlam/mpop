@@ -1,4 +1,6 @@
 Version 1.0.13:
+- Support for the Max OS X keychain was added by Jay Soffian (originally for
+  msmtp). Thanks a lot!
 - Fix typos in the man page.
 - Fix network input/output timeouts for W32. Bug reported and fixed by
   Shoorick. Thanks!

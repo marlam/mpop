@@ -1,7 +1,7 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED December 10, 2007
-@set UPDATED-MONTH December 2007
+@set UPDATED February 6, 2008
+@set UPDATED-MONTH February 2008
 @set EDITION 1.0.13
 @set VERSION 1.0.13
 @settitle mpop @value{VERSION}
@@ -15,7 +15,7 @@
 This manual was last updated @value{UPDATED} for version
 @value{VERSION} of mpop.
 
-Copyright (C) 2005, 2006, 2007  Martin Lambers
+Copyright (C) 2005, 2006, 2007, 2008  Martin Lambers
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -54,7 +54,10 @@ Documentation License''.
 * Introduction::			Basic concepts.
 * Configuration file::			Configuration file commands.
 * Invocation::				Command line options.
-* POP3 features::			Explanation of various POP3 features.
+* Transport Layer Security::		How to use TLS/SSL.
+* Authentication::			How to use authentication.
+* Pipelining::				How to use POP3 pipelining.
+* Defective POP3 servers::		Common defects of POP3 servers.
 * Mail retrieval mode::			How to retrieve mail.
 * Filtering::				How to filter mails.
 * Server information mode::		How to obtain information about 
@@ -196,7 +199,8 @@ name.
 Set your password for POP3 authentication. An empty argument unsets the
 password.
 If no password is set but one is needed during authentication, mpop will try to
-find it in @code{~/.netrc}, and if that fails, will prompt you for it.
+find it in @code{~/.netrc}. If that fails, it will try to get it from a system 
+specific keychain (if available). If that fails, mpop will prompt you for it.
 @xref{Authentication}.
 @anchor{ntlmdomain}
 @item ntlmdomain [@var{ntlmdomain}]
@@ -402,7 +406,7 @@ The default user configuration file.
 Default directory to store UIDLs files in.
 @item @code{~/.netrc}
 The @code{.netrc} file contains login information. If a password is not found 
-in the configuration file, msmtp will search it in @code{.netrc} before 
+in the configuration file, mpop will search it in @code{.netrc} before 
 prompting the user for it. The syntax of @code{.netrc} is described in the 
 @code{netrc(5)} or @code{ftp(1)} manual page.
 @item @code{$USER}, @code{$LOGNAME}
@@ -591,18 +595,9 @@ comma is used instead of a blank to separate the method from its arguments.
 File to store UIDLs in. @xref{uidls_file}.
 @end table
 
-@node POP3 features
-@chapter POP3 features
-
-@menu
-* Transport Layer Security::		How to use TLS/SSL
-* Authentication::			How to use authentication
-* Pipelining::				How to use POP3 pipelining
-* Defective POP3 servers::		Common defectives of POP3 servers
-@end menu
 
 @node Transport Layer Security
-@section Transport Layer Security
+@chapter Transport Layer Security
 
 Transport Layer Security (TLS) is a new name for Secure Socket Layer (SSL).
 The TLS 1.0 protocol is an updated version of the SSL 3.0 protocol. TLS and
@@ -685,7 +680,7 @@ to the server, probably does not match any CA that the server trusts.
 
 
 @node Authentication
-@section Authentication
+@chapter Authentication
 
 POP3 servers require a client to authenticate itself before it is allowed to
 retrieve mail. 
@@ -755,7 +750,11 @@ methods are supported by your version of mpop.
 Authentication data can be set with the @samp{user} and @samp{password} commands
 or with the @samp{--user} option. See @ref{user}, @ref{password}, @ref{--user}.
 If no password is set but one is needed during authentication, mpop will try to
-find it in @code{~/.netrc}, and if that fails, mpop will prompt you for it.
+find it in @code{~/.netrc}. If that fails, it will try to get it from a system 
+specific keychain (if available). If that fails, mpop will prompt you for it.
+
+Currently the only supported keychain is the Mac OS X keychain. 
+@xref{Using the Mac OS X Keychain}.
 
 The authentication method can be chosen with the @samp{auth} command or 
 @samp{--auth} option, but it is usually sufficient to just use the @samp{on} 
@@ -770,8 +769,28 @@ because all the others methods put the authentication data at risk.
 If you really want to risk your authentication data, you have to force mpop to
 do that by manually setting the authentication method while TLS is off.
 
+@section Using the Mac OS X Keychain
+@anchor{Using the Mac OS X Keychain}
+
+A Mac OS X user can store a password in a keychain item using the Keychain
+Access GUI application. The @samp{account name} is simply the value of the
+mpopop @samp{user} argument. However, the @samp{keychain item name} is
+@code{smtp://<hostname>} where @code{<hostname>} matches the mpop @samp{host}
+argument. Using @code{smtp://} is needed so that the item is created of kind
+@samp{internet password}.  For example, selecting @samp{File->Get Info} on a
+keychain item that corresponds to @samp{host smtp.freemail.example} and
+@samp{user joe.smith} will show:
+
+@example
+   Name: smtp.freemail.example
+   Kind: Internet password
+Account: joe.smith
+  Where: smtp://smtp.freemail.example
+@end example
+
+
 @node Pipelining
-@section Pipelining
+@chapter Pipelining
 
 A POP3 client that sends multiple POP3 commands at once to a POP3 server before
 starting to read the server's answers is using POP3 pipelining. Since the client
@@ -793,8 +812,9 @@ You can change this behaviour with the @samp{pipelining} command or
 always safe to disable pipelining. It is not recommended to force pipelining
 for servers that are not known to support it.
 
+
 @node Defective POP3 servers
-@section Defective POP3 servers
+@chapter Defective POP3 servers
 
 Some POP3 servers still do not support the UIDL command. In this case, mpop 
 cannot recognize messages that were already successfully retrieved, and will
