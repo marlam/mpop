@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -31,6 +31,7 @@
 #include <ctype.h>
 #include <errno.h>
 
+#include "c-ctype.h"
 #include "gettext.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -292,7 +293,7 @@ int check_auth_arg(char *arg)
     	l = strlen(arg);
 	for (i = 0; i < l; i++)
 	{
-	    arg[i] = toupper((unsigned char)arg[i]);
+	    arg[i] = c_toupper((unsigned char)arg[i]);
 	}
 	return 0;
     }

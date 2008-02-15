@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2003, 2004, 2005, 2006, 2007
+ * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -755,7 +755,8 @@ int pop3_capa(pop3_session_t *session, char **errstr)
 	    /* We know that the line ends with "\n" */
 	    while (!isspace((unsigned char)session->buffer[i]))
 	    {
-		session->buffer[i] = toupper((unsigned char)session->buffer[i]);
+		session->buffer[i] = 
+		    c_toupper((unsigned char)session->buffer[i]);
 		i++;
 	    }
 	    if (strncmp(session->buffer, "TOP", 3) == 0)
@@ -781,7 +782,7 @@ int pop3_capa(pop3_session_t *session, char **errstr)
 		while (session->buffer[i])
 		{
 		    session->buffer[i] = 
-			toupper((unsigned char)session->buffer[i]);
+			c_toupper((unsigned char)session->buffer[i]);
 		    i++;
 		}
 		if (strstr(session->buffer + 6, "NEVER"))
@@ -814,7 +815,7 @@ int pop3_capa(pop3_session_t *session, char **errstr)
 		while (session->buffer[i])
 		{
 		    session->buffer[i] = 
-			toupper((unsigned char)session->buffer[i]);
+			c_toupper((unsigned char)session->buffer[i]);
 		    i++;
 		}
 		if (strstr(session->buffer + 5, "PLAIN"))

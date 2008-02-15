@@ -1,4 +1,6 @@
 Version 1.0.13:
+- Use locale-independent c_toupper() instead of toupper() to avoid problems
+  with the tr_TR.UTF-8 locale. Reported by S.Çağlar Onur for msmtp. Thanks!
 - Support for the Max OS X keychain was added by Jay Soffian (originally for
   msmtp). Thanks a lot!
 - Fix typos in the man page.
