@@ -1,5 +1,5 @@
 Version 1.0.13:
-- Updated gnulib to 2008-02-15.
+- Updated gnulib to 2008-02-26. Imported havelib module.
 - Use locale-independent c_toupper() instead of toupper() to avoid problems
   with the tr_TR.UTF-8 locale. Reported by S.Çağlar Onur for msmtp. Thanks!
 - Support for the Max OS X keychain was added by Jay Soffian (originally for
