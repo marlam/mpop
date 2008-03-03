@@ -1056,10 +1056,8 @@ void insert_sorted(long *strings_sorted, long len, char **strings,
 	    b = c - 1;
 	}
     }
-    for (c = len; c > a; c--)
-    {
-	strings_sorted[c] = strings_sorted[c - 1];
-    }
+    memmove(strings_sorted + a + 1, strings_sorted + a, 
+	    (len - a) * sizeof(*strings_sorted));
     strings_sorted[a] = new_index;
 }
 
