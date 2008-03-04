@@ -1,4 +1,5 @@
 Version 1.0.13:
+- Fixed a potential problem with VPATH builds.
 - Small optimization in insert_sorted() in pop3.c, by Dimitrios Apostolou.
 - Updated gnulib to 2008-02-26. Imported havelib module.
 - Use locale-independent c_toupper() instead of toupper() to avoid problems
