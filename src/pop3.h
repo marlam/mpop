@@ -3,7 +3,7 @@
  * 
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2003, 2004, 2005, 2006, 2007
+ * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -179,7 +179,10 @@ typedef struct
     tls_t tls;			/* TLS descriptor */
 #endif /* HAVE_TLS */
     char buffer[POP3_BUFSIZE];	/* input/output buffer */
-    net_readbuf_t readbuf;	/* input buffering for 'fd', for net_gets() */
+    net_readbuf_t net_readbuf;	/* input buffering for 'fd', for net_gets() */
+#ifdef HAVE_TLS
+    tls_readbuf_t tls_readbuf;	/* input buffering for 'tls', for tls_gets() */
+#endif /* HAVE_TLS */
     FILE *debug;		/* stream for debugging output, or NULL */
 
     /* POP3 session information */
