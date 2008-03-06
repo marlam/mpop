@@ -28,6 +28,7 @@
 # include <signal.h>
 #endif
 
+#include "readbuf.h"
 #include "net.h"
 #ifdef HAVE_TLS
 # include "tls.h"
@@ -179,10 +180,7 @@ typedef struct
     tls_t tls;			/* TLS descriptor */
 #endif /* HAVE_TLS */
     char buffer[POP3_BUFSIZE];	/* input/output buffer */
-    net_readbuf_t net_readbuf;	/* input buffering for 'fd', for net_gets() */
-#ifdef HAVE_TLS
-    tls_readbuf_t tls_readbuf;	/* input buffering for 'tls', for tls_gets() */
-#endif /* HAVE_TLS */
+    readbuf_t readbuf;		/* net input buffering */
     FILE *debug;		/* stream for debugging output, or NULL */
 
     /* POP3 session information */

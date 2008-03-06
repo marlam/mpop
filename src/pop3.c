@@ -55,6 +55,7 @@
 #include "xvasprintf.h"
 
 #include "delivery.h"
+#include "readbuf.h"
 #include "net.h"
 #include "tools.h"
 #include "stream.h"
@@ -128,10 +129,9 @@ pop3_session_t *pop3_session_new(int pipelining,
     session->server_hostname = NULL;
     session->server_canonical_name = NULL;
     session->server_address = NULL;
-    net_readbuf_init(&(session->net_readbuf));
+    readbuf_init(&(session->readbuf));
 #ifdef HAVE_TLS
     tls_clear(&session->tls);
-    tls_readbuf_init(&(session->tls_readbuf));
 #endif /* HAVE_TLS */
     session->cap.flags = 0;
     session->pipelining = pipelining;
@@ -236,13 +236,13 @@ int pop3_gets(pop3_session_t *session, size_t *len, char **errstr)
 #ifdef HAVE_TLS
     if (tls_is_active(&session->tls))
     {
-	e = (tls_gets(&session->tls, &(session->tls_readbuf),
+	e = (tls_gets(&session->tls, &(session->readbuf),
 		    session->buffer, POP3_BUFSIZE, len, errstr) != TLS_EOK);
     }
     else
     {
 #endif /* HAVE_TLS */
-	e = (net_gets(session->fd, &(session->net_readbuf), 
+	e = (net_gets(session->fd, &(session->readbuf), 
 		    session->buffer, POP3_BUFSIZE, len, errstr) != NET_EOK);
 #ifdef HAVE_TLS
     }
@@ -938,6 +938,12 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr)
     if (!pop3_msg_ok(session->buffer))
     {
 	*errmsg = xstrdup(session->buffer);
+	*errstr = xasprintf(_("command %s failed"), "STLS");
+	return POP3_EPROTO;
+    }
+    if (!readbuf_is_empty(&(session->readbuf)))
+    {
+	*errmsg = NULL;
 	*errstr = xasprintf(_("command %s failed"), "STLS");
 	return POP3_EPROTO;
     }

@@ -8,6 +8,7 @@ mpop_SOURCES = \
 	net.c net.h \
 	netrc.c netrc.h \
 	pop3.c pop3.h \
+	readbuf.c readbuf.h \
 	stream.c stream.h \
 	tools.c tools.h \
 	uidls.c uidls.h
