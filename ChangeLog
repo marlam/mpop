@@ -1,3 +1,6 @@
+Version 1.0.14:
+- Gnulib upate to 2008-05-04. Use getpass-gnu instead of getpass module.
+
 Version 1.0.13:
 - Buffer read operations also when TLS/SSL is active. Fixes performance problems
   with GnuTLS, reported by Dimitrios Apostolou.
