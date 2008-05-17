@@ -130,7 +130,6 @@ typedef struct
  * - new_size (= total_size)
  * The next function is pop3_uidl():
  * - msg_uid (UID of each mail)
- * - uids_sorted (indices so that the UIDs are sorted according to strcmp())
  * With this information, the caller can update the session fields of each mail:
  * Given a list of UIDs of previously retrieved mails, it can update:
  * - is_old (set true for retrieved mails)
@@ -193,7 +192,6 @@ typedef struct
     long new_size;		/* size of new messages */
     unsigned char *msg_action;	/* action for each mail */
     char **msg_uid;		/* UID of each mail */
-    long *uids_sorted;		/* indices so that the UIDs are sorted */
     long *msg_size;		/* size of each mail */
 } pop3_session_t;
 
@@ -389,7 +387,7 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr);
  * The error POP3_EUNAVAIL is not critical: it means that the POP3 server does
  * not support the UIDL command.
  */
-int pop3_uidl(pop3_session_t *session,
+int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
 #ifdef HAVE_SIGACTION
 	volatile sig_atomic_t *abort,
 #endif

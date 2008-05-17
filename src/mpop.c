@@ -5,6 +5,7 @@
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008
  * Martin Lambers <marlam@marlam.de>
+ * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -894,7 +895,6 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     FILE *uidls_fileptr;
     list_t *uidl_list;
     uidl_t *uidl;
-    int cmp;
     /* for status output: */
     char *sizestr;
     /* For errors that happen after a message is retrieved and delivered, and
@@ -1111,6 +1111,22 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
 #endif
 
+    /* Load the list of UID lists (if the file does not exist, the returned
+     * list will be empty) */
+    if ((e = uidls_read(acc->uidls_file, &uidls_fileptr, &uidl_list, errstr)) 
+	    != UIDLS_EOK)
+    {
+	mpop_endsession(session, 0);
+	return exitcode_uidls(e);
+    }
+    /* Pick the UID list for this user@host. If it does not exist, create an
+     * empty one. */
+    if (!(uidl = find_uidl(uidl_list, acc->host, acc->username)))
+    {
+	uidl = uidl_new(acc->host, acc->username);
+	list_insert(uidl_list, uidl);
+    }
+
     /* retrieve the UIDs */
     if (session->total_number > 0)
     {
@@ -1119,7 +1135,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	{
 	    /* the POP3 server does not support UIDL */
 	}
-	else if ((e = pop3_uidl(session,
+	else if ((e = pop3_uidl(session, uidl->uidv, uidl->n, acc->only_new,
 #if HAVE_SIGACTION
 			&mpop_retrmail_abort, 
 #endif
@@ -1137,70 +1153,6 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 	}
     }
 
-    /* Load the list of UID lists (if the file does not exist, the returned
-     * list will be empty) */
-    if ((e = uidls_read(acc->uidls_file, &uidls_fileptr, &uidl_list, errstr)) 
-	    != UIDLS_EOK)
-    {
-	mpop_endsession(session, 0);
-	return exitcode_uidls(e);
-    }
-    /* Pick the UID list for this user@host. If it does not exist, create an
-     * empty one. */
-    if (!(uidl = find_uidl(uidl_list, acc->host, acc->username)))
-    {
-	uidl = uidl_new(acc->host, acc->username);
-	list_insert(uidl_list, uidl);
-    }
-
-    /* Identify new messages. Both the list of current UIDs from the POP3
-     * server (accessed with session->msg_uid[session_uids_sorted[i]]) and the
-     * list of already seen UIDs (accessed with uidl->uidv[j]) are sorted. */
-    if (session->total_number > 0)
-    {
-	session->new_number = 0;
-	session->new_size = 0;
-	j = 0;
-	i = 0;
-	while (i < session->total_number)
-	{
-	    if (j < uidl->n)
-	    {
-		cmp = strcmp(uidl->uidv[j], 
-			session->msg_uid[session->uids_sorted[i]]);
-	    }
-	    else
-	    {
-		cmp = +1;
-	    }
-	    if (cmp < 0)
-	    {
-		j++;
-	    }
-	    else if (cmp > 0)
-	    {
-		session->new_number++;
-		session->new_size += 
-		    session->msg_size[session->uids_sorted[i]];
-		i++;
-	    }
-	    else
-	    {
-		/* Set action to DELETE if we should retrieve only new messages.
-		 * Else leave it as NORMAL. */
-		if (acc->only_new)
-		{
-		    session->msg_action[session->uids_sorted[i]] = 
-			POP3_MSG_ACTION_DELETE;
-		}
-		session->is_old[session->uids_sorted[i]] = 1;
-		session->old_number++;
-		i++;
-		j++;
-	    }
-	}
-    }
-    
     /* Print status */
     if (print_status)
     {

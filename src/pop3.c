@@ -5,6 +5,7 @@
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008
  * Martin Lambers <marlam@marlam.de>
+ * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -63,6 +64,7 @@
 # include "tls.h"
 #endif /* HAVE_TLS */
 #include "pop3.h"
+#include "uidls.h"
 
 
 /*
@@ -149,7 +151,6 @@ pop3_session_t *pop3_session_new(int pipelining,
     session->new_size = 0;
     session->msg_size = NULL;
     session->msg_uid = NULL;
-    session->uids_sorted = NULL;
     session->msg_action = NULL;
 
     return session;
@@ -181,7 +182,6 @@ void pop3_session_free(pop3_session_t *session)
 	}
 	free(session->msg_uid);
     }
-    free(session->uids_sorted);
     free(session->msg_action);
     free(session->is_old);
     free(session->msg_size);
@@ -1042,30 +1042,10 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr)
  * see pop3.h
  */
 
-/* Helper: insert the index of an uid such that the array of indices gives the
- * UIDs in sorted (ascending) order */
-void insert_sorted(long *strings_sorted, long len, char **strings, 
-	long new_index)
+/* Helper: Compare two pointers to UID strings. */
+int pop3_uidl_uidcmp(const void *a, const void *b)
 {
-    long a = 0;
-    long b = len - 1;
-    long c;
-
-    while (b >= a)
-    {
-	c = (a + b) / 2;
-	if (strcmp(strings[strings_sorted[c]], strings[new_index]) <= 0)
-	{
-	    a = c + 1;
-	}
-	else
-	{
-	    b = c - 1;
-	}
-    }
-    memmove(strings_sorted + a + 1, strings_sorted + a, 
-	    (len - a) * sizeof(*strings_sorted));
-    strings_sorted[a] = new_index;
+    return strcmp(*(const char **)a, *(const char **)b);
 }
 
 /* Helper: Check if a UID is valid. */
@@ -1089,7 +1069,7 @@ int pop3_uidl_check_uid(const char *uid)
     return (p != uid);
 }
 
-int pop3_uidl(pop3_session_t *session, 
+int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
 #if HAVE_SIGACTION
 	volatile sig_atomic_t *abort,
 #endif
@@ -1123,10 +1103,10 @@ int pop3_uidl(pop3_session_t *session,
     {
 	session->msg_uid[i] = NULL;
     }
-    session->uids_sorted = (session->total_number == 0) ? NULL :
-	xmalloc(session->total_number * sizeof(long));
 
     /* get 'total_number' UIDs plus one stop line (".") */
+    session->new_number = 0;
+    session->new_size= 0;
     for (i = 0; i < session->total_number + 1; i++)
     {
 #if HAVE_SIGACTION
@@ -1182,7 +1162,24 @@ int pop3_uidl(pop3_session_t *session,
 		goto invalid_reply;
 	    }
 	    session->msg_uid[n - 1] = xstrdup(p);
-	    insert_sorted(session->uids_sorted, i, session->msg_uid, n - 1);
+	    if (bsearch(&session->msg_uid[n - 1], uidv, uidv_len, sizeof(*uidv),
+			pop3_uidl_uidcmp) == NULL)
+	    {
+		/* The UID is new */
+		session->is_old[n - 1]= 0;
+		session->new_number++;
+		session->new_size += session->msg_size[n - 1];
+	    }
+	    else
+	    {
+		/* The UID is old */
+		if (only_new)
+		{
+		    session->msg_action[n - 1]= POP3_MSG_ACTION_DELETE;
+		}
+		session->is_old[n - 1] = 1;
+		session->old_number++;
+	    }
 	}
     }
     
