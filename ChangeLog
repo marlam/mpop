@@ -1,4 +1,6 @@
 Version 1.0.14:
+- Call fsync() after writing the UIDLS file. Suggested by Dimitrios Apostolou.
+  Thanks!
 - Faster UIDL implementation: Do not create a sorted list of received UIDs. Do
   a binary search for every received UID instead. Patch by Dimitrios Apostolou.
   Thanks!

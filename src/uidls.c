@@ -383,6 +383,13 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
 	    }
 	}
     }
+#ifndef W32_NATIVE
+    /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
+    if (!error)
+    {
+	error = (fsync(fileno(uidls_file)) != 0);
+    }
+#endif /* ! W32_NATIVE */
 
     if (error)
     {
