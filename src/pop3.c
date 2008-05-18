@@ -1042,12 +1042,6 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr)
  * see pop3.h
  */
 
-/* Helper: Compare two pointers to UID strings. */
-int pop3_uidl_uidcmp(const void *a, const void *b)
-{
-    return strcmp(*(const char **)a, *(const char **)b);
-}
-
 /* Helper: Check if a UID is valid. */
 int pop3_uidl_check_uid(const char *uid)
 {
@@ -1163,7 +1157,7 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
 	    }
 	    session->msg_uid[n - 1] = xstrdup(p);
 	    if (bsearch(&session->msg_uid[n - 1], uidv, uidv_len, sizeof(*uidv),
-			pop3_uidl_uidcmp) == NULL)
+			uidls_uidcmp) == NULL)
 	    {
 		/* The UID is new */
 		session->is_old[n - 1]= 0;

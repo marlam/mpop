@@ -1,4 +1,7 @@
 Version 1.0.14:
+- Use uidls_uidcmp() as a comparison function for qsort() and bsearch().
+  Eliminate a duplicate function in pop3.c. Suggested by Dimitrios Apostolou.
+  Thanks!
 - Call fsync() after writing the UIDLS file. Suggested by Dimitrios Apostolou.
   Thanks!
 - Faster UIDL implementation: Do not create a sorted list of received UIDs. Do

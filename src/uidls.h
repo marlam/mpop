@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007
+ * Copyright (C) 2005, 2006, 2007, 2008
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -58,6 +58,15 @@ uidl_t *uidl_new(const char *hostname, const char *user);
  * Frees an uidl_t.
  */
 void uidl_free(void *u);
+
+/* 
+ * uidls_uidcmp()
+ *
+ * Compares to UID strings. Return value is like strcmp().
+ * This function can be used as an argument to qsort()
+ * and bsearch().
+ */
+int uidls_uidcmp(const void *a, const void *b);
 
 /*
  * uidl_find()

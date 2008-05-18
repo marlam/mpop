@@ -131,10 +131,15 @@ uidl_t *find_uidl(list_t *uidl_list, const char *hostname, const char *user)
 }
 
 
-/* Helper function for sorting a UID list with qsort() */
-int _uidls_qsort_strcmp(const void *a, const void *b)
+/* 
+ * uidls_uidcmp()
+ *
+ * see uidls.h
+ */
+
+int uidls_uidcmp(const void *a, const void *b)
 {
-    return strcmp(*(char **)a, *(char **)b);
+    return strcmp(*(const char **)a, *(const char **)b);
 }
 
 
@@ -292,8 +297,8 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
    		{
  		    /* This should only happen when we read an UIDLS written by
 		     * a version <= 0.8.3. */
- 		    qsort(uidl->uidv, (size_t)uidl->n, sizeof(char *),
-  			    _uidls_qsort_strcmp);
+ 		    qsort(uidl->uidv, (size_t)uidl->n, sizeof(char *), 
+			    uidls_uidcmp);
  		}
 		list_insert(lp, uidl);
 		lp = lp->next;
@@ -374,8 +379,7 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
 	{
 	    error = (fprintf(uidls_file, " %ld %s %s\n", 
 			uidl->n, uidl->hostname, uidl->user) < 0);
-	    qsort(uidl->uidv, (size_t)uidl->n, sizeof(char *), 
-		    _uidls_qsort_strcmp);
+	    qsort(uidl->uidv, (size_t)uidl->n, sizeof(char *), uidls_uidcmp);
 	    for (i = 0; !error && i < uidl->n; i++)
 	    {
 		error = (fputs(uidl->uidv[i], uidls_file) == EOF 
