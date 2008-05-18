@@ -1,4 +1,7 @@
 Version 1.0.14:
+- Document how to use 'killsize 0' and 'keep on' to synchronize the UID list
+  of the client to the UID list of the server. Suggested by Dimitrios Apostolou.
+  Thanks!
 - Use uidls_uidcmp() as a comparison function for qsort() and bsearch().
   Eliminate a duplicate function in pop3.c. Suggested by Dimitrios Apostolou.
   Thanks!

@@ -351,18 +351,18 @@ filters.
 .IP "killsize (\fIoff\fP|\fIsize\fP)"
 Mails larger than the given size will be deleted (unless the \fBkeep\fP command
 is used, in which case they will just be skipped).
-.br
 The size argument must be zero or greater. If it is followed by a 'k' or 
 an 'm', the size is measured in kilobytes/megabytes instead of bytes.
-.br
 Note that some POP3 servers report slightly incorrect sizes for mails; see
 \fBNOTES\fP below. 
+.br
+When \fBkillsize\fP is set to 0 and \fBkeep\fP is set to on, then all mails are
+marked as retrieved, but no mail gets deleted from the server. This can be used
+to synchronize the UID list on the client to the UID list on the server.
 .IP "skipsize (\fIoff\fP|\fIsize\fP)"
 Mails larger than the given size will be skipped (not downloaded).
-.br
 The size argument must be zero or greater. If it is followed by a 'k' or 
 an 'm', the size is measured in kilobytes/megabytes instead of bytes.
-.br
 Note that some POP3 servers report slightly incorrect sizes for mails; see
 \fBNOTES\fP below. 
 .IP "filter [\fIcommand\fP]"
