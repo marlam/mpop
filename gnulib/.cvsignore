@@ -24,3 +24,4 @@ sysexits.in.h
 unistd.in.h
 wchar.in.h
 stdarg.in.h
+stdio-impl.h
