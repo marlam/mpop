@@ -1,4 +1,8 @@
 Version 1.0.14:
+- Add the new tls_min_dh_prime_bits configuration command and the
+  corresponding --tls-min-dh-prime-bits option.
+- Add the new tls_priorities configuration command and the corresponding
+  --tls-priorities option.
 - Gnulib upate to 2008-06-02. Use getpass-gnu instead of getpass module.
 - Document how to use 'killsize 0' and 'keep on' to synchronize the UID list
   of the client to the UID list of the server. Suggested by Dimitrios Apostolou.

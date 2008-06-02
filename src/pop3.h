@@ -280,8 +280,9 @@ int pop3_capa(pop3_session_t *session, char **errstr);
  */
 #ifdef HAVE_TLS
 int pop3_tls_init(pop3_session_t *session, const char *tls_key_file, 
-	const char *tls_ca_file, const char *tls_trust_file, 
-	int force_sslv3, char **errstr);
+	const char *tls_cert_file, const char *tls_trust_file, 
+	int force_sslv3, int min_dh_prime_bits, const char *priorities,
+	char **errstr);
 #endif /* HAVE_TLS */
 
 /*

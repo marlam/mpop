@@ -464,8 +464,9 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
 	tci = tls_cert_info_new();
 	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
-			acc->tls_trust_file, acc->tls_force_sslv3, errstr)) 
-		!= TLS_EOK)
+			acc->tls_trust_file, acc->tls_force_sslv3, 
+			acc->tls_min_dh_prime_bits, acc->tls_priorities, 
+			errstr)) != TLS_EOK)
 	{
 	    pop3_session_free(session);
 	    e = exitcode_tls(e);
@@ -924,8 +925,9 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     if (acc->tls)
     {
 	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
-			acc->tls_trust_file, acc->tls_force_sslv3, errstr)) 
-		!= TLS_EOK)
+			acc->tls_trust_file, acc->tls_force_sslv3, 
+			acc->tls_min_dh_prime_bits, acc->tls_priorities,
+			errstr)) != TLS_EOK)
 	{
 	    pop3_session_free(session);
 	    return exitcode_tls(e);
@@ -1566,26 +1568,28 @@ int make_needed_dirs(const char *pathname)
  */
 
 /* long options without a corresponding short option */
-#define LONGONLYOPT_VERSION 		0
-#define LONGONLYOPT_HELP    		1
-#define LONGONLYOPT_HOST		2
-#define LONGONLYOPT_PORT		3
-#define LONGONLYOPT_TIMEOUT		4
-#define LONGONLYOPT_PIPELINING		5
-#define LONGONLYOPT_AUTH		6
-#define LONGONLYOPT_USER		7
-#define LONGONLYOPT_TLS			8
-#define LONGONLYOPT_TLS_STARTTLS	9
-#define LONGONLYOPT_TLS_TRUST_FILE	10
-#define LONGONLYOPT_TLS_KEY_FILE	11
-#define LONGONLYOPT_TLS_CERT_FILE	12
-#define LONGONLYOPT_TLS_CERTCHECK	13
-#define LONGONLYOPT_TLS_FORCE_SSLV3	14
-#define LONGONLYOPT_KILLSIZE		15
-#define LONGONLYOPT_SKIPSIZE		16
-#define LONGONLYOPT_FILTER		17
-#define LONGONLYOPT_DELIVERY		18
-#define LONGONLYOPT_UIDLS_FILE		19
+#define LONGONLYOPT_VERSION 			0
+#define LONGONLYOPT_HELP    			1
+#define LONGONLYOPT_HOST			2
+#define LONGONLYOPT_PORT			3
+#define LONGONLYOPT_TIMEOUT			4
+#define LONGONLYOPT_PIPELINING			5
+#define LONGONLYOPT_AUTH			6
+#define LONGONLYOPT_USER			7
+#define LONGONLYOPT_TLS				8
+#define LONGONLYOPT_TLS_STARTTLS		9
+#define LONGONLYOPT_TLS_TRUST_FILE		10
+#define LONGONLYOPT_TLS_KEY_FILE		11
+#define LONGONLYOPT_TLS_CERT_FILE		12
+#define LONGONLYOPT_TLS_CERTCHECK		13
+#define LONGONLYOPT_TLS_FORCE_SSLV3		14
+#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS	15
+#define LONGONLYOPT_TLS_PRIORITIES		16
+#define LONGONLYOPT_KILLSIZE			17
+#define LONGONLYOPT_SKIPSIZE			18
+#define LONGONLYOPT_FILTER			19
+#define LONGONLYOPT_DELIVERY			20
+#define LONGONLYOPT_UIDLS_FILE			21
 
 int main(int argc, char *argv[])
 {
@@ -1640,38 +1644,49 @@ int main(int argc, char *argv[])
     /* option handling */
     struct option options[] =
     {
-	{ "version",         no_argument,       0, LONGONLYOPT_VERSION },
-	{ "help",            no_argument,       0, LONGONLYOPT_HELP },
-	{ "quiet",           no_argument,       0, 'q' },
-	{ "half-quiet",      no_argument,       0, 'Q' },
- 	{ "pretend",         no_argument,       0, 'P' },
-  	{ "debug",           no_argument,       0, 'd' },
-	{ "serverinfo",      no_argument,       0, 'S' },
-	{ "file",            required_argument, 0, 'C' },
-	{ "auth-only",       no_argument,       0, 'A' },
-	{ "all-accounts",    no_argument,       0, 'a' },
-	{ "status-only",     no_argument,       0, 's' }, 
-	{ "delivery",        required_argument, 0, LONGONLYOPT_DELIVERY },
-	{ "uidls-file",      required_argument, 0, LONGONLYOPT_UIDLS_FILE },
-	{ "only-new",        optional_argument, 0, 'n' },
-	{ "keep",            optional_argument, 0, 'k' },
-	{ "killsize",        required_argument, 0, LONGONLYOPT_KILLSIZE },
-	{ "skipsize",        required_argument, 0, LONGONLYOPT_SKIPSIZE },
-	{ "filter",          required_argument, 0, LONGONLYOPT_FILTER },
-	{ "host",            required_argument, 0, LONGONLYOPT_HOST },
-	{ "port",            required_argument, 0, LONGONLYOPT_PORT },
-	{ "timeout",         required_argument, 0, LONGONLYOPT_TIMEOUT},
-	{ "pipelining",      required_argument, 0, LONGONLYOPT_PIPELINING },
-	{ "auth",            optional_argument, 0, LONGONLYOPT_AUTH },
-	{ "user",            required_argument, 0, LONGONLYOPT_USER },
-	{ "tls",             optional_argument, 0, LONGONLYOPT_TLS },
-	{ "tls-starttls",    optional_argument, 0, LONGONLYOPT_TLS_STARTTLS },
-	{ "tls-trust-file",  required_argument, 0, LONGONLYOPT_TLS_TRUST_FILE },
-	{ "tls-key-file",    required_argument, 0, LONGONLYOPT_TLS_KEY_FILE },
-	{ "tls-cert-file",   required_argument, 0, LONGONLYOPT_TLS_CERT_FILE },
-	{ "tls-certcheck",   optional_argument, 0, LONGONLYOPT_TLS_CERTCHECK },
-	{ "tls-force-sslv3", optional_argument, 0, 
+	{ "version",               no_argument,       0, LONGONLYOPT_VERSION },
+	{ "help",                  no_argument,       0, LONGONLYOPT_HELP },
+	{ "quiet",                 no_argument,       0, 'q' },
+	{ "half-quiet",            no_argument,       0, 'Q' },
+ 	{ "pretend",               no_argument,       0, 'P' },
+  	{ "debug",                 no_argument,       0, 'd' },
+	{ "serverinfo",            no_argument,       0, 'S' },
+	{ "file",                  required_argument, 0, 'C' },
+	{ "auth-only",             no_argument,       0, 'A' },
+	{ "all-accounts",          no_argument,       0, 'a' },
+	{ "status-only",           no_argument,       0, 's' }, 
+	{ "delivery",              required_argument, 0, LONGONLYOPT_DELIVERY },
+	{ "uidls-file",            required_argument, 0, 
+	    LONGONLYOPT_UIDLS_FILE },
+	{ "only-new",              optional_argument, 0, 'n' },
+	{ "keep",                  optional_argument, 0, 'k' },
+	{ "killsize",              required_argument, 0, LONGONLYOPT_KILLSIZE },
+	{ "skipsize",              required_argument, 0, LONGONLYOPT_SKIPSIZE },
+	{ "filter",                required_argument, 0, LONGONLYOPT_FILTER },
+	{ "host",                  required_argument, 0, LONGONLYOPT_HOST },
+	{ "port",                  required_argument, 0, LONGONLYOPT_PORT },
+	{ "timeout",               required_argument, 0, LONGONLYOPT_TIMEOUT},
+	{ "pipelining",            required_argument, 0, 
+	    LONGONLYOPT_PIPELINING },
+	{ "auth",                  optional_argument, 0, LONGONLYOPT_AUTH },
+	{ "user",                  required_argument, 0, LONGONLYOPT_USER },
+	{ "tls",                   optional_argument, 0, LONGONLYOPT_TLS },
+	{ "tls-starttls",          optional_argument, 0, 
+	    LONGONLYOPT_TLS_STARTTLS },
+	{ "tls-trust-file",        required_argument, 0, 
+	    LONGONLYOPT_TLS_TRUST_FILE },
+	{ "tls-key-file",          required_argument, 0, 
+	    LONGONLYOPT_TLS_KEY_FILE },
+	{ "tls-cert-file",         required_argument, 0, 
+	    LONGONLYOPT_TLS_CERT_FILE },
+	{ "tls-certcheck",         optional_argument, 0, 
+	    LONGONLYOPT_TLS_CERTCHECK },
+	{ "tls-force-sslv3",       optional_argument, 0, 
 	    LONGONLYOPT_TLS_FORCE_SSLV3 },
+	{ "tls-min-dh-prime-bits", required_argument, 0, 
+	    LONGONLYOPT_TLS_MIN_DH_PRIME_BITS },
+	{ "tls-priorities",        required_argument, 0, 
+	    LONGONLYOPT_TLS_PRIORITIES },
 	{ 0, 0, 0, 0 }
     };
     
@@ -1950,6 +1965,38 @@ int main(int argc, char *argv[])
 		}
 		cmdline_account->mask |= ACC_TLS_FORCE_SSLV3;
 		break;
+		
+	    case LONGONLYOPT_TLS_MIN_DH_PRIME_BITS:
+		if (*optarg == '\0')
+		{
+		    cmdline_account->tls_min_dh_prime_bits = -1;
+		}
+		else
+		{
+		    cmdline_account->tls_min_dh_prime_bits = 
+			get_non_neg_int(optarg);
+		    if (cmdline_account->tls_min_dh_prime_bits < 1)
+		    {
+			print_error(_("invalid argument %s for %s"), 
+			     	optarg, "--tls-min-dh-prime-bits");
+			error_code = 1;
+		    }
+		}
+		cmdline_account->mask |= ACC_TLS_MIN_DH_PRIME_BITS;
+		break;
+
+	    case LONGONLYOPT_TLS_PRIORITIES:
+		free(cmdline_account->tls_priorities);
+		if (*optarg)
+		{
+		    cmdline_account->tls_priorities = xstrdup(optarg);
+		}
+		else
+		{
+		    cmdline_account->tls_priorities = NULL;
+		}
+		cmdline_account->mask |= ACC_TLS_PRIORITIES;
+		break;
 
 	    case 'n':
 	    	if (!optarg || is_on(optarg))
@@ -2209,6 +2256,9 @@ int main(int argc, char *argv[])
 			"certificate checks for TLS.\n"
 		"  --tls-force-sslv3[=(on|off)] Enable/disable restriction to "
 			"SSLv3.\n"
+		"  --tls-min-dh-prime-bits=[b]  Set/unset minimum bit size of "
+			"DH prime.\n"
+	    	"  --tls-priorities=[prios]     Set/unset TLS priorities.\n"
 	        "Options specific to mail retrieval mode:\n"
 		"  -q, --quiet                  Do not display status or "
 			"progress information.\n"
@@ -2370,11 +2420,11 @@ int main(int argc, char *argv[])
 		printf(_("using account %s from %s\n"), 
 			account->id, account->conffile);
 	    }
-	    printf("host            = %s\n"
-		    "port            = %d\n",
+	    printf("host                  = %s\n"
+		    "port                  = %d\n",
 		    account->host,
 		    account->port);
-	    printf("timeout         = ");
+	    printf("timeout               = ");
 	    if (account->timeout <= 0)
 	    {
 		printf(_("off\n"));
@@ -2390,10 +2440,10 @@ int main(int argc, char *argv[])
 		    printf(_("%d seconds\n"), account->timeout);
 		}
 	    }
-	    printf("pipelining      = %s\n", 
+	    printf("pipelining            = %s\n", 
 		    account->pipelining == 0 ? _("off") 
 		    : account->pipelining == 1 ? _("on") : _("auto"));
-	    printf("auth            = ");
+	    printf("auth                  = ");
 	    if (account->auth_mech[0] == '\0')
 	    {
 		printf(_("choose\n"));
@@ -2402,16 +2452,16 @@ int main(int argc, char *argv[])
 	    {
 		printf("%s\n", account->auth_mech);
 	    }
-	    printf("user            = %s\n"
-		    "password        = %s\n"
-		    "ntlmdomain      = %s\n"
-		    "tls             = %s\n"
-		    "tls_starttls    = %s\n"
-		    "tls_trust_file  = %s\n"
-		    "tls_key_file    = %s\n"
-		    "tls_cert_file   = %s\n"
-		    "tls_certcheck   = %s\n"
-		    "tls_force_sslv3 = %s\n",
+	    printf("user                  = %s\n"
+		    "password              = %s\n"
+		    "ntlmdomain            = %s\n"
+		    "tls                   = %s\n"
+		    "tls_starttls          = %s\n"
+		    "tls_trust_file        = %s\n"
+		    "tls_key_file          = %s\n"
+		    "tls_cert_file         = %s\n"
+		    "tls_certcheck         = %s\n"
+		    "tls_force_sslv3       = %s\n",
 		    account->username ? account->username : _("(not set)"),
 		    account->password ? "*" : _("(not set)"),
 		    account->ntlmdomain ? account->ntlmdomain : _("(not set)"),
@@ -2425,9 +2475,20 @@ int main(int argc, char *argv[])
 		    	account->tls_cert_file : _("(not set)"),
 		    account->tls_nocertcheck ? _("off") : _("on"),
 		    account->tls_force_sslv3 ? _("on") : _("off"));
+	    printf("tls_min_dh_prime_bits = ");
+	    if (account->tls_min_dh_prime_bits >= 0)
+	    {
+		printf("%d\n", account->tls_min_dh_prime_bits);
+	    }
+	    else
+	    {
+		printf("%s\n", _("(not set)"));
+	    }
+	    printf("tls_priorities        = %s\n", account->tls_priorities 
+		    ? account->tls_priorities : _("(not set)"));
 	    if (retrmail)
 	    {
-		printf("delivery        = ");
+		printf("delivery              = ");
 		if (account->delivery_method == DELIVERY_METHOD_MDA)
 		{
 		    printf("mda");
@@ -2441,13 +2502,13 @@ int main(int argc, char *argv[])
 		    printf("mbox");
 		}
 		printf(" %s\n", account->delivery_args);
-		printf("uidls file      = %s\n"
-			"only_new        = %s\n"
-			"keep            = %s\n", 
+		printf("uidls file            = %s\n"
+			"only_new              = %s\n"
+			"keep                  = %s\n", 
 			account->uidls_file,
 			account->only_new ? _("on") : _("off"),
 			account->keep ? _("on") : _("off"));
-		printf("killsize        = ");
+		printf("killsize              = ");
 		if (account->killsize < 0)
 		{
 		    printf(_("off\n"));
@@ -2456,7 +2517,7 @@ int main(int argc, char *argv[])
 		{
 		    printf("%ld\n", account->killsize);
 		}
-		printf("skipsize        = ");
+		printf("skipsize              = ");
 		if (account->skipsize < 0)
 		{
 		    printf(_("off\n"));
@@ -2465,7 +2526,7 @@ int main(int argc, char *argv[])
 		{
 		    printf("%ld\n", account->skipsize);
 		}
-		printf("filter          = %s\n",
+		printf("filter                = %s\n",
 			account->filter ? account->filter : _("(not set)"));
 	    }
 	}
