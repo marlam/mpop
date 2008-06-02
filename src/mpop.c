@@ -464,9 +464,9 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
 	tci = tls_cert_info_new();
 	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
-			acc->tls_trust_file, acc->tls_force_sslv3, 
-			acc->tls_min_dh_prime_bits, acc->tls_priorities, 
-			errstr)) != TLS_EOK)
+			acc->tls_trust_file, acc->tls_crl_file,
+			acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
+			acc->tls_priorities, errstr)) != TLS_EOK)
 	{
 	    pop3_session_free(session);
 	    e = exitcode_tls(e);
@@ -925,9 +925,9 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     if (acc->tls)
     {
 	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
-			acc->tls_trust_file, acc->tls_force_sslv3, 
-			acc->tls_min_dh_prime_bits, acc->tls_priorities,
-			errstr)) != TLS_EOK)
+			acc->tls_trust_file, acc->tls_crl_file,
+			acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
+			acc->tls_priorities, errstr)) != TLS_EOK)
 	{
 	    pop3_session_free(session);
 	    return exitcode_tls(e);
@@ -1579,17 +1579,18 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_TLS				8
 #define LONGONLYOPT_TLS_STARTTLS		9
 #define LONGONLYOPT_TLS_TRUST_FILE		10
-#define LONGONLYOPT_TLS_KEY_FILE		11
-#define LONGONLYOPT_TLS_CERT_FILE		12
-#define LONGONLYOPT_TLS_CERTCHECK		13
-#define LONGONLYOPT_TLS_FORCE_SSLV3		14
-#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS	15
-#define LONGONLYOPT_TLS_PRIORITIES		16
-#define LONGONLYOPT_KILLSIZE			17
-#define LONGONLYOPT_SKIPSIZE			18
-#define LONGONLYOPT_FILTER			19
-#define LONGONLYOPT_DELIVERY			20
-#define LONGONLYOPT_UIDLS_FILE			21
+#define LONGONLYOPT_TLS_CRL_FILE		11
+#define LONGONLYOPT_TLS_KEY_FILE		12
+#define LONGONLYOPT_TLS_CERT_FILE		13
+#define LONGONLYOPT_TLS_CERTCHECK		14
+#define LONGONLYOPT_TLS_FORCE_SSLV3		15
+#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS	16
+#define LONGONLYOPT_TLS_PRIORITIES		17
+#define LONGONLYOPT_KILLSIZE			18
+#define LONGONLYOPT_SKIPSIZE			19
+#define LONGONLYOPT_FILTER			20
+#define LONGONLYOPT_DELIVERY			21
+#define LONGONLYOPT_UIDLS_FILE			22
 
 int main(int argc, char *argv[])
 {
@@ -1675,6 +1676,8 @@ int main(int argc, char *argv[])
 	    LONGONLYOPT_TLS_STARTTLS },
 	{ "tls-trust-file",        required_argument, 0, 
 	    LONGONLYOPT_TLS_TRUST_FILE },
+	{ "tls-crl-file",          required_argument, 0, 
+	    LONGONLYOPT_TLS_CRL_FILE },
 	{ "tls-key-file",          required_argument, 0, 
 	    LONGONLYOPT_TLS_KEY_FILE },
 	{ "tls-cert-file",         required_argument, 0, 
@@ -1914,6 +1917,13 @@ int main(int argc, char *argv[])
 		cmdline_account->tls_trust_file = (*optarg == '\0')
   		    ? NULL : expand_tilde(optarg);
 		cmdline_account->mask |= ACC_TLS_TRUST_FILE;
+		break;
+
+	    case LONGONLYOPT_TLS_CRL_FILE:
+		free(cmdline_account->tls_crl_file);
+		cmdline_account->tls_crl_file = (*optarg == '\0')
+  		    ? NULL : expand_tilde(optarg);
+		cmdline_account->mask |= ACC_TLS_CRL_FILE;
 		break;
 
 	    case LONGONLYOPT_TLS_KEY_FILE:
@@ -2248,6 +2258,8 @@ int main(int argc, char *argv[])
 			"encryption.\n"
 		"  --tls-starttls[=(on|off)]    Enable/disable STLS for TLS.\n"
 		"  --tls-trust-file=[file]      Set/unset trust file for TLS.\n"
+		"  --tls-crl-file=[file]        Set/unset revocation file for "
+			"TLS.\n"
 	        "  --tls-key-file=[file]        Set/unset private key file for "
 			"TLS.\n"
 		"  --tls-cert-file=[file]       Set/unset private cert file "
@@ -2458,6 +2470,7 @@ int main(int argc, char *argv[])
 		    "tls                   = %s\n"
 		    "tls_starttls          = %s\n"
 		    "tls_trust_file        = %s\n"
+		    "tls_crl_file          = %s\n"
 		    "tls_key_file          = %s\n"
 		    "tls_cert_file         = %s\n"
 		    "tls_certcheck         = %s\n"
@@ -2469,6 +2482,8 @@ int main(int argc, char *argv[])
 		    account->tls_nostarttls ? _("off") : _("on"),
 		    account->tls_trust_file ? 
 		    	account->tls_trust_file : _("(not set)"),
+		    account->tls_crl_file ? 
+		    	account->tls_crl_file : _("(not set)"),
 		    account->tls_key_file ? 
 		    	account->tls_key_file : _("(not set)"),
 		    account->tls_cert_file ? 

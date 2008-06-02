@@ -279,8 +279,9 @@ int pop3_capa(pop3_session_t *session, char **errstr);
  * Used error codes: TLS_ELIBFAILED, TLS_EFILE
  */
 #ifdef HAVE_TLS
-int pop3_tls_init(pop3_session_t *session, const char *tls_key_file, 
-	const char *tls_cert_file, const char *tls_trust_file, 
+int pop3_tls_init(pop3_session_t *session, 
+	const char *tls_key_file, const char *tls_cert_file,
+	const char *tls_trust_file, const char *tls_crl_file,
 	int force_sslv3, int min_dh_prime_bits, const char *priorities,
 	char **errstr);
 #endif /* HAVE_TLS */
