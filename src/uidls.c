@@ -161,6 +161,7 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
     char *p, *q;
     long i;
     int e;
+    int allow_comments;
     
     uidcounter = 0;	/* shut up compiler warning */
     sorted = 1;		/* shut up compiler warning */
@@ -197,6 +198,7 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
     uidl = NULL;
     linecounter = 0;
     e = UIDLS_EOK;
+    allow_comments = 1;
     while (fgets(line, (int)sizeof(line), *uidls_file))
     {
 	linecounter++;
@@ -212,10 +214,20 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
 	    e = UIDLS_EFORMAT;
 	    break;
 	}
-	if (line[0] == '#')
+	if (allow_comments)
 	{
-	    /* a comment */
-	    continue;
+	    if (line[0] == '#')
+	    {
+		/* A comment. */
+		continue;
+	    }
+	    else
+	    {
+		/* Disallow comments after the first non-comment line, to
+		 * prevent UIDs starting with '#' from being treated as comments
+		 */
+		allow_comments = 0;
+	    }
 	}
 	
 	if (!uidl)
