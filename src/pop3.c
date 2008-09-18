@@ -1593,6 +1593,11 @@ int pop3_retr_get_from_addr(pop3_session_t *session, FILE *f, char **from_addr,
 		/* this is the blank line separating the header from the body */
 		break;
 	    }
+	    else if (l == 1 && session->buffer[0] == '.')
+	    {
+		/* this mail ends here; it has no body */
+		break;
+	    }
 	    else if (!*from_addr)
 	    {
 		if (strncasecmp(session->buffer, "Return-Path:", 12) == 0)

@@ -1,4 +1,5 @@
 Version 1.0.15:
+- Fix retrieval of mails that have no body.
 - Do not allow comments in UIDLs files after the first non-comment line, to
   prevent UIDs starting with '#' from being treated as comments. Bug reported
   by Robert Siemer.
