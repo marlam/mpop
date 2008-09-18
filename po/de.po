@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2008-06-03 02:17+0200\n"
+"POT-Creation-Date: 2008-09-18 21:21+0200\n"
 "PO-Revision-Date: 2005-06-14 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -275,7 +275,7 @@ msgstr "%s lieferte Rückgabewert %d (%s)"
 msgid "%s returned exit status %d"
 msgstr "%s lieferte Rückgabewert %d"
 
-#: src/delivery.c:369 src/delivery.c:528 src/pop3.c:1647 src/tls.c:110
+#: src/delivery.c:369 src/delivery.c:528 src/pop3.c:1652 src/tls.c:110
 #, c-format
 msgid "cannot get system time: %s"
 msgstr "kann Systemzeit nicht feststellen: %s"
@@ -330,12 +330,12 @@ msgstr "kann %s nicht synchronisieren: %s"
 msgid "cannot open %s: %s"
 msgstr "kann %s nicht öffnen: %s"
 
-#: src/delivery.c:595 src/uidls.c:184
+#: src/delivery.c:595 src/uidls.c:185
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "kann %s nicht sperren (habe es %d Sekunden versucht): %s"
 
-#: src/delivery.c:600 src/uidls.c:189
+#: src/delivery.c:600 src/uidls.c:190
 #, c-format
 msgid "cannot lock %s: %s"
 msgstr "kann %s nicht sperren: %s"
@@ -569,7 +569,7 @@ msgstr "empfange Nachricht %ld von %ld (%s): "
 #: src/mpop.c:1028 src/mpop.c:1083 src/mpop.c:1111 src/mpop.c:1271
 #: src/net.c:120 src/net.c:436 src/net.c:521 src/net.c:614 src/net.c:710
 #: src/net.c:830 src/pop3.c:1112 src/pop3.c:1254 src/pop3.c:1371
-#: src/pop3.c:1803 src/pop3.c:2109 src/tls.c:1242 src/tls.c:1301
+#: src/pop3.c:1808 src/pop3.c:2114 src/tls.c:1242 src/tls.c:1301
 #: src/tls.c:1359 src/tls.c:1409 src/tls.c:1491 src/tls.c:1537
 #, c-format
 msgid "operation aborted"
@@ -1136,8 +1136,8 @@ msgid "invalid reply to command %s"
 msgstr "ungültige Antwort auf Kommando %s"
 
 #: src/pop3.c:943 src/pop3.c:949 src/pop3.c:996 src/pop3.c:1091
-#: src/pop3.c:1236 src/pop3.c:2383 src/pop3.c:2469 src/pop3.c:2555
-#: src/pop3.c:3129 src/pop3.c:3157
+#: src/pop3.c:1236 src/pop3.c:2388 src/pop3.c:2474 src/pop3.c:2560
+#: src/pop3.c:3134 src/pop3.c:3162
 #, c-format
 msgid "command %s failed"
 msgstr "Kommando %s fehlgeschlagen"
@@ -1158,90 +1158,90 @@ msgstr "kann Nachricht nicht schreiben: Ausgabefehler"
 msgid "cannot write to temporary file: output error"
 msgstr "kann nicht in temporäre Datei schreiben: Ausgabefehler"
 
-#: src/pop3.c:1719
+#: src/pop3.c:1724
 #, c-format
 msgid "cannot add Received header: %s"
 msgstr "kann Received Kopfzeile nicht schreiben: %s"
 
-#: src/pop3.c:1820
+#: src/pop3.c:1825
 #, c-format
 msgid "command TOP %ld 0 failed"
 msgstr "Kommando TOP %ld 0 fehlgeschlagen"
 
-#: src/pop3.c:1825
+#: src/pop3.c:1830
 #, c-format
 msgid "command RETR %ld failed"
 msgstr "Kommando RETR %ld fehlgeschlagen"
 
-#: src/pop3.c:1836
+#: src/pop3.c:1841
 #, c-format
 msgid "cannot create temporary file: %s"
 msgstr "kann keine temporäre Datei erzeugen: %s"
 
-#: src/pop3.c:1848
+#: src/pop3.c:1853
 #, c-format
 msgid "cannot rewind temporary file: %s"
 msgstr "kann temporäre Datei nicht zurückspulen: %s"
 
-#: src/pop3.c:2124
+#: src/pop3.c:2129
 #, c-format
 msgid "command DELE %ld failed"
 msgstr "Kommando DELE %ld fehlgeschlagen"
 
-#: src/pop3.c:2194 src/pop3.c:2206 src/pop3.c:2229 src/pop3.c:2244
-#: src/pop3.c:2293 src/pop3.c:2344 src/pop3.c:2403 src/pop3.c:2423
-#: src/pop3.c:2516 src/pop3.c:2575 src/pop3.c:2909 src/pop3.c:2944
-#: src/pop3.c:2978
+#: src/pop3.c:2199 src/pop3.c:2211 src/pop3.c:2234 src/pop3.c:2249
+#: src/pop3.c:2298 src/pop3.c:2349 src/pop3.c:2408 src/pop3.c:2428
+#: src/pop3.c:2521 src/pop3.c:2580 src/pop3.c:2914 src/pop3.c:2949
+#: src/pop3.c:2983
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
 
-#: src/pop3.c:2479
+#: src/pop3.c:2484
 #, c-format
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr "Authentifizierungsmethode CRAM-MD5: Server sendete ungültige Challenge"
 
-#: src/pop3.c:2689 src/pop3.c:2995
+#: src/pop3.c:2694 src/pop3.c:3000
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "POP3 Server unterstützt Authentifizierungsmethode %s nicht"
 
-#: src/pop3.c:2695 src/pop3.c:2821 src/pop3.c:2864
+#: src/pop3.c:2700 src/pop3.c:2826 src/pop3.c:2869
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2702
+#: src/pop3.c:2707
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: Authentifizierungsmethode %s wird nicht unterstützt"
 
-#: src/pop3.c:2761 src/pop3.c:3034
+#: src/pop3.c:2766 src/pop3.c:3039
 #, c-format
 msgid "cannot use a secure authentication method"
 msgstr "kann keine sichere Authentifizierungsmethode benutzen"
 
-#: src/pop3.c:2767 src/pop3.c:3040
+#: src/pop3.c:2772 src/pop3.c:3045
 #, c-format
 msgid "cannot find a usable authentication method"
 msgstr "kann keine benutzbare Authentifizierungsmethode finden"
 
-#: src/pop3.c:2781 src/pop3.c:3053
+#: src/pop3.c:2786 src/pop3.c:3058
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "Authentifizierungsmethode %s braucht einen Benutzernamen"
 
-#: src/pop3.c:2794 src/pop3.c:3063
+#: src/pop3.c:2799 src/pop3.c:3068
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "Authentifizierungsmethode %s braucht ein Passwort"
 
-#: src/pop3.c:2957
+#: src/pop3.c:2962
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "Authentifizierung fehlgeschlagen: %s (Methode %s)"
 
-#: src/pop3.c:3097
+#: src/pop3.c:3102
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "Authentifizierungsmethode %s wird nicht unterstützt"
@@ -1254,7 +1254,7 @@ msgstr ""
 "keine Umgebungsvariablen RANDFILE oder HOME, oder Dateiname der Zufallsdatei "
 "zu lang"
 
-#: src/tls.c:103 src/uidls.c:327
+#: src/tls.c:103 src/uidls.c:339
 #, c-format
 msgid "%s: input error"
 msgstr "%s: Lesefehler"
@@ -1519,32 +1519,32 @@ msgstr "Schreibfehler in TLS Verbindung: %s"
 msgid "cannot write to TLS connection"
 msgstr "Schreibfehler in TLS Verbindung"
 
-#: src/uidls.c:210
+#: src/uidls.c:212
 #, c-format
 msgid "%s, line %ld: line longer than %d characters"
 msgstr "%s, Zeile %ld: Zeile länger als %d Zeichen"
 
-#: src/uidls.c:226
+#: src/uidls.c:238
 #, c-format
 msgid "%s, line %ld: UID without a list"
 msgstr "%s, Zeile %ld: UID außerhalb einer Liste"
 
-#: src/uidls.c:237
+#: src/uidls.c:249
 #, c-format
 msgid "%s, line %ld: invalid number of UIDs"
 msgstr "%s, Zeile %ld: ungültige Anzahl an UIDs"
 
-#: src/uidls.c:252
+#: src/uidls.c:264
 #, c-format
 msgid "%s, line %ld: invalid or missing host name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Hostname"
 
-#: src/uidls.c:264
+#: src/uidls.c:276
 #, c-format
 msgid "%s, line %ld: invalid or missing user name"
 msgstr "%s, Zeile %ld: ungültiger oder fehlender Benutzername"
 
-#: src/uidls.c:278 src/uidls.c:312
+#: src/uidls.c:290 src/uidls.c:324
 #, c-format
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"
