@@ -1,3 +1,6 @@
+Version 1.0.16:
+- Support for the GNOME keyring was added by Satoru SATOH.
+
 Version 1.0.15:
 - This version fixes two bad bugs that prevented mpop from correctly retrieving
   mails under certain cicumstances.
