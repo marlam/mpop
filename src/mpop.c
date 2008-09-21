@@ -7,6 +7,7 @@
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
+ * Satoru SATOH <satoru.satoh@gmail.com> (GNOME keyring support)
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
