@@ -94,15 +94,18 @@ extern int optind;
 #ifdef W32_NATIVE
 #define CONFFILE	"mpoprc.txt"
 #define UIDLSFILE	"mpop_uidls\\%U_at_%H.txt"
-#define NETRCFILE	"netrc.txt"
+#define USERNETRCFILE	"netrc.txt"
+#define SYSNETRCFILE	"netrc.txt"
 #elif defined (DJGPP)
 #define CONFFILE	"_mpoprc"
 #define UIDLSFILE	"_uidls"
-#define NETRCFILE	"_netrc"
+#define USERNETRCFILE	"_netrc"
+#define SYSNETRCFILE	"netrc"
 #else /* UNIX */
 #define CONFFILE	".mpoprc"
 #define UIDLSFILE	".mpop_uidls/%U_at_%H"
-#define NETRCFILE	".netrc"
+#define USERNETRCFILE	".netrc"
+#define SYSNETRCFILE	"netrc"
 #endif
 
 
@@ -252,7 +255,7 @@ char *mpop_sanitize_string(char *str)
 
 char *mpop_password_callback(const char *hostname, const char *user)
 {
-    char *homedir;
+    char *netrc_directory;
     char *netrc_filename;
     netrc_entry *netrc_hostlist;
     netrc_entry *netrc_host;
@@ -270,9 +273,9 @@ char *mpop_password_callback(const char *hostname, const char *user)
     char *gpw;
     char *password = NULL;
 
-    homedir = get_homedir();
-    netrc_filename = get_filename(homedir, NETRCFILE);
-    free(homedir);
+    netrc_directory = get_homedir();
+    netrc_filename = get_filename(netrc_directory, USERNETRCFILE);
+    free(netrc_directory);
     if ((netrc_hostlist = parse_netrc(netrc_filename)))
     {
 	if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
@@ -282,6 +285,22 @@ char *mpop_password_callback(const char *hostname, const char *user)
 	free_netrc_entry_list(netrc_hostlist);
     }
     free(netrc_filename);
+
+    if (!password)
+    {
+	netrc_directory = get_sysconfdir();
+	netrc_filename = get_filename(netrc_directory, SYSNETRCFILE);
+	free(netrc_directory);
+	if ((netrc_hostlist = parse_netrc(netrc_filename)))
+	{
+	    if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
+	    {
+		password = xstrdup(netrc_host->password);
+	    }
+	    free_netrc_entry_list(netrc_hostlist);
+	}
+	free(netrc_filename);
+    }
 
 #ifdef HAVE_GNOMEKEYRING
     if (!password)
@@ -338,7 +357,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
 	    password = xstrdup(gpw);
 	}
     }
-    
+
     return password;
 }
 			    

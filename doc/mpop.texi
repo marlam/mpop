@@ -198,7 +198,9 @@ name.
 Set your password for POP3 authentication. An empty argument unsets the
 password.
 If no password is set but one is needed during authentication, mpop will try to
-find it in @code{~/.netrc}. If that fails, it will try to get it from a system 
+find it in @code{~/.netrc}. If that fails, it will try to find it in 
+@code{SYSCONFDIR/netrc} (use @code{--version} to find out what @code{SYSCONFDIR}
+is on your platform). If that fails, it will try to get it from a system 
 specific keychain (if available). If that fails, mpop will prompt you for it.
 @xref{Authentication}.
 @anchor{ntlmdomain}
@@ -432,11 +434,11 @@ The standard exit codes from @code{sysexits.h} are used.
 The default user configuration file.
 @item @code{~/.mpop_uidls}
 Default directory to store UIDLs files in.
-@item @code{~/.netrc}
-The @code{.netrc} file contains login information. If a password is not found 
-in the configuration file, mpop will search it in @code{.netrc} before 
-prompting the user for it. The syntax of @code{.netrc} is described in the 
-@code{netrc(5)} or @code{ftp(1)} manual page.
+@item @code{~/.netrc} and @code{SYSCONFDIR/netrc}
+The @code{netrc} file contains login information. If a password is not found 
+in the configuration file, mpop will search it in @code{~/.netrc} and 
+@code{SYSCONFDIR} before prompting the user for it. The syntax of @code{netrc}
+files is described in the @code{netrc(5)} or @code{ftp(1)} manual page.
 @item @code{$USER}, @code{$LOGNAME}
 These variables override the user's login name. @code{$LOGNAME} is only used if
 @code{$USER} is unset. The user's login name is used for @code{Received} 
@@ -796,7 +798,9 @@ methods are supported by your version of mpop.
 Authentication data can be set with the @samp{user} and @samp{password} commands
 or with the @samp{--user} option. See @ref{user}, @ref{password}, @ref{--user}.
 If no password is set but one is needed during authentication, mpop will try to
-find it in @code{~/.netrc}. If that fails, it will try to get it from a system 
+find it in @code{~/.netrc}. If that fails, it will try to find it in 
+@code{SYSCONFDIR/netrc} (use @code{--version} to find out what @code{SYSCONFDIR}
+is on your platform). If that fails, it will try to get it from a system 
 specific keychain (if available). If that fails, mpop will prompt you for it.
 
 Currently the only supported keychain is the Mac OS X keychain. 
