@@ -1,4 +1,5 @@
 Version 1.0.16:
+- Gnulib upate to 2008-12-24.
 - Added a vim syntax file for mpoprc files to scripts/vim. The file was
   originally written by Simon Ruderich for msmtp. Thanks!
 - Unified handling of the Gnome and MacOS keyrings. Both are disabled by default

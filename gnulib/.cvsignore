@@ -25,3 +25,5 @@ unistd.in.h
 wchar.in.h
 stdarg.in.h
 stdio-impl.h
+errno.in.h
+stdio-write.c
