@@ -67,7 +67,7 @@ extern int optind;
 #ifdef HAVE_GNOMEKEYRING
 # include <gnome-keyring.h>
 #endif
-#ifdef HAVE_KEYCHAIN
+#ifdef HAVE_MACOSXKEYRING
 # include <Security/Security.h>
 #endif
 
@@ -264,7 +264,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
     GList *found_list = NULL;
     GnomeKeyringNetworkPasswordData *found;
 #endif
-#ifdef HAVE_KEYCHAIN
+#ifdef HAVE_MACOSXKEYRING
     void *password_data;
     UInt32 password_length;
     OSStatus status;
@@ -324,7 +324,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
     }
 #endif /* HAVE_GNOMEKEYRING */
 
-#ifdef HAVE_KEYCHAIN
+#ifdef HAVE_MACOSXKEYRING
     if (!password)
     {
 	if (SecKeychainFindInternetPassword(
@@ -345,7 +345,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
 	    SecKeychainItemFreeContent(NULL, password_data);
 	}
     }
-#endif /* HAVE_KEYCHAIN */
+#endif /* HAVE_MACOSXKEYRING */
     
     if (!password)
     {
@@ -2264,13 +2264,13 @@ int main(int argc, char *argv[])
 #endif
 	printf("\n");
 	printf(_("Keyring support: "));
-#if !defined HAVE_GNOMEKEYRING && !defined HAVE_KEYCHAIN
+#if !defined HAVE_GNOMEKEYRING && !defined HAVE_MACOSXKEYRING
 	printf(_("none"));
 #else
 # ifdef HAVE_GNOMEKEYRING
 	printf(_("Gnome "));
 # endif
-# ifdef HAVE_KEYCHAIN
+# ifdef HAVE_MACOSXKEYRING
 	printf(_("MacOS "));
 # endif
 #endif
