@@ -1,4 +1,4 @@
-Version 1.0.17:
+Version 1.0.16:
 - From msmtp: Support for SYSCONFDIR/netrc (as a fallback for ~/.netrc) was
   added by Jim Pryor. Thanks!
 - Added support for the GNOME Keyring. Originally written by Satoru SATOH for
