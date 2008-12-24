@@ -1,4 +1,6 @@
 Version 1.0.16:
+- Added a vim syntax file for mpoprc files to scripts/vim. The file was
+  originally written by Simon Ruderich for msmtp. Thanks!
 - Unified handling of the Gnome and MacOS keyrings. Both are disabled by default
   and must be enabled using --with-*-keyring options.
 - From msmtp: Support for SYSCONFDIR/netrc (as a fallback for ~/.netrc) was

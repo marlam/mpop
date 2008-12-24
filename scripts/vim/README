@@ -1,0 +1,10 @@
+Vim syntax file for mpoprc files
+
+Adapted from Simon Ruderich's syntax file for msmtprc files
+
+Copyright (C) 2008  Simon Ruderich <simon@ruderich.com>
+License: GPL version 3 or later
+
+To use this syntax file:
+- copy it to ~/.vim/syntax/mpop.vim
+- in vim: 'set filetype=mpop'
