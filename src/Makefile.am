@@ -13,7 +13,13 @@ mpop_SOURCES = \
 	tools.c tools.h \
 	uidls.c uidls.h
 
-mpop_LDADD = @tls_obj@ $(top_builddir)/gnulib/libgnu.a $(LIBINTL)
+mpop_LDADD = @tls_obj@	\
+	$(top_builddir)/gnulib/libgnu.a \
+	$(GETADDRINFO_LIB) 		\
+	$(HOSTENT_LIB)			\
+	$(SERVENT_LIB)			\
+	$(LIBSOCKET)			\
+	$(LIBINTL)
 
 mpop_DEPENDENCIES = @tls_obj@
 

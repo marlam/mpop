@@ -3180,5 +3180,5 @@ void pop3_close(pop3_session_t *session)
 	tls_close(&session->tls);
     }
 #endif /* HAVE_TLS */
-    net_close_socket(session->fd);
+    close(session->fd);
 }
