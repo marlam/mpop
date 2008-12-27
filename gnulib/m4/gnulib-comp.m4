@@ -126,6 +126,8 @@ AC_DEFUN([gl_INIT],
   gl_STDINT_H
   gl_STDIO_H
   gl_STDLIB_H
+  gl_FUNC_STRERROR
+  gl_STRING_MODULE_INDICATOR([strerror])
   gl_HEADER_STRING_H
   gl_FUNC_STRNDUP
   gl_STRING_MODULE_INDICATOR([strndup])
@@ -315,6 +317,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/hmac-md5.c
   lib/hmac.h
   lib/inet_ntop.c
+  lib/intprops.h
   lib/lseek.c
   lib/md5.c
   lib/md5.h
@@ -342,6 +345,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
+  lib/strerror.c
   lib/string.in.h
   lib/strndup.c
   lib/strnlen.c
@@ -427,6 +431,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdint_h.m4
   m4/stdio_h.m4
   m4/stdlib_h.m4
+  m4/strerror.m4
   m4/string_h.m4
   m4/strndup.m4
   m4/strnlen.m4
