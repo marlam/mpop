@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 #
 # This file is part of mpop, a POP3 client.
 #
-# Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008
+# Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009
 # Christophe Nowicki
 # Martin Lambers <marlam@marlam.de>
 # Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
