@@ -3,7 +3,7 @@
  * 
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008
+ * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -24,9 +24,7 @@
 #define POP3_H
 
 #include <stdio.h>
-#ifdef HAVE_SIGACTION
-# include <signal.h>
-#endif
+#include <signal.h>
 
 #include "readbuf.h"
 #include "net.h"
@@ -390,10 +388,7 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr);
  * not support the UIDL command.
  */
 int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
-#ifdef HAVE_SIGACTION
-	volatile sig_atomic_t *abort,
-#endif
-	char **errmsg, char **errstr);
+	volatile sig_atomic_t *abort, char **errmsg, char **errstr);
 
 /*
  * pop3_list()
@@ -405,10 +400,7 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
  * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
-int pop3_list(pop3_session_t *session,
-#ifdef HAVE_SIGACTION
-	volatile sig_atomic_t *abort,
-#endif
+int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
 	char **errmsg, char **errstr);
 
 /*
@@ -431,10 +423,7 @@ int pop3_list(pop3_session_t *session,
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EDELIVERY,
  * POP3_EABORT.
  */
-int pop3_filter(pop3_session_t *session, 
-#ifdef HAVE_SIGACTION
-	volatile sig_atomic_t *abort,
-#endif
+int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
 	const char *filtercmd,
 	void (*filter_output)(long i, long number, int new_action, void *data),
 	void *data, char **errmsg, char **errstr);
@@ -461,10 +450,7 @@ int pop3_filter(pop3_session_t *session,
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EDELIVERY,
  * POP3_EABORT
  */
-int pop3_retr(pop3_session_t *session,
-#ifdef HAVE_SIGACTION
-	volatile sig_atomic_t *abort,
-#endif
+int pop3_retr(pop3_session_t *session, volatile sig_atomic_t *abort,
 	int delivery_method, const char *delivery_method_arguments,
 	void (*progress_start)(long i, long number, long size),
 	void (*progress)(long i, long number, long rcvd, long size, 
@@ -484,10 +470,7 @@ int pop3_retr(pop3_session_t *session,
  * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
-int pop3_dele(pop3_session_t *session, 
-#ifdef HAVE_SIGACTION
-	volatile sig_atomic_t *abort,
-#endif
+int pop3_dele(pop3_session_t *session, volatile sig_atomic_t *abort,
 	char **errmsg, char **errstr);
     
 /*

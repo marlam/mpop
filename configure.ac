@@ -46,10 +46,6 @@ gl_INIT
 dnl Gettext
 AM_GNU_GETTEXT([external])
 
-dnl Functions
-AC_CHECK_FUNCS([sigaction], [], [])
-AC_SEARCH_LIBS([nanosleep], [rt posix4])
-
 dnl TLS/SSL
 have_tls=no
 tls_lib=none

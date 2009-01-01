@@ -19,6 +19,8 @@ mpop_LDADD = @tls_obj@	\
 	$(HOSTENT_LIB)			\
 	$(SERVENT_LIB)			\
 	$(LIBSOCKET)			\
+	$(LIB_CLOCK_GETTIME)		\
+	$(LIB_NANOSLEEP)		\
 	$(LIBINTL)
 
 mpop_DEPENDENCIES = @tls_obj@

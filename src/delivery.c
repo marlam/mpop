@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007
+ * Copyright (C) 2005, 2006, 2007, 2009
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -35,19 +35,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <sysexits.h>
-#if HAVE_SIGACTION
-# include <signal.h>
-#endif
-#ifdef W32_NATIVE
-# include <winsock2.h>
-# include <io.h>
-# include <direct.h>
-# include <sys/timeb.h>
-# define WIFEXITED(s) (1)
-# define WEXITSTATUS(s) (s)
-#else
-# include <sys/wait.h>
-#endif
+#include <signal.h>
+#include <sys/wait.h>
 
 #include "gettext.h"
 #include "xalloc.h"
@@ -135,14 +124,12 @@ const char *exitcode_to_string(int exitcode)
  *
  ******************************************************************************/
 
-#if HAVE_SIGACTION
 static volatile sig_atomic_t mda_caused_sigpipe;
 static struct sigaction mda_old_sigpipe_handler;
 static void mda_sigpipe_handler(int signum UNUSED)
 {   
     mda_caused_sigpipe = 1;
 }
-#endif
 
 int delivery_method_mda_open(delivery_method_t *dm, const char *from, long size,
 	char **errstr)
@@ -182,15 +169,12 @@ int delivery_method_mda_close(delivery_method_t *dm, char **errstr)
     const char *tmp;
     
     status = pclose(dm->pipe);
-#if HAVE_SIGACTION
     if (mda_caused_sigpipe)
     {
 	*errstr = xasprintf(_("%s did not read mail data"), (char *)(dm->data));
 	return DELIVERY_EUNKNOWN;
     }
-    else
-#endif
-    if (status == -1 || !WIFEXITED(status))
+    else if (status == -1 || !WIFEXITED(status))
     {
 	*errstr = xasprintf(_("%s failed to execute"), (char *)(dm->data));
 	return DELIVERY_EUNKNOWN;
@@ -222,9 +206,7 @@ int delivery_method_mda_close(delivery_method_t *dm, char **errstr)
 int delivery_method_mda_init(delivery_method_t *dm, void *data, 
 	char **errstr UNUSED)
 {
-#if HAVE_SIGACTION
     struct sigaction signal_handler;
-#endif
 
     dm->data = data;
     dm->need_from_quoting = 0;
@@ -232,22 +214,18 @@ int delivery_method_mda_init(delivery_method_t *dm, void *data,
     dm->want_size = 0;
     dm->open = delivery_method_mda_open;
     dm->close = delivery_method_mda_close;
-#if HAVE_SIGACTION
     mda_caused_sigpipe = 0;
     signal_handler.sa_handler = mda_sigpipe_handler;
     sigemptyset(&signal_handler.sa_mask);
     signal_handler.sa_flags = 0;
     (void)sigaction(SIGPIPE, &signal_handler, &mda_old_sigpipe_handler);
-#endif
     return DELIVERY_EOK;
 }
 
 int delivery_method_mda_deinit(delivery_method_t *dm UNUSED, 
 	char **errstr UNUSED)
 {
-#if HAVE_SIGACTION
     (void)sigaction(SIGPIPE, &mda_old_sigpipe_handler, NULL);
-#endif
     return DELIVERY_EOK;
 }
 
@@ -266,15 +244,12 @@ int delivery_method_filter_close(delivery_method_t *dm, char **errstr)
     const char *tmp;
     
     status = pclose(dm->pipe);
-#if HAVE_SIGACTION
     if (mda_caused_sigpipe)
     {
 	*errstr = xasprintf(_("%s did not read mail data"), (char *)(dm->data));
 	return DELIVERY_EUNKNOWN;
     }
-    else
-#endif
-    if (status == -1 || !WIFEXITED(status))
+    else if (status == -1 || !WIFEXITED(status))
     {
 	*errstr = xasprintf(_("%s failed to execute"), (char *)(dm->data));
 	return 3;
@@ -330,18 +305,6 @@ int delivery_method_filter_deinit(delivery_method_t *dm, char **errstr)
  *  You can use it on DJGPP systems, but you need long file name support.
  *
  ******************************************************************************/
-
-/* W32 does not have gettimeofday(). */
-#ifdef W32_NATIVE
-int gettimeofday(struct timeval *tv, void *tz UNUSED)
-{
-    struct _timeb timebuf;
-    _ftime(&timebuf);
-    tv->tv_sec = timebuf.time;
-    tv->tv_usec = timebuf.millitm * 1000;
-    return 0;
-}
-#endif
 
 /* This number is unique for the current process. It is used to create unique
  * maildir filenames. */
@@ -403,15 +366,12 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
     char *newfilename;
     
     maildir_data = dm->data;
-#ifndef W32_NATIVE
-    /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
     if (fsync(fileno(dm->pipe)) != 0)
     {
 	*errstr = xasprintf(_("cannot sync %s%c%s: %s"), maildir_data->maildir, 
 		PATH_SEP, maildir_data->filename, strerror(errno));
 	return DELIVERY_EIO;
     }
-#endif /* ! W32_NATIVE */
     if (fclose(dm->pipe) != 0)
     {
 	*errstr = xasprintf(_("cannot close %s%c%s: %s"), maildir_data->maildir,
@@ -545,8 +505,6 @@ int delivery_method_mbox_close(delivery_method_t *dm, char **errstr)
 	*errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
 	return DELIVERY_EIO;
     }
-#ifndef W32_NATIVE
-    /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
     if (fsync(fileno(dm->pipe)) != 0)
     {
 	/* Ignore the condition (errno == EINVAL): fsync() is not possible with
@@ -559,7 +517,6 @@ int delivery_method_mbox_close(delivery_method_t *dm, char **errstr)
 	    return DELIVERY_EIO;
 	}
     }
-#endif /* ! W32_NATIVE */
     if (ferror(dm->pipe))
     {
 	*errstr = xasprintf(_("%s: output error"), (char *)(dm->data));

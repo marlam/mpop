@@ -26,3 +26,17 @@ snprintf.m4
 sockets.m4
 sys_time_h.m4
 strerror.m4
+clock_time.m4
+fsync.m4
+gettime.m4
+gettimeofday.m4
+nanosleep.m4
+sigaction.m4
+signal_h.m4
+signalblocking.m4
+sys_select_h.m4
+time_h.m4
+timespec.m4
+write.m4
+sigpipe.m4
+sys_wait_h.m4

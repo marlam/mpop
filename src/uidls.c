@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2008
+ * Copyright (C) 2005, 2006, 2007, 2008, 2009
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -399,13 +399,10 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
 	    }
 	}
     }
-#ifndef W32_NATIVE
-    /* FIXME: Do a sync on Win32, too. If you know how, please send a mail. */
     if (!error)
     {
 	error = (fsync(fileno(uidls_file)) != 0);
     }
-#endif /* ! W32_NATIVE */
 
     if (error)
     {

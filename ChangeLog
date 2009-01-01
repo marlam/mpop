@@ -1,4 +1,5 @@
 Version 1.0.17:
+- Use more gnulib modules to remove more W32 workarounds from the source.
 - Add missing gnulib module strerror for meaningful error messages on W32.
 
 Version 1.0.16:
