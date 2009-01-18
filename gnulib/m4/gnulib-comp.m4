@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -92,9 +92,12 @@ AC_DEFUN([gl_INIT],
   gl_INET_NTOP
   gl_ARPA_INET_MODULE_INDICATOR([inet_ntop])
   gl_INLINE
+  gl_FUNC_LINK
+  gl_UNISTD_MODULE_INDICATOR([link])
   gl_FUNC_LSEEK
   gl_UNISTD_MODULE_INDICATOR([lseek])
   gl_MEMXOR
+  gl_MULTIARCH
   gl_FUNC_NANOSLEEP
   gl_HEADER_NETDB
   gl_HEADER_NETINET_IN
@@ -165,6 +168,8 @@ AC_DEFUN([gl_INIT],
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_SOCKET
   gl_MODULE_INDICATOR([sys_socket])
+  AC_PROG_MKDIR_P
+  gl_HEADER_SYS_STAT_H
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_TIME_H
   AC_PROG_MKDIR_P
@@ -358,6 +363,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/hmac.h
   lib/inet_ntop.c
   lib/intprops.h
+  lib/link.c
   lib/lseek.c
   lib/md5.c
   lib/md5.h
@@ -396,6 +402,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/strnlen.c
   lib/sys_select.in.h
   lib/sys_socket.in.h
+  lib/sys_stat.in.h
   lib/sys_time.in.h
   lib/sys_wait.in.h
   lib/sysexits.in.h
@@ -459,12 +466,14 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
+  m4/link.m4
   m4/lock.m4
   m4/longlong.m4
   m4/lseek.m4
   m4/malloc.m4
   m4/md5.m4
   m4/memxor.m4
+  m4/multiarch.m4
   m4/nanosleep.m4
   m4/netdb_h.m4
   m4/netinet_in_h.m4
@@ -497,6 +506,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strnlen.m4
   m4/sys_select_h.m4
   m4/sys_socket_h.m4
+  m4/sys_stat_h.m4
   m4/sys_time_h.m4
   m4/sys_wait_h.m4
   m4/sysexits.m4

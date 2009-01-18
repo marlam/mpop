@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -15,10 +15,10 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=/home/martin/projects/gnulib/gnulib-local --lib=libgnu --source-base=gnulib --m4-base=gnulib/m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=xalloc-die --no-libtool --macro-prefix=gl base64 c-ctype close connect crypto/hmac-md5 crypto/md5 fsync getaddrinfo gethostname getopt getpass-gnu gettext gettimeofday havelib nanosleep recv select send setsockopt sigaction signal sigpipe sigprocmask socket sockets socklen stdio strerror sys_wait sysexits write xalloc xstrndup xvasprintf
+#   gnulib-tool --import --dir=. --local-dir=.//home/martin/projects/gnulib/gnulib-local --lib=libgnu --source-base=gnulib --m4-base=gnulib/m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=xalloc-die --no-libtool --macro-prefix=gl base64 c-ctype close connect crypto/hmac-md5 crypto/md5 fsync getaddrinfo gethostname getopt getpass-gnu gettext gettimeofday havelib link nanosleep recv select send setsockopt sigaction signal sigpipe sigprocmask socket sockets socklen stdio strerror sys_stat sys_wait sysexits write xalloc xstrndup xvasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
-gl_LOCAL_DIR([/home/martin/projects/gnulib/gnulib-local])
+gl_LOCAL_DIR([.//home/martin/projects/gnulib/gnulib-local])
 gl_MODULES([
   base64
   c-ctype
@@ -34,6 +34,7 @@ gl_MODULES([
   gettext
   gettimeofday
   havelib
+  link
   nanosleep
   recv
   select
@@ -48,6 +49,7 @@ gl_MODULES([
   socklen
   stdio
   strerror
+  sys_stat
   sys_wait
   sysexits
   write

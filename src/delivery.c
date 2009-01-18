@@ -380,7 +380,6 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
     }
     newfilename = xstrdup(maildir_data->filename);
     strncpy(newfilename, "new", 3);
-#ifndef W32_NATIVE
     if (link(maildir_data->filename, newfilename) != 0)
     {
 	*errstr = xasprintf(_("%s: cannot link %s to %s: %s"), 
@@ -390,16 +389,6 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
 	return DELIVERY_EIO;
     }
     (void)unlink(maildir_data->filename);
-#else /* W32_NATIVE */
-    if (rename(maildir_data->filename, newfilename) != 0)
-    {
-	*errstr = xasprintf(_("%s: cannot move %s to %s: %s"), 
-		maildir_data->maildir, maildir_data->filename, newfilename, 
-		strerror(errno));
-	free(newfilename);
-	return DELIVERY_EIO;
-    }
-#endif /* ! W32_NATIVE */	 
     free(newfilename);
     free(maildir_data->filename);
     maildir_data->filename = NULL;
@@ -429,19 +418,12 @@ int delivery_method_maildir_init(delivery_method_t *dm, void *data,
     maildir_data->hostname = xstrdup(hostname);
     /* replace invalid characters as described in
      * http://cr.yp.to/proto/maildir.html */
-#ifndef W32_NATIVE
-    maildir_data->hostname = string_replace(maildir_data->hostname, "/", 
-	    "\\057");
-    maildir_data->hostname = string_replace(maildir_data->hostname, ":", 
-	    "\\072");
-#else /* W32_NATIVE */
     maildir_data->hostname = string_replace(maildir_data->hostname, "/", 
 	    "_057_");
     maildir_data->hostname = string_replace(maildir_data->hostname, ":", 
 	    "_072_");
     maildir_data->hostname = string_replace(maildir_data->hostname, "\\", 
 	    "_134_");
-#endif
     dm->data = maildir_data;
     dm->need_from_quoting = 0;
     dm->want_from_addr = 0;
@@ -454,9 +436,7 @@ int delivery_method_maildir_init(delivery_method_t *dm, void *data,
 		strerror(errno));
 	return DELIVERY_EUNKNOWN;
     }
-#ifndef W32_NATIVE
-    (void)umask(077);
-#endif
+    (void)umask(S_IRWXG | S_IRWXO);
 
     return DELIVERY_EOK;
 }
@@ -536,9 +516,7 @@ int delivery_method_mbox_init(delivery_method_t *dm, void *data, char **errstr)
     dm->want_size = 0;
     dm->open = delivery_method_mbox_open;
     dm->close = delivery_method_mbox_close;
-#ifndef W32_NATIVE
-    (void)umask(077);
-#endif
+    (void)umask(S_IRWXG | S_IRWXO);
     if (!(dm->pipe = fopen((char *)data, "a")))
     {
 	*errstr = xasprintf(_("cannot open %s: %s"), (char *)data, 

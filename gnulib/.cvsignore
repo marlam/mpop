@@ -63,3 +63,6 @@ write.c
 alloca.c
 winsock-select.c
 sys_wait.in.h
+link.c
+unlink.c
+sys_stat.in.h

@@ -40,3 +40,7 @@ timespec.m4
 write.m4
 sigpipe.m4
 sys_wait_h.m4
+link.m4
+unlink.m4
+sys_stat_h.m4
+multiarch.m4
