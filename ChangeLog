@@ -1,4 +1,6 @@
 Version 1.0.17:
+- Document that maildir delivery requires a file system that supports hard 
+  links.
 - Use more gnulib modules to remove more W32 workarounds from the source.
 - Update gnulib to 2009-01-18.
 - Add missing gnulib module strerror for meaningful error messages on W32.

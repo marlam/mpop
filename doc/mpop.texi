@@ -327,7 +327,8 @@ $USER@@`hostname`.`dnsdomainname`"} to pass the mail to your MTA via SMTP.
 (This is what fetchmail does by default.)
 @item delivery maildir @var{directory}@*
 Deliver the mails to the given maildir directory. The directory must exist and 
-it must be a valid maildir directory; mpop will not create directories.
+it must be a valid maildir directory; mpop will not create directories. This 
+delivery type only works on file systems that support hard links.
 @item delivery mbox @var{mbox-file}@*
 Deliver the mails to the given file in mbox format. The file will be locked 
 with @code{fcntl(2)}. mpop uses the MBOXRD mbox format variant; see the
