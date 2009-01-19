@@ -1704,7 +1704,7 @@ int main(int argc, char *argv[])
     };
     
     /* Avoid the side effects of text mode interpretations on DOS systems. */
-#ifdef W32_NATIVE || defined DJGPP
+#if defined W32_NATIVE || defined DJGPP
     _fmode = O_BINARY;
 #endif
 
