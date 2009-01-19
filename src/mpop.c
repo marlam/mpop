@@ -43,24 +43,10 @@ extern int optind;
 #include <unistd.h>
 #include <sysexits.h>
 #include <signal.h>
+#include <netdb.h>
+#include <arpa/inet.h>
 #ifdef ENABLE_NLS
 # include <locale.h>
-#endif
-#ifdef W32_NATIVE
-# include <io.h>
-# include <direct.h>
-# include <fcntl.h>
-# include <windows.h>
-# include <winsock2.h>
-# define mkdir(dir, mode) _mkdir(dir)
-#elif defined DJGPP
-# include <io.h>
-# include <fcntl.h>
-# include <netdb.h>
-# include <arpa/inet.h>
-#else /* UNIX */
-# include <netdb.h>
-# include <arpa/inet.h>
 #endif
 #ifdef HAVE_GNOMEKEYRING
 # include <gnome-keyring.h>
