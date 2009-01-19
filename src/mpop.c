@@ -45,6 +45,7 @@ extern int optind;
 #include <signal.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <fcntl.h>
 #ifdef ENABLE_NLS
 # include <locale.h>
 #endif
@@ -1703,9 +1704,7 @@ int main(int argc, char *argv[])
     };
     
     /* Avoid the side effects of text mode interpretations on DOS systems. */
-#ifdef W32_NATIVE
-    _fmode = _O_BINARY;
-#elif defined DJGPP
+#ifdef W32_NATIVE || defined DJGPP
     _fmode = O_BINARY;
 #endif
 
