@@ -44,3 +44,4 @@ link.m4
 unlink.m4
 sys_stat_h.m4
 multiarch.m4
+00gnulib.m4
