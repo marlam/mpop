@@ -1491,7 +1491,7 @@ int pop3_pipe(pop3_session_t *session, volatile sig_atomic_t *abort,
 	progress_end(i, session->total_number, session->msg_size[i - 1]);
     }
     if (full_mail && !session->count_newline_as_crlf 
-	    && rcvd < session->msg_size[i])
+	    && rcvd < session->msg_size[i - 1])
     {
 	session->count_newline_as_crlf = 1;
     }
