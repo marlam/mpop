@@ -171,12 +171,20 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
     if (!(*uidls_file = fopen(filename, "r+")))
     {
 	/* treat a nonexistant file as an empty file */
-	if (!(*uidls_file = fopen(filename, "w+")))
+	if (errno == ENOENT)
+	{
+	    if (!(*uidls_file = fopen(filename, "w+")))
+	    {
+		*errstr = xasprintf("%s: %s", filename, strerror(errno));
+		return UIDLS_EIO;
+	    }
+	    return UIDLS_EOK;
+	}
+	else
 	{
 	    *errstr = xasprintf("%s: %s", filename, strerror(errno));
 	    return UIDLS_EIO;
 	}
-	return UIDLS_EOK;
     }
     if ((e = lock_file(*uidls_file, TOOLS_LOCK_WRITE, UIDLS_LOCK_TIMEOUT)) != 0)
     {
