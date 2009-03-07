@@ -1,6 +1,7 @@
 Version 1.0.17:
+- Update gnulib to 2009-03-07. Remove gnulib modules fseek/fseeko/lseek because
+  they cause errors on MinGW: files opened with "r+" cannot be written to.
 - Improve test for non-existing UIDLS file.
-- Update gnulib to 2009-03-02.
 - Fix an invalid memory access in pop3_retr().
 - Document that maildir delivery requires a file system that supports hard 
   links.

@@ -26,7 +26,6 @@ AC_DEFUN([gl_EARLY],
   m4_pattern_allow([^gl_LTLIBOBJS$])dnl a variable
   AC_REQUIRE([AC_PROG_RANLIB])
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
-  AC_REQUIRE([AC_FUNC_FSEEKO])
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
   dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
   dnl AC_PROG_CC_STDC arranges for this.  With older Autoconf AC_PROG_CC_STDC
@@ -67,8 +66,6 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_FCLOSE
   gl_STDIO_MODULE_INDICATOR([fclose])
   gl_FLOAT_H
-  gl_FUNC_FSEEKO
-  gl_STDIO_MODULE_INDICATOR([fseeko])
   gl_FUNC_FSYNC
   gl_UNISTD_MODULE_INDICATOR([fsync])
   gl_GETADDRINFO
@@ -93,8 +90,6 @@ AC_DEFUN([gl_INIT],
   gl_INLINE
   gl_FUNC_LINK
   gl_UNISTD_MODULE_INDICATOR([link])
-  gl_FUNC_LSEEK
-  gl_UNISTD_MODULE_INDICATOR([lseek])
   gl_MEMXOR
   AC_REQUIRE([gl_MULTIARCH])
   gl_FUNC_NANOSLEEP
@@ -342,7 +337,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/fclose.c
   lib/float+.h
   lib/float.in.h
-  lib/fseeko.c
   lib/fsync.c
   lib/gai_strerror.c
   lib/getaddrinfo.c
@@ -363,7 +357,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/inet_ntop.c
   lib/intprops.h
   lib/link.c
-  lib/lseek.c
   lib/md5.c
   lib/md5.h
   lib/memxor.c
@@ -391,7 +384,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdarg.in.h
   lib/stdbool.in.h
   lib/stdint.in.h
-  lib/stdio-impl.h
   lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
@@ -434,7 +426,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/extensions.m4
   m4/fclose.m4
   m4/float_h.m4
-  m4/fseeko.m4
   m4/fsync.m4
   m4/getaddrinfo.m4
   m4/getdelim.m4
@@ -469,7 +460,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/link.m4
   m4/lock.m4
   m4/longlong.m4
-  m4/lseek.m4
   m4/malloc.m4
   m4/md5.m4
   m4/memxor.m4
