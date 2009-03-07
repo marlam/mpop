@@ -1827,7 +1827,7 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
 		{
 		    goto error_exit;
 		}
-		if (fseek(tmpf, 0L, SEEK_SET) != 0)
+		if (fseeko(tmpf, 0, SEEK_SET) != 0)
 	    	{
 		    *errstr = xasprintf(_("cannot rewind temporary file: %s"), 
 			    strerror(errno));

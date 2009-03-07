@@ -370,7 +370,7 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
     long i;
     int error;
 
-    if (fseek(uidls_file, 0, SEEK_SET) != 0 
+    if (fseeko(uidls_file, 0, SEEK_SET) != 0 
 	    || ftruncate(fileno(uidls_file), 0) != 0)
     {
 	if (errstr)
