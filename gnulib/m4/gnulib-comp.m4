@@ -103,10 +103,7 @@ AC_DEFUN([gl_INIT],
     AC_LIBOBJ([recv])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([recv])
-  AC_REQUIRE([gl_HEADER_SYS_SELECT])
-  if test "$ac_cv_header_winsock2_h" = yes; then
-    AC_LIBOBJ([winsock-select])
-  fi
+  gl_FUNC_SELECT
   gl_SYS_SELECT_MODULE_INDICATOR([select])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
   if test "$ac_cv_header_winsock2_h" = yes; then
@@ -161,7 +158,6 @@ AC_DEFUN([gl_INIT],
   gl_HEADER_SYS_SELECT
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_SOCKET
-  gl_MODULE_INDICATOR([sys_socket])
   AC_PROG_MKDIR_P
   gl_HEADER_SYS_STAT_H
   AC_PROG_MKDIR_P
@@ -331,6 +327,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/base64.h
   lib/c-ctype.c
   lib/c-ctype.h
+  lib/close-hook.c
+  lib/close-hook.h
   lib/close.c
   lib/connect.c
   lib/errno.in.h
@@ -370,6 +368,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-parse.h
   lib/realloc.c
   lib/recv.c
+  lib/select.c
   lib/send.c
   lib/setsockopt.c
   lib/sig-handler.h
@@ -405,7 +404,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/vasprintf.c
   lib/w32sock.h
   lib/wchar.in.h
-  lib/winsock-select.c
   lib/write.c
   lib/xalloc.h
   lib/xasprintf.c
@@ -474,6 +472,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/printf.m4
   m4/progtest.m4
   m4/realloc.m4
+  m4/select.m4
   m4/servent.m4
   m4/sigaction.m4
   m4/signal_h.m4
