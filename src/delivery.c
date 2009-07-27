@@ -405,7 +405,7 @@ int delivery_method_maildir_init(delivery_method_t *dm, void *data,
     maildir_data = xmalloc(sizeof(maildir_data_t));
     maildir_data->maildir = xstrdup((char *)data);
     maildir_data->filename = NULL;
-    if (gethostname(hostname, 256) != 0)
+    if (gethostname(hostname, 256) != 0 || hostname[0] == '\0')
     {
 	/* Should never happen on any sane system */
 	strcpy(hostname, "unknown");
