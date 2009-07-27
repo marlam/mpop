@@ -1486,6 +1486,11 @@ int pop3_pipe(pop3_session_t *session, volatile sig_atomic_t *abort,
 	    }
 	}
     }
+    if (fflush(f) != 0)
+    {
+	*errstr = xasprintf(_("cannot write mail: output error"));
+	return POP3_EIO;
+    }
     if (progress_end)
     {
 	progress_end(i, session->total_number, session->msg_size[i - 1]);

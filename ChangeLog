@@ -1,4 +1,5 @@
 Version 1.0.17:
+- Use fflush() before fsync(), to ensure that all data reaches the disk.
 - Maildir delivery: check for zero-length hostname.
 - Update gnulib to 2009-07-27.
 - Update gnulib to 2009-03-07. Remove gnulib modules fseek/fseeko/lseek because

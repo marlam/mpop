@@ -409,7 +409,7 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
     }
     if (!error)
     {
-	error = (fsync(fileno(uidls_file)) != 0);
+	error = (fflush(uidls_file) != 0 || fsync(fileno(uidls_file)) != 0);
     }
 
     if (error)
