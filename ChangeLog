@@ -1,4 +1,6 @@
 Version 1.0.18:
+- Use a modified version of gnulib's gethostname module, with the following
+  patch applied: http://www.mail-archive.com/bug-gnulib@gnu.org/msg13671.html
 - Add support for delivery to MS Exchange pickup directories, based on a patch
   by Julien Larigaldie.
 - Use fflush() before fsync(), to ensure that all data reaches the disk.
