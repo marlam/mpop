@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=gnulib --m4-base=gnulib/m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=fseek --avoid=fseeko --avoid=ftruncate --avoid=xalloc-die --no-libtool --macro-prefix=gl --no-vc-files arpa_inet base64 c-ctype close connect crypto/hmac-md5 crypto/md5 fseek fsync ftruncate getaddrinfo gethostname getopt getpass-gnu gettext gettimeofday havelib link nanosleep netdb recv select send setsockopt sigaction signal sigpipe sigprocmask socket sockets socklen stdio strerror sys_stat sys_wait sysexits write xalloc xstrndup xvasprintf
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=gnulib --m4-base=gnulib/m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=fseek --avoid=fseeko --avoid=ftruncate --avoid=gethostname --avoid=xalloc-die --no-libtool --macro-prefix=gl --no-vc-files arpa_inet base64 c-ctype close connect crypto/hmac-md5 crypto/md5 fseek fsync ftruncate getaddrinfo gethostname getopt getpass-gnu gettext gettimeofday havelib link nanosleep netdb recv select send setsockopt sigaction signal sigpipe sigprocmask socket sockets socklen stdio strerror sys_stat sys_wait sysexits write xalloc xstrndup xvasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
@@ -61,7 +61,7 @@ gl_MODULES([
   xstrndup
   xvasprintf
 ])
-gl_AVOID([fseek fseeko ftruncate xalloc-die])
+gl_AVOID([fseek fseeko ftruncate gethostname xalloc-die])
 gl_SOURCE_BASE([gnulib])
 gl_M4_BASE([gnulib/m4])
 gl_PO_BASE([])
