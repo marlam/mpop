@@ -210,6 +210,7 @@ int delivery_method_mda_init(delivery_method_t *dm, void *data,
 
     dm->data = data;
     dm->need_from_quoting = 0;
+    dm->need_crlf = 0;
     dm->want_from_addr = (strstr((char *)data, "%F") != NULL);
     dm->want_size = 0;
     dm->open = delivery_method_mda_open;
@@ -426,6 +427,7 @@ int delivery_method_maildir_init(delivery_method_t *dm, void *data,
 	    "_134_");
     dm->data = maildir_data;
     dm->need_from_quoting = 0;
+    dm->need_crlf = 0;
     dm->want_from_addr = 0;
     dm->want_size = 0;
     dm->open = delivery_method_maildir_open;
@@ -448,6 +450,160 @@ int delivery_method_maildir_deinit(delivery_method_t *dm, char **errstr UNUSED)
     free(maildir_data->filename);
     free(maildir_data->hostname);
     free(maildir_data);
+    return DELIVERY_EOK;
+}
+
+
+/*******************************************************************************
+ *
+ *  The MS exchange method.
+ *  
+ *  This is similar to the maildir code.
+ *
+ ******************************************************************************/
+
+/* This number is unique for the current process. It is used to create unique
+ * exchange filenames. */
+static unsigned long exchange_sequence_number = 0;
+
+typedef struct
+{
+    char *pickupdir;
+    char *filename;
+    char *hostname;
+} exchange_data_t;
+
+int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED,
+	long size UNUSED, char **errstr)
+{
+    exchange_data_t *exchange_data;
+    char *filename;
+    struct timeval tv;
+    int fd;
+
+
+    exchange_data = dm->data;
+    if (gettimeofday(&tv, NULL) < 0)
+    {
+	*errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
+	return DELIVERY_EUNKNOWN;
+    }
+    /* the filename must end with "-tmp" because we replace this with ".eml"
+     * later */
+    filename = xasprintf("%s-%lu-M%06luP%ldQ%lu-%s-tmp", PACKAGE_NAME,
+		(unsigned long)tv.tv_sec, (unsigned long)tv.tv_usec,
+		(long)getpid(), ++exchange_sequence_number, 
+		exchange_data->hostname);
+    if ((fd = open(filename, O_WRONLY | O_CREAT | O_EXCL, 
+		    S_IRUSR | S_IWUSR)) < 0)
+    {
+	*errstr = xasprintf(_("cannot create %s%c%s: %s"), 
+		exchange_data->pickupdir, PATH_SEP, filename, strerror(errno));
+	free(filename);
+	return DELIVERY_EIO;
+    }
+    exchange_data->filename = filename;
+    if (!(dm->pipe = fdopen(fd, "w")))
+    {
+	*errstr = xasprintf(_("cannot open %s%c%s: %s"), exchange_data->pickupdir,
+		PATH_SEP, exchange_data->filename, strerror(errno));
+	return DELIVERY_EIO;
+    }
+    return DELIVERY_EOK;
+}
+
+int delivery_method_exchange_close(delivery_method_t *dm, char **errstr)
+{
+    exchange_data_t *exchange_data;
+    char *newfilename;
+    int i;
+    
+    exchange_data = dm->data;
+    if (fsync(fileno(dm->pipe)) != 0)
+    {
+	*errstr = xasprintf(_("cannot sync %s%c%s: %s"), exchange_data->pickupdir, 
+		PATH_SEP, exchange_data->filename, strerror(errno));
+	return DELIVERY_EIO;
+    }
+    if (fclose(dm->pipe) != 0)
+    {
+	*errstr = xasprintf(_("cannot close %s%c%s: %s"), exchange_data->pickupdir,
+		PATH_SEP, exchange_data->filename, strerror(errno));
+	return DELIVERY_EIO;
+    }
+    newfilename = xstrdup(exchange_data->filename);
+    /* replace the ending "-tmp" with ".eml" */
+    i = (int)strlen(newfilename) - 4;
+    strcpy(newfilename + i, ".eml");
+    if (link(exchange_data->filename, newfilename) != 0)
+    {
+	*errstr = xasprintf(_("%s: cannot link %s to %s: %s"), 
+		exchange_data->pickupdir, exchange_data->filename, newfilename, 
+		strerror(errno));
+	free(newfilename);
+	return DELIVERY_EIO;
+    }
+    (void)unlink(exchange_data->filename);
+    free(newfilename);
+    free(exchange_data->filename);
+    exchange_data->filename = NULL;
+
+    return DELIVERY_EOK;
+}
+
+int delivery_method_exchange_init(delivery_method_t *dm, void *data, 
+	char **errstr)
+{
+    exchange_data_t *exchange_data;
+    char hostname[256];
+    
+    exchange_data = xmalloc(sizeof(exchange_data_t));
+    exchange_data->pickupdir = xstrdup((char *)data);
+    exchange_data->filename = NULL;
+    if (gethostname(hostname, 256) != 0 || hostname[0] == '\0')
+    {
+	/* Should never happen on any sane system */
+	strcpy(hostname, "unknown");
+    }
+    else
+    {
+	/* Make sure the hostname is NUL-terminated. */
+	hostname[255] = '\0';
+    }
+    exchange_data->hostname = xstrdup(hostname);
+    /* replace invalid characters as described in
+     * http://cr.yp.to/proto/maildir.html */
+    exchange_data->hostname = string_replace(exchange_data->hostname, "/", 
+	    "_057_");
+    exchange_data->hostname = string_replace(exchange_data->hostname, ":", 
+	    "_072_");
+    exchange_data->hostname = string_replace(exchange_data->hostname, "\\", 
+	    "_134_");
+    dm->data = exchange_data;
+    dm->need_from_quoting = 0;
+    dm->need_crlf = 1;
+    dm->want_from_addr = 0;
+    dm->want_size = 0;
+    dm->open = delivery_method_exchange_open;
+    dm->close = delivery_method_exchange_close;
+    if (chdir(exchange_data->pickupdir) != 0)
+    {
+	*errstr = xasprintf(_("cannot change to %s: %s"), exchange_data->pickupdir,
+		strerror(errno));
+	return DELIVERY_EUNKNOWN;
+    }
+    (void)umask(S_IRWXG | S_IRWXO);
+
+    return DELIVERY_EOK;
+}
+
+int delivery_method_exchange_deinit(delivery_method_t *dm, char **errstr UNUSED)
+{
+    exchange_data_t *exchange_data = dm->data;
+    free(exchange_data->pickupdir);
+    free(exchange_data->filename);
+    free(exchange_data->hostname);
+    free(exchange_data);
     return DELIVERY_EOK;
 }
 
@@ -512,6 +668,7 @@ int delivery_method_mbox_init(delivery_method_t *dm, void *data, char **errstr)
 
     dm->data = data;
     dm->need_from_quoting = 1;
+    dm->need_crlf = 0;
     dm->want_from_addr = 1;
     dm->want_size = 0;
     dm->open = delivery_method_mbox_open;
@@ -589,6 +746,10 @@ delivery_method_t *delivery_method_new(int method, void *data, char **errstr)
 	    e = delivery_method_mbox_init(dm, data, errstr);
 	    break;
 
+	case DELIVERY_METHOD_EXCHANGE:
+	    e = delivery_method_exchange_init(dm, data, errstr);
+	    break;
+
 	case DELIVERY_METHOD_FILTER:
 	    e = delivery_method_filter_init(dm, data, errstr);
 	    break;
@@ -627,6 +788,10 @@ int delivery_method_free(delivery_method_t *dm, char **errstr)
 
 	case DELIVERY_METHOD_MBOX:
 	    e = delivery_method_mbox_deinit(dm, errstr);
+	    break;
+
+	case DELIVERY_METHOD_EXCHANGE:
+	    e = delivery_method_exchange_deinit(dm, errstr);
 	    break;
 
 	case DELIVERY_METHOD_FILTER:

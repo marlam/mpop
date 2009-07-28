@@ -1,5 +1,6 @@
 Version 1.0.18:
-- No significant changes.
+- Delivery to MS Exchange pickup directories is now supported, thanks to Julien
+  Larigaldie.
 
 Version 1.0.17:
 - No significant changes.

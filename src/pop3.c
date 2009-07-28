@@ -1318,7 +1318,7 @@ invalid_reply:
 
 int pop3_pipe(pop3_session_t *session, volatile sig_atomic_t *abort,
 	FILE *tmpf, FILE *f, long i, 
-	int full_mail, int from_quoting,	
+	int full_mail, int from_quoting, int crlf,
 	void (*progress_start)(long i, long number, long size),
 	void (*progress)(long i, long number, long rcvd, long size,
 	    int percent),
@@ -1453,7 +1453,14 @@ int pop3_pipe(pop3_session_t *session, volatile sig_atomic_t *abort,
 	}
 	if (!e  && !line_continues)
 	{
-	    e = (fputc('\n', f) == EOF);
+	    if (crlf)
+	    {
+		e = (fputs("\r\n", f) == EOF);
+	    }
+	    else
+	    {
+		e = (fputc('\n', f) == EOF);
+	    }
 	}
 	if (e)
 	{
@@ -1616,7 +1623,8 @@ int pop3_retr_get_from_addr(pop3_session_t *session, FILE *f, char **from_addr,
  * Write a Received header to the given stream.
  */
 
-int pop3_write_received_header(pop3_session_t *session, FILE *f, char **errstr)
+int pop3_write_received_header(pop3_session_t *session, FILE *f, int crlf,
+	char **errstr)
 {
     time_t t;
     struct tm gmt, *lt;
@@ -1704,9 +1712,12 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, char **errstr)
     }
     if (!e)
     {
-	e = (fprintf(f, "\n\tby %s (%s-%s) with POP3\n\tfor <%s>; %s\n",
+	e = (fprintf(f, "%s\tby %s (%s-%s) with POP3%s\tfor <%s>; %s%s",
+		    crlf ? "\r\n" : "\n",
 		    session->local_hostname, PACKAGE_NAME, PACKAGE_VERSION,
-		    session->local_user, rfc2822_timestamp) < 0);
+		    crlf ? "\r\n" : "\n",
+		    session->local_user, rfc2822_timestamp,
+		    crlf ? "\r\n" : "\n") < 0);
     }
     if (e)
     {
@@ -1855,8 +1866,8 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
 	    /* write a Received header */
 	    if (!filter)
 	    {
-		if ((e = pop3_write_received_header(session, delivery->pipe, 
-				errstr)) != POP3_EOK)
+		if ((e = pop3_write_received_header(session, delivery->pipe,
+				delivery->need_crlf, errstr)) != POP3_EOK)
 		{
 		    goto error_exit;
 		}
@@ -1866,6 +1877,7 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
 			    tmpf, delivery->pipe, 
 			    recv_index + 1, !filter, 
 			    delivery->need_from_quoting,
+			    delivery->need_crlf,
 		    	    progress_start, progress, progress_end, 
 			    progress_abort, errstr)) != POP3_EOK)
 	    {

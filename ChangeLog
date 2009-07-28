@@ -1,4 +1,6 @@
 Version 1.0.18:
+- Add support for delivery to MS Exchange pickup directories, based on a patch
+  by Julien Larigaldie.
 - Use fflush() before fsync(), to ensure that all data reaches the disk.
 - Maildir delivery: check for zero-length hostname.
 - Update gnulib to 2009-07-27.

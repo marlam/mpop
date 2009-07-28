@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007
+ * Copyright (C) 2005, 2006, 2007, 2009
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -46,12 +46,9 @@
  *   mbox file. The format of the file will be the mboxrd variant as described
  *   in http://www.qmail.org/qmail-manual-html/man5/mbox.html .
  *
- * DELIVERY_METHOD_SIMPLE_MBOX:
- *   This is the same as DELIVERY_METHOD_MBOX, except that "-" is written to the
- *   From_ line instead of the envelope from address of the mail.
- *   This saves the hassle of parsing mail headers. Since the envelope from
- *   address information in From_ lines is rarely used, this method is usually
- *   sufficient.
+ * DELIVERY_METHOD_EXCHANGE:
+ *   This method delivers each mail to a MS Exchange pickup directory. See also
+ *   http://technet.microsoft.com/en-us/library/bb124230.aspx
  *
  * DELIVERY_METHOD_FILTER:
  *   This method is special. It behaves like DELIVERY_METHOD_MDA, with to
@@ -83,7 +80,8 @@
 #define DELIVERY_METHOD_MDA		0 /* pipe to a mail delivery agent */
 #define DELIVERY_METHOD_MAILDIR		1 /* write to a file in mbox format */
 #define DELIVERY_METHOD_MBOX		2 /* write to a file in mbox format */
-#define DELIVERY_METHOD_SIMPLE_MBOX	3 /* simplified mbox delivery */
+#define DELIVERY_METHOD_EXCHANGE	3 /* delivery into MS Exchange pickup
+					     directory */
 #define DELIVERY_METHOD_FILTER		4 /* a special case of METHOD_MDA
 					     that is used for filtering. */
 
@@ -106,6 +104,8 @@ typedef struct _delivery_method
     int want_size;
     /* Whether this method needs From quoting: */
     int need_from_quoting;
+    /* Whether this method needs CRLF line endings: */
+    int need_crlf;
     /* Open 'pipe' for a new mail. If 'want_from_addr' is set, then 'from' must
      * point to a valid mail address. It is important that this address only
      * contains characters that are valid in a mail address, since it might be

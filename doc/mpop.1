@@ -27,9 +27,10 @@ mpop \- A POP3 client
 .SH DESCRIPTION
 In mail retrieval mode of operation, mpop retrieves mails from one or more POP3
 mailboxes, optionally does some filtering, and delivers them through a mail
-delivery agent (MDA) or to maildir folders or mbox files. Mails that were
-successfully delivered before will not be retrieved a second time, even if
-errors occur or mpop is terminated in the middle of a session.
+delivery agent (MDA) or to maildir folders, mbox files, or Exchange pickup
+directories. Mails that were successfully delivered before will not be
+retrieved a second time, even if errors occur or mpop is terminated in the
+middle of a session.
 .br
 In server information mode, mpop prints information about one or more POP3
 servers.
@@ -235,6 +236,9 @@ delivery type only works on file systems that support hard links.
 Deliver the mails to the given file in mbox format. The file will be locked 
 with \fBfcntl(2)\fP. mpop uses the MBOXRD mbox format variant; see the
 documentation of the mbox format.
+.IP "delivery exchange \fIdirectory\fP"
+Deliver the mails to the given Exchange pickup directory. The directory must
+exist. This delivery type only works on file systems that support hard links.
 .PP
 If the delivery method needs to parse the mail headers for an envelope from 
 address (the mda method if the command contains %F, and the mbox method), then
@@ -480,6 +484,10 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 # Delivery to a MBOX mail folder:
 .br
 #delivery mbox ~/Mail/new
+.br
+# Delivery to an Exchange pickup directory:
+.br
+#delivery exchange c:\\exchange\\pickup
 .br
 
 .br

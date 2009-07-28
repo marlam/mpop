@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -934,6 +934,14 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
 		acc->delivery_method = DELIVERY_METHOD_MBOX;
 		free(acc->delivery_args);
 		t = trim_string(arg + 5);
+		acc->delivery_args = expand_tilde(t);
+		free(t);
+	    }
+	    else if (strncmp(arg, "exchange", 8) == 0 && is_blank(arg[8]))
+	    {
+		acc->delivery_method = DELIVERY_METHOD_EXCHANGE;
+		free(acc->delivery_args);
+		t = trim_string(arg + 9);
 		acc->delivery_args = expand_tilde(t);
 		free(t);
 	    }

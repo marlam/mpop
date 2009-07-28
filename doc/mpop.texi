@@ -73,9 +73,10 @@ mpop is a POP3 client.
 
 In its default mode of operation, it retrieves mails from one or more POP3
 mailboxes, optionally does some filtering, and delivers them through a mail
-delivery agent (MDA) or to maildir folders or mbox files. Mails that were 
-successfully delivered before will not be retrieved a second time, even if
-errors occur or mpop is terminated in the middle of a session.
+delivery agent (MDA) or to maildir folders, mbox files, or Exchange pickup
+directories. Mails that were successfully delivered before will not be
+retrieved a second time, even if errors occur or mpop is terminated in the
+middle of a session.
 
 The best way to start is probably to have a look at the Examples section.
 @xref{Examples}.
@@ -96,7 +97,8 @@ Each configuration file can define multiple accounts.
 Supported features include:
 @itemize
 @item Header based mail filtering: filter junk mail before downloading it
-@item Delivery to mbox files, maildir folders or a mail delivery agent (MDA)
+@item Delivery to maildir folders, mbox files, Exchange pickup directories,
+or a mail delivery agent (MDA)
 @item Very fast POP3 implementation, using command pipelining
 @item Authentication methods USER/PASS, APOP, PLAIN, LOGIN and CRAM-MD5 (and
 GSSAPI, DIGEST-MD5, and NTLM when GNU SASL is used)
@@ -333,6 +335,9 @@ delivery type only works on file systems that support hard links.
 Deliver the mails to the given file in mbox format. The file will be locked 
 with @code{fcntl(2)}. mpop uses the MBOXRD mbox format variant; see the
 documentation of the mbox format.
+@item delivery exchange @var{directory}@*
+Deliver the mails to the given Exchange pickup directory. The directory must
+exist. This delivery type only works on file systems that support hard links.
 @end itemize
 If the delivery method needs to parse the mail headers for an envelope from 
 address (the mda method if the command contains @code{%F}, and the mbox method),
@@ -1090,6 +1095,8 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 #delivery maildir ~/Mail/incoming
 # Delivery to a MBOX mail folder:
 #delivery mbox ~/Mail/new
+# Delivery to an Exchange pickup directory:
+#delivery exchange c:\exchange\pickup
 
 
 # 

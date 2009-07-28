@@ -21,6 +21,8 @@ delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 #delivery maildir ~/Mail/incoming
 # Delivery to a MBOX mail folder:
 #delivery mbox ~/Mail/new
+# Delivery to an Exchange pickup directory:
+#delivery exchange c:\exchange\pickup
 
 
 # 
