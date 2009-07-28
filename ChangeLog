@@ -1,5 +1,4 @@
 Version 1.0.18:
-- Avoid the gnulib module gethostname because it does not work with W32.
 - Add support for delivery to MS Exchange pickup directories, based on a patch
   by Julien Larigaldie.
 - Use fflush() before fsync(), to ensure that all data reaches the disk.
