@@ -823,15 +823,15 @@ char *mpop_hr_size(long size)
     
     if (size >= 1024 * 1024 * 1024)
     {
-	s = xasprintf(_("%.2f GB"), (float)size / (float)(1024 * 1024 * 1024));
+	s = xasprintf(_("%.2f GiB"), (float)size / (float)(1024 * 1024 * 1024));
     }
     else if (size >= 1024 * 1024)
     {
-	s = xasprintf(_("%.2f MB"), (float)size / (float)(1024 * 1024));
+	s = xasprintf(_("%.2f MiB"), (float)size / (float)(1024 * 1024));
     }
     else if (size >= 1024)
     {
-	s = xasprintf(_("%.2f KB"), (float)size / 1024.0);
+	s = xasprintf(_("%.2f KiB"), (float)size / 1024.0f);
     }
     else if (size > 1 || size == 0)
     {

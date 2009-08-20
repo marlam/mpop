@@ -373,7 +373,7 @@ filters.
 Mails larger than the given size will be deleted, not downloaded (unless the 
 keep command is used, in which case they will just be skipped). The size 
 argument must be zero or greater. If it is followed by a 'k' or an 'm', the 
-size is measured in kilobytes/megabytes instead of bytes. Note that some POP3 
+size is measured in kibibytes/mebibytes instead of bytes. Note that some POP3
 servers report slightly incorrect sizes for mails. @xref{Filtering}.@*
 When @samp{killsize} is set to 0 and @samp{keep} is set to on, then all mails
 are marked as retrieved, but no mail gets deleted from the server. This can be
@@ -383,7 +383,7 @@ used to synchronize the UID list on the client to the UID list on the server.
 @cmindex skipsize
 Mails larger than the given size will be skipped (not downloaded). The size 
 argument must be zero or greater. If it is followed by a 'k' or an 'm', the 
-size is measured in kilobytes/megabytes instead of bytes. Note that some POP3
+size is measured in kibibytes/mebibytes instead of bytes. Note that some POP3
 servers report slightly incorrect sizes for mails. @xref{Filtering}.
 @anchor{filter}
 @item filter [@var{COMMAND}]

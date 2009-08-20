@@ -1,4 +1,5 @@
 Version 1.0.18:
+- Use proper binary prefixes when handling sizes.
 - Update gnulib to 2009-08-02.
 - Add support for delivery to MS Exchange pickup directories, based on a patch
   by Julien Larigaldie.
