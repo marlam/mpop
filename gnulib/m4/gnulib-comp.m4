@@ -62,6 +62,8 @@ AC_DEFUN([gl_INIT],
   gl_SYS_SOCKET_MODULE_INDICATOR([connect])
   gl_HMAC_MD5
   gl_MD5
+  gl_DIRNAME
+  gl_DOUBLE_SLASH_ROOT
   gl_HEADER_ERRNO_H
   gl_FUNC_FCLOSE
   gl_STDIO_MODULE_INDICATOR([fclose])
@@ -76,7 +78,9 @@ AC_DEFUN([gl_INIT],
   gl_UNISTD_MODULE_INDICATOR([gethostname])
   gl_FUNC_GETLINE
   gl_STDIO_MODULE_INDICATOR([getline])
-  gl_GETOPT
+  gl_FUNC_GETOPT_GNU
+  gl_MODULE_INDICATOR([getopt-gnu])
+  gl_FUNC_GETOPT_POSIX
   gl_FUNC_GETPAGESIZE
   gl_UNISTD_MODULE_INDICATOR([getpagesize])
   gl_FUNC_GETPASS_GNU
@@ -92,9 +96,13 @@ AC_DEFUN([gl_INIT],
   gl_INLINE
   gl_FUNC_LINK
   gl_UNISTD_MODULE_INDICATOR([link])
+  gl_FUNC_LSTAT
+  gl_SYS_STAT_MODULE_INDICATOR([lstat])
   gl_FUNC_MEMCHR
   gl_STRING_MODULE_INDICATOR([memchr])
   gl_MEMXOR
+  gl_FUNC_MKSTEMP
+  gl_STDLIB_MODULE_INDICATOR([mkstemp])
   gl_MULTIARCH
   gl_FUNC_NANOSLEEP
   gl_HEADER_NETDB
@@ -107,6 +115,7 @@ AC_DEFUN([gl_INIT],
     AC_LIBOBJ([recv])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([recv])
+  gl_FUNC_RENAME
   gl_FUNC_SELECT
   gl_SYS_SELECT_MODULE_INDICATOR([select])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -144,11 +153,21 @@ AC_DEFUN([gl_INIT],
   if test "$ac_cv_header_winsock2_h" = yes; then
     AC_LIBOBJ([socket])
   fi
+  # When this module is used, sockets may actually occur as file descriptors,
+  # hence it is worth warning if the modules 'close' and 'ioctl' are not used.
+  m4_ifdef([gl_UNISTD_H_DEFAULTS], [AC_REQUIRE([gl_UNISTD_H_DEFAULTS])])
+  m4_ifdef([gl_SYS_IOCTL_H_DEFAULTS], [AC_REQUIRE([gl_SYS_IOCTL_H_DEFAULTS])])
+  AC_REQUIRE([gl_PREREQ_SYS_H_WINSOCK2])
+  if test "$ac_cv_header_winsock2_h" = yes; then
+    UNISTD_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=1
+    SYS_IOCTL_H_HAVE_WINSOCK2_H_AND_USE_SOCKETS=1
+  fi
   gl_SYS_SOCKET_MODULE_INDICATOR([socket])
   gl_SOCKETS
   gl_TYPE_SOCKLEN_T
   gl_STDARG_H
   AM_STDBOOL_H
+  gl_STDDEF_H
   gl_STDINT_H
   gl_STDIO_H
   gl_STDLIB_H
@@ -170,6 +189,7 @@ AC_DEFUN([gl_INIT],
   gl_SYS_WAIT_H
   AC_PROG_MKDIR_P
   gl_SYSEXITS
+  gl_FUNC_GEN_TEMPNAME
   gl_HEADER_TIME_H
   gl_TIMESPEC
   gl_UNISTD_H
@@ -177,8 +197,8 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_VASPRINTF
   gl_STDIO_MODULE_INDICATOR([vasprintf])
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--flag=asprintf:2:c-format])
-     AM_XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
+    [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
+     AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
   gl_WCHAR_H
   gl_FUNC_WRITE
   gl_UNISTD_MODULE_INDICATOR([write])
@@ -187,7 +207,7 @@ AC_DEFUN([gl_INIT],
   gl_XSTRNDUP
   gl_XVASPRINTF
   m4_ifdef([AM_XGETTEXT_OPTION],
-    [AM_XGETTEXT_OPTION([--flag=xasprintf:1:c-format])])
+    [AM_][XGETTEXT_OPTION([--flag=xasprintf:1:c-format])])
   m4_ifval(gl_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
       for gl_file in ]gl_LIBSOURCES_LIST[ ; do
@@ -330,12 +350,15 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/asprintf.c
   lib/base64.c
   lib/base64.h
+  lib/basename.c
   lib/c-ctype.c
   lib/c-ctype.h
   lib/close-hook.c
   lib/close-hook.h
   lib/close.c
   lib/connect.c
+  lib/dirname.c
+  lib/dirname.h
   lib/errno.in.h
   lib/fclose.c
   lib/float+.h
@@ -361,12 +384,14 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/inet_ntop.c
   lib/intprops.h
   lib/link.c
+  lib/lstat.c
   lib/md5.c
   lib/md5.h
   lib/memchr.c
   lib/memchr.valgrind
   lib/memxor.c
   lib/memxor.h
+  lib/mkstemp.c
   lib/nanosleep.c
   lib/netdb.in.h
   lib/netinet_in.in.h
@@ -376,6 +401,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-parse.h
   lib/realloc.c
   lib/recv.c
+  lib/rename.c
   lib/select.c
   lib/send.c
   lib/setsockopt.c
@@ -390,12 +416,14 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/sockets.h
   lib/stdarg.in.h
   lib/stdbool.in.h
+  lib/stddef.in.h
   lib/stdint.in.h
   lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
   lib/strerror.c
   lib/string.in.h
+  lib/stripslash.c
   lib/strndup.c
   lib/strnlen.c
   lib/sys_select.in.h
@@ -404,6 +432,8 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/sys_time.in.h
   lib/sys_wait.in.h
   lib/sysexits.in.h
+  lib/tempname.c
+  lib/tempname.h
   lib/time.in.h
   lib/timespec.h
   lib/unistd.in.h
@@ -428,6 +458,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/clock_time.m4
   m4/close.m4
   m4/codeset.m4
+  m4/dirname.m4
+  m4/dos.m4
+  m4/double-slash-root.m4
   m4/errno_h.m4
   m4/extensions.m4
   m4/fclose.m4
@@ -467,10 +500,12 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/link.m4
   m4/lock.m4
   m4/longlong.m4
+  m4/lstat.m4
   m4/malloc.m4
   m4/md5.m4
   m4/memchr.m4
   m4/memxor.m4
+  m4/mkstemp.m4
   m4/mmap-anon.m4
   m4/multiarch.m4
   m4/nanosleep.m4
@@ -478,11 +513,13 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/netinet_in_h.m4
   m4/nls.m4
   m4/onceonly.m4
+  m4/openat.m4
   m4/po.m4
   m4/printf-posix.m4
   m4/printf.m4
   m4/progtest.m4
   m4/realloc.m4
+  m4/rename.m4
   m4/select.m4
   m4/servent.m4
   m4/sigaction.m4
@@ -496,6 +533,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sockpfaf.m4
   m4/stdarg.m4
   m4/stdbool.m4
+  m4/stddef_h.m4
   m4/stdint.m4
   m4/stdint_h.m4
   m4/stdio_h.m4
@@ -510,6 +548,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sys_time_h.m4
   m4/sys_wait_h.m4
   m4/sysexits.m4
+  m4/tempname.m4
   m4/threadlib.m4
   m4/time_h.m4
   m4/timespec.m4

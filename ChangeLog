@@ -2,7 +2,7 @@ Version 1.0.18:
 - Make writing of UIDLS files more robust. Avoid invalid file contents when
   mpop is killed while writing the file.
 - Use proper binary prefixes when handling sizes.
-- Update gnulib to 2009-08-02.
+- Update gnulib to 2009-09-06. Add modules mkstemp and rename.
 - Add support for delivery to MS Exchange pickup directories, based on a patch
   by Julien Larigaldie.
 - Use fflush() before fsync(), to ensure that all data reaches the disk.
