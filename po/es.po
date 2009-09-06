@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2009-07-28 19:15+0200\n"
+"POT-Creation-Date: 2009-09-06 18:21+0200\n"
 "PO-Revision-Date: 2006-09-03 14:51+0200\n"
 "Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
 "Language-Team: Spanish\n"
@@ -186,158 +186,163 @@ msgstr "debe ser poseido por tí"
 msgid "must have no more than user read/write permissions"
 msgstr "no puede tener más que permiso de lectura/escritura del usuario"
 
-#: src/delivery.c:68
+#: src/delivery.c:72
 msgid "EX_OK: no error"
 msgstr "EX_OK: ningún error"
 
-#: src/delivery.c:71
+#: src/delivery.c:75
 msgid "EX_USAGE: command line usage error"
 msgstr "EX_USAGE: error de uso de la linea de órdenes"
 
-#: src/delivery.c:74
+#: src/delivery.c:78
 msgid "EX_DATAERR: data format error"
 msgstr "EX_DATAERR: error en el formato de datos"
 
-#: src/delivery.c:77
+#: src/delivery.c:81
 msgid "EX_NOINPUT: no input"
 msgstr "EX_NOINPUT: ninguna entrada"
 
 # FIXME: ¿cuál es la traducción de input?
-#: src/delivery.c:80
+#: src/delivery.c:84
 msgid "EX_NOUSER: user unknown"
 msgstr "EX_NOUSER: usuario desconocido"
 
-#: src/delivery.c:83
+#: src/delivery.c:87
 msgid "EX_NOHOST: host name unknown"
 msgstr "EX_NOHOST: host desconocido"
 
-#: src/delivery.c:86
+#: src/delivery.c:90
 msgid "EX_UNAVAILABLE: service unavailable"
 msgstr "EX_UNAVAILABLE: servicio no disponible"
 
-#: src/delivery.c:89
+#: src/delivery.c:93
 msgid "EX_SOFTWARE: internal software error"
 msgstr "EX_SOFTWARE: error interno de software"
 
-#: src/delivery.c:92
+#: src/delivery.c:96
 msgid "EX_OSERR: system error"
 msgstr "EX_OSERR: error del sistema"
 
-#: src/delivery.c:95
+#: src/delivery.c:99
 msgid "EX_OSFILE: system file missing"
 msgstr "EX_OSFILE: falta un archivo del sistema"
 
-#: src/delivery.c:98
+#: src/delivery.c:102
 msgid "EX_CANTCREAT: cannot create output file"
 msgstr "EX_CANTCREAT: no se puede crear el archivo de salida"
 
-#: src/delivery.c:101
+#: src/delivery.c:105
 msgid "EX_IOERR: input/output error"
 msgstr "EX_IOERR: error de entrada/salida"
 
-#: src/delivery.c:104
+#: src/delivery.c:108
 msgid "EX_TEMPFAIL: temporary failure"
 msgstr "EX_TEMPFAIL: fallo temporal"
 
-#: src/delivery.c:107
+#: src/delivery.c:111
 msgid "EX_PROTOCOL: remote error in protocol"
 msgstr "EX_PROTOCOL: error remote en el protocolo"
 
-#: src/delivery.c:110
+#: src/delivery.c:114
 msgid "EX_NOPERM: permission denied"
 msgstr "EX_NOPERM: permiso denegado"
 
-#: src/delivery.c:113
+#: src/delivery.c:117
 msgid "EX_CONFIG: configuration error"
 msgstr "EX_CONFIG: error de configuración"
 
-#: src/delivery.c:155
+#: src/delivery.c:159
 #, c-format
 msgid "cannot execute %s"
 msgstr "no se puede ejecutar %s"
 
-#: src/delivery.c:174 src/delivery.c:250
+#: src/delivery.c:178 src/delivery.c:254
 #, c-format
 msgid "%s did not read mail data"
 msgstr "%s no leí datos de correo"
 
-#: src/delivery.c:179 src/delivery.c:255
+#: src/delivery.c:183 src/delivery.c:259
 #, c-format
 msgid "%s failed to execute"
 msgstr "%s no pudo ser ejecutado"
 
-#: src/delivery.c:189 src/delivery.c:265
+#: src/delivery.c:193 src/delivery.c:269
 #, c-format
 msgid "%s returned exit status %d (%s)"
 msgstr "%s devolvió estado de salida %d (%s)"
 
-#: src/delivery.c:194 src/delivery.c:270
+#: src/delivery.c:198 src/delivery.c:274
 #, c-format
 msgid "%s returned exit status %d"
 msgstr "%s devolvió estado de salida %d"
 
-#: src/delivery.c:333 src/delivery.c:488 src/delivery.c:624 src/pop3.c:1649
+#: src/delivery.c:337 src/delivery.c:491 src/delivery.c:631 src/pop3.c:1649
 #: src/tls.c:115
 #, c-format
 msgid "cannot get system time: %s"
 msgstr "no se puede averiguar la hora del sistema %s"
 
-#: src/delivery.c:349 src/delivery.c:500
+#: src/delivery.c:353 src/delivery.c:511
 #, c-format
 msgid "cannot create %s%c%s: %s"
 msgstr "no se puede crear %s%c%s: %s"
 
-#: src/delivery.c:357 src/delivery.c:508
+#: src/delivery.c:361 src/delivery.c:519
 #, c-format
 msgid "cannot open %s%c%s: %s"
 msgstr "no se puede abrir %s%c%s: %s"
 
-#: src/delivery.c:372 src/delivery.c:524
+#: src/delivery.c:376 src/delivery.c:545
 #, c-format
 msgid "cannot sync %s%c%s: %s"
 msgstr "no se puede sincronizar %s%c%s: %s"
 
-#: src/delivery.c:378 src/delivery.c:530
+#: src/delivery.c:382 src/delivery.c:551
 #, c-format
 msgid "cannot close %s%c%s: %s"
 msgstr "no se puede cerrar %s%c%s: %s"
 
-#: src/delivery.c:386 src/delivery.c:540
+#: src/delivery.c:390
 #, c-format
 msgid "%s: cannot link %s to %s: %s"
 msgstr "%s: no se puede vincular %s a %s: %s"
 
-#: src/delivery.c:437 src/delivery.c:591
+#: src/delivery.c:441 src/delivery.c:598
 #, c-format
 msgid "cannot change to %s: %s"
 msgstr "no se puede cambiar a %s: %s"
 
-#: src/delivery.c:630 src/delivery.c:641 src/delivery.c:658
+#: src/delivery.c:530
+#, c-format
+msgid "cannot lock %s%c%s: %s"
+msgstr "no se puede bloquear %s%c%s: %s"
+
+#: src/delivery.c:637 src/delivery.c:648 src/delivery.c:665 src/uidls.c:420
 #, c-format
 msgid "%s: output error"
 msgstr "%s: error de salida"
 
-#: src/delivery.c:651
+#: src/delivery.c:658
 #, c-format
 msgid "cannot sync %s: %s"
 msgstr "no se puede sincronizar %s: %s"
 
-#: src/delivery.c:679
+#: src/delivery.c:686
 #, c-format
 msgid "cannot open %s: %s"
 msgstr "no se puede abrir %s: %s"
 
-#: src/delivery.c:687 src/uidls.c:193
+#: src/delivery.c:694 src/uidls.c:193
 #, c-format
 msgid "cannot lock %s (tried for %d seconds): %s"
 msgstr "no se puede bloquear %s (se intentó durante %d segundos): %s"
 
-#: src/delivery.c:692 src/uidls.c:198
+#: src/delivery.c:699 src/uidls.c:198
 #, c-format
 msgid "cannot lock %s: %s"
 msgstr "no se puede bloquear %s: %s"
 
-#: src/delivery.c:707
+#: src/delivery.c:714
 #, c-format
 msgid "cannot close %s: %s"
 msgstr "no se puede cerrar %s: %s"
@@ -523,18 +528,18 @@ msgstr ""
 
 #: src/mpop.c:826
 #, c-format
-msgid "%.2f GB"
-msgstr "%.2f GB"
+msgid "%.2f GiB"
+msgstr "%.2f GiB"
 
 #: src/mpop.c:830
 #, c-format
-msgid "%.2f MB"
-msgstr "%.2f MB"
+msgid "%.2f MiB"
+msgstr "%.2f MiB"
 
 #: src/mpop.c:834
 #, c-format
-msgid "%.2f KB"
-msgstr "%.2f KB"
+msgid "%.2f KiB"
+msgstr "%.2f KiB"
 
 #: src/mpop.c:838
 #, c-format
@@ -721,7 +726,7 @@ msgid "MacOS "
 msgstr "MacOS "
 
 #: src/mpop.c:2239
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2009 Martin Lambers and others.\n"
 "This is free software.  You may redistribute copies of it under the terms "
@@ -729,7 +734,7 @@ msgid ""
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Copyright (C) 2008 Martin Lambers y otros.\n"
+"Copyright (C) 2009 Martin Lambers y otros.\n"
 "Este programa es software libre. Usted puede distribuir copias de acuerdo\n"
 "con la GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "No hey NINGUNA GARANTÍA, en cuanto a lo permitido por la ley\n"
@@ -1445,8 +1450,10 @@ msgstr "%s, línea %ld: nombre de usuario inválido u omitido"
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, línea %ld: faltan UIDs para el usuario %s, host %s"
 
-#~ msgid "%s: cannot move %s to %s: %s"
-#~ msgstr "%s: no se puede mover %s a %s: %s"
+#: src/uidls.c:448
+#, c-format
+msgid "cannot rename %s to %s: %s"
+msgstr "no se puede mover %s a %s: %s"
 
 #~ msgid "host not found (authoritative)"
 #~ msgstr "Host no encontrado (autoritario)"
