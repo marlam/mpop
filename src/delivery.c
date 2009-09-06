@@ -38,6 +38,10 @@
 #include <signal.h>
 #include <sys/wait.h>
 
+#if W32_NATIVE
+# include <share.h>
+#endif
+
 #include "gettext.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -481,21 +485,28 @@ int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED
     struct timeval tv;
     int fd;
 
-
     exchange_data = dm->data;
     if (gettimeofday(&tv, NULL) < 0)
     {
 	*errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
 	return DELIVERY_EUNKNOWN;
     }
-    /* the filename must end with "-tmp" because we replace this with ".eml"
-     * later */
-    filename = xasprintf("%s-%lu-M%06luP%ldQ%lu-%s-tmp", PACKAGE_NAME,
+    /* Choose a unique filename (similar to the maildir method) that ends with
+     * ".eml" */
+    filename = xasprintf("%s-%lu-M%06luP%ldQ%lu-%s.eml", PACKAGE_NAME,
 		(unsigned long)tv.tv_sec, (unsigned long)tv.tv_usec,
 		(long)getpid(), ++exchange_sequence_number, 
 		exchange_data->hostname);
+#if W32_NATIVE
+    /* Open the file and deny read and write access to other processes, e.g.
+     * Exchange */
+    if ((fd = _sopen(filename, O_WRONLY | O_CREAT | O_EXCL, _SH_DENYRW, 
+		    S_IRUSR | S_IWUSR)) < 0)
+#else
+    /* We cannot do the same on UNIX; just open the file normally */
     if ((fd = open(filename, O_WRONLY | O_CREAT | O_EXCL, 
 		    S_IRUSR | S_IWUSR)) < 0)
+#endif
     {
 	*errstr = xasprintf(_("cannot create %s%c%s: %s"), 
 		exchange_data->pickupdir, PATH_SEP, filename, strerror(errno));
@@ -505,8 +516,20 @@ int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED
     exchange_data->filename = filename;
     if (!(dm->pipe = fdopen(fd, "w")))
     {
-	*errstr = xasprintf(_("cannot open %s%c%s: %s"), exchange_data->pickupdir,
-		PATH_SEP, exchange_data->filename, strerror(errno));
+	*errstr = xasprintf(_("cannot open %s%c%s: %s"), 
+		exchange_data->pickupdir, PATH_SEP, exchange_data->filename,
+		strerror(errno));
+	return DELIVERY_EIO;
+    }
+    /* The locking is superfluous (but harmless) on W32 because the file is
+     * opened with sharing disabled. It is mostly done for UNIX systems to at
+     * least have some kind of protection against processes reading half-written
+     * files (of course, they would have to obey locking for this). */
+    if (lock_file(dm->pipe, TOOLS_LOCK_WRITE, 0) != 0)
+    {
+	*errstr = xasprintf(_("cannot lock %s%c%s: %s"), 
+		exchange_data->pickupdir, PATH_SEP, exchange_data->filename,
+		strerror(errno));
 	return DELIVERY_EIO;
     }
     return DELIVERY_EOK;
@@ -515,9 +538,7 @@ int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED
 int delivery_method_exchange_close(delivery_method_t *dm, char **errstr)
 {
     exchange_data_t *exchange_data;
-    char *newfilename;
-    int i;
-    
+
     exchange_data = dm->data;
     if (fsync(fileno(dm->pipe)) != 0)
     {
@@ -531,20 +552,6 @@ int delivery_method_exchange_close(delivery_method_t *dm, char **errstr)
 		PATH_SEP, exchange_data->filename, strerror(errno));
 	return DELIVERY_EIO;
     }
-    newfilename = xstrdup(exchange_data->filename);
-    /* replace the ending "-tmp" with ".eml" */
-    i = (int)strlen(newfilename) - 4;
-    strcpy(newfilename + i, ".eml");
-    if (link(exchange_data->filename, newfilename) != 0)
-    {
-	*errstr = xasprintf(_("%s: cannot link %s to %s: %s"), 
-		exchange_data->pickupdir, exchange_data->filename, newfilename, 
-		strerror(errno));
-	free(newfilename);
-	return DELIVERY_EIO;
-    }
-    (void)unlink(exchange_data->filename);
-    free(newfilename);
     free(exchange_data->filename);
     exchange_data->filename = NULL;
 
