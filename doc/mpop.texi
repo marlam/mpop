@@ -337,7 +337,7 @@ with @code{fcntl(2)}. mpop uses the MBOXRD mbox format variant; see the
 documentation of the mbox format.
 @item delivery exchange @var{directory}@*
 Deliver the mails to the given Exchange pickup directory. The directory must
-exist. This delivery type only works on file systems that support hard links.
+exist.
 @end itemize
 If the delivery method needs to parse the mail headers for an envelope from 
 address (the mda method if the command contains @code{%F}, and the mbox method),
