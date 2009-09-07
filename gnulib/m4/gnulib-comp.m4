@@ -116,6 +116,7 @@ AC_DEFUN([gl_INIT],
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([recv])
   gl_FUNC_RENAME
+  gl_STDIO_MODULE_INDICATOR([rename])
   gl_FUNC_SELECT
   gl_SYS_SELECT_MODULE_INDICATOR([select])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -513,7 +514,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/netinet_in_h.m4
   m4/nls.m4
   m4/onceonly.m4
-  m4/openat.m4
   m4/po.m4
   m4/printf-posix.m4
   m4/printf.m4
