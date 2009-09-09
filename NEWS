@@ -1,3 +1,7 @@
+Version 1.0.19:
+- Mpop can now handle mail boxes larger than 2 GiB on 32bit systems. Previously,
+  this only worked on 64bit systems.
+
 Version 1.0.18:
 - Delivery to MS Exchange pickup directories is now supported, thanks to Julien
   Larigaldie.

@@ -1,3 +1,7 @@
+Version 1.0.19:
+- Handle mail boxes larger than 2 GiB even on 32bit systems. Based on a patch
+  by Renato Schmidt. Thanks!
+
 Version 1.0.18:
 - Make writing of UIDLS files more robust. Avoid invalid file contents when
   mpop is killed while writing the file.

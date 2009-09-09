@@ -182,15 +182,15 @@ typedef struct
 
     /* POP3 session information */
     long total_number;		/* total number of messages */
-    long total_size;		/* total size of messages */
+    long long total_size;	/* total size of messages */
     unsigned char *is_old;	/* this message a) has been retrieved before and
 				   b) is not deleted */
     long old_number;		/* number of messages for which is_old is set */
     long new_number;		/* number of new messages */
-    long new_size;		/* size of new messages */
+    long long new_size;		/* size of new messages */
     unsigned char *msg_action;	/* action for each mail */
     char **msg_uid;		/* UID of each mail */
-    long *msg_size;		/* size of each mail */
+    long long *msg_size;	/* size of each mail */
 } pop3_session_t;
 
 
@@ -452,11 +452,11 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
  */
 int pop3_retr(pop3_session_t *session, volatile sig_atomic_t *abort,
 	int delivery_method, const char *delivery_method_arguments,
-	void (*progress_start)(long i, long number, long size),
-	void (*progress)(long i, long number, long rcvd, long size, 
+	void (*progress_start)(long i, long number, long long size),
+	void (*progress)(long i, long number, long long rcvd, long long size, 
 	    int percent),
-	void (*progress_end)(long i, long number, long size),
-	void (*progress_abort)(long i, long number, long size),
+	void (*progress_end)(long i, long number, long long size),
+	void (*progress_abort)(long i, long number, long long size),
 	char **errmsg, char **errstr);
     
 /*

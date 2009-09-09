@@ -817,7 +817,7 @@ error_exit:
  * Returns a pointer to this string.
  */
 
-char *mpop_hr_size(long size)
+char *mpop_hr_size(long long size)
 {
     char *s;
     
@@ -835,7 +835,7 @@ char *mpop_hr_size(long size)
     }
     else if (size > 1 || size == 0)
     {
-	s = xasprintf(_("%ld bytes"), size);
+	s = xasprintf(_("%lld bytes"), size);
     }
     else
     {
@@ -871,7 +871,7 @@ void mpop_filter_output(long i, long number, int new_action, void *data)
     }
 }
 
-void mpop_retr_progress_start(long i, long number, long size)
+void mpop_retr_progress_start(long i, long number, long long size)
 {
     char *sizestr = mpop_hr_size(size);
     printf(_("retrieving message %ld of %ld (%s): "), 
@@ -881,20 +881,21 @@ void mpop_retr_progress_start(long i, long number, long size)
     fflush(stdout);
 }
 
-void mpop_retr_progress(long i UNUSED, long number UNUSED, long rcvd UNUSED,
-	long size UNUSED, int percent)
+void mpop_retr_progress(long i UNUSED, long number UNUSED,
+	long long rcvd UNUSED, long long size UNUSED, int percent)
 {
     printf("%3d\b\b\b", percent);
     fflush(stdout);
 }
 
-void mpop_retr_progress_end(long i UNUSED, long number UNUSED, long size UNUSED)
+void mpop_retr_progress_end(long i UNUSED, long number UNUSED,
+	long long size UNUSED)
 {
     printf("100\n");
 }
 
 void mpop_retr_progress_abort(long i UNUSED, long number UNUSED, 
-	long size UNUSED)
+	long long size UNUSED)
 {
     printf("\n");
 }
@@ -2560,7 +2561,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-		    printf("%ld\n", account->killsize);
+		    printf("%lld\n", account->killsize);
 		}
 		printf("skipsize              = ");
 		if (account->skipsize < 0)
@@ -2569,7 +2570,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-		    printf("%ld\n", account->skipsize);
+		    printf("%lld\n", account->skipsize);
 		}
 		printf("filter                = %s\n",
 			account->filter ? account->filter : _("(not set)"));

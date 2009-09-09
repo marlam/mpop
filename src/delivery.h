@@ -113,7 +113,7 @@ typedef struct _delivery_method
      * NULL. If 'want_size' is set, then 'size' should contain the size of the
      * mail as reported by the POP3 server. If 'want_size' is not set, 'size' is
      * ignored. */
-    int (*open)(struct _delivery_method *dm, const char *from, long size, 
+    int (*open)(struct _delivery_method *dm, const char *from, long long size, 
 	    char **errstr);
     /* Close 'pipe' after a mail was written to 'pipe': */
     int (*close)(struct _delivery_method *dm, char **errstr);

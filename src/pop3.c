@@ -65,16 +65,27 @@
 #include "pop3.h"
 #include "uidls.h"
 
+#ifndef SIZE_MAX
+# define SIZE_MAX ((size_t)-1)
+#endif
+
 
 /*
  * This defines the maximum amount of mails that a POP3 account is allowed to
- * have. This limit prevents size_t overflows when allocating memory. Example:
- * 	session->msg_size = xmalloc(session->total_number * sizeof(long));
- * This is the only reason for this limit; you can raise it depending on 
- * the values of sizeof(long) and sizeof(char *) of your platform.
+ * have. This limit 
+ * 1) prevents size_t overflows when allocating memory. Example:
+ *    session->msg_size = xmalloc(session->total_number * sizeof(long long));
+ * 2) prevents overflows of long in the number of messages.
+ * 3) prevents allocations of overly large amounts of memory.
  */
-#define POP3_MAX_MESSAGES	1000000
-
+#define POP3_MAX_MESSAGES_1	(SIZE_MAX / sizeof(long long))
+#define POP3_MAX_MESSAGES_2	(LONG_MAX - 1)
+#define POP3_MAX_MESSAGES_3	1000000
+#define POP3_MIN(A, B)		(A < B ? A : B)
+#define POP3_MAX_MESSAGES	((long)(POP3_MIN(POP3_MIN( \
+				    POP3_MAX_MESSAGES_1, \
+				    POP3_MAX_MESSAGES_2), \
+				    POP3_MAX_MESSAGES_3)))
 
 /*
  * This defines the maximum number of lines that the reply to the CAPA command 
@@ -1004,9 +1015,9 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr)
 	return POP3_EPROTO;
     }
     errno = 0;
-    session->total_size = strtol(p + 1, &q, 10);
+    session->total_size = strtoll(p + 1, &q, 10);
     if ((q == p + 1) || session->total_size < 0 
-	    || (session->total_size == LONG_MAX && errno == ERANGE))
+	    || (session->total_size == LLONG_MAX && errno == ERANGE))
     {
 	*errstr = xasprintf(_("invalid reply to command %s"), "STAT");
 	return POP3_EPROTO;
@@ -1015,9 +1026,9 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr)
      * the total number of messages, below and in other functions */
     if (session->total_number > POP3_MAX_MESSAGES)
     {
-	*errstr = xasprintf(_("Cannot handle more than %lu messages. "
-		    "Increase POP3_MAX_MESSAGES."), 
-		(unsigned long) POP3_MAX_MESSAGES);
+	*errstr = xasprintf(_("Cannot handle more than %ld messages. "
+		    "Increase POP3_MAX_MESSAGES."),
+		POP3_MAX_MESSAGES);
 	return POP3_ELIBFAILED;
     }
     /* Requesting potentially very large amounts of memory here! */
@@ -1230,7 +1241,7 @@ int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
     
     /* initialize the size so that we can later check if all of them were set */
     session->msg_size = (session->total_number == 0) ? NULL : 
-	xmalloc(session->total_number * sizeof(long));
+	xmalloc(session->total_number * sizeof(long long));
     for (i = 0; i < session->total_number; i++)
     {
 	session->msg_size[i] = -1;
@@ -1277,9 +1288,9 @@ int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
 		goto invalid_reply;
 	    }
 	    errno = 0;
-	    session->msg_size[n - 1] = strtol(p + 1, &q, 10);
+	    session->msg_size[n - 1] = strtoll(p + 1, &q, 10);
 	    if (session->msg_size[n - 1] < 0 || q == p
-		    || (session->msg_size[n - 1] == LONG_MAX 
+		    || (session->msg_size[n - 1] == LLONG_MAX 
 			&& errno == ERANGE))
 	    {
 		goto invalid_reply;
@@ -1319,11 +1330,11 @@ invalid_reply:
 int pop3_pipe(pop3_session_t *session, volatile sig_atomic_t *abort,
 	FILE *tmpf, FILE *f, long i, 
 	int full_mail, int from_quoting, int crlf,
-	void (*progress_start)(long i, long number, long size),
-	void (*progress)(long i, long number, long rcvd, long size,
+	void (*progress_start)(long i, long number, long long size),
+	void (*progress)(long i, long number, long long rcvd, long long size,
 	    int percent),
-	void (*progress_end)(long i, long number, long size),
-	void (*progress_abort)(long i, long number, long size),
+	void (*progress_end)(long i, long number, long long size),
+	void (*progress_abort)(long i, long number, long long size),
 	char **errstr)
 {
     int e;
@@ -1332,7 +1343,7 @@ int pop3_pipe(pop3_session_t *session, volatile sig_atomic_t *abort,
     int line_continues;
     size_t l;
     char *p;
-    long rcvd;
+    long long rcvd;
     int percent;
     int old_percent;
     
@@ -1472,7 +1483,7 @@ int pop3_pipe(pop3_session_t *session, volatile sig_atomic_t *abort,
 	    *errstr = xasprintf(_("cannot write mail: output error"));
 	    return POP3_EIO;
 	}
-	rcvd += (long)l - (p == session->buffer ? 0 : 1);
+	rcvd += l - (p == session->buffer ? 0 : 1);
 	if (!line_continues)
 	{
 	    rcvd += session->count_newline_as_crlf ? 2 : 1;
@@ -1749,11 +1760,11 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
 	    void *filter_output_data),
 	void *filter_output_data,
 	int delivery_method, const char *delivery_method_arguments,
-	void (*progress_start)(long i, long number, long size),
-	void (*progress)(long i, long number, long rcvd, long size,
+	void (*progress_start)(long i, long number, long long size),
+	void (*progress)(long i, long number, long long rcvd, long long size,
 	    int percent),
-	void (*progress_end)(long i, long number, long size),
-	void (*progress_abort)(long i, long number, long size),
+	void (*progress_end)(long i, long number, long long size),
+	void (*progress_abort)(long i, long number, long long size),
 	char **errmsg, char **errstr)
 {
     int e;
@@ -2033,11 +2044,11 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
 
 int pop3_retr(pop3_session_t *session, volatile sig_atomic_t *abort, 
 	int delivery_method, const char *delivery_method_arguments,
-	void (*progress_start)(long i, long number, long size),
-	void (*progress)(long i, long number, long rcvd, long size, 
+	void (*progress_start)(long i, long number, long long size),
+	void (*progress)(long i, long number, long long rcvd, long long size, 
 	    int percent),
-	void (*progress_end)(long i, long number, long size),
-	void (*progress_abort)(long i, long number, long size),
+	void (*progress_end)(long i, long number, long long size),
+	void (*progress_abort)(long i, long number, long long size),
 	char **errmsg, char **errstr)
 {
     return pop3_delivery(session, abort, 0, NULL, NULL,

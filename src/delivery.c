@@ -135,8 +135,8 @@ static void mda_sigpipe_handler(int signum UNUSED)
     mda_caused_sigpipe = 1;
 }
 
-int delivery_method_mda_open(delivery_method_t *dm, const char *from, long size,
-	char **errstr)
+int delivery_method_mda_open(delivery_method_t *dm, const char *from,
+	long long size, char **errstr)
 {
     int e;
     char *cmd;
@@ -149,7 +149,7 @@ int delivery_method_mda_open(delivery_method_t *dm, const char *from, long size,
     }
     if (dm->want_size)
     {
-	sizestr = xasprintf("%ld", size);
+	sizestr = xasprintf("%lld", size);
 	cmd = string_replace(cmd, "%S", sizestr);
 	free(sizestr);
     }
@@ -323,7 +323,7 @@ typedef struct
 } maildir_data_t;
 
 int delivery_method_maildir_open(delivery_method_t *dm, const char *from UNUSED,
-	long size UNUSED, char **errstr)
+	long long size UNUSED, char **errstr)
 {
     maildir_data_t *maildir_data;
     char *filename;
@@ -339,9 +339,9 @@ int delivery_method_maildir_open(delivery_method_t *dm, const char *from UNUSED,
     }
     /* See http://cr.yp.to/proto/maildir.html for a description of file name
      * generation. */
-    filename = xasprintf("tmp%c%lu.M%06luP%ldQ%lu.%s", PATH_SEP,
-		(unsigned long)tv.tv_sec, (unsigned long)tv.tv_usec,
-		(long)getpid(), ++maildir_sequence_number, 
+    filename = xasprintf("tmp%c%llu.M%06luP%lldQ%lu.%s", PATH_SEP,
+		(unsigned long long)tv.tv_sec, (unsigned long)tv.tv_usec,
+		(long long)getpid(), ++maildir_sequence_number, 
 		maildir_data->hostname);
     /* Instead of waiting for stat() to return ENOENT, we open() the file with
      * O_CREAT | O_EXCL. There is no point in trying again after some time,
@@ -478,7 +478,7 @@ typedef struct
 } exchange_data_t;
 
 int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED,
-	long size UNUSED, char **errstr)
+	long long size UNUSED, char **errstr)
 {
     exchange_data_t *exchange_data;
     char *filename;
@@ -493,9 +493,9 @@ int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED
     }
     /* Choose a unique filename (similar to the maildir method) that ends with
      * ".eml" */
-    filename = xasprintf("%s-%lu-M%06luP%ldQ%lu-%s.eml", PACKAGE_NAME,
-		(unsigned long)tv.tv_sec, (unsigned long)tv.tv_usec,
-		(long)getpid(), ++exchange_sequence_number, 
+    filename = xasprintf("%s-%llu-M%06luP%lldQ%lu-%s.eml", PACKAGE_NAME,
+		(unsigned long long)tv.tv_sec, (unsigned long)tv.tv_usec,
+		(long long)getpid(), ++exchange_sequence_number, 
 		exchange_data->hostname);
 #if W32_NATIVE
     /* Open the file and deny read and write access to other processes, e.g.
@@ -622,7 +622,7 @@ int delivery_method_exchange_deinit(delivery_method_t *dm, char **errstr UNUSED)
  ******************************************************************************/
 
 int delivery_method_mbox_open(delivery_method_t *dm, const char *from, 
-	long size UNUSED, char **errstr)
+	long long size UNUSED, char **errstr)
 {
     time_t t;
 

@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -85,8 +85,8 @@ typedef struct
     char *uidls_file;		/* file to store UIDLs */
     int only_new;		/* flag: retrieve only new messages? */
     int keep;			/* flag: keep messages on the server? */
-    long killsize;		/* killsize, -1 when disabled */
-    long skipsize;		/* skipsize, -1 when disabled */
+    long long killsize;		/* killsize, -1 when disabled */
+    long long skipsize;		/* skipsize, -1 when disabled */
     char *filter;		/* a program to filter the mail headers 
 				   through */
     /* Authentication */
@@ -173,7 +173,7 @@ int get_non_neg_int(const char *arg);
  *
  * Gets a size argument. Returns -1 on error.
  */
-long get_size_arg(const char *arg);
+long long get_size_arg(const char *arg);
 
 /*
  * override_account()

@@ -5,14 +5,14 @@ Notes on the POP3 implementation
 - LIST and UIDL are issued only once to get information about all mails
 
   Therefore, mpop has to keep information about every mail in memory. Currently,
-  roughly 10 bytes plus the average length of an UID are required per mail on a 
-  32 bit system. In most cases, less than 30 bytes are needed, so you can handle
-  1000 mails in less than 30 KB, or 100000 mails in less than 3 MB.
+  roughly 14 bytes plus the average length of an UID are required per mail on a 
+  32 bit system. In most cases, less than 35 bytes are needed, so you can handle
+  1000 mails in less than 35 KB, or 100000 mails in less than 3.5 MB.
 
   A malicious server can send a very big total number of mails in response to
   the STAT command. The maximum number accepted by mpop is POP3_MAX_MESSAGES
   (currently 1000000). This means that mpop can try to allocate very large
-  amounts of memory, up to roughly 30 MB. This should not be a problem on most
+  amounts of memory, up to roughly 35 MB. This should not be a problem on most
   systems, but if your system does not have that much free memory, the following
   can happen:
   1) xmalloc() fails, mpop aborts.

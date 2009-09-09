@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2009-09-06 18:21+0200\n"
+"POT-Creation-Date: 2009-09-09 07:40+0200\n"
 "PO-Revision-Date: 2006-09-03 14:51+0200\n"
 "Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
 "Language-Team: Spanish\n"
@@ -276,7 +276,7 @@ msgstr "%s devolvió estado de salida %d (%s)"
 msgid "%s returned exit status %d"
 msgstr "%s devolvió estado de salida %d"
 
-#: src/delivery.c:337 src/delivery.c:491 src/delivery.c:631 src/pop3.c:1649
+#: src/delivery.c:337 src/delivery.c:491 src/delivery.c:631 src/pop3.c:1660
 #: src/tls.c:115
 #, c-format
 msgid "cannot get system time: %s"
@@ -410,7 +410,7 @@ msgstr "Fecha de caducidad"
 msgid "Fingerprints"
 msgstr "Huellas digitales (fingerprints)"
 
-#: src/mpop.c:554 src/mpop.c:1021
+#: src/mpop.c:554 src/mpop.c:1022
 #, c-format
 msgid "the POP3 server does not support TLS via the STLS command"
 msgstr "el servidor POP3 no soporta TLS a través de la orden STLS"
@@ -543,8 +543,8 @@ msgstr "%.2f KiB"
 
 #: src/mpop.c:838
 #, c-format
-msgid "%ld bytes"
-msgstr "%ld bytes"
+msgid "%lld bytes"
+msgstr "%lld bytes"
 
 #: src/mpop.c:842
 #, c-format
@@ -571,104 +571,104 @@ msgstr "saltándose mensaje %ld de %ld (razón: filter)\n"
 msgid "retrieving message %ld of %ld (%s): "
 msgstr "descargando mensaje %ld de %ld (%s): "
 
-#: src/mpop.c:1063 src/mpop.c:1116 src/mpop.c:1139 src/mpop.c:1294
-#: src/net.c:226 src/net.c:300 src/net.c:333 src/net.c:416 src/pop3.c:1107
-#: src/pop3.c:1244 src/pop3.c:1356 src/pop3.c:1804 src/pop3.c:2090
+#: src/mpop.c:1064 src/mpop.c:1117 src/mpop.c:1140 src/mpop.c:1295
+#: src/net.c:226 src/net.c:300 src/net.c:333 src/net.c:416 src/pop3.c:1118
+#: src/pop3.c:1255 src/pop3.c:1367 src/pop3.c:1815 src/pop3.c:2101
 #: src/tls.c:1250 src/tls.c:1312 src/tls.c:1370 src/tls.c:1420 src/tls.c:1502
 #: src/tls.c:1548
 #, c-format
 msgid "operation aborted"
 msgstr "operación calcelada"
 
-#: src/mpop.c:1185
+#: src/mpop.c:1186
 #, c-format
 msgid "%s at %s:\n"
 msgstr "%s en %s:\n"
 
-#: src/mpop.c:1188
+#: src/mpop.c:1189
 #, c-format
 msgid "new: "
 msgstr "nuevos: "
 
-#: src/mpop.c:1191 src/mpop.c:1212
+#: src/mpop.c:1192 src/mpop.c:1213
 #, c-format
 msgid "no messages"
 msgstr "ningún mensaje"
 
-#: src/mpop.c:1195 src/mpop.c:1216
+#: src/mpop.c:1196 src/mpop.c:1217
 #, c-format
 msgid "1 message"
 msgstr "1 mensaje"
 
-#: src/mpop.c:1199 src/mpop.c:1220
+#: src/mpop.c:1200 src/mpop.c:1221
 #, c-format
 msgid "%ld messages"
 msgstr "%ld mensajes"
 
-#: src/mpop.c:1204 src/mpop.c:1225
+#: src/mpop.c:1205 src/mpop.c:1226
 #, c-format
 msgid " in %s"
 msgstr " en %s"
 
-#: src/mpop.c:1208
+#: src/mpop.c:1209
 #, c-format
 msgid "total: "
 msgstr "total: "
 
-#: src/mpop.c:1262
+#: src/mpop.c:1263
 #, c-format
 msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
 msgstr "saltandose mensaje %ld de %ld (razón: killsize + keep)\n"
 
-#: src/mpop.c:1268
+#: src/mpop.c:1269
 #, c-format
 msgid "deleting message %ld of %ld (reason: killsize)\n"
 msgstr "borrando mensaje %ld de %ld (razón: killsize)\n"
 
-#: src/mpop.c:1279
+#: src/mpop.c:1280
 #, c-format
 msgid "skipping message %ld of %ld (reason: skipsize)\n"
 msgstr "saltandose mensaje %ld de %ld (razón: skipsize)\n"
 
-#: src/mpop.c:1304
+#: src/mpop.c:1305
 #, c-format
 msgid "the POP3 server does not support the TOP command needed for filtering"
 msgstr "el servidor POP3 no soporta la orden TOP necesara para filtrar"
 
-#: src/mpop.c:1474
+#: src/mpop.c:1475
 #, c-format
 msgid "%s: no accounts defined"
 msgstr "%s: ninguna cuenta definida"
 
-#: src/mpop.c:1492 src/mpop.c:1503
+#: src/mpop.c:1493 src/mpop.c:1504
 #, c-format
 msgid "%s: no account %s"
 msgstr "%s: no se ha encontrado la cuenta %s"
 
-#: src/mpop.c:1813 src/mpop.c:1830 src/mpop.c:1853 src/mpop.c:1873
-#: src/mpop.c:1898 src/mpop.c:1916 src/mpop.c:1962 src/mpop.c:1980
-#: src/mpop.c:1998 src/mpop.c:2030 src/mpop.c:2048 src/mpop.c:2064
-#: src/mpop.c:2081 src/mpop.c:2123
+#: src/mpop.c:1814 src/mpop.c:1831 src/mpop.c:1854 src/mpop.c:1874
+#: src/mpop.c:1899 src/mpop.c:1917 src/mpop.c:1963 src/mpop.c:1981
+#: src/mpop.c:1999 src/mpop.c:2031 src/mpop.c:2049 src/mpop.c:2065
+#: src/mpop.c:2082 src/mpop.c:2124
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "argumento inválido %s para %s"
 
-#: src/mpop.c:2153
+#: src/mpop.c:2154
 #, c-format
 msgid "%s version %s\n"
 msgstr "%s versión %s\n"
 
-#: src/mpop.c:2155
+#: src/mpop.c:2156
 #, c-format
 msgid "TLS/SSL library: %s\n"
 msgstr "Biblioteca TLS/SSL: %s\n"
 
-#: src/mpop.c:2161 src/mpop.c:2229
+#: src/mpop.c:2162 src/mpop.c:2230
 #, c-format
 msgid "none"
 msgstr "ninguna"
 
-#: src/mpop.c:2165
+#: src/mpop.c:2166
 #, c-format
 msgid ""
 "Authentication library: %s\n"
@@ -677,55 +677,55 @@ msgstr ""
 "Biblioteca de autentificación: %s\n"
 "Métodos de autentificación disponibles:\n"
 
-#: src/mpop.c:2168
+#: src/mpop.c:2169
 msgid "GNU SASL; user and apop: built-in"
 msgstr "GNU SASL; user y apop: interno"
 
-#: src/mpop.c:2170
+#: src/mpop.c:2171
 msgid "built-in"
 msgstr "interno"
 
-#: src/mpop.c:2211
+#: src/mpop.c:2212
 #, c-format
 msgid "IDN support: "
 msgstr "soporte IDN: "
 
-#: src/mpop.c:2213 src/mpop.c:2221
+#: src/mpop.c:2214 src/mpop.c:2222
 #, c-format
 msgid "enabled"
 msgstr "activado"
 
-#: src/mpop.c:2215 src/mpop.c:2224
+#: src/mpop.c:2216 src/mpop.c:2225
 #, c-format
 msgid "disabled"
 msgstr "desactivado"
 
-#: src/mpop.c:2219
+#: src/mpop.c:2220
 #, c-format
 msgid "NLS: "
 msgstr "NLS: "
 
-#: src/mpop.c:2222
+#: src/mpop.c:2223
 #, c-format
 msgid ", LOCALEDIR is %s"
 msgstr ", LOCALEDIR es %s"
 
-#: src/mpop.c:2227
+#: src/mpop.c:2228
 #, c-format
 msgid "Keyring support: "
 msgstr "soporte keyring: "
 
-#: src/mpop.c:2232
+#: src/mpop.c:2233
 #, c-format
 msgid "Gnome "
 msgstr "Gnome "
 
-#: src/mpop.c:2235
+#: src/mpop.c:2236
 #, c-format
 msgid "MacOS "
 msgstr "MacOS "
 
-#: src/mpop.c:2239
+#: src/mpop.c:2240
 #, c-format
 msgid ""
 "Copyright (C) 2009 Martin Lambers and others.\n"
@@ -739,7 +739,7 @@ msgstr ""
 "con la GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "No hey NINGUNA GARANTÍA, en cuanto a lo permitido por la ley\n"
 
-#: src/mpop.c:2248
+#: src/mpop.c:2249
 #, fuzzy, c-format
 msgid ""
 "USAGE:\n"
@@ -864,103 +864,103 @@ msgstr ""
 "\n"
 "Mandar errores a <%s>.\n"
 
-#: src/mpop.c:2334
+#: src/mpop.c:2335
 msgid "cannot use both --host and accounts"
 msgstr "no se pueden usar --host y cuentas a la vez"
 
-#: src/mpop.c:2340
+#: src/mpop.c:2341
 msgid "cannot use both --all-accounts and a list of accounts"
 msgstr "no se pueden usar --all-accounts y una lista de cuentas a la vez"
 
-#: src/mpop.c:2420
+#: src/mpop.c:2421
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "cuenta %s de %s: %s"
 
-#: src/mpop.c:2438
+#: src/mpop.c:2439
 #, c-format
 msgid "cannot create directories for %s: %s"
 msgstr "no se pueden crear los directorios para %s: %s"
 
-#: src/mpop.c:2441
+#: src/mpop.c:2442
 msgid "a component already exists but is not a directory"
 msgstr "un componente ya existe pero no es un directorio"
 
-#: src/mpop.c:2458
+#: src/mpop.c:2459
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "usando cuenta %s de %s\n"
 
-#: src/mpop.c:2468 src/mpop.c:2559 src/mpop.c:2568
+#: src/mpop.c:2469 src/mpop.c:2560 src/mpop.c:2569
 #, c-format
 msgid "off\n"
 msgstr "desactivado\n"
 
-#: src/mpop.c:2474
+#: src/mpop.c:2475
 #, c-format
 msgid "1 second\n"
 msgstr "1 segundo\n"
 
-#: src/mpop.c:2478
+#: src/mpop.c:2479
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d segundos\n"
 
-#: src/mpop.c:2482 src/mpop.c:2507 src/mpop.c:2508 src/mpop.c:2517
-#: src/mpop.c:2518 src/mpop.c:2554 src/mpop.c:2555
+#: src/mpop.c:2483 src/mpop.c:2508 src/mpop.c:2509 src/mpop.c:2518
+#: src/mpop.c:2519 src/mpop.c:2555 src/mpop.c:2556
 msgid "off"
 msgstr "desactivado"
 
-#: src/mpop.c:2483 src/mpop.c:2507 src/mpop.c:2508 src/mpop.c:2517
-#: src/mpop.c:2518 src/mpop.c:2554 src/mpop.c:2555
+#: src/mpop.c:2484 src/mpop.c:2508 src/mpop.c:2509 src/mpop.c:2518
+#: src/mpop.c:2519 src/mpop.c:2555 src/mpop.c:2556
 msgid "on"
 msgstr "activado"
 
-#: src/mpop.c:2483
+#: src/mpop.c:2484
 msgid "auto"
 msgstr "automático"
 
-#: src/mpop.c:2487
+#: src/mpop.c:2488
 #, c-format
 msgid "choose\n"
 msgstr "automático\n"
 
-#: src/mpop.c:2504 src/mpop.c:2505 src/mpop.c:2506 src/mpop.c:2510
-#: src/mpop.c:2512 src/mpop.c:2514 src/mpop.c:2516 src/mpop.c:2526
-#: src/mpop.c:2529 src/mpop.c:2575
+#: src/mpop.c:2505 src/mpop.c:2506 src/mpop.c:2507 src/mpop.c:2511
+#: src/mpop.c:2513 src/mpop.c:2515 src/mpop.c:2517 src/mpop.c:2527
+#: src/mpop.c:2530 src/mpop.c:2576
 msgid "(not set)"
 msgstr "(no seleccionado)"
 
-#: src/mpop.c:2594
+#: src/mpop.c:2595
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr "soporte para el método de autentificación %s no está compilado"
 
-#: src/mpop.c:2606
+#: src/mpop.c:2607
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "no se puede iniciar la biblioteca TLS: %s"
 
-#: src/mpop.c:2614
+#: src/mpop.c:2615
 msgid "support for TLS is not compiled in"
 msgstr "soporte para TLS no está compilado"
 
-#: src/mpop.c:2622
+#: src/mpop.c:2623
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "no se puede iniciar la biblioteca de red: %s"
 
-#: src/mpop.c:2650 src/mpop.c:2688
+#: src/mpop.c:2651 src/mpop.c:2689
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "mensaje del servidor POP3: %s"
 
-#: src/mpop.c:2695
+#: src/mpop.c:2696
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "error durante la recogida de correo (cuenta %s de %s)"
 
-#: src/mpop.c:2701
+#: src/mpop.c:2702
 msgid "error during mail retrieval"
 msgstr "error durante la recogida de correo"
 
@@ -999,17 +999,17 @@ msgstr "error de escritura de red: %s"
 msgid "network write error"
 msgstr "error de escritura de red"
 
-#: src/pop3.c:313
+#: src/pop3.c:324
 #, c-format
 msgid "POP3 server sent an empty reply"
 msgstr "el servidor POP3 mandó una respuesta vacía"
 
-#: src/pop3.c:317
+#: src/pop3.c:328
 #, c-format
 msgid "POP3 server sent an invalid reply"
 msgstr "el servidor POP3 mandó una respuesta inválida"
 
-#: src/pop3.c:372
+#: src/pop3.c:383
 #, c-format
 msgid ""
 "Cannot send POP3 command because it is longer than %d characters. Increase "
@@ -1018,124 +1018,125 @@ msgstr ""
 "No se puede mandar una orden POP3 más larga que %d caracteres. Incremente "
 "POP3_BUFSIZE."
 
-#: src/pop3.c:677
+#: src/pop3.c:688
 #, c-format
 msgid "cannot get initial OK message from POP3 server"
 msgstr "no se puede recibir el mensaje inicial OK del servidor POP3"
 
-#: src/pop3.c:738 src/pop3.c:878 src/pop3.c:1003 src/pop3.c:1011
-#: src/pop3.c:1186 src/pop3.c:1300
+#: src/pop3.c:749 src/pop3.c:889 src/pop3.c:1014 src/pop3.c:1022
+#: src/pop3.c:1197 src/pop3.c:1311
 #, c-format
 msgid "invalid reply to command %s"
 msgstr "respuesta inválida a la orden %s"
 
-#: src/pop3.c:942 src/pop3.c:948 src/pop3.c:995 src/pop3.c:1087
-#: src/pop3.c:1227 src/pop3.c:2363 src/pop3.c:2449 src/pop3.c:2535
-#: src/pop3.c:3109 src/pop3.c:3137
+#: src/pop3.c:953 src/pop3.c:959 src/pop3.c:1006 src/pop3.c:1098
+#: src/pop3.c:1238 src/pop3.c:2374 src/pop3.c:2460 src/pop3.c:2546
+#: src/pop3.c:3120 src/pop3.c:3148
 #, c-format
 msgid "command %s failed"
 msgstr "fallo de la orden %s"
 
-#: src/pop3.c:1018
+#: src/pop3.c:1029
 #, c-format
-msgid "Cannot handle more than %lu messages. Increase POP3_MAX_MESSAGES."
-msgstr "no se pueden manejas más de %lu mensajes. Incremente POP3_MAX_MESSAGES"
+msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
+msgstr ""
+"no se pueden manejas más de %ld mensajes. Incremente POP3_MAX_MESSAGES."
 
-#: src/pop3.c:1472 src/pop3.c:1498
+#: src/pop3.c:1483 src/pop3.c:1509
 #, c-format
 msgid "cannot write mail: output error"
 msgstr "no se puede escribir correo: error de salida"
 
-#: src/pop3.c:1582
+#: src/pop3.c:1593
 #, c-format
 msgid "cannot write to temporary file: output error"
 msgstr "no se puede escribir en el archivo temporal: error de salida"
 
-#: src/pop3.c:1724
+#: src/pop3.c:1735
 #, c-format
 msgid "cannot add Received header: %s"
 msgstr "no se puede añadir el encabezamiento Received: %s"
 
-#: src/pop3.c:1820
+#: src/pop3.c:1831
 #, c-format
 msgid "command TOP %ld 0 failed"
 msgstr "fallo en la orden TOP %ld 0"
 
-#: src/pop3.c:1825
+#: src/pop3.c:1836
 #, c-format
 msgid "command RETR %ld failed"
 msgstr "fallo en la orden RETR %ld"
 
-#: src/pop3.c:1836
+#: src/pop3.c:1847
 #, c-format
 msgid "cannot create temporary file: %s"
 msgstr "no se puede crear un archivo temporal: %s"
 
-#: src/pop3.c:1848
+#: src/pop3.c:1859
 #, c-format
 msgid "cannot rewind temporary file: %s"
 msgstr "no se puede rebobinar el archivo temporal: %s"
 
-#: src/pop3.c:2104
+#: src/pop3.c:2115
 #, c-format
 msgid "command DELE %ld failed"
 msgstr "fallo en la orden DELE %ld"
 
-#: src/pop3.c:2174 src/pop3.c:2186 src/pop3.c:2209 src/pop3.c:2224
-#: src/pop3.c:2273 src/pop3.c:2324 src/pop3.c:2383 src/pop3.c:2403
-#: src/pop3.c:2496 src/pop3.c:2555 src/pop3.c:2889 src/pop3.c:2924
-#: src/pop3.c:2958
+#: src/pop3.c:2185 src/pop3.c:2197 src/pop3.c:2220 src/pop3.c:2235
+#: src/pop3.c:2284 src/pop3.c:2335 src/pop3.c:2394 src/pop3.c:2414
+#: src/pop3.c:2507 src/pop3.c:2566 src/pop3.c:2900 src/pop3.c:2935
+#: src/pop3.c:2969
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "fallo en la autentificación (método %s)"
 
-#: src/pop3.c:2459
+#: src/pop3.c:2470
 #, c-format
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr ""
 "método de autentificación CRAM-MD5: el servidor mandó un desfío inválido"
 
-#: src/pop3.c:2669 src/pop3.c:2975
+#: src/pop3.c:2680 src/pop3.c:2986
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "el servidor POP3 no es compatible con el método de autentificación %s"
 
-#: src/pop3.c:2675 src/pop3.c:2801 src/pop3.c:2844
+#: src/pop3.c:2686 src/pop3.c:2812 src/pop3.c:2855
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2682
+#: src/pop3.c:2693
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: no es compatible con el método de autentificación %s"
 
-#: src/pop3.c:2741 src/pop3.c:3014
+#: src/pop3.c:2752 src/pop3.c:3025
 #, c-format
 msgid "cannot use a secure authentication method"
 msgstr "no se puede usar ningún método de autentificación seguro"
 
-#: src/pop3.c:2747 src/pop3.c:3020
+#: src/pop3.c:2758 src/pop3.c:3031
 #, c-format
 msgid "cannot find a usable authentication method"
 msgstr "no se puede encontrar ningún método usable de autentificación"
 
-#: src/pop3.c:2761 src/pop3.c:3033
+#: src/pop3.c:2772 src/pop3.c:3044
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "el método de autentificación %s necesita un nombre de usuario"
 
-#: src/pop3.c:2774 src/pop3.c:3043
+#: src/pop3.c:2785 src/pop3.c:3054
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "el método de autentificación %s necesita una contraseña"
 
-#: src/pop3.c:2937
+#: src/pop3.c:2948
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "fallo en la autentificación: %s (método %s)"
 
-#: src/pop3.c:3077
+#: src/pop3.c:3088
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "el programa no es compatible con el método de autntificación %s"

@@ -247,24 +247,24 @@ int get_non_neg_int(const char *s)
  * see conf.h
  */
 
-long get_size_arg(const char *s)
+long long get_size_arg(const char *s)
 {
-    long x;
+    long long x;
     char *p;
     
     errno = 0;
-    x = strtol(s, &p, 0);
-    if (p == s || x < 0 || (x == LONG_MAX && errno == ERANGE))
+    x = strtoll(s, &p, 0);
+    if (p == s || x < 0 || (x == LLONG_MAX && errno == ERANGE))
     {
 	x = -1;
     }    
     else if (strcmp(p, "k") == 0)
     {
-	x = (x > (LONG_MAX >> 10)) ? -1 : (x << 10);
+	x = (x > (LLONG_MAX >> 10)) ? -1 : (x << 10);
     }
     else if (strcmp(p, "m") == 0)
     {
-	x = (x > (LONG_MAX >> 20)) ? -1 : (x << 20);
+	x = (x > (LLONG_MAX >> 20)) ? -1 : (x << 20);
     }
     else if (*p != '\0')
     {
