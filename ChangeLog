@@ -1,4 +1,6 @@
 Version 1.0.19:
+- Properly mask minus characters in the man page to prevent groff from
+  converting them to hyphens. Reported by Emmanuel Bouthenot.
 - Handle network share names correctly when creating directories for UIDLS
   files on W32. Bug reported by Dan.
 - Handle mail boxes larger than 2 GiB even on 32bit systems. Based on a patch

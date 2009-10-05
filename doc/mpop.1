@@ -14,16 +14,16 @@ mpop \- A POP3 client
 .SH SYNOPSIS
 .IP "Mail retrieval mode (default):"
 .B mpop 
-[option...] [--] [account...]
+[option...] [\-\-] [account...]
 .br
 .B mpop
---host=host [option...]
+\-\-host=host [option...]
 .IP "Server information mode:"
 .B mpop 
-[option...] --serverinfo [account...]
+[option...] \-\-serverinfo [account...]
 .br
 .B mpop 
---host=host [option...] --serverinfo
+\-\-host=host [option...] \-\-serverinfo
 .SH DESCRIPTION
 In mail retrieval mode of operation, mpop retrieves mails from one or more POP3
 mailboxes, optionally does some filtering, and delivers them through a mail
@@ -43,27 +43,27 @@ The standard sendmail exit codes are used, as defined in sysexits.h.
 Options override configuration file settings, for every used account.
 .IP "\fBGeneral Options\fP"
 .RS
-.IP "--version"
+.IP "\-\-version"
 Print version information. This includes information about the library used for
 TLS/SSL support (if any), the library used for authentication, and the
 authentication mechanisms supported by this library.
-.IP "--help"
+.IP "\-\-help"
 Print help.
-.IP "-P, --pretend"
+.IP "\-P, \-\-pretend"
 Print the configuration settings that would be used, but do not take further
 action.  An asterisk ('*') will be printed instead of your password.
-.IP "-d, --debug"
+.IP "\-d, \-\-debug"
 Print lots of debugging information, including the whole conversation with the
 POP3 server. Be careful with this option: the (potentially dangerous) output 
 will not be sanitized, and your password may get printed in an easily decodable
 format!
 .br
-This option implies --half-quiet, because the progress output would interfere
+This option implies \-\-half\-quiet, because the progress output would interfere
 with the debugging output.
 .RE
 .IP "\fBChanging the mode of operation\fP"
 .RS
-.IP "-S, --serverinfo"
+.IP "\-S, \-\-serverinfo"
 Print information about the POP3 server(s) and exit. This includes information
 about supported features (pipelining, authentication methods, TOP command, ...),
 about parameters (time for which mails will not be deleted, minimum time
@@ -71,83 +71,83 @@ between logins, ...), and about the TLS certificate (if TLS is active).
 .RE
 .IP "\fBConfiguration options\fP"
 .RS
-.IP "-C, --file=\fIconffile\fP"
+.IP "\-C, \-\-file=\fIconffile\fP"
 Use the given file instead of ~/.mpoprc as configuration file.
-.IP "--host=\fIhostname\fP"
+.IP "\-\-host=\fIhostname\fP"
 Use this POP3 server with settings from the command line; do not use any
 configuration file data. You cannot use both this option and account names on
 the command line.
-.IP "--port=\fInumber\fP"
+.IP "\-\-port=\fInumber\fP"
 Set the port number to connect to. See the
 .BR port
 command below.
-.IP "--timeout=(\fIoff\fP|\fIseconds\fP)"
+.IP "\-\-timeout=(\fIoff\fP|\fIseconds\fP)"
 Set a network timeout. See the \fBtimeout\fP command below.
-.IP "--pipelining=(\fIauto\fP|\fIon\fP|\fIoff)"
+.IP "\-\-pipelining=(\fIauto\fP|\fIon\fP|\fIoff)"
 Enable or disable POP3 pipelining. See the \fBpipelining\fP command below.
-.IP "--auth[=(\fIon\fP|\fImethod\fP)]"
+.IP "\-\-auth[=(\fIon\fP|\fImethod\fP)]"
 Set the authentication method to automatic (with "on") or manually choose an
 authentication method. See the \fBauth\fP command below.
-.IP "--user=[\fIusername\fP]"
+.IP "\-\-user=[\fIusername\fP]"
 Set or unset the user name for authentication. See the \fBuser\fP command
 below.
-.IP "--tls[=(\fIon\fP|\fIoff\fP)]"
+.IP "\-\-tls[=(\fIon\fP|\fIoff\fP)]"
 Enable or disable TLS/SSL encryption. See the \fBtls\fP command below.
-.IP "--tls-starttls[=(\fIon\fP|\fIoff\fP)]"
+.IP "\-\-tls\-starttls[=(\fIon\fP|\fIoff\fP)]"
 Enable or disable the POP3 STLS command for TLS encryption. See the
 \fBtls_starttls\fP command below.
-.IP "--tls-trust-file=[\fIfile\fP]"
+.IP "\-\-tls\-trust\-file=[\fIfile\fP]"
 Set or unset a trust file for TLS encryption. See the \fBtls_trust_file\fP
 command below.
-.IP "--tls-crl-file=[\fIfile\fP]"
+.IP "\-\-tls\-crl\-file=[\fIfile\fP]"
 Set or unset a certificate revocation list (CRL) file for TLS. See the
 \fBtls_crl_file\fP command below.
-.IP "--tls-key-file=[\fIfile\fP]"
+.IP "\-\-tls\-key\-file=[\fIfile\fP]"
 Set or unset a key file for TLS encryption. See the \fBtls_key_file\fP command
 below.
-.IP "--tls-cert-file=[\fIfile\fP]"
+.IP "\-\-tls\-cert\-file=[\fIfile\fP]"
 Set or unset a cert file for TLS encryption. See the \fBtls_cert_file\fP
 command below.
-.IP "--tls-certcheck[=(\fIon\fP|\fIoff\fP)]"
+.IP "\-\-tls\-certcheck[=(\fIon\fP|\fIoff\fP)]"
 Enable or disable server certificate checks for TLS encryption. See the
 \fBtls_certcheck\fP command below.
-.IP "--tls-force-sslv3[=(\fIon\fP|\fIoff\fP)]"
+.IP "\-\-tls\-force\-sslv3[=(\fIon\fP|\fIoff\fP)]"
 Force TLS/SSL version SSLv3. See the \fBtls_force_sslv3\fP command below.
-.IP "--tls-min-dh-prime-bits=[\fIbits\fP]"
+.IP "\-\-tls\-min\-dh\-prime\-bits=[\fIbits\fP]"
 Set or unset minimum bit size of the Diffie-Hellmann (DH) prime. See the
 \fBtls_min_dh_prime_bits\fP command below.
-.IP "--tls-priorities=[\fIpriorities\fP]"
+.IP "\-\-tls\-priorities=[\fIpriorities\fP]"
 Set or unset TLS priorities. See the \fBtls_priorities\fP command below.
 .RE
 .IP "\fBOptions specific to mail retrieval mode\fP"
 .RS
-.IP "-q, --quiet"
+.IP "\-q, \-\-quiet"
 Do not print status or progress information.
-.IP "-Q, --half-quiet"
+.IP "\-Q, \-\-half\-quiet"
 Print status but not progress information.
-.IP "-a, --all-accounts"
+.IP "\-a, \-\-all\-accounts"
 Query all accounts in the configuration file.
-.IP "-A, --auth-only"
+.IP "\-A, \-\-auth\-only"
 Authenticate only; do not retrieve mail. Useful for SMTP-after-POP.
-.IP "-s, --status-only"
+.IP "\-s, \-\-status\-only"
 Print number and size of mails in each account only; do not retrieve mail.
-.IP "-n, --only-new[=(\fIon\fP|\fIoff\fP)]"
+.IP "\-n, \-\-only\-new[=(\fIon\fP|\fIoff\fP)]"
 Process only new messages. See the \fBonly_new\fP command below.
-.IP "-k, --keep[=(\fIon\fP|\fIoff\fP)]"
+.IP "\-k, \-\-keep[=(\fIon\fP|\fIoff\fP)]"
 Do not delete mails from POP3 servers, regardless of other options or settings.
 See the \fBkeep\fP command below.
-.IP "--killsize=(\fIoff\fP|\fIsize\fP)"
+.IP "\-\-killsize=(\fIoff\fP|\fIsize\fP)"
 Set or unset kill size. See the \fBkillsize\fP command below.
-.IP "--skipsize=(\fIoff\fP|\fIsize\fP)"
+.IP "\-\-skipsize=(\fIoff\fP|\fIsize\fP)"
 Set or unset skip size. See the \fBskipsize\fP command below.
-.IP "--filter=[\fIprogram\fP]"
+.IP "\-\-filter=[\fIprogram\fP]"
 Set a filter which will decide whether to retrieve, skip, or delete each mail
 by investigating the mail's headers. See the \fBfilter\fP command below.
-.IP "--delivery=\fImethod\fP,\fImethod_arguments...\fP"
+.IP "\-\-delivery=\fImethod\fP,\fImethod_arguments...\fP"
 How to deliver messages received from this account. See the \fBdelivery\fP 
 command below. Note that a comma is used instead of a blank to separate the 
 method from its arguments.
-.IP "--uidls-file=\fIfilename\fP"
+.IP "\-\-uidls\-file=\fIfilename\fP"
 File to store UIDLs in. See the \fBuidls_file\fP command below.
 .RE
 .SH USAGE
@@ -197,7 +197,7 @@ operating system default will be used.
 .IP "pipelining (\fIauto\fP|\fIon\fP|\fIoff\fP)"
 Enable or disable POP3 pipelining. The default is \fIauto\fP, which means that
 mpop enables pipelining for POP3 servers that advertize this capability, and 
-disables it for all other servers. See also --serverinfo.
+disables it for all other servers. See also \-\-serverinfo.
 .br
 It is always safe to disable pipelining. It is not recommended to force
 pipelining for servers that are not known to support it.
@@ -213,19 +213,19 @@ How to deliver messages received from this account.
 Deliver the mails through a mail delivery agent (MDA).
 .br
 All occurences of %F in the command will be replaced with the envelope from
-address of the current message (or MAILER-DAEMON if none is found). Note that
+address of the current message (or MAILER\-DAEMON if none is found). Note that
 this address is guaranteed to contain only letters a-z and A-Z, digits 0-9, and
-any of ".@_-+/", even though that is only a subset of what is theoretically
+any of ".@_\-+/", even though that is only a subset of what is theoretically
 allowed in a mail address. Other characters, including those interpreted by the
 shell, are replaced with "_".  Nevertheless, you should put %F into single
 quotes: '%F'.
 .br
-Use "delivery mda /usr/bin/procmail -f '%F' -d $USER" for the procmail MDA.
+Use "delivery mda /usr/bin/procmail \-f '%F' \-d $USER" for the procmail MDA.
 .br
-Use "delivery mda /usr/sbin/sendmail -oi -oem -f '%F' -- $USER" to let your MTA
+Use "delivery mda /usr/sbin/sendmail \-oi \-oem \-f '%F' \-\- $USER" to let your MTA
 handle the mail.
 .br
-Use "delivery mda /usr/local/bin/msmtp --host=localhost --from='%F' -- 
+Use "delivery mda /usr/local/bin/msmtp \-\-host=localhost \-\-from='%F' \-\- 
 $USER@`hostname`.`dnsdomainname`" to pass the mail to your MTA via SMTP. 
 (This is what fetchmail does by default.)
 .IP "delivery maildir \fIdirectory\fP"
@@ -265,7 +265,7 @@ You probably need to set a username (with \fBuser\fP) and password (with
 \fBpassword\fP). 
 If no password is set but one is needed during authentication, mpop will try to
 find it in ~/.netrc. If that fails, it will try to find it in SYSCONFDIR/netrc
-(use \fB--version\fP to find out what SYSCONFDIR is on your platform). If that
+(use \fB\-\-version\fP to find out what SYSCONFDIR is on your platform). If that
 fails, it will try to get it from a system specific keychain (if available). If
 that fails but a controlling terminal is available, mpop will prompt you for
 it.
@@ -274,10 +274,10 @@ Currently the only supported keychain is the Mac OS X keychain. See the EXAMPLES
 section below.
 .br
 Available methods are \fIuser\fP, \fIapop\fP, \fIplain\fP, \fIlogin\fP,
-\fIcram-md5\fP, \fIdigest-md5\fP, \fIgssapi\fP, \fIexternal\fP, \fIlogin\fP,
+\fIcram\-md5\fP, \fIdigest\-md5\fP, \fIgssapi\fP, \fIexternal\fP, \fIlogin\fP,
 and \fIntlm\fP.
 Note that one or more of these methods may be unavailable due to lack of
-support in the underlying authentication library. Use the \fB--version\fP
+support in the underlying authentication library. Use the \fB\-\-version\fP
 option to find out which methods are supported.
 .br
 The \fIuser\fP, \fIplain\fP and \fIlogin\fP methods send your authentication
@@ -289,7 +289,7 @@ If you don't choose the method yourself, mpop chooses the best secure method
 that the POP3 server supports. Secure means that your authentication data will
 not be sent in cleartext over the net. For TLS encrypted connections, every
 authentication method is secure in this sense. If TLS is not active, only
-gssapi, digest-md5, and cram-md5 are secure in this sense.
+gssapi, digest\-md5, and cram\-md5 are secure in this sense.
 .br
 The \fIexternal\fP method is special: the actual authentication happens outside
 of the SMTP protocol, typically by sending a TLS client certificate (see the
@@ -303,7 +303,7 @@ Set your user name for POP3 authentication.
 Set your password for POP3 authentication.
 If no password is set but one is needed during authentication, mpop will try to
 find it in ~/.netrc. If that fails, it will try to find it in SYSCONFDIR/netrc
-(use \fB--version\fP to find out what SYSCONFDIR is on your platform). If that
+(use \fB\-\-version\fP to find out what SYSCONFDIR is on your platform). If that
 fails, it will try to get it from a system specific keychain (if available). If
 that fails but a controlling terminal is available, mpop will prompt you for
 it.
@@ -331,8 +331,8 @@ This command activates strict server certificate verification.
 The filename must be the absolute path name of a file in PEM format containing
 one or more certificates of trusted Certification Authorities (CAs).
 .br
-On Debian based systems, you can install the \fBca-certificates\fP package and
-use the file \fB/etc/ssl/certs/ca-certificates.crt\fP.
+On Debian based systems, you can install the \fBca\-certificates\fP package and
+use the file \fB/etc/ssl/certs/ca\-certificates.crt\fP.
 .br
 An empty argument disables this feature.
 .IP "tls_crl_file [\fIfile\fP]"
@@ -404,13 +404,13 @@ Note that some POP3 servers report slightly incorrect sizes for mails; see
 .IP "filter [\fIcommand\fP]"
 Set a filter which will decide whether to retrieve, skip, or delete each mail
 by investigating the mail's headers. The POP3 server must support the POP3 TOP
-command for this to work; see option \fB--serverinfo\fP above. An empty argument
+command for this to work; see option \fB\-\-serverinfo\fP above. An empty argument
 disables filtering.
 .br
 All occurences of %F in the command will be replaced with the envelope from 
-address of the current message (or MAILER-DAEMON if none is found).
+address of the current message (or MAILER\-DAEMON if none is found).
 Note that this address is guaranteed to contain only letters a-z and A-Z,
-digits 0-9, and any of ".@_-+/", even though that is only a subset of what is
+digits 0-9, and any of ".@_\-+/", even though that is only a subset of what is
 theoretically allowed in a mail address. Other characters, including those
 interpreted by the shell, are replaced with "_". Nevertheless, you should put
 %F into single quotes: '%F'.
@@ -457,7 +457,7 @@ tls on
 .br
 # Enable full TLS certificate checks.
 .br
-tls_trust_file /etc/ssl/certs/ca-certificates.crt
+tls_trust_file /etc/ssl/certs/ca\-certificates.crt
 .br
 # Use the POP3-over-TLS variant instead of the STARTTLS variant.
 .br
@@ -467,15 +467,15 @@ tls_starttls off
 .br
 # Use the procmail mail delivery agent.
 .br
-delivery mda "/usr/bin/procmail -f '%F' -d $USER"
+delivery mda "/usr/bin/procmail \-f '%F' \-d $USER"
 .br
 # For Sendmail:
 .br
-#delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"
+#delivery mda "/usr/sbin/sendmail \-oi \-oem \-f '%F' \-\- $USER"
 .br
 # For msmtp (delivery via SMTP):
 .br
-#delivery mda "/usr/bin/msmtp --host=localhost --from='%F' -- $USER"
+#delivery mda "/usr/bin/msmtp \-\-host=localhost \-\-from='%F' \-\- $USER"
 .br
 # Delivery to a maildir folder:
 .br
@@ -538,11 +538,11 @@ The following example works as of 2007-04-18.
 .br
 For the Gmail POP server, you first issue the following command:
 .br
-.B mpop --serverinfo --host=pop.gmail.com --tls=on --tls-starttls=off 
-.B   --tls-certcheck=off
+.B mpop \-\-serverinfo \-\-host=pop.gmail.com \-\-tls=on \-\-tls\-starttls=off 
+.B   \-\-tls\-certcheck=off
 .br
-The option \fI--tls-starttls=off\fP is needed for Gmail, but may not be 
-necessary for other servers. The option \fI--tls-certcheck=off\fP allows
+The option \fI\-\-tls\-starttls=off\fP is needed for Gmail, but may not be 
+necessary for other servers. The option \fI\-\-tls\-certcheck=off\fP allows
 mpop to accept any certificate, so that it can print some information about it.
 .br
 According to the output of this command, the issuer of the server certificate 
@@ -554,8 +554,8 @@ command is \fIEquifax_Secure_Certificate_Authority.cer\fP.
 .br
 The following command should now succeed:
 .br
-.B mpop --serverinfo --host=pop.gmail.com --tls=on --tls-starttls=off
-.B  --tls-trust-file=Equifax_Secure_Certificate_Authority.cer
+.B mpop \-\-serverinfo \-\-host=pop.gmail.com \-\-tls=on \-\-tls\-starttls=off
+.B  \-\-tls\-trust\-file=Equifax_Secure_Certificate_Authority.cer
 .br
 
 .br
@@ -563,7 +563,7 @@ The following command should now succeed:
 .B Filtering with SpamAssassin
 .PP
 The command
-.B filter\ "/path/to/spamc -c > /dev/null"
+.B filter\ "/path/to/spamc \-c > /dev/null"
 will delete all mails that SpamAssassin thinks are spam. Since no message body
 is passed to SpamAssassin, you should disable all body-specific tests in the 
 SpamAssassin configuration file; for example set
@@ -574,7 +574,7 @@ result. The following script can do that when used as an mpop filter:
 .br
 #!/bin/sh
 .br
-if [ "`grep "^X-Spam-Status: Yes"`" ]; then
+if [ "`grep "^X\-Spam\-Status: Yes"`" ]; then
 .br
     exit 1  # kill this message
 .br
@@ -586,7 +586,7 @@ fi
 .br
 Since the filter command is passed to a shell, you can also use this directly:
 .br
-.B filter if [\ "`grep\ "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
+.B filter if [\ "`grep\ "^X\-Spam\-Status: Yes"`" ]; then exit 1; else exit 0; fi
 
 .PP
 .B Using the Mac OS X Keychain
@@ -596,7 +596,7 @@ Access GUI application. The \fIaccount name\fP is simply the value of the
 msmtp \fBuser\fP argument. However, the \fIkeychain item name\fP is 
 \fBsmtp://<hostname>\fP where \fB<hostname>\fP matches the msmtp \fBhost\fP
 argument. Using \fBsmtp://\fP is needed so that the item is created of kind
-\fIinternet password\fP.  For example, selecting \fIFile->Get Info\fP on a
+\fIinternet password\fP.  For example, selecting \fIFile\->Get Info\fP on a
 keychain item that corresponds to \fBhost smtp.freemail.example\fP and
 \fBuser joe.smith\fP will show:
 .br
@@ -628,7 +628,7 @@ default directory is used.
 .SH NOTES
 Some POP3 servers still do not support the UIDL command. In this case, mpop 
 cannot recognize messages that were already successfully retrieved, and will
-treat all messages as new. Use the \fB--serverinfo\fP option to find out if a 
+treat all messages as new. Use the \fB\-\-serverinfo\fP option to find out if a 
 server supports the UIDL command.
 .br
 Some POP3 servers count end-of-line characters as two bytes (CRLF) instead 
