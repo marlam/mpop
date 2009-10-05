@@ -1535,11 +1535,20 @@ int make_needed_dirs(const char *pathname)
     error = 0;
     dir_part_end = strchr(pathname + 1, PATH_SEP);
 #if W32_NATIVE
-    /* skip a drive letter */
     if (dir_part_end - pathname == 2 
 	    && c_isalpha((unsigned char)pathname[0]) && pathname[1] == ':')
     {
+        /* skip drive letter ("C:\" and similar) */
 	dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+    }
+    else if (dir_part_end - pathname == 1)
+    {
+        /* skip network resource name ("\\server\" and similar) */
+        dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+        if (dir_part_end)
+        {
+            dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+        }
     }
 #endif
     while (dir_part_end && !error)

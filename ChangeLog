@@ -1,4 +1,6 @@
 Version 1.0.19:
+- Handle network share names correctly when creating directories for UIDLS
+  files on W32. Bug reported by Dan.
 - Handle mail boxes larger than 2 GiB even on 32bit systems. Based on a patch
   by Renato Schmidt. Thanks!
 
