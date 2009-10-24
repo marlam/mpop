@@ -1,4 +1,8 @@
 Version 1.0.19:
+- When using OpenSSL, mpop now correctly handles NUL characters in the Common
+  Name and Subject Alternative Name fields of certificates. This fixes a 
+  security problem. Note that mpop is not affected by this problem if GnuTLS is
+  used.
 - Mpop can now handle mail boxes larger than 2 GiB on 32bit systems. Previously,
   this only worked on 64bit systems.
 
