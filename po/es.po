@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2009-09-30 21:09+0200\n"
+"POT-Creation-Date: 2009-10-24 09:51+0200\n"
 "PO-Revision-Date: 2006-09-03 14:51+0200\n"
 "Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
 "Language-Team: Spanish\n"
@@ -574,8 +574,8 @@ msgstr "descargando mensaje %ld de %ld (%s): "
 #: src/mpop.c:1064 src/mpop.c:1117 src/mpop.c:1140 src/mpop.c:1295
 #: src/net.c:226 src/net.c:300 src/net.c:333 src/net.c:416 src/pop3.c:1118
 #: src/pop3.c:1255 src/pop3.c:1367 src/pop3.c:1815 src/pop3.c:2101
-#: src/tls.c:1250 src/tls.c:1312 src/tls.c:1370 src/tls.c:1420 src/tls.c:1502
-#: src/tls.c:1548
+#: src/tls.c:1265 src/tls.c:1327 src/tls.c:1385 src/tls.c:1435 src/tls.c:1517
+#: src/tls.c:1563
 #, c-format
 msgid "operation aborted"
 msgstr "operación calcelada"
@@ -984,8 +984,8 @@ msgstr "no se puede conectar con %s, puerto %d: %s"
 msgid "network read error: %s"
 msgstr "error de lectura de red: %s"
 
-#: src/net.c:338 src/net.c:421 src/tls.c:1217 src/tls.c:1257 src/tls.c:1377
-#: src/tls.c:1509
+#: src/net.c:338 src/net.c:421 src/tls.c:1232 src/tls.c:1272 src/tls.c:1392
+#: src/tls.c:1524
 msgid "the operation timed out"
 msgstr "se ha superado el tiempo de espera"
 
@@ -1199,7 +1199,7 @@ msgstr "%s: no se puede conseguir la fecha de activación"
 msgid "%s: cannot get expiration time"
 msgstr "%s: no se puede conseguir la fecha de caducidad"
 
-#: src/tls.c:498 src/tls.c:889
+#: src/tls.c:498 src/tls.c:897
 #, c-format
 msgid "%s: cannot get certificate subject"
 msgstr "%s: no se puede conseguir el asunto del certificado"
@@ -1242,7 +1242,7 @@ msgstr "%s: el tipo del certificado no es X509"
 msgid "%s: error parsing certificate %u of %u"
 msgstr "%s: error al analizar elcertificado %u de %u"
 
-#: src/tls.c:754 src/tls.c:765 src/tls.c:916
+#: src/tls.c:754 src/tls.c:765 src/tls.c:931
 #, c-format
 msgid "%s: the certificate owner does not match hostname %s"
 msgstr ""
@@ -1275,41 +1275,51 @@ msgstr "%s: el certificado %u de %u ha caducado"
 msgid "%s: no certificate was sent"
 msgstr "%s: no se mandó ningún certificado"
 
-#: src/tls.c:901
+#: src/tls.c:879
+#, c-format
+msgid "%s: certificate subject alternative name contains NUL"
+msgstr ""
+
+#: src/tls.c:908
 #, c-format
 msgid "%s: cannot get certificate common name"
 msgstr "%s: no se puede conseguir el nombre común del certificado"
 
-#: src/tls.c:945
+#: src/tls.c:916
+#, c-format
+msgid "%s: certificate common name contains NUL"
+msgstr ""
+
+#: src/tls.c:960
 #, c-format
 msgid "cannot initialize TLS session: %s"
 msgstr "no se puede iniciar la sesión TLS: %s"
 
-#: src/tls.c:959
+#: src/tls.c:974
 #, c-format
 msgid "error in priority string at position %d"
 msgstr ""
 
-#: src/tls.c:962 src/tls.c:971 src/tls.c:978 src/tls.c:988 src/tls.c:1087
+#: src/tls.c:977 src/tls.c:986 src/tls.c:993 src/tls.c:1003 src/tls.c:1102
 #, c-format
 msgid "cannot set priorities for TLS session: %s"
 msgstr "no se pueden ajustar las prioridades de la sesión TLS: %s"
 
-#: src/tls.c:979
+#: src/tls.c:994
 msgid "the TLS library does not support this feature"
 msgstr ""
 
-#: src/tls.c:1004
+#: src/tls.c:1019
 #, c-format
 msgid "cannot force SSLv3: %s"
 msgstr "no se puede obligar SSLv3: %s"
 
-#: src/tls.c:1013
+#: src/tls.c:1028
 #, c-format
 msgid "cannot allocate certificate for TLS session: %s"
 msgstr "no se puede reservar el certificado para la sesión TLS: %s"
 
-#: src/tls.c:1023
+#: src/tls.c:1038
 #, c-format
 msgid ""
 "cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
@@ -1317,107 +1327,107 @@ msgstr ""
 "no se puede ajustar el archivo llave X509 %s y/o el archivo del certificado "
 "X509 %s para la sesión TLS: %s "
 
-#: src/tls.c:1037
+#: src/tls.c:1052
 #, c-format
 msgid "cannot set X509 trust file %s for TLS session: %s"
 msgstr ""
 "no se puede ajustar el archivo de confianza X509%s para la sesión TLS: %s"
 
-#: src/tls.c:1051
+#: src/tls.c:1066
 #, c-format
 msgid "cannot set X509 CRL file %s for TLS session: %s"
 msgstr ""
 
-#: src/tls.c:1061
+#: src/tls.c:1076
 #, c-format
 msgid "cannot set credentials for TLS session: %s"
 msgstr "no se pueden ajustar las credenciales para la sesión TLS: %s"
 
-#: src/tls.c:1079
+#: src/tls.c:1094
 #, c-format
 msgid "cannot set minimum number of DH prime bits for TLS: %s"
 msgstr ""
 
-#: src/tls.c:1080 src/tls.c:1088 src/tls.c:1096
+#: src/tls.c:1095 src/tls.c:1103 src/tls.c:1111
 msgid "feature not yet implemented for OpenSSL"
 msgstr ""
 
-#: src/tls.c:1095
+#: src/tls.c:1110
 #, c-format
 msgid "cannot load CRL file: %s"
 msgstr ""
 
-#: src/tls.c:1103
+#: src/tls.c:1118
 #, c-format
 msgid "cannot set TLS method"
 msgstr "no se puede ajustar el método TLS"
 
-#: src/tls.c:1108
+#: src/tls.c:1123
 #, c-format
 msgid "cannot create TLS context: %s"
 msgstr "no se puede crear un contexto TLS: %s"
 
-#: src/tls.c:1119
+#: src/tls.c:1134
 #, c-format
 msgid "cannot load key file %s: %s"
 msgstr "no se puede cargar el archivo de llave %s: %s"
 
-#: src/tls.c:1127
+#: src/tls.c:1142
 #, c-format
 msgid "cannot load certificate file %s: %s"
 msgstr "no se puede cargar el archivo de certificado %s: %s"
 
-#: src/tls.c:1138
+#: src/tls.c:1153
 #, c-format
 msgid "cannot load trust file %s: %s"
 msgstr "no se puede cargar el archivo de confianza %s: %s"
 
-#: src/tls.c:1148
+#: src/tls.c:1163
 #, c-format
 msgid "cannot create a TLS structure: %s"
 msgstr "no se puede crear una estructura TLS: %s"
 
-#: src/tls.c:1190
+#: src/tls.c:1205
 msgid "a protocol violating EOF occured"
 msgstr "se ha encontrado un EOF que viola el protocolo"
 
-#: src/tls.c:1198 src/tls.c:1222 src/tls.c:1525
+#: src/tls.c:1213 src/tls.c:1237 src/tls.c:1540
 msgid "unknown error"
 msgstr "error desconocido"
 
-#: src/tls.c:1208
+#: src/tls.c:1223
 msgid "the connection was closed unexpectedly"
 msgstr "la conexión se cerró por sorpresa"
 
-#: src/tls.c:1256 src/tls.c:1261
+#: src/tls.c:1271 src/tls.c:1276
 #, c-format
 msgid "TLS handshake failed: %s"
 msgstr "fallo en el apretón de manos TLS: %s"
 
-#: src/tls.c:1299
+#: src/tls.c:1314
 #, c-format
 msgid "cannot set the file descriptor for TLS: %s"
 msgstr "no se puede ajustar el descriptor de archivo para TLS: %s"
 
-#: src/tls.c:1318
+#: src/tls.c:1333
 msgid "TLS handshake failed"
 msgstr "fallo en el apretón de manos TLS"
 
-#: src/tls.c:1376 src/tls.c:1381
+#: src/tls.c:1391 src/tls.c:1396
 #, c-format
 msgid "cannot read from TLS connection: %s"
 msgstr "no se puede leer de la conexión TLS: %s"
 
-#: src/tls.c:1425
+#: src/tls.c:1440
 msgid "cannot read from TLS connection"
 msgstr "no se puede leer de la conexión TLS"
 
-#: src/tls.c:1508 src/tls.c:1513 src/tls.c:1524
+#: src/tls.c:1523 src/tls.c:1528 src/tls.c:1539
 #, c-format
 msgid "cannot write to TLS connection: %s"
 msgstr "no se puede escribir en la conexión TLS: %s"
 
-#: src/tls.c:1554
+#: src/tls.c:1569
 msgid "cannot write to TLS connection"
 msgstr "no se puede escribir en la conexión TLS"
 
