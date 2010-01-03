@@ -51,7 +51,7 @@ authentication mechanisms supported by this library.
 Print help.
 .IP "\-P, \-\-pretend"
 Print the configuration settings that would be used, but do not take further
-action.  An asterisk ('*') will be printed instead of your password.
+action.  An asterisk (`*') will be printed instead of your password.
 .IP "\-d, \-\-debug"
 Print lots of debugging information, including the whole conversation with the
 POP3 server. Be careful with this option: the (potentially dangerous) output 
@@ -157,7 +157,7 @@ contains information about your POP3 accounts.
 Skip to the EXAMPLES section for a quick start.
 .PP
 The configuration file is a simple text file.  Empty lines and comment lines
-(whose first non-blank character is '#') are ignored.
+(whose first non-blank character is `#') are ignored.
 The file must have no more permissions than user read/write.
 .br
 Every other line must contain a command and may contain an argument to that
@@ -218,15 +218,16 @@ this address is guaranteed to contain only letters a-z and A-Z, digits 0-9, and
 any of ".@_\-+/", even though that is only a subset of what is theoretically
 allowed in a mail address. Other characters, including those interpreted by the
 shell, are replaced with "_".  Nevertheless, you should put %F into single
-quotes: '%F'.
+quotes: \(aq%F\(aq.
 .br
-Use "delivery mda /usr/bin/procmail \-f '%F' \-d $USER" for the procmail MDA.
+Use "delivery mda /usr/bin/procmail \-f \(aq%F\(aq \-d $USER" for the procmail
+MDA.
 .br
-Use "delivery mda /usr/sbin/sendmail \-oi \-oem \-f '%F' \-\- $USER" to let your MTA
-handle the mail.
+Use "delivery mda /usr/sbin/sendmail \-oi \-oem \-f \(aq%F\(aq \-\- $USER" to
+let your MTA handle the mail.
 .br
-Use "delivery mda /usr/local/bin/msmtp \-\-host=localhost \-\-from='%F' \-\- 
-$USER@`hostname`.`dnsdomainname`" to pass the mail to your MTA via SMTP. 
+Use "delivery mda /usr/local/bin/msmtp \-\-host=localhost \-\-from=\(aq%F\(aq
+\-\- $USER@`hostname`.`dnsdomainname`" to pass the mail to your MTA via SMTP. 
 (This is what fetchmail does by default.)
 .IP "delivery maildir \fIdirectory\fP"
 Deliver the mails to the given maildir directory. The directory must exist and 
@@ -387,8 +388,8 @@ filters.
 .IP "killsize (\fIoff\fP|\fIsize\fP)"
 Mails larger than the given size will be deleted (unless the \fBkeep\fP command
 is used, in which case they will just be skipped).
-The size argument must be zero or greater. If it is followed by a 'k' or 
-an 'm', the size is measured in kibibytes/mebibytes instead of bytes.
+The size argument must be zero or greater. If it is followed by a `k' or 
+an `m', the size is measured in kibibytes/mebibytes instead of bytes.
 Note that some POP3 servers report slightly incorrect sizes for mails; see
 \fBNOTES\fP below. 
 .br
@@ -397,8 +398,8 @@ marked as retrieved, but no mail gets deleted from the server. This can be used
 to synchronize the UID list on the client to the UID list on the server.
 .IP "skipsize (\fIoff\fP|\fIsize\fP)"
 Mails larger than the given size will be skipped (not downloaded).
-The size argument must be zero or greater. If it is followed by a 'k' or 
-an 'm', the size is measured in kibibytes/mebibytes instead of bytes.
+The size argument must be zero or greater. If it is followed by a `k' or 
+an `m', the size is measured in kibibytes/mebibytes instead of bytes.
 Note that some POP3 servers report slightly incorrect sizes for mails; see
 \fBNOTES\fP below. 
 .IP "filter [\fIcommand\fP]"
@@ -413,7 +414,7 @@ Note that this address is guaranteed to contain only letters a-z and A-Z,
 digits 0-9, and any of ".@_\-+/", even though that is only a subset of what is
 theoretically allowed in a mail address. Other characters, including those
 interpreted by the shell, are replaced with "_". Nevertheless, you should put
-%F into single quotes: '%F'.
+%F into single quotes: \(aq%F\(aq.
 .br
 All occurences of %S in the command will be replaced with the size of the 
 current mail as reported by the POP3 server.
@@ -467,15 +468,15 @@ tls_starttls off
 .br
 # Use the procmail mail delivery agent.
 .br
-delivery mda "/usr/bin/procmail \-f '%F' \-d $USER"
+delivery mda "/usr/bin/procmail \-f \(aq%F\(aq \-d $USER"
 .br
 # For Sendmail:
 .br
-#delivery mda "/usr/sbin/sendmail \-oi \-oem \-f '%F' \-\- $USER"
+#delivery mda "/usr/sbin/sendmail \-oi \-oem \-f \(aq%F\(aq \-\- $USER"
 .br
 # For msmtp (delivery via SMTP):
 .br
-#delivery mda "/usr/bin/msmtp \-\-host=localhost \-\-from='%F' \-\- $USER"
+#delivery mda "/usr/bin/msmtp \-\-host=localhost \-\-from=\(aq%F\(aq \-\- $USER"
 .br
 # Delivery to a maildir folder:
 .br
