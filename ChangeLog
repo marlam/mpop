@@ -1,4 +1,8 @@
 Version 1.0.20:
+- Fix Mac OS X Keychain support to use POP3 instead of SMTP passwords.
+- Update the documentation of keyring usage.
+- Add the mpop-gnome-tool.py script to manage Gnome Keyring passwords for
+  mpop. Thanks to Gaizka Villate and Emmanuel Bouthenot.
 - Fix single quotes in man page.
 - Add pt_BR translation, provided by Rudá Moura. Thanks!
 

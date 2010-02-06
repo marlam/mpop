@@ -319,7 +319,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
 	    	    strlen(user), user,
 	    	    0, (char *)NULL,
 	    	    0,
-	    	    kSecProtocolTypeSMTP,
+	    	    kSecProtocolTypePOP3,
 	    	    kSecAuthenticationTypeDefault,
 	    	    &password_length, &password_data,
 	    	    NULL) == noErr)

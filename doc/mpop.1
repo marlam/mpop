@@ -8,7 +8,7 @@
 .\" under the terms of the GNU Free Documentation License, Version 1.2 or
 .\" any later version published by the Free Software Foundation; with no
 .\" Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
-.TH MPOP 1 2009-09
+.TH MPOP 1 2010-02
 .SH NAME
 mpop \- A POP3 client 
 .SH SYNOPSIS
@@ -267,12 +267,16 @@ You probably need to set a username (with \fBuser\fP) and password (with
 If no password is set but one is needed during authentication, mpop will try to
 find it in ~/.netrc. If that fails, it will try to find it in SYSCONFDIR/netrc
 (use \fB\-\-version\fP to find out what SYSCONFDIR is on your platform). If that
-fails, it will try to get it from a system specific keychain (if available). If
+fails, it will try to get it from a system specific keyring (if available). If
 that fails but a controlling terminal is available, mpop will prompt you for
 it.
 .br
-Currently the only supported keychain is the Mac OS X keychain. See the EXAMPLES
-section below.
+Currently supported keyrings are the Gnome Keyring and the Mac OS X Keychain.
+The script \fBmpop-gnome-tool.py\fP can be used to manage Gnome Keyring
+passwords for mpop. To manage Mac OS X Keychain passwords, use the Keychain
+Access GUI application. The \fIaccount name\fP is same as the mpop \fBuser\fP
+argument. The \fIkeychain item name\fP is \fBpop3://<hostname>\fP where
+\fB<hostname>\fP matches the mpop \fBhost\fP argument.
 .br
 Available methods are \fIuser\fP, \fIapop\fP, \fIplain\fP, \fIlogin\fP,
 \fIcram\-md5\fP, \fIdigest\-md5\fP, \fIgssapi\fP, \fIexternal\fP, \fIlogin\fP,
@@ -589,25 +593,6 @@ Since the filter command is passed to a shell, you can also use this directly:
 .br
 .B filter if [\ "`grep\ "^X\-Spam\-Status: Yes"`" ]; then exit 1; else exit 0; fi
 
-.PP
-.B Using the Mac OS X Keychain
-.PP
-A Mac OS X user can store a password in a keychain item using the Keychain
-Access GUI application. The \fIaccount name\fP is simply the value of the
-msmtp \fBuser\fP argument. However, the \fIkeychain item name\fP is 
-\fBsmtp://<hostname>\fP where \fB<hostname>\fP matches the msmtp \fBhost\fP
-argument. Using \fBsmtp://\fP is needed so that the item is created of kind
-\fIinternet password\fP.  For example, selecting \fIFile\->Get Info\fP on a
-keychain item that corresponds to \fBhost smtp.freemail.example\fP and
-\fBuser joe.smith\fP will show:
-.br
-Name: smtp.freemail.example
-.br
-Kind: Internet password
-.br
-Account: joe.smith
-.br
-Where: smtp://smtp.freemail.example
 .SH FILES / ENVIRONMENT
 .IP "~/.mpoprc"
 Default configuration file.
