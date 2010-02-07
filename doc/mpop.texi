@@ -101,7 +101,7 @@ Supported features include:
 or a mail delivery agent (MDA)
 @item Very fast POP3 implementation, using command pipelining
 @item Authentication methods USER/PASS, APOP, PLAIN, LOGIN and CRAM-MD5 (and
-GSSAPI, DIGEST-MD5, and NTLM when GNU SASL is used)
+GSSAPI, SCRAM-SHA-1, DIGEST-MD5, and NTLM when GNU SASL is used)
 @item TLS encrypted connections (including server certificate verification and
 the possibility to send a client certificate)
 @item Support for Internationalized Domain Names (IDN)
@@ -186,8 +186,9 @@ disables it for all other servers. @xref{Pipelining}.
 This command chooses the POP3 authentication method. With the argument
 @samp{on}, mpop will choose the best one available for you (see below). This is
 the default.  Accepted methods are @samp{user}, @samp{apop}, @samp{plain}, 
-@samp{cram-md5}, @samp{digest-md5}, @samp{gssapi}, @samp{external}, 
-@samp{login}, and @samp{ntlm}. @xref{Authentication}.@*
+@samp{cram-md5}, @samp{digest-md5}, @samp{scram-sha-1}, @samp{gssapi},
+@samp{external}, @samp{login}, and @samp{ntlm}.
+@xref{Authentication}.@*
 @anchor{user}
 @item user [@var{username}]
 @cmindex user
@@ -787,6 +788,10 @@ safely be used without TLS.
 This authentication method needs a user name and a password. 
 The authentication data is not sent in plain text, which means this method can 
 safely be used without TLS.
+@item @samp{SCRAM-SHA-1}@*
+This authentication method needs a user name and a password.
+The authentication data is not sent in plain text, which means this method can
+safely be used without TLS.
 @item @samp{GSSAPI}@*
 This authentication method needs a user name. The Kerberos framework takes care
 of secure authentication, therefore this method can safely be used without TLS.
@@ -841,8 +846,9 @@ argument to let mpop choose the method itself. See @ref{auth}, @ref{--auth}.
 If mpop chooses the method itself, it will never choose an insecure method.
 If TLS is active, all methods are considered secure in this context, because the
 connection to the server is protected by TLS. If TLS is not active, only the
-CRAM-MD5, DIGEST-MD5, and GSSAPI methods are considered secure in this context,
-because all the others methods put the authentication data at risk.
+CRAM-MD5, DIGEST-MD5, SCRAM-SHA-1, and GSSAPI methods are considered secure in
+this context, because all the others methods put the authentication data at
+risk.
 
 If you really want to risk your authentication data, you have to force mpop to
 do that by manually setting the authentication method while TLS is off.

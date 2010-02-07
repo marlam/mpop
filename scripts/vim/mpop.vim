@@ -37,7 +37,7 @@ syn match mpopWrongOption /\<skipsize \(\d\+$\)\@!.*$/
 " Option timeout accepts off and numeric values.
 syn match mpopWrongOption /\<timeout \(off$\|\d\+$\)\@!.*$/
 " Option auth accepts on, off and the method.
-syn match mpopWrongOption /\<auth \(on$\|off$\|user$\|plain$\|cram-md5$\|digest-md5$\|gssapi$\|external$\|login$\|ntlm$\)\@!.*$/
+syn match mpopWrongOption /\<auth \(on$\|off$\|user$\|plain$\|cram-md5$\|digest-md5$\|scram-sha-1$\|gssapi$\|external$\|login$\|ntlm$\)\@!.*$/
 
 " Marks all wrong option values as errors.
 syn match mpopWrongOptionValue /\S* \zs.*$/ contained containedin=mpopWrongOption

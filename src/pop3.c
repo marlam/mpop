@@ -841,6 +841,10 @@ int pop3_capa(pop3_session_t *session, char **errstr)
                 {
                     session->cap.flags |= POP3_CAP_AUTH_DIGEST_MD5;
                 }
+                if (strstr(session->buffer + 5, "SCRAM-SHA-1"))
+                {
+                    session->cap.flags |= POP3_CAP_AUTH_SCRAM_SHA_1;
+                }
                 if (strstr(session->buffer + 5, "GSSAPI"))
                 {
                     session->cap.flags |= POP3_CAP_AUTH_GSSAPI;
@@ -2594,6 +2598,8 @@ int pop3_server_supports_authmech(pop3_session_t *session, const char *mech)
                 && strcmp(mech, "CRAM-MD5") == 0)
             || ((session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5)
                 && strcmp(mech, "DIGEST-MD5") == 0)
+            || ((session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1)
+                && strcmp(mech, "SCRAM-SHA-1") == 0)
             || ((session->cap.flags & POP3_CAP_AUTH_EXTERNAL)
                 && strcmp(mech, "EXTERNAL") == 0)
             || ((session->cap.flags & POP3_CAP_AUTH_GSSAPI)
@@ -2707,6 +2713,11 @@ int pop3_auth(pop3_session_t *session,
         {
             auth_mech = "GSSAPI";
         }
+        else if (gsasl_client_support_p(ctx, "SCRAM-SHA-1")
+                && (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1))
+        {
+            auth_mech = "SCRAM-SHA-1";
+        }
         else if (gsasl_client_support_p(ctx, "DIGEST-MD5")
                 && (session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5))
         {
@@ -2768,8 +2779,8 @@ int pop3_auth(pop3_session_t *session,
     /* Check availability of required authentication data */
     if (strcmp(auth_mech, "EXTERNAL") != 0)
     {
-        /* GSSAPI, DIGEST-MD5, CRAM-MD5, PLAIN, LOGIN, NTLM, USER, APOP all
-         * need a user name */
+        /* GSSAPI, SCRAM-SHA-1, DIGEST-MD5, CRAM-MD5, PLAIN, LOGIN, NTLM, USER,
+         * APOP all need a user name */
         if (!user)
         {
             gsasl_done(ctx);
@@ -2777,8 +2788,8 @@ int pop3_auth(pop3_session_t *session,
                     auth_mech);
             return POP3_EUNAVAIL;
         }
-        /* DIGEST-MD5, CRAM-MD5, PLAIN, LOGIN, NTLM, USER, APOP all need a
-         * password */
+        /* SCRAM-SHA-1, DIGEST-MD5, CRAM-MD5, PLAIN, LOGIN, NTLM, USER, APOP
+         * all need a password */
         if (strcmp(auth_mech, "GSSAPI") != 0 && !password)
         {
             if (!password_callback
@@ -2834,7 +2845,7 @@ int pop3_auth(pop3_session_t *session,
         gsasl_property_set(sctx, GSASL_PASSWORD, password);
     }
     free(callback_password);
-    /* For DIGEST-MD5 and GSSAPI */
+    /* For DIGEST-MD5 and GSSAPI (and SCRAM-SHA-1?) */
     gsasl_property_set(sctx, GSASL_SERVICE, "pop");
     if (hostname)
     {

@@ -744,6 +744,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
         printf("DIGEST-MD5 ");
     }
+    if (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1)
+    {
+        printf("SCRAM-SHA-1 ");
+    }
     if (session->cap.flags & POP3_CAP_AUTH_GSSAPI)
     {
         printf("GSSAPI ");
@@ -2230,6 +2234,10 @@ int main(int argc, char *argv[])
         if (pop3_client_supports_authmech("DIGEST-MD5"))
         {
             printf("digest-md5 ");
+        }
+        if (pop3_client_supports_authmech("SCRAM-SHA-1"))
+        {
+            printf("scram-sha-1 ");
         }
         if (pop3_client_supports_authmech("GSSAPI"))
         {
