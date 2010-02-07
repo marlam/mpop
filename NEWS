@@ -1,4 +1,6 @@
 Version 1.0.20:
+- The new command tls_fingerprint allows one to trust one particular TLS
+  certificate, in case tls_trust_file cannot be used for some reason.
 - The new script mpop-gnome-tool.py manages Gnome Keyring passwords for mpop.
 
 Version 1.0.19:

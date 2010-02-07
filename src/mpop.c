@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
@@ -370,36 +370,34 @@ void mpop_time_to_string(time_t *t, char *buf, size_t bufsize)
 #endif
 }
 
+void mpop_fingerprint_string(char *s, unsigned char *fingerprint, size_t len)
+{
+    const char *hex = "0123456789ABCDEF";
+    size_t i;
+
+    for (i = 0; i < len; i++)
+    {
+        s[3 * i + 0] = hex[(fingerprint[i] & 0xf0) >> 4];
+        s[3 * i + 1] = hex[fingerprint[i] & 0x0f];
+        s[3 * i + 2] = (i < len - 1 ? ':' : '\0');
+    }
+}
+
 void mpop_print_tls_cert_info(tls_cert_info_t *tci)
 {
     const char *info_fieldname[6] = { N_("Common Name"), N_("Organization"),
         N_("Organizational unit"), N_("Locality"), N_("State or Province"),
         N_("Country") };
-    char hex[] = "0123456789ABCDEF";
     char sha1_fingerprint_string[60];
     char md5_fingerprint_string[48];
     char timebuf[128];          /* should be long enough for every locale */
     char *tmp;
     int i;
 
-    for (i = 0; i < 20; i++)
-    {
-        sha1_fingerprint_string[3 * i] =
-            hex[(tci->sha1_fingerprint[i] & 0xf0) >> 4];
-        sha1_fingerprint_string[3 * i + 1] =
-            hex[tci->sha1_fingerprint[i] & 0x0f];
-        sha1_fingerprint_string[3 * i + 2] = ':';
-    }
-    sha1_fingerprint_string[59] = '\0';
-    for (i = 0; i < 16; i++)
-    {
-        md5_fingerprint_string[3 * i] =
-            hex[(tci->md5_fingerprint[i] & 0xf0) >> 4];
-        md5_fingerprint_string[3 * i + 1] =
-            hex[tci->md5_fingerprint[i] & 0x0f];
-        md5_fingerprint_string[3 * i + 2] = ':';
-    }
-    md5_fingerprint_string[47] = '\0';
+    mpop_fingerprint_string(sha1_fingerprint_string,
+            tci->sha1_fingerprint, 20);
+    mpop_fingerprint_string(md5_fingerprint_string,
+            tci->md5_fingerprint, 16);
 
     printf(_("TLS certificate information:\n"));
     printf("    %s:\n", _("Owner"));
@@ -503,6 +501,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
         tci = tls_cert_info_new();
         if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
                         acc->tls_trust_file, acc->tls_crl_file,
+                        acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
                         acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
                         acc->tls_priorities, errstr)) != TLS_EOK)
         {
@@ -963,6 +962,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     {
         if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
                         acc->tls_trust_file, acc->tls_crl_file,
+                        acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
                         acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
                         acc->tls_priorities, errstr)) != TLS_EOK)
         {
@@ -1602,17 +1602,18 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_TLS_STARTTLS                9
 #define LONGONLYOPT_TLS_TRUST_FILE              10
 #define LONGONLYOPT_TLS_CRL_FILE                11
-#define LONGONLYOPT_TLS_KEY_FILE                12
-#define LONGONLYOPT_TLS_CERT_FILE               13
-#define LONGONLYOPT_TLS_CERTCHECK               14
-#define LONGONLYOPT_TLS_FORCE_SSLV3             15
-#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       16
-#define LONGONLYOPT_TLS_PRIORITIES              17
-#define LONGONLYOPT_KILLSIZE                    18
-#define LONGONLYOPT_SKIPSIZE                    19
-#define LONGONLYOPT_FILTER                      20
-#define LONGONLYOPT_DELIVERY                    21
-#define LONGONLYOPT_UIDLS_FILE                  22
+#define LONGONLYOPT_TLS_FINGERPRINT             12
+#define LONGONLYOPT_TLS_KEY_FILE                13
+#define LONGONLYOPT_TLS_CERT_FILE               14
+#define LONGONLYOPT_TLS_CERTCHECK               15
+#define LONGONLYOPT_TLS_FORCE_SSLV3             16
+#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       17
+#define LONGONLYOPT_TLS_PRIORITIES              18
+#define LONGONLYOPT_KILLSIZE                    19
+#define LONGONLYOPT_SKIPSIZE                    20
+#define LONGONLYOPT_FILTER                      21
+#define LONGONLYOPT_DELIVERY                    22
+#define LONGONLYOPT_UIDLS_FILE                  23
 
 int main(int argc, char *argv[])
 {
@@ -1698,6 +1699,8 @@ int main(int argc, char *argv[])
             LONGONLYOPT_TLS_TRUST_FILE },
         { "tls-crl-file",          required_argument, 0,
             LONGONLYOPT_TLS_CRL_FILE },
+        { "tls-fingerprint",       required_argument, 0,
+            LONGONLYOPT_TLS_FINGERPRINT },
         { "tls-key-file",          required_argument, 0,
             LONGONLYOPT_TLS_KEY_FILE },
         { "tls-cert-file",         required_argument, 0,
@@ -1942,6 +1945,34 @@ int main(int argc, char *argv[])
                 cmdline_account->tls_crl_file = (*optarg == '\0')
                     ? NULL : expand_tilde(optarg);
                 cmdline_account->mask |= ACC_TLS_CRL_FILE;
+                break;
+
+            case LONGONLYOPT_TLS_FINGERPRINT:
+                free(cmdline_account->tls_sha1_fingerprint);
+                cmdline_account->tls_sha1_fingerprint = NULL;
+                free(cmdline_account->tls_md5_fingerprint);
+                cmdline_account->tls_md5_fingerprint = NULL;
+                if (*optarg)
+                {
+                    if (strlen(optarg) == 2 * 20 + 19)
+                    {
+                        cmdline_account->tls_sha1_fingerprint =
+                            get_fingerprint(optarg, 20);
+                    }
+                    else if (strlen(optarg) == 2 * 16 + 15)
+                    {
+                        cmdline_account->tls_md5_fingerprint =
+                            get_fingerprint(optarg, 16);
+                    }
+                    if (!cmdline_account->tls_sha1_fingerprint
+                            && !cmdline_account->tls_md5_fingerprint)
+                    {
+                        print_error(_("invalid argument %s for %s"),
+                                optarg, "--tls-fingerprint");
+                        error_code = 1;
+                    }
+                }
+                cmdline_account->mask |= ACC_TLS_FINGERPRINT;
                 break;
 
             case LONGONLYOPT_TLS_KEY_FILE:
@@ -2296,6 +2327,9 @@ int main(int argc, char *argv[])
                 "  --tls-trust-file=[file]      Set/unset trust file for TLS.\n"
                 "  --tls-crl-file=[file]        Set/unset revocation file for "
                         "TLS.\n"
+                "  --tls-fingerprint=[f]        Set/unset trusted certificate "
+                        "fingerprint for\n"
+                "                               TLS.\n"
                 "  --tls-key-file=[file]        Set/unset private key file for "
                         "TLS.\n"
                 "  --tls-cert-file=[file]       Set/unset private cert file "
@@ -2458,6 +2492,8 @@ int main(int argc, char *argv[])
     /* print configuration */
     if (print_conf)
     {
+        char fingerprint_string[2 * 20 + 19 + 1];
+
         lp = account_list;
         while (!list_is_empty(lp))
         {
@@ -2500,6 +2536,16 @@ int main(int argc, char *argv[])
             {
                 printf("%s\n", account->auth_mech);
             }
+            if (account->tls_sha1_fingerprint)
+            {
+                mpop_fingerprint_string(fingerprint_string,
+                        account->tls_sha1_fingerprint, 20);
+            }
+            else if (account->tls_md5_fingerprint)
+            {
+                mpop_fingerprint_string(fingerprint_string,
+                        account->tls_md5_fingerprint, 16);
+            }
             printf("user                  = %s\n"
                     "password              = %s\n"
                     "ntlmdomain            = %s\n"
@@ -2507,6 +2553,7 @@ int main(int argc, char *argv[])
                     "tls_starttls          = %s\n"
                     "tls_trust_file        = %s\n"
                     "tls_crl_file          = %s\n"
+                    "tls_fingerprint       = %s\n"
                     "tls_key_file          = %s\n"
                     "tls_cert_file         = %s\n"
                     "tls_certcheck         = %s\n"
@@ -2520,6 +2567,9 @@ int main(int argc, char *argv[])
                         account->tls_trust_file : _("(not set)"),
                     account->tls_crl_file ?
                         account->tls_crl_file : _("(not set)"),
+                    account->tls_sha1_fingerprint
+                        || account->tls_md5_fingerprint
+                        ? fingerprint_string : _("(not set)"),
                     account->tls_key_file ?
                         account->tls_key_file : _("(not set)"),
                     account->tls_cert_file ?

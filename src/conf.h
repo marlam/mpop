@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -60,11 +60,12 @@
 #define ACC_TLS_CERT_FILE               (1 << 17)
 #define ACC_TLS_TRUST_FILE              (1 << 18)
 #define ACC_TLS_CRL_FILE                (1 << 19)
-#define ACC_TLS_NOCERTCHECK             (1 << 20)
-#define ACC_TLS_NOSTARTTLS              (1 << 21)
-#define ACC_TLS_FORCE_SSLV3             (1 << 22)
-#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 23)
-#define ACC_TLS_PRIORITIES              (1 << 24)
+#define ACC_TLS_FINGERPRINT             (1 << 20)
+#define ACC_TLS_NOCERTCHECK             (1 << 21)
+#define ACC_TLS_NOSTARTTLS              (1 << 22)
+#define ACC_TLS_FORCE_SSLV3             (1 << 23)
+#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 24)
+#define ACC_TLS_PRIORITIES              (1 << 25)
 
 typedef struct
 {
@@ -102,6 +103,8 @@ typedef struct
     char *tls_cert_file;        /* file in PEM format */
     char *tls_trust_file;       /* file in PEM format */
     char *tls_crl_file;         /* file in PEM format */
+    unsigned char *tls_sha1_fingerprint; /* certificate fingerprint */
+    unsigned char *tls_md5_fingerprint;  /* certificate fingerprint */
     int tls_nocertcheck;        /* flag: do not check certificate? */
     int tls_force_sslv3;        /* flag: force SSLv3? */
     int tls_min_dh_prime_bits;  /* parameter; -1 for default */
@@ -149,6 +152,14 @@ account_t *find_account(list_t *acc_list, const char *id);
  */
 int is_on(char *s);
 int is_off(char *s);
+
+/*
+ * get_fingerprint()
+ *
+ * Gets a fingerprint of the given length and returns it in an allocated array.
+ * Returns NULL on error.
+ */
+unsigned char *get_fingerprint(const char *arg, size_t len);
 
 /*
  * check_auth_arg()

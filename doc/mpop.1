@@ -2,7 +2,7 @@
 .\"
 .\" mpop version 1.0.19
 .\"
-.\" Copyright (C) 2005, 2006, 2007, 2008, 2009  Martin Lambers
+.\" Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010  Martin Lambers
 .\"
 .\" Permission is granted to copy, distribute and/or modify this document
 .\" under the terms of the GNU Free Documentation License, Version 1.2 or
@@ -102,6 +102,9 @@ command below.
 .IP "\-\-tls\-crl\-file=[\fIfile\fP]"
 Set or unset a certificate revocation list (CRL) file for TLS. See the
 \fBtls_crl_file\fP command below.
+.IP "\-\-tls\-fingerprint=[\fIfingerprint\fP]"
+Set ot unset the fingerprint of a trusted TLS certificate. See the
+\fBtls_fingerprint\fP command below.
 .IP "\-\-tls\-key\-file=[\fIfile\fP]"
 Set or unset a key file for TLS encryption. See the \fBtls_key_file\fP command
 below.
@@ -340,6 +343,17 @@ On Debian based systems, you can install the \fBca\-certificates\fP package and
 use the file \fB/etc/ssl/certs/ca\-certificates.crt\fP.
 .br
 An empty argument disables this feature.
+.IP "tls_fingerprint [\fIfingerprint\fP]"
+This command sets or unsets the fingerprint of a particular TLS certificate.
+This certificate will then be trusted, regardless of its contents. This can be
+used to trust broken certificates (e.g. with a non-matching hostname) or in
+situations where \fBtls_trust_file\fP cannot be used for some reason.
+.br
+You can give either an SHA1 (recommended) or an MD5 fingerprint in the format
+01:23:45:67:...
+.br
+You can use \fB\-\-serverinfo \-\-tls \-\-tls\-certcheck=off\fP to get the peer
+certificate's fingerprints.
 .IP "tls_crl_file [\fIfile\fP]"
 This command sets or unsets a certificate revocation list (CRL) file for TLS,
 to be used during strict server certificate verification as enabled by the
