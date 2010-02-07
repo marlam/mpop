@@ -26,7 +26,7 @@
 #include <stdio.h>
 
 
-/* 
+/*
  * Explanation of the available delivery methods:
  *
  * DELIVERY_METHOD_MDA:
@@ -54,9 +54,9 @@
  *   This method is special. It behaves like DELIVERY_METHOD_MDA, with to
  *   exceptions:
  *   1. In addition to %F-replacement, every occurence of %S in the data
- *      argument will be replaced with the size of the current mail as reporte 
+ *      argument will be replaced with the size of the current mail as reporte
  *      by the POP3 server.
- *   2. The close function does not return a DELIVERY_* exit code, but one of 
+ *   2. The close function does not return a DELIVERY_* exit code, but one of
  *      the following:
  *      0: filter command executed successfully and returned 0
  *      1: filter command executed successfully and returned 1
@@ -68,22 +68,22 @@
 
 /*
  * If a function with an 'errstr' argument returns a value != DELIVERY_EOK,
- * '*errstr' either points to an allocates string containing an error 
+ * '*errstr' either points to an allocates string containing an error
  * description or is NULL.
  * If such a function returns DELIVERY_EOK, 'errstr' will not be changed.
  */
-#define DELIVERY_EOK		0	/* no error */
-#define DELIVERY_EIO		1	/* input/output error */
-#define DELIVERY_EUNKNOWN	2	/* unknown error */
+#define DELIVERY_EOK            0       /* no error */
+#define DELIVERY_EIO            1       /* input/output error */
+#define DELIVERY_EUNKNOWN       2       /* unknown error */
 
 /* These delivery methods are supported: */
-#define DELIVERY_METHOD_MDA		0 /* pipe to a mail delivery agent */
-#define DELIVERY_METHOD_MAILDIR		1 /* write to a file in mbox format */
-#define DELIVERY_METHOD_MBOX		2 /* write to a file in mbox format */
-#define DELIVERY_METHOD_EXCHANGE	3 /* delivery into MS Exchange pickup
-					     directory */
-#define DELIVERY_METHOD_FILTER		4 /* a special case of METHOD_MDA
-					     that is used for filtering. */
+#define DELIVERY_METHOD_MDA             0 /* pipe to a mail delivery agent */
+#define DELIVERY_METHOD_MAILDIR         1 /* write to a file in mbox format */
+#define DELIVERY_METHOD_MBOX            2 /* write to a file in mbox format */
+#define DELIVERY_METHOD_EXCHANGE        3 /* delivery into MS Exchange pickup
+                                             directory */
+#define DELIVERY_METHOD_FILTER          4 /* a special case of METHOD_MDA
+                                             that is used for filtering. */
 
 typedef struct _delivery_method
 {
@@ -91,11 +91,11 @@ typedef struct _delivery_method
     int method;
     /* Arbitrary data that a method can use: */
     void *data;
-    
-    /* 
+
+    /*
      * The following members are used by the caller.
      */
-    
+
     /* The pipe that the data is written to: */
     FILE *pipe;
     /* Whether this method wants the mail's envelope from address: */
@@ -113,8 +113,8 @@ typedef struct _delivery_method
      * NULL. If 'want_size' is set, then 'size' should contain the size of the
      * mail as reported by the POP3 server. If 'want_size' is not set, 'size' is
      * ignored. */
-    int (*open)(struct _delivery_method *dm, const char *from, long long size, 
-	    char **errstr);
+    int (*open)(struct _delivery_method *dm, const char *from, long long size,
+            char **errstr);
     /* Close 'pipe' after a mail was written to 'pipe': */
     int (*close)(struct _delivery_method *dm, char **errstr);
 } delivery_method_t;

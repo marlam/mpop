@@ -77,20 +77,20 @@ extern int optind;
 
 /* Default file names. */
 #ifdef W32_NATIVE
-#define CONFFILE	"mpoprc.txt"
-#define UIDLSFILE	"mpop_uidls\\%U_at_%H.txt"
-#define USERNETRCFILE	"netrc.txt"
-#define SYSNETRCFILE	"netrc.txt"
+#define CONFFILE        "mpoprc.txt"
+#define UIDLSFILE       "mpop_uidls\\%U_at_%H.txt"
+#define USERNETRCFILE   "netrc.txt"
+#define SYSNETRCFILE    "netrc.txt"
 #elif defined (DJGPP)
-#define CONFFILE	"_mpoprc"
-#define UIDLSFILE	"_uidls"
-#define USERNETRCFILE	"_netrc"
-#define SYSNETRCFILE	"netrc"
+#define CONFFILE        "_mpoprc"
+#define UIDLSFILE       "_uidls"
+#define USERNETRCFILE   "_netrc"
+#define SYSNETRCFILE    "netrc"
 #else /* UNIX */
-#define CONFFILE	".mpoprc"
-#define UIDLSFILE	".mpop_uidls/%U_at_%H"
-#define USERNETRCFILE	".netrc"
-#define SYSNETRCFILE	"netrc"
+#define CONFFILE        ".mpoprc"
+#define UIDLSFILE       ".mpop_uidls/%U_at_%H"
+#define USERNETRCFILE   ".netrc"
+#define SYSNETRCFILE    "netrc"
 #endif
 
 
@@ -98,7 +98,7 @@ extern int optind;
 const char *prgname;
 
 
-/* 
+/*
  * Die if memory allocation fails
  */
 
@@ -118,21 +118,21 @@ int exitcode_net(int net_error_code)
 {
     switch (net_error_code)
     {
-	case NET_EHOSTNOTFOUND:
-	    return EX_NOHOST;
+        case NET_EHOSTNOTFOUND:
+            return EX_NOHOST;
 
-	case NET_ESOCKET:
-	    return EX_OSERR;
+        case NET_ESOCKET:
+            return EX_OSERR;
 
-	case NET_ECONNECT:
-	    return EX_TEMPFAIL;	    
+        case NET_ECONNECT:
+            return EX_TEMPFAIL;
 
-	case NET_EIO:
-	    return EX_IOERR;
-	    
-	case NET_ELIBFAILED:
-	default:
-	    return EX_SOFTWARE;
+        case NET_EIO:
+            return EX_IOERR;
+
+        case NET_ELIBFAILED:
+        default:
+            return EX_SOFTWARE;
     }
 }
 
@@ -141,23 +141,23 @@ int exitcode_tls(int tls_error_code)
 {
     switch (tls_error_code)
     {
-	case TLS_EIO:
-	    return EX_IOERR;
+        case TLS_EIO:
+            return EX_IOERR;
 
-	case TLS_EFILE:
-	    return EX_NOINPUT;
+        case TLS_EFILE:
+            return EX_NOINPUT;
 
-	case TLS_EHANDSHAKE:
-	    return EX_PROTOCOL;
+        case TLS_EHANDSHAKE:
+            return EX_PROTOCOL;
 
-	case TLS_ECERT:
-	    /* did not find anything better... */
-	    return EX_UNAVAILABLE;
+        case TLS_ECERT:
+            /* did not find anything better... */
+            return EX_UNAVAILABLE;
 
-	case TLS_ELIBFAILED:
-	case TLS_ESEED:
-	default:
-	    return EX_SOFTWARE;
+        case TLS_ELIBFAILED:
+        case TLS_ESEED:
+        default:
+            return EX_SOFTWARE;
     }
 }
 #endif /* HAVE_TLS */
@@ -166,26 +166,26 @@ int exitcode_pop3(int pop3_error_code)
 {
     switch (pop3_error_code)
     {
-	case POP3_EIO:
-	case POP3_EDELIVERY:
-	    return EX_IOERR;
+        case POP3_EIO:
+        case POP3_EDELIVERY:
+            return EX_IOERR;
 
-	case POP3_EPROTO:
-	    return EX_PROTOCOL;
+        case POP3_EPROTO:
+            return EX_PROTOCOL;
 
-	case POP3_EINVAL:
-	    return EX_DATAERR;
+        case POP3_EINVAL:
+            return EX_DATAERR;
 
-	case POP3_EAUTHFAIL:
-	    return EX_NOPERM;
+        case POP3_EAUTHFAIL:
+            return EX_NOPERM;
 
-	case POP3_EINSECURE:
-	case POP3_EUNAVAIL:
-	    return EX_UNAVAILABLE;
+        case POP3_EINSECURE:
+        case POP3_EUNAVAIL:
+            return EX_UNAVAILABLE;
 
-	case POP3_ELIBFAILED:
-	default:
-	    return EX_SOFTWARE;
+        case POP3_ELIBFAILED:
+        default:
+            return EX_SOFTWARE;
     }
 }
 
@@ -193,18 +193,18 @@ int exitcode_uidls(int uidls_error_code)
 {
     switch (uidls_error_code)
     {
-	case UIDLS_EIO:
-	    return EX_IOERR;
-		
-	case UIDLS_EFORMAT:
-    	    return EX_DATAERR;
+        case UIDLS_EIO:
+            return EX_IOERR;
 
-	default:
-	    return EX_SOFTWARE;
+        case UIDLS_EFORMAT:
+            return EX_DATAERR;
+
+        default:
+            return EX_SOFTWARE;
     }
 }
 
-    
+
 /*
  * mpop_sanitize_string()
  *
@@ -214,14 +214,14 @@ int exitcode_uidls(int uidls_error_code)
 char *mpop_sanitize_string(char *str)
 {
     char *p = str;
-    
+
     while (*p != '\0')
     {
-	if (iscntrl((unsigned char)*p))
-	{
-    	    *p = '?';
-	}
-	p++;
+        if (iscntrl((unsigned char)*p))
+        {
+            *p = '?';
+        }
+        p++;
     }
 
     return str;
@@ -232,8 +232,8 @@ char *mpop_sanitize_string(char *str)
  * mpop_password_callback()
  *
  * This function will be called by pop3_auth() to get a password if none was
- * given. It tries to read a password from .netrc. If that fails, it tries to 
- * get it from the system's keychain (if available). If that fails, it reads a 
+ * given. It tries to read a password from .netrc. If that fails, it tries to
+ * get it from the system's keychain (if available). If that fails, it reads a
  * password with getpass().
  * It must return NULL on failure or a password in an allocated buffer.
  */
@@ -263,90 +263,90 @@ char *mpop_password_callback(const char *hostname, const char *user)
     free(netrc_directory);
     if ((netrc_hostlist = parse_netrc(netrc_filename)))
     {
-	if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
-	{
-	    password = xstrdup(netrc_host->password);
-	}
-	free_netrc_entry_list(netrc_hostlist);
+        if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
+        {
+            password = xstrdup(netrc_host->password);
+        }
+        free_netrc_entry_list(netrc_hostlist);
     }
     free(netrc_filename);
 
     if (!password)
     {
-	netrc_directory = get_sysconfdir();
-	netrc_filename = get_filename(netrc_directory, SYSNETRCFILE);
-	free(netrc_directory);
-	if ((netrc_hostlist = parse_netrc(netrc_filename)))
-	{
-	    if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
-	    {
-		password = xstrdup(netrc_host->password);
-	    }
-	    free_netrc_entry_list(netrc_hostlist);
-	}
-	free(netrc_filename);
+        netrc_directory = get_sysconfdir();
+        netrc_filename = get_filename(netrc_directory, SYSNETRCFILE);
+        free(netrc_directory);
+        if ((netrc_hostlist = parse_netrc(netrc_filename)))
+        {
+            if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
+            {
+                password = xstrdup(netrc_host->password);
+            }
+            free_netrc_entry_list(netrc_hostlist);
+        }
+        free(netrc_filename);
     }
 
 #ifdef HAVE_GNOMEKEYRING
     if (!password)
     {
-    	g_set_application_name(PACKAGE);
-    	if (gnome_keyring_find_network_password_sync(
-		    user,     /* user */
-		    NULL,     /* domain */
-		    hostname, /* server */
-		    NULL,     /* object */
-		    protocol, /* protocol */
-		    NULL,     /* authtype */
-		    0,        /* port */
-		    &found_list) == GNOME_KEYRING_RESULT_OK)
-	{
-	    found = (GnomeKeyringNetworkPasswordData *) found_list->data;
-	    if (found->password)
-		password = g_strdup(found->password);
-	}
-	gnome_keyring_network_password_list_free(found_list);
+        g_set_application_name(PACKAGE);
+        if (gnome_keyring_find_network_password_sync(
+                    user,     /* user */
+                    NULL,     /* domain */
+                    hostname, /* server */
+                    NULL,     /* object */
+                    protocol, /* protocol */
+                    NULL,     /* authtype */
+                    0,        /* port */
+                    &found_list) == GNOME_KEYRING_RESULT_OK)
+        {
+            found = (GnomeKeyringNetworkPasswordData *) found_list->data;
+            if (found->password)
+                password = g_strdup(found->password);
+        }
+        gnome_keyring_network_password_list_free(found_list);
     }
 #endif /* HAVE_GNOMEKEYRING */
 
 #ifdef HAVE_MACOSXKEYRING
     if (!password)
     {
-	if (SecKeychainFindInternetPassword(
-	    	    NULL,
-	    	    strlen(hostname), hostname,
-	    	    0, NULL,
-	    	    strlen(user), user,
-	    	    0, (char *)NULL,
-	    	    0,
-	    	    kSecProtocolTypePOP3,
-	    	    kSecAuthenticationTypeDefault,
-	    	    &password_length, &password_data,
-	    	    NULL) == noErr)
-	{
-	    password = xmalloc((password_length + 1) * sizeof(char));
-	    strncpy(password, password_data, (size_t)password_length);
-	    password[password_length] = '\0';
-	    SecKeychainItemFreeContent(NULL, password_data);
-	}
+        if (SecKeychainFindInternetPassword(
+                    NULL,
+                    strlen(hostname), hostname,
+                    0, NULL,
+                    strlen(user), user,
+                    0, (char *)NULL,
+                    0,
+                    kSecProtocolTypePOP3,
+                    kSecAuthenticationTypeDefault,
+                    &password_length, &password_data,
+                    NULL) == noErr)
+        {
+            password = xmalloc((password_length + 1) * sizeof(char));
+            strncpy(password, password_data, (size_t)password_length);
+            password[password_length] = '\0';
+            SecKeychainItemFreeContent(NULL, password_data);
+        }
     }
 #endif /* HAVE_MACOSXKEYRING */
-    
+
     if (!password)
     {
-	prompt = xasprintf(_("password for %s at %s: "), user, hostname);
-	gpw = getpass(prompt);
-	free(prompt);
-	if (gpw)
-	{
-	    password = xstrdup(gpw);
-	}
+        prompt = xasprintf(_("password for %s at %s: "), user, hostname);
+        gpw = getpass(prompt);
+        free(prompt);
+        if (gpw)
+        {
+            password = xstrdup(gpw);
+        }
     }
 
     return password;
 }
-			    
-			    
+
+
 /*
  * mpop_print_tls_cert_info()
  *
@@ -361,68 +361,68 @@ void mpop_time_to_string(time_t *t, char *buf, size_t bufsize)
     (void)strftime(buf, bufsize, "%c", localtime(t));
 #else
     char *p;
-    
+
     (void)snprintf(buf, bufsize, "%s", ctime(t));
     if ((p = strchr(buf, '\n')))
     {
-	*p = '\0';
+        *p = '\0';
     }
 #endif
 }
 
 void mpop_print_tls_cert_info(tls_cert_info_t *tci)
 {
-    const char *info_fieldname[6] = { N_("Common Name"), N_("Organization"), 
-	N_("Organizational unit"), N_("Locality"), N_("State or Province"), 
-	N_("Country") };
+    const char *info_fieldname[6] = { N_("Common Name"), N_("Organization"),
+        N_("Organizational unit"), N_("Locality"), N_("State or Province"),
+        N_("Country") };
     char hex[] = "0123456789ABCDEF";
     char sha1_fingerprint_string[60];
     char md5_fingerprint_string[48];
-    char timebuf[128];		/* should be long enough for every locale */
+    char timebuf[128];          /* should be long enough for every locale */
     char *tmp;
     int i;
-    
+
     for (i = 0; i < 20; i++)
     {
-	sha1_fingerprint_string[3 * i] = 
-	    hex[(tci->sha1_fingerprint[i] & 0xf0) >> 4];
-	sha1_fingerprint_string[3 * i + 1] = 
-	    hex[tci->sha1_fingerprint[i] & 0x0f];
-	sha1_fingerprint_string[3 * i + 2] = ':';
+        sha1_fingerprint_string[3 * i] =
+            hex[(tci->sha1_fingerprint[i] & 0xf0) >> 4];
+        sha1_fingerprint_string[3 * i + 1] =
+            hex[tci->sha1_fingerprint[i] & 0x0f];
+        sha1_fingerprint_string[3 * i + 2] = ':';
     }
     sha1_fingerprint_string[59] = '\0';
     for (i = 0; i < 16; i++)
     {
-	md5_fingerprint_string[3 * i] = 
-	    hex[(tci->md5_fingerprint[i] & 0xf0) >> 4];
-	md5_fingerprint_string[3 * i + 1] = 
-	    hex[tci->md5_fingerprint[i] & 0x0f];
-	md5_fingerprint_string[3 * i + 2] = ':';
+        md5_fingerprint_string[3 * i] =
+            hex[(tci->md5_fingerprint[i] & 0xf0) >> 4];
+        md5_fingerprint_string[3 * i + 1] =
+            hex[tci->md5_fingerprint[i] & 0x0f];
+        md5_fingerprint_string[3 * i + 2] = ':';
     }
     md5_fingerprint_string[47] = '\0';
-    
+
     printf(_("TLS certificate information:\n"));
     printf("    %s:\n", _("Owner"));
     for (i = 0; i < 6; i++)
     {
-	if (tci->owner_info[i])
-	{
-	    tmp = xstrdup(tci->owner_info[i]);
-	    printf("        %s: %s\n", gettext(info_fieldname[i]), 
-		    mpop_sanitize_string(tmp));
-	    free(tmp);
-	}
+        if (tci->owner_info[i])
+        {
+            tmp = xstrdup(tci->owner_info[i]);
+            printf("        %s: %s\n", gettext(info_fieldname[i]),
+                    mpop_sanitize_string(tmp));
+            free(tmp);
+        }
     }
     printf("    %s:\n", _("Issuer"));
     for (i = 0; i < 6; i++)
     {
-	if (tci->issuer_info[i])
-	{
-	    tmp = xstrdup(tci->issuer_info[i]);
-	    printf("        %s: %s\n", gettext(info_fieldname[i]), 
-		    mpop_sanitize_string(tmp));
-	    free(tmp);
-	}
+        if (tci->issuer_info[i])
+        {
+            tmp = xstrdup(tci->issuer_info[i]);
+            printf("        %s: %s\n", gettext(info_fieldname[i]),
+                    mpop_sanitize_string(tmp));
+            free(tmp);
+        }
     }
     printf("    %s:\n", _("Validity"));
     mpop_time_to_string(&tci->activation_time, timebuf, sizeof(timebuf));
@@ -448,12 +448,12 @@ void mpop_endsession(pop3_session_t *session, int quit)
 {
     char *errmsg = NULL;
     char *errstr = NULL;
-    
+
     if (quit)
     {
-	(void)pop3_quit(session, &errmsg, &errstr);
-	free(errmsg);
-	free(errstr);
+        (void)pop3_quit(session, &errmsg, &errstr);
+        free(errmsg);
+        free(errstr);
     }
     pop3_close(session);
     pop3_session_free(session);
@@ -465,7 +465,7 @@ void mpop_endsession(pop3_session_t *session, int quit)
  *
  * Prints information about the POP3 server specified in the account 'acc'.
  * If an error occured, '*errstr' points to an allocated string that descibes
- * the error or is NULL, and '*errmsg' points to the offending messages from 
+ * the error or is NULL, and '*errmsg' points to the offending messages from
  * the POP3 server or is NULL.
  */
 
@@ -480,36 +480,36 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     const char *server_address;
     int auth_successful;
     int e;
-    
-    
+
+
     /* Create a new pop3_server_t. We won't actually retrieve any mail, so the
      * FQDN and the local user are meaningless. */
     session = pop3_session_new(acc->pipelining, "", "", debug ? stdout : NULL);
 
     /* connect */
-    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout, 
-		    &server_canonical_name, &server_address, errstr)) 
-	    != NET_EOK)
+    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout,
+                    &server_canonical_name, &server_address, errstr))
+            != NET_EOK)
     {
-	pop3_session_free(session);
-	e = exitcode_net(e);
-	goto error_exit;
+        pop3_session_free(session);
+        e = exitcode_net(e);
+        goto error_exit;
     }
 
     /* prepare tls */
 #ifdef HAVE_TLS
     if (acc->tls)
     {
-	tci = tls_cert_info_new();
-	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
-			acc->tls_trust_file, acc->tls_crl_file,
-			acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
-			acc->tls_priorities, errstr)) != TLS_EOK)
-	{
-	    pop3_session_free(session);
-	    e = exitcode_tls(e);
-	    goto error_exit;
-	}
+        tci = tls_cert_info_new();
+        if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
+                        acc->tls_trust_file, acc->tls_crl_file,
+                        acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
+                        acc->tls_priorities, errstr)) != TLS_EOK)
+        {
+            pop3_session_free(session);
+            e = exitcode_tls(e);
+            goto error_exit;
+        }
     }
 #endif /* HAVE_TLS */
 
@@ -517,262 +517,262 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 #ifdef HAVE_TLS
     if (acc->tls && acc->tls_nostarttls)
     {
-	if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci, 
-			errstr)) != TLS_EOK)
-	{
-	    mpop_endsession(session, 0);
-	    e = exitcode_tls(e);
-	    goto error_exit;
-	}
+        if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
+                        errstr)) != TLS_EOK)
+        {
+            mpop_endsession(session, 0);
+            e = exitcode_tls(e);
+            goto error_exit;
+        }
     }
 #endif /* HAVE_TLS */
 
     /* get greeting */
     if ((e = pop3_get_greeting(session, server_greeting, errmsg, errstr))
-	    != POP3_EOK)
+            != POP3_EOK)
     {
-	mpop_endsession(session, 0);
-	e = exitcode_pop3(e);
-	goto error_exit;
+        mpop_endsession(session, 0);
+        e = exitcode_pop3(e);
+        goto error_exit;
     }
 
     /* get server capabilities the first time */
     if ((e = pop3_capa(session, errstr)) != POP3_EOK)
     {
-	mpop_endsession(session, 0);
-	e = exitcode_pop3(e);
-	goto error_exit;
+        mpop_endsession(session, 0);
+        e = exitcode_pop3(e);
+        goto error_exit;
     }
-    
+
     /* start tls for starttls servers */
 #ifdef HAVE_TLS
     if (acc->tls && !acc->tls_nostarttls)
     {
-	if ((session->cap.flags & POP3_CAP_CAPA) 
-		&& !(session->cap.flags & POP3_CAP_STLS))
-	{
-	    *errstr = xasprintf(_("the POP3 server does not support TLS "
-    			"via the STLS command"));
-	    mpop_endsession(session, 0);
-	    e = EX_UNAVAILABLE;
-	    goto error_exit;
-	}
-	if ((e = pop3_tls_stls(session, errmsg, errstr)) != POP3_EOK)
-	{
-	    mpop_endsession(session, 0);
-	    e = exitcode_pop3(e);
-	    goto error_exit;
-	}
-	if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci, 
-			errstr)) != TLS_EOK)
-	{
-	    mpop_endsession(session, 0);
-	    e = exitcode_tls(e);
-	    goto error_exit;
-	}
-	/* get capabilities again */
-	if ((session->cap.flags & POP3_CAP_CAPA) 
-		&& (e = pop3_capa(session, errstr)) != POP3_EOK)
-	{
-	    mpop_endsession(session, 0);
-	    e = exitcode_pop3(e);
-	    goto error_exit;
-	}
+        if ((session->cap.flags & POP3_CAP_CAPA)
+                && !(session->cap.flags & POP3_CAP_STLS))
+        {
+            *errstr = xasprintf(_("the POP3 server does not support TLS "
+                        "via the STLS command"));
+            mpop_endsession(session, 0);
+            e = EX_UNAVAILABLE;
+            goto error_exit;
+        }
+        if ((e = pop3_tls_stls(session, errmsg, errstr)) != POP3_EOK)
+        {
+            mpop_endsession(session, 0);
+            e = exitcode_pop3(e);
+            goto error_exit;
+        }
+        if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
+                        errstr)) != TLS_EOK)
+        {
+            mpop_endsession(session, 0);
+            e = exitcode_tls(e);
+            goto error_exit;
+        }
+        /* get capabilities again */
+        if ((session->cap.flags & POP3_CAP_CAPA)
+                && (e = pop3_capa(session, errstr)) != POP3_EOK)
+        {
+            mpop_endsession(session, 0);
+            e = exitcode_pop3(e);
+            goto error_exit;
+        }
     }
 #endif /* HAVE_TLS */
 
     /* authenticate */
     auth_successful = 0;
-    if ((e = pop3_auth(session, acc->auth_mech, acc->username, 
-		    acc->password, acc->host, acc->ntlmdomain, 
-		    mpop_password_callback, errmsg, errstr))
-	    != POP3_EOK)
+    if ((e = pop3_auth(session, acc->auth_mech, acc->username,
+                    acc->password, acc->host, acc->ntlmdomain,
+                    mpop_password_callback, errmsg, errstr))
+            != POP3_EOK)
     {
-	if (e == POP3_EIO || e == POP3_EINVAL || e == POP3_EPROTO 
-		|| e == POP3_ELIBFAILED)
-	{
-	    mpop_endsession(session, 0);
-	    e = exitcode_pop3(e);
-	    goto error_exit;
-	}
-	/* ignore other errors, but later print a message about it */
-	free(*errstr);
-	*errstr = NULL;
-	free(*errmsg);
-	*errmsg = NULL;
+        if (e == POP3_EIO || e == POP3_EINVAL || e == POP3_EPROTO
+                || e == POP3_ELIBFAILED)
+        {
+            mpop_endsession(session, 0);
+            e = exitcode_pop3(e);
+            goto error_exit;
+        }
+        /* ignore other errors, but later print a message about it */
+        free(*errstr);
+        *errstr = NULL;
+        free(*errmsg);
+        *errmsg = NULL;
     }
     else
     {
-	auth_successful = 1;
+        auth_successful = 1;
     }
-    
+
     /* Get capabilities again, because some might have changed after
      * authentication. See RFC 2449. */
-    if (auth_successful 
-	    && (session->cap.flags & POP3_CAP_CAPA)
-	    && (e = pop3_capa(session, errstr)) != POP3_EOK)
+    if (auth_successful
+            && (session->cap.flags & POP3_CAP_CAPA)
+            && (e = pop3_capa(session, errstr)) != POP3_EOK)
     {
-	mpop_endsession(session, 0);
-	e = exitcode_pop3(e);
-	goto error_exit;
+        mpop_endsession(session, 0);
+        e = exitcode_pop3(e);
+        goto error_exit;
     }
-    
+
     /* print results */
     if (server_canonical_name && server_address)
     {
-	printf(_("POP3 server at %s (%s [%s]), port %d:\n"), 
-		acc->host, server_canonical_name, server_address, acc->port);
+        printf(_("POP3 server at %s (%s [%s]), port %d:\n"),
+                acc->host, server_canonical_name, server_address, acc->port);
     }
     else if (server_canonical_name)
     {
-	printf(_("POP3 server at %s (%s), port %d:\n"), 
-		acc->host, server_canonical_name, acc->port);
+        printf(_("POP3 server at %s (%s), port %d:\n"),
+                acc->host, server_canonical_name, acc->port);
     }
     else if (server_address)
     {
-	printf(_("POP3 server at %s ([%s]), port %d:\n"), 
-		acc->host, server_address, acc->port);
+        printf(_("POP3 server at %s ([%s]), port %d:\n"),
+                acc->host, server_address, acc->port);
     }
     else
     {
-	printf(_("POP3 server at %s, port %d:\n"), acc->host, acc->port);
+        printf(_("POP3 server at %s, port %d:\n"), acc->host, acc->port);
     }
     if (*server_greeting != '\0')
     {
-	printf("    %s\n", mpop_sanitize_string(server_greeting));
+        printf("    %s\n", mpop_sanitize_string(server_greeting));
     }
 #ifdef HAVE_TLS
     if (acc->tls)
     {
-	mpop_print_tls_cert_info(tci);
+        mpop_print_tls_cert_info(tci);
     }
 #endif /* not HAVE_TLS */
     printf(_("POP3 capabilities:\n"));
     if (session->cap.flags & POP3_CAP_CAPA)
     {
-	printf("    CAPA:\n        %s\n", 
-		_("Support for the CAPA command (get list of capabilities)"));
+        printf("    CAPA:\n        %s\n",
+                _("Support for the CAPA command (get list of capabilities)"));
     }
     if (session->cap.flags & POP3_CAP_IMPLEMENTATION)
     {
-	printf("    IMPLEMENTATION:\n        %s\n", 
-		mpop_sanitize_string(session->cap.implementation));
+        printf("    IMPLEMENTATION:\n        %s\n",
+                mpop_sanitize_string(session->cap.implementation));
     }
     if (session->cap.flags & POP3_CAP_PIPELINING)
     {
-	printf("    PIPELINING:\n        %s\n",
-		_("Support for command grouping for faster transmission"));
+        printf("    PIPELINING:\n        %s\n",
+                _("Support for command grouping for faster transmission"));
     }
     if (session->cap.flags & POP3_CAP_TOP)
     {
-	printf("    TOP:\n        %s\n", 
-		_("Support for the TOP command (get mail headers)"));
+        printf("    TOP:\n        %s\n",
+                _("Support for the TOP command (get mail headers)"));
     }
     if (session->cap.flags & POP3_CAP_UIDL)
     {
-	printf("    UIDL:\n        %s\n", 
-		_("Support for the UIDL command "
-		    "(get unique mail identifiers)"));
+        printf("    UIDL:\n        %s\n",
+                _("Support for the UIDL command "
+                    "(get unique mail identifiers)"));
     }
     if (session->cap.flags & POP3_CAP_LOGIN_DELAY)
     {
-	printf("    LOGIN-DELAY %ld:\n        ",
-		session->cap.login_delay);
-	printf(_("minimum time between logins is %ld seconds"), 
-		session->cap.login_delay);
-	if (session->cap.login_delay > 60 * 60)
-	{
-	    printf(_(" = %.2f hours"), 
-		    (float)session->cap.login_delay / (60.0 * 60.0));
-	}
-	else if (session->cap.login_delay > 60)
-	{
-	    printf(_(" = %.2f minutes"), 
-		    (float)session->cap.login_delay / 60.0);
-	}
-	printf("\n");
+        printf("    LOGIN-DELAY %ld:\n        ",
+                session->cap.login_delay);
+        printf(_("minimum time between logins is %ld seconds"),
+                session->cap.login_delay);
+        if (session->cap.login_delay > 60 * 60)
+        {
+            printf(_(" = %.2f hours"),
+                    (float)session->cap.login_delay / (60.0 * 60.0));
+        }
+        else if (session->cap.login_delay > 60)
+        {
+            printf(_(" = %.2f minutes"),
+                    (float)session->cap.login_delay / 60.0);
+        }
+        printf("\n");
     }
     if (session->cap.flags & POP3_CAP_EXPIRE)
     {
-	printf("    EXPIRE ");
-	if (session->cap.expire == LONG_MAX)
-	{
-	    printf("NEVER:\n        %s\n", 
-		    _("this POP3 server will never delete mails"));
-	}
-	else if (session->cap.expire == 0)
-	{
-	    printf("0:\n        %s\n", 
-		    _("this POP3 server will not keep mails"));
-	}
-	else
-	{
-	    printf("%ld:\n        ", session->cap.expire);
-	    printf(_("this POP3 server will keep mails for %ld days"),
-		    session->cap.expire);
-	    printf("\n");
-	}
+        printf("    EXPIRE ");
+        if (session->cap.expire == LONG_MAX)
+        {
+            printf("NEVER:\n        %s\n",
+                    _("this POP3 server will never delete mails"));
+        }
+        else if (session->cap.expire == 0)
+        {
+            printf("0:\n        %s\n",
+                    _("this POP3 server will not keep mails"));
+        }
+        else
+        {
+            printf("%ld:\n        ", session->cap.expire);
+            printf(_("this POP3 server will keep mails for %ld days"),
+                    session->cap.expire);
+            printf("\n");
+        }
     }
 #ifdef HAVE_TLS
-    if ((acc->tls && !acc->tls_nostarttls) 
-	    || (session->cap.flags & POP3_CAP_STLS))
+    if ((acc->tls && !acc->tls_nostarttls)
+            || (session->cap.flags & POP3_CAP_STLS))
 #else
     if (session->cap.flags & POP3_CAP_STLS)
 #endif /* not HAVE_TLS */
     {
-	printf("    STLS:\n        %s\n", 
-		_("Support for TLS encryption via the STLS command"));
+        printf("    STLS:\n        %s\n",
+                _("Support for TLS encryption via the STLS command"));
     }
-    printf("    AUTH:\n        %s\n        ", 
-	    _("Supported authentication methods:"));
+    printf("    AUTH:\n        %s\n        ",
+            _("Supported authentication methods:"));
     if (session->cap.flags & POP3_CAP_AUTH_USER)
     {
-	printf("USER ");
+        printf("USER ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_APOP)
     {
-	printf("APOP ");
+        printf("APOP ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_PLAIN)
     {
-	printf("PLAIN ");
+        printf("PLAIN ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5)
     {
-	printf("CRAM-MD5 ");
+        printf("CRAM-MD5 ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5)
     {
-	printf("DIGEST-MD5 ");
+        printf("DIGEST-MD5 ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_GSSAPI)
     {
-	printf("GSSAPI ");
+        printf("GSSAPI ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_EXTERNAL)
     {
-	printf("EXTERNAL ");
+        printf("EXTERNAL ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_LOGIN)
     {
-	printf("LOGIN ");
+        printf("LOGIN ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_NTLM)
     {
-	printf("NTLM ");
+        printf("NTLM ");
     }
     printf("\n");
     if (session->cap.flags & POP3_CAP_RESP_CODES)
     {
-	printf("    RESP-CODES:\n        %s\n", 
-		_("Server error messages in square brackets "
-		    "have a special meaning"));
+        printf("    RESP-CODES:\n        %s\n",
+                _("Server error messages in square brackets "
+                    "have a special meaning"));
     }
     if (session->cap.flags & POP3_CAP_AUTH_RESP_CODE)
     {
-	printf("    AUTH-RESP-CODE:\n        %s\n", 
-		_("Server error messages in square brackets "
-		    "have a special meaning"));
+        printf("    AUTH-RESP-CODE:\n        %s\n",
+                _("Server error messages in square brackets "
+                    "have a special meaning"));
     }
 #ifdef HAVE_TLS
     if ((session->cap.flags & POP3_CAP_STLS) && !acc->tls)
@@ -780,18 +780,18 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     if (session->cap.flags & POP3_CAP_STLS)
 #endif /* not HAVE_TLS */
     {
-	printf(_("This server might advertise more or other capabilities\n"
-    		    "    when TLS is active.\n"));
+        printf(_("This server might advertise more or other capabilities\n"
+                    "    when TLS is active.\n"));
     }
     if (!auth_successful)
     {
-	printf(_("This server might advertise more or other capabilities\n"
-    		    "    after successful authentication.\n"));
+        printf(_("This server might advertise more or other capabilities\n"
+                    "    after successful authentication.\n"));
     }
     if (!(session->cap.flags & POP3_CAP_CAPA))
     {
-	printf(_("This server does not support the CAPA command, so this\n"
-    		    "    list is probably not complete.\n"));
+        printf(_("This server does not support the CAPA command, so this\n"
+                    "    list is probably not complete.\n"));
     }
 
     /* end session */
@@ -803,7 +803,7 @@ error_exit:
 #ifdef HAVE_TLS
     if (tci)
     {
-	tls_cert_info_free(tci);
+        tls_cert_info_free(tci);
     }
 #endif /* HAVE_TLS */
     return e;
@@ -820,33 +820,33 @@ error_exit:
 char *mpop_hr_size(long long size)
 {
     char *s;
-    
+
     if (size >= 1024 * 1024 * 1024)
     {
-	s = xasprintf(_("%.2f GiB"), (float)size / (float)(1024 * 1024 * 1024));
+        s = xasprintf(_("%.2f GiB"), (float)size / (float)(1024 * 1024 * 1024));
     }
     else if (size >= 1024 * 1024)
     {
-	s = xasprintf(_("%.2f MiB"), (float)size / (float)(1024 * 1024));
+        s = xasprintf(_("%.2f MiB"), (float)size / (float)(1024 * 1024));
     }
     else if (size >= 1024)
     {
-	s = xasprintf(_("%.2f KiB"), (float)size / 1024.0f);
+        s = xasprintf(_("%.2f KiB"), (float)size / 1024.0f);
     }
     else if (size > 1 || size == 0)
     {
-	s = xasprintf(_("%lld bytes"), size);
+        s = xasprintf(_("%lld bytes"), size);
     }
     else
     {
-	s = xasprintf(_("1 byte"));
+        s = xasprintf(_("1 byte"));
     }
 
     return s;
 }
 
 
-/* 
+/*
  * Progress output functions for filtering and mail retrieval
  */
 
@@ -854,48 +854,48 @@ void mpop_filter_output(long i, long number, int new_action, void *data)
 {
     if (new_action == POP3_MSG_ACTION_DELETE)
     {
-	if (((account_t *)data)->keep)
-	{
-	    printf(_("skipping message %ld of %ld (reason: filter + keep)\n"),
-		    i, number);
-	}
-	else
-	{
-	    printf(_("deleting message %ld of %ld (reason: filter)\n"), 
-		    i, number);
-	}
+        if (((account_t *)data)->keep)
+        {
+            printf(_("skipping message %ld of %ld (reason: filter + keep)\n"),
+                    i, number);
+        }
+        else
+        {
+            printf(_("deleting message %ld of %ld (reason: filter)\n"),
+                    i, number);
+        }
     }
     else
     {
-	printf(_("skipping message %ld of %ld (reason: filter)\n"), i, number);
+        printf(_("skipping message %ld of %ld (reason: filter)\n"), i, number);
     }
 }
 
 void mpop_retr_progress_start(long i, long number, long long size)
 {
     char *sizestr = mpop_hr_size(size);
-    printf(_("retrieving message %ld of %ld (%s): "), 
-	    i, number, sizestr);
+    printf(_("retrieving message %ld of %ld (%s): "),
+            i, number, sizestr);
     free(sizestr);
     printf("  0%%\b\b\b\b");
     fflush(stdout);
 }
 
 void mpop_retr_progress(long i UNUSED, long number UNUSED,
-	long long rcvd UNUSED, long long size UNUSED, int percent)
+        long long rcvd UNUSED, long long size UNUSED, int percent)
 {
     printf("%3d\b\b\b", percent);
     fflush(stdout);
 }
 
 void mpop_retr_progress_end(long i UNUSED, long number UNUSED,
-	long long size UNUSED)
+        long long size UNUSED)
 {
     printf("100\n");
 }
 
-void mpop_retr_progress_abort(long i UNUSED, long number UNUSED, 
-	long long size UNUSED)
+void mpop_retr_progress_abort(long i UNUSED, long number UNUSED,
+        long long size UNUSED)
 {
     printf("\n");
 }
@@ -906,7 +906,7 @@ void mpop_retr_progress_abort(long i UNUSED, long number UNUSED,
  *
  * Retrieve mail from the POP3 server specified in the account 'acc'.
  * If an error occured, '*errstr' points to an allocated string that describes
- * the error or is NULL, and '*errmsg' points to the offending messages from 
+ * the error or is NULL, and '*errmsg' points to the offending messages from
  * the POP3 server or is NULL.
  * This function will abort when the global variable mpop_retrmail_abort is set
  * to one, for example by a signal handler.
@@ -914,14 +914,14 @@ void mpop_retr_progress_abort(long i UNUSED, long number UNUSED,
 
 volatile sig_atomic_t mpop_retrmail_abort = 0;
 void mpop_retrmail_signal_handler(int signum UNUSED)
-{   
+{
     mpop_retrmail_abort = 1;
 }
 
 int mpop_retrmail(const char *canonical_hostname, const char *local_user,
-	account_t *acc, int debug, 
-	int print_status, int print_progress, int auth_only, int status_only,
-	char **errmsg, char **errstr)
+        account_t *acc, int debug,
+        int print_status, int print_progress, int auth_only, int status_only,
+        char **errmsg, char **errstr)
 {
     pop3_session_t *session;
 #ifdef HAVE_TLS
@@ -943,32 +943,32 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     char *late_errstr;
     /* Whether QUIT was sent: */
     int quit_was_sent = 0;
-    
-    
+
+
     /* create a new pop3_server_t */
     session = pop3_session_new(acc->pipelining, canonical_hostname, local_user,
-	    debug ? stdout : NULL);
+            debug ? stdout : NULL);
 
     /* connect */
-    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout, 
-		    NULL, NULL, errstr)) != NET_EOK)
+    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout,
+                    NULL, NULL, errstr)) != NET_EOK)
     {
-	pop3_session_free(session);
-	return exitcode_net(e);
+        pop3_session_free(session);
+        return exitcode_net(e);
     }
 
     /* prepare tls */
 #ifdef HAVE_TLS
     if (acc->tls)
     {
-	if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file, 
-			acc->tls_trust_file, acc->tls_crl_file,
-			acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
-			acc->tls_priorities, errstr)) != TLS_EOK)
-	{
-	    pop3_session_free(session);
-	    return exitcode_tls(e);
-	}
+        if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
+                        acc->tls_trust_file, acc->tls_crl_file,
+                        acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
+                        acc->tls_priorities, errstr)) != TLS_EOK)
+        {
+            pop3_session_free(session);
+            return exitcode_tls(e);
+        }
     }
 #endif /* HAVE_TLS */
 
@@ -976,108 +976,108 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 #ifdef HAVE_TLS
     if (acc->tls && acc->tls_nostarttls)
     {
-	if (debug)
-	{
-	    tci = tls_cert_info_new();
-	}
-	if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci, 
-			errstr)) != POP3_EOK)
-	{
-	    if (debug)
-	    {
-		tls_cert_info_free(tci);
-	    }
-	    mpop_endsession(session, 0);
-	    return exitcode_tls(e);
-	}
-	if (debug)
-	{
-	    mpop_print_tls_cert_info(tci);
-	    tls_cert_info_free(tci);
-	}
+        if (debug)
+        {
+            tci = tls_cert_info_new();
+        }
+        if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
+                        errstr)) != POP3_EOK)
+        {
+            if (debug)
+            {
+                tls_cert_info_free(tci);
+            }
+            mpop_endsession(session, 0);
+            return exitcode_tls(e);
+        }
+        if (debug)
+        {
+            mpop_print_tls_cert_info(tci);
+            tls_cert_info_free(tci);
+        }
     }
 #endif /* HAVE_TLS */
 
     /* get greeting */
     if ((e = pop3_get_greeting(session, NULL, errmsg, errstr)) != POP3_EOK)
     {
-	mpop_endsession(session, 0);
-	return exitcode_pop3(e);
+        mpop_endsession(session, 0);
+        return exitcode_pop3(e);
     }
 
     /* get server capabilities for the first time */
     if ((e = pop3_capa(session, errstr)) != POP3_EOK)
     {
-	mpop_endsession(session, 0);
-	return exitcode_pop3(e);
+        mpop_endsession(session, 0);
+        return exitcode_pop3(e);
     }
-    
+
     /* start tls for starttls servers */
 #ifdef HAVE_TLS
     if (acc->tls && !acc->tls_nostarttls)
     {
-	if ((session->cap.flags & POP3_CAP_CAPA) 
-		&& !(session->cap.flags & POP3_CAP_STLS))
-	{
-	    *errstr = xasprintf(_("the POP3 server does not support TLS "
-    			"via the STLS command"));
-	    mpop_endsession(session, 0);
-	    return EX_UNAVAILABLE;
-	}
-	if ((e = pop3_tls_stls(session, errmsg, errstr)) != POP3_EOK)
-	{
-	    mpop_endsession(session, 0);
-	    return exitcode_pop3(e);
-	}
-	if (debug)
-	{
-	    tci = tls_cert_info_new();
-	}
-	if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci, 
-			errstr)) != TLS_EOK)
-	{
-	    if (debug)
-	    {
-		tls_cert_info_free(tci);
-	    }
-	    mpop_endsession(session, 0);
-	    return exitcode_tls(e);
-	}
-	if (debug)
-	{
-	    mpop_print_tls_cert_info(tci);
-	    tls_cert_info_free(tci);
-	}
-	/* get capabilities again */
-	if ((session->cap.flags & POP3_CAP_CAPA)
-		&& (e = pop3_capa(session, errstr)) != POP3_EOK)
-	{
-	    mpop_endsession(session, 0);
-	    return exitcode_pop3(e);
-	}
+        if ((session->cap.flags & POP3_CAP_CAPA)
+                && !(session->cap.flags & POP3_CAP_STLS))
+        {
+            *errstr = xasprintf(_("the POP3 server does not support TLS "
+                        "via the STLS command"));
+            mpop_endsession(session, 0);
+            return EX_UNAVAILABLE;
+        }
+        if ((e = pop3_tls_stls(session, errmsg, errstr)) != POP3_EOK)
+        {
+            mpop_endsession(session, 0);
+            return exitcode_pop3(e);
+        }
+        if (debug)
+        {
+            tci = tls_cert_info_new();
+        }
+        if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
+                        errstr)) != TLS_EOK)
+        {
+            if (debug)
+            {
+                tls_cert_info_free(tci);
+            }
+            mpop_endsession(session, 0);
+            return exitcode_tls(e);
+        }
+        if (debug)
+        {
+            mpop_print_tls_cert_info(tci);
+            tls_cert_info_free(tci);
+        }
+        /* get capabilities again */
+        if ((session->cap.flags & POP3_CAP_CAPA)
+                && (e = pop3_capa(session, errstr)) != POP3_EOK)
+        {
+            mpop_endsession(session, 0);
+            return exitcode_pop3(e);
+        }
     }
 #endif /* HAVE_TLS */
-    
+
     if (mpop_retrmail_abort)
     {
-	mpop_endsession(session, 0);
-	*errstr = xasprintf(_("operation aborted"));
-	return EX_TEMPFAIL;
+        mpop_endsession(session, 0);
+        *errstr = xasprintf(_("operation aborted"));
+        return EX_TEMPFAIL;
     }
 
     /* authenticate */
-    if ((e = pop3_auth(session, acc->auth_mech, acc->username, 
-		    acc->password, acc->host, acc->ntlmdomain, 
-		    mpop_password_callback, errmsg, errstr)) 
-	    != POP3_EOK)
+    if ((e = pop3_auth(session, acc->auth_mech, acc->username,
+                    acc->password, acc->host, acc->ntlmdomain,
+                    mpop_password_callback, errmsg, errstr))
+            != POP3_EOK)
     {
-	mpop_endsession(session, 0);
-	return exitcode_pop3(e);
+        mpop_endsession(session, 0);
+        return exitcode_pop3(e);
     }
     if (auth_only)
     {
-	mpop_endsession(session, 1);
-	return EX_OK;
+        mpop_endsession(session, 1);
+        return EX_OK;
     }
     /* In theory, it is not necessary to get the capabilities again at this
      * point, because we won't use capabilities that may change between
@@ -1094,236 +1094,236 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
      * Other capabilities won't be used, so we do not care about them.
      */
     if ((session->cap.flags & POP3_CAP_CAPA)
-	    && ((acc->filter 
-		    && !(session->cap.flags & POP3_CAP_TOP))
-		|| (acc->pipelining == 2 
-		    && !(session->cap.flags & POP3_CAP_PIPELINING))
-		|| !(session->cap.flags & POP3_CAP_UIDL)))
+            && ((acc->filter
+                    && !(session->cap.flags & POP3_CAP_TOP))
+                || (acc->pipelining == 2
+                    && !(session->cap.flags & POP3_CAP_PIPELINING))
+                || !(session->cap.flags & POP3_CAP_UIDL)))
     {
-	if (acc->pipelining == 2)
-	{
-	    session->pipelining = 2;
-	}
-	if ((e = pop3_capa(session, errstr)) != POP3_EOK)
-	{
-	    mpop_endsession(session, 0);
-	    return exitcode_pop3(e);
-	}
+        if (acc->pipelining == 2)
+        {
+            session->pipelining = 2;
+        }
+        if ((e = pop3_capa(session, errstr)) != POP3_EOK)
+        {
+            mpop_endsession(session, 0);
+            return exitcode_pop3(e);
+        }
     }
-    
+
     if (mpop_retrmail_abort)
     {
-	mpop_endsession(session, 0);
-	*errstr = xasprintf(_("operation aborted"));
-	return EX_TEMPFAIL;
+        mpop_endsession(session, 0);
+        *errstr = xasprintf(_("operation aborted"));
+        return EX_TEMPFAIL;
     }
 
     /* get status and scan listing */
     if ((e = pop3_stat(session, errmsg, errstr)) != POP3_EOK)
     {
-	mpop_endsession(session, 0);
-	return exitcode_pop3(e);
+        mpop_endsession(session, 0);
+        return exitcode_pop3(e);
     }
     if (session->total_number > 0)
     {
-	if ((e = pop3_list(session, &mpop_retrmail_abort, errmsg, errstr))
-		!= POP3_EOK)
-	{
-	    mpop_endsession(session, 0);
-	    return exitcode_pop3(e);
-	}
+        if ((e = pop3_list(session, &mpop_retrmail_abort, errmsg, errstr))
+                != POP3_EOK)
+        {
+            mpop_endsession(session, 0);
+            return exitcode_pop3(e);
+        }
     }
-    
+
     if (mpop_retrmail_abort)
     {
-	mpop_endsession(session, 0);
-	*errstr = xasprintf(_("operation aborted"));
-	return EX_TEMPFAIL;
+        mpop_endsession(session, 0);
+        *errstr = xasprintf(_("operation aborted"));
+        return EX_TEMPFAIL;
     }
 
     /* Load the list of UID lists (if the file does not exist, the returned
      * list will be empty) */
-    if ((e = uidls_read(acc->uidls_file, &uidls_fileptr, &uidl_list, errstr)) 
-	    != UIDLS_EOK)
+    if ((e = uidls_read(acc->uidls_file, &uidls_fileptr, &uidl_list, errstr))
+            != UIDLS_EOK)
     {
-	mpop_endsession(session, 0);
-	return exitcode_uidls(e);
+        mpop_endsession(session, 0);
+        return exitcode_uidls(e);
     }
     /* Pick the UID list for this user@host. If it does not exist, create an
      * empty one. */
     if (!(uidl = find_uidl(uidl_list, acc->host, acc->username)))
     {
-	uidl = uidl_new(acc->host, acc->username);
-	list_insert(uidl_list, uidl);
+        uidl = uidl_new(acc->host, acc->username);
+        list_insert(uidl_list, uidl);
     }
 
     /* retrieve the UIDs */
     if (session->total_number > 0)
     {
-	if ((session->cap.flags & POP3_CAP_CAPA) 
-		&& !(session->cap.flags & POP3_CAP_UIDL))
-	{
-	    /* the POP3 server does not support UIDL */
-	}
-	else if ((e = pop3_uidl(session, uidl->uidv, uidl->n, acc->only_new,
-			&mpop_retrmail_abort, errmsg, errstr)) != POP3_EOK)
-	{
-	    if (e != POP3_EUNAVAIL)
-	    {
-		mpop_endsession(session, 0);
-		return exitcode_pop3(e);
-	    }
-	    else
-	    {
-		/* the POP3 server does not support UIDL */
-	    }
-	}
+        if ((session->cap.flags & POP3_CAP_CAPA)
+                && !(session->cap.flags & POP3_CAP_UIDL))
+        {
+            /* the POP3 server does not support UIDL */
+        }
+        else if ((e = pop3_uidl(session, uidl->uidv, uidl->n, acc->only_new,
+                        &mpop_retrmail_abort, errmsg, errstr)) != POP3_EOK)
+        {
+            if (e != POP3_EUNAVAIL)
+            {
+                mpop_endsession(session, 0);
+                return exitcode_pop3(e);
+            }
+            else
+            {
+                /* the POP3 server does not support UIDL */
+            }
+        }
     }
 
     /* Print status */
     if (print_status)
     {
-	printf(_("%s at %s:\n"), acc->username, acc->host);
-	if (session->total_number > 0)
-	{
-	    printf(_("new: "));
-	    if (session->new_number == 0)
-	    {
-		printf(_("no messages"));
-	    }
-	    else if (session->new_number == 1)
-	    {
-		printf(_("1 message"));
-	    }
-	    else
-	    {
-		printf(_("%ld messages"), session->new_number);
-	    }
-	    if (session->new_number > 0)
-	    {
-		sizestr = mpop_hr_size(session->new_size);
-		printf(_(" in %s"), sizestr);
-		free(sizestr);
-	    }
-	    printf(", ");
-	    printf(_("total: "));
-	}
-	if (session->total_number == 0)
-    	{
-	    printf(_("no messages"));
-	}
-	else if (session->total_number == 1)
-	{
-    	    printf(_("1 message"));
-	}
-	else
-	{
-	    printf(_("%ld messages"), session->total_number);
-	}
-	if (session->total_number > 0)
-	{
-	    sizestr = mpop_hr_size(session->total_size);
-	    printf(_(" in %s"), sizestr);
-	    free(sizestr);
-	}
-	printf("\n");
+        printf(_("%s at %s:\n"), acc->username, acc->host);
+        if (session->total_number > 0)
+        {
+            printf(_("new: "));
+            if (session->new_number == 0)
+            {
+                printf(_("no messages"));
+            }
+            else if (session->new_number == 1)
+            {
+                printf(_("1 message"));
+            }
+            else
+            {
+                printf(_("%ld messages"), session->new_number);
+            }
+            if (session->new_number > 0)
+            {
+                sizestr = mpop_hr_size(session->new_size);
+                printf(_(" in %s"), sizestr);
+                free(sizestr);
+            }
+            printf(", ");
+            printf(_("total: "));
+        }
+        if (session->total_number == 0)
+        {
+            printf(_("no messages"));
+        }
+        else if (session->total_number == 1)
+        {
+            printf(_("1 message"));
+        }
+        else
+        {
+            printf(_("%ld messages"), session->total_number);
+        }
+        if (session->total_number > 0)
+        {
+            sizestr = mpop_hr_size(session->total_size);
+            printf(_(" in %s"), sizestr);
+            free(sizestr);
+        }
+        printf("\n");
     }
     if (status_only)
     {
-	if (uidl_list)
-	{
-	    list_xfree(uidl_list, uidl_free);
-	}
-	fclose(uidls_fileptr);
-	mpop_endsession(session, 1);
-	return EX_OK;
+        if (uidl_list)
+        {
+            list_xfree(uidl_list, uidl_free);
+        }
+        fclose(uidls_fileptr);
+        mpop_endsession(session, 1);
+        return EX_OK;
     }
 
     /* Size filtering */
     if (session->total_number > 0 && (acc->killsize >= 0 || acc->skipsize >= 0))
     {
-	for (i = 1; i <= session->total_number; i++)
-	{
-	    if (session->msg_action[i - 1] != POP3_MSG_ACTION_NORMAL)
-	    {
-		continue;
-	    }
-	    if (acc->killsize >= 0 && session->msg_size[i - 1] >= acc->killsize)
-	    {
-		session->msg_action[i - 1] = POP3_MSG_ACTION_DELETE;
-		if (!(session->is_old[i - 1]))
-		{
-		    session->is_old[i - 1] = 1;
-       		    session->old_number++;
-		}
-		if (print_progress)
-		{
-		    if (acc->keep)
-		    {
-			printf(_("skipping message %ld of %ld (reason: "
-    				    "killsize + keep)\n"), 
-				i, session->total_number);
-		    }
-		    else
-		    {
-			printf(_("deleting message %ld of %ld (reason: "
-    				    "killsize)\n"), i, session->total_number);
-		    }
-		}
-	    }
-	    else if (acc->skipsize >= 0 
-		    && session->msg_size[i - 1] >= acc->skipsize)
-	    {
-		session->msg_action[i - 1] = POP3_MSG_ACTION_IGNORE;
-		if (print_progress)
-		{
-		    printf(_("skipping message %ld of %ld (reason: "
-    				"skipsize)\n"), i, session->total_number);
-		}
-	    }
-	}
+        for (i = 1; i <= session->total_number; i++)
+        {
+            if (session->msg_action[i - 1] != POP3_MSG_ACTION_NORMAL)
+            {
+                continue;
+            }
+            if (acc->killsize >= 0 && session->msg_size[i - 1] >= acc->killsize)
+            {
+                session->msg_action[i - 1] = POP3_MSG_ACTION_DELETE;
+                if (!(session->is_old[i - 1]))
+                {
+                    session->is_old[i - 1] = 1;
+                    session->old_number++;
+                }
+                if (print_progress)
+                {
+                    if (acc->keep)
+                    {
+                        printf(_("skipping message %ld of %ld (reason: "
+                                    "killsize + keep)\n"),
+                                i, session->total_number);
+                    }
+                    else
+                    {
+                        printf(_("deleting message %ld of %ld (reason: "
+                                    "killsize)\n"), i, session->total_number);
+                    }
+                }
+            }
+            else if (acc->skipsize >= 0
+                    && session->msg_size[i - 1] >= acc->skipsize)
+            {
+                session->msg_action[i - 1] = POP3_MSG_ACTION_IGNORE;
+                if (print_progress)
+                {
+                    printf(_("skipping message %ld of %ld (reason: "
+                                "skipsize)\n"), i, session->total_number);
+                }
+            }
+        }
     }
 
     if (mpop_retrmail_abort)
     {
-	if (uidl_list)
-	{
-	    list_xfree(uidl_list, uidl_free);
-	}
-	fclose(uidls_fileptr);
-	mpop_endsession(session, 0);
-	*errstr = xasprintf(_("operation aborted"));
-	return EX_TEMPFAIL;
+        if (uidl_list)
+        {
+            list_xfree(uidl_list, uidl_free);
+        }
+        fclose(uidls_fileptr);
+        mpop_endsession(session, 0);
+        *errstr = xasprintf(_("operation aborted"));
+        return EX_TEMPFAIL;
     }
 
     /* Header filtering */
     if (session->total_number > 0 && acc->filter)
     {
-	if ((session->cap.flags & POP3_CAP_CAPA) 
-	    	    && !(session->cap.flags & POP3_CAP_TOP))
-	{
-	    *errstr = xasprintf(_("the POP3 server does not support the "
-			"TOP command needed for filtering"));
-	    if (uidl_list)
-	    {
-		list_xfree(uidl_list, uidl_free);
-	    }
-	    fclose(uidls_fileptr);
-	    mpop_endsession(session, 1);
-	    return EX_UNAVAILABLE;
-	}
-	if ((e = pop3_filter(session, &mpop_retrmail_abort, acc->filter, 
-			print_progress ? mpop_filter_output : NULL, acc,
-			errmsg, errstr)) != POP3_EOK)
-	{
-	    if (uidl_list)
-	    {
-		list_xfree(uidl_list, uidl_free);
-	    }
-	    fclose(uidls_fileptr);
-	    mpop_endsession(session, 0);
-	    return exitcode_pop3(e);
-	}
+        if ((session->cap.flags & POP3_CAP_CAPA)
+                    && !(session->cap.flags & POP3_CAP_TOP))
+        {
+            *errstr = xasprintf(_("the POP3 server does not support the "
+                        "TOP command needed for filtering"));
+            if (uidl_list)
+            {
+                list_xfree(uidl_list, uidl_free);
+            }
+            fclose(uidls_fileptr);
+            mpop_endsession(session, 1);
+            return EX_UNAVAILABLE;
+        }
+        if ((e = pop3_filter(session, &mpop_retrmail_abort, acc->filter,
+                        print_progress ? mpop_filter_output : NULL, acc,
+                        errmsg, errstr)) != POP3_EOK)
+        {
+            if (uidl_list)
+            {
+                list_xfree(uidl_list, uidl_free);
+            }
+            fclose(uidls_fileptr);
+            mpop_endsession(session, 0);
+            return exitcode_pop3(e);
+        }
     }
 
     /* Once pop3_retr() is called, we cannot just abort the session and forget
@@ -1332,96 +1332,96 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     late_error = POP3_EOK;
     late_errmsg = NULL;
     late_errstr = NULL;
-    
+
     /* Retrieve mails and update the UIDL accordingly */
     if (session->total_number > 0)
     {
-	late_error = pop3_retr(session, &mpop_retrmail_abort,
-		acc->delivery_method, acc->delivery_args,
-		print_progress ? mpop_retr_progress_start : NULL,
-		print_progress ? mpop_retr_progress : NULL,
-		print_progress ? mpop_retr_progress_end : NULL,
-	    	print_progress ? mpop_retr_progress_abort : NULL,
-    		&late_errmsg, &late_errstr);
-	for (i = 0; i < uidl->n; i++)
-	{
-	    free(uidl->uidv[i]);
-	}
-	free(uidl->uidv);
-	uidl->uidv = NULL;
-	uidl->n = session->old_number;
-	if (uidl->n > 0)
-	{
-	    uidl->uidv = xmalloc(uidl->n * sizeof(char *));
-	    j = 0;
-	    for (i = 0; i < session->total_number; i++)
-	    {
-		if (session->is_old[i])
-		{
-		    uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
-		}
-	    }
-	}
+        late_error = pop3_retr(session, &mpop_retrmail_abort,
+                acc->delivery_method, acc->delivery_args,
+                print_progress ? mpop_retr_progress_start : NULL,
+                print_progress ? mpop_retr_progress : NULL,
+                print_progress ? mpop_retr_progress_end : NULL,
+                print_progress ? mpop_retr_progress_abort : NULL,
+                &late_errmsg, &late_errstr);
+        for (i = 0; i < uidl->n; i++)
+        {
+            free(uidl->uidv[i]);
+        }
+        free(uidl->uidv);
+        uidl->uidv = NULL;
+        uidl->n = session->old_number;
+        if (uidl->n > 0)
+        {
+            uidl->uidv = xmalloc(uidl->n * sizeof(char *));
+            j = 0;
+            for (i = 0; i < session->total_number; i++)
+            {
+                if (session->is_old[i])
+                {
+                    uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
+                }
+            }
+        }
     }
 
-    /* Delete mails. If a failure occurs, save the current UIDL state. 
+    /* Delete mails. If a failure occurs, save the current UIDL state.
      * Otherwise, end the session to commit the changes, then
      * update the UIDL state and save it. */
     if (late_error == POP3_EOK && !acc->keep)
     {
-	if ((e = pop3_dele(session, &mpop_retrmail_abort, errmsg, errstr))
-		!= POP3_EOK)
-	{
-	    (void)uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, NULL);
-	    list_xfree(uidl_list, uidl_free);
-    	    mpop_endsession(session, 0);
-	    return exitcode_uidls(e);
-	}
-	if ((e = pop3_quit(session, errmsg, errstr)) != POP3_EOK)
-	{
-	    (void)uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, NULL);
-	    list_xfree(uidl_list, uidl_free);
-    	    mpop_endsession(session, 0);
-	    return exitcode_uidls(e);
-	}
-	quit_was_sent = 1;
-	for (i = 0; i < uidl->n; i++)
-	{
-	    free(uidl->uidv[i]);
-	}
-	free(uidl->uidv);
-	uidl->uidv = NULL;
-	uidl->n = session->old_number;
-	if (uidl->n > 0)
-	{
-	    uidl->uidv = xmalloc(uidl->n * sizeof(char *));
-	    j = 0;
-	    for (i = 0; i < session->total_number; i++)
-	    {
-		if (session->is_old[i])
-		{
-		    uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
-		}
-	    }
-	}
+        if ((e = pop3_dele(session, &mpop_retrmail_abort, errmsg, errstr))
+                != POP3_EOK)
+        {
+            (void)uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, NULL);
+            list_xfree(uidl_list, uidl_free);
+            mpop_endsession(session, 0);
+            return exitcode_uidls(e);
+        }
+        if ((e = pop3_quit(session, errmsg, errstr)) != POP3_EOK)
+        {
+            (void)uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, NULL);
+            list_xfree(uidl_list, uidl_free);
+            mpop_endsession(session, 0);
+            return exitcode_uidls(e);
+        }
+        quit_was_sent = 1;
+        for (i = 0; i < uidl->n; i++)
+        {
+            free(uidl->uidv[i]);
+        }
+        free(uidl->uidv);
+        uidl->uidv = NULL;
+        uidl->n = session->old_number;
+        if (uidl->n > 0)
+        {
+            uidl->uidv = xmalloc(uidl->n * sizeof(char *));
+            j = 0;
+            for (i = 0; i < session->total_number; i++)
+            {
+                if (session->is_old[i])
+                {
+                    uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
+                }
+            }
+        }
     }
-    if ((e = uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, errstr)) 
-	    != UIDLS_EOK)
+    if ((e = uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, errstr))
+            != UIDLS_EOK)
     {
-	list_xfree(uidl_list, uidl_free);
-	mpop_endsession(session, 0);
-	return exitcode_uidls(e);
+        list_xfree(uidl_list, uidl_free);
+        mpop_endsession(session, 0);
+        return exitcode_uidls(e);
     }
     list_xfree(uidl_list, uidl_free);
     mpop_endsession(session, late_error == POP3_EOK && !quit_was_sent);
 
     if (late_errmsg)
     {
-	*errmsg = late_errmsg;
+        *errmsg = late_errmsg;
     }
     if (late_errstr)
     {
-	*errstr = late_errstr;
+        *errstr = late_errstr;
     }
     return (late_error == POP3_EOK) ? EX_OK : exitcode_pop3(late_error);
 }
@@ -1435,7 +1435,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 
 /* make gcc print format warnings for this function */
 #ifdef __GNUC__
-void print_error(const char *format, ...) 
+void print_error(const char *format, ...)
     __attribute__ ((format (printf, 1, 2)));
 #endif
 
@@ -1459,54 +1459,54 @@ void print_error(const char *format, ...)
  * Used error codes: 1 = Account not found
  */
 
-int get_account_list(const char *conffile, list_t *conffile_account_list, 
-	int accountidc, char **accountidv, list_t **account_list)
+int get_account_list(const char *conffile, list_t *conffile_account_list,
+        int accountidc, char **accountidv, list_t **account_list)
 {
     account_t *a;
     list_t *lp, *lp2;
     int i;
-    
+
     *account_list = list_new();
     lp = *account_list;
     if (accountidc == -1)
     {
-	if (list_is_empty(conffile_account_list))
-	{
-	    print_error(_("%s: no accounts defined"), conffile);
-	    return 1;
-	}
-	else
-	{
-	    lp2 = conffile_account_list;
-	    while (!list_is_empty(lp2))
-	    {
-		lp2 = lp2->next;	
-		list_insert(lp, account_copy(lp2->data));
-		lp = lp->next;
-	    }
-	}
+        if (list_is_empty(conffile_account_list))
+        {
+            print_error(_("%s: no accounts defined"), conffile);
+            return 1;
+        }
+        else
+        {
+            lp2 = conffile_account_list;
+            while (!list_is_empty(lp2))
+            {
+                lp2 = lp2->next;
+                list_insert(lp, account_copy(lp2->data));
+                lp = lp->next;
+            }
+        }
     }
     else if (accountidc == 0)
     {
-	if (!(a = find_account(conffile_account_list, "default")))
-	{
-	    print_error(_("%s: no account %s"), conffile, "default");
-	    return 1;
-	}
-	list_insert(lp, account_copy(a));
+        if (!(a = find_account(conffile_account_list, "default")))
+        {
+            print_error(_("%s: no account %s"), conffile, "default");
+            return 1;
+        }
+        list_insert(lp, account_copy(a));
     }
     else
     {
-	for (i = 0; i < accountidc; i++)
-	{
-	    if (!(a = find_account(conffile_account_list, accountidv[i])))
-	    {
-		print_error(_("%s: no account %s"), conffile, accountidv[i]);
-		return 1;
-	    }
-	    list_insert(lp, account_copy(a));
-	    lp = lp->next;
-	}
+        for (i = 0; i < accountidc; i++)
+        {
+            if (!(a = find_account(conffile_account_list, accountidv[i])))
+            {
+                print_error(_("%s: no account %s"), conffile, accountidv[i]);
+                return 1;
+            }
+            list_insert(lp, account_copy(a));
+            lp = lp->next;
+        }
     }
     return 0;
 }
@@ -1526,20 +1526,20 @@ int make_needed_dirs(const char *pathname)
     int error;
     const char *dir_part_end;
     char *dir_part;
-    
+
     if (pathname[0] == '\0')
     {
-	return 0;
+        return 0;
     }
 
     error = 0;
     dir_part_end = strchr(pathname + 1, PATH_SEP);
 #if W32_NATIVE
-    if (dir_part_end - pathname == 2 
-	    && c_isalpha((unsigned char)pathname[0]) && pathname[1] == ':')
+    if (dir_part_end - pathname == 2
+            && c_isalpha((unsigned char)pathname[0]) && pathname[1] == ':')
     {
         /* skip drive letter ("C:\" and similar) */
-	dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+        dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
     }
     else if (dir_part_end - pathname == 1)
     {
@@ -1553,31 +1553,31 @@ int make_needed_dirs(const char *pathname)
 #endif
     while (dir_part_end && !error)
     {
-	dir_part = xstrndup(pathname, dir_part_end - pathname);
-	statret = stat(dir_part, &statbuf);
-	if (statret == 0 && !S_ISDIR(statbuf.st_mode))
-	{
-	    /* "'dir_part' exists but is not a directory" */
-	    errno = ENOTDIR;
-	    error = 1;
-	}
-	else if (statret != 0 && errno != ENOENT)
-	{
-	    /* "cannot stat 'dir_part'" */
-	    /* errno was set by stat() */
-	    error = 1;
-	}
-	else if (statret != 0)	/* errno is ENOENT */
-	{
-	    if (mkdir(dir_part, 0700) != 0)
-	    {
-		/* "cannot create 'dir_part'" */
-		/* errno was set by mkdir() */
-		error = 1;
-	    }
-	}
-	free(dir_part);
-	dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
+        dir_part = xstrndup(pathname, dir_part_end - pathname);
+        statret = stat(dir_part, &statbuf);
+        if (statret == 0 && !S_ISDIR(statbuf.st_mode))
+        {
+            /* "'dir_part' exists but is not a directory" */
+            errno = ENOTDIR;
+            error = 1;
+        }
+        else if (statret != 0 && errno != ENOENT)
+        {
+            /* "cannot stat 'dir_part'" */
+            /* errno was set by stat() */
+            error = 1;
+        }
+        else if (statret != 0)  /* errno is ENOENT */
+        {
+            if (mkdir(dir_part, 0700) != 0)
+            {
+                /* "cannot create 'dir_part'" */
+                /* errno was set by mkdir() */
+                error = 1;
+            }
+        }
+        free(dir_part);
+        dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
     }
 
     return error;
@@ -1590,29 +1590,29 @@ int make_needed_dirs(const char *pathname)
  */
 
 /* long options without a corresponding short option */
-#define LONGONLYOPT_VERSION 			0
-#define LONGONLYOPT_HELP    			1
-#define LONGONLYOPT_HOST			2
-#define LONGONLYOPT_PORT			3
-#define LONGONLYOPT_TIMEOUT			4
-#define LONGONLYOPT_PIPELINING			5
-#define LONGONLYOPT_AUTH			6
-#define LONGONLYOPT_USER			7
-#define LONGONLYOPT_TLS				8
-#define LONGONLYOPT_TLS_STARTTLS		9
-#define LONGONLYOPT_TLS_TRUST_FILE		10
-#define LONGONLYOPT_TLS_CRL_FILE		11
-#define LONGONLYOPT_TLS_KEY_FILE		12
-#define LONGONLYOPT_TLS_CERT_FILE		13
-#define LONGONLYOPT_TLS_CERTCHECK		14
-#define LONGONLYOPT_TLS_FORCE_SSLV3		15
-#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS	16
-#define LONGONLYOPT_TLS_PRIORITIES		17
-#define LONGONLYOPT_KILLSIZE			18
-#define LONGONLYOPT_SKIPSIZE			19
-#define LONGONLYOPT_FILTER			20
-#define LONGONLYOPT_DELIVERY			21
-#define LONGONLYOPT_UIDLS_FILE			22
+#define LONGONLYOPT_VERSION                     0
+#define LONGONLYOPT_HELP                        1
+#define LONGONLYOPT_HOST                        2
+#define LONGONLYOPT_PORT                        3
+#define LONGONLYOPT_TIMEOUT                     4
+#define LONGONLYOPT_PIPELINING                  5
+#define LONGONLYOPT_AUTH                        6
+#define LONGONLYOPT_USER                        7
+#define LONGONLYOPT_TLS                         8
+#define LONGONLYOPT_TLS_STARTTLS                9
+#define LONGONLYOPT_TLS_TRUST_FILE              10
+#define LONGONLYOPT_TLS_CRL_FILE                11
+#define LONGONLYOPT_TLS_KEY_FILE                12
+#define LONGONLYOPT_TLS_CERT_FILE               13
+#define LONGONLYOPT_TLS_CERTCHECK               14
+#define LONGONLYOPT_TLS_FORCE_SSLV3             15
+#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       16
+#define LONGONLYOPT_TLS_PRIORITIES              17
+#define LONGONLYOPT_KILLSIZE                    18
+#define LONGONLYOPT_SKIPSIZE                    19
+#define LONGONLYOPT_FILTER                      20
+#define LONGONLYOPT_DELIVERY                    21
+#define LONGONLYOPT_UIDLS_FILE                  22
 
 int main(int argc, char *argv[])
 {
@@ -1656,7 +1656,7 @@ int main(int argc, char *argv[])
     struct sigaction old_sighup_handler;
     struct sigaction old_sigint_handler;
     /* misc */
-    struct servent *se;	    
+    struct servent *se;
     int c;
     int net_lib_initialized = 0;
 #ifdef HAVE_TLS
@@ -1665,54 +1665,54 @@ int main(int argc, char *argv[])
     /* option handling */
     struct option options[] =
     {
-	{ "version",               no_argument,       0, LONGONLYOPT_VERSION },
-	{ "help",                  no_argument,       0, LONGONLYOPT_HELP },
-	{ "quiet",                 no_argument,       0, 'q' },
-	{ "half-quiet",            no_argument,       0, 'Q' },
- 	{ "pretend",               no_argument,       0, 'P' },
-  	{ "debug",                 no_argument,       0, 'd' },
-	{ "serverinfo",            no_argument,       0, 'S' },
-	{ "file",                  required_argument, 0, 'C' },
-	{ "auth-only",             no_argument,       0, 'A' },
-	{ "all-accounts",          no_argument,       0, 'a' },
-	{ "status-only",           no_argument,       0, 's' }, 
-	{ "delivery",              required_argument, 0, LONGONLYOPT_DELIVERY },
-	{ "uidls-file",            required_argument, 0, 
-	    LONGONLYOPT_UIDLS_FILE },
-	{ "only-new",              optional_argument, 0, 'n' },
-	{ "keep",                  optional_argument, 0, 'k' },
-	{ "killsize",              required_argument, 0, LONGONLYOPT_KILLSIZE },
-	{ "skipsize",              required_argument, 0, LONGONLYOPT_SKIPSIZE },
-	{ "filter",                required_argument, 0, LONGONLYOPT_FILTER },
-	{ "host",                  required_argument, 0, LONGONLYOPT_HOST },
-	{ "port",                  required_argument, 0, LONGONLYOPT_PORT },
-	{ "timeout",               required_argument, 0, LONGONLYOPT_TIMEOUT},
-	{ "pipelining",            required_argument, 0, 
-	    LONGONLYOPT_PIPELINING },
-	{ "auth",                  optional_argument, 0, LONGONLYOPT_AUTH },
-	{ "user",                  required_argument, 0, LONGONLYOPT_USER },
-	{ "tls",                   optional_argument, 0, LONGONLYOPT_TLS },
-	{ "tls-starttls",          optional_argument, 0, 
-	    LONGONLYOPT_TLS_STARTTLS },
-	{ "tls-trust-file",        required_argument, 0, 
-	    LONGONLYOPT_TLS_TRUST_FILE },
-	{ "tls-crl-file",          required_argument, 0, 
-	    LONGONLYOPT_TLS_CRL_FILE },
-	{ "tls-key-file",          required_argument, 0, 
-	    LONGONLYOPT_TLS_KEY_FILE },
-	{ "tls-cert-file",         required_argument, 0, 
-	    LONGONLYOPT_TLS_CERT_FILE },
-	{ "tls-certcheck",         optional_argument, 0, 
-	    LONGONLYOPT_TLS_CERTCHECK },
-	{ "tls-force-sslv3",       optional_argument, 0, 
-	    LONGONLYOPT_TLS_FORCE_SSLV3 },
-	{ "tls-min-dh-prime-bits", required_argument, 0, 
-	    LONGONLYOPT_TLS_MIN_DH_PRIME_BITS },
-	{ "tls-priorities",        required_argument, 0, 
-	    LONGONLYOPT_TLS_PRIORITIES },
-	{ 0, 0, 0, 0 }
+        { "version",               no_argument,       0, LONGONLYOPT_VERSION },
+        { "help",                  no_argument,       0, LONGONLYOPT_HELP },
+        { "quiet",                 no_argument,       0, 'q' },
+        { "half-quiet",            no_argument,       0, 'Q' },
+        { "pretend",               no_argument,       0, 'P' },
+        { "debug",                 no_argument,       0, 'd' },
+        { "serverinfo",            no_argument,       0, 'S' },
+        { "file",                  required_argument, 0, 'C' },
+        { "auth-only",             no_argument,       0, 'A' },
+        { "all-accounts",          no_argument,       0, 'a' },
+        { "status-only",           no_argument,       0, 's' },
+        { "delivery",              required_argument, 0, LONGONLYOPT_DELIVERY },
+        { "uidls-file",            required_argument, 0,
+            LONGONLYOPT_UIDLS_FILE },
+        { "only-new",              optional_argument, 0, 'n' },
+        { "keep",                  optional_argument, 0, 'k' },
+        { "killsize",              required_argument, 0, LONGONLYOPT_KILLSIZE },
+        { "skipsize",              required_argument, 0, LONGONLYOPT_SKIPSIZE },
+        { "filter",                required_argument, 0, LONGONLYOPT_FILTER },
+        { "host",                  required_argument, 0, LONGONLYOPT_HOST },
+        { "port",                  required_argument, 0, LONGONLYOPT_PORT },
+        { "timeout",               required_argument, 0, LONGONLYOPT_TIMEOUT},
+        { "pipelining",            required_argument, 0,
+            LONGONLYOPT_PIPELINING },
+        { "auth",                  optional_argument, 0, LONGONLYOPT_AUTH },
+        { "user",                  required_argument, 0, LONGONLYOPT_USER },
+        { "tls",                   optional_argument, 0, LONGONLYOPT_TLS },
+        { "tls-starttls",          optional_argument, 0,
+            LONGONLYOPT_TLS_STARTTLS },
+        { "tls-trust-file",        required_argument, 0,
+            LONGONLYOPT_TLS_TRUST_FILE },
+        { "tls-crl-file",          required_argument, 0,
+            LONGONLYOPT_TLS_CRL_FILE },
+        { "tls-key-file",          required_argument, 0,
+            LONGONLYOPT_TLS_KEY_FILE },
+        { "tls-cert-file",         required_argument, 0,
+            LONGONLYOPT_TLS_CERT_FILE },
+        { "tls-certcheck",         optional_argument, 0,
+            LONGONLYOPT_TLS_CERTCHECK },
+        { "tls-force-sslv3",       optional_argument, 0,
+            LONGONLYOPT_TLS_FORCE_SSLV3 },
+        { "tls-min-dh-prime-bits", required_argument, 0,
+            LONGONLYOPT_TLS_MIN_DH_PRIME_BITS },
+        { "tls-priorities",        required_argument, 0,
+            LONGONLYOPT_TLS_PRIORITIES },
+        { 0, 0, 0, 0 }
     };
-    
+
     /* Avoid the side effects of text mode interpretations on DOS systems. */
 #if defined W32_NATIVE || defined DJGPP
     _fmode = O_BINARY;
@@ -1729,7 +1729,7 @@ int main(int argc, char *argv[])
     bindtextdomain(PACKAGE, LOCALEDIR);
     textdomain(PACKAGE);
 #endif
-    
+
     /* process the command line */
     prgname = get_prgname(argv[0]);
     error_code = 0;
@@ -1748,592 +1748,592 @@ int main(int argc, char *argv[])
     cmdline_account = account_new(NULL, NULL);
     for (;;)
     {
-	c = getopt_long(argc, argv, "qQPdSC:aAsn::k::", options, NULL);
-	if (c == -1)
-	{
-	    break;
-	}
-	switch(c)
-	{
-	    case LONGONLYOPT_VERSION:
-		print_version = 1;
-		retrmail = 0;
-		serverinfo = 0;
-		break;
+        c = getopt_long(argc, argv, "qQPdSC:aAsn::k::", options, NULL);
+        if (c == -1)
+        {
+            break;
+        }
+        switch(c)
+        {
+            case LONGONLYOPT_VERSION:
+                print_version = 1;
+                retrmail = 0;
+                serverinfo = 0;
+                break;
 
-	    case LONGONLYOPT_HELP:
-		print_help = 1;
-		retrmail = 0;
-		serverinfo = 0;
-		break;
+            case LONGONLYOPT_HELP:
+                print_help = 1;
+                retrmail = 0;
+                serverinfo = 0;
+                break;
 
-	    case 'q':
-		print_status = 0;
-		print_progress = 0;
-		break;
-		
-	    case 'Q':
-		print_progress = 0;
-		break;
-		
-  	    case 'P':
-   		print_conf = 1;
-		pretend = 1;
-     		break;
-      		
-       	    case 'd':
-		print_conf = 1;
-	 	debug = 1;
-		/* progress output would interfere with debugging output */
-		print_progress = 0;
-	 	break;
+            case 'q':
+                print_status = 0;
+                print_progress = 0;
+                break;
 
-	    case 'S':
-		serverinfo = 1;
-		retrmail = 0;
-		break;
-		
-	    case 'a':
-		all_accounts = 1;
-		break;
+            case 'Q':
+                print_progress = 0;
+                break;
 
-	    case 'A':
-		auth_only = 1;
-		break;
+            case 'P':
+                print_conf = 1;
+                pretend = 1;
+                break;
 
-	    case 's':
-		status_only = 1;
-		break;
+            case 'd':
+                print_conf = 1;
+                debug = 1;
+                /* progress output would interfere with debugging output */
+                print_progress = 0;
+                break;
 
-	    case 'C':
-		free(conffile);
-		conffile = xstrdup(optarg);
-		break;
+            case 'S':
+                serverinfo = 1;
+                retrmail = 0;
+                break;
 
-	    case LONGONLYOPT_HOST:
-	    	free(cmdline_account->host);
-    		cmdline_account->host = xstrdup(optarg);
-		cmdline_account->mask |= ACC_HOST;
-		break;
-		
-	    case LONGONLYOPT_PORT:
-		cmdline_account->port = get_non_neg_int(optarg);
-		if (cmdline_account->port < 1 || cmdline_account->port > 65535)
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--port");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_PORT;
-		break;		
-		
-	    case LONGONLYOPT_TIMEOUT:
-		if (is_off(optarg))
-		{
-		    cmdline_account->timeout = 0;
-		}
-		else
-		{
-		    cmdline_account->timeout = get_non_neg_int(optarg);
-		    if (cmdline_account->timeout < 1)
-		    {
-			print_error(_("invalid argument %s for %s"), 
-				optarg, "--timeout");
-			error_code = 1;
-		    }
-		}
-		cmdline_account->mask |= ACC_TIMEOUT;
-		break;		
-		
-	    case LONGONLYOPT_PIPELINING:
-	    	if (!optarg || is_on(optarg))
-    		{
-		    cmdline_account->pipelining = 1;
-		}
-		else if (is_off(optarg))
-		{
-		    cmdline_account->pipelining = 0;
-		}
-		else if (strcmp(optarg, "auto") == 0)
-		{
-		    cmdline_account->pipelining = 2;
-		}
-		else
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--pipelining");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_PIPELINING;
-		break;		
-		
-	    case LONGONLYOPT_AUTH:
-		free(cmdline_account->auth_mech);
-	    	if (!optarg || is_on(optarg))
-    		{
-		    cmdline_account->auth_mech = xstrdup("");
-		}
-		else if (check_auth_arg(optarg) == 0)
-		{
-		    cmdline_account->auth_mech = xstrdup(optarg);
-		}
-		else
-		{
-		    cmdline_account->auth_mech = NULL;
-		    print_error(_("invalid argument %s for %s"),
-			    optarg, "--auth");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_AUTH_MECH;
-		break;
+            case 'a':
+                all_accounts = 1;
+                break;
 
-	    case LONGONLYOPT_USER:
-		free(cmdline_account->username);
-		cmdline_account->username = 
-		    (*optarg == '\0') ? NULL : xstrdup(optarg);
-		cmdline_account->mask |= ACC_USERNAME;
-		break;
+            case 'A':
+                auth_only = 1;
+                break;
 
-	    case LONGONLYOPT_TLS:
-	    	if (!optarg || is_on(optarg))
-    		{
-		    cmdline_account->tls = 1;
-		}
-		else if (is_off(optarg))
-		{
-		    cmdline_account->tls = 0;
-		}
-		else
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--tls");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_TLS;
-		break;
+            case 's':
+                status_only = 1;
+                break;
 
-	    case LONGONLYOPT_TLS_STARTTLS:
-	    	if (!optarg || is_on(optarg))
-    		{
-		    cmdline_account->tls_nostarttls = 0;
-		}
-		else if (is_off(optarg))
-		{
-		    cmdline_account->tls_nostarttls = 1;
-		}
-		else
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--tls-starttls");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_TLS_NOSTARTTLS;
-		break;
+            case 'C':
+                free(conffile);
+                conffile = xstrdup(optarg);
+                break;
 
-	    case LONGONLYOPT_TLS_TRUST_FILE:
-		free(cmdline_account->tls_trust_file);
-		cmdline_account->tls_trust_file = (*optarg == '\0')
-  		    ? NULL : expand_tilde(optarg);
-		cmdline_account->mask |= ACC_TLS_TRUST_FILE;
-		break;
+            case LONGONLYOPT_HOST:
+                free(cmdline_account->host);
+                cmdline_account->host = xstrdup(optarg);
+                cmdline_account->mask |= ACC_HOST;
+                break;
 
-	    case LONGONLYOPT_TLS_CRL_FILE:
-		free(cmdline_account->tls_crl_file);
-		cmdline_account->tls_crl_file = (*optarg == '\0')
-  		    ? NULL : expand_tilde(optarg);
-		cmdline_account->mask |= ACC_TLS_CRL_FILE;
-		break;
+            case LONGONLYOPT_PORT:
+                cmdline_account->port = get_non_neg_int(optarg);
+                if (cmdline_account->port < 1 || cmdline_account->port > 65535)
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--port");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_PORT;
+                break;
 
-	    case LONGONLYOPT_TLS_KEY_FILE:
-		free(cmdline_account->tls_key_file);
-		cmdline_account->tls_key_file = (*optarg == '\0')
-  		    ? NULL : expand_tilde(optarg);
-		cmdline_account->mask |= ACC_TLS_KEY_FILE;
-		break;
+            case LONGONLYOPT_TIMEOUT:
+                if (is_off(optarg))
+                {
+                    cmdline_account->timeout = 0;
+                }
+                else
+                {
+                    cmdline_account->timeout = get_non_neg_int(optarg);
+                    if (cmdline_account->timeout < 1)
+                    {
+                        print_error(_("invalid argument %s for %s"),
+                                optarg, "--timeout");
+                        error_code = 1;
+                    }
+                }
+                cmdline_account->mask |= ACC_TIMEOUT;
+                break;
 
-	    case LONGONLYOPT_TLS_CERT_FILE:
-		free(cmdline_account->tls_cert_file);
-		cmdline_account->tls_cert_file = (*optarg == '\0')
-  		    ? NULL : expand_tilde(optarg);
-		cmdline_account->mask |= ACC_TLS_CERT_FILE;
-		break;
+            case LONGONLYOPT_PIPELINING:
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->pipelining = 1;
+                }
+                else if (is_off(optarg))
+                {
+                    cmdline_account->pipelining = 0;
+                }
+                else if (strcmp(optarg, "auto") == 0)
+                {
+                    cmdline_account->pipelining = 2;
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--pipelining");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_PIPELINING;
+                break;
 
-	    case LONGONLYOPT_TLS_CERTCHECK:
-	    	if (!optarg || is_on(optarg))
-		{
-		    cmdline_account->tls_nocertcheck = 0;
-		}
-		else if (is_off(optarg))
-		{
-		    cmdline_account->tls_nocertcheck = 1;
-		}
-		else
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--tls-certcheck");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_TLS_NOCERTCHECK;
-		break;
+            case LONGONLYOPT_AUTH:
+                free(cmdline_account->auth_mech);
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->auth_mech = xstrdup("");
+                }
+                else if (check_auth_arg(optarg) == 0)
+                {
+                    cmdline_account->auth_mech = xstrdup(optarg);
+                }
+                else
+                {
+                    cmdline_account->auth_mech = NULL;
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--auth");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_AUTH_MECH;
+                break;
 
-	    case LONGONLYOPT_TLS_FORCE_SSLV3:
-	    	if (!optarg || is_on(optarg))
-    		{
-		    cmdline_account->tls_force_sslv3 = 1;
-		}
-		else if (is_off(optarg))
-		{
-		    cmdline_account->tls_force_sslv3 = 0;
-		}
-		else
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--tls-force-sslv3");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_TLS_FORCE_SSLV3;
-		break;
-		
-	    case LONGONLYOPT_TLS_MIN_DH_PRIME_BITS:
-		if (*optarg == '\0')
-		{
-		    cmdline_account->tls_min_dh_prime_bits = -1;
-		}
-		else
-		{
-		    cmdline_account->tls_min_dh_prime_bits = 
-			get_non_neg_int(optarg);
-		    if (cmdline_account->tls_min_dh_prime_bits < 1)
-		    {
-			print_error(_("invalid argument %s for %s"), 
-			     	optarg, "--tls-min-dh-prime-bits");
-			error_code = 1;
-		    }
-		}
-		cmdline_account->mask |= ACC_TLS_MIN_DH_PRIME_BITS;
-		break;
+            case LONGONLYOPT_USER:
+                free(cmdline_account->username);
+                cmdline_account->username =
+                    (*optarg == '\0') ? NULL : xstrdup(optarg);
+                cmdline_account->mask |= ACC_USERNAME;
+                break;
 
-	    case LONGONLYOPT_TLS_PRIORITIES:
-		free(cmdline_account->tls_priorities);
-		if (*optarg)
-		{
-		    cmdline_account->tls_priorities = xstrdup(optarg);
-		}
-		else
-		{
-		    cmdline_account->tls_priorities = NULL;
-		}
-		cmdline_account->mask |= ACC_TLS_PRIORITIES;
-		break;
+            case LONGONLYOPT_TLS:
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->tls = 1;
+                }
+                else if (is_off(optarg))
+                {
+                    cmdline_account->tls = 0;
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--tls");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_TLS;
+                break;
 
-	    case 'n':
-	    	if (!optarg || is_on(optarg))
-    		{
-		    cmdline_account->only_new = 1;
-		}
-		else if (is_off(optarg))
-		{
-		    cmdline_account->only_new = 0;
-		}
-		else
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--only-new");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_ONLY_NEW;
-		break;
+            case LONGONLYOPT_TLS_STARTTLS:
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->tls_nostarttls = 0;
+                }
+                else if (is_off(optarg))
+                {
+                    cmdline_account->tls_nostarttls = 1;
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--tls-starttls");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_TLS_NOSTARTTLS;
+                break;
 
-	    case 'k':
-	    	if (!optarg || is_on(optarg))
-    		{
-		    cmdline_account->keep = 1;
-		}
-		else if (is_off(optarg))
-		{
-		    cmdline_account->keep = 0;
-		}
-		else
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--keep");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_KEEP;
-		break;
+            case LONGONLYOPT_TLS_TRUST_FILE:
+                free(cmdline_account->tls_trust_file);
+                cmdline_account->tls_trust_file = (*optarg == '\0')
+                    ? NULL : expand_tilde(optarg);
+                cmdline_account->mask |= ACC_TLS_TRUST_FILE;
+                break;
 
-	    case LONGONLYOPT_KILLSIZE:
-	    	if (is_off(optarg))
-    		{
-		    cmdline_account->killsize = -1;
-		}
-		else
-		{
-		    if ((cmdline_account->killsize = get_size_arg(optarg)) < 0)
-		    {
-			print_error(_("invalid argument %s for %s"), 
-				optarg, "--killsize");
-			error_code = 1;
-		    }
-		}
-		cmdline_account->mask |= ACC_KILLSIZE;
-		break;
+            case LONGONLYOPT_TLS_CRL_FILE:
+                free(cmdline_account->tls_crl_file);
+                cmdline_account->tls_crl_file = (*optarg == '\0')
+                    ? NULL : expand_tilde(optarg);
+                cmdline_account->mask |= ACC_TLS_CRL_FILE;
+                break;
 
-	    case LONGONLYOPT_SKIPSIZE:
-	    	if (is_off(optarg))
-    		{
-		    cmdline_account->skipsize = -1;
-		}
-		else
-		{
-		    if ((cmdline_account->skipsize = get_size_arg(optarg)) < 0)
-		    {
-			print_error(_("invalid argument %s for %s"), 
-				optarg, "--skipsize");
-			error_code = 1;
-		    }
-		}
-		cmdline_account->mask |= ACC_SKIPSIZE;
-		break;
+            case LONGONLYOPT_TLS_KEY_FILE:
+                free(cmdline_account->tls_key_file);
+                cmdline_account->tls_key_file = (*optarg == '\0')
+                    ? NULL : expand_tilde(optarg);
+                cmdline_account->mask |= ACC_TLS_KEY_FILE;
+                break;
 
-	    case LONGONLYOPT_FILTER:
-		free(cmdline_account->filter);
-		cmdline_account->filter = (*optarg == '\0') 
-		    ? NULL : xstrdup(optarg);
-		cmdline_account->mask |= ACC_FILTER;
-		break;
+            case LONGONLYOPT_TLS_CERT_FILE:
+                free(cmdline_account->tls_cert_file);
+                cmdline_account->tls_cert_file = (*optarg == '\0')
+                    ? NULL : expand_tilde(optarg);
+                cmdline_account->mask |= ACC_TLS_CERT_FILE;
+                break;
 
-	    case LONGONLYOPT_DELIVERY:
-		if (strncmp(optarg, "mda,", 4) == 0)
-		{
-		    cmdline_account->delivery_method = DELIVERY_METHOD_MDA;
-		    free(cmdline_account->delivery_args);
-		    cmdline_account->delivery_args = xstrdup(optarg + 4);
-		}
-		else if (strncmp(optarg, "maildir,", 8) == 0)
-		{
-		    cmdline_account->delivery_method = DELIVERY_METHOD_MAILDIR;
-		    free(cmdline_account->delivery_args);
-		    cmdline_account->delivery_args = expand_tilde(optarg + 8);
-		}
-		else if (strncmp(optarg, "mbox,", 5) == 0)
-		{
-		    cmdline_account->delivery_method = DELIVERY_METHOD_MBOX;
-		    free(cmdline_account->delivery_args);
-		    cmdline_account->delivery_args = expand_tilde(optarg + 5);
-		}
-		else if (strncmp(optarg, "exchange,", 9) == 0)
-		{
-		    cmdline_account->delivery_method = DELIVERY_METHOD_EXCHANGE;
-		    free(cmdline_account->delivery_args);
-		    cmdline_account->delivery_args = expand_tilde(optarg + 9);
-		}
-		else
-		{
-		    print_error(_("invalid argument %s for %s"), 
-			    optarg, "--delivery");
-		    error_code = 1;
-		}
-		cmdline_account->mask |= ACC_DELIVERY;
-		break;
+            case LONGONLYOPT_TLS_CERTCHECK:
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->tls_nocertcheck = 0;
+                }
+                else if (is_off(optarg))
+                {
+                    cmdline_account->tls_nocertcheck = 1;
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--tls-certcheck");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_TLS_NOCERTCHECK;
+                break;
 
-	    case LONGONLYOPT_UIDLS_FILE:
-		free(cmdline_account->uidls_file);
-		cmdline_account->uidls_file = expand_tilde(optarg);
-		cmdline_account->mask |= ACC_UIDLS_FILE;
-		break;
+            case LONGONLYOPT_TLS_FORCE_SSLV3:
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->tls_force_sslv3 = 1;
+                }
+                else if (is_off(optarg))
+                {
+                    cmdline_account->tls_force_sslv3 = 0;
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--tls-force-sslv3");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_TLS_FORCE_SSLV3;
+                break;
 
-	    default:
-		error_code = 1;
-		break;
-	}
-	if (error_code)
-	{
-	    break;
-	}
+            case LONGONLYOPT_TLS_MIN_DH_PRIME_BITS:
+                if (*optarg == '\0')
+                {
+                    cmdline_account->tls_min_dh_prime_bits = -1;
+                }
+                else
+                {
+                    cmdline_account->tls_min_dh_prime_bits =
+                        get_non_neg_int(optarg);
+                    if (cmdline_account->tls_min_dh_prime_bits < 1)
+                    {
+                        print_error(_("invalid argument %s for %s"),
+                                optarg, "--tls-min-dh-prime-bits");
+                        error_code = 1;
+                    }
+                }
+                cmdline_account->mask |= ACC_TLS_MIN_DH_PRIME_BITS;
+                break;
+
+            case LONGONLYOPT_TLS_PRIORITIES:
+                free(cmdline_account->tls_priorities);
+                if (*optarg)
+                {
+                    cmdline_account->tls_priorities = xstrdup(optarg);
+                }
+                else
+                {
+                    cmdline_account->tls_priorities = NULL;
+                }
+                cmdline_account->mask |= ACC_TLS_PRIORITIES;
+                break;
+
+            case 'n':
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->only_new = 1;
+                }
+                else if (is_off(optarg))
+                {
+                    cmdline_account->only_new = 0;
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--only-new");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_ONLY_NEW;
+                break;
+
+            case 'k':
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->keep = 1;
+                }
+                else if (is_off(optarg))
+                {
+                    cmdline_account->keep = 0;
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--keep");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_KEEP;
+                break;
+
+            case LONGONLYOPT_KILLSIZE:
+                if (is_off(optarg))
+                {
+                    cmdline_account->killsize = -1;
+                }
+                else
+                {
+                    if ((cmdline_account->killsize = get_size_arg(optarg)) < 0)
+                    {
+                        print_error(_("invalid argument %s for %s"),
+                                optarg, "--killsize");
+                        error_code = 1;
+                    }
+                }
+                cmdline_account->mask |= ACC_KILLSIZE;
+                break;
+
+            case LONGONLYOPT_SKIPSIZE:
+                if (is_off(optarg))
+                {
+                    cmdline_account->skipsize = -1;
+                }
+                else
+                {
+                    if ((cmdline_account->skipsize = get_size_arg(optarg)) < 0)
+                    {
+                        print_error(_("invalid argument %s for %s"),
+                                optarg, "--skipsize");
+                        error_code = 1;
+                    }
+                }
+                cmdline_account->mask |= ACC_SKIPSIZE;
+                break;
+
+            case LONGONLYOPT_FILTER:
+                free(cmdline_account->filter);
+                cmdline_account->filter = (*optarg == '\0')
+                    ? NULL : xstrdup(optarg);
+                cmdline_account->mask |= ACC_FILTER;
+                break;
+
+            case LONGONLYOPT_DELIVERY:
+                if (strncmp(optarg, "mda,", 4) == 0)
+                {
+                    cmdline_account->delivery_method = DELIVERY_METHOD_MDA;
+                    free(cmdline_account->delivery_args);
+                    cmdline_account->delivery_args = xstrdup(optarg + 4);
+                }
+                else if (strncmp(optarg, "maildir,", 8) == 0)
+                {
+                    cmdline_account->delivery_method = DELIVERY_METHOD_MAILDIR;
+                    free(cmdline_account->delivery_args);
+                    cmdline_account->delivery_args = expand_tilde(optarg + 8);
+                }
+                else if (strncmp(optarg, "mbox,", 5) == 0)
+                {
+                    cmdline_account->delivery_method = DELIVERY_METHOD_MBOX;
+                    free(cmdline_account->delivery_args);
+                    cmdline_account->delivery_args = expand_tilde(optarg + 5);
+                }
+                else if (strncmp(optarg, "exchange,", 9) == 0)
+                {
+                    cmdline_account->delivery_method = DELIVERY_METHOD_EXCHANGE;
+                    free(cmdline_account->delivery_args);
+                    cmdline_account->delivery_args = expand_tilde(optarg + 9);
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--delivery");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_DELIVERY;
+                break;
+
+            case LONGONLYOPT_UIDLS_FILE:
+                free(cmdline_account->uidls_file);
+                cmdline_account->uidls_file = expand_tilde(optarg);
+                cmdline_account->mask |= ACC_UIDLS_FILE;
+                break;
+
+            default:
+                error_code = 1;
+                break;
+        }
+        if (error_code)
+        {
+            break;
+        }
     }
     if (error_code)
     {
-	error_code = EX_USAGE;
-	goto exit;
+        error_code = EX_USAGE;
+        goto exit;
     }
 
     if (print_version)
     {
-	printf(_("%s version %s\n"), PACKAGE_NAME, VERSION);
-	/* TLS/SSL support */
-	printf(_("TLS/SSL library: %s\n"),
+        printf(_("%s version %s\n"), PACKAGE_NAME, VERSION);
+        /* TLS/SSL support */
+        printf(_("TLS/SSL library: %s\n"),
 #ifdef HAVE_LIBGNUTLS
-		"GnuTLS"
+                "GnuTLS"
 #elif defined (HAVE_OPENSSL)
-		"OpenSSL"
+                "OpenSSL"
 #else
-		_("none")
+                _("none")
 #endif
-	      );
-	/* Authentication support */
-	printf(_("Authentication library: %s\n"
-		    "Supported authentication methods:\n"),
+              );
+        /* Authentication support */
+        printf(_("Authentication library: %s\n"
+                    "Supported authentication methods:\n"),
 #ifdef HAVE_LIBGSASL
-		_("GNU SASL; user and apop: built-in")
+                _("GNU SASL; user and apop: built-in")
 #else
-		_("built-in")
+                _("built-in")
 #endif /* HAVE_LIBGSASL */
-	      );
-	if (pop3_client_supports_authmech("USER"))
-	{
-	    printf("user ");
-	}
-	if (pop3_client_supports_authmech("APOP"))
-	{
-	    printf("apop ");
-	}
-	if (pop3_client_supports_authmech("PLAIN"))
-	{
-	    printf("plain ");
-	}
-	if (pop3_client_supports_authmech("CRAM-MD5"))
-	{
-	    printf("cram-md5 ");
-	}
-	if (pop3_client_supports_authmech("DIGEST-MD5"))
-	{
-	    printf("digest-md5 ");
-	}
-	if (pop3_client_supports_authmech("GSSAPI"))
-	{
-	    printf("gssapi ");
-	}
-	if (pop3_client_supports_authmech("EXTERNAL"))
-	{
-	    printf("external ");
-	}
-	if (pop3_client_supports_authmech("LOGIN"))
-	{
-	    printf("login ");
-	}
-	if (pop3_client_supports_authmech("NTLM"))
-	{
-	    printf("ntlm ");
-	}
-	printf("\n");
-	/* Internationalized Domain Names support */
-	printf(_("IDN support: "));
+              );
+        if (pop3_client_supports_authmech("USER"))
+        {
+            printf("user ");
+        }
+        if (pop3_client_supports_authmech("APOP"))
+        {
+            printf("apop ");
+        }
+        if (pop3_client_supports_authmech("PLAIN"))
+        {
+            printf("plain ");
+        }
+        if (pop3_client_supports_authmech("CRAM-MD5"))
+        {
+            printf("cram-md5 ");
+        }
+        if (pop3_client_supports_authmech("DIGEST-MD5"))
+        {
+            printf("digest-md5 ");
+        }
+        if (pop3_client_supports_authmech("GSSAPI"))
+        {
+            printf("gssapi ");
+        }
+        if (pop3_client_supports_authmech("EXTERNAL"))
+        {
+            printf("external ");
+        }
+        if (pop3_client_supports_authmech("LOGIN"))
+        {
+            printf("login ");
+        }
+        if (pop3_client_supports_authmech("NTLM"))
+        {
+            printf("ntlm ");
+        }
+        printf("\n");
+        /* Internationalized Domain Names support */
+        printf(_("IDN support: "));
 #ifdef HAVE_LIBIDN
-	printf(_("enabled"));
+        printf(_("enabled"));
 #else
-	printf(_("disabled"));
+        printf(_("disabled"));
 #endif
-	printf("\n");
-	/* Native language support */
-	printf(_("NLS: "));
+        printf("\n");
+        /* Native language support */
+        printf(_("NLS: "));
 #ifdef ENABLE_NLS
-	printf(_("enabled"));
-	printf(_(", LOCALEDIR is %s"), LOCALEDIR);
+        printf(_("enabled"));
+        printf(_(", LOCALEDIR is %s"), LOCALEDIR);
 #else
-	printf(_("disabled"));
+        printf(_("disabled"));
 #endif
-	printf("\n");
-	printf(_("Keyring support: "));
+        printf("\n");
+        printf(_("Keyring support: "));
 #if !defined HAVE_GNOMEKEYRING && !defined HAVE_MACOSXKEYRING
-	printf(_("none"));
+        printf(_("none"));
 #else
 # ifdef HAVE_GNOMEKEYRING
-	printf(_("Gnome "));
+        printf(_("Gnome "));
 # endif
 # ifdef HAVE_MACOSXKEYRING
-	printf(_("MacOS "));
+        printf(_("MacOS "));
 # endif
 #endif
-	printf("\n\n");
-	printf(_("Copyright (C) 2009 Martin Lambers and others.\n"
-		    "This is free software.  You may redistribute copies of "
-		        "it under the terms of\n"
-		    "the GNU General Public License "
-		        "<http://www.gnu.org/licenses/gpl.html>.\n"
-		    "There is NO WARRANTY, to the extent permitted by law.\n"));
+        printf("\n\n");
+        printf(_("Copyright (C) 2009 Martin Lambers and others.\n"
+                    "This is free software.  You may redistribute copies of "
+                        "it under the terms of\n"
+                    "the GNU General Public License "
+                        "<http://www.gnu.org/licenses/gpl.html>.\n"
+                    "There is NO WARRANTY, to the extent permitted by law.\n"));
     }
     if (print_help)
     {
-	printf(_("USAGE:\n\n"
-		"Mail retrieval mode (default):\n"
-		"  %s [option...] [--] account...\n"
-		"  %s --host=host [option...]\n"
-		"  Read mails from one ore more POP3 accounts and deliver "
-			"them.\n"
-		"Server information mode:\n"
-		"  %s [option...] --serverinfo account...\n"
-		"  %s --host=host [option...] --serverinfo\n"
-		"  Print information about one or more POP3 servers.\n"
-	        "\nOPTIONS:\n\n"
-		"General options:\n"
-		"  --version                    Print version.\n"
-		"  --help                       Print help.\n"
-     		"  -P, --pretend                Print configuration info and "
-			"exit.\n"
-      		"  -d, --debug                  Print debugging information.\n"
-		"Changing the mode of operation:\n"
-		"  -S, --serverinfo             Print information about the "
-			"POP3 server.\n"
-	        "Configuration options:\n"
-		"  -C, --file=filename          Set configuration file.\n"
-		"  --host=hostname              Set POP3 server, use only "
-			"command line settings;\n"
-		"                               do not use any configuration "
-			"file data.\n"
-	        "  --port=number                Set port number.\n"
-	        "  --timeout=(off|seconds)      Set/unset network timeout in "
-			"seconds.\n"
-		"  --pipelining=(auto|on|off)   Enable/disable POP3 "
-			"pipelining.\n"
-		"  --auth[=(on|method)]         Choose the authentication "
-			"method.\n"
-		"  --user=[username]            Set/unset user name for "
-			"authentication.\n"
-	        "  --tls[=(on|off)]             Enable/disable TLS "
-			"encryption.\n"
-		"  --tls-starttls[=(on|off)]    Enable/disable STLS for TLS.\n"
-		"  --tls-trust-file=[file]      Set/unset trust file for TLS.\n"
-		"  --tls-crl-file=[file]        Set/unset revocation file for "
-			"TLS.\n"
-	        "  --tls-key-file=[file]        Set/unset private key file for "
-			"TLS.\n"
-		"  --tls-cert-file=[file]       Set/unset private cert file "
-			"for TLS.\n"
-	        "  --tls-certcheck[=(on|off)]   Enable/disable server "
-			"certificate checks for TLS.\n"
-		"  --tls-force-sslv3[=(on|off)] Enable/disable restriction to "
-			"SSLv3.\n"
-		"  --tls-min-dh-prime-bits=[b]  Set/unset minimum bit size of "
-			"DH prime.\n"
-	    	"  --tls-priorities=[prios]     Set/unset TLS priorities.\n"
-	        "Options specific to mail retrieval mode:\n"
-		"  -q, --quiet                  Do not display status or "
-			"progress information.\n"
-		"  -Q, --half-quiet             Display status but not "
-			"progress information.\n"
-		"  -a, --all-accounts           Query all accounts in the "
-			"configuration file.\n"
-		"  -A, --auth-only              Authenticate only; do not "
-			"retrieve mail.\n"
-		"  -s, --status-only            Print account status only; do "
-			"not retrieve mail.\n"
-		"  -n, --only-new[=(on|off)]    Process only new messages\n"
-	        "  -k, --keep[=(on|off)]        Do not delete mails from POP3 "
-			"servers.\n"
-		"  --killsize=(off|number)      Set/unset kill size.\n"
-		"  --skipsize=(off|number)      Set/unset skip size.\n"
-		"  --filter=[program]           Set/unset header filter.\n"
-		"  --delivery=method,arg        Set the mail delivery method.\n"
-		"  --uidls-file=filename        Set file to store UIDLs.\n"
-		"\nReport bugs to <%s>.\n"),
-		prgname, prgname, prgname, prgname, PACKAGE_BUGREPORT);
+        printf(_("USAGE:\n\n"
+                "Mail retrieval mode (default):\n"
+                "  %s [option...] [--] account...\n"
+                "  %s --host=host [option...]\n"
+                "  Read mails from one ore more POP3 accounts and deliver "
+                        "them.\n"
+                "Server information mode:\n"
+                "  %s [option...] --serverinfo account...\n"
+                "  %s --host=host [option...] --serverinfo\n"
+                "  Print information about one or more POP3 servers.\n"
+                "\nOPTIONS:\n\n"
+                "General options:\n"
+                "  --version                    Print version.\n"
+                "  --help                       Print help.\n"
+                "  -P, --pretend                Print configuration info and "
+                        "exit.\n"
+                "  -d, --debug                  Print debugging information.\n"
+                "Changing the mode of operation:\n"
+                "  -S, --serverinfo             Print information about the "
+                        "POP3 server.\n"
+                "Configuration options:\n"
+                "  -C, --file=filename          Set configuration file.\n"
+                "  --host=hostname              Set POP3 server, use only "
+                        "command line settings;\n"
+                "                               do not use any configuration "
+                        "file data.\n"
+                "  --port=number                Set port number.\n"
+                "  --timeout=(off|seconds)      Set/unset network timeout in "
+                        "seconds.\n"
+                "  --pipelining=(auto|on|off)   Enable/disable POP3 "
+                        "pipelining.\n"
+                "  --auth[=(on|method)]         Choose the authentication "
+                        "method.\n"
+                "  --user=[username]            Set/unset user name for "
+                        "authentication.\n"
+                "  --tls[=(on|off)]             Enable/disable TLS "
+                        "encryption.\n"
+                "  --tls-starttls[=(on|off)]    Enable/disable STLS for TLS.\n"
+                "  --tls-trust-file=[file]      Set/unset trust file for TLS.\n"
+                "  --tls-crl-file=[file]        Set/unset revocation file for "
+                        "TLS.\n"
+                "  --tls-key-file=[file]        Set/unset private key file for "
+                        "TLS.\n"
+                "  --tls-cert-file=[file]       Set/unset private cert file "
+                        "for TLS.\n"
+                "  --tls-certcheck[=(on|off)]   Enable/disable server "
+                        "certificate checks for TLS.\n"
+                "  --tls-force-sslv3[=(on|off)] Enable/disable restriction to "
+                        "SSLv3.\n"
+                "  --tls-min-dh-prime-bits=[b]  Set/unset minimum bit size of "
+                        "DH prime.\n"
+                "  --tls-priorities=[prios]     Set/unset TLS priorities.\n"
+                "Options specific to mail retrieval mode:\n"
+                "  -q, --quiet                  Do not display status or "
+                        "progress information.\n"
+                "  -Q, --half-quiet             Display status but not "
+                        "progress information.\n"
+                "  -a, --all-accounts           Query all accounts in the "
+                        "configuration file.\n"
+                "  -A, --auth-only              Authenticate only; do not "
+                        "retrieve mail.\n"
+                "  -s, --status-only            Print account status only; do "
+                        "not retrieve mail.\n"
+                "  -n, --only-new[=(on|off)]    Process only new messages\n"
+                "  -k, --keep[=(on|off)]        Do not delete mails from POP3 "
+                        "servers.\n"
+                "  --killsize=(off|number)      Set/unset kill size.\n"
+                "  --skipsize=(off|number)      Set/unset skip size.\n"
+                "  --filter=[program]           Set/unset header filter.\n"
+                "  --delivery=method,arg        Set the mail delivery method.\n"
+                "  --uidls-file=filename        Set file to store UIDLs.\n"
+                "\nReport bugs to <%s>.\n"),
+                prgname, prgname, prgname, prgname, PACKAGE_BUGREPORT);
     }
-    
+
     if (!retrmail && !serverinfo && !print_conf)
     {
-	error_code = EX_OK;
-	goto exit;
+        error_code = EX_OK;
+        goto exit;
     }
 
     /* get the list of account ids from the command line */
@@ -2341,298 +2341,298 @@ int main(int argc, char *argv[])
     accountidv = &(argv[optind]);
     if (cmdline_account->host && (accountidc > 0 || all_accounts))
     {
-	print_error(_("cannot use both --host and accounts"));
-	error_code = EX_USAGE;
-	goto exit;
+        print_error(_("cannot use both --host and accounts"));
+        error_code = EX_USAGE;
+        goto exit;
     }
     if (all_accounts && accountidc > 0)
     {
-	print_error(_("cannot use both --all-accounts and a list of accounts"));
-	error_code = EX_USAGE;
-	goto exit;
+        print_error(_("cannot use both --all-accounts and a list of accounts"));
+        error_code = EX_USAGE;
+        goto exit;
     }
 
     /* get the list of accounts to use into 'account_list'. */
     if (!cmdline_account->host)
     {
-	if (!conffile)
-	{
-	    conffile = get_filename(homedir, CONFFILE);
-	}
-	if ((e = get_conf(conffile, 1, &conffile_account_list, &errstr)) 
-		!= CONF_EOK)
-	{
-	    print_error("%s: %s", conffile, mpop_sanitize_string(errstr));
-	    if (e == CONF_EIO)
-	    {
-		error_code = EX_IOERR;
-		goto exit;
-	    }
-	    else
-	    {
-		error_code = EX_CONFIG;
-		goto exit;
-	    }
-	}
-	/* construct list of accounts to be polled */
-	if ((e = get_account_list(conffile, conffile_account_list, 
-			all_accounts ? -1 : accountidc, accountidv, 
-			&account_list)) != 0)
-	{
-	    /* an error message was already printed */
-	    error_code = EX_CONFIG;
-	    goto exit;
-	}
-	/* override all accounts with command line settings */
-	lp = account_list;
-	while (!list_is_empty(lp))
-	{
-	    lp = lp->next;
-	    override_account(lp->data, cmdline_account);
-	}
+        if (!conffile)
+        {
+            conffile = get_filename(homedir, CONFFILE);
+        }
+        if ((e = get_conf(conffile, 1, &conffile_account_list, &errstr))
+                != CONF_EOK)
+        {
+            print_error("%s: %s", conffile, mpop_sanitize_string(errstr));
+            if (e == CONF_EIO)
+            {
+                error_code = EX_IOERR;
+                goto exit;
+            }
+            else
+            {
+                error_code = EX_CONFIG;
+                goto exit;
+            }
+        }
+        /* construct list of accounts to be polled */
+        if ((e = get_account_list(conffile, conffile_account_list,
+                        all_accounts ? -1 : accountidc, accountidv,
+                        &account_list)) != 0)
+        {
+            /* an error message was already printed */
+            error_code = EX_CONFIG;
+            goto exit;
+        }
+        /* override all accounts with command line settings */
+        lp = account_list;
+        while (!list_is_empty(lp))
+        {
+            lp = lp->next;
+            override_account(lp->data, cmdline_account);
+        }
     }
     else
     {
-	/* use only the command line account */
-	account_list = list_new();
-	list_insert(account_list, account_copy(cmdline_account));
+        /* use only the command line account */
+        account_list = list_new();
+        list_insert(account_list, account_copy(cmdline_account));
     }
     /* OK, the accounts to use are in 'account_list'. Complete them and check
      * them */
     lp = account_list;
     while (!list_is_empty(lp))
     {
-	lp = lp->next;
-	account = lp->data;
-	/* fill in last defaults */
-	if (account->port == 0)
-	{
-	    if (account->tls && account->tls_nostarttls)
-	    {
-		se = getservbyname("pop3s", NULL);
-		account->port = se ? ntohs(se->s_port) : 995;
-	    }
-	    else
-	    {
-		se = getservbyname("pop3", NULL);
-		account->port = se ? ntohs(se->s_port) : 110;
-	    }
-	}
-	if (!account->uidls_file)
-	{
-	    account->uidls_file = get_filename(homedir, UIDLSFILE);
-	}
-	/* check for consistency and completeness */
-	if (check_account(account, retrmail, &errstr) != CONF_EOK)
-	{
-	    if (account->id && account->conffile)
-	    {
-		print_error(_("account %s from %s: %s"), account->id, 
-			account->conffile, mpop_sanitize_string(errstr));
-	    }
-	    else
-	    {
-		print_error("%s", mpop_sanitize_string(errstr));
-	    }
-	    error_code = EX_CONFIG;
-	    goto exit;
-	}
-	/* construct the complete, absolute UIDLS file name */
-	account->uidls_file = string_replace(account->uidls_file, "%U", 
-		account->username ? account->username : "");
-	account->uidls_file = string_replace(account->uidls_file, "%H", 
-		account->host);
-	/* create directories needed for uidls_file */
-	if (retrmail && !pretend && make_needed_dirs(account->uidls_file) != 0)
-	{
-	    print_error(_("cannot create directories for %s: %s"), 
-		    account->uidls_file, 
-		    errno == ENOTDIR 
-		    ? _("a component already exists but is not a directory")
-		    : strerror(errno));
-	    error_code = EX_IOERR;
-	    goto exit;
-	}
+        lp = lp->next;
+        account = lp->data;
+        /* fill in last defaults */
+        if (account->port == 0)
+        {
+            if (account->tls && account->tls_nostarttls)
+            {
+                se = getservbyname("pop3s", NULL);
+                account->port = se ? ntohs(se->s_port) : 995;
+            }
+            else
+            {
+                se = getservbyname("pop3", NULL);
+                account->port = se ? ntohs(se->s_port) : 110;
+            }
+        }
+        if (!account->uidls_file)
+        {
+            account->uidls_file = get_filename(homedir, UIDLSFILE);
+        }
+        /* check for consistency and completeness */
+        if (check_account(account, retrmail, &errstr) != CONF_EOK)
+        {
+            if (account->id && account->conffile)
+            {
+                print_error(_("account %s from %s: %s"), account->id,
+                        account->conffile, mpop_sanitize_string(errstr));
+            }
+            else
+            {
+                print_error("%s", mpop_sanitize_string(errstr));
+            }
+            error_code = EX_CONFIG;
+            goto exit;
+        }
+        /* construct the complete, absolute UIDLS file name */
+        account->uidls_file = string_replace(account->uidls_file, "%U",
+                account->username ? account->username : "");
+        account->uidls_file = string_replace(account->uidls_file, "%H",
+                account->host);
+        /* create directories needed for uidls_file */
+        if (retrmail && !pretend && make_needed_dirs(account->uidls_file) != 0)
+        {
+            print_error(_("cannot create directories for %s: %s"),
+                    account->uidls_file,
+                    errno == ENOTDIR
+                    ? _("a component already exists but is not a directory")
+                    : strerror(errno));
+            error_code = EX_IOERR;
+            goto exit;
+        }
     }
 
     /* print configuration */
     if (print_conf)
     {
-	lp = account_list;
-	while (!list_is_empty(lp))
-	{
-	    lp = lp->next;
-	    account = lp->data;
-	    if (account->id && account->conffile)
-	    {
-		printf(_("using account %s from %s\n"), 
-			account->id, account->conffile);
-	    }
-	    printf("host                  = %s\n"
-		    "port                  = %d\n",
-		    account->host,
-		    account->port);
-	    printf("timeout               = ");
-	    if (account->timeout <= 0)
-	    {
-		printf(_("off\n"));
-	    }
-	    else
-	    {
-		if (account->timeout == 1)
-		{
-		    printf(_("1 second\n"));
-		}
-		else
-		{
-		    printf(_("%d seconds\n"), account->timeout);
-		}
-	    }
-	    printf("pipelining            = %s\n", 
-		    account->pipelining == 0 ? _("off") 
-		    : account->pipelining == 1 ? _("on") : _("auto"));
-	    printf("auth                  = ");
-	    if (account->auth_mech[0] == '\0')
-	    {
-		printf(_("choose\n"));
-	    }
-	    else
-	    {
-		printf("%s\n", account->auth_mech);
-	    }
-	    printf("user                  = %s\n"
-		    "password              = %s\n"
-		    "ntlmdomain            = %s\n"
-		    "tls                   = %s\n"
-		    "tls_starttls          = %s\n"
-		    "tls_trust_file        = %s\n"
-		    "tls_crl_file          = %s\n"
-		    "tls_key_file          = %s\n"
-		    "tls_cert_file         = %s\n"
-		    "tls_certcheck         = %s\n"
-		    "tls_force_sslv3       = %s\n",
-		    account->username ? account->username : _("(not set)"),
-		    account->password ? "*" : _("(not set)"),
-		    account->ntlmdomain ? account->ntlmdomain : _("(not set)"),
-		    account->tls ? _("on") : _("off"), 
-		    account->tls_nostarttls ? _("off") : _("on"),
-		    account->tls_trust_file ? 
-		    	account->tls_trust_file : _("(not set)"),
-		    account->tls_crl_file ? 
-		    	account->tls_crl_file : _("(not set)"),
-		    account->tls_key_file ? 
-		    	account->tls_key_file : _("(not set)"),
-		    account->tls_cert_file ? 
-		    	account->tls_cert_file : _("(not set)"),
-		    account->tls_nocertcheck ? _("off") : _("on"),
-		    account->tls_force_sslv3 ? _("on") : _("off"));
-	    printf("tls_min_dh_prime_bits = ");
-	    if (account->tls_min_dh_prime_bits >= 0)
-	    {
-		printf("%d\n", account->tls_min_dh_prime_bits);
-	    }
-	    else
-	    {
-		printf("%s\n", _("(not set)"));
-	    }
-	    printf("tls_priorities        = %s\n", account->tls_priorities 
-		    ? account->tls_priorities : _("(not set)"));
-	    if (retrmail)
-	    {
-		printf("delivery              = ");
-		if (account->delivery_method == DELIVERY_METHOD_MDA)
-		{
-		    printf("mda");
-		}
-		else if (account->delivery_method == DELIVERY_METHOD_MAILDIR)
-		{
-		    printf("maildir");
-		}
-		else if (account->delivery_method == DELIVERY_METHOD_MBOX)
-		{
-		    printf("mbox");
-		}
-		else if (account->delivery_method == DELIVERY_METHOD_EXCHANGE)
-		{
-		    printf("exchange");
-		}
-		printf(" %s\n", account->delivery_args);
-		printf("uidls file            = %s\n"
-			"only_new              = %s\n"
-			"keep                  = %s\n", 
-			account->uidls_file,
-			account->only_new ? _("on") : _("off"),
-			account->keep ? _("on") : _("off"));
-		printf("killsize              = ");
-		if (account->killsize < 0)
-		{
-		    printf(_("off\n"));
-		}
-		else
-		{
-		    printf("%lld\n", account->killsize);
-		}
-		printf("skipsize              = ");
-		if (account->skipsize < 0)
-		{
-		    printf(_("off\n"));
-		}
-		else
-		{
-		    printf("%lld\n", account->skipsize);
-		}
-		printf("filter                = %s\n",
-			account->filter ? account->filter : _("(not set)"));
-	    }
-	}
+        lp = account_list;
+        while (!list_is_empty(lp))
+        {
+            lp = lp->next;
+            account = lp->data;
+            if (account->id && account->conffile)
+            {
+                printf(_("using account %s from %s\n"),
+                        account->id, account->conffile);
+            }
+            printf("host                  = %s\n"
+                    "port                  = %d\n",
+                    account->host,
+                    account->port);
+            printf("timeout               = ");
+            if (account->timeout <= 0)
+            {
+                printf(_("off\n"));
+            }
+            else
+            {
+                if (account->timeout == 1)
+                {
+                    printf(_("1 second\n"));
+                }
+                else
+                {
+                    printf(_("%d seconds\n"), account->timeout);
+                }
+            }
+            printf("pipelining            = %s\n",
+                    account->pipelining == 0 ? _("off")
+                    : account->pipelining == 1 ? _("on") : _("auto"));
+            printf("auth                  = ");
+            if (account->auth_mech[0] == '\0')
+            {
+                printf(_("choose\n"));
+            }
+            else
+            {
+                printf("%s\n", account->auth_mech);
+            }
+            printf("user                  = %s\n"
+                    "password              = %s\n"
+                    "ntlmdomain            = %s\n"
+                    "tls                   = %s\n"
+                    "tls_starttls          = %s\n"
+                    "tls_trust_file        = %s\n"
+                    "tls_crl_file          = %s\n"
+                    "tls_key_file          = %s\n"
+                    "tls_cert_file         = %s\n"
+                    "tls_certcheck         = %s\n"
+                    "tls_force_sslv3       = %s\n",
+                    account->username ? account->username : _("(not set)"),
+                    account->password ? "*" : _("(not set)"),
+                    account->ntlmdomain ? account->ntlmdomain : _("(not set)"),
+                    account->tls ? _("on") : _("off"),
+                    account->tls_nostarttls ? _("off") : _("on"),
+                    account->tls_trust_file ?
+                        account->tls_trust_file : _("(not set)"),
+                    account->tls_crl_file ?
+                        account->tls_crl_file : _("(not set)"),
+                    account->tls_key_file ?
+                        account->tls_key_file : _("(not set)"),
+                    account->tls_cert_file ?
+                        account->tls_cert_file : _("(not set)"),
+                    account->tls_nocertcheck ? _("off") : _("on"),
+                    account->tls_force_sslv3 ? _("on") : _("off"));
+            printf("tls_min_dh_prime_bits = ");
+            if (account->tls_min_dh_prime_bits >= 0)
+            {
+                printf("%d\n", account->tls_min_dh_prime_bits);
+            }
+            else
+            {
+                printf("%s\n", _("(not set)"));
+            }
+            printf("tls_priorities        = %s\n", account->tls_priorities
+                    ? account->tls_priorities : _("(not set)"));
+            if (retrmail)
+            {
+                printf("delivery              = ");
+                if (account->delivery_method == DELIVERY_METHOD_MDA)
+                {
+                    printf("mda");
+                }
+                else if (account->delivery_method == DELIVERY_METHOD_MAILDIR)
+                {
+                    printf("maildir");
+                }
+                else if (account->delivery_method == DELIVERY_METHOD_MBOX)
+                {
+                    printf("mbox");
+                }
+                else if (account->delivery_method == DELIVERY_METHOD_EXCHANGE)
+                {
+                    printf("exchange");
+                }
+                printf(" %s\n", account->delivery_args);
+                printf("uidls file            = %s\n"
+                        "only_new              = %s\n"
+                        "keep                  = %s\n",
+                        account->uidls_file,
+                        account->only_new ? _("on") : _("off"),
+                        account->keep ? _("on") : _("off"));
+                printf("killsize              = ");
+                if (account->killsize < 0)
+                {
+                    printf(_("off\n"));
+                }
+                else
+                {
+                    printf("%lld\n", account->killsize);
+                }
+                printf("skipsize              = ");
+                if (account->skipsize < 0)
+                {
+                    printf(_("off\n"));
+                }
+                else
+                {
+                    printf("%lld\n", account->skipsize);
+                }
+                printf("filter                = %s\n",
+                        account->filter ? account->filter : _("(not set)"));
+            }
+        }
     }
     if (pretend || (!retrmail && !serverinfo))
     {
-	error_code = EX_OK;
-	goto exit;
+        error_code = EX_OK;
+        goto exit;
     }
-	
+
     /* initialize libraries */
     lp = account_list;
     while (!list_is_empty(lp))
     {
-	lp = lp->next;
-	account = lp->data;
-	if (account->auth_mech && (strcmp(account->auth_mech, "") != 0)
-		&& !pop3_client_supports_authmech(account->auth_mech))
-	{
-	    print_error(_("support for authentication method %s is not "
-			"compiled in"), account->auth_mech);
-	    error_code = EX_UNAVAILABLE;
-	    goto exit;
-	}
-	if (account->tls)
-	{
+        lp = lp->next;
+        account = lp->data;
+        if (account->auth_mech && (strcmp(account->auth_mech, "") != 0)
+                && !pop3_client_supports_authmech(account->auth_mech))
+        {
+            print_error(_("support for authentication method %s is not "
+                        "compiled in"), account->auth_mech);
+            error_code = EX_UNAVAILABLE;
+            goto exit;
+        }
+        if (account->tls)
+        {
 #ifdef HAVE_TLS
-	    if (!tls_lib_initialized)
-	    {
-		if (tls_lib_init(&errstr) != TLS_EOK)
-		{
-		    print_error(_("cannot initialize TLS library: %s"), 
-			    mpop_sanitize_string(errstr));
-		    error_code = EX_SOFTWARE;
-		    goto exit;
-		}
-		tls_lib_initialized = 1;
-	    }
+            if (!tls_lib_initialized)
+            {
+                if (tls_lib_init(&errstr) != TLS_EOK)
+                {
+                    print_error(_("cannot initialize TLS library: %s"),
+                            mpop_sanitize_string(errstr));
+                    error_code = EX_SOFTWARE;
+                    goto exit;
+                }
+                tls_lib_initialized = 1;
+            }
 #else /* not HAVE_TLS */
-	    print_error(_("support for TLS is not compiled in"));
-	    error_code = EX_UNAVAILABLE;
-	    goto exit;
+            print_error(_("support for TLS is not compiled in"));
+            error_code = EX_UNAVAILABLE;
+            goto exit;
 #endif /* HAVE_TLS */
-	}
+        }
     }
     if (net_lib_init(&errstr) != NET_EOK)
     {
-	print_error(_("cannot initialize network library: %s"), 
-		mpop_sanitize_string(errstr));
-	error_code = EX_SOFTWARE;
-	goto exit;
+        print_error(_("cannot initialize network library: %s"),
+                mpop_sanitize_string(errstr));
+        error_code = EX_SOFTWARE;
+        goto exit;
     }
     net_lib_initialized = 1;
 
@@ -2642,89 +2642,89 @@ int main(int argc, char *argv[])
     lp = account_list;
     while (!list_is_empty(lp))
     {
-	lp = lp->next;
-	account = lp->data;
-	if (serverinfo)
-	{
-	    if ((error_code = mpop_serverinfo(account, debug, 
-	    		    &errmsg, &errstr)) != EX_OK)
-	    {
-		if (errstr)
-		{
-		    print_error("%s", mpop_sanitize_string(errstr));
-		    free(errstr);
-		    errstr = NULL;
-		}
-		if (errmsg)
-		{
-	    	    print_error(_("POP3 server message: %s"), 
-			    mpop_sanitize_string(errmsg));
-		    free(errmsg);
-		    errmsg = NULL;
-		}		    
-	    }
-	}
-	else /* retrmail */
-	{
-	    if (!canonical_hostname)
-	    {
-		canonical_hostname = net_get_canonical_hostname();
-	    }
-	    if (!local_user)
-	    {
-		local_user = get_username();
-	    }
-	    mpop_retrmail_abort = 0;
-    	    signal_handler.sa_handler = mpop_retrmail_signal_handler;
-	    sigemptyset(&signal_handler.sa_mask);
-    	    signal_handler.sa_flags = 0;
-    	    (void)sigaction(SIGTERM, &signal_handler, &old_sigterm_handler);
+        lp = lp->next;
+        account = lp->data;
+        if (serverinfo)
+        {
+            if ((error_code = mpop_serverinfo(account, debug,
+                            &errmsg, &errstr)) != EX_OK)
+            {
+                if (errstr)
+                {
+                    print_error("%s", mpop_sanitize_string(errstr));
+                    free(errstr);
+                    errstr = NULL;
+                }
+                if (errmsg)
+                {
+                    print_error(_("POP3 server message: %s"),
+                            mpop_sanitize_string(errmsg));
+                    free(errmsg);
+                    errmsg = NULL;
+                }
+            }
+        }
+        else /* retrmail */
+        {
+            if (!canonical_hostname)
+            {
+                canonical_hostname = net_get_canonical_hostname();
+            }
+            if (!local_user)
+            {
+                local_user = get_username();
+            }
+            mpop_retrmail_abort = 0;
+            signal_handler.sa_handler = mpop_retrmail_signal_handler;
+            sigemptyset(&signal_handler.sa_mask);
+            signal_handler.sa_flags = 0;
+            (void)sigaction(SIGTERM, &signal_handler, &old_sigterm_handler);
 #ifdef SIGHUP
-	    (void)sigaction(SIGHUP, &signal_handler, &old_sighup_handler);
+            (void)sigaction(SIGHUP, &signal_handler, &old_sighup_handler);
 #endif
-	    (void)sigaction(SIGINT, &signal_handler, &old_sigint_handler);
-	    if ((error_code = mpop_retrmail(canonical_hostname, local_user,
-			    account, debug, print_status, print_progress, 
-			    auth_only, status_only, &errmsg, &errstr)) != EX_OK)
-	    {
-		if (errstr)
-		{
-		    print_error("%s", mpop_sanitize_string(errstr));
-		    free(errstr);
-		    errstr = NULL;
-		}
-		if (errmsg)
-		{
-	    	    print_error(_("POP3 server message: %s"), 
-			    mpop_sanitize_string(errmsg));
-		    free(errmsg);
-		    errmsg = NULL;
-		}		    
-		if (account->id && account->conffile)
-		{
-		    print_error(_("error during mail retrieval "
-				"(account %s from %s)"),
-		    	    account->id, account->conffile);
-		}
-		else
-		{
-		    print_error(_("error during mail retrieval"));
-		}
-	    }
-    	    (void)sigaction(SIGTERM, &old_sigterm_handler, NULL);
+            (void)sigaction(SIGINT, &signal_handler, &old_sigint_handler);
+            if ((error_code = mpop_retrmail(canonical_hostname, local_user,
+                            account, debug, print_status, print_progress,
+                            auth_only, status_only, &errmsg, &errstr)) != EX_OK)
+            {
+                if (errstr)
+                {
+                    print_error("%s", mpop_sanitize_string(errstr));
+                    free(errstr);
+                    errstr = NULL;
+                }
+                if (errmsg)
+                {
+                    print_error(_("POP3 server message: %s"),
+                            mpop_sanitize_string(errmsg));
+                    free(errmsg);
+                    errmsg = NULL;
+                }
+                if (account->id && account->conffile)
+                {
+                    print_error(_("error during mail retrieval "
+                                "(account %s from %s)"),
+                            account->id, account->conffile);
+                }
+                else
+                {
+                    print_error(_("error during mail retrieval"));
+                }
+            }
+            (void)sigaction(SIGTERM, &old_sigterm_handler, NULL);
 #ifdef SIGHUP
-	    (void)sigaction(SIGHUP, &old_sighup_handler, NULL);
+            (void)sigaction(SIGHUP, &old_sighup_handler, NULL);
 #endif
-	    (void)sigaction(SIGINT, &old_sigint_handler, NULL);
-	    if (mpop_retrmail_abort)
-	    {
-		break;
-	    }
-	}
+            (void)sigaction(SIGINT, &old_sigint_handler, NULL);
+            if (mpop_retrmail_abort)
+            {
+                break;
+            }
+        }
     }
     free(canonical_hostname);
     free(local_user);
-    
+
 exit:
     /* clean up */
     free(errstr);
@@ -2733,21 +2733,21 @@ exit:
 #ifdef HAVE_TLS
     if (tls_lib_initialized)
     {
-	tls_lib_deinit();
+        tls_lib_deinit();
     }
 #endif /* HAVE_TLS */
     if (net_lib_initialized)
     {
-	net_lib_deinit();
+        net_lib_deinit();
     }
     free(conffile);
     if (conffile_account_list)
     {
-	list_xfree(conffile_account_list, account_free);
+        list_xfree(conffile_account_list, account_free);
     }
     if (account_list)
     {
-	list_xfree(account_list, account_free);
+        list_xfree(account_list, account_free);
     }
     account_free(cmdline_account);
 

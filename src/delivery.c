@@ -57,7 +57,7 @@
  ******************************************************************************/
 
 
-/* 
+/*
  * exitcode_to_string()
  *
  * Return the name of a sysexits.h exitcode.
@@ -68,56 +68,56 @@ const char *exitcode_to_string(int exitcode)
 {
     switch (exitcode)
     {
-	case EX_OK:
-	    return _("EX_OK: no error");
+        case EX_OK:
+            return _("EX_OK: no error");
 
-	case EX_USAGE:
-	    return _("EX_USAGE: command line usage error");
-	    
-	case EX_DATAERR:
-	    return _("EX_DATAERR: data format error");
+        case EX_USAGE:
+            return _("EX_USAGE: command line usage error");
 
-	case EX_NOINPUT:
-	    return _("EX_NOINPUT: no input");
+        case EX_DATAERR:
+            return _("EX_DATAERR: data format error");
 
-	case EX_NOUSER:
-	    return _("EX_NOUSER: user unknown");
+        case EX_NOINPUT:
+            return _("EX_NOINPUT: no input");
 
-	case EX_NOHOST:
-	    return _("EX_NOHOST: host name unknown");
+        case EX_NOUSER:
+            return _("EX_NOUSER: user unknown");
 
-	case EX_UNAVAILABLE:
-	    return _("EX_UNAVAILABLE: service unavailable");
+        case EX_NOHOST:
+            return _("EX_NOHOST: host name unknown");
 
-	case EX_SOFTWARE:
-	    return _("EX_SOFTWARE: internal software error");
+        case EX_UNAVAILABLE:
+            return _("EX_UNAVAILABLE: service unavailable");
 
-	case EX_OSERR:
-	    return _("EX_OSERR: system error");
+        case EX_SOFTWARE:
+            return _("EX_SOFTWARE: internal software error");
 
-	case EX_OSFILE:
-	    return _("EX_OSFILE: system file missing");
-	    
-	case EX_CANTCREAT:
-	    return _("EX_CANTCREAT: cannot create output file");
-	    
-	case EX_IOERR:
-	    return _("EX_IOERR: input/output error");
+        case EX_OSERR:
+            return _("EX_OSERR: system error");
 
-	case EX_TEMPFAIL:
-	    return _("EX_TEMPFAIL: temporary failure");
-	    
-	case EX_PROTOCOL:
-	    return _("EX_PROTOCOL: remote error in protocol");
+        case EX_OSFILE:
+            return _("EX_OSFILE: system file missing");
 
-	case EX_NOPERM:
-	    return _("EX_NOPERM: permission denied");
+        case EX_CANTCREAT:
+            return _("EX_CANTCREAT: cannot create output file");
 
-	case EX_CONFIG:
-	    return _("EX_CONFIG: configuration error");
+        case EX_IOERR:
+            return _("EX_IOERR: input/output error");
 
-	default:
-	    return NULL;
+        case EX_TEMPFAIL:
+            return _("EX_TEMPFAIL: temporary failure");
+
+        case EX_PROTOCOL:
+            return _("EX_PROTOCOL: remote error in protocol");
+
+        case EX_NOPERM:
+            return _("EX_NOPERM: permission denied");
+
+        case EX_CONFIG:
+            return _("EX_CONFIG: configuration error");
+
+        default:
+            return NULL;
     }
 }
 
@@ -131,37 +131,37 @@ const char *exitcode_to_string(int exitcode)
 static volatile sig_atomic_t mda_caused_sigpipe;
 static struct sigaction mda_old_sigpipe_handler;
 static void mda_sigpipe_handler(int signum UNUSED)
-{   
+{
     mda_caused_sigpipe = 1;
 }
 
 int delivery_method_mda_open(delivery_method_t *dm, const char *from,
-	long long size, char **errstr)
+        long long size, char **errstr)
 {
     int e;
     char *cmd;
     char *sizestr;
-    
+
     cmd = xstrdup((char *)(dm->data));
     if (dm->want_from_addr)
     {
-	cmd = string_replace(cmd, "%F", from);
+        cmd = string_replace(cmd, "%F", from);
     }
     if (dm->want_size)
     {
-	sizestr = xasprintf("%lld", size);
-	cmd = string_replace(cmd, "%S", sizestr);
-	free(sizestr);
+        sizestr = xasprintf("%lld", size);
+        cmd = string_replace(cmd, "%S", sizestr);
+        free(sizestr);
     }
     if (fflush(stdout) != 0 || fflush(stderr) != 0
-	    || !(dm->pipe = popen(cmd, "w")))
+            || !(dm->pipe = popen(cmd, "w")))
     {
-	*errstr = xasprintf(_("cannot execute %s"), cmd);
-	e = DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("cannot execute %s"), cmd);
+        e = DELIVERY_EUNKNOWN;
     }
     else
     {
-	e = DELIVERY_EOK;
+        e = DELIVERY_EOK;
     }
     free(cmd);
     return e;
@@ -171,44 +171,44 @@ int delivery_method_mda_close(delivery_method_t *dm, char **errstr)
 {
     int status;
     const char *tmp;
-    
+
     status = pclose(dm->pipe);
     if (mda_caused_sigpipe)
     {
-	*errstr = xasprintf(_("%s did not read mail data"), (char *)(dm->data));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("%s did not read mail data"), (char *)(dm->data));
+        return DELIVERY_EUNKNOWN;
     }
     else if (status == -1 || !WIFEXITED(status))
     {
-	*errstr = xasprintf(_("%s failed to execute"), (char *)(dm->data));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("%s failed to execute"), (char *)(dm->data));
+        return DELIVERY_EUNKNOWN;
     }
     else
     {
-	status = WEXITSTATUS(status);
-	if (status != 0)
-	{
-	    if ((tmp = exitcode_to_string(status)))
-    	    {
-		*errstr = xasprintf(_("%s returned exit status %d (%s)"),
-			(char *)(dm->data), status, tmp);
-	    }
-	    else
-	    {
-		*errstr = xasprintf(_("%s returned exit status %d"), 
-			(char *)(dm->data), status);
-	    }
-	    return DELIVERY_EUNKNOWN;
-	}
-	else
-	{
-	    return DELIVERY_EOK;
-	}
+        status = WEXITSTATUS(status);
+        if (status != 0)
+        {
+            if ((tmp = exitcode_to_string(status)))
+            {
+                *errstr = xasprintf(_("%s returned exit status %d (%s)"),
+                        (char *)(dm->data), status, tmp);
+            }
+            else
+            {
+                *errstr = xasprintf(_("%s returned exit status %d"),
+                        (char *)(dm->data), status);
+            }
+            return DELIVERY_EUNKNOWN;
+        }
+        else
+        {
+            return DELIVERY_EOK;
+        }
     }
 }
 
-int delivery_method_mda_init(delivery_method_t *dm, void *data, 
-	char **errstr UNUSED)
+int delivery_method_mda_init(delivery_method_t *dm, void *data,
+        char **errstr UNUSED)
 {
     struct sigaction signal_handler;
 
@@ -227,8 +227,8 @@ int delivery_method_mda_init(delivery_method_t *dm, void *data,
     return DELIVERY_EOK;
 }
 
-int delivery_method_mda_deinit(delivery_method_t *dm UNUSED, 
-	char **errstr UNUSED)
+int delivery_method_mda_deinit(delivery_method_t *dm UNUSED,
+        char **errstr UNUSED)
 {
     (void)sigaction(SIGPIPE, &mda_old_sigpipe_handler, NULL);
     return DELIVERY_EOK;
@@ -247,50 +247,50 @@ int delivery_method_filter_close(delivery_method_t *dm, char **errstr)
 {
     int status;
     const char *tmp;
-    
+
     status = pclose(dm->pipe);
     if (mda_caused_sigpipe)
     {
-	*errstr = xasprintf(_("%s did not read mail data"), (char *)(dm->data));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("%s did not read mail data"), (char *)(dm->data));
+        return DELIVERY_EUNKNOWN;
     }
     else if (status == -1 || !WIFEXITED(status))
     {
-	*errstr = xasprintf(_("%s failed to execute"), (char *)(dm->data));
-	return 3;
+        *errstr = xasprintf(_("%s failed to execute"), (char *)(dm->data));
+        return 3;
     }
     else
     {
-	status = WEXITSTATUS(status);
-	if (status != 0 && status != 1 && status != 2)
-	{
-	    if ((tmp = exitcode_to_string(status)))
-    	    {
-		*errstr = xasprintf(_("%s returned exit status %d (%s)"), 
-			(char *)(dm->data), status, tmp);
-	    }
-	    else
-	    {
-		*errstr = xasprintf(_("%s returned exit status %d"), 
-			(char *)(dm->data), status);
-	    }
-	    return 3;
-	}
-	else
-	{
-	    return status;
-	}
+        status = WEXITSTATUS(status);
+        if (status != 0 && status != 1 && status != 2)
+        {
+            if ((tmp = exitcode_to_string(status)))
+            {
+                *errstr = xasprintf(_("%s returned exit status %d (%s)"),
+                        (char *)(dm->data), status, tmp);
+            }
+            else
+            {
+                *errstr = xasprintf(_("%s returned exit status %d"),
+                        (char *)(dm->data), status);
+            }
+            return 3;
+        }
+        else
+        {
+            return status;
+        }
     }
 }
 
-int delivery_method_filter_init(delivery_method_t *dm, void *data, 
-	char **errstr)
+int delivery_method_filter_init(delivery_method_t *dm, void *data,
+        char **errstr)
 {
     int e;
-    
+
     if ((e = delivery_method_mda_init(dm, data, errstr)) != DELIVERY_EOK)
     {
-	return e;
+        return e;
     }
     dm->want_size = (strstr((char *)data, "%S") != NULL);
     dm->close = delivery_method_filter_close;
@@ -306,7 +306,7 @@ int delivery_method_filter_deinit(delivery_method_t *dm, char **errstr)
 /*******************************************************************************
  *
  *  The maildir method.
- *  
+ *
  *  You can use it on DJGPP systems, but you need long file name support.
  *
  ******************************************************************************/
@@ -323,44 +323,44 @@ typedef struct
 } maildir_data_t;
 
 int delivery_method_maildir_open(delivery_method_t *dm, const char *from UNUSED,
-	long long size UNUSED, char **errstr)
+        long long size UNUSED, char **errstr)
 {
     maildir_data_t *maildir_data;
     char *filename;
     struct timeval tv;
     int fd;
-    
+
 
     maildir_data = dm->data;
     if (gettimeofday(&tv, NULL) < 0)
     {
-	*errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
+        return DELIVERY_EUNKNOWN;
     }
     /* See http://cr.yp.to/proto/maildir.html for a description of file name
      * generation. */
     filename = xasprintf("tmp%c%llu.M%06luP%lldQ%lu.%s", PATH_SEP,
-		(unsigned long long)tv.tv_sec, (unsigned long)tv.tv_usec,
-		(long long)getpid(), ++maildir_sequence_number, 
-		maildir_data->hostname);
+                (unsigned long long)tv.tv_sec, (unsigned long)tv.tv_usec,
+                (long long)getpid(), ++maildir_sequence_number,
+                maildir_data->hostname);
     /* Instead of waiting for stat() to return ENOENT, we open() the file with
      * O_CREAT | O_EXCL. There is no point in trying again after some time,
      * because the filename is intended to be unique. If it is not, we should
      * fix the filename generation instead. */
-    if ((fd = open(filename, O_WRONLY | O_CREAT | O_EXCL, 
-		    S_IRUSR | S_IWUSR)) < 0)
+    if ((fd = open(filename, O_WRONLY | O_CREAT | O_EXCL,
+                    S_IRUSR | S_IWUSR)) < 0)
     {
-	*errstr = xasprintf(_("cannot create %s%c%s: %s"), 
-		maildir_data->maildir, PATH_SEP, filename, strerror(errno));
-	free(filename);
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot create %s%c%s: %s"),
+                maildir_data->maildir, PATH_SEP, filename, strerror(errno));
+        free(filename);
+        return DELIVERY_EIO;
     }
     maildir_data->filename = filename;
     if (!(dm->pipe = fdopen(fd, "w")))
     {
-	*errstr = xasprintf(_("cannot open %s%c%s: %s"), maildir_data->maildir,
-		PATH_SEP, maildir_data->filename, strerror(errno));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot open %s%c%s: %s"), maildir_data->maildir,
+                PATH_SEP, maildir_data->filename, strerror(errno));
+        return DELIVERY_EIO;
     }
     return DELIVERY_EOK;
 }
@@ -369,29 +369,29 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
 {
     maildir_data_t *maildir_data;
     char *newfilename;
-    
+
     maildir_data = dm->data;
     if (fsync(fileno(dm->pipe)) != 0)
     {
-	*errstr = xasprintf(_("cannot sync %s%c%s: %s"), maildir_data->maildir, 
-		PATH_SEP, maildir_data->filename, strerror(errno));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot sync %s%c%s: %s"), maildir_data->maildir,
+                PATH_SEP, maildir_data->filename, strerror(errno));
+        return DELIVERY_EIO;
     }
     if (fclose(dm->pipe) != 0)
     {
-	*errstr = xasprintf(_("cannot close %s%c%s: %s"), maildir_data->maildir,
-		PATH_SEP, maildir_data->filename, strerror(errno));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot close %s%c%s: %s"), maildir_data->maildir,
+                PATH_SEP, maildir_data->filename, strerror(errno));
+        return DELIVERY_EIO;
     }
     newfilename = xstrdup(maildir_data->filename);
     strncpy(newfilename, "new", 3);
     if (link(maildir_data->filename, newfilename) != 0)
     {
-	*errstr = xasprintf(_("%s: cannot link %s to %s: %s"), 
-		maildir_data->maildir, maildir_data->filename, newfilename, 
-		strerror(errno));
-	free(newfilename);
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("%s: cannot link %s to %s: %s"),
+                maildir_data->maildir, maildir_data->filename, newfilename,
+                strerror(errno));
+        free(newfilename);
+        return DELIVERY_EIO;
     }
     (void)unlink(maildir_data->filename);
     free(newfilename);
@@ -401,34 +401,34 @@ int delivery_method_maildir_close(delivery_method_t *dm, char **errstr)
     return DELIVERY_EOK;
 }
 
-int delivery_method_maildir_init(delivery_method_t *dm, void *data, 
-	char **errstr)
+int delivery_method_maildir_init(delivery_method_t *dm, void *data,
+        char **errstr)
 {
     maildir_data_t *maildir_data;
     char hostname[256];
-    
+
     maildir_data = xmalloc(sizeof(maildir_data_t));
     maildir_data->maildir = xstrdup((char *)data);
     maildir_data->filename = NULL;
     if (gethostname(hostname, 256) != 0 || hostname[0] == '\0')
     {
-	/* Should never happen on any sane system */
-	strcpy(hostname, "unknown");
+        /* Should never happen on any sane system */
+        strcpy(hostname, "unknown");
     }
     else
     {
-	/* Make sure the hostname is NUL-terminated. */
-	hostname[255] = '\0';
+        /* Make sure the hostname is NUL-terminated. */
+        hostname[255] = '\0';
     }
     maildir_data->hostname = xstrdup(hostname);
     /* replace invalid characters as described in
      * http://cr.yp.to/proto/maildir.html */
-    maildir_data->hostname = string_replace(maildir_data->hostname, "/", 
-	    "_057_");
-    maildir_data->hostname = string_replace(maildir_data->hostname, ":", 
-	    "_072_");
-    maildir_data->hostname = string_replace(maildir_data->hostname, "\\", 
-	    "_134_");
+    maildir_data->hostname = string_replace(maildir_data->hostname, "/",
+            "_057_");
+    maildir_data->hostname = string_replace(maildir_data->hostname, ":",
+            "_072_");
+    maildir_data->hostname = string_replace(maildir_data->hostname, "\\",
+            "_134_");
     dm->data = maildir_data;
     dm->need_from_quoting = 0;
     dm->need_crlf = 0;
@@ -438,9 +438,9 @@ int delivery_method_maildir_init(delivery_method_t *dm, void *data,
     dm->close = delivery_method_maildir_close;
     if (chdir(maildir_data->maildir) != 0)
     {
-	*errstr = xasprintf(_("cannot change to %s: %s"), maildir_data->maildir,
-		strerror(errno));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("cannot change to %s: %s"), maildir_data->maildir,
+                strerror(errno));
+        return DELIVERY_EUNKNOWN;
     }
     (void)umask(S_IRWXG | S_IRWXO);
 
@@ -461,7 +461,7 @@ int delivery_method_maildir_deinit(delivery_method_t *dm, char **errstr UNUSED)
 /*******************************************************************************
  *
  *  The MS exchange method.
- *  
+ *
  *  This is similar to the maildir code.
  *
  ******************************************************************************/
@@ -478,7 +478,7 @@ typedef struct
 } exchange_data_t;
 
 int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED,
-	long long size UNUSED, char **errstr)
+        long long size UNUSED, char **errstr)
 {
     exchange_data_t *exchange_data;
     char *filename;
@@ -488,38 +488,38 @@ int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED
     exchange_data = dm->data;
     if (gettimeofday(&tv, NULL) < 0)
     {
-	*errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
+        return DELIVERY_EUNKNOWN;
     }
     /* Choose a unique filename (similar to the maildir method) that ends with
      * ".eml" */
     filename = xasprintf("%s-%llu-M%06luP%lldQ%lu-%s.eml", PACKAGE_NAME,
-		(unsigned long long)tv.tv_sec, (unsigned long)tv.tv_usec,
-		(long long)getpid(), ++exchange_sequence_number, 
-		exchange_data->hostname);
+                (unsigned long long)tv.tv_sec, (unsigned long)tv.tv_usec,
+                (long long)getpid(), ++exchange_sequence_number,
+                exchange_data->hostname);
 #if W32_NATIVE
     /* Open the file and deny read and write access to other processes, e.g.
      * Exchange */
-    if ((fd = _sopen(filename, O_WRONLY | O_CREAT | O_EXCL, _SH_DENYRW, 
-		    S_IRUSR | S_IWUSR)) < 0)
+    if ((fd = _sopen(filename, O_WRONLY | O_CREAT | O_EXCL, _SH_DENYRW,
+                    S_IRUSR | S_IWUSR)) < 0)
 #else
     /* We cannot do the same on UNIX; just open the file normally */
-    if ((fd = open(filename, O_WRONLY | O_CREAT | O_EXCL, 
-		    S_IRUSR | S_IWUSR)) < 0)
+    if ((fd = open(filename, O_WRONLY | O_CREAT | O_EXCL,
+                    S_IRUSR | S_IWUSR)) < 0)
 #endif
     {
-	*errstr = xasprintf(_("cannot create %s%c%s: %s"), 
-		exchange_data->pickupdir, PATH_SEP, filename, strerror(errno));
-	free(filename);
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot create %s%c%s: %s"),
+                exchange_data->pickupdir, PATH_SEP, filename, strerror(errno));
+        free(filename);
+        return DELIVERY_EIO;
     }
     exchange_data->filename = filename;
     if (!(dm->pipe = fdopen(fd, "w")))
     {
-	*errstr = xasprintf(_("cannot open %s%c%s: %s"), 
-		exchange_data->pickupdir, PATH_SEP, exchange_data->filename,
-		strerror(errno));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot open %s%c%s: %s"),
+                exchange_data->pickupdir, PATH_SEP, exchange_data->filename,
+                strerror(errno));
+        return DELIVERY_EIO;
     }
     /* The locking is superfluous (but harmless) on W32 because the file is
      * opened with sharing disabled. It is mostly done for UNIX systems to at
@@ -527,10 +527,10 @@ int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED
      * files (of course, they would have to obey locking for this). */
     if (lock_file(dm->pipe, TOOLS_LOCK_WRITE, 0) != 0)
     {
-	*errstr = xasprintf(_("cannot lock %s%c%s: %s"), 
-		exchange_data->pickupdir, PATH_SEP, exchange_data->filename,
-		strerror(errno));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot lock %s%c%s: %s"),
+                exchange_data->pickupdir, PATH_SEP, exchange_data->filename,
+                strerror(errno));
+        return DELIVERY_EIO;
     }
     return DELIVERY_EOK;
 }
@@ -542,15 +542,15 @@ int delivery_method_exchange_close(delivery_method_t *dm, char **errstr)
     exchange_data = dm->data;
     if (fsync(fileno(dm->pipe)) != 0)
     {
-	*errstr = xasprintf(_("cannot sync %s%c%s: %s"), exchange_data->pickupdir, 
-		PATH_SEP, exchange_data->filename, strerror(errno));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot sync %s%c%s: %s"), exchange_data->pickupdir,
+                PATH_SEP, exchange_data->filename, strerror(errno));
+        return DELIVERY_EIO;
     }
     if (fclose(dm->pipe) != 0)
     {
-	*errstr = xasprintf(_("cannot close %s%c%s: %s"), exchange_data->pickupdir,
-		PATH_SEP, exchange_data->filename, strerror(errno));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot close %s%c%s: %s"), exchange_data->pickupdir,
+                PATH_SEP, exchange_data->filename, strerror(errno));
+        return DELIVERY_EIO;
     }
     free(exchange_data->filename);
     exchange_data->filename = NULL;
@@ -558,34 +558,34 @@ int delivery_method_exchange_close(delivery_method_t *dm, char **errstr)
     return DELIVERY_EOK;
 }
 
-int delivery_method_exchange_init(delivery_method_t *dm, void *data, 
-	char **errstr)
+int delivery_method_exchange_init(delivery_method_t *dm, void *data,
+        char **errstr)
 {
     exchange_data_t *exchange_data;
     char hostname[256];
-    
+
     exchange_data = xmalloc(sizeof(exchange_data_t));
     exchange_data->pickupdir = xstrdup((char *)data);
     exchange_data->filename = NULL;
     if (gethostname(hostname, 256) != 0 || hostname[0] == '\0')
     {
-	/* Should never happen on any sane system */
-	strcpy(hostname, "unknown");
+        /* Should never happen on any sane system */
+        strcpy(hostname, "unknown");
     }
     else
     {
-	/* Make sure the hostname is NUL-terminated. */
-	hostname[255] = '\0';
+        /* Make sure the hostname is NUL-terminated. */
+        hostname[255] = '\0';
     }
     exchange_data->hostname = xstrdup(hostname);
     /* replace invalid characters as described in
      * http://cr.yp.to/proto/maildir.html */
-    exchange_data->hostname = string_replace(exchange_data->hostname, "/", 
-	    "_057_");
-    exchange_data->hostname = string_replace(exchange_data->hostname, ":", 
-	    "_072_");
-    exchange_data->hostname = string_replace(exchange_data->hostname, "\\", 
-	    "_134_");
+    exchange_data->hostname = string_replace(exchange_data->hostname, "/",
+            "_057_");
+    exchange_data->hostname = string_replace(exchange_data->hostname, ":",
+            "_072_");
+    exchange_data->hostname = string_replace(exchange_data->hostname, "\\",
+            "_134_");
     dm->data = exchange_data;
     dm->need_from_quoting = 0;
     dm->need_crlf = 1;
@@ -595,9 +595,9 @@ int delivery_method_exchange_init(delivery_method_t *dm, void *data,
     dm->close = delivery_method_exchange_close;
     if (chdir(exchange_data->pickupdir) != 0)
     {
-	*errstr = xasprintf(_("cannot change to %s: %s"), exchange_data->pickupdir,
-		strerror(errno));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("cannot change to %s: %s"), exchange_data->pickupdir,
+                strerror(errno));
+        return DELIVERY_EUNKNOWN;
     }
     (void)umask(S_IRWXG | S_IRWXO);
 
@@ -621,23 +621,23 @@ int delivery_method_exchange_deinit(delivery_method_t *dm, char **errstr UNUSED)
  *
  ******************************************************************************/
 
-int delivery_method_mbox_open(delivery_method_t *dm, const char *from, 
-	long long size UNUSED, char **errstr)
+int delivery_method_mbox_open(delivery_method_t *dm, const char *from,
+        long long size UNUSED, char **errstr)
 {
     time_t t;
 
     if ((t = time(NULL)) < 0)
     {
-	*errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
+        return DELIVERY_EUNKNOWN;
     }
     /* Write the From_ line. */
     if (fprintf(dm->pipe, "From %s %s", from, asctime(gmtime(&t))) < 0)
     {
-	*errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
+        return DELIVERY_EIO;
     }
-    
+
     return DELIVERY_EOK;
 }
 
@@ -645,25 +645,25 @@ int delivery_method_mbox_close(delivery_method_t *dm, char **errstr)
 {
     if (fputc('\n', dm->pipe) == EOF)
     {
-	*errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
+        return DELIVERY_EIO;
     }
     if (fsync(fileno(dm->pipe)) != 0)
     {
-	/* Ignore the condition (errno == EINVAL): fsync() is not possible with
-	 * this file; the user probably used /dev/null or some other special
-	 * file as an mbox. */
-	if (errno != EINVAL)
-	{
-	    *errstr = xasprintf(_("cannot sync %s: %s"), (char *)(dm->data), 
-	    	    strerror(errno));
-	    return DELIVERY_EIO;
-	}
+        /* Ignore the condition (errno == EINVAL): fsync() is not possible with
+         * this file; the user probably used /dev/null or some other special
+         * file as an mbox. */
+        if (errno != EINVAL)
+        {
+            *errstr = xasprintf(_("cannot sync %s: %s"), (char *)(dm->data),
+                    strerror(errno));
+            return DELIVERY_EIO;
+        }
     }
     if (ferror(dm->pipe))
     {
-	*errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("%s: output error"), (char *)(dm->data));
+        return DELIVERY_EIO;
     }
     return DELIVERY_EOK;
 }
@@ -683,26 +683,26 @@ int delivery_method_mbox_init(delivery_method_t *dm, void *data, char **errstr)
     (void)umask(S_IRWXG | S_IRWXO);
     if (!(dm->pipe = fopen((char *)data, "a")))
     {
-	*errstr = xasprintf(_("cannot open %s: %s"), (char *)data, 
-		strerror(errno));
-	return DELIVERY_EUNKNOWN;
+        *errstr = xasprintf(_("cannot open %s: %s"), (char *)data,
+                strerror(errno));
+        return DELIVERY_EUNKNOWN;
     }
     if ((e = lock_file(dm->pipe, TOOLS_LOCK_WRITE, lock_timeout)) != 0)
     {
-	if (e == 1)
-	{
-	    *errstr = xasprintf(_("cannot lock %s (tried for %d seconds): %s"), 
-		    (char *)data, lock_timeout, strerror(errno));
-	}
-	else
-	{
-	    *errstr = xasprintf(_("cannot lock %s: %s"), 
-		    (char *)data, strerror(errno));
-	}
-	fclose(dm->pipe);
-	return DELIVERY_EUNKNOWN;
+        if (e == 1)
+        {
+            *errstr = xasprintf(_("cannot lock %s (tried for %d seconds): %s"),
+                    (char *)data, lock_timeout, strerror(errno));
+        }
+        else
+        {
+            *errstr = xasprintf(_("cannot lock %s: %s"),
+                    (char *)data, strerror(errno));
+        }
+        fclose(dm->pipe);
+        return DELIVERY_EUNKNOWN;
     }
-    
+
     return DELIVERY_EOK;
 }
 
@@ -711,9 +711,9 @@ int delivery_method_mbox_deinit(delivery_method_t *dm, char **errstr)
     /* unlocking is done automatically with fclose() */
     if (fclose(dm->pipe) != 0)
     {
-	*errstr = xasprintf(_("cannot close %s: %s"), (char *)(dm->data),
-		strerror(errno));
-	return DELIVERY_EIO;
+        *errstr = xasprintf(_("cannot close %s: %s"), (char *)(dm->data),
+                strerror(errno));
+        return DELIVERY_EIO;
     }
     return DELIVERY_EOK;
 }
@@ -736,39 +736,39 @@ delivery_method_t *delivery_method_new(int method, void *data, char **errstr)
 {
     int e = 0;
     delivery_method_t *dm;
-    
+
     dm = xmalloc(sizeof(delivery_method_t));
     dm->method = method;
     switch (method)
     {
-	case DELIVERY_METHOD_MDA:
-	    e = delivery_method_mda_init(dm, data, errstr);
-	    break;
+        case DELIVERY_METHOD_MDA:
+            e = delivery_method_mda_init(dm, data, errstr);
+            break;
 
-	case DELIVERY_METHOD_MAILDIR:
-	    e = delivery_method_maildir_init(dm, data, errstr);
-	    break;
+        case DELIVERY_METHOD_MAILDIR:
+            e = delivery_method_maildir_init(dm, data, errstr);
+            break;
 
-	case DELIVERY_METHOD_MBOX:
-	    e = delivery_method_mbox_init(dm, data, errstr);
-	    break;
+        case DELIVERY_METHOD_MBOX:
+            e = delivery_method_mbox_init(dm, data, errstr);
+            break;
 
-	case DELIVERY_METHOD_EXCHANGE:
-	    e = delivery_method_exchange_init(dm, data, errstr);
-	    break;
+        case DELIVERY_METHOD_EXCHANGE:
+            e = delivery_method_exchange_init(dm, data, errstr);
+            break;
 
-	case DELIVERY_METHOD_FILTER:
-	    e = delivery_method_filter_init(dm, data, errstr);
-	    break;
+        case DELIVERY_METHOD_FILTER:
+            e = delivery_method_filter_init(dm, data, errstr);
+            break;
     }
     if (e != DELIVERY_EOK)
     {
-	free(dm);
-	return NULL;
+        free(dm);
+        return NULL;
     }
     else
     {
-	return dm;
+        return dm;
     }
 }
 
@@ -782,28 +782,28 @@ delivery_method_t *delivery_method_new(int method, void *data, char **errstr)
 int delivery_method_free(delivery_method_t *dm, char **errstr)
 {
     int e = 0;
-    
+
     switch (dm->method)
     {
-	case DELIVERY_METHOD_MDA:
-	    e = delivery_method_mda_deinit(dm, errstr);
-	    break;
+        case DELIVERY_METHOD_MDA:
+            e = delivery_method_mda_deinit(dm, errstr);
+            break;
 
-	case DELIVERY_METHOD_MAILDIR:
-	    e = delivery_method_maildir_deinit(dm, errstr);
-	    break;
+        case DELIVERY_METHOD_MAILDIR:
+            e = delivery_method_maildir_deinit(dm, errstr);
+            break;
 
-	case DELIVERY_METHOD_MBOX:
-	    e = delivery_method_mbox_deinit(dm, errstr);
-	    break;
+        case DELIVERY_METHOD_MBOX:
+            e = delivery_method_mbox_deinit(dm, errstr);
+            break;
 
-	case DELIVERY_METHOD_EXCHANGE:
-	    e = delivery_method_exchange_deinit(dm, errstr);
-	    break;
+        case DELIVERY_METHOD_EXCHANGE:
+            e = delivery_method_exchange_deinit(dm, errstr);
+            break;
 
-	case DELIVERY_METHOD_FILTER:
-	    e = delivery_method_filter_deinit(dm, errstr);
-	    break;
+        case DELIVERY_METHOD_FILTER:
+            e = delivery_method_filter_deinit(dm, errstr);
+            break;
     }
     free(dm);
     return e;

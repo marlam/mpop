@@ -1,6 +1,6 @@
 /*
  * pop3.h
- * 
+ *
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009
@@ -37,58 +37,58 @@
 
 /*
  * If a function with an 'errstr' argument returns a value != CONF_EOK,
- * '*errstr' either points to an allocates string containing an error 
+ * '*errstr' either points to an allocates string containing an error
  * description or is NULL.
  * Likewise, if a function takes an 'errmsg' argument and returns a value !=
- * POP3_EOK, '*errmsg' either points to the POP3 server error message in an 
+ * POP3_EOK, '*errmsg' either points to the POP3 server error message in an
  * allocated string or is NULL.
  * If such a function returns POP3_EOK, neither 'errmsg' nor 'errstr' will be
  * changed.
  */
-#define POP3_EOK		0	/* no error */
-#define POP3_EIO		1	/* Input/output error */
-#define POP3_EPROTO		2	/* Protocol violation */
-#define POP3_EINVAL		3	/* Invalid input data */
-#define POP3_EUNAVAIL		4	/* Requested service unavailable */
-#define POP3_EAUTHFAIL		5	/* Authentication failed */
-#define POP3_ELIBFAILED		6	/* An underlying library failed */
-#define POP3_EINSECURE		7	/* The requested action would be 
-					   insecure */
-#define POP3_EDELIVERY		8	/* Mail delivery failed */
-#define POP3_EABORT		9	/* The current action was aborted */
+#define POP3_EOK                0       /* no error */
+#define POP3_EIO                1       /* Input/output error */
+#define POP3_EPROTO             2       /* Protocol violation */
+#define POP3_EINVAL             3       /* Invalid input data */
+#define POP3_EUNAVAIL           4       /* Requested service unavailable */
+#define POP3_EAUTHFAIL          5       /* Authentication failed */
+#define POP3_ELIBFAILED         6       /* An underlying library failed */
+#define POP3_EINSECURE          7       /* The requested action would be
+                                           insecure */
+#define POP3_EDELIVERY          8       /* Mail delivery failed */
+#define POP3_EABORT             9       /* The current action was aborted */
 
 /* POP3 capabilities */
-#define POP3_CAP_AUTH_USER		(1 << 0)
-#define POP3_CAP_AUTH_APOP		(1 << 1)
-#define POP3_CAP_AUTH_PLAIN		(1 << 2)
-#define POP3_CAP_AUTH_CRAM_MD5	 	(1 << 3)
-#define POP3_CAP_AUTH_DIGEST_MD5	(1 << 4)
-#define POP3_CAP_AUTH_GSSAPI		(1 << 5)
-#define POP3_CAP_AUTH_EXTERNAL		(1 << 6)
-#define POP3_CAP_AUTH_LOGIN		(1 << 7)
-#define POP3_CAP_AUTH_NTLM		(1 << 8)
-#define POP3_CAP_CAPA			(1 << 9)
-#define POP3_CAP_TOP			(1 << 10)
-#define POP3_CAP_LOGIN_DELAY		(1 << 11)
-#define POP3_CAP_PIPELINING		(1 << 12)
-#define POP3_CAP_EXPIRE			(1 << 13)
-#define POP3_CAP_UIDL			(1 << 14)
-#define POP3_CAP_IMPLEMENTATION		(1 << 15)
-#define POP3_CAP_STLS			(1 << 16)
-#define POP3_CAP_RESP_CODES		(1 << 17)
-#define POP3_CAP_AUTH_RESP_CODE		(1 << 18)
+#define POP3_CAP_AUTH_USER              (1 << 0)
+#define POP3_CAP_AUTH_APOP              (1 << 1)
+#define POP3_CAP_AUTH_PLAIN             (1 << 2)
+#define POP3_CAP_AUTH_CRAM_MD5          (1 << 3)
+#define POP3_CAP_AUTH_DIGEST_MD5        (1 << 4)
+#define POP3_CAP_AUTH_GSSAPI            (1 << 5)
+#define POP3_CAP_AUTH_EXTERNAL          (1 << 6)
+#define POP3_CAP_AUTH_LOGIN             (1 << 7)
+#define POP3_CAP_AUTH_NTLM              (1 << 8)
+#define POP3_CAP_CAPA                   (1 << 9)
+#define POP3_CAP_TOP                    (1 << 10)
+#define POP3_CAP_LOGIN_DELAY            (1 << 11)
+#define POP3_CAP_PIPELINING             (1 << 12)
+#define POP3_CAP_EXPIRE                 (1 << 13)
+#define POP3_CAP_UIDL                   (1 << 14)
+#define POP3_CAP_IMPLEMENTATION         (1 << 15)
+#define POP3_CAP_STLS                   (1 << 16)
+#define POP3_CAP_RESP_CODES             (1 << 17)
+#define POP3_CAP_AUTH_RESP_CODE         (1 << 18)
 
-/* 
+/*
  * Buffer size for communication with the POP3 server. This restricts the length
- * of POP3 command lines, but does not restrict the length of lines allowed in 
+ * of POP3 command lines, but does not restrict the length of lines allowed in
  * mails. Nevertheless, it should be greater than 1000, so that a line of the
  * maximum length allowed by RFC 2822 can fit entirely into it.
  */
 #define POP3_BUFSIZE 1024
 
 /*
- * This structure describes the capabilities of a POP3 server. 
- * 'flags' is a combination of the POP3_CAP_* values above. 
+ * This structure describes the capabilities of a POP3 server.
+ * 'flags' is a combination of the POP3_CAP_* values above.
  * If (flags & POP3_CAP_AUTH_APOP), 'apop_timestamp' contains the APOP timestamp
  * string.
  * If (flags & POP3_CAP_LOGIN_DELAY), 'login_delay' contains the minimum number
@@ -112,10 +112,10 @@ typedef struct
 
 
 /*
- * 
+ *
  * This structure represents a POP3 session.
  *
- * 
+ *
  * The "session information" section can be accessed outside of pop3.c.
  *
  * The first function that handles session information is pop3_stat().
@@ -152,45 +152,45 @@ typedef struct
  */
 
 /* The message action is one of the following: */
-#define POP3_MSG_ACTION_NORMAL		0	/* proceed normally */
-#define POP3_MSG_ACTION_IGNORE		1	/* ignore this mail */
-#define POP3_MSG_ACTION_DELETE		2	/* delete this mail */
+#define POP3_MSG_ACTION_NORMAL          0       /* proceed normally */
+#define POP3_MSG_ACTION_IGNORE          1       /* ignore this mail */
+#define POP3_MSG_ACTION_DELETE          2       /* delete this mail */
 
 typedef struct
 {
     /* Information about the local system */
-    char *local_hostname;	/* A canonical name of this host */
-    char *local_user;		/* The (login) name of the user for which mails
-				   are retrieved in this session */
+    char *local_hostname;       /* A canonical name of this host */
+    char *local_user;           /* The (login) name of the user for which mails
+                                   are retrieved in this session */
     /* The POP3 server */
-    char *server_hostname;	/* the hostname of the POP3 server as given by 
-				   the user */
-    char *server_canonical_name;/* the canonical hostname of the POP3 server 
-				   connected with 'fd' */
-    char *server_address;	/* network address of the POP3 server connected
-				   with 'fd', in human readable form */
-    pop3_cap_t cap;		/* capabilities of the POP3 server */
-    int pipelining;		/* pipelining: 0=off, 1=on, 2=auto */
-    int count_newline_as_crlf;	/* does the server count newline as 2 chars? */
-    int fd;			/* the socket */
+    char *server_hostname;      /* the hostname of the POP3 server as given by
+                                   the user */
+    char *server_canonical_name;/* the canonical hostname of the POP3 server
+                                   connected with 'fd' */
+    char *server_address;       /* network address of the POP3 server connected
+                                   with 'fd', in human readable form */
+    pop3_cap_t cap;             /* capabilities of the POP3 server */
+    int pipelining;             /* pipelining: 0=off, 1=on, 2=auto */
+    int count_newline_as_crlf;  /* does the server count newline as 2 chars? */
+    int fd;                     /* the socket */
 #ifdef HAVE_TLS
-    tls_t tls;			/* TLS descriptor */
+    tls_t tls;                  /* TLS descriptor */
 #endif /* HAVE_TLS */
-    char buffer[POP3_BUFSIZE];	/* input/output buffer */
-    readbuf_t readbuf;		/* net input buffering */
-    FILE *debug;		/* stream for debugging output, or NULL */
+    char buffer[POP3_BUFSIZE];  /* input/output buffer */
+    readbuf_t readbuf;          /* net input buffering */
+    FILE *debug;                /* stream for debugging output, or NULL */
 
     /* POP3 session information */
-    long total_number;		/* total number of messages */
-    long long total_size;	/* total size of messages */
-    unsigned char *is_old;	/* this message a) has been retrieved before and
-				   b) is not deleted */
-    long old_number;		/* number of messages for which is_old is set */
-    long new_number;		/* number of new messages */
-    long long new_size;		/* size of new messages */
-    unsigned char *msg_action;	/* action for each mail */
-    char **msg_uid;		/* UID of each mail */
-    long long *msg_size;	/* size of each mail */
+    long total_number;          /* total number of messages */
+    long long total_size;       /* total size of messages */
+    unsigned char *is_old;      /* this message a) has been retrieved before and
+                                   b) is not deleted */
+    long old_number;            /* number of messages for which is_old is set */
+    long new_number;            /* number of new messages */
+    long long new_size;         /* size of new messages */
+    unsigned char *msg_action;  /* action for each mail */
+    char **msg_uid;             /* UID of each mail */
+    long long *msg_size;        /* size of each mail */
 } pop3_session_t;
 
 
@@ -208,12 +208,12 @@ typedef struct
  * PIPELINING capability in response to the CAPA command and disable it for all
  * other servers.
  * If 'debug' is not NULL, the complete conversation with the POP3 server will
- * be logged to the referenced file. 
+ * be logged to the referenced file.
  * Beware: this log may contain user passwords.
  */
 pop3_session_t *pop3_session_new(int pipelining,
-	const char *canonical_hostname, const char *local_user,
-	FILE *debug);
+        const char *canonical_hostname, const char *local_user,
+        FILE *debug);
 
 /*
  * pop3_session_free()
@@ -236,28 +236,28 @@ void pop3_session_free(pop3_session_t *session);
  * Used error codes: NET_EHOSTNOTFOUND, NET_ESOCKET, NET_ECONNECT
  */
 int pop3_connect(pop3_session_t *session,
-	const char *server_hostname, int port, int timeout, 
-	const char **server_canonical_name, const char **server_address, 
-	char **errstr);
+        const char *server_hostname, int port, int timeout,
+        const char **server_canonical_name, const char **server_address,
+        char **errstr);
 
 /*
  * pop3_get_greeting()
  *
- * Get the initial greeting string from a POP3 server. 
+ * Get the initial greeting string from a POP3 server.
  * This function alters session->cap.
- * If 'greeting' is not NULL, it must point to a buffer which is at least 
- * POP3_BUFSIZE - 4 characters long. This buffer will contain the 
+ * If 'greeting' is not NULL, it must point to a buffer which is at least
+ * POP3_BUFSIZE - 4 characters long. This buffer will contain the
  * identificatin string of the POP3 server (untrusted data!)
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
-int pop3_get_greeting(pop3_session_t *session, char *greeting, 
-	char **errmsg, char **errstr);
-    
+int pop3_get_greeting(pop3_session_t *session, char *greeting,
+        char **errmsg, char **errstr);
+
 /*
  * pop3_capa()
  *
- * Sends the CAPA command to the POP3 server and determines the capabilities 
- * of the POP3 server. If after the first call to this function the 
+ * Sends the CAPA command to the POP3 server and determines the capabilities
+ * of the POP3 server. If after the first call to this function the
  * POP3_CAP_CAPA flag is not set, don't call it again: the server does not
  * support the CAPA command.
  * The capability flags will not be resetted before adding capabilities, so
@@ -277,17 +277,17 @@ int pop3_capa(pop3_session_t *session, char **errstr);
  * Used error codes: TLS_ELIBFAILED, TLS_EFILE
  */
 #ifdef HAVE_TLS
-int pop3_tls_init(pop3_session_t *session, 
-	const char *tls_key_file, const char *tls_cert_file,
-	const char *tls_trust_file, const char *tls_crl_file,
-	int force_sslv3, int min_dh_prime_bits, const char *priorities,
-	char **errstr);
+int pop3_tls_init(pop3_session_t *session,
+        const char *tls_key_file, const char *tls_cert_file,
+        const char *tls_trust_file, const char *tls_crl_file,
+        int force_sslv3, int min_dh_prime_bits, const char *priorities,
+        char **errstr);
 #endif /* HAVE_TLS */
 
 /*
  * pop3_tls_stls()
  *
- * Announce the start of TLS encryption with a POP3 server, using the STLS 
+ * Announce the start of TLS encryption with a POP3 server, using the STLS
  * command.
  * Use this function after pop3_capa(). The POP3 server must have the
  * POP3_CAP_STLS capability.
@@ -310,14 +310,14 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr);
  */
 #ifdef HAVE_TLS
 int pop3_tls(pop3_session_t *session, const char *hostname, int tls_nocertcheck,
-	tls_cert_info_t *tci, char **errstr);
+        tls_cert_info_t *tci, char **errstr);
 #endif /* HAVE_TLS */
 
 /*
  * pop3_client_supports_authmech()
  *
  * Returns 1 if the authentication mechanism is supported by the underlying
- * authentication code and 0 otherwise. 
+ * authentication code and 0 otherwise.
  */
 int pop3_client_supports_authmech(const char *mech);
 
@@ -325,7 +325,7 @@ int pop3_client_supports_authmech(const char *mech);
  * pop3_server_supports_authmech()
  *
  * Returns 1 if the authentication mechanism is supported by the POP3 server
- * and 0 otherwise. 
+ * and 0 otherwise.
  */
 int pop3_server_supports_authmech(pop3_session_t *session, const char *mech);
 
@@ -337,7 +337,7 @@ int pop3_server_supports_authmech(pop3_session_t *session, const char *mech);
  * to find out which authentication mechanisms are available.
  * The special value "" for 'auth_mech' causes the function to choose the best
  * authentication method supported by the server, unless TLS is incative and the
- * method sends plain text passwords. In this case, the function fails with 
+ * method sends plain text passwords. In this case, the function fails with
  * POP3_EINSECURE.
  * The hostname is the name of the POP3 server. It may be needed for
  * authentication.
@@ -347,23 +347,23 @@ int pop3_server_supports_authmech(pop3_session_t *session, const char *mech);
  * NULL). It is expected to return a * password in an allocated buffer or NULL
  * (if it fails).
  * Used error codes: POP3_EIO, POP3_EINVAL, POP3_EPROTO
- * 		     POP3_EAUTHFAIL, POP3_ELIBFAILED, POP3_EINSECURE,
- * 		     POP3_EUNAVAIL
+ *                   POP3_EAUTHFAIL, POP3_ELIBFAILED, POP3_EINSECURE,
+ *                   POP3_EUNAVAIL
  */
-int pop3_auth(pop3_session_t *session, 
-	const char *auth_mech,
-	const char *user, 
-	const char *password, 
-	const char *hostname,
-	const char *ntlmdomain,
-	char *(*password_callback)(const char *hostname, const char *user),
-	char **errmsg,
-	char **errstr);
+int pop3_auth(pop3_session_t *session,
+        const char *auth_mech,
+        const char *user,
+        const char *password,
+        const char *hostname,
+        const char *ntlmdomain,
+        char *(*password_callback)(const char *hostname, const char *user),
+        char **errmsg,
+        char **errstr);
 
 /*
  * pop3_stat()
  *
- * Issues the POP3 STAT command. 
+ * Issues the POP3 STAT command.
  * This initializes the following fields of 'session':
  * - total_number
  * - total_size
@@ -388,7 +388,7 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr);
  * not support the UIDL command.
  */
 int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
-	volatile sig_atomic_t *abort, char **errmsg, char **errstr);
+        volatile sig_atomic_t *abort, char **errmsg, char **errstr);
 
 /*
  * pop3_list()
@@ -401,12 +401,12 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
 int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
-	char **errmsg, char **errstr);
+        char **errmsg, char **errstr);
 
 /*
  * pop3_filter()
  *
- * Issues the POP3 TOP command for all messages whose action is 
+ * Issues the POP3 TOP command for all messages whose action is
  * POP3_MSG_ACTION_NORMAL.
  * The header, and the blank line separating header and body, will be piped
  * to 'filtercmd'.
@@ -424,9 +424,9 @@ int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
  * POP3_EABORT.
  */
 int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
-	const char *filtercmd,
-	void (*filter_output)(long i, long number, int new_action, void *data),
-	void *data, char **errmsg, char **errstr);
+        const char *filtercmd,
+        void (*filter_output)(long i, long number, int new_action, void *data),
+        void *data, char **errmsg, char **errstr);
 
 /*
  * pop3_retr()
@@ -434,14 +434,14 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
  * Issues the POP3 RETR command for all messages whose action is
  * POP3_MSG_ACTION_NORMAL.
  * The mail will be delivered with the method specified by 'delivery_method' and
- * 'delivery_method_arguments'. An exit status > 0 will be interpreted as an 
- * error. Exit codes from sysexits.h are supported. If 'pipecmd' returns zero, 
+ * 'delivery_method_arguments'. An exit status > 0 will be interpreted as an
+ * error. Exit codes from sysexits.h are supported. If 'pipecmd' returns zero,
  * the mesage action will be changed to POP3_MSG_ACTION_DELETE, and is_old will
  * be set for this message. old_number will be updated.
  * A Received header will be prepended to the mail.
  * If the progress functions are not NULL, they will be called:
  * - 'progress_begin' once, before anything is retrieved
- * - 'progress' 99 times, while retrieving the mail, with 'percent' increasing 
+ * - 'progress' 99 times, while retrieving the mail, with 'percent' increasing
  *    from 1 to 99
  * - 'progress_end' once, after everything was retrieved successfully
  * - 'progress_abort' only if an error occured, to clean up the output
@@ -451,14 +451,14 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
  * POP3_EABORT
  */
 int pop3_retr(pop3_session_t *session, volatile sig_atomic_t *abort,
-	int delivery_method, const char *delivery_method_arguments,
-	void (*progress_start)(long i, long number, long long size),
-	void (*progress)(long i, long number, long long rcvd, long long size, 
-	    int percent),
-	void (*progress_end)(long i, long number, long long size),
-	void (*progress_abort)(long i, long number, long long size),
-	char **errmsg, char **errstr);
-    
+        int delivery_method, const char *delivery_method_arguments,
+        void (*progress_start)(long i, long number, long long size),
+        void (*progress)(long i, long number, long long rcvd, long long size,
+            int percent),
+        void (*progress_end)(long i, long number, long long size),
+        void (*progress_abort)(long i, long number, long long size),
+        char **errmsg, char **errstr);
+
 /*
  * pop3_dele()
  *
@@ -471,8 +471,8 @@ int pop3_retr(pop3_session_t *session, volatile sig_atomic_t *abort,
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
 int pop3_dele(pop3_session_t *session, volatile sig_atomic_t *abort,
-	char **errmsg, char **errstr);
-    
+        char **errmsg, char **errstr);
+
 /*
  * pop3_rset()
  *
@@ -483,7 +483,7 @@ int pop3_dele(pop3_session_t *session, volatile sig_atomic_t *abort,
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
 int pop3_rset(pop3_session_t *session, char **errmsg, char **errstr);
-    
+
 /*
  * pop3_quit()
  *
@@ -492,7 +492,7 @@ int pop3_rset(pop3_session_t *session, char **errmsg, char **errstr);
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL
  */
 int pop3_quit(pop3_session_t *session, char **errmsg, char **errstr);
-    
+
 /*
  * pop3_close()
  *

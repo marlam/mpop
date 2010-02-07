@@ -28,13 +28,13 @@
 
 /*
  * If a function with an 'errstr' argument returns a value != UIDLS_EOK,
- * '*errstr' either points to an allocates string containing an error 
+ * '*errstr' either points to an allocates string containing an error
  * description or is NULL.
  * If such a function returns UIDLS_EOK, 'errstr' will not be changed.
  */
-#define UIDLS_EOK	0	/* no error */
-#define UIDLS_EIO	1	/* input/output error */
-#define UIDLS_EFORMAT	2	/* file has invalid format */
+#define UIDLS_EOK       0       /* no error */
+#define UIDLS_EIO       1       /* input/output error */
+#define UIDLS_EFORMAT   2       /* file has invalid format */
 
 /* An UIDL is a list of n UIDs for one user/hostname pair. */
 typedef struct
@@ -59,7 +59,7 @@ uidl_t *uidl_new(const char *hostname, const char *user);
  */
 void uidl_free(void *u);
 
-/* 
+/*
  * uidls_uidcmp()
  *
  * Compares to UID strings. Return value is like strcmp().
@@ -88,8 +88,8 @@ uidl_t *find_uidl(list_t *uidl_list, const char *hostname, const char *user);
  * The UIDs in each uidl in the list will be in ascending order.
  * Used error codes: UIDLS_EIO, UIDLS_EFORMAT
  */
-int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list, 
-	char **errstr);
+int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
+        char **errstr);
 
 /*
  * uidls_write()
@@ -100,7 +100,7 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
  * error message will be returned.
  * Used error codes: UIDLS_EIO
  */
-int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list, 
-	char **errstr);
+int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
+        char **errstr);
 
 #endif
