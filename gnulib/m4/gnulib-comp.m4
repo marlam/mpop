@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2010 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -52,7 +52,6 @@ AC_DEFUN([gl_INIT],
   gl_HEADER_ARPA_INET
   AC_PROG_MKDIR_P
   gl_FUNC_BASE64
-  gl_CLOCK_TIME
   gl_FUNC_CLOSE
   gl_UNISTD_MODULE_INDICATOR([close])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -62,8 +61,6 @@ AC_DEFUN([gl_INIT],
   gl_SYS_SOCKET_MODULE_INDICATOR([connect])
   gl_HMAC_MD5
   gl_MD5
-  gl_DIRNAME
-  gl_DOUBLE_SLASH_ROOT
   gl_HEADER_ERRNO_H
   gl_FUNC_FCLOSE
   gl_STDIO_MODULE_INDICATOR([fclose])
@@ -81,15 +78,13 @@ AC_DEFUN([gl_INIT],
   gl_FUNC_GETOPT_GNU
   gl_MODULE_INDICATOR([getopt-gnu])
   gl_FUNC_GETOPT_POSIX
-  gl_FUNC_GETPAGESIZE
-  gl_UNISTD_MODULE_INDICATOR([getpagesize])
   gl_FUNC_GETPASS_GNU
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
   AM_GNU_GETTEXT_VERSION([0.17])
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
-  gl_GETTIME
   gl_FUNC_GETTIMEOFDAY
+  gl_SYS_TIME_MODULE_INDICATOR([gettimeofday])
   gl_HOSTENT
   gl_INET_NTOP
   gl_ARPA_INET_MODULE_INDICATOR([inet_ntop])
@@ -98,6 +93,8 @@ AC_DEFUN([gl_INIT],
   gl_UNISTD_MODULE_INDICATOR([link])
   gl_FUNC_LSTAT
   gl_SYS_STAT_MODULE_INDICATOR([lstat])
+  gl_FUNC_MALLOC_POSIX
+  gl_STDLIB_MODULE_INDICATOR([malloc-posix])
   gl_FUNC_MEMCHR
   gl_STRING_MODULE_INDICATOR([memchr])
   gl_MEMXOR
@@ -115,8 +112,6 @@ AC_DEFUN([gl_INIT],
     AC_LIBOBJ([recv])
   fi
   gl_SYS_SOCKET_MODULE_INDICATOR([recv])
-  gl_FUNC_RENAME
-  gl_STDIO_MODULE_INDICATOR([rename])
   gl_FUNC_SELECT
   gl_SYS_SELECT_MODULE_INDICATOR([select])
   AC_REQUIRE([gl_HEADER_SYS_SOCKET])
@@ -166,12 +161,16 @@ AC_DEFUN([gl_INIT],
   gl_SYS_SOCKET_MODULE_INDICATOR([socket])
   gl_SOCKETS
   gl_TYPE_SOCKLEN_T
+  gl_FUNC_STAT
+  gl_SYS_STAT_MODULE_INDICATOR([stat])
   gl_STDARG_H
   AM_STDBOOL_H
   gl_STDDEF_H
   gl_STDINT_H
   gl_STDIO_H
   gl_STDLIB_H
+  gl_FUNC_STRDUP_POSIX
+  gl_STRING_MODULE_INDICATOR([strdup])
   gl_FUNC_STRERROR
   gl_STRING_MODULE_INDICATOR([strerror])
   gl_HEADER_STRING_H
@@ -192,7 +191,6 @@ AC_DEFUN([gl_INIT],
   gl_SYSEXITS
   gl_FUNC_GEN_TEMPNAME
   gl_HEADER_TIME_H
-  gl_TIMESPEC
   gl_UNISTD_H
   gl_FUNC_VASNPRINTF
   gl_FUNC_VASPRINTF
@@ -201,8 +199,6 @@ AC_DEFUN([gl_INIT],
     [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
      AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
   gl_WCHAR_H
-  gl_FUNC_WRITE
-  gl_UNISTD_MODULE_INDICATOR([write])
   gl_XALLOC
   gl_XSIZE
   gl_XSTRNDUP
@@ -231,7 +227,7 @@ AC_DEFUN([gl_INIT],
     if test -n "$gl_LIBOBJS"; then
       # Remove the extension.
       sed_drop_objext='s/\.o$//;s/\.obj$//'
-      for i in `for i in $gl_LIBOBJS; do echo "$i"; done | sed "$sed_drop_objext" | sort | uniq`; do
+      for i in `for i in $gl_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
         gl_libobjs="$gl_libobjs $i.$ac_objext"
         gl_ltlibobjs="$gl_ltlibobjs $i.lo"
       done
@@ -270,7 +266,7 @@ AC_DEFUN([gl_INIT],
     if test -n "$gltests_LIBOBJS"; then
       # Remove the extension.
       sed_drop_objext='s/\.o$//;s/\.obj$//'
-      for i in `for i in $gltests_LIBOBJS; do echo "$i"; done | sed "$sed_drop_objext" | sort | uniq`; do
+      for i in `for i in $gltests_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
         gltests_libobjs="$gltests_libobjs $i.$ac_objext"
         gltests_ltlibobjs="$gltests_ltlibobjs $i.lo"
       done
@@ -341,8 +337,9 @@ AC_DEFUN([gltests_LIBSOURCES], [
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
 AC_DEFUN([gl_FILE_LIST], [
+  build-aux/arg-nonnull.h
   build-aux/config.rpath
-  build-aux/link-warning.h
+  build-aux/warn-on-use.h
   lib/alignof.h
   lib/alloca.c
   lib/alloca.in.h
@@ -351,15 +348,12 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/asprintf.c
   lib/base64.c
   lib/base64.h
-  lib/basename.c
   lib/c-ctype.c
   lib/c-ctype.h
   lib/close-hook.c
   lib/close-hook.h
   lib/close.c
   lib/connect.c
-  lib/dirname.c
-  lib/dirname.h
   lib/errno.in.h
   lib/fclose.c
   lib/float+.h
@@ -374,11 +368,9 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getopt.in.h
   lib/getopt1.c
   lib/getopt_int.h
-  lib/getpagesize.c
   lib/getpass.c
   lib/getpass.h
   lib/gettext.h
-  lib/gettime.c
   lib/gettimeofday.c
   lib/hmac-md5.c
   lib/hmac.h
@@ -386,6 +378,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/intprops.h
   lib/link.c
   lib/lstat.c
+  lib/malloc.c
   lib/md5.c
   lib/md5.h
   lib/memchr.c
@@ -402,7 +395,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/printf-parse.h
   lib/realloc.c
   lib/recv.c
-  lib/rename.c
   lib/select.c
   lib/send.c
   lib/setsockopt.c
@@ -415,6 +407,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/socket.c
   lib/sockets.c
   lib/sockets.h
+  lib/stat.c
   lib/stdarg.in.h
   lib/stdbool.in.h
   lib/stddef.in.h
@@ -422,9 +415,9 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
+  lib/strdup.c
   lib/strerror.c
   lib/string.in.h
-  lib/stripslash.c
   lib/strndup.c
   lib/strnlen.c
   lib/sys_select.in.h
@@ -436,14 +429,13 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/tempname.c
   lib/tempname.h
   lib/time.in.h
-  lib/timespec.h
   lib/unistd.in.h
   lib/vasnprintf.c
   lib/vasnprintf.h
   lib/vasprintf.c
+  lib/verify.h
   lib/w32sock.h
   lib/wchar.in.h
-  lib/write.c
   lib/xalloc.h
   lib/xasprintf.c
   lib/xmalloc.c
@@ -456,12 +448,9 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/alloca.m4
   m4/arpa_inet_h.m4
   m4/base64.m4
-  m4/clock_time.m4
   m4/close.m4
   m4/codeset.m4
-  m4/dirname.m4
   m4/dos.m4
-  m4/double-slash-root.m4
   m4/errno_h.m4
   m4/extensions.m4
   m4/fclose.m4
@@ -472,10 +461,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/gethostname.m4
   m4/getline.m4
   m4/getopt.m4
-  m4/getpagesize.m4
   m4/getpass.m4
   m4/gettext.m4
-  m4/gettime.m4
   m4/gettimeofday.m4
   m4/glibc2.m4
   m4/glibc21.m4
@@ -519,7 +506,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/printf.m4
   m4/progtest.m4
   m4/realloc.m4
-  m4/rename.m4
   m4/select.m4
   m4/servent.m4
   m4/sigaction.m4
@@ -531,6 +517,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sockets.m4
   m4/socklen.m4
   m4/sockpfaf.m4
+  m4/stat.m4
   m4/stdarg.m4
   m4/stdbool.m4
   m4/stddef_h.m4
@@ -538,6 +525,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/stdint_h.m4
   m4/stdio_h.m4
   m4/stdlib_h.m4
+  m4/strdup.m4
   m4/strerror.m4
   m4/string_h.m4
   m4/strndup.m4
@@ -551,16 +539,15 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/tempname.m4
   m4/threadlib.m4
   m4/time_h.m4
-  m4/timespec.m4
   m4/uintmax_t.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/vasprintf.m4
   m4/visibility.m4
+  m4/warn-on-use.m4
   m4/wchar.m4
   m4/wchar_t.m4
   m4/wint_t.m4
-  m4/write.m4
   m4/xalloc.m4
   m4/xsize.m4
   m4/xstrndup.m4

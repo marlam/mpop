@@ -7,7 +7,7 @@
 
    Written by Richard W.M. Jones <rjones.at.redhat.com>
 
-   Copyright (C) 2008 Free Software Foundation, Inc.
+   Copyright (C) 2008-2010 Free Software Foundation, Inc.
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -56,15 +56,15 @@ fsync (int fd)
        */
       err = GetLastError ();
       switch (err)
-	{
-	  /* eg. Trying to fsync a tty. */
-	case ERROR_INVALID_HANDLE:
-	  errno = EINVAL;
-	  break;
+        {
+          /* eg. Trying to fsync a tty. */
+        case ERROR_INVALID_HANDLE:
+          errno = EINVAL;
+          break;
 
-	default:
-	  errno = EIO;
-	}
+        default:
+          errno = EIO;
+        }
       return -1;
     }
 

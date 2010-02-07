@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2010-02-07 13:05+0100\n"
+"POT-Creation-Date: 2010-02-07 15:15+0100\n"
 "PO-Revision-Date: 2006-09-03 14:51+0200\n"
 "Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
 "Language-Team: Spanish\n"
@@ -16,62 +16,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gnulib/getopt.c:526 gnulib/getopt.c:542
+#: gnulib/getopt.c:529 gnulib/getopt.c:545
 #, c-format
-msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: la opción `%s' es ambigua\n"
+msgid "%s: option '%s' is ambiguous\n"
+msgstr "%s: la opción '%s' es ambigua\n"
 
-#: gnulib/getopt.c:575 gnulib/getopt.c:579
+#: gnulib/getopt.c:578 gnulib/getopt.c:582
 #, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: la opción `--%s' no acepta argumentos\n"
+msgid "%s: option '--%s' doesn't allow an argument\n"
+msgstr "%s: la opción '--%s' no acepta argumentos\n"
 
-#: gnulib/getopt.c:588 gnulib/getopt.c:593
+#: gnulib/getopt.c:591 gnulib/getopt.c:596
 #, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: la opción `%c%s' no acepta argumentos\n"
+msgid "%s: option '%c%s' doesn't allow an argument\n"
+msgstr "%s: la opción '%c%s' no acepta argumentos\n"
 
-#: gnulib/getopt.c:636 gnulib/getopt.c:655 gnulib/getopt.c:971
-#: gnulib/getopt.c:990
+#: gnulib/getopt.c:639 gnulib/getopt.c:658 gnulib/getopt.c:961
+#: gnulib/getopt.c:980
 #, c-format
-msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: la opción `%s' requiere un argumento\n"
+msgid "%s: option '%s' requires an argument\n"
+msgstr "%s: la opción '%s' requiere un argumento\n"
 
-#: gnulib/getopt.c:693 gnulib/getopt.c:696
+#: gnulib/getopt.c:696 gnulib/getopt.c:699
 #, c-format
-msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: opción desconocida `--%s'\n"
+msgid "%s: unrecognized option '--%s'\n"
+msgstr "%s: opción desconocida '--%s'\n"
 
-#: gnulib/getopt.c:704 gnulib/getopt.c:707
+#: gnulib/getopt.c:707 gnulib/getopt.c:710
 #, c-format
-msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: opción desconocida `%c%s'\n"
+msgid "%s: unrecognized option '%c%s'\n"
+msgstr "%s: opción desconocida '%c%s'\n"
 
 #: gnulib/getopt.c:759 gnulib/getopt.c:762
 #, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: opción ilegal `%c'\n"
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: opción inválida '%c'\n"
 
-#: gnulib/getopt.c:768 gnulib/getopt.c:771
+#: gnulib/getopt.c:812 gnulib/getopt.c:829 gnulib/getopt.c:1032
+#: gnulib/getopt.c:1050
 #, c-format
-msgid "%s: invalid option -- %c\n"
-msgstr "%s: opción inválida `%c'\n"
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: la opción '%c' requiere un argumento\n"
 
-#: gnulib/getopt.c:823 gnulib/getopt.c:839 gnulib/getopt.c:1043
-#: gnulib/getopt.c:1061
+#: gnulib/getopt.c:882 gnulib/getopt.c:898
 #, c-format
-msgid "%s: option requires an argument -- %c\n"
-msgstr "%s: la opción `%c' requiere un argumento\n"
+msgid "%s: option '-W %s' is ambiguous\n"
+msgstr "%s: la opción '-W %s' es ambigua\n"
 
-#: gnulib/getopt.c:892 gnulib/getopt.c:908
+#: gnulib/getopt.c:922 gnulib/getopt.c:940
 #, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: la opción `-W %s' es ambigua\n"
-
-#: gnulib/getopt.c:932 gnulib/getopt.c:950
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: la opción `-W %s' no acepta argumentos\n"
+msgid "%s: option '-W %s' doesn't allow an argument\n"
+msgstr "%s: la opción '-W %s' no acepta argumentos\n"
 
 #: src/conf.c:552
 #, c-format
@@ -1481,10 +1476,13 @@ msgstr "%s, línea %ld: nombre de usuario inválido u omitido"
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, línea %ld: faltan UIDs para el usuario %s, host %s"
 
-#: src/uidls.c:448
+#: src/uidls.c:452
 #, c-format
 msgid "cannot rename %s to %s: %s"
 msgstr "no se puede mover %s a %s: %s"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: opción ilegal `%c'\n"
 
 #~ msgid "host not found (authoritative)"
 #~ msgstr "Host no encontrado (autoritario)"

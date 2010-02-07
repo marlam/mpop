@@ -1,6 +1,6 @@
 #serial 17
 
-# Copyright (C) 2001, 2003, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2003-2007, 2009-2010 Free Software Foundation, Inc.
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -21,25 +21,25 @@ AC_DEFUN([gl_FUNC_MKSTEMP],
     [
       mkdir conftest.mkstemp
       AC_RUN_IFELSE(
-	[AC_LANG_PROGRAM(
-	  [AC_INCLUDES_DEFAULT],
-	  [[int i;
-	    off_t large = (off_t) 4294967295u;
-	    if (large < 0)
-	      large = 2147483647;
-	    for (i = 0; i < 70; i++)
-	      {
-		char templ[] = "conftest.mkstemp/coXXXXXX";
-		int (*mkstemp_function) (char *) = mkstemp;
-		int fd = mkstemp_function (templ);
-		if (fd < 0 || lseek (fd, large, SEEK_SET) != large)
-		  return 1;
-		close (fd);
-	      }
-	    return 0;]])],
-	[gl_cv_func_working_mkstemp=yes],
-	[gl_cv_func_working_mkstemp=no],
-	[gl_cv_func_working_mkstemp=no])
+        [AC_LANG_PROGRAM(
+          [AC_INCLUDES_DEFAULT],
+          [[int i;
+            off_t large = (off_t) 4294967295u;
+            if (large < 0)
+              large = 2147483647;
+            for (i = 0; i < 70; i++)
+              {
+                char templ[] = "conftest.mkstemp/coXXXXXX";
+                int (*mkstemp_function) (char *) = mkstemp;
+                int fd = mkstemp_function (templ);
+                if (fd < 0 || lseek (fd, large, SEEK_SET) != large)
+                  return 1;
+                close (fd);
+              }
+            return 0;]])],
+        [gl_cv_func_working_mkstemp=yes],
+        [gl_cv_func_working_mkstemp=no],
+        [gl_cv_func_working_mkstemp=no])
       rm -rf conftest.mkstemp
     ])
 

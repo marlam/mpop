@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2010-02-07 13:05+0100\n"
+"POT-Creation-Date: 2010-02-07 15:15+0100\n"
 "PO-Revision-Date: 2010-02-07 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -16,62 +16,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gnulib/getopt.c:526 gnulib/getopt.c:542
+#: gnulib/getopt.c:529 gnulib/getopt.c:545
 #, c-format
-msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: Option `%s' ist nicht eindeutig\n"
+msgid "%s: option '%s' is ambiguous\n"
+msgstr "%s: Option '%s' ist nicht eindeutig\n"
 
-#: gnulib/getopt.c:575 gnulib/getopt.c:579
+#: gnulib/getopt.c:578 gnulib/getopt.c:582
 #, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: Option `--%s' akzeptiert kein Argument\n"
+msgid "%s: option '--%s' doesn't allow an argument\n"
+msgstr "%s: Option '--%s' akzeptiert kein Argument\n"
 
-#: gnulib/getopt.c:588 gnulib/getopt.c:593
+#: gnulib/getopt.c:591 gnulib/getopt.c:596
 #, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: Option `%c%s' akzeptiert kein Argument\n"
+msgid "%s: option '%c%s' doesn't allow an argument\n"
+msgstr "%s: Option '%c%s' akzeptiert kein Argument\n"
 
-#: gnulib/getopt.c:636 gnulib/getopt.c:655 gnulib/getopt.c:971
-#: gnulib/getopt.c:990
+#: gnulib/getopt.c:639 gnulib/getopt.c:658 gnulib/getopt.c:961
+#: gnulib/getopt.c:980
 #, c-format
-msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: Option `%s' erwartet ein Argument\n"
+msgid "%s: option '%s' requires an argument\n"
+msgstr "%s: Option '%s' erwartet ein Argument\n"
 
-#: gnulib/getopt.c:693 gnulib/getopt.c:696
+#: gnulib/getopt.c:696 gnulib/getopt.c:699
 #, c-format
-msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: unbekannte Option `--%s'\n"
+msgid "%s: unrecognized option '--%s'\n"
+msgstr "%s: unbekannte Option '--%s'\n"
 
-#: gnulib/getopt.c:704 gnulib/getopt.c:707
+#: gnulib/getopt.c:707 gnulib/getopt.c:710
 #, c-format
-msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: unbekannte Option `%c%s'\n"
+msgid "%s: unrecognized option '%c%s'\n"
+msgstr "%s: unbekannte Option '%c%s'\n"
 
 #: gnulib/getopt.c:759 gnulib/getopt.c:762
 #, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: ungültige Option `%c'\n"
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: ungültige Option '%c'\n"
 
-#: gnulib/getopt.c:768 gnulib/getopt.c:771
+#: gnulib/getopt.c:812 gnulib/getopt.c:829 gnulib/getopt.c:1032
+#: gnulib/getopt.c:1050
 #, c-format
-msgid "%s: invalid option -- %c\n"
-msgstr "%s: ungültige Option `%c'\n"
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: Option '%c' erwartet ein Argument\n"
 
-#: gnulib/getopt.c:823 gnulib/getopt.c:839 gnulib/getopt.c:1043
-#: gnulib/getopt.c:1061
+#: gnulib/getopt.c:882 gnulib/getopt.c:898
 #, c-format
-msgid "%s: option requires an argument -- %c\n"
-msgstr "%s: Option `%c' erwartet ein Argument\n"
+msgid "%s: option '-W %s' is ambiguous\n"
+msgstr "%s: Option '-W %s' ist nicht eindeutig\n"
 
-#: gnulib/getopt.c:892 gnulib/getopt.c:908
+#: gnulib/getopt.c:922 gnulib/getopt.c:940
 #, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: Option `-W %s' ist nicht eindeutig\n"
-
-#: gnulib/getopt.c:932 gnulib/getopt.c:950
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: Option `-W %s' akzeptiert kein Argument\n"
+msgid "%s: option '-W %s' doesn't allow an argument\n"
+msgstr "%s: Option '-W %s' akzeptiert kein Argument\n"
 
 #: src/conf.c:552
 #, c-format
@@ -1489,10 +1484,13 @@ msgstr "%s, Zeile %ld: ungültiger oder fehlender Benutzername"
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"
 
-#: src/uidls.c:448
+#: src/uidls.c:452
 #, c-format
 msgid "cannot rename %s to %s: %s"
 msgstr "kann %s nicht nach %s umbenennen: %s"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: ungültige Option `%c'\n"
 
 #~ msgid "host not found (authoritative)"
 #~ msgstr "Host nicht gefunden (endgültig)"

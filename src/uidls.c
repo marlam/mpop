@@ -436,10 +436,14 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
         return UIDLS_EIO;
     }
 #ifdef W32_NATIVE
-    /* Even with the gnulib rename module, W32 cannot perform the rename if the
-     * destination file is opened by us. We need to close it first. This opens a
-     * window in which another mpop process might start to use the file... */
+    /* On W32, rename will not work if the destination exists, and it will not
+     * work as long as we have the file opened. The gnulib rename module only
+     * solves the first problem, so we don't use it.
+     * What we do here opens a window in which another mpop process might start
+     * to use the file. Also, if renaming fails, we lost the UIDLS file. This
+     * is something a W32 user has to live with, for now. */
     fclose(uidls_file);
+    remove(filename);
 #endif
     if (rename(temp_filename, filename) != 0)
     {

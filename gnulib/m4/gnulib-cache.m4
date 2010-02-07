@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2009 Free Software Foundation, Inc.
+# Copyright (C) 2002-2010 Free Software Foundation, Inc.
 #
 # This file is free software, distributed under the terms of the GNU
 # General Public License.  As a special exception to the GNU General
@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=gnulib --m4-base=gnulib/m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=fseek --avoid=fseeko --avoid=ftruncate --avoid=xalloc-die --no-libtool --macro-prefix=gl --no-vc-files arpa_inet base64 c-ctype close connect crypto/hmac-md5 crypto/md5 fseek fsync ftruncate getaddrinfo gethostname getopt-gnu getpass-gnu gettext gettimeofday havelib link mkstemp nanosleep netdb recv rename select send setsockopt sigaction signal sigpipe sigprocmask socket sockets socklen stdio strerror sys_stat sys_wait sysexits write xalloc xstrndup xvasprintf
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=gnulib --m4-base=gnulib/m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --avoid=fseek --avoid=fseeko --avoid=ftruncate --avoid=rename --avoid=xalloc-die --no-libtool --macro-prefix=gl --no-vc-files arpa_inet base64 c-ctype close connect crypto/hmac-md5 crypto/md5 fsync ftruncate getaddrinfo gethostname getopt-gnu getpass-gnu gettext gettimeofday havelib link mkstemp nanosleep netdb recv select send setsockopt sigaction signal sigpipe sigprocmask socket socklen stdio strerror sys_stat sys_wait sysexits xalloc xstrndup xvasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
@@ -27,7 +27,6 @@ gl_MODULES([
   connect
   crypto/hmac-md5
   crypto/md5
-  fseek
   fsync
   ftruncate
   getaddrinfo
@@ -42,7 +41,6 @@ gl_MODULES([
   nanosleep
   netdb
   recv
-  rename
   select
   send
   setsockopt
@@ -51,19 +49,17 @@ gl_MODULES([
   sigpipe
   sigprocmask
   socket
-  sockets
   socklen
   stdio
   strerror
   sys_stat
   sys_wait
   sysexits
-  write
   xalloc
   xstrndup
   xvasprintf
 ])
-gl_AVOID([fseek fseeko ftruncate xalloc-die])
+gl_AVOID([fseek fseeko ftruncate rename xalloc-die])
 gl_SOURCE_BASE([gnulib])
 gl_M4_BASE([gnulib/m4])
 gl_PO_BASE([])
