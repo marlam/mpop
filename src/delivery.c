@@ -477,8 +477,8 @@ typedef struct
     char *hostname;
 } exchange_data_t;
 
-int delivery_method_exchange_open(delivery_method_t *dm, const char *from UNUSED,
-        long long size UNUSED, char **errstr)
+int delivery_method_exchange_open(delivery_method_t *dm,
+        const char *from UNUSED, long long size UNUSED, char **errstr)
 {
     exchange_data_t *exchange_data;
     char *filename;
@@ -542,14 +542,16 @@ int delivery_method_exchange_close(delivery_method_t *dm, char **errstr)
     exchange_data = dm->data;
     if (fsync(fileno(dm->pipe)) != 0)
     {
-        *errstr = xasprintf(_("cannot sync %s%c%s: %s"), exchange_data->pickupdir,
-                PATH_SEP, exchange_data->filename, strerror(errno));
+        *errstr = xasprintf(_("cannot sync %s%c%s: %s"),
+                exchange_data->pickupdir, PATH_SEP, exchange_data->filename,
+                strerror(errno));
         return DELIVERY_EIO;
     }
     if (fclose(dm->pipe) != 0)
     {
-        *errstr = xasprintf(_("cannot close %s%c%s: %s"), exchange_data->pickupdir,
-                PATH_SEP, exchange_data->filename, strerror(errno));
+        *errstr = xasprintf(_("cannot close %s%c%s: %s"),
+                exchange_data->pickupdir, PATH_SEP, exchange_data->filename,
+                strerror(errno));
         return DELIVERY_EIO;
     }
     free(exchange_data->filename);
@@ -595,8 +597,8 @@ int delivery_method_exchange_init(delivery_method_t *dm, void *data,
     dm->close = delivery_method_exchange_close;
     if (chdir(exchange_data->pickupdir) != 0)
     {
-        *errstr = xasprintf(_("cannot change to %s: %s"), exchange_data->pickupdir,
-                strerror(errno));
+        *errstr = xasprintf(_("cannot change to %s: %s"),
+                exchange_data->pickupdir, strerror(errno));
         return DELIVERY_EUNKNOWN;
     }
     (void)umask(S_IRWXG | S_IRWXO);
