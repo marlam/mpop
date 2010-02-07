@@ -2277,7 +2277,7 @@ int main(int argc, char *argv[])
 # endif
 #endif
         printf("\n\n");
-        printf(_("Copyright (C) 2009 Martin Lambers and others.\n"
+        printf(_("Copyright (C) 2010 Martin Lambers and others.\n"
                     "This is free software.  You may redistribute copies of "
                         "it under the terms of\n"
                     "the GNU General Public License "
