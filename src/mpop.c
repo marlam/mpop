@@ -2631,7 +2631,7 @@ int main(int argc, char *argv[])
                     /* Avoid %lld in printf. xasprintf comes from a gnulib
                      * module and can handle %lld, but printf may not. The
                      * gnulib printf module seems to heavy just for this. */
-                    char *tmpstr = xasprintf("%lld\n", account->killsize);
+                    char *tmpstr = xasprintf("%lld", account->killsize);
                     printf("%s\n", tmpstr);
                     free(tmpstr);
                 }
@@ -2645,7 +2645,7 @@ int main(int argc, char *argv[])
                     /* Avoid %lld in printf. xasprintf comes from a gnulib
                      * module and can handle %lld, but printf may not. The
                      * gnulib printf module seems to heavy just for this. */
-                    char *tmpstr = xasprintf("%lld\n", account->skipsize);
+                    char *tmpstr = xasprintf("%lld", account->skipsize);
                     printf("%s\n", tmpstr);
                     free(tmpstr);
                 }

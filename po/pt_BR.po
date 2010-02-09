@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2010-02-07 15:15+0100\n"
+"POT-Creation-Date: 2010-02-09 21:14+0100\n"
 "PO-Revision-Date: 2009-11-02 18:09-0200\n"
 "Last-Translator: Ruda Moura <ruda.moura@gmail.com>\n"
 "Language-Team: Portuguese\n"
@@ -902,7 +902,7 @@ msgstr "um componente já existe mas não é um diretório"
 msgid "using account %s from %s\n"
 msgstr "usando a conta %s de %s\n"
 
-#: src/mpop.c:2522 src/mpop.c:2627 src/mpop.c:2636
+#: src/mpop.c:2522 src/mpop.c:2627 src/mpop.c:2641
 #, c-format
 msgid "off\n"
 msgstr "desligado\n"
@@ -938,40 +938,40 @@ msgstr "escolhido\n"
 
 #: src/mpop.c:2569 src/mpop.c:2570 src/mpop.c:2571 src/mpop.c:2575
 #: src/mpop.c:2577 src/mpop.c:2580 src/mpop.c:2582 src/mpop.c:2584
-#: src/mpop.c:2594 src/mpop.c:2597 src/mpop.c:2643
+#: src/mpop.c:2594 src/mpop.c:2597 src/mpop.c:2653
 msgid "(not set)"
 msgstr "(não configurado)"
 
-#: src/mpop.c:2662
+#: src/mpop.c:2672
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr "o suporte ao método de autenticação %s não foi compilado"
 
-#: src/mpop.c:2674
+#: src/mpop.c:2684
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "não pude iniciar a biblioteca TLS: %s"
 
-#: src/mpop.c:2682
+#: src/mpop.c:2692
 msgid "support for TLS is not compiled in"
 msgstr "o suporte a TLS não foi compilado"
 
-#: src/mpop.c:2690
+#: src/mpop.c:2700
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "não pude inicar a biblioteca de rede: %s"
 
-#: src/mpop.c:2718 src/mpop.c:2756
+#: src/mpop.c:2728 src/mpop.c:2766
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "mensagem do servidor POP3: %s"
 
-#: src/mpop.c:2763
+#: src/mpop.c:2773
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "um erro ocorreu durante o recebimento de mensagens (conta %s de %s)"
 
-#: src/mpop.c:2769
+#: src/mpop.c:2779
 msgid "error during mail retrieval"
 msgstr "um erro ocorreu durante o recebimento de mensagens"
 
