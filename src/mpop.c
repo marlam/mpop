@@ -2628,7 +2628,12 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    printf("%lld\n", account->killsize);
+                    /* Avoid %lld in printf. xasprintf comes from a gnulib
+                     * module and can handle %lld, but printf may not. The
+                     * gnulib printf module seems to heavy just for this. */
+                    char *tmpstr = xasprintf("%lld\n", account->killsize);
+                    printf("%s\n", tmpstr);
+                    free(tmpstr);
                 }
                 printf("skipsize              = ");
                 if (account->skipsize < 0)
@@ -2637,7 +2642,12 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    printf("%lld\n", account->skipsize);
+                    /* Avoid %lld in printf. xasprintf comes from a gnulib
+                     * module and can handle %lld, but printf may not. The
+                     * gnulib printf module seems to heavy just for this. */
+                    char *tmpstr = xasprintf("%lld\n", account->skipsize);
+                    printf("%s\n", tmpstr);
+                    free(tmpstr);
                 }
                 printf("filter                = %s\n",
                         account->filter ? account->filter : _("(not set)"));
