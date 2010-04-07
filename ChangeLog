@@ -1,3 +1,6 @@
+Version 1.0.21:
+- Fixed building without TLS/SSL support. Reported by Tan Ker Vin for msmtp.
+
 Version 1.0.20:
 - Update gnulib to 2010-03-20.
 - Support authentication mechanism SCRAM-SHA-1 via GNU SASL.
