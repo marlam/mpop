@@ -1,4 +1,6 @@
 Version 1.0.21:
+- Fix building with newer OpenSSL versions. Reported and tested by Peter Baur
+  for msmtp.
 - Fixed building without TLS/SSL support. Reported by Tan Ker Vin for msmtp.
 
 Version 1.0.20:
