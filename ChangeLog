@@ -1,4 +1,5 @@
 Version 1.0.21:
+- Update gnulib to 2010-07-03.
 - Report platform in --version output.
 - Fix building with newer OpenSSL versions. Reported and tested by Peter Baur
   for msmtp.
