@@ -712,29 +712,19 @@ your configuration file. On Debian-based systems, for example, the adequate
 command would be @samp{tls_trust_file /etc/ssl/certs/ca-certificates.crt}.
 
 But you can also find out manually which CA certificate you need to
-trust. The following example works as of 2007-04-18.
-
-For the Gmail POP server, you first issue the following command:
+trust. First, issue the following command:
 @example
-$ mpop --serverinfo --host=pop.gmail.com --tls=on --tls-starttls=off \
-  --tls-certcheck=off
+$ mpop --serverinfo --host=pop.example.com --tls=on --tls-certcheck=off
 @end example
-The option @samp{--tls-starttls=off} is needed for Gmail, but may not be 
-necessary for other servers. The option @samp{--tls-certcheck=off} allows
-mpop to accept any certificate, so that it can print some information about it.
-
-According to the output of this command, the issuer of the server certificate 
-is "Equifax Secure Certificate Authority". This means that you have to trust the
-Equifax CA to use full TLS security. You can download the appropriate
-certificate from 
-@url{http://www.geotrust.com/resources/root_certificates/index.asp} (Equifax was
-bought by GeoTrust). The file you need for the @samp{tls_trust_file} command is
-@file{Equifax_Secure_Certificate_Authority.cer}.
-
-The following command should now succeed:
+The option @samp{--tls-certcheck=off} allows mpop to accept any certificate, so
+that it can print some information about it. The output of this command tells
+you the common name of the server certificate issuer. You have to trust this
+issuer to use full TLS security. Usually you can find the CA certificate
+on the issuer's homepage. With this CA certificate, the following should
+succeed:
 @example
-$ mpop --serverinfo --host=pop.gmail.com --tls=on --tls-starttls=off \
-  --tls-trust-file=Equifax_Secure_Certificate_Authority.cer
+$ mpop --serverinfo --host=pop.example.com --tls=on \
+  --tls-trust-file=ca_cert.txt
 @end example
 
 If the server requests it, the client can send a certificate, too. This allows
