@@ -1,7 +1,7 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED March 20, 2010
-@set VERSION 1.0.20
+@set UPDATED July 3, 2010
+@set VERSION 1.0.21
 @settitle mpop @value{VERSION}
 
 @c Define new indices: for options (op) and commands (cm)
