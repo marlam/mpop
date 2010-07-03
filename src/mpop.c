@@ -2198,6 +2198,7 @@ int main(int argc, char *argv[])
     if (print_version)
     {
         printf(_("%s version %s\n"), PACKAGE_NAME, VERSION);
+        printf(_("Platform: %s\n"), PLATFORM);
         /* TLS/SSL support */
         printf(_("TLS/SSL library: %s\n"),
 #ifdef HAVE_LIBGNUTLS
