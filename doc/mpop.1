@@ -551,34 +551,6 @@ account default : provider1
 
 .br
 .PP
-.B Manually finding the right CA certificate for \fBtls_trust_file\fP
-.PP
-The following example works as of 2007-04-18.
-.br
-For the Gmail POP server, you first issue the following command:
-.br
-.B mpop \-\-serverinfo \-\-host=pop.gmail.com \-\-tls=on \-\-tls\-starttls=off 
-.B   \-\-tls\-certcheck=off
-.br
-The option \fI\-\-tls\-starttls=off\fP is needed for Gmail, but may not be 
-necessary for other servers. The option \fI\-\-tls\-certcheck=off\fP allows
-mpop to accept any certificate, so that it can print some information about it.
-.br
-According to the output of this command, the issuer of the server certificate 
-is "Equifax Secure Certificate Authority". This means that you have to trust the
-Equifax CA to use full TLS security. You can download the appropriate
-certificate from http://www.geotrust.com/resources/root_certificates/index.asp 
-(Equifax was bought by GeoTrust). The file you need for the \fBtls_trust_file\fP
-command is \fIEquifax_Secure_Certificate_Authority.cer\fP.
-.br
-The following command should now succeed:
-.br
-.B mpop \-\-serverinfo \-\-host=pop.gmail.com \-\-tls=on \-\-tls\-starttls=off
-.B  \-\-tls\-trust\-file=Equifax_Secure_Certificate_Authority.cer
-.br
-
-.br
-.PP
 .B Filtering with SpamAssassin
 .PP
 The command
