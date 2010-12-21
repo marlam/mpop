@@ -8,6 +8,7 @@
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
  * Satoru SATOH <satoru.satoh@gmail.com> (GNOME keyring support)
+ * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -1604,22 +1605,23 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_PIPELINING                  5
 #define LONGONLYOPT_AUTH                        6
 #define LONGONLYOPT_USER                        7
-#define LONGONLYOPT_TLS                         8
-#define LONGONLYOPT_TLS_STARTTLS                9
-#define LONGONLYOPT_TLS_TRUST_FILE              10
-#define LONGONLYOPT_TLS_CRL_FILE                11
-#define LONGONLYOPT_TLS_FINGERPRINT             12
-#define LONGONLYOPT_TLS_KEY_FILE                13
-#define LONGONLYOPT_TLS_CERT_FILE               14
-#define LONGONLYOPT_TLS_CERTCHECK               15
-#define LONGONLYOPT_TLS_FORCE_SSLV3             16
-#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       17
-#define LONGONLYOPT_TLS_PRIORITIES              18
-#define LONGONLYOPT_KILLSIZE                    19
-#define LONGONLYOPT_SKIPSIZE                    20
-#define LONGONLYOPT_FILTER                      21
-#define LONGONLYOPT_DELIVERY                    22
-#define LONGONLYOPT_UIDLS_FILE                  23
+#define LONGONLYOPT_PASSWORDEVAL                8
+#define LONGONLYOPT_TLS                         9
+#define LONGONLYOPT_TLS_STARTTLS                10
+#define LONGONLYOPT_TLS_TRUST_FILE              11
+#define LONGONLYOPT_TLS_CRL_FILE                12
+#define LONGONLYOPT_TLS_FINGERPRINT             13
+#define LONGONLYOPT_TLS_KEY_FILE                14
+#define LONGONLYOPT_TLS_CERT_FILE               15
+#define LONGONLYOPT_TLS_CERTCHECK               16
+#define LONGONLYOPT_TLS_FORCE_SSLV3             17
+#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       18
+#define LONGONLYOPT_TLS_PRIORITIES              19
+#define LONGONLYOPT_KILLSIZE                    20
+#define LONGONLYOPT_SKIPSIZE                    21
+#define LONGONLYOPT_FILTER                      22
+#define LONGONLYOPT_DELIVERY                    23
+#define LONGONLYOPT_UIDLS_FILE                  24
 
 int main(int argc, char *argv[])
 {
@@ -1698,6 +1700,8 @@ int main(int argc, char *argv[])
             LONGONLYOPT_PIPELINING },
         { "auth",                  optional_argument, 0, LONGONLYOPT_AUTH },
         { "user",                  required_argument, 0, LONGONLYOPT_USER },
+        { "passwordeval",          optional_argument, 0,
+            LONGONLYOPT_PASSWORDEVAL },
         { "tls",                   optional_argument, 0, LONGONLYOPT_TLS },
         { "tls-starttls",          optional_argument, 0,
             LONGONLYOPT_TLS_STARTTLS },
@@ -1901,6 +1905,13 @@ int main(int argc, char *argv[])
                 cmdline_account->username =
                     (*optarg == '\0') ? NULL : xstrdup(optarg);
                 cmdline_account->mask |= ACC_USERNAME;
+                break;
+
+            case LONGONLYOPT_PASSWORDEVAL:
+                free(cmdline_account->passwordeval);
+                cmdline_account->passwordeval =
+                    (*optarg == '\0') ? NULL : xstrdup(optarg);
+                cmdline_account->mask |= ACC_PASSWORDEVAL;
                 break;
 
             case LONGONLYOPT_TLS:
@@ -2332,6 +2343,8 @@ int main(int argc, char *argv[])
                         "method.\n"
                 "  --user=[username]            Set/unset user name for "
                         "authentication.\n"
+                "  --passwordeval=[eval]        Evaluate password for "
+                        "authentication.\n"
                 "  --tls[=(on|off)]             Enable/disable TLS "
                         "encryption.\n"
                 "  --tls-starttls[=(on|off)]    Enable/disable STLS for TLS.\n"
@@ -2449,6 +2462,16 @@ int main(int argc, char *argv[])
     {
         lp = lp->next;
         account = lp->data;
+        if (!account->password && account->passwordeval)
+        {
+            if (get_password_eval(account->passwordeval,
+                        &account->password, &errstr) != CONF_EOK)
+            {
+                print_error("%s", mpop_sanitize_string(errstr));
+                error_code = EX_CONFIG;
+                goto exit;
+            }
+        }
         /* fill in last defaults */
         if (account->port == 0)
         {
@@ -2559,6 +2582,7 @@ int main(int argc, char *argv[])
             }
             printf("user                  = %s\n"
                     "password              = %s\n"
+                    "passwordeval          = %s\n"
                     "ntlmdomain            = %s\n"
                     "tls                   = %s\n"
                     "tls_starttls          = %s\n"
@@ -2571,6 +2595,8 @@ int main(int argc, char *argv[])
                     "tls_force_sslv3       = %s\n",
                     account->username ? account->username : _("(not set)"),
                     account->password ? "*" : _("(not set)"),
+                    account->passwordeval ?
+                        account->passwordeval : _("(not set)"),
                     account->ntlmdomain ? account->ntlmdomain : _("(not set)"),
                     account->tls ? _("on") : _("off"),
                     account->tls_nostarttls ? _("off") : _("on"),

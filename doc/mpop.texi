@@ -200,11 +200,18 @@ name.
 Set your password for POP3 authentication. An empty argument unsets the
 password.
 If no password is set but one is needed during authentication, mpop will try to
-find it in @code{~/.netrc}. If that fails, it will try to find it in 
+find it. First, if @samp{passwordeval} is set, it will evaluate that command. If
+@samp{passwordeval} is not set, mpop will try to find the password in
+@code{~/.netrc}. If that fails, it will try to find it in
 @code{SYSCONFDIR/netrc} (use @code{--version} to find out what @code{SYSCONFDIR}
 is on your platform). If that fails, it will try to get it from a system 
 specific keyring (if available). If that fails, mpop will prompt you for it.
 @xref{Authentication}.
+@anchor{passwordeval}
+@item passwordeval [@var{eval}]
+@cmindex passwordeval
+Set your password for authentication to the output (stdout) of the
+execution of @var{eval}.
 @anchor{ntlmdomain}
 @item ntlmdomain [@var{ntlmdomain}]
 @cmindex ntlmdomain
@@ -546,6 +553,10 @@ authentication method. @xref{auth}.
 @itemx --user=[@var{username}]
 @opindex --user
 Set or unset the user name for authentication. @xref{user}.
+@anchor{--passwordeval}
+@itemx --passwordeval=[@var{eval}]
+@opindex --passwordeval
+Evaluate password for authentication. @xref{passwordeval}.
 @itemx --tls[=(on|off)]
 @opindex --tls
 Enable or disable TLS/SSL. @xref{tls}.
@@ -817,7 +828,9 @@ methods are supported by your version of mpop.
 Authentication data can be set with the @samp{user} and @samp{password} commands
 or with the @samp{--user} option. See @ref{user}, @ref{password}, @ref{--user}.
 If no password is set but one is needed during authentication, mpop will try to
-find it in @code{~/.netrc}. If that fails, it will try to find it in 
+find it. First, if @samp{passwordeval} is set, it will evaluate that command. If
+@samp{passwordeval} is not set, mpop will try to find the password in
+@code{~/.netrc}. If that fails, it will try to find it in
 @code{SYSCONFDIR/netrc} (use @code{--version} to find out what @code{SYSCONFDIR}
 is on your platform). If that fails, it will try to get it from a system 
 specific keyring (if available). If that fails, mpop will prompt you for it.
@@ -1122,7 +1135,7 @@ password secret2
 account freemail
 host pop.freemail.example
 user 1238476
-password pass
+passwordeval gpg -d ~/.mpop.password.gpg
 
 # The service runs SpamAssassin, so test each mail for the "X-Spam-Status: Yes"
 # header, and delete all mails with this header before downloading them.

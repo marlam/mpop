@@ -1,3 +1,7 @@
+Version 1.0.22:
+- Add a new passwordeval command and --passwordeval option, to set the password
+  from the output of a command. Written by Martin Stenberg for msmtp.
+
 Version 1.0.21:
 - Update gnulib to 2010-07-03.
 - Report platform in --version output.

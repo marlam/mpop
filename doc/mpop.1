@@ -91,6 +91,9 @@ authentication method. See the \fBauth\fP command below.
 .IP "\-\-user=[\fIusername\fP]"
 Set or unset the user name for authentication. See the \fBuser\fP command
 below.
+.IP "\-\-passwordeval=[\fIeval\fP]"
+Set your password for authentication to the output (stdout) of the
+execution of \fIeval\fP.
 .IP "\-\-tls[=(\fIon\fP|\fIoff\fP)]"
 Enable or disable TLS/SSL encryption. See the \fBtls\fP command below.
 .IP "\-\-tls\-starttls[=(\fIon\fP|\fIoff\fP)]"
@@ -268,11 +271,12 @@ is the default.
 You probably need to set a username (with \fBuser\fP) and password (with
 \fBpassword\fP). 
 If no password is set but one is needed during authentication, mpop will try to
-find it in ~/.netrc. If that fails, it will try to find it in SYSCONFDIR/netrc
-(use \fB\-\-version\fP to find out what SYSCONFDIR is on your platform). If that
-fails, it will try to get it from a system specific keyring (if available). If
-that fails but a controlling terminal is available, mpop will prompt you for
-it.
+find it. First, if \fBpasswordeval\fP is set, it will evaluate that command. If
+\fBpasswordeval\fP is not set, mpop will try to find the password in ~/.netrc.
+If that fails, it will try to find it in SYSCONFDIR/netrc (use \fB\-\-version\fP
+to find out what SYSCONFDIR is on your platform). If that fails, it will try to
+get it from a system specific keychain (if available). If that fails but a
+controlling terminal is available, mpop will prompt you for it.
 .br
 Currently supported keyrings are the Gnome Keyring and the Mac OS X Keychain.
 The script \fBmpop-gnome-tool.py\fP can be used to manage Gnome Keyring
@@ -310,11 +314,15 @@ Set your user name for POP3 authentication.
 .IP "password \fIsecret\fP"
 Set your password for POP3 authentication.
 If no password is set but one is needed during authentication, mpop will try to
-find it in ~/.netrc. If that fails, it will try to find it in SYSCONFDIR/netrc
-(use \fB\-\-version\fP to find out what SYSCONFDIR is on your platform). If that
-fails, it will try to get it from a system specific keychain (if available). If
-that fails but a controlling terminal is available, mpop will prompt you for
-it.
+find it. First, if \fBpasswordeval\fP is set, it will evaluate that command. If
+\fBpasswordeval\fP is not set, mpop will try to find the password in ~/.netrc.
+If that fails, it will try to find it in SYSCONFDIR/netrc (use \fB\-\-version\fP
+to find out what SYSCONFDIR is on your platform). If that fails, it will try to
+get it from a system specific keychain (if available). If that fails but a
+controlling terminal is available, mpop will prompt you for it.
+.IP "passwordeval [\fIeval\fP]"
+Set your password for authentication to the output (stdout) of the execution of
+\fIeval\fP.
 .IP "ntlmdomain [\fIdomain\fP]"
 Set a domain for the \fBntlm\fP authentication method. The default is to use no
 domain (equivalent to an empty argument), but some servers seem to require one,
@@ -540,7 +548,7 @@ host pop.freemail.example
 .br
 user 1238476
 .br
-password pass
+passwordeval gpg -d ~/.mpop.password.gpg
 .br
 
 .br

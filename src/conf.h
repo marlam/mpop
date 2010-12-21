@@ -5,6 +5,7 @@
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
  * Martin Lambers <marlam@marlam.de>
+ * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -54,18 +55,19 @@
 #define ACC_AUTH_MECH                   (1 << 11)
 #define ACC_USERNAME                    (1 << 12)
 #define ACC_PASSWORD                    (1 << 13)
-#define ACC_NTLMDOMAIN                  (1 << 14)
-#define ACC_TLS                         (1 << 15)
-#define ACC_TLS_KEY_FILE                (1 << 16)
-#define ACC_TLS_CERT_FILE               (1 << 17)
-#define ACC_TLS_TRUST_FILE              (1 << 18)
-#define ACC_TLS_CRL_FILE                (1 << 19)
-#define ACC_TLS_FINGERPRINT             (1 << 20)
-#define ACC_TLS_NOCERTCHECK             (1 << 21)
-#define ACC_TLS_NOSTARTTLS              (1 << 22)
-#define ACC_TLS_FORCE_SSLV3             (1 << 23)
-#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 24)
-#define ACC_TLS_PRIORITIES              (1 << 25)
+#define ACC_PASSWORDEVAL                (1 << 14)
+#define ACC_NTLMDOMAIN                  (1 << 15)
+#define ACC_TLS                         (1 << 16)
+#define ACC_TLS_KEY_FILE                (1 << 17)
+#define ACC_TLS_CERT_FILE               (1 << 18)
+#define ACC_TLS_TRUST_FILE              (1 << 19)
+#define ACC_TLS_CRL_FILE                (1 << 20)
+#define ACC_TLS_FINGERPRINT             (1 << 21)
+#define ACC_TLS_NOCERTCHECK             (1 << 22)
+#define ACC_TLS_NOSTARTTLS              (1 << 23)
+#define ACC_TLS_FORCE_SSLV3             (1 << 24)
+#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 25)
+#define ACC_TLS_PRIORITIES              (1 << 26)
 
 typedef struct
 {
@@ -94,6 +96,7 @@ typedef struct
     char *auth_mech;            /* authentication mechanism */
     char *username;             /* username for authentication */
     char *password;             /* password for authentication */
+    char *passwordeval;         /* command for password evaluation */
     char *ntlmdomain;           /* domain for NTLM authentication */
     /* TLS / SSL */
     int tls;                    /* flag: use TLS? */
@@ -205,6 +208,15 @@ void override_account(account_t *acc1, account_t *acc2);
  * Used error codes: CONF_ESYNTAX
  */
 int check_account(account_t *acc, int retrmail, char **errstr);
+
+/*
+ * get_password_eval()
+ *
+ * Evaluates command in 'arg' and stores result in 'buf' (which is allocated).
+ * Returns CONF_EIO if command exectution failed, otherwise CONF_EOK. On error,
+ * *errstr will contain an error string.
+ */
+int get_password_eval(const char *arg, char **buf, char **errstr);
 
 /*
  * get_conf()

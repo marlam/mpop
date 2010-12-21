@@ -5,6 +5,7 @@
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
  * Martin Lambers <marlam@marlam.de>
+ * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -24,6 +25,7 @@
 # include "config.h"
 #endif
 
+#include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
@@ -73,6 +75,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->auth_mech = xstrdup("");
     a->username = NULL;
     a->password = NULL;
+    a->passwordeval = NULL;
     a->ntlmdomain = NULL;
     a->tls = 0;
     a->tls_nostarttls = 0;
@@ -122,6 +125,7 @@ account_t *account_copy(account_t *acc)
         a->auth_mech = acc->auth_mech ? xstrdup(acc->auth_mech) : NULL;
         a->username = acc->username ? xstrdup(acc->username) : NULL;
         a->password = acc->password ? xstrdup(acc->password) : NULL;
+        a->passwordeval = acc->passwordeval ? xstrdup(acc->passwordeval) : NULL;
         a->ntlmdomain = acc->ntlmdomain ? xstrdup(acc->ntlmdomain) : NULL;
         a->tls = acc->tls;
         a->tls_nostarttls = acc->tls_nostarttls;
@@ -180,6 +184,7 @@ void account_free(void *a)
         free(p->auth_mech);
         free(p->username);
         free(p->password);
+        free(p->passwordeval);
         free(p->ntlmdomain);
         free(p->tls_key_file);
         free(p->tls_cert_file);
@@ -457,6 +462,12 @@ void override_account(account_t *acc1, account_t *acc2)
         free(acc1->password);
         acc1->password = acc2->password ? xstrdup(acc2->password) : NULL;
     }
+    if (acc2->mask & ACC_PASSWORDEVAL)
+    {
+        free(acc1->passwordeval);
+        acc1->passwordeval =
+            acc2->passwordeval ? xstrdup(acc2->passwordeval) : NULL;
+    }
     if (acc2->mask & ACC_NTLMDOMAIN)
     {
         free(acc1->ntlmdomain);
@@ -599,6 +610,63 @@ int check_account(account_t *acc, int retrmail, char **errstr)
     {
         *errstr = xasprintf(_("no delivery information"));
         return CONF_ESYNTAX;
+    }
+
+    return CONF_EOK;
+}
+
+
+/*
+ * get_password_eval()
+ *
+ * see conf.h
+ */
+
+int get_password_eval(const char *arg, char **buf, char **errstr)
+{
+    FILE *eval;
+    size_t l;
+
+    *buf = NULL;
+    *errstr = NULL;
+    errno = 0;
+
+    if (!(eval = popen(arg, "r")))
+    {
+        if (errno == 0)
+        {
+            errno = ENOMEM;
+        }
+        *errstr = xasprintf("cannot evaluate '%s': %s", arg, strerror(errno));
+        return CONF_EIO;
+    }
+
+    *buf = xmalloc(LINEBUFSIZE);
+    if (!fgets(*buf, LINEBUFSIZE, eval))
+    {
+        *errstr = xasprintf("cannot read output of '%s'", arg);
+        pclose(eval);
+        free(*buf);
+        *buf = NULL;
+        return CONF_EIO;
+    }
+    pclose(eval);
+
+    l = strlen(*buf);
+    if (l > 0)
+    {
+        if ((*buf)[l - 1] != '\n')
+        {
+            *errstr = xasprintf("output of '%s' is longer than %d characters, "
+                    "or is not terminated by newline", arg, LINEBUFSIZE - 1);
+            free(*buf);
+            *buf = NULL;
+            return CONF_EIO;
+        }
+        else
+        {
+            (*buf)[l - 1] = '\0';
+        }
     }
 
     return CONF_EOK;
@@ -1119,6 +1187,12 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
             acc->mask |= ACC_PASSWORD;
             free(acc->password);
             acc->password = (*arg == '\0') ? NULL : xstrdup(arg);
+        }
+        else if (strcmp(cmd, "passwordeval") == 0)
+        {
+            acc->mask |= ACC_PASSWORDEVAL;
+            free(acc->passwordeval);
+            acc->passwordeval = (*arg == '\0') ? NULL : xstrdup(arg);
         }
         else if (strcmp(cmd, "ntlmdomain") == 0)
         {
