@@ -441,7 +441,8 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
  * error. Exit codes from sysexits.h are supported. If 'pipecmd' returns zero,
  * the mesage action will be changed to POP3_MSG_ACTION_DELETE, and is_old will
  * be set for this message. old_number will be updated.
- * A Received header will be prepended to the mail.
+ * A Received header will be prepended to the mail if the
+ * 'write_received_header' flag is set.
  * If the progress functions are not NULL, they will be called:
  * - 'progress_begin' once, before anything is retrieved
  * - 'progress' 99 times, while retrieving the mail, with 'percent' increasing
@@ -455,6 +456,7 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
  */
 int pop3_retr(pop3_session_t *session, volatile sig_atomic_t *abort,
         int delivery_method, const char *delivery_method_arguments,
+        int write_received_header,
         void (*progress_start)(long i, long number, long long size),
         void (*progress)(long i, long number, long long rcvd, long long size,
             int percent),

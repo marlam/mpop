@@ -1,6 +1,6 @@
 \input texinfo   @c -*-texinfo-*-
 @setfilename mpop.info
-@set UPDATED December 23, 2010
+@set UPDATED December 24, 2010
 @set VERSION 1.0.22
 @settitle mpop @value{VERSION}
 
@@ -173,6 +173,14 @@ operating system default will be used.
 Enable or disable POP3 pipelining. The default is @samp{auto}, which means that
 mpop enables pipelining for POP3 servers that advertize this capability, and 
 disables it for all other servers. @xref{Pipelining}.
+@anchor{received_header}
+@item received_header [(on|off)]
+@cmindex received_header
+Enable or disable the Received header. By default, mpop prepends a Received
+header to the mail during delivery. This is required by the RFCs if the mail
+is subsequently further delivered e.g. via SMTP, and it is a good idea in all
+other cases. Nevertheless, if you absolutely have to, you can disable the
+Received header with this command.
 @end table
 
 @section Authentication commands
@@ -544,6 +552,10 @@ Set or unset a network timeout, in seconds. @xref{timeout}.
 @itemx --pipelining=(auto|on|off)
 @opindex --pipelining
 Enable or disable POP3 pipelining. @xref{pipelining}.
+@anchor{--received_header}
+@itemx --received-header[=(on|off)]
+@opindex --received-header
+Enable or disable the Received header. @xref{received_header}.
 @anchor{--auth}
 @itemx --auth[=(on|@var{method})]
 @opindex --auth

@@ -1344,7 +1344,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     if (session->total_number > 0)
     {
         late_error = pop3_retr(session, &mpop_retrmail_abort,
-                acc->delivery_method, acc->delivery_args,
+                acc->delivery_method, acc->delivery_args, acc->received_header,
                 print_progress ? mpop_retr_progress_start : NULL,
                 print_progress ? mpop_retr_progress : NULL,
                 print_progress ? mpop_retr_progress_end : NULL,
@@ -1603,25 +1603,26 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_PORT                        3
 #define LONGONLYOPT_TIMEOUT                     4
 #define LONGONLYOPT_PIPELINING                  5
-#define LONGONLYOPT_AUTH                        6
-#define LONGONLYOPT_USER                        7
-#define LONGONLYOPT_PASSWORDEVAL                8
-#define LONGONLYOPT_TLS                         9
-#define LONGONLYOPT_TLS_STARTTLS                10
-#define LONGONLYOPT_TLS_TRUST_FILE              11
-#define LONGONLYOPT_TLS_CRL_FILE                12
-#define LONGONLYOPT_TLS_FINGERPRINT             13
-#define LONGONLYOPT_TLS_KEY_FILE                14
-#define LONGONLYOPT_TLS_CERT_FILE               15
-#define LONGONLYOPT_TLS_CERTCHECK               16
-#define LONGONLYOPT_TLS_FORCE_SSLV3             17
-#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       18
-#define LONGONLYOPT_TLS_PRIORITIES              19
-#define LONGONLYOPT_KILLSIZE                    20
-#define LONGONLYOPT_SKIPSIZE                    21
-#define LONGONLYOPT_FILTER                      22
-#define LONGONLYOPT_DELIVERY                    23
-#define LONGONLYOPT_UIDLS_FILE                  24
+#define LONGONLYOPT_RECEIVED_HEADER             6
+#define LONGONLYOPT_AUTH                        7
+#define LONGONLYOPT_USER                        8
+#define LONGONLYOPT_PASSWORDEVAL                9
+#define LONGONLYOPT_TLS                         10
+#define LONGONLYOPT_TLS_STARTTLS                11
+#define LONGONLYOPT_TLS_TRUST_FILE              12
+#define LONGONLYOPT_TLS_CRL_FILE                13
+#define LONGONLYOPT_TLS_FINGERPRINT             14
+#define LONGONLYOPT_TLS_KEY_FILE                15
+#define LONGONLYOPT_TLS_CERT_FILE               16
+#define LONGONLYOPT_TLS_CERTCHECK               17
+#define LONGONLYOPT_TLS_FORCE_SSLV3             18
+#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       19
+#define LONGONLYOPT_TLS_PRIORITIES              20
+#define LONGONLYOPT_KILLSIZE                    21
+#define LONGONLYOPT_SKIPSIZE                    22
+#define LONGONLYOPT_FILTER                      23
+#define LONGONLYOPT_DELIVERY                    24
+#define LONGONLYOPT_UIDLS_FILE                  25
 
 int main(int argc, char *argv[])
 {
@@ -1698,6 +1699,8 @@ int main(int argc, char *argv[])
         { "timeout",               required_argument, 0, LONGONLYOPT_TIMEOUT},
         { "pipelining",            required_argument, 0,
             LONGONLYOPT_PIPELINING },
+        { "received-header",       optional_argument, 0,
+            LONGONLYOPT_RECEIVED_HEADER },
         { "auth",                  optional_argument, 0, LONGONLYOPT_AUTH },
         { "user",                  required_argument, 0, LONGONLYOPT_USER },
         { "passwordeval",          optional_argument, 0,
@@ -1878,6 +1881,24 @@ int main(int argc, char *argv[])
                     error_code = 1;
                 }
                 cmdline_account->mask |= ACC_PIPELINING;
+                break;
+
+            case LONGONLYOPT_RECEIVED_HEADER:
+                if (!optarg || is_on(optarg))
+                {
+                    cmdline_account->received_header = 1;
+                }
+                else if (is_off(optarg))
+                {
+                    cmdline_account->received_header = 0;
+                }
+                else
+                {
+                    print_error(_("invalid argument %s for %s"),
+                            optarg, "--received-header");
+                    error_code = 1;
+                }
+                cmdline_account->mask |= ACC_RECEIVED_HEADER;
                 break;
 
             case LONGONLYOPT_AUTH:
@@ -2339,6 +2360,8 @@ int main(int argc, char *argv[])
                         "seconds.\n"
                 "  --pipelining=(auto|on|off)   Enable/disable POP3 "
                         "pipelining.\n"
+                "  --received-header[=(on|off)] Enable/disable "
+                        "Received-header.\n"
                 "  --auth[=(on|method)]         Choose the authentication "
                         "method.\n"
                 "  --user=[username]            Set/unset user name for "
@@ -2561,6 +2584,8 @@ int main(int argc, char *argv[])
             printf("pipelining            = %s\n",
                     account->pipelining == 0 ? _("off")
                     : account->pipelining == 1 ? _("on") : _("auto"));
+            printf("received_header       = %s\n",
+                    account->received_header ? _("on") : _("off"));
             printf("auth                  = ");
             if (account->auth_mech[0] == '\0')
             {

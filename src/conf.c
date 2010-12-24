@@ -64,6 +64,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->port = 0;                /* this must be set later */
     a->timeout = 180;
     a->pipelining = 2;
+    a->received_header = 1;
     a->delivery_method = -1;
     a->delivery_args = NULL;
     a->uidls_file = NULL;       /* this must be set later */
@@ -113,6 +114,7 @@ account_t *account_copy(account_t *acc)
         a->port = acc->port;
         a->timeout = acc->timeout;
         a->pipelining = acc->pipelining;
+        a->received_header = acc->received_header;
         a->delivery_method = acc->delivery_method;
         a->delivery_args =
             acc->delivery_args ? xstrdup(acc->delivery_args) : NULL;
@@ -414,6 +416,10 @@ void override_account(account_t *acc1, account_t *acc2)
     if (acc2->mask & ACC_PIPELINING)
     {
         acc1->pipelining = acc2->pipelining;
+    }
+    if (acc2->mask & ACC_RECEIVED_HEADER)
+    {
+        acc1->received_header = acc2->received_header;
     }
     if (acc2->mask & ACC_DELIVERY)
     {
@@ -1079,6 +1085,26 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
             else if (strcmp(arg, "auto") == 0)
             {
                 acc->pipelining = 2;
+            }
+            else
+            {
+                *errstr = xasprintf(
+                        _("line %d: invalid argument %s for command %s"),
+                        line, arg, cmd);
+                e = CONF_ESYNTAX;
+                break;
+            }
+        }
+        else if (strcmp(cmd, "received_header") == 0)
+        {
+            acc->mask |= ACC_RECEIVED_HEADER;
+            if (*arg == '\0' || is_on(arg))
+            {
+                acc->received_header = 1;
+            }
+            else if (is_off(arg))
+            {
+                acc->received_header = 0;
             }
             else
             {

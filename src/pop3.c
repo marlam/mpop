@@ -1768,6 +1768,7 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
             void *filter_output_data),
         void *filter_output_data,
         int delivery_method, const char *delivery_method_arguments,
+        int write_received_header,
         void (*progress_start)(long i, long number, long long size),
         void (*progress)(long i, long number, long long rcvd, long long size,
             int percent),
@@ -1883,7 +1884,7 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
                 from_addr = NULL;
             }
             /* write a Received header */
-            if (!filter)
+            if (!filter && write_received_header)
             {
                 if ((e = pop3_write_received_header(session, delivery->pipe,
                                 delivery->need_crlf, errstr)) != POP3_EOK)
@@ -2039,7 +2040,7 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
 {
     return pop3_delivery(session, abort,
             1, filter_output, filter_output_data,
-            DELIVERY_METHOD_FILTER, filtercmd,
+            DELIVERY_METHOD_FILTER, filtercmd, 0,
             NULL, NULL, NULL, NULL, errmsg, errstr);
 }
 
@@ -2052,6 +2053,7 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
 
 int pop3_retr(pop3_session_t *session, volatile sig_atomic_t *abort,
         int delivery_method, const char *delivery_method_arguments,
+        int write_received_header,
         void (*progress_start)(long i, long number, long long size),
         void (*progress)(long i, long number, long long rcvd, long long size,
             int percent),
@@ -2060,7 +2062,7 @@ int pop3_retr(pop3_session_t *session, volatile sig_atomic_t *abort,
         char **errmsg, char **errstr)
 {
     return pop3_delivery(session, abort, 0, NULL, NULL,
-            delivery_method, delivery_method_arguments,
+            delivery_method, delivery_method_arguments, write_received_header,
             progress_start, progress, progress_end, progress_abort,
             errmsg, errstr);
 }

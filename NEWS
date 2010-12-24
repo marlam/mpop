@@ -1,4 +1,6 @@
 Version 1.0.22:
+- A new command 'received_header' with a corresponding '--received-header'
+  option allows to disable the default Received header if required.
 - A new command 'passwordeval' with a corresponding '--passwordeval' option
   allows to set the password to the output of a command.
 

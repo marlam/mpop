@@ -46,28 +46,29 @@
 #define ACC_TIMEOUT                     (1 << 2)
 #define ACC_PIPELINING                  (1 << 3)
 #define ACC_DELIVERY                    (1 << 4)
-#define ACC_UIDLS_FILE                  (1 << 5)
-#define ACC_ONLY_NEW                    (1 << 6)
-#define ACC_KEEP                        (1 << 7)
-#define ACC_KILLSIZE                    (1 << 8)
-#define ACC_SKIPSIZE                    (1 << 9)
-#define ACC_FILTER                      (1 << 10)
-#define ACC_AUTH_MECH                   (1 << 11)
-#define ACC_USERNAME                    (1 << 12)
-#define ACC_PASSWORD                    (1 << 13)
-#define ACC_PASSWORDEVAL                (1 << 14)
-#define ACC_NTLMDOMAIN                  (1 << 15)
-#define ACC_TLS                         (1 << 16)
-#define ACC_TLS_KEY_FILE                (1 << 17)
-#define ACC_TLS_CERT_FILE               (1 << 18)
-#define ACC_TLS_TRUST_FILE              (1 << 19)
-#define ACC_TLS_CRL_FILE                (1 << 20)
-#define ACC_TLS_FINGERPRINT             (1 << 21)
-#define ACC_TLS_NOCERTCHECK             (1 << 22)
-#define ACC_TLS_NOSTARTTLS              (1 << 23)
-#define ACC_TLS_FORCE_SSLV3             (1 << 24)
-#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 25)
-#define ACC_TLS_PRIORITIES              (1 << 26)
+#define ACC_RECEIVED_HEADER             (1 << 5)
+#define ACC_UIDLS_FILE                  (1 << 6)
+#define ACC_ONLY_NEW                    (1 << 7)
+#define ACC_KEEP                        (1 << 8)
+#define ACC_KILLSIZE                    (1 << 9)
+#define ACC_SKIPSIZE                    (1 << 10)
+#define ACC_FILTER                      (1 << 11)
+#define ACC_AUTH_MECH                   (1 << 12)
+#define ACC_USERNAME                    (1 << 13)
+#define ACC_PASSWORD                    (1 << 14)
+#define ACC_PASSWORDEVAL                (1 << 15)
+#define ACC_NTLMDOMAIN                  (1 << 16)
+#define ACC_TLS                         (1 << 17)
+#define ACC_TLS_KEY_FILE                (1 << 18)
+#define ACC_TLS_CERT_FILE               (1 << 19)
+#define ACC_TLS_TRUST_FILE              (1 << 20)
+#define ACC_TLS_CRL_FILE                (1 << 21)
+#define ACC_TLS_FINGERPRINT             (1 << 22)
+#define ACC_TLS_NOCERTCHECK             (1 << 23)
+#define ACC_TLS_NOSTARTTLS              (1 << 24)
+#define ACC_TLS_FORCE_SSLV3             (1 << 25)
+#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 26)
+#define ACC_TLS_PRIORITIES              (1 << 27)
 
 typedef struct
 {
@@ -83,6 +84,7 @@ typedef struct
     int timeout;                /* connect/input/output timeout in seconds */
     /* POP3 settings */
     int pipelining;             /* use pipelining? 0=off, 1=on, 2=auto */
+    int received_header;        /* flag: add Received: header? */
     int delivery_method;        /* number of the method, from delivery.h */
     char *delivery_args;        /* arguments for the delivery method */
     char *uidls_file;           /* file to store UIDLs */

@@ -85,6 +85,8 @@ command below.
 Set a network timeout. See the \fBtimeout\fP command below.
 .IP "\-\-pipelining=(\fIauto\fP|\fIon\fP|\fIoff)"
 Enable or disable POP3 pipelining. See the \fBpipelining\fP command below.
+.IP "\-\-received\-header[=(\fIon\fP|\fIoff)]"
+Enable or disable the Received header. See the \fBreceived_header\fP command below.
 .IP "\-\-auth[=(\fIon\fP|\fImethod\fP)]"
 Set the authentication method to automatic (with "on") or manually choose an
 authentication method. See the \fBauth\fP command below.
@@ -212,6 +214,12 @@ Pipelining works by sending up to \fIPIPELINE_MAX\fP commands to the server,
 then begin to read its answers, and refill the command pipeline when the number
 of unanswered commands drops to \fIPIPELINE_MIN\fP. PIPELINE_MIN and 
 PIPELINE_MAX are compile time contants.
+.IP "received_header [(\fIon\fP|\fIoff\fP)]"
+Enable or disable the Received header. By default, mpop prepends a Received
+header to the mail during delivery. This is required by the RFCs if the mail
+is subsequently further delivered e.g. via SMTP, and it is a good idea in all
+other cases. Nevertheless, if you absolutely have to, you can disable the
+Received header with this command.
 .IP "delivery \fImethod\fP \fImethod_arguments...\fP
 How to deliver messages received from this account.
 .RS

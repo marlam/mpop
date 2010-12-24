@@ -1,4 +1,6 @@
 Version 1.0.22:
+- Add a new received_header command and --received-header option, to disable
+  the Received header if required.
 - Update gnulib to 2010-12-23.
 - Add a new passwordeval command and --passwordeval option, to set the password
   from the output of a command. Written by Martin Stenberg for msmtp.
