@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2010-12-24 13:49+0100\n"
+"POT-Creation-Date: 2011-01-17 21:07+0100\n"
 "PO-Revision-Date: 2006-09-03 14:51+0200\n"
 "Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
 "Language-Team: Spanish\n"
@@ -1052,7 +1052,7 @@ msgstr "respuesta inválida a la orden %s"
 
 #: src/pop3.c:961 src/pop3.c:967 src/pop3.c:1014 src/pop3.c:1106
 #: src/pop3.c:1246 src/pop3.c:2384 src/pop3.c:2470 src/pop3.c:2556
-#: src/pop3.c:3137 src/pop3.c:3165
+#: src/pop3.c:3121 src/pop3.c:3149
 #, c-format
 msgid "command %s failed"
 msgstr "fallo de la orden %s"
@@ -1105,8 +1105,7 @@ msgstr "fallo en la orden DELE %ld"
 
 #: src/pop3.c:2195 src/pop3.c:2207 src/pop3.c:2230 src/pop3.c:2245
 #: src/pop3.c:2294 src/pop3.c:2345 src/pop3.c:2404 src/pop3.c:2424
-#: src/pop3.c:2517 src/pop3.c:2576 src/pop3.c:2917 src/pop3.c:2952
-#: src/pop3.c:2986
+#: src/pop3.c:2517 src/pop3.c:2576 src/pop3.c:2917 src/pop3.c:2956
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "fallo en la autentificación (método %s)"
@@ -1117,7 +1116,7 @@ msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr ""
 "método de autentificación CRAM-MD5: el servidor mandó un desfío inválido"
 
-#: src/pop3.c:2692 src/pop3.c:3003
+#: src/pop3.c:2692 src/pop3.c:2987
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "el servidor POP3 no es compatible con el método de autentificación %s"
@@ -1132,32 +1131,32 @@ msgstr "GNU SASL: %s"
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: no es compatible con el método de autentificación %s"
 
-#: src/pop3.c:2769 src/pop3.c:3042
+#: src/pop3.c:2769 src/pop3.c:3026
 #, c-format
 msgid "cannot use a secure authentication method"
 msgstr "no se puede usar ningún método de autentificación seguro"
 
-#: src/pop3.c:2775 src/pop3.c:3048
+#: src/pop3.c:2775 src/pop3.c:3032
 #, c-format
 msgid "cannot find a usable authentication method"
 msgstr "no se puede encontrar ningún método usable de autentificación"
 
-#: src/pop3.c:2789 src/pop3.c:3061
+#: src/pop3.c:2789 src/pop3.c:3045
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "el método de autentificación %s necesita un nombre de usuario"
 
-#: src/pop3.c:2802 src/pop3.c:3071
+#: src/pop3.c:2802 src/pop3.c:3055
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "el método de autentificación %s necesita una contraseña"
 
-#: src/pop3.c:2965
+#: src/pop3.c:2969
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "fallo en la autentificación: %s (método %s)"
 
-#: src/pop3.c:3105
+#: src/pop3.c:3089
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "el programa no es compatible con el método de autntificación %s"
