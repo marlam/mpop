@@ -1,3 +1,6 @@
+Version 1.0.23:
+- No significant changes.
+
 Version 1.0.22:
 - A new command 'received_header' with a corresponding '--received-header'
   option allows to disable the default Received header if required.
