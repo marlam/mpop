@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+ * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  *
@@ -2925,10 +2925,14 @@ int pop3_auth(pop3_session_t *session,
                 continue;
             }
         }
-        /* For all mechanisms except GSSAPI, testing for (outbuf[0]) works.
-         * GSSAPI needs an additional step with empty output. */
+        /* Some methods (at least CRAM-MD5) must not send an empty outbuf,
+         * while others (DIGEST-MD5, SCRAM-SHA-1, GSSAPI) must. Confirmed
+         * 2011-01-17 with one POP3 server and the methods CRAM-MD5 and
+         * SCRAM-SHA-1. */
         if (outbuf[0]
-                || (GSASL_NEEDS_MORE && (strcmp(auth_mech, "GSSAPI") == 0)))
+                || strcmp(auth_mech, "DIGEST-MD5") == 0
+                || strcmp(auth_mech, "SCRAM-SHA-1") == 0
+                || strcmp(auth_mech, "GSSAPI") == 0)
         {
             if ((e = pop3_send_cmd(session, errstr, "%s", outbuf)) != POP3_EOK)
             {
@@ -2968,26 +2972,6 @@ int pop3_auth(pop3_session_t *session,
     }
     gsasl_finish(sctx);
     gsasl_done(ctx);
-    /* For DIGEST-MD5, we need to send an empty answer to the last 334
-     * response before we get 235. */
-    if (strcmp(auth_mech, "DIGEST-MD5") == 0)
-    {
-        if ((e = pop3_send_cmd(session, errstr, "")) != POP3_EOK)
-        {
-            return e;
-        }
-        if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
-        {
-            return e;
-        }
-        if (!pop3_msg_ok(session->buffer))
-        {
-            *errmsg = xstrdup(session->buffer);
-            *errstr = xasprintf(_("authentication failed (method %s)"),
-                    auth_mech);
-            return POP3_EAUTHFAIL;
-        }
-    }
     return POP3_EOK;
 
 #else /* not HAVE_LIBGSASL */

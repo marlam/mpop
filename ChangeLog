@@ -1,3 +1,7 @@
+Version 1.0.23:
+- Fix authentication with SCRAM-SHA-1 via libgsasl. Reported and analyzed by
+  Steffen Lehmann.
+
 Version 1.0.22:
 - Add a new received_header command and --received-header option, to disable
   the Received header if required.
