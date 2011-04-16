@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2008, 2009
+ * Copyright (C) 2005, 2006, 2007, 2008, 2009, 2011
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -30,11 +30,15 @@
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
+#if W32_NATIVE
+# include <io.h>
+# define fsync(fd) _commit(fd)
+#endif
 
 #include "gettext.h"
-#include "xalloc.h"
-#include "xvasprintf.h"
+#define _(string) gettext(string)
 
+#include "xalloc.h"
 #include "list.h"
 #include "tools.h"
 #include "pop3.h"

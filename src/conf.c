@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -33,14 +33,13 @@
 #include <ctype.h>
 #include <errno.h>
 
-#include "c-ctype.h"
 #include "gettext.h"
-#include "xalloc.h"
-#include "xvasprintf.h"
+#define _(string) gettext(string)
 
 #include "delivery.h"
 #include "list.h"
 #include "tools.h"
+#include "xalloc.h"
 #include "conf.h"
 
 /* buffer size for configuration file lines */
@@ -327,7 +326,7 @@ unsigned char *get_fingerprint(const char *s, size_t len)
     {
         for (j = 0; j < 2; j++)
         {
-            c = c_toupper((unsigned char)s[3 * i + j]);
+            c = toupper((unsigned char)s[3 * i + j]);
             if (c >= '0' && c <= '9')
             {
                 hex[j] = c - '0';
@@ -381,7 +380,7 @@ int check_auth_arg(char *arg)
         l = strlen(arg);
         for (i = 0; i < l; i++)
         {
-            arg[i] = c_toupper((unsigned char)arg[i]);
+            arg[i] = toupper((unsigned char)arg[i]);
         }
         return 0;
     }

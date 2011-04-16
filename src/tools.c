@@ -3,7 +3,7 @@
  *
  * This file is part of msmtp, an SMTP client.
  *
- * Copyright (C) 2004, 2005, 2006, 2007, 2009
+ * Copyright (C) 2004, 2005, 2006, 2007, 2009, 2011
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -34,8 +34,11 @@
 #include <time.h>
 #include <unistd.h>
 #ifdef W32_NATIVE
+# define WIN32_LEAN_AND_MEAN    /* do not include more than necessary */
+# define _WIN32_WINNT 0x0502    /* Windows XP SP2 or later */
 # include <windows.h>
 # include <io.h>
+# include <conio.h>
 # include <lmcons.h>
 # include <sys/locking.h>
 # include <limits.h>
@@ -43,10 +46,121 @@
 # include <pwd.h>
 #endif
 
-#include "gettext.h"
 #include "xalloc.h"
-
 #include "tools.h"
+
+
+/*
+ * link()
+ *
+ * A link replacement, currently only for W32.
+ */
+#ifndef HAVE_LINK
+# if W32_NATIVE
+int link(const char *path1, const char *path2)
+{
+    if (CreateHardLink(path2, path1, NULL) == 0)
+    {
+        /* It is not documented which errors CreateHardLink() can produce.
+         * The following conversions are based on tests on a Windows XP SP2
+         * system. */
+        DWORD err = GetLastError();
+        switch (err)
+        {
+            case ERROR_ACCESS_DENIED:
+                errno = EACCES;
+                break;
+
+            case ERROR_INVALID_FUNCTION:        /* fs does not support hard links */
+                errno = EPERM;
+                break;
+
+            case ERROR_NOT_SAME_DEVICE:
+                errno = EXDEV;
+                break;
+
+            case ERROR_PATH_NOT_FOUND:
+            case ERROR_FILE_NOT_FOUND:
+                errno = ENOENT;
+                break;
+
+            case ERROR_INVALID_PARAMETER:
+                errno = ENAMETOOLONG;
+                break;
+
+            case ERROR_TOO_MANY_LINKS:
+                errno = EMLINK;
+                break;
+
+            case ERROR_ALREADY_EXISTS:
+                errno = EEXIST;
+                break;
+
+            default:
+                errno = EIO;
+        }
+        return -1;
+    }
+
+    return 0;
+}
+# endif
+#endif
+
+/*
+ * getpass()
+ *
+ * A getpass replacement, currently only for W32.
+ * Taken from gnulib on 2011-03-20.
+ * Original copyright:
+ * Windows implementation by Martin Lambers <marlam@marlam.de>,
+ * improved by Simon Josefsson.
+ */
+#ifndef HAVE_GETPASS
+# if W32_NATIVE
+char *getpass(const char *prompt)
+{
+    const size_t pass_max = 512;
+    char getpassbuf[pass_max + 1];
+    size_t i = 0;
+    int c;
+
+    if (prompt)
+    {
+        fputs(prompt, stderr);
+        fflush(stderr);
+    }
+
+    for (;;)
+    {
+        c = _getch ();
+        if (c == '\r')
+        {
+            getpassbuf[i] = '\0';
+            break;
+        }
+        else if (i < pass_max)
+        {
+            getpassbuf[i++] = c;
+        }
+
+        if (i >= pass_max)
+        {
+            getpassbuf[i] = '\0';
+            break;
+        }
+    }
+
+    if (prompt)
+    {
+        fputs ("\r\n", stderr);
+        fflush (stderr);
+    }
+
+    return strdup(getpassbuf);
+}
+# endif
+#endif
 
 
 /*
@@ -378,7 +492,7 @@ int check_secure(const char *pathname)
 
 
 /*
- * [DJGPP and Windows only] mkstemp_unlink()
+ * [DJGPP and Windows only] mymkstemp()
  *
  * This function does on DOS/Windows what mkstemp() followed by unlink() do on
  * UNIX.
@@ -394,7 +508,7 @@ int check_secure(const char *pathname)
  */
 
 #if defined(W32_NATIVE) || defined(DJGPP)
-int mkstemp_unlink(char *template)
+int mymkstemp(char *template, int remove_on_close)
 {
     size_t templatelen;
     char *X;
@@ -403,6 +517,11 @@ int mkstemp_unlink(char *template)
     int ret;
     const char alnum[]
         = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+#ifdef W32_NATIVE
+    int temporary_flag = (remove_on_close ? _O_TEMPORARY : 0);
+#else /* DJGPP */
+    int temporary_flag = (remove_on_close ? O_TEMPORARY : 0);
+#endif /* DJGPP */
 
     templatelen = strlen(template);
     if (templatelen < 6)
@@ -428,19 +547,26 @@ int mkstemp_unlink(char *template)
             X[i] = alnum[rand() % 36];
         }
 #ifdef W32_NATIVE
-        ret = _open(template, _O_CREAT | _O_EXCL | _O_RDWR
-                | _O_TEMPORARY | _O_BINARY,
-                _S_IREAD | _S_IWRITE);
+        ret = _open(template, _O_CREAT | _O_EXCL | _O_RDWR | _O_BINARY
+                | temporary_flag, _S_IREAD | _S_IWRITE);
 #else /* DJGPP */
-        ret = open(template, O_CREAT | O_EXCL | O_RDWR
-                | O_TEMPORARY | _O_BINARY,
-                S_IRUSR | S_IWUSR);
+        ret = open(template, O_CREAT | O_EXCL | O_RDWR | _O_BINARY
+                | temporary_flag, S_IRUSR | S_IWUSR);
 #endif /* DJGPP */
     }
 
     return ret;
 }
 #endif /* W32_NATIVE or DJGPP */
+
+#ifndef HAVE_MKSTEMP
+# if defined(W32_NATIVE) || defined(DJGPP)
+int mkstemp(char *template)
+{
+    return mymkstemp(template, 0);
+}
+# endif
+#endif
 
 
 /*
@@ -513,7 +639,7 @@ FILE *tempfile(const char *base)
 
     /* create the file */
 #if defined(W32_NATIVE) || defined(DJGPP)
-    if ((fd = mkstemp_unlink(template)) == -1)
+    if ((fd = mymkstemp(template, 1)) == -1)
 #else /* UNIX */
     if ((fd = mkstemp(template)) == -1)
 #endif /* UNIX */
@@ -567,12 +693,24 @@ error_exit:
  * see tools.h
  */
 
+/* Helper function that sleeps for the tenth of a second */
+static void sleep_tenth_second(void)
+{
+#ifdef W32_NATIVE
+    Sleep(100);
+#elif defined DJGPP
+    usleep(100000);
+#else /* POSIX */
+    struct timespec tenth_second = { 0, 100000000 };
+    nanosleep(&tenth_second, NULL);
+#endif
+}
+
 int lock_file(FILE *f, int lock_type, int timeout)
 {
     int fd;
     int lock_success;
     int tenth_seconds;
-    struct timespec tenth_second = { 0, 100000000 };
 #ifndef W32_NATIVE
     struct flock lock;
 #endif /* not W32_NATIVE */
@@ -600,7 +738,7 @@ int lock_file(FILE *f, int lock_type, int timeout)
         }
         else
         {
-            nanosleep(&tenth_second, NULL);
+            sleep_tenth_second();
             tenth_seconds++;
         }
     }

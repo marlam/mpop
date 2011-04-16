@@ -5,4 +5,4 @@ mpop_TEXINFOS = mpop.texi gpl.texi fdl.texi
 
 AM_MAKEINFOHTMLFLAGS = --no-split
 
-EXTRA_DIST = $(man_MANS) mpoprc.example mpop.html mpop.pdf
+EXTRA_DIST = $(man_MANS) mpoprc.example mpop.html

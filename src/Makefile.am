@@ -11,24 +11,23 @@ mpop_SOURCES = \
 	readbuf.c readbuf.h \
 	stream.c stream.h \
 	tools.c tools.h \
-	uidls.c uidls.h
+	uidls.c uidls.h \
+	xalloc.c xalloc.h \
+	gettext.h \
+	md5.c md5.h \
+	md5-apps.c md5-apps.h
 
-mpop_LDADD = @tls_obj@	\
-	$(top_builddir)/gnulib/libgnu.a \
-	$(GETHOSTNAME_LIB)		\
-	$(GETADDRINFO_LIB) 		\
-	$(HOSTENT_LIB)			\
-	$(SERVENT_LIB)			\
-	$(INET_NTOP_LIB)		\
-	$(LIBSOCKET)			\
-	$(LIB_NANOSLEEP)		\
-	$(LIBINTL)
+if HAVE_TLS
+mpop_SOURCES += tls.c tls.h
+endif
 
-mpop_DEPENDENCIES = @tls_obj@
+if HAVE_LIBGSASL
+else
+mpop_SOURCES += base64.c base64.h
+endif
 
-EXTRA_mpop_SOURCES = tls.c tls.h
+AM_CPPFLAGS = $(tls_CFLAGS) $(libgsasl_CFLAGS) $(libidn_CFLAGS) $(libgnome_keyring_CFLAGS)
 
-AM_CPPFLAGS = -I$(top_builddir)/gnulib -I$(top_srcdir)/gnulib
+mpop_LDADD =  $(tls_LIBS) $(libgsasl_LIBS) $(libidn_LIBS) $(libgnome_keyring_LIBS)
 
-localedir = $(datadir)/locale
 DEFS += -DLOCALEDIR=\"$(localedir)\"

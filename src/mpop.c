@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
@@ -42,28 +42,28 @@ extern int optind;
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <sysexits.h>
 #include <signal.h>
-#include <netdb.h>
-#include <arpa/inet.h>
 #include <fcntl.h>
+#ifdef HAVE_ARPA_INET_H
+# include <arpa/inet.h>
+#endif
+#ifdef HAVE_NETDB_H
+# include <netdb.h>
+#endif
 #ifdef ENABLE_NLS
 # include <locale.h>
 #endif
-#ifdef HAVE_GNOMEKEYRING
+#ifdef HAVE_GNOME_KEYRING
 # include <gnome-keyring.h>
 #endif
 #ifdef HAVE_MACOSXKEYRING
 # include <Security/Security.h>
 #endif
 
-#include "c-ctype.h"
-#include "getpass.h"
 #include "gettext.h"
-#include "xalloc.h"
-#include "xstrndup.h"
-#include "xvasprintf.h"
+#define _(string) gettext(string)
 
+#include "xalloc.h"
 #include "list.h"
 #include "tools.h"
 #include "conf.h"
@@ -75,6 +75,13 @@ extern int optind;
 #include "tls.h"
 #endif /* HAVE_TLS */
 #include "uidls.h"
+
+#ifdef W32_NATIVE
+# define PRINTFLLD "%I64d"
+# define mkdir(path, mode) mkdir(path)
+#else
+# define PRINTFLLD "%lld"
+#endif
 
 /* Default file names. */
 #ifdef W32_NATIVE
@@ -245,7 +252,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
     char *netrc_filename;
     netrc_entry *netrc_hostlist;
     netrc_entry *netrc_host;
-#ifdef HAVE_GNOMEKEYRING
+#ifdef HAVE_GNOME_KEYRING
     const char *protocol = "pop3";
     GList *found_list = NULL;
     GnomeKeyringNetworkPasswordData *found;
@@ -288,7 +295,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
         free(netrc_filename);
     }
 
-#ifdef HAVE_GNOMEKEYRING
+#ifdef HAVE_GNOME_KEYRING
     if (!password)
     {
         g_set_application_name(PACKAGE);
@@ -308,7 +315,7 @@ char *mpop_password_callback(const char *hostname, const char *user)
         }
         gnome_keyring_network_password_list_free(found_list);
     }
-#endif /* HAVE_GNOMEKEYRING */
+#endif /* HAVE_GNOME_KEYRING */
 
 #ifdef HAVE_MACOSXKEYRING
     if (!password)
@@ -388,9 +395,9 @@ void mpop_fingerprint_string(char *s, unsigned char *fingerprint, size_t len)
 #ifdef HAVE_TLS
 void mpop_print_tls_cert_info(tls_cert_info_t *tci)
 {
-    const char *info_fieldname[6] = { N_("Common Name"), N_("Organization"),
-        N_("Organizational unit"), N_("Locality"), N_("State or Province"),
-        N_("Country") };
+    const char *info_fieldname[6] = { _("Common Name"), _("Organization"),
+        _("Organizational unit"), _("Locality"), _("State or Province"),
+        _("Country") };
     char sha1_fingerprint_string[60];
     char md5_fingerprint_string[48];
     char timebuf[128];          /* should be long enough for every locale */
@@ -841,7 +848,7 @@ char *mpop_hr_size(long long size)
     }
     else if (size > 1 || size == 0)
     {
-        s = xasprintf(_("%lld bytes"), size);
+        s = xasprintf(_(PRINTFLLD " bytes"), size);
     }
     else
     {
@@ -887,22 +894,33 @@ void mpop_retr_progress_start(long i, long number, long long size)
     fflush(stdout);
 }
 
-void mpop_retr_progress(long i UNUSED, long number UNUSED,
-        long long rcvd UNUSED, long long size UNUSED, int percent)
+void mpop_retr_progress(long i, long number,
+        long long rcvd, long long size, int percent)
 {
+    (void)i;
+    (void)number;
+    (void)rcvd;
+    (void)size;
+
     printf("%3d\b\b\b", percent);
     fflush(stdout);
 }
 
-void mpop_retr_progress_end(long i UNUSED, long number UNUSED,
-        long long size UNUSED)
+void mpop_retr_progress_end(long i, long number, long long size)
 {
+    (void)i;
+    (void)number;
+    (void)size;
+
     printf("100\n");
 }
 
-void mpop_retr_progress_abort(long i UNUSED, long number UNUSED,
-        long long size UNUSED)
+void mpop_retr_progress_abort(long i, long number, long long size)
 {
+    (void)i;
+    (void)number;
+    (void)size;
+
     printf("\n");
 }
 
@@ -919,8 +937,10 @@ void mpop_retr_progress_abort(long i UNUSED, long number UNUSED,
  */
 
 volatile sig_atomic_t mpop_retrmail_abort = 0;
-void mpop_retrmail_signal_handler(int signum UNUSED)
+void mpop_retrmail_signal_handler(int signum)
 {
+    (void)signum;
+
     mpop_retrmail_abort = 1;
 }
 
@@ -1543,7 +1563,9 @@ int make_needed_dirs(const char *pathname)
     dir_part_end = strchr(pathname + 1, PATH_SEP);
 #if W32_NATIVE
     if (dir_part_end - pathname == 2
-            && c_isalpha((unsigned char)pathname[0]) && pathname[1] == ':')
+            && ((pathname[0] >= 'a' && pathname[0] <= 'z')
+                || (pathname[0] >= 'A' && pathname[0] <= 'Z'))
+            && pathname[1] == ':')
     {
         /* skip drive letter ("C:\" and similar) */
         dir_part_end = strchr(dir_part_end + 1, PATH_SEP);
@@ -1661,12 +1683,16 @@ int main(int argc, char *argv[])
     char *errstr;
     char *errmsg;
     /* signal handling */
+#if HAVE_SIGACTION
     struct sigaction signal_handler;
     struct sigaction old_sigterm_handler;
     struct sigaction old_sighup_handler;
     struct sigaction old_sigint_handler;
+#endif
     /* misc */
+#if HAVE_GETSERVBYNAME
     struct servent *se;
+#endif
     int c;
     int net_lib_initialized = 0;
 #ifdef HAVE_TLS
@@ -2235,7 +2261,7 @@ int main(int argc, char *argv[])
         printf(_("TLS/SSL library: %s\n"),
 #ifdef HAVE_LIBGNUTLS
                 "GnuTLS"
-#elif defined (HAVE_OPENSSL)
+#elif defined (HAVE_LIBSSL)
                 "OpenSSL"
 #else
                 _("none")
@@ -2309,10 +2335,10 @@ int main(int argc, char *argv[])
 #endif
         printf("\n");
         printf(_("Keyring support: "));
-#if !defined HAVE_GNOMEKEYRING && !defined HAVE_MACOSXKEYRING
+#if !defined HAVE_GNOME_KEYRING && !defined HAVE_MACOSXKEYRING
         printf(_("none"));
 #else
-# ifdef HAVE_GNOMEKEYRING
+# ifdef HAVE_GNOME_KEYRING
         printf(_("Gnome "));
 # endif
 # ifdef HAVE_MACOSXKEYRING
@@ -2500,13 +2526,21 @@ int main(int argc, char *argv[])
         {
             if (account->tls && account->tls_nostarttls)
             {
+#if HAVE_GETSERVBYNAME
                 se = getservbyname("pop3s", NULL);
                 account->port = se ? ntohs(se->s_port) : 995;
+#else
+                account->port = 995;
+#endif
             }
             else
             {
+#if HAVE_GETSERVBYNAME
                 se = getservbyname("pop3", NULL);
                 account->port = se ? ntohs(se->s_port) : 110;
+#else
+                account->port = 110;
+#endif
             }
         }
         if (!account->uidls_file)
@@ -2682,12 +2716,7 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    /* Avoid %lld in printf. xasprintf comes from a gnulib
-                     * module and can handle %lld, but printf may not. The
-                     * gnulib printf module seems to heavy just for this. */
-                    char *tmpstr = xasprintf("%lld", account->killsize);
-                    printf("%s\n", tmpstr);
-                    free(tmpstr);
+                    printf(PRINTFLLD "\n", account->killsize);
                 }
                 printf("skipsize              = ");
                 if (account->skipsize < 0)
@@ -2696,12 +2725,7 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    /* Avoid %lld in printf. xasprintf comes from a gnulib
-                     * module and can handle %lld, but printf may not. The
-                     * gnulib printf module seems to heavy just for this. */
-                    char *tmpstr = xasprintf("%lld", account->skipsize);
-                    printf("%s\n", tmpstr);
-                    free(tmpstr);
+                    printf(PRINTFLLD "\n", account->skipsize);
                 }
                 printf("filter                = %s\n",
                         account->filter ? account->filter : _("(not set)"));
@@ -2797,14 +2821,14 @@ int main(int argc, char *argv[])
                 local_user = get_username();
             }
             mpop_retrmail_abort = 0;
+#if HAVE_SIGACTION
             signal_handler.sa_handler = mpop_retrmail_signal_handler;
             sigemptyset(&signal_handler.sa_mask);
             signal_handler.sa_flags = 0;
             (void)sigaction(SIGTERM, &signal_handler, &old_sigterm_handler);
-#ifdef SIGHUP
             (void)sigaction(SIGHUP, &signal_handler, &old_sighup_handler);
-#endif
             (void)sigaction(SIGINT, &signal_handler, &old_sigint_handler);
+#endif
             if ((error_code = mpop_retrmail(canonical_hostname, local_user,
                             account, debug, print_status, print_progress,
                             auth_only, status_only, &errmsg, &errstr)) != EX_OK)
@@ -2833,11 +2857,11 @@ int main(int argc, char *argv[])
                     print_error(_("error during mail retrieval"));
                 }
             }
+#if HAVE_SIGACTION
             (void)sigaction(SIGTERM, &old_sigterm_handler, NULL);
-#ifdef SIGHUP
             (void)sigaction(SIGHUP, &old_sighup_handler, NULL);
-#endif
             (void)sigaction(SIGINT, &old_sigint_handler, NULL);
+#endif
             if (mpop_retrmail_abort)
             {
                 break;

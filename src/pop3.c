@@ -45,15 +45,13 @@
 # include <gsasl.h>
 #else
 # include "base64.h"
-# include "hmac.h"
 #endif
+#include "md5-apps.h"
 
-#include "c-ctype.h"
 #include "gettext.h"
-#include "md5.h"
-#include "xalloc.h"
-#include "xvasprintf.h"
+#define _(string) gettext(string)
 
+#include "xalloc.h"
 #include "delivery.h"
 #include "readbuf.h"
 #include "net.h"
@@ -127,11 +125,14 @@ pop3_session_t *pop3_session_new(int pipelining,
     /* sanitize the user name because it will appear in Received headers */
     for (p = session->local_user; *p; p++)
     {
-        if (c_isspace((unsigned char)*p))
+        if (*p == ' ' || *p == '\f' || *p == '\n' || *p == '\r'
+                || *p == '\t' || *p == '\v')
         {
             *p = '-';
         }
-        else if (!c_isalpha((unsigned char)*p) && !c_isdigit((unsigned char)*p)
+        else if (!(*p >= 'a' && *p <= 'z')
+                && !(*p >= 'A' && *p <= 'Z')
+                && !(*p >= '0' && *p <= '9')
                 && *p != '-' && *p != '_' && *p != '.')
         {
             *p = '_';
@@ -643,13 +644,16 @@ char *pop3_get_addr(const char *s)
                 addr = xrealloc(addr, bufsize * sizeof(char));
             }
             /* sanitize characters */
-            if (c_isalpha((unsigned char)*p) || c_isdigit((unsigned char)*p)
+            if ((*p >= 'a' && *p <= 'z')
+                    || (*p >= 'A' && *p <= 'Z')
+                    || (*p >= '0' && *p <= '9')
                     || *p == '.' || *p == '@' || *p == '_' || *p == '-'
                     || *p == '+' || *p == '/')
             {
                 addr[addr_len - 1] = *p;
             }
-            else if (c_isspace((unsigned char)*p))
+            else if (*p == ' ' || *p == '\f' || *p == '\n' || *p == '\r'
+                    || *p == '\t' || *p == '\v')
             {
                 addr[addr_len - 1] = '-';
             }
@@ -767,7 +771,7 @@ int pop3_capa(pop3_session_t *session, char **errstr)
             while (!isspace((unsigned char)session->buffer[i]))
             {
                 session->buffer[i] =
-                    c_toupper((unsigned char)session->buffer[i]);
+                    toupper((unsigned char)session->buffer[i]);
                 i++;
             }
             if (strncmp(session->buffer, "TOP", 3) == 0)
@@ -793,7 +797,7 @@ int pop3_capa(pop3_session_t *session, char **errstr)
                 while (session->buffer[i])
                 {
                     session->buffer[i] =
-                        c_toupper((unsigned char)session->buffer[i]);
+                        toupper((unsigned char)session->buffer[i]);
                     i++;
                 }
                 if (strstr(session->buffer + 6, "NEVER"))
@@ -826,7 +830,7 @@ int pop3_capa(pop3_session_t *session, char **errstr)
                 while (session->buffer[i])
                 {
                     session->buffer[i] =
-                        c_toupper((unsigned char)session->buffer[i]);
+                        toupper((unsigned char)session->buffer[i]);
                     i++;
                 }
                 if (strstr(session->buffer + 5, "PLAIN"))
@@ -1074,7 +1078,7 @@ int pop3_uidl_check_uid(const char *uid)
      * UIDs. I don't know if any server needs the other extensions, though. */
     while (*p != '\0')
     {
-        if (c_iscntrl((unsigned char)*p))
+        if (*p < 32 || *p == 127)
         {
             return 0;
         }
@@ -2265,21 +2269,12 @@ int pop3_auth_apop(pop3_session_t *session,
 {
     int e;
     char *tmpstr;
-    unsigned char digest[16];
-    char hex[] = "0123456789abcdef";
-    char digest_string[33];
-    int i;
-
+    char digest[33];
+    
     tmpstr = xasprintf("%s%s", session->cap.apop_timestamp, password);
-    md5_buffer(tmpstr, strlen(tmpstr), digest);
-    for (i = 0; i < 16; i++)
-    {
-        digest_string[2 * i] = hex[(digest[i] & 0xf0) >> 4];
-        digest_string[2 * i + 1] = hex[digest[i] & 0x0f];
-    }
-    digest_string[32] = '\0';
+    md5_digest((unsigned char *)tmpstr, strlen(tmpstr), digest);
     free(tmpstr);
-    if ((e = pop3_send_cmd(session, errstr, "APOP %s %s", user, digest_string))
+    if ((e = pop3_send_cmd(session, errstr, "APOP %s %s", user, digest))
             != POP3_EOK)
     {
         return e;
@@ -2481,7 +2476,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
                     "server sent invalid challenge"));
         return POP3_EPROTO;
     }
-    hmac_md5(password, strlen(password), b64, len, digest);
+    md5_hmac(password, strlen(password), b64, len, digest);
     free(b64);
 
     /* construct username + ' ' + digest_in_hex */
@@ -2665,11 +2660,7 @@ int pop3_auth(pop3_session_t *session,
         const char *user,
         const char *password,
         const char *hostname,
-#ifdef HAVE_LIBGSASL
         const char *ntlmdomain,
-#else
-        const char *ntlmdomain UNUSED,
-#endif
         char *(*password_callback)(const char *hostname, const char *user),
         char **errmsg,
         char **errstr)
@@ -2976,9 +2967,10 @@ int pop3_auth(pop3_session_t *session,
 
 #else /* not HAVE_LIBGSASL */
 
+    (void)ntlmdomain;
+
     char *callback_password = NULL;
     int e;
-
 
     if (strcmp(auth_mech, "") != 0
             && !pop3_server_supports_authmech(session, auth_mech))
@@ -3167,5 +3159,5 @@ void pop3_close(pop3_session_t *session)
         tls_close(&session->tls);
     }
 #endif /* HAVE_TLS */
-    close(session->fd);
+    net_close_socket(session->fd);
 }

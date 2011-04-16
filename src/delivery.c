@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2009
+ * Copyright (C) 2005, 2006, 2007, 2009, 2011
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -34,20 +34,32 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <sysexits.h>
 #include <signal.h>
-#include <sys/wait.h>
-
+#ifdef HAVE_SYS_WAIT_H
+# include <sys/wait.h>
+#endif
 #if W32_NATIVE
+# include <winsock2.h>
+# include <io.h>
+# include <direct.h>
+# include <sys/timeb.h>
 # include <share.h>
+# define fsync(fd) _commit(fd)
+# define WIFEXITED(s) (1)
+# define WEXITSTATUS(s) (s)
+# define S_IRWXG 0
+# define S_IRWXO 0
+# define PRINTFLLD "%I64d"
+#else
+# define PRINTFLLD "%lld"
 #endif
 
-#include "gettext.h"
-#include "xalloc.h"
-#include "xvasprintf.h"
-
 #include "tools.h"
+#include "xalloc.h"
 #include "delivery.h"
+
+#include "gettext.h"
+#define _(string) gettext(string)
 
 
 /*******************************************************************************
@@ -129,11 +141,15 @@ const char *exitcode_to_string(int exitcode)
  ******************************************************************************/
 
 static volatile sig_atomic_t mda_caused_sigpipe;
+#ifdef HAVE_SIGACTION
 static struct sigaction mda_old_sigpipe_handler;
-static void mda_sigpipe_handler(int signum UNUSED)
+static void mda_sigpipe_handler(int signum)
 {
+    (void)signum;
+
     mda_caused_sigpipe = 1;
 }
+#endif
 
 int delivery_method_mda_open(delivery_method_t *dm, const char *from,
         long long size, char **errstr)
@@ -149,7 +165,7 @@ int delivery_method_mda_open(delivery_method_t *dm, const char *from,
     }
     if (dm->want_size)
     {
-        sizestr = xasprintf("%lld", size);
+        sizestr = xasprintf(PRINTFLLD, size);
         cmd = string_replace(cmd, "%S", sizestr);
         free(sizestr);
     }
@@ -208,9 +224,13 @@ int delivery_method_mda_close(delivery_method_t *dm, char **errstr)
 }
 
 int delivery_method_mda_init(delivery_method_t *dm, void *data,
-        char **errstr UNUSED)
+        char **errstr)
 {
+#ifdef HAVE_SIGACTION
     struct sigaction signal_handler;
+#endif
+
+    (void)errstr;
 
     dm->data = data;
     dm->need_from_quoting = 0;
@@ -220,17 +240,24 @@ int delivery_method_mda_init(delivery_method_t *dm, void *data,
     dm->open = delivery_method_mda_open;
     dm->close = delivery_method_mda_close;
     mda_caused_sigpipe = 0;
+#ifdef HAVE_SIGACTION
     signal_handler.sa_handler = mda_sigpipe_handler;
     sigemptyset(&signal_handler.sa_mask);
     signal_handler.sa_flags = 0;
     (void)sigaction(SIGPIPE, &signal_handler, &mda_old_sigpipe_handler);
+#endif
     return DELIVERY_EOK;
 }
 
-int delivery_method_mda_deinit(delivery_method_t *dm UNUSED,
-        char **errstr UNUSED)
+int delivery_method_mda_deinit(delivery_method_t *dm,
+        char **errstr)
 {
+    (void)dm;
+    (void)errstr;
+
+#ifdef HAVE_SIGACTION
     (void)sigaction(SIGPIPE, &mda_old_sigpipe_handler, NULL);
+#endif
     return DELIVERY_EOK;
 }
 
@@ -322,14 +349,16 @@ typedef struct
     char *hostname;
 } maildir_data_t;
 
-int delivery_method_maildir_open(delivery_method_t *dm, const char *from UNUSED,
-        long long size UNUSED, char **errstr)
+int delivery_method_maildir_open(delivery_method_t *dm, const char *from,
+        long long size, char **errstr)
 {
     maildir_data_t *maildir_data;
     char *filename;
     struct timeval tv;
     int fd;
 
+    (void)from;
+    (void)size;
 
     maildir_data = dm->data;
     if (gettimeofday(&tv, NULL) < 0)
@@ -339,7 +368,7 @@ int delivery_method_maildir_open(delivery_method_t *dm, const char *from UNUSED,
     }
     /* See http://cr.yp.to/proto/maildir.html for a description of file name
      * generation. */
-    filename = xasprintf("tmp%c%llu.M%06luP%lldQ%lu.%s", PATH_SEP,
+    filename = xasprintf("tmp%c" PRINTFLLD ".M%06luP" PRINTFLLD "Q%lu.%s", PATH_SEP,
                 (unsigned long long)tv.tv_sec, (unsigned long)tv.tv_usec,
                 (long long)getpid(), ++maildir_sequence_number,
                 maildir_data->hostname);
@@ -447,8 +476,10 @@ int delivery_method_maildir_init(delivery_method_t *dm, void *data,
     return DELIVERY_EOK;
 }
 
-int delivery_method_maildir_deinit(delivery_method_t *dm, char **errstr UNUSED)
+int delivery_method_maildir_deinit(delivery_method_t *dm, char **errstr)
 {
+    (void)errstr;
+
     maildir_data_t *maildir_data = dm->data;
     free(maildir_data->maildir);
     free(maildir_data->filename);
@@ -478,12 +509,15 @@ typedef struct
 } exchange_data_t;
 
 int delivery_method_exchange_open(delivery_method_t *dm,
-        const char *from UNUSED, long long size UNUSED, char **errstr)
+        const char *from, long long size, char **errstr)
 {
     exchange_data_t *exchange_data;
     char *filename;
     struct timeval tv;
     int fd;
+
+    (void)from;
+    (void)size;
 
     exchange_data = dm->data;
     if (gettimeofday(&tv, NULL) < 0)
@@ -493,8 +527,8 @@ int delivery_method_exchange_open(delivery_method_t *dm,
     }
     /* Choose a unique filename (similar to the maildir method) that ends with
      * ".eml" */
-    filename = xasprintf("%s-%llu-M%06luP%lldQ%lu-%s.eml", PACKAGE_NAME,
-                (unsigned long long)tv.tv_sec, (unsigned long)tv.tv_usec,
+    filename = xasprintf("%s-" PRINTFLLD "-M%06luP" PRINTFLLD "Q%lu-%s.eml", PACKAGE_NAME,
+                (long long)tv.tv_sec, (unsigned long)tv.tv_usec,
                 (long long)getpid(), ++exchange_sequence_number,
                 exchange_data->hostname);
 #if W32_NATIVE
@@ -606,8 +640,10 @@ int delivery_method_exchange_init(delivery_method_t *dm, void *data,
     return DELIVERY_EOK;
 }
 
-int delivery_method_exchange_deinit(delivery_method_t *dm, char **errstr UNUSED)
+int delivery_method_exchange_deinit(delivery_method_t *dm, char **errstr)
 {
+    (void)errstr;
+
     exchange_data_t *exchange_data = dm->data;
     free(exchange_data->pickupdir);
     free(exchange_data->filename);
@@ -624,9 +660,11 @@ int delivery_method_exchange_deinit(delivery_method_t *dm, char **errstr UNUSED)
  ******************************************************************************/
 
 int delivery_method_mbox_open(delivery_method_t *dm, const char *from,
-        long long size UNUSED, char **errstr)
+        long long size, char **errstr)
 {
     time_t t;
+
+    (void)size;
 
     if ((t = time(NULL)) < 0)
     {
