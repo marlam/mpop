@@ -62,6 +62,7 @@ extern int optind;
 
 #include "gettext.h"
 #define _(string) gettext(string)
+#define N_(string) gettext_noop(string)
 
 #include "xalloc.h"
 #include "list.h"
@@ -395,9 +396,9 @@ void mpop_fingerprint_string(char *s, unsigned char *fingerprint, size_t len)
 #ifdef HAVE_TLS
 void mpop_print_tls_cert_info(tls_cert_info_t *tci)
 {
-    const char *info_fieldname[6] = { _("Common Name"), _("Organization"),
-        _("Organizational unit"), _("Locality"), _("State or Province"),
-        _("Country") };
+    const char *info_fieldname[6] = { N_("Common Name"), N_("Organization"),
+        N_("Organizational unit"), N_("Locality"), N_("State or Province"),
+        N_("Country") };
     char sha1_fingerprint_string[60];
     char md5_fingerprint_string[48];
     char timebuf[128];          /* should be long enough for every locale */
