@@ -59,7 +59,6 @@ notice are preserved. These files are offered as-is, without any warranty.
 * Server information mode::		How to obtain information about 
 					an POP3 server.
 * Examples::				Usage examples.
-* Development::				About the development process.
 @end menu
 
 
@@ -1185,20 +1184,6 @@ so you can also use this directly:
 @example
 filter if [ "`grep "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
 @end example
-
-
-@node Development
-@chapter Development
-
-The homepage of mpop is @url{http://mpop.sourceforge.net/};
-the SourceForge project page is at @url{http://sourceforge.net/projects/mpop/}.
-
-The mailing lists @code{mpop-users} can be accessed from the project page.
-
-Please send any questions, suggestions, and bug reports either to the mailing
-list or to Martin Lambers (@email{marlam@@marlam.de}, OpenPGP key: 
-@url{http://www.marlam.de/key.txt}).
-If you send a bug report, please include the output of @code{mpop --version}.
 
 
 @bye
