@@ -28,6 +28,6 @@ endif
 
 AM_CPPFLAGS = $(tls_CFLAGS) $(libgsasl_CFLAGS) $(libidn_CFLAGS) $(libgnome_keyring_CFLAGS)
 
-mpop_LDADD =  $(tls_LIBS) $(libgsasl_LIBS) $(libidn_LIBS) $(libgnome_keyring_LIBS)
+mpop_LDADD =  $(tls_LIBS) $(libgsasl_LIBS) $(libidn_LIBS) $(libgnome_keyring_LIBS) $(LIBINTL)
 
 DEFS += -DLOCALEDIR=\"$(localedir)\"
