@@ -1,9 +1,10 @@
 " Vim syntax file
 " Language:     mpop rc files
 " Maintainer:   Simon Ruderich <simon@ruderich.com>
-" Last Change:  2008-12-24
+"               Eric Pruitt <eric.pruitt &amp; gmail.com>
+" Last Change:  2011-08-21
 " Filenames:    mpoprc
-" Version:      0.1
+" Version:      0.2
 
 
 if version < 600
@@ -25,7 +26,6 @@ syntax match mpopOption /\<\(tls\|tls_trust_file\|tls_crl_file\|tls_fingerprint\
 " Retrieval commands.
 syntax match mpopOption /\<\(only_new\|keep\|killsize\|skipsize\|filter\)\>/
 
-
 " Options which accept only an on/off value.
 syn match mpopWrongOption /\<\(tls\|tls_certcheck\|tls_starttls\|tls_force_sslv3\|only_new\|keep\) \(on$\|off$\)\@!.*$/
 " Options which accept only an on/off/auto value.
@@ -45,8 +45,23 @@ syn match mpopWrongOptionValue /\S* \zs.*$/ contained containedin=mpopWrongOptio
 " Mark the option part as a normal option.
 highlight default link mpopWrongOption mpopOption
 
+"Email addresses (yanked from esmptrc)
+syntax match mpopAddress /[a-z0-9_.-]*[a-z0-9]\+@[a-z0-9_.-]*[a-z0-9]\+\.[a-z]\+/
+" Host names
+syn match mpopHost "\%(host\s*\)\@<=\h\%(\w\|\.\|-\)*"
+" Numeric values
+syn match mpopNumber /\<\(\d\+$\)/
+"Strings
+syntax region mpopString start=/"/ end=/"/
+syntax region mpopString start=/'/ end=/'/
+
 highlight default link mpopComment Comment
 highlight default link mpopOption Type
 highlight default link mpopWrongOptionValue Error
+highlight default link mpopString String
+highlight default link mpopAddress Constant
+highlight default link mpopNumber Number
+highlight default link mpopHost Identifier
+
 
 let b:current_syntax = "mpop"
