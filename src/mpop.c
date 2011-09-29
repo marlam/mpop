@@ -2438,7 +2438,8 @@ int main(int argc, char *argv[])
                 prgname, prgname, prgname, prgname, PACKAGE_BUGREPORT);
     }
 
-    if (!retrmail && !serverinfo && !print_conf)
+    if (print_help || print_version
+            || (!retrmail && !serverinfo && !print_conf))
     {
         error_code = EX_OK;
         goto exit;
