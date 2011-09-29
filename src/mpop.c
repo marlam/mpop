@@ -113,7 +113,7 @@ const char *prgname;
 
 void xalloc_die(void)
 {
-    fprintf(stderr, _("%s: FATAL: %s"), prgname, strerror(ENOMEM));
+    fprintf(stderr, _("%s: FATAL: %s\n"), prgname, strerror(ENOMEM));
     exit(EX_OSERR);
 }
 
