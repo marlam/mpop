@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2011-04-27 11:14+0200\n"
+"POT-Creation-Date: 2011-10-16 17:28+0200\n"
 "PO-Revision-Date: 2010-02-07 10:53+0200\n"
 "Last-Translator: Martin Lambers <marlam@marlam.de>\n"
 "Language-Team: German\n"
@@ -303,8 +303,8 @@ msgstr "kann %s nicht schließen: %s"
 
 #: src/mpop.c:116
 #, c-format
-msgid "%s: FATAL: %s"
-msgstr "%s: FATAL: %s"
+msgid "%s: FATAL: %s\n"
+msgstr "%s: FATAL: %s\n"
 
 #: src/mpop.c:346
 #, c-format
@@ -685,13 +685,13 @@ msgstr "MacOS "
 #: src/mpop.c:2350
 #, c-format
 msgid ""
-"Copyright (C) 2010 Martin Lambers and others.\n"
+"Copyright (C) 2011 Martin Lambers and others.\n"
 "This is free software.  You may redistribute copies of it under the terms "
 "of\n"
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Copyright (C) 2010 Martin Lambers und andere.\n"
+"Copyright (C) 2011 Martin Lambers und andere.\n"
 "Dieses Programm ist freie Software. Sie dürfen Kopien davon weitergeben "
 "gemäß\n"
 "der GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
@@ -843,104 +843,104 @@ msgstr ""
 "\n"
 "Melde Fehler an <%s>.\n"
 
-#: src/mpop.c:2452
+#: src/mpop.c:2453
 msgid "cannot use both --host and accounts"
 msgstr "kann nicht gleichzeitig --host und Accounts benutzen"
 
-#: src/mpop.c:2458
+#: src/mpop.c:2459
 msgid "cannot use both --all-accounts and a list of accounts"
 msgstr "kann nicht gleichzeitig --all-accounts und eine Accountliste benutzen"
 
-#: src/mpop.c:2556
+#: src/mpop.c:2557
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "Account %s aus %s: %s"
 
-#: src/mpop.c:2574
+#: src/mpop.c:2575
 #, c-format
 msgid "cannot create directories for %s: %s"
 msgstr "kann Verzeichnisse für %s nicht erzeugen: %s"
 
-#: src/mpop.c:2577
+#: src/mpop.c:2578
 msgid "a component already exists but is not a directory"
 msgstr "eine Komponente existiert bereits, ist aber kein Verzeichnis"
 
-#: src/mpop.c:2596
+#: src/mpop.c:2597
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "benutze Account %s aus %s\n"
 
-#: src/mpop.c:2606 src/mpop.c:2716 src/mpop.c:2725
+#: src/mpop.c:2607 src/mpop.c:2717 src/mpop.c:2726
 #, c-format
 msgid "off\n"
 msgstr "aus\n"
 
-#: src/mpop.c:2612
+#: src/mpop.c:2613
 #, c-format
 msgid "1 second\n"
 msgstr "1 Sekunde\n"
 
-#: src/mpop.c:2616
+#: src/mpop.c:2617
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d Sekunden\n"
 
-#: src/mpop.c:2620 src/mpop.c:2623 src/mpop.c:2661 src/mpop.c:2662
-#: src/mpop.c:2674 src/mpop.c:2675 src/mpop.c:2711 src/mpop.c:2712
+#: src/mpop.c:2621 src/mpop.c:2624 src/mpop.c:2662 src/mpop.c:2663
+#: src/mpop.c:2675 src/mpop.c:2676 src/mpop.c:2712 src/mpop.c:2713
 msgid "off"
 msgstr "aus"
 
-#: src/mpop.c:2621 src/mpop.c:2623 src/mpop.c:2661 src/mpop.c:2662
-#: src/mpop.c:2674 src/mpop.c:2675 src/mpop.c:2711 src/mpop.c:2712
+#: src/mpop.c:2622 src/mpop.c:2624 src/mpop.c:2662 src/mpop.c:2663
+#: src/mpop.c:2675 src/mpop.c:2676 src/mpop.c:2712 src/mpop.c:2713
 msgid "on"
 msgstr "an"
 
-#: src/mpop.c:2621
+#: src/mpop.c:2622
 msgid "auto"
 msgstr "automatisch"
 
-#: src/mpop.c:2627
+#: src/mpop.c:2628
 #, c-format
 msgid "choose\n"
 msgstr "automatisch\n"
 
-#: src/mpop.c:2656 src/mpop.c:2657 src/mpop.c:2659 src/mpop.c:2660
-#: src/mpop.c:2664 src/mpop.c:2666 src/mpop.c:2669 src/mpop.c:2671
-#: src/mpop.c:2673 src/mpop.c:2683 src/mpop.c:2686 src/mpop.c:2732
+#: src/mpop.c:2657 src/mpop.c:2658 src/mpop.c:2660 src/mpop.c:2661
+#: src/mpop.c:2665 src/mpop.c:2667 src/mpop.c:2670 src/mpop.c:2672
+#: src/mpop.c:2674 src/mpop.c:2684 src/mpop.c:2687 src/mpop.c:2733
 msgid "(not set)"
 msgstr "(nicht gesetzt)"
 
-#: src/mpop.c:2751
+#: src/mpop.c:2752
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr ""
 "Unterstützung für Authentifizierungsmethode %s ist nicht einkompiliert worden"
 
-#: src/mpop.c:2763
+#: src/mpop.c:2764
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "kann TLS Programmbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2771
+#: src/mpop.c:2772
 msgid "support for TLS is not compiled in"
 msgstr "Unterstützung für TLS ist nicht einkompiliert worden"
 
-#: src/mpop.c:2779
+#: src/mpop.c:2780
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "kann Netzwerkprogrammbibliothek nicht initialisieren: %s"
 
-#: src/mpop.c:2807 src/mpop.c:2845
+#: src/mpop.c:2808 src/mpop.c:2846
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "Nachricht des POP3 Servers: %s"
 
-#: src/mpop.c:2852
+#: src/mpop.c:2853
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "Fehler während des Nachrichtenabrufens (Account %s aus %s)"
 
-#: src/mpop.c:2858
+#: src/mpop.c:2859
 msgid "error during mail retrieval"
 msgstr "Fehler während des Nachrichtenabrufens"
 
@@ -1123,7 +1123,7 @@ msgstr "ungültige Antwort auf Kommando %s"
 
 #: src/pop3.c:965 src/pop3.c:971 src/pop3.c:1018 src/pop3.c:1110
 #: src/pop3.c:1250 src/pop3.c:2379 src/pop3.c:2465 src/pop3.c:2551
-#: src/pop3.c:3113 src/pop3.c:3141
+#: src/pop3.c:3132 src/pop3.c:3160
 #, c-format
 msgid "command %s failed"
 msgstr "Kommando %s fehlgeschlagen"
@@ -1176,7 +1176,8 @@ msgstr "Kommando DELE %ld fehlgeschlagen"
 
 #: src/pop3.c:2199 src/pop3.c:2211 src/pop3.c:2234 src/pop3.c:2249
 #: src/pop3.c:2289 src/pop3.c:2340 src/pop3.c:2399 src/pop3.c:2419
-#: src/pop3.c:2512 src/pop3.c:2571 src/pop3.c:2908 src/pop3.c:2947
+#: src/pop3.c:2512 src/pop3.c:2571 src/pop3.c:2908 src/pop3.c:2946
+#: src/pop3.c:2980
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
@@ -1186,7 +1187,7 @@ msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr "Authentifizierungsmethode CRAM-MD5: Server sendete ungültige Challenge"
 
-#: src/pop3.c:2683 src/pop3.c:2979
+#: src/pop3.c:2683 src/pop3.c:2998
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "POP3 Server unterstützt Authentifizierungsmethode %s nicht"
@@ -1201,32 +1202,32 @@ msgstr "GNU SASL: %s"
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: Authentifizierungsmethode %s wird nicht unterstützt"
 
-#: src/pop3.c:2760 src/pop3.c:3018
+#: src/pop3.c:2760 src/pop3.c:3037
 #, c-format
 msgid "cannot use a secure authentication method"
 msgstr "kann keine sichere Authentifizierungsmethode benutzen"
 
-#: src/pop3.c:2766 src/pop3.c:3024
+#: src/pop3.c:2766 src/pop3.c:3043
 #, c-format
 msgid "cannot find a usable authentication method"
 msgstr "kann keine benutzbare Authentifizierungsmethode finden"
 
-#: src/pop3.c:2780 src/pop3.c:3037
+#: src/pop3.c:2780 src/pop3.c:3056
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "Authentifizierungsmethode %s braucht einen Benutzernamen"
 
-#: src/pop3.c:2793 src/pop3.c:3047
+#: src/pop3.c:2793 src/pop3.c:3066
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "Authentifizierungsmethode %s braucht ein Passwort"
 
-#: src/pop3.c:2960
+#: src/pop3.c:2959
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "Authentifizierung fehlgeschlagen: %s (Methode %s)"
 
-#: src/pop3.c:3081
+#: src/pop3.c:3100
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "Authentifizierungsmethode %s wird nicht unterstützt"
