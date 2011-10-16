@@ -1,3 +1,7 @@
+Version 1.0.25:
+- Fix DIGEST-MD5 authentication, accidentally broken in 1.0.23.
+- Deprecate DIGEST-MD5 authentication as per RFC 6331.
+
 Version 1.0.24:
 - Remove unmaintained translations (es, pt_BR).
 - Simplify manual license: use a simple permissive license instead of GNU FDL.
