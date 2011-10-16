@@ -2711,11 +2711,6 @@ int pop3_auth(pop3_session_t *session,
         {
             auth_mech = "SCRAM-SHA-1";
         }
-        else if (gsasl_client_support_p(ctx, "DIGEST-MD5")
-                && (session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5))
-        {
-            auth_mech = "DIGEST-MD5";
-        }
         else if (gsasl_client_support_p(ctx, "CRAM-MD5")
                 && (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5))
         {
@@ -2732,6 +2727,11 @@ int pop3_auth(pop3_session_t *session,
                     && (session->cap.flags & POP3_CAP_AUTH_PLAIN))
             {
                 auth_mech = "PLAIN";
+            }
+            else if (gsasl_client_support_p(ctx, "DIGEST-MD5")
+                    && (session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5))
+            {
+                auth_mech = "DIGEST-MD5";
             }
             else if (session->cap.flags & POP3_CAP_AUTH_USER)
             {
