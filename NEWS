@@ -1,3 +1,6 @@
+Version 1.0.26:
+- No significant changes.
+
 Version 1.0.25:
 - DIGEST-MD5 authentication is not considered secure any longer. See RFC 6331.
 
