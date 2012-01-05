@@ -3,7 +3,8 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
+ * 2012
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
@@ -2347,7 +2348,7 @@ int main(int argc, char *argv[])
 # endif
 #endif
         printf("\n\n");
-        printf(_("Copyright (C) 2011 Martin Lambers and others.\n"
+        printf(_("Copyright (C) 2012 Martin Lambers and others.\n"
                     "This is free software.  You may redistribute copies of "
                         "it under the terms of\n"
                     "the GNU General Public License "
