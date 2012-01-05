@@ -1,3 +1,6 @@
+Version 1.0.26:
+- Fix a compiler warning with current OpenSSL versions.
+
 Version 1.0.25:
 - Fix DIGEST-MD5 authentication, accidentally broken in 1.0.23.
 - Deprecate DIGEST-MD5 authentication as per RFC 6331.
