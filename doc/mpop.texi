@@ -55,9 +55,9 @@ notice are preserved. These files are offered as-is, without any warranty.
 * Pipelining::				How to use POP3 pipelining.
 * Defective POP3 servers::		Common defects of POP3 servers.
 * Mail retrieval mode::			How to retrieve mail.
-* Filtering::				How to filter mails.
 * Server information mode::		How to obtain information about 
 					an POP3 server.
+* Filtering::				How to filter mails.
 * Examples::				Usage examples.
 @end menu
 
@@ -533,83 +533,83 @@ Please refer to @ref{Configuration file} for detailed information.
 @opindex -C
 @opindex --file
 Use the given file instead of @code{~/.mpoprc} as the configuration file.
-@itemx --host=@var{hostname}
+@item --host=@var{hostname}
 @opindex --host
 Use this POP3 server with settings from the command line; do not use any
 configuration file data. This option disables loading of the configuration 
 file. You cannot use both this option and account names on the command line.
-@itemx --port=@var{number}
+@item --port=@var{number}
 @opindex --port
 Set the port number to connect to. @xref{port}.
-@itemx --timeout=(off|@var{seconds})
+@item --timeout=(off|@var{seconds})
 @opindex --timeout
 Set or unset a network timeout, in seconds. @xref{timeout}.
 @anchor{--pipelining}
-@itemx --pipelining=(auto|on|off)
+@item --pipelining=(auto|on|off)
 @opindex --pipelining
 Enable or disable POP3 pipelining. @xref{pipelining}.
 @anchor{--received_header}
-@itemx --received-header[=(on|off)]
+@item --received-header[=(on|off)]
 @opindex --received-header
 Enable or disable the Received header. @xref{received_header}.
 @anchor{--auth}
-@itemx --auth[=(on|@var{method})]
+@item --auth[=(on|@var{method})]
 @opindex --auth
 Set the authentication method to automatic (with "on") or manually choose an 
 authentication method. @xref{auth}.
 @anchor{--user}
-@itemx --user=[@var{username}]
+@item --user=[@var{username}]
 @opindex --user
 Set or unset the user name for authentication. @xref{user}.
 @anchor{--passwordeval}
-@itemx --passwordeval=[@var{eval}]
+@item --passwordeval=[@var{eval}]
 @opindex --passwordeval
 Evaluate password for authentication. @xref{passwordeval}.
-@itemx --tls[=(on|off)]
+@item --tls[=(on|off)]
 @opindex --tls
 Enable or disable TLS/SSL. @xref{tls}.
 @anchor{--tls-starttls}
-@itemx --tls-starttls[=(on|off)]
+@item --tls-starttls[=(on|off)]
 @opindex --tls-starttls
 Enable or disable STARTTLS for TLS encryption. @xref{tls_starttls}.
 @anchor{--tls-trust-file}
-@itemx --tls-trust-file=[@var{file}]
+@item --tls-trust-file=[@var{file}]
 @opindex --tls-trust-file
 Set or unset a trust file for TLS encryption. @xref{tls_trust_file}.
 @anchor{--tls-crl-file}
-@itemx --tls-crl-file=[@var{file}]
+@item --tls-crl-file=[@var{file}]
 @opindex --tls-crl-file
 Set or unset a certificate revocation list (CRL) file for TLS. 
 @xref{tls_crl_file}.
 @anchor{--tls-fingerprint}
-@itemx --tls-fingerprint=[@var{fingerprint}]
+@item --tls-fingerprint=[@var{fingerprint}]
 @opindex --tls-fingerprint
 Set ot unset the fingerprint of a trusted TLS certificate.
 @xref{tls_fingerprint}.
 @anchor{--tls-key-file}
-@itemx --tls-key-file=[@var{file}]
+@item --tls-key-file=[@var{file}]
 @opindex --tls-key-file
 Set or unset a key file for TLS encryption. @xref{tls_key_file}.
 @anchor{--tls-cert-file}
-@itemx --tls-cert-file=[@var{file}]
+@item --tls-cert-file=[@var{file}]
 @opindex --tls-cert-file
 Set or unset a cert file for TLS encryption. @xref{tls_cert_file}.
 @anchor{--tls-certcheck}
-@itemx --tls-certcheck[=(on|off)]
+@item --tls-certcheck[=(on|off)]
 @opindex --tls-certcheck
 Enable or disable server certificate checks for TLS encryption.  
 @xref{tls_certcheck}.
 @anchor{--tls-force-sslv3}
-@itemx --tls-force-sslv3=(on|off)]
+@item --tls-force-sslv3=(on|off)]
 @opindex --tls-force-sslv3
 Force TLS/SSL version SSLv3. @xref{tls_force_sslv3}.
 @anchor{--tls-min-dh-prime-bits}
-@itemx --tls-min-dh-prime-bits=[@var{bits}]
+@item --tls-min-dh-prime-bits=[@var{bits}]
 @opindex --tls-min-dh-prime-bits
 Set or unset minimum bit size of the Diffie-Hellman (DH) prime.
 @xref{tls_min_dh_prime_bits}.
 @anchor{--tls-priorities}
-@itemx --tls-priorities=[@var{priorities}]
+@item --tls-priorities=[@var{priorities}]
 @opindex --tls-priorities
 Set or unset TLS priorities. @xref{tls_priorities}.
 @end table
@@ -658,15 +658,15 @@ Process only new messages. @xref{only_new}.
 Do not delete mails from POP3 servers, regardless of other options or settings.
 @xref{keep}.
 @anchor{--killsize}
-@itemx --killsize=(off|@var{size})
+@item --killsize=(off|@var{size})
 @opindex --killsize
 Set or unset kill size. @xref{killsize}.
 @anchor{--skipsize}
-@itemx --skipsize=(off|@var{size})
+@item --skipsize=(off|@var{size})
 @opindex --skipsize
 Set or unset skip size. @xref{skipsize}.
 @anchor{--filter}
-@itemx --filter=[@var{command}]
+@item --filter=[@var{command}]
 @opindex --filter
 Set a filter which will decide whether to retrieve, skip, or delete each mail by
 investigating the mail's headers. @xref{filter}.
@@ -676,7 +676,7 @@ investigating the mail's headers. @xref{filter}.
 How to deliver messages received from this account. @xref{delivery}. Note that a
 comma is used instead of a blank to separate the method from its arguments.
 @anchor{--uidls-file}
-@itemx --uidls-file=@var{filename}
+@item --uidls-file=@var{filename}
 @opindex --uidls-file
 File to store UIDLs in. @xref{uidls_file}.
 @end table
