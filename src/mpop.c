@@ -1731,7 +1731,7 @@ int main(int argc, char *argv[])
             LONGONLYOPT_RECEIVED_HEADER },
         { "auth",                  optional_argument, 0, LONGONLYOPT_AUTH },
         { "user",                  required_argument, 0, LONGONLYOPT_USER },
-        { "passwordeval",          optional_argument, 0,
+        { "passwordeval",          required_argument, 0,
             LONGONLYOPT_PASSWORDEVAL },
         { "tls",                   optional_argument, 0, LONGONLYOPT_TLS },
         { "tls-starttls",          optional_argument, 0,

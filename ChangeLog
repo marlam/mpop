@@ -1,3 +1,7 @@
+Version 1.0.29:
+- Fix crash on missing argument to the --passwordeval option (Debian bug
+  #716572).
+
 Version 1.0.28:
 - Fixed building of the documentation with texinfo >= 5.0.
 
