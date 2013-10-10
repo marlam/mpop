@@ -1,7 +1,9 @@
+INSTALL
 Makefile.in
 aclocal.m4
 autom4te.cache/
 m4/*.m4
+build-aux/compile
 build-aux/config.guess
 build-aux/config.sub
 build-aux/depcomp
