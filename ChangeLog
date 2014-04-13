@@ -1,3 +1,7 @@
+Version 1.0.30:
+- passwordeval: Remove \r in addition to \n from command output, for Windows
+  systems.
+
 Version 1.0.29:
 - Fix crash on missing argument to the --passwordeval option (Debian bug
   #716572).
