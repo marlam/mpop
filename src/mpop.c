@@ -2357,86 +2357,59 @@ int main(int argc, char *argv[])
     }
     if (print_help)
     {
-        printf(_("USAGE:\n\n"
-                "Mail retrieval mode (default):\n"
-                "  %s [option...] [--] account...\n"
-                "  %s --host=host [option...]\n"
-                "  Read mails from one ore more POP3 accounts and deliver "
-                        "them.\n"
-                "Server information mode:\n"
-                "  %s [option...] --serverinfo account...\n"
-                "  %s --host=host [option...] --serverinfo\n"
-                "  Print information about one or more POP3 servers.\n"
-                "\nOPTIONS:\n\n"
-                "General options:\n"
-                "  --version                    Print version.\n"
-                "  --help                       Print help.\n"
-                "  -P, --pretend                Print configuration info and "
-                        "exit.\n"
-                "  -d, --debug                  Print debugging information.\n"
-                "Changing the mode of operation:\n"
-                "  -S, --serverinfo             Print information about the "
-                        "POP3 server.\n"
-                "Configuration options:\n"
-                "  -C, --file=filename          Set configuration file.\n"
-                "  --host=hostname              Set POP3 server, use only "
-                        "command line settings;\n"
-                "                               do not use any configuration "
-                        "file data.\n"
-                "  --port=number                Set port number.\n"
-                "  --timeout=(off|seconds)      Set/unset network timeout in "
-                        "seconds.\n"
-                "  --pipelining=(auto|on|off)   Enable/disable POP3 "
-                        "pipelining.\n"
-                "  --received-header[=(on|off)] Enable/disable "
-                        "Received-header.\n"
-                "  --auth[=(on|method)]         Choose the authentication "
-                        "method.\n"
-                "  --user=[username]            Set/unset user name for "
-                        "authentication.\n"
-                "  --passwordeval=[eval]        Evaluate password for "
-                        "authentication.\n"
-                "  --tls[=(on|off)]             Enable/disable TLS "
-                        "encryption.\n"
-                "  --tls-starttls[=(on|off)]    Enable/disable STLS for TLS.\n"
-                "  --tls-trust-file=[file]      Set/unset trust file for TLS.\n"
-                "  --tls-crl-file=[file]        Set/unset revocation file for "
-                        "TLS.\n"
-                "  --tls-fingerprint=[f]        Set/unset trusted certificate "
-                        "fingerprint for\n"
-                "                               TLS.\n"
-                "  --tls-key-file=[file]        Set/unset private key file for "
-                        "TLS.\n"
-                "  --tls-cert-file=[file]       Set/unset private cert file "
-                        "for TLS.\n"
-                "  --tls-certcheck[=(on|off)]   Enable/disable server "
-                        "certificate checks for TLS.\n"
-                "  --tls-force-sslv3[=(on|off)] Enable/disable restriction to "
-                        "SSLv3.\n"
-                "  --tls-min-dh-prime-bits=[b]  Set/unset minimum bit size of "
-                        "DH prime.\n"
-                "  --tls-priorities=[prios]     Set/unset TLS priorities.\n"
-                "Options specific to mail retrieval mode:\n"
-                "  -q, --quiet                  Do not display status or "
-                        "progress information.\n"
-                "  -Q, --half-quiet             Display status but not "
-                        "progress information.\n"
-                "  -a, --all-accounts           Query all accounts in the "
-                        "configuration file.\n"
-                "  -A, --auth-only              Authenticate only; do not "
-                        "retrieve mail.\n"
-                "  -s, --status-only            Print account status only; do "
-                        "not retrieve mail.\n"
-                "  -n, --only-new[=(on|off)]    Process only new messages\n"
-                "  -k, --keep[=(on|off)]        Do not delete mails from POP3 "
-                        "servers.\n"
-                "  --killsize=(off|number)      Set/unset kill size.\n"
-                "  --skipsize=(off|number)      Set/unset skip size.\n"
-                "  --filter=[program]           Set/unset header filter.\n"
-                "  --delivery=method,arg        Set the mail delivery method.\n"
-                "  --uidls-file=filename        Set file to store UIDLs.\n"
-                "\nReport bugs to <%s>.\n"),
-                prgname, prgname, prgname, prgname, PACKAGE_BUGREPORT);
+        printf(_("Usage:\n\n"));
+        printf(_("Mail retrieval mode (default):\n"
+                    "  %s [option...] [--] account...\n"
+                    "  %s --host=host [option...]\n"
+                    "  Read mails from one ore more POP3 accounts and deliver "
+                    "them.\n"), prgname, prgname);
+        printf(_("Server information mode:\n"
+                    "  %s [option...] --serverinfo account...\n"
+                    "  %s --host=host [option...] --serverinfo\n"
+                    "  Print information about one or more POP3 servers.\n\n"), prgname, prgname);
+        printf(_("General options:\n"));
+        printf(_("  --version                    print version\n"));
+        printf(_("  --help                       print help\n"));
+        printf(_("  -P, --pretend                print configuration info and exit\n"));
+        printf(_("  -d, --debug                  print debugging information\n"));
+        printf(_("Changing the mode of operation:\n"));
+        printf(_("  -S, --serverinfo             print information about the server\n"));
+        printf(_("Configuration options:\n"));
+        printf(_("  -C, --file=filename          set configuration file\n"));
+        printf(_("  --host=hostname              set the server, use only command-line settings;\n"
+                    "                               do not use any configuration file data\n"));
+        printf(_("  --port=number                set port number\n"));
+        printf(_("  --timeout=(off|seconds)      set/unset network timeout in seconds\n"));
+        printf(_("  --pipelining=(auto|on|off)   enable/disable pipelining\n"));
+        printf(_("  --received-header[=(on|off)] enable/disable Received-header\n"));
+        printf(_("  --auth[=(on|method)]         choose the authentication method\n"));
+        printf(_("  --user=[username]            set/unset user name for authentication\n"));
+        printf(_("  --passwordeval=[eval]        evaluate password for authentication\n"));
+        printf(_("  --tls[=(on|off)]             enable/disable TLS encryption\n"));
+        printf(_("  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"));
+        printf(_("  --tls-trust-file=[file]      set/unset trust file for TLS\n"));
+        printf(_("  --tls-crl-file=[file]        set/unset revocation file for TLS\n"));
+        printf(_("  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for TLS\n"));
+        printf(_("  --tls-key-file=[file]        set/unset private key file for TLS\n"));
+        printf(_("  --tls-cert-file=[file]       set/unset private cert file for TLS\n"));
+        printf(_("  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"));
+        printf(_("  --tls-force-sslv3[=(on|off)] enable/disable restriction to SSLv3\n"));
+        printf(_("  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"));
+        printf(_("  --tls-priorities=[prios]     set/unset TLS priorities.\n"));
+        printf(_("Options specific to mail retrieval mode:\n"));
+        printf(_("  -q, --quiet                  do not display status or progress information\n"));
+        printf(_("  -Q, --half-quiet             display status but not progress information\n"));
+        printf(_("  -a, --all-accounts           query all accounts in the configuration file\n"));
+        printf(_("  -A, --auth-only              authenticate only; do not retrieve mail\n"));
+        printf(_("  -s, --status-only            print account status only; do not retrieve mail\n"));
+        printf(_("  -n, --only-new[=(on|off)]    process only new messages\n"));
+        printf(_("  -k, --keep[=(on|off)]        do not delete mails from servers\n"));
+        printf(_("  --killsize=(off|number)      set/unset kill size\n"));
+        printf(_("  --skipsize=(off|number)      set/unset skip size\n"));
+        printf(_("  --filter=[program]           set/unset header filter\n"));
+        printf(_("  --delivery=method,arg        set the mail delivery method\n"));
+        printf(_("  --uidls-file=filename        set file to store UIDLs\n"));
+        printf(_("\nReport bugs to <%s>.\n"), PACKAGE_BUGREPORT);
     }
 
     if (print_help || print_version
