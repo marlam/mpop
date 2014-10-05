@@ -1690,6 +1690,10 @@ int main(int argc, char *argv[])
     struct sigaction old_sigterm_handler;
     struct sigaction old_sighup_handler;
     struct sigaction old_sigint_handler;
+#elif HAVE_SIGNAL
+    void (*old_sigterm_handler)(int);
+    void (*old_sighup_handler)(int);
+    void (*old_sigint_handler)(int);
 #endif
     /* misc */
 #if HAVE_GETSERVBYNAME
@@ -2804,6 +2808,12 @@ int main(int argc, char *argv[])
             (void)sigaction(SIGTERM, &signal_handler, &old_sigterm_handler);
             (void)sigaction(SIGHUP, &signal_handler, &old_sighup_handler);
             (void)sigaction(SIGINT, &signal_handler, &old_sigint_handler);
+#elif HAVE_SIGNAL
+            old_sigterm_handler = signal(SIGTERM, mpop_retrmail_signal_handler);
+            old_sigint_handler = signal(SIGINT, mpop_retrmail_signal_handler);
+#ifdef SIGHUP /* Windows supports SIGTERM and SIGINT, but not SIGHUP */
+            old_sighup_handler = signal(SIGHUP, mpop_retrmail_signal_handler);
+#endif
 #endif
             if ((error_code = mpop_retrmail(canonical_hostname, local_user,
                             account, debug, print_status, print_progress,
@@ -2837,6 +2847,12 @@ int main(int argc, char *argv[])
             (void)sigaction(SIGTERM, &old_sigterm_handler, NULL);
             (void)sigaction(SIGHUP, &old_sighup_handler, NULL);
             (void)sigaction(SIGINT, &old_sigint_handler, NULL);
+#elif HAVE_SIGNAL
+            (void)signal(SIGTERM, old_sigterm_handler);
+            (void)signal(SIGINT, old_sigint_handler);
+#ifdef SIGHUP /* Windows supports SIGTERM and SIGINT, but not SIGHUP */
+            (void)signal(SIGHUP, old_sighup_handler);
+#endif
 #endif
             if (mpop_retrmail_abort)
             {
