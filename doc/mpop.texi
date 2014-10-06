@@ -453,6 +453,13 @@ the error, but this is not necessary. @xref{Filtering}.
 @code{mpop [@var{option}@dots{}] --serverinfo [@var{account}@dots{}]}@*
 @end itemize
 
+mpop is usually run with one or more accounts as parameters (an account named
+`default' is used if none was provided) or @code{mpop -a} to fetch mail from
+all accounts defined in the configuration file.
+
+In turn, this can be executed from @code{cron(8)} in order to automate
+mail retrieval.
+
 @section Exit code
 
 The standard exit codes from @code{sysexits.h} are used.

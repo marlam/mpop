@@ -1763,7 +1763,7 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, int crlf,
  * See pop3_filter() and pop3_retr().
  * When 'abort' is externally set, this function will stop processing the
  * pipelined commands and return with POP3_EABORTED. The POP3 session is
- * unsuable thereafter.
+ * unusable thereafter.
  */
 
 int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
@@ -2523,7 +2523,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
  *
  * Do POP3 authentication via AUTH EXTERNAL.
  * This means the actual authentication is done via TLS; we just send the user
- * name to ther server.
+ * name to the server.
  * The POP3 server must support POP3_CAP_AUTH_EXTERNAL
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EAUTHFAIL, POP3_EINVAL
  */
@@ -2851,7 +2851,7 @@ int pop3_auth(pop3_session_t *session,
         gsasl_property_set(sctx, GSASL_REALM, ntlmdomain);
     }
 
-    /* Bigg authentication loop */
+    /* Big authentication loop */
     input = NULL;
     do
     {

@@ -195,7 +195,7 @@ long long get_size_arg(const char *arg);
  * override_account()
  *
  * Override the settings of 'acc1' with the settings of 'acc2' when the
- * appropriate flag ist set in acc2->mask.
+ * appropriate flag is set in acc2->mask.
  * The flags from acc2->mask will also be set in acc1->mask.
  */
 void override_account(account_t *acc1, account_t *acc2);
@@ -215,7 +215,7 @@ int check_account(account_t *acc, int retrmail, char **errstr);
  * get_password_eval()
  *
  * Evaluates command in 'arg' and stores result in 'buf' (which is allocated).
- * Returns CONF_EIO if command exectution failed, otherwise CONF_EOK. On error,
+ * Returns CONF_EIO if command execution failed, otherwise CONF_EOK. On error,
  * *errstr will contain an error string.
  */
 int get_password_eval(const char *arg, char **buf, char **errstr);

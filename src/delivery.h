@@ -51,10 +51,10 @@
  *   http://technet.microsoft.com/en-us/library/bb124230.aspx
  *
  * DELIVERY_METHOD_FILTER:
- *   This method is special. It behaves like DELIVERY_METHOD_MDA, with to
+ *   This method is special. It behaves like DELIVERY_METHOD_MDA, with two
  *   exceptions:
  *   1. In addition to %F-replacement, every occurence of %S in the data
- *      argument will be replaced with the size of the current mail as reporte
+ *      argument will be replaced with the size of the current mail as reported
  *      by the POP3 server.
  *   2. The close function does not return a DELIVERY_* exit code, but one of
  *      the following:

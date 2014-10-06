@@ -339,7 +339,7 @@ int pop3_server_supports_authmech(pop3_session_t *session, const char *mech);
  * Use pop3_client_supports_authmech() and pop3_server_supports_authmech()
  * to find out which authentication mechanisms are available.
  * The special value "" for 'auth_mech' causes the function to choose the best
- * authentication method supported by the server, unless TLS is incative and the
+ * authentication method supported by the server, unless TLS is inactive and the
  * method sends plain text passwords. In this case, the function fails with
  * POP3_EINSECURE.
  * The hostname is the name of the POP3 server. It may be needed for
