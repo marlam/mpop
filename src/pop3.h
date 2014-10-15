@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+ * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -283,7 +283,7 @@ int pop3_tls_init(pop3_session_t *session,
         const char *tls_trust_file, const char *tls_crl_file,
         const unsigned char *tls_sha1_fingerprint,
         const unsigned char *tls_md5_fingerprint,
-        int force_sslv3, int min_dh_prime_bits, const char *priorities,
+        int min_dh_prime_bits, const char *priorities,
         char **errstr);
 #endif /* HAVE_TLS */
 

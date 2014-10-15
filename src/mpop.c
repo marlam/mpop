@@ -514,7 +514,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
         if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
                         acc->tls_trust_file, acc->tls_crl_file,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
-                        acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
+                        acc->tls_min_dh_prime_bits,
                         acc->tls_priorities, errstr)) != TLS_EOK)
         {
             pop3_session_free(session);
@@ -992,7 +992,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
                         acc->tls_trust_file, acc->tls_crl_file,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
-                        acc->tls_force_sslv3, acc->tls_min_dh_prime_bits,
+                        acc->tls_min_dh_prime_bits,
                         acc->tls_priorities, errstr)) != TLS_EOK)
         {
             pop3_session_free(session);
@@ -2078,21 +2078,7 @@ int main(int argc, char *argv[])
                 break;
 
             case LONGONLYOPT_TLS_FORCE_SSLV3:
-                if (!optarg || is_on(optarg))
-                {
-                    cmdline_account->tls_force_sslv3 = 1;
-                }
-                else if (is_off(optarg))
-                {
-                    cmdline_account->tls_force_sslv3 = 0;
-                }
-                else
-                {
-                    print_error(_("invalid argument %s for %s"),
-                            optarg, "--tls-force-sslv3");
-                    error_code = 1;
-                }
-                cmdline_account->mask |= ACC_TLS_FORCE_SSLV3;
+                /* silently ignored for compatibility with versions <= 1.0.29 */
                 break;
 
             case LONGONLYOPT_TLS_MIN_DH_PRIME_BITS:
@@ -2397,7 +2383,6 @@ int main(int argc, char *argv[])
         printf(_("  --tls-key-file=[file]        set/unset private key file for TLS\n"));
         printf(_("  --tls-cert-file=[file]       set/unset private cert file for TLS\n"));
         printf(_("  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"));
-        printf(_("  --tls-force-sslv3[=(on|off)] enable/disable restriction to SSLv3\n"));
         printf(_("  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"));
         printf(_("  --tls-priorities=[prios]     set/unset TLS priorities.\n"));
         printf(_("Options specific to mail retrieval mode:\n"));
@@ -2630,8 +2615,7 @@ int main(int argc, char *argv[])
                     "tls_fingerprint       = %s\n"
                     "tls_key_file          = %s\n"
                     "tls_cert_file         = %s\n"
-                    "tls_certcheck         = %s\n"
-                    "tls_force_sslv3       = %s\n",
+                    "tls_certcheck         = %s\n",
                     account->username ? account->username : _("(not set)"),
                     account->password ? "*" : _("(not set)"),
                     account->passwordeval ?
@@ -2650,8 +2634,7 @@ int main(int argc, char *argv[])
                         account->tls_key_file : _("(not set)"),
                     account->tls_cert_file ?
                         account->tls_cert_file : _("(not set)"),
-                    account->tls_nocertcheck ? _("off") : _("on"),
-                    account->tls_force_sslv3 ? _("on") : _("off"));
+                    account->tls_nocertcheck ? _("off") : _("on"));
             printf("tls_min_dh_prime_bits = ");
             if (account->tls_min_dh_prime_bits >= 0)
             {

@@ -299,12 +299,6 @@ This command enables or disables checks for the server certificate.@*
 WARNING: When the checks are disabled, TLS/SSL sessions will be vulnerable to
 man-in-the-middle attacks!
 @xref{Transport Layer Security}.
-@anchor{tls_force_sslv3}
-@item tls_force_sslv3 [(on|off)]
-@cmindex tls_force_sslv3
-Force TLS/SSL version SSLv3. This might be needed to use SSL with some old and
-broken servers. Do not use this unless you have to.
-@xref{Transport Layer Security}.
 @anchor{tls_min_dh_prime_bits}
 @item tls_min_dh_prime_bits [@var{bits}]
 @cmindex tls_min_dh_prime_bits
@@ -607,10 +601,6 @@ Set or unset a cert file for TLS encryption. @xref{tls_cert_file}.
 @opindex --tls-certcheck
 Enable or disable server certificate checks for TLS encryption.  
 @xref{tls_certcheck}.
-@anchor{--tls-force-sslv3}
-@item --tls-force-sslv3=(on|off)]
-@opindex --tls-force-sslv3
-Force TLS/SSL version SSLv3. @xref{tls_force_sslv3}.
 @anchor{--tls-min-dh-prime-bits}
 @item --tls-min-dh-prime-bits=[@var{bits}]
 @opindex --tls-min-dh-prime-bits
@@ -764,9 +754,8 @@ Note that GnuTLS will only send a client certificate if it matches one of the
 CAs advertised by the server. If you set a client certificate but it is not sent
 to the server, probably does not match any CA that the server trusts.
 
-If you need to fine tune TLS parameters or have problems connecting to your
-server, have a look at the @ref{tls_force_sslv3}, @ref{tls_min_dh_prime_bits},
-and @ref{tls_priorities} commands.
+If you need to fine tune TLS parameters, have a look at the
+@ref{tls_min_dh_prime_bits} and @ref{tls_priorities} commands.
 
 
 @node Authentication
