@@ -567,7 +567,7 @@ Enable or disable POP3 pipelining. @xref{pipelining}.
 @item --proxy-host=[@var{IP}|@var{hostname}]
 @opindex --proxy-host
 Set or unset a SOCKS proxy to use. @xref{proxy_host}.
-@item --proxy-port=[@var{number}"
+@item --proxy-port=[@var{number}]
 Set or unset a port number for the proxy host. @xref{proxy_port}.
 @anchor{--received_header}
 @item --received-header[=(on|off)]
