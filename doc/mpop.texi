@@ -170,6 +170,20 @@ operating system default will be used.
 Enable or disable POP3 pipelining. The default is @samp{auto}, which means that
 mpop enables pipelining for POP3 servers that advertize this capability, and 
 disables it for all other servers. @xref{Pipelining}.
+@anchor{proxy_host}
+@item proxy_host [@var{IP}|@var{hostname}]
+@cmindex proxy_host
+Use a SOCKS proxy. All network traffic will go through this proxy host,
+including DNS queries, except for a DNS query that might be necessary to
+resolve the proxy host name itself (this can be avoided by using an IP address
+as proxy host name). An empty @samp{hostname} argument disables proxy usage.
+The supported SOCKS protocol version is 5. If you plan to use this with Tor,
+see also @ref{Using mpop with Tor}.
+@anchor{proxy_port}
+@item proxy_port [@var{number}]
+@cmindex proxy_port
+Set the port number for the proxy host. An empty @samp{number} argument resets
+this to the default port.
 @anchor{received_header}
 @item received_header [(on|off)]
 @cmindex received_header
@@ -550,6 +564,11 @@ Set or unset a network timeout, in seconds. @xref{timeout}.
 @item --pipelining=(auto|on|off)
 @opindex --pipelining
 Enable or disable POP3 pipelining. @xref{pipelining}.
+@item --proxy-host=[@var{IP}|@var{hostname}]
+@opindex --proxy-host
+Set or unset a SOCKS proxy to use. @xref{proxy_host}.
+@item --proxy-port=[@var{number}"
+Set or unset a port number for the proxy host. @xref{proxy_port}.
 @anchor{--received_header}
 @item --received-header[=(on|off)]
 @opindex --received-header
@@ -1084,6 +1103,7 @@ rely on @emph{exact} size filtering.
 @menu
 * A configuration file::
 * Filtering with SpamAssassin::
+* Using mpop with Tor::
 @end menu
 
 @node A configuration file
@@ -1181,6 +1201,21 @@ so you can also use this directly:
 @example
 filter if [ "`grep "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
 @end example
+
+
+@node Using mpop with Tor
+@section Using mpop with Tor
+Use the following settings:
+@example
+proxy_host 127.0.0.1
+proxy_port 9050
+tls on
+@end example
+Use an IP address as proxy host name, so that mpop does not leak a DNS query
+when resolving it.@*
+TLS is required to prevent exit hosts from reading your POP3 session. You also
+need @samp{tls_trust_file} or @samp{tls_fingerprint} to check the server
+identity.
 
 
 @bye

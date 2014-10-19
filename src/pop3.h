@@ -234,9 +234,10 @@ void pop3_session_free(pop3_session_t *session);
  * network address of the server will be stored in '*server_address',
  * or NULL if this information is not available.
  * The strings must not be deallocated.
- * Used error codes: NET_EHOSTNOTFOUND, NET_ESOCKET, NET_ECONNECT
+ * Used error codes: NET_EHOSTNOTFOUND, NET_ESOCKET, NET_ECONNECT, NET_EPROXY
  */
 int pop3_connect(pop3_session_t *session,
+        const char *proxy_hostname, int proxy_port,
         const char *server_hostname, int port, int timeout,
         const char **server_canonical_name, const char **server_address,
         char **errstr);

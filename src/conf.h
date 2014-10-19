@@ -66,8 +66,10 @@
 #define ACC_TLS_FINGERPRINT             (1 << 22)
 #define ACC_TLS_NOCERTCHECK             (1 << 23)
 #define ACC_TLS_NOSTARTTLS              (1 << 24)
-#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 26)
-#define ACC_TLS_PRIORITIES              (1 << 27)
+#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 25)
+#define ACC_TLS_PRIORITIES              (1 << 26)
+#define ACC_PROXY_HOST                  (1 << 27)
+#define ACC_PROXY_PORT                  (1 << 28)
 
 typedef struct
 {
@@ -112,6 +114,10 @@ typedef struct
     int tls_nocertcheck;        /* flag: do not check certificate? */
     int tls_min_dh_prime_bits;  /* parameter; -1 for default */
     char *tls_priorities;       /* parameter; NULL for default */
+
+    /* proxy */
+    char *proxy_host;           /* NULL or proxy hostname */
+    int proxy_port;             /* port number; 0 for default */
 } account_t;
 
 /*

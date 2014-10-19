@@ -207,6 +207,7 @@ void pop3_session_free(pop3_session_t *session)
  */
 
 int pop3_connect(pop3_session_t *session,
+        const char *proxy_hostname, int proxy_port,
         const char *server_hostname, int port, int timeout,
         const char **server_canonical_name, const char **server_address,
         char **errstr)
@@ -214,7 +215,8 @@ int pop3_connect(pop3_session_t *session,
     int e;
 
     session->server_hostname = xstrdup(server_hostname);
-    e = net_open_socket(server_hostname, port, timeout, &session->fd,
+    e = net_open_socket(proxy_hostname, proxy_port,
+            server_hostname, port, timeout, &session->fd,
             &session->server_canonical_name, &session->server_address, errstr);
     if (server_canonical_name)
     {

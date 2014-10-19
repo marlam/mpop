@@ -94,6 +94,11 @@ authentication method. See the \fBauth\fP command below.
 .IP "\-\-user=[\fIusername\fP]"
 Set or unset the user name for authentication. See the \fBuser\fP command
 below.
+.IP "\-\-proxy\-host=[\fIIP\fP|\fIhostname\fP]"
+Set or unset a SOCKS proxy to use. See the \fBproxy_host\fP command below.
+.IP "\-\-proxy\-port=[\fInumber\fP]"
+Set or unset a port number for the proxy host. See the \fBproxy_port\fP command
+below.
 .IP "\-\-passwordeval=[\fIeval\fP]"
 Set your password for authentication to the output (stdout) of the
 execution of \fIeval\fP.
@@ -334,7 +339,16 @@ Set your password for authentication to the output (stdout) of the execution of
 Set a domain for the \fBntlm\fP authentication method. The default is to use no
 domain (equivalent to an empty argument), but some servers seem to require one,
 even if it is an arbitrary string.
-.br
+.IP "proxy_host [\fIIP|hostname\fP]"
+Use a SOCKS proxy. All network traffic will go through this proxy host,
+including DNS queries, except for a DNS query that might be necessary to
+resolve the proxy host name itself (this can be avoided by using an IP address
+as proxy host name). An empty \fIhostname\fP argument disables proxy usage.
+The supported SOCKS protocol version is 5. If you want to use this with Tor,
+see also "Using mpop with Tor" below.
+.IP "proxy_port [\fInumber\fP]"
+Set the port number for the proxy host. An empty \fInumber\fP argument resets
+this to the default port.
 .IP "tls [(\fIon\fP|\fIoff\fP)]"
 This command enables or disables TLS (also known as SSL) encrypted connections
 to the POP3 server. Not every server supports this, and many that support it 
@@ -590,6 +604,26 @@ fi
 Since the filter command is passed to a shell, you can also use this directly:
 .br
 .B filter if [\ "`grep\ "^X\-Spam\-Status: Yes"`" ]; then exit 1; else exit 0; fi
+
+.br
+.PP
+.B Using mpop with Tor
+.PP
+Use the following settings:
+.br
+.B proxy_host 127.0.0.1
+.br
+.B proxy_port 9050
+.br
+.B tls on
+.br
+Use an IP address as proxy host name, so that mpop does not leak a DNS query
+when resolving it.
+.br
+TLS is required to prevent exit hosts from reading your POP3 session. You also
+need \fBtls_trust_file\fP or \fBtls_fingerprint\fP to check the server
+identity.
+
 
 .SH FILES / ENVIRONMENT
 .IP "~/.mpoprc"

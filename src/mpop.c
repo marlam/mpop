@@ -140,6 +140,9 @@ int exitcode_net(int net_error_code)
         case NET_EIO:
             return EX_IOERR;
 
+        case NET_EPROXY:
+            return EX_UNAVAILABLE;
+
         case NET_ELIBFAILED:
         default:
             return EX_SOFTWARE;
@@ -497,7 +500,8 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     session = pop3_session_new(acc->pipelining, "", "", debug ? stdout : NULL);
 
     /* connect */
-    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout,
+    if ((e = pop3_connect(session, acc->proxy_host, acc->proxy_port,
+                    acc->host, acc->port, acc->timeout,
                     &server_canonical_name, &server_address, errstr))
             != NET_EOK)
     {
@@ -978,7 +982,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             debug ? stdout : NULL);
 
     /* connect */
-    if ((e = pop3_connect(session, acc->host, acc->port, acc->timeout,
+    if ((e = pop3_connect(session, acc->proxy_host, acc->proxy_port,
+                    acc->host, acc->port, acc->timeout,
                     NULL, NULL, errstr)) != NET_EOK)
     {
         pop3_session_free(session);
@@ -1647,6 +1652,8 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_FILTER                      23
 #define LONGONLYOPT_DELIVERY                    24
 #define LONGONLYOPT_UIDLS_FILE                  25
+#define LONGONLYOPT_PROXY_HOST                  26
+#define LONGONLYOPT_PROXY_PORT                  27
 
 int main(int argc, char *argv[])
 {
@@ -1737,6 +1744,8 @@ int main(int argc, char *argv[])
         { "user",                  required_argument, 0, LONGONLYOPT_USER },
         { "passwordeval",          required_argument, 0,
             LONGONLYOPT_PASSWORDEVAL },
+        { "proxy-host",            required_argument, 0, LONGONLYOPT_PROXY_HOST },
+        { "proxy-port",            required_argument, 0, LONGONLYOPT_PROXY_PORT },
         { "tls",                   optional_argument, 0, LONGONLYOPT_TLS },
         { "tls-starttls",          optional_argument, 0,
             LONGONLYOPT_TLS_STARTTLS },
@@ -1965,6 +1974,38 @@ int main(int argc, char *argv[])
                 cmdline_account->passwordeval =
                     (*optarg == '\0') ? NULL : xstrdup(optarg);
                 cmdline_account->mask |= ACC_PASSWORDEVAL;
+                break;
+
+            case LONGONLYOPT_PROXY_HOST:
+                free(cmdline_account->proxy_host);
+                if (*optarg)
+                {
+                    cmdline_account->proxy_host = xstrdup(optarg);
+                }
+                else
+                {
+                    cmdline_account->proxy_host = NULL;
+                }
+                cmdline_account->mask |= ACC_PROXY_HOST;
+                break;
+
+            case LONGONLYOPT_PROXY_PORT:
+                if (*optarg)
+                {
+                    cmdline_account->proxy_port = get_non_neg_int(optarg);
+                    if (cmdline_account->proxy_port < 1
+                            || cmdline_account->proxy_port > 65535)
+                    {
+                        print_error(_("invalid argument %s for %s"),
+                                optarg, "--proxy-port");
+                        error_code = 1;
+                    }
+                }
+                else
+                {
+                    cmdline_account->proxy_port = 0;
+                }
+                cmdline_account->mask |= ACC_PROXY_PORT;
                 break;
 
             case LONGONLYOPT_TLS:
@@ -2375,6 +2416,8 @@ int main(int argc, char *argv[])
         printf(_("  --auth[=(on|method)]         choose the authentication method\n"));
         printf(_("  --user=[username]            set/unset user name for authentication\n"));
         printf(_("  --passwordeval=[eval]        evaluate password for authentication\n"));
+        printf(_("  --proxy-host=[IP|hostname]   set/unset proxy\n"));
+        printf(_("  --proxy-port=[number]        set/unset proxy port\n"));
         printf(_("  --tls[=(on|off)]             enable/disable TLS encryption\n"));
         printf(_("  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"));
         printf(_("  --tls-trust-file=[file]      set/unset trust file for TLS\n"));
@@ -2508,6 +2551,15 @@ int main(int argc, char *argv[])
 #endif
             }
         }
+        if (account->proxy_host && account->proxy_port == 0)
+        {
+#ifdef HAVE_GETSERVBYNAME
+            se = getservbyname("socks", NULL);
+            account->proxy_port = se ? ntohs(se->s_port) : 1080;
+#else
+            account->proxy_port = 1080;
+#endif
+        }
         if (!account->uidls_file)
         {
             account->uidls_file = get_filename(homedir, UIDLSFILE);
@@ -2564,6 +2616,10 @@ int main(int argc, char *argv[])
                     "port                  = %d\n",
                     account->host,
                     account->port);
+            printf("proxy host            = %s\n"
+                    "proxy port            = %d\n",
+                    account->proxy_host ? account->proxy_host : _("(not set)"),
+                    account->proxy_port);
             printf("timeout               = ");
             if (account->timeout <= 0)
             {
