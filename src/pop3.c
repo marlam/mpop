@@ -1652,59 +1652,18 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, int crlf,
         char **errstr)
 {
     time_t t;
-    struct tm gmt, *lt;
-    char tz_offset_sign;
-    int tz_offset_hours;
-    int tz_offset_minutes;
-    const char *weekday[7] = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri",
-        "Sat" };
-    const char *month[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-        "Aug", "Sep", "Oct", "Nov", "Dec" };
     char rfc2822_timestamp[32];
 #ifdef HAVE_LIBIDN
     char *hostname_ascii;
 #endif
     int e;
 
-    /* Calculate a RFC 2822 timestamp. strftime() is unreliable for this because
-     * it is locale dependant, and because the timezone offset conversion
-     * specifier %z is not portable. */
     if ((t = time(NULL)) < 0)
     {
         *errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
         return POP3_ELIBFAILED;
     }
-    /* copy the struct tm, because the subsequent call to localtime() will
-     * overwrite it */
-    gmt = *gmtime(&t);
-    lt = localtime(&t);
-    tz_offset_minutes = (lt->tm_hour - gmt.tm_hour) * 60
-        + lt->tm_min - gmt.tm_min
-        + (lt->tm_year - gmt.tm_year) * 24 * 60
-        + (lt->tm_yday - gmt.tm_yday) * 24 * 60;
-    if (tz_offset_minutes < 0)
-    {
-        tz_offset_sign = '-';
-        tz_offset_minutes = -tz_offset_minutes;
-    }
-    else
-    {
-        tz_offset_sign = '+';
-    }
-    tz_offset_hours = tz_offset_minutes / 60;
-    tz_offset_minutes %= 60;
-    if (tz_offset_hours > 99)
-    {
-        /* Values equal to or larger than 24 are not meaningful, but we just
-         * make sure that the value fits into two digits. If the system time is
-         * broken, we cannot fix it. */
-        tz_offset_hours = 99;
-    }
-    (void)snprintf(rfc2822_timestamp, sizeof(rfc2822_timestamp),
-            "%s, %02d %s %04d %02d:%02d:%02d %c%02d%02d",
-            weekday[lt->tm_wday], lt->tm_mday, month[lt->tm_mon],
-            lt->tm_year + 1900, lt->tm_hour, lt->tm_min, lt->tm_sec,
-            tz_offset_sign, tz_offset_hours, tz_offset_minutes);
+    print_time_rfc2822(t, rfc2822_timestamp);
 
     /* Write the Received header */
 #ifdef HAVE_LIBIDN
