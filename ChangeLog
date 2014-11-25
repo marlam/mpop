@@ -1,4 +1,6 @@
 Version 1.0.30:
+- Libidn is not required for IDN support anymore on systems where getaddrinfo()
+  supports the AI_IDN flag and the GnuTLS version is >= 3.4.0.
 - Add proxy_host and proxy_port commands and corresponding options to use a
   SOCKS proxy.
 - Remove the obsolete tls_force_sslv3 command and --tls-force-sslv3 option from
