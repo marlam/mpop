@@ -301,13 +301,10 @@ char *mpop_password_callback(const char *hostname, const char *user)
         gchar* libsecret_pw = secret_password_lookup_sync(
                 SECRET_SCHEMA_COMPAT_NETWORK,
                 NULL, NULL,
-                user,     /* user */
-                NULL,     /* domain */
-                NULL,     /* object */
-                "pop3",   /* protocol */
-                0,        /* port */
-                hostname, /* server */
-                NULL);    /* authtype */
+                "user", user,
+                "protocol", "pop3",
+                "server", hostname,
+                NULL);
         if (libsecret_pw)
         {
             password = xstrdup(libsecret_pw);
