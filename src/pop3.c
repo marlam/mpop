@@ -2662,12 +2662,7 @@ int pop3_auth(pop3_session_t *session,
     {
         /* Choose "best" authentication mechanism. */
         /* TODO: use gsasl_client_suggest_mechanism()? */
-        if (gsasl_client_support_p(ctx, "GSSAPI")
-                && (session->cap.flags & POP3_CAP_AUTH_GSSAPI))
-        {
-            auth_mech = "GSSAPI";
-        }
-        else if (gsasl_client_support_p(ctx, "SCRAM-SHA-1")
+        if (gsasl_client_support_p(ctx, "SCRAM-SHA-1")
                 && (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1))
         {
             auth_mech = "SCRAM-SHA-1";
