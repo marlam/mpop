@@ -1,4 +1,4 @@
-Version 1.0.30:
+Version 1.2.0rc1:
 - GSSAPI authentication is not chosen automatically anymore, you have to
   request it manually.
 - GNOME Keyring support now uses libsecret instead of libgnome-keyring.
