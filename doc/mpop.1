@@ -289,11 +289,17 @@ get it from a system specific keychain (if available). If that fails but a
 controlling terminal is available, mpop will prompt you for it.
 .br
 Currently supported keyrings are the Gnome Keyring and the Mac OS X Keychain.
-The script \fBmpop-gnome-tool.py\fP can be used to manage Gnome Keyring
-passwords for mpop. To manage Mac OS X Keychain passwords, use the Keychain
-Access GUI application. The \fIaccount name\fP is same as the mpop \fBuser\fP
-argument. The \fIkeychain item name\fP is \fBpop3://<hostname>\fP where
-\fB<hostname>\fP matches the mpop \fBhost\fP argument.
+.br
+The command \fBsecret-tool\fP (part of Gnome's libsecret) can be used to manage
+Gnome Keyring passwords for mpop. For that purpose, specify the attributes
+"user" (user name), "protocol" (always "pop3"), and "server" (name of the POP3
+server). You can also use \fBsecret-tool\fP via the \fBpasswordeval\fP command
+if your version of mpop does not have builtin support for libsecret.
+.br
+To manage Mac OS X Keychain passwords, use the Keychain Access GUI application.
+The \fIaccount name\fP is same as the mpop \fBuser\fP argument. The
+\fIkeychain item name\fP is \fBsmtp://<hostname>\fP where \fB<hostname>\fP
+matches the mpop \fBhost\fP argument.
 .br
 Available methods are \fIuser\fP, \fIapop\fP, \fIplain\fP, \fIscram-sha-1\fP,
 \fIcram\-md5\fP, \fIgssapi\fP, \fIexternal\fP, \fIdigest\-md5\fP, \fIlogin\fP,

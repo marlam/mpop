@@ -251,6 +251,22 @@ char *mpop_sanitize_string(char *str)
  * It must return NULL on failure or a password in an allocated buffer.
  */
 
+#ifdef HAVE_LIBSECRET
+const SecretSchema *get_mpop_schema(void)
+{
+    static const SecretSchema schema = {
+        "de.marlam.mpop.password", SECRET_SCHEMA_DONT_MATCH_NAME,
+        {
+            {  "user", SECRET_SCHEMA_ATTRIBUTE_STRING },
+            {  "protocol", SECRET_SCHEMA_ATTRIBUTE_STRING },
+            {  "server", SECRET_SCHEMA_ATTRIBUTE_STRING },
+            {  "NULL", 0 },
+        }
+    };
+    return &schema;
+}
+#endif
+
 char *mpop_password_callback(const char *hostname, const char *user)
 {
     char *netrc_directory;
@@ -299,12 +315,24 @@ char *mpop_password_callback(const char *hostname, const char *user)
     if (!password)
     {
         gchar* libsecret_pw = secret_password_lookup_sync(
-                SECRET_SCHEMA_COMPAT_NETWORK,
+                get_mpop_schema(),
                 NULL, NULL,
                 "user", user,
                 "protocol", "pop3",
                 "server", hostname,
                 NULL);
+        if (!libsecret_pw)
+        {
+            /* for compatibility with passwords stored by the older
+             * libgnome-keyring */
+            libsecret_pw = secret_password_lookup_sync(
+                    SECRET_SCHEMA_COMPAT_NETWORK,
+                    NULL, NULL,
+                    "user", user,
+                    "protocol", "pop3",
+                    "server", hostname,
+                    NULL);
+        }
         if (libsecret_pw)
         {
             password = xstrdup(libsecret_pw);
