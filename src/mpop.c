@@ -759,14 +759,6 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     }
     printf("    AUTH:\n        %s\n        ",
             _("Supported authentication methods:"));
-    if (session->cap.flags & POP3_CAP_AUTH_USER)
-    {
-        printf("USER ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_APOP)
-    {
-        printf("APOP ");
-    }
     if (session->cap.flags & POP3_CAP_AUTH_PLAIN)
     {
         printf("PLAIN ");
@@ -775,17 +767,25 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
         printf("SCRAM-SHA-1 ");
     }
-    if (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5)
+    if (session->cap.flags & POP3_CAP_AUTH_EXTERNAL)
     {
-        printf("CRAM-MD5 ");
+        printf("EXTERNAL ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_GSSAPI)
     {
         printf("GSSAPI ");
     }
-    if (session->cap.flags & POP3_CAP_AUTH_EXTERNAL)
+    if (session->cap.flags & POP3_CAP_AUTH_USER)
     {
-        printf("EXTERNAL ");
+        printf("USER ");
+    }
+    if (session->cap.flags & POP3_CAP_AUTH_APOP)
+    {
+        printf("APOP ");
+    }
+    if (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5)
+    {
+        printf("CRAM-MD5 ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5)
     {
@@ -2328,14 +2328,6 @@ int main(int argc, char *argv[])
                 _("built-in")
 #endif /* HAVE_LIBGSASL */
               );
-        if (pop3_client_supports_authmech("USER"))
-        {
-            printf("user ");
-        }
-        if (pop3_client_supports_authmech("APOP"))
-        {
-            printf("apop ");
-        }
         if (pop3_client_supports_authmech("PLAIN"))
         {
             printf("plain ");
@@ -2344,17 +2336,25 @@ int main(int argc, char *argv[])
         {
             printf("scram-sha-1 ");
         }
-        if (pop3_client_supports_authmech("CRAM-MD5"))
+        if (pop3_client_supports_authmech("EXTERNAL"))
         {
-            printf("cram-md5 ");
+            printf("external ");
         }
         if (pop3_client_supports_authmech("GSSAPI"))
         {
             printf("gssapi ");
         }
-        if (pop3_client_supports_authmech("EXTERNAL"))
+        if (pop3_client_supports_authmech("USER"))
         {
-            printf("external ");
+            printf("user ");
+        }
+        if (pop3_client_supports_authmech("APOP"))
+        {
+            printf("apop ");
+        }
+        if (pop3_client_supports_authmech("CRAM-MD5"))
+        {
+            printf("cram-md5 ");
         }
         if (pop3_client_supports_authmech("DIGEST-MD5"))
         {
