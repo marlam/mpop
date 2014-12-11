@@ -293,9 +293,9 @@ Currently supported keyrings are the Gnome Keyring and the Mac OS X Keychain.
 .br
 The command \fBsecret-tool\fP (part of Gnome's libsecret) can be used to manage
 Gnome Keyring passwords for mpop. For that purpose, specify the attributes
-"user" (user name), "protocol" (always "pop3"), and "server" (name of the POP3
-server). You can also use \fBsecret-tool\fP via the \fBpasswordeval\fP command
-if your version of mpop does not have builtin support for libsecret.
+"host" (host name of the POP3 server), "service" (always "pop3"), and "user"
+(user name). You can also use \fBsecret-tool\fP via the \fBpasswordeval\fP
+command if your version of mpop does not have builtin support for libsecret.
 .br
 To manage Mac OS X Keychain passwords, use the Keychain Access GUI application.
 The \fIaccount name\fP is same as the mpop \fBuser\fP argument. The

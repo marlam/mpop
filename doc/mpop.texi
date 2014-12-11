@@ -862,9 +862,9 @@ Currently supported key rings are the Gnome Keyring and the Mac OS X Keychain.
 
 The command @samp{secret-tool} (part of Gnome's libsecret) can be used to manage
 Gnome Keyring passwords for mpop. For that purpose, specify the attributes
-"user" (user name), "protocol" (always "pop3"), and "server" (name of the POP3
-server). You can also use @samp{secret-tool} via the @samp{passwordeval} command
-if your version of mpop does not have builtin support for libsecret.
+"host" (host name of the POP3 server), "service" (always "pop3"), and "user"
+(user name). You can also use @samp{secret-tool} via the @samp{passwordeval}
+command if your version of mpop does not have builtin support for libsecret.
 
 To manage Mac OS X Keychain passwords, use the Keychain Access GUI application.
 The @samp{account name} is same as the mpop @samp{user} argument. The
