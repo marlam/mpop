@@ -2278,6 +2278,14 @@ int pop3_auth_plain(pop3_session_t *session,
     size_t b64_len;
     int e;
 
+    if ((e = pop3_send_cmd(session, errstr, "AUTH PLAIN")) != POP3_EOK)
+    {
+        return e;
+    }
+    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    {
+        return e;
+    }
     u_len = strlen(user);
     p_len = strlen(password);
     tmpstr = xasprintf("%c%s%c%s", '\0', user, '\0', password);
@@ -2285,7 +2293,7 @@ int pop3_auth_plain(pop3_session_t *session,
     b64 = xmalloc(b64_len + 1);
     base64_encode(tmpstr, u_len + p_len + 2, b64, b64_len + 1);
     free(tmpstr);
-    if ((e = pop3_send_cmd(session, errstr, "AUTH PLAIN %s", b64)) != POP3_EOK)
+    if ((e = pop3_send_cmd(session, errstr, "%s", b64)) != POP3_EOK)
     {
         free(b64);
         return e;
@@ -2821,33 +2829,13 @@ int pop3_auth(pop3_session_t *session,
         }
         if (!input)
         {
-            if (strcmp(auth_mech, "PLAIN") == 0 && outbuf[0])
+            if ((e = pop3_send_cmd(session, errstr,
+                            "AUTH %s", auth_mech)) != POP3_EOK)
             {
-                /* AUTH PLAIN needs special treatment because it needs to send
-                 * the authentication data together with the AUTH PLAIN command.
-                 * At least some SMTP servers require this, for example
-                 * smtp.web.de, which I happen to use :) */
-                auth_plain_special = 1;
-                if ((e = pop3_send_cmd(session, errstr,
-                                "AUTH PLAIN %s", outbuf)) != POP3_EOK)
-                {
-                    gsasl_finish(sctx);
-                    gsasl_done(ctx);
-                    free(outbuf);
-                    return e;
-                }
-            }
-            else
-            {
-                auth_plain_special = 0;
-                if ((e = pop3_send_cmd(session, errstr,
-                                "AUTH %s", auth_mech)) != POP3_EOK)
-                {
-                    gsasl_finish(sctx);
-                    gsasl_done(ctx);
-                    free(outbuf);
-                    return e;
-                }
+                gsasl_finish(sctx);
+                gsasl_done(ctx);
+                free(outbuf);
+                return e;
             }
             if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
             {
@@ -2866,11 +2854,6 @@ int pop3_auth(pop3_session_t *session,
                 return POP3_EAUTHFAIL;
             }
             input = session->buffer + 2;
-            if (auth_plain_special)
-            {
-                free(outbuf);
-                continue;
-            }
         }
         /* Some methods (at least CRAM-MD5) must not send an empty outbuf,
          * while others (SCRAM-SHA-1, GSSAPI) must. Confirmed
