@@ -2631,15 +2631,12 @@ int main(int argc, char *argv[])
                 printf(_("using account %s from %s\n"),
                         account->id, account->conffile);
             }
-            printf("host                  = %s\n"
-                    "port                  = %d\n",
-                    account->host,
-                    account->port);
-            printf("proxy host            = %s\n"
-                    "proxy port            = %d\n",
-                    account->proxy_host ? account->proxy_host : _("(not set)"),
-                    account->proxy_port);
-            printf("timeout               = ");
+            printf("host = %s\n", account->host);
+            printf("port = %d\n", account->port);
+            printf("proxy host = %s\n",
+                    account->proxy_host ? account->proxy_host : _("(not set)"));
+            printf("proxy port = %d\n", account->proxy_port);
+            printf("timeout = ");
             if (account->timeout <= 0)
             {
                 printf(_("off\n"));
@@ -2655,12 +2652,12 @@ int main(int argc, char *argv[])
                     printf(_("%d seconds\n"), account->timeout);
                 }
             }
-            printf("pipelining            = %s\n",
+            printf("pipelining = %s\n",
                     account->pipelining == 0 ? _("off")
                     : account->pipelining == 1 ? _("on") : _("auto"));
-            printf("received_header       = %s\n",
+            printf("received_header = %s\n",
                     account->received_header ? _("on") : _("off"));
-            printf("auth                  = ");
+            printf("auth = ");
             if (account->auth_mech[0] == '\0')
             {
                 printf(_("choose\n"));
@@ -2669,6 +2666,19 @@ int main(int argc, char *argv[])
             {
                 printf("%s\n", account->auth_mech);
             }
+            printf("user = %s\n",
+                    account->username ? account->username : _("(not set)"));
+            printf("password = %s\n", account->password ? "*" : _("(not set)"));
+            printf("passwordeval = %s\n", account->passwordeval
+                    ? account->passwordeval : _("(not set)"));
+            printf("ntlmdomain = %s\n",
+                    account->ntlmdomain ? account->ntlmdomain : _("(not set)"));
+            printf("tls = %s\n", account->tls ? _("on") : _("off"));
+            printf("tls_starttls = %s\n", account->tls_nostarttls ? _("off") : _("on"));
+            printf("tls_trust_file = %s\n", account->tls_trust_file
+                    ? account->tls_trust_file : _("(not set)"));
+            printf("tls_crl_file = %s\n", account->tls_crl_file
+                    ? account->tls_crl_file : _("(not set)"));
             if (account->tls_sha1_fingerprint)
             {
                 mpop_fingerprint_string(fingerprint_string,
@@ -2679,36 +2689,14 @@ int main(int argc, char *argv[])
                 mpop_fingerprint_string(fingerprint_string,
                         account->tls_md5_fingerprint, 16);
             }
-            printf("user                  = %s\n"
-                    "password              = %s\n"
-                    "passwordeval          = %s\n"
-                    "ntlmdomain            = %s\n"
-                    "tls                   = %s\n"
-                    "tls_starttls          = %s\n"
-                    "tls_trust_file        = %s\n"
-                    "tls_crl_file          = %s\n"
-                    "tls_fingerprint       = %s\n"
-                    "tls_key_file          = %s\n"
-                    "tls_cert_file         = %s\n"
-                    "tls_certcheck         = %s\n",
-                    account->username ? account->username : _("(not set)"),
-                    account->password ? "*" : _("(not set)"),
-                    account->passwordeval ?
-                        account->passwordeval : _("(not set)"),
-                    account->ntlmdomain ? account->ntlmdomain : _("(not set)"),
-                    account->tls ? _("on") : _("off"),
-                    account->tls_nostarttls ? _("off") : _("on"),
-                    account->tls_trust_file ?
-                        account->tls_trust_file : _("(not set)"),
-                    account->tls_crl_file ?
-                        account->tls_crl_file : _("(not set)"),
-                    account->tls_sha1_fingerprint
-                        || account->tls_md5_fingerprint
-                        ? fingerprint_string : _("(not set)"),
-                    account->tls_key_file ?
-                        account->tls_key_file : _("(not set)"),
-                    account->tls_cert_file ?
-                        account->tls_cert_file : _("(not set)"),
+            printf("tls_fingerprint = %s\n", account->tls_sha1_fingerprint
+                    || account->tls_md5_fingerprint
+                    ? fingerprint_string : _("(not set)"));
+            printf("tls_key_file = %s\n", account->tls_key_file
+                    ? account->tls_key_file : _("(not set)"));
+            printf("tls_cert_file = %s\n", account->tls_cert_file
+                    ? account->tls_cert_file : _("(not set)"));
+            printf("tls_certcheck = %s\n",
                     account->tls_nocertcheck ? _("off") : _("on"));
             printf("tls_min_dh_prime_bits = ");
             if (account->tls_min_dh_prime_bits >= 0)
@@ -2719,11 +2707,11 @@ int main(int argc, char *argv[])
             {
                 printf("%s\n", _("(not set)"));
             }
-            printf("tls_priorities        = %s\n", account->tls_priorities
+            printf("tls_priorities = %s\n", account->tls_priorities
                     ? account->tls_priorities : _("(not set)"));
             if (retrmail)
             {
-                printf("delivery              = ");
+                printf("delivery = ");
                 if (account->delivery_method == DELIVERY_METHOD_MDA)
                 {
                     printf("mda");
@@ -2741,13 +2729,11 @@ int main(int argc, char *argv[])
                     printf("exchange");
                 }
                 printf(" %s\n", account->delivery_args);
-                printf("uidls file            = %s\n"
-                        "only_new              = %s\n"
-                        "keep                  = %s\n",
-                        account->uidls_file,
-                        account->only_new ? _("on") : _("off"),
-                        account->keep ? _("on") : _("off"));
-                printf("killsize              = ");
+                printf("uidls file = %s\n", account->uidls_file);
+                printf("only_new = %s\n",
+                        account->only_new ? _("on") : _("off"));
+                printf("keep = %s\n", account->keep ? _("on") : _("off"));
+                printf("killsize = ");
                 if (account->killsize < 0)
                 {
                     printf(_("off\n"));
@@ -2756,7 +2742,7 @@ int main(int argc, char *argv[])
                 {
                     printf(PRINTFLLD "\n", account->killsize);
                 }
-                printf("skipsize              = ");
+                printf("skipsize = ");
                 if (account->skipsize < 0)
                 {
                     printf(_("off\n"));
@@ -2765,7 +2751,7 @@ int main(int argc, char *argv[])
                 {
                     printf(PRINTFLLD "\n", account->skipsize);
                 }
-                printf("filter                = %s\n",
+                printf("filter = %s\n",
                         account->filter ? account->filter : _("(not set)"));
             }
         }
