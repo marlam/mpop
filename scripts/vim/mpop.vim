@@ -2,9 +2,9 @@
 " Language:     mpop rc files
 " Maintainer:   Simon Ruderich <simon@ruderich.com>
 "               Eric Pruitt <eric.pruitt &amp; gmail.com>
-" Last Change:  2011-08-21
+" Last Change:  2014-12-11
 " Filenames:    mpoprc
-" Version:      0.2
+" Version:      0.3
 
 
 if version < 600
@@ -18,20 +18,20 @@ endif
 syn match mpopComment /#.*$/ contains=@Spell
 
 " General commands.
-syntax match mpopOption /\<\(defaults\|account\|host\|port\|timeout\|pipelining\|uidls_file\|delivery\)\>/
+syntax match mpopOption /\<\(defaults\|account\|host\|port\|proxy_host\|proxy_port\|timeout\|pipelining\|uidls_file\|delivery\)\>/
 " Authentication commands.
 syntax match mpopOption /\<\(auth\|user\|password\|passwordeval\|ntlmdomain\)\>/
 " TLS commands.
-syntax match mpopOption /\<\(tls\|tls_trust_file\|tls_crl_file\|tls_fingerprint\|tls_key_file\|tls_cert_file\|tls_certcheck\|tls_starttls\|tls_force_sslv3\|tls_min_dh_prime_bits\|tls_priorities\)\>/
+syntax match mpopOption /\<\(tls\|tls_trust_file\|tls_crl_file\|tls_fingerprint\|tls_key_file\|tls_cert_file\|tls_certcheck\|tls_starttls\|tls_min_dh_prime_bits\|tls_priorities\)\>/
 " Retrieval commands.
 syntax match mpopOption /\<\(only_new\|keep\|killsize\|skipsize\|filter\)\>/
 
 " Options which accept only an on/off value.
-syn match mpopWrongOption /\<\(tls\|tls_certcheck\|tls_starttls\|tls_force_sslv3\|only_new\|keep\) \(on$\|off$\)\@!.*$/
+syn match mpopWrongOption /\<\(tls\|tls_certcheck\|tls_starttls\|only_new\|keep\) \(on$\|off$\)\@!.*$/
 " Options which accept only an on/off/auto value.
 syn match mpopWrongOption /\<\(pipelining\) \(on$\|off$\|auto$\)\@!.*$/
 " Options which accept numeric values.
-syn match mpopWrongOption /\<port \(\d\+$\)\@!.*$/
+syn match mpopWrongOption /\<\(port\|proxy_port\) \(\d\+$\)\@!.*$/
 syn match mpopWrongOption /\<killsize \(\d\+$\)\@!.*$/
 syn match mpopWrongOption /\<skipsize \(\d\+$\)\@!.*$/
 " Option timeout accepts off and numeric values.
