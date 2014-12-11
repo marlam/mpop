@@ -99,7 +99,7 @@ Set or unset a port number for the proxy host. See the \fBproxy_port\fP command
 below.
 .IP "\-\-passwordeval=[\fIeval\fP]"
 Set your password for authentication to the output (stdout) of the
-execution of \fIeval\fP.
+execution of \fIeval\fP. See the \fBpasswordeval\fP command below.
 .IP "\-\-tls[=(\fIon\fP|\fIoff\fP)]"
 Enable or disable TLS/SSL encryption. See the \fBtls\fP command below.
 .IP "\-\-tls\-starttls[=(\fIon\fP|\fIoff\fP)]"
@@ -279,7 +279,8 @@ This command chooses the POP3 authentication method. With the argument
 is the default.
 .br
 You probably need to set a username (with \fBuser\fP) and password (with
-\fBpassword\fP). 
+\fBpasswordeval\fP or \fBpassword\fP, or via a key ring). 
+.br
 If no password is set but one is needed during authentication, mpop will try to
 find it. First, if \fBpasswordeval\fP is set, it will evaluate that command. If
 \fBpasswordeval\fP is not set, mpop will try to find the password in ~/.netrc.
@@ -329,16 +330,15 @@ chosen automatically; you have to request it manually.
 Set your user name for POP3 authentication.
 .IP "password \fIsecret\fP"
 Set your password for POP3 authentication.
-If no password is set but one is needed during authentication, mpop will try to
-find it. First, if \fBpasswordeval\fP is set, it will evaluate that command. If
-\fBpasswordeval\fP is not set, mpop will try to find the password in ~/.netrc.
-If that fails, it will try to find it in SYSCONFDIR/netrc (use \fB\-\-version\fP
-to find out what SYSCONFDIR is on your platform). If that fails, it will try to
-get it from a system specific keychain (if available). If that fails but a
-controlling terminal is available, mpop will prompt you for it.
+See the \fBauth\fP command for more information about authentication.
+.br
+Consider using the \fBpasswordeval\fP command or a key ring instead of this
+command, to avoid storing plain text passwords.
 .IP "passwordeval [\fIeval\fP]"
 Set your password for authentication to the output (stdout) of the execution of
 \fIeval\fP.
+This can be used e.g. to decrypt password files on the fly or to query key
+rings, and thus to avoid storing plain text passwords.
 .IP "ntlmdomain [\fIdomain\fP]"
 Set a domain for the \fBntlm\fP authentication method. The default is to use no
 domain (equivalent to an empty argument), but some servers seem to require one,
@@ -570,7 +570,7 @@ host pop.freemail.example
 .br
 user 1238476
 .br
-passwordeval gpg \-d ~/.mpop.password.gpg
+passwordeval gpg2 \-\-no\-tty \-q \-d ~/.mpop.password.gpg
 .br
 
 .br
