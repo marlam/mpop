@@ -2641,7 +2641,6 @@ int pop3_auth(pop3_session_t *session,
     char *input;
     char *outbuf;
     int error_code;
-    int auth_plain_special;
     char *callback_password = NULL;
 
 
