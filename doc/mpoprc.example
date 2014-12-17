@@ -48,7 +48,7 @@ password secret2
 account freemail
 host pop.freemail.example
 user 1238476
-passwordeval gpg -d ~/.mpop.password.gpg
+passwordeval gpg2 --no-tty -q -d ~/.mpop.password.gpg
 
 # The service runs SpamAssassin, so test each mail for the "X-Spam-Status: Yes"
 # header, and delete all mails with this header before downloading them.
