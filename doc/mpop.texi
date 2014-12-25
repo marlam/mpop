@@ -1118,68 +1118,97 @@ rely on @emph{exact} size filtering.
 @section A configuration file
 
 @example
+# Example for a user configuration file ~/.mpoprc
 #
-# Default values for all accounts.
-#
+# This file focusses on TLS, authentication, and the mail delivery method.
+# Features not used here include mail filtering, timeouts, SOCKS proxies,
+# TLS parameters, and more.
 
+
+# Set default values for all following accounts.
 defaults
-# Activate TLS.
-tls on
-# Enable full TLS certificate checks.
-tls_trust_file /etc/ssl/certs/ca-certificates.crt
-# Use the POP3-over-TLS variant instead of the STARTTLS variant.
-# This is also known as "POP3 with SSL". Most servers support this.
-tls_starttls off
-# Use the procmail mail delivery agent.
-delivery mda "/usr/bin/procmail -f '%F' -d $USER"
 
-# For Sendmail:
-#delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"
-# For msmtp (delivery via SMTP):
-#delivery mda "/usr/bin/msmtp --host=localhost --from='%F' -- $USER"
-# Delivery to a maildir folder:
+# Always use TLS.
+tls on
+
+# Set a list of trusted CAs for TLS. You can use a system-wide default file,
+# as in this example, or download the root certificate of your CA and use that.
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+
+# Additionally, you should use the tls_crl_file command to check for revoked
+# certificates, but unfortunately getting revocation lists and keeping them
+# up to date is not straightforward.
+#tls_crl_file ~/.tls-crls
+
+# Deliver mail to an MBOX mail file:
+delivery mbox ~/Mail/inbox
+# Deliver mail to a maildir folder:
 #delivery maildir ~/Mail/incoming
-# Delivery to a MBOX mail folder:
-#delivery mbox ~/Mail/new
-# Delivery to an Exchange pickup directory:
+# Deliver mail via procmail:
+#delivery mda "/usr/bin/procmail -f '%F' -d $USER"
+# Deliver mail via the local SMTP server:
+#delivery mda "/usr/bin/msmtp --host=localhost --from='%F' -- $USER"
+# Deliver mail to an Exchange pickup directory:
 #delivery exchange c:\exchange\pickup
 
 
-# 
-# Two pop3 mailboxes at the provider.
-#
-
-account provider1
-host mx.provider.example
-user john_smith
-password secret
-
-# Copy the settings from the previous account, and only override the
-# settings that differ.
-account provider2 : provider1
-user joey
-password secret2
-
-
-# 
-# A freemail service.
-#
-
+# A freemail service
 account freemail
+
+# Host name of the POP3 server
 host pop.freemail.example
-user 1238476
-passwordeval gpg2 --no-tty -q -d ~/.mpop.password.gpg
 
-# The service runs SpamAssassin, so test each mail for the "X-Spam-Status: Yes"
+# As an alternative to tls_trust_file/tls_crl_file, you can use tls_fingerprint
+# to pin a single certificate. You have to update the fingerprint when the
+# server certificate changes, but an attacker cannot trick you into accepting
+# a fraudulent certificate. Get the fingerprint with
+# $ mpop --serverinfo --tls --tls-certcheck=off --host=pop.freemail.example
+tls_fingerprint 00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF:00:11:22:33
+
+# Authentication. The password is given using one of five methods, see below.
+user joe.smith
+
+# Password method 1: Add the password to the system keyring, and let mpop get
+# it automatically. To set the keyring password using Gnome's libsecret:
+# $ secret-tool store --label=mpop \
+#   host pop.freemail.example \
+#   service pop3 \
+#   user joe.smith
+
+# Password method 2: Store the password in an encrypted file, and tell mpop
+# which command to use to decrypt it. This is usually used with GnuPG, as in
+# this example. Usually gpg-agent will ask once for the decryption password.
+passwordeval gpg2 --no-tty -q -d ~/.mpop-password.gpg
+
+# Password method 3: Store the password directly in this file. Usually it is not
+# a good idea to store passwords in plain text files. If you do it anyway, at
+# least make sure that this file can only be read by yourself.
+#password secret123
+
+# Password method 4: Store the password in ~/.netrc. This method is probably not
+# relevant anymore.
+
+# Password method 5: Do not specify a password. Mpop will then prompt you for
+# it. This means you need to be able to type into a terminal when mpop runs.
+
+
+# A second mail box at the same freemail service
+account freemail2 : freemail
+user joey
+
+
+# The POP3 server of your ISP
+account isp
+host mail.isp.example
+auth on
+user 12345
+# Your ISP runs SpamAssassin, so test each mail for the "X-Spam-Status: Yes"
 # header, and delete all mails with this header before downloading them.
-filter   if [ "`grep "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
+filter	if [ "`grep "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
 
 
-# 
-# Set a default account (optional).
-#
-
-account default : provider1
+# Set a default account
+account default : freemail
 @end example
 
 
