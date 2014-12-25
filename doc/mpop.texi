@@ -373,7 +373,7 @@ exist.
 If the delivery method needs to parse the mail headers for an envelope from 
 address (the mda method if the command contains @code{%F}, and the mbox method),
 then it needs to create a temporary file to store the mail headers (but not the
-body) in. See @code{$TMPDIR} in @ref{Environment / Files}.
+body) in. See @code{$TMPDIR} in @ref{Environment}.
 @anchor{uidls_file}
 @item uidls_file @var{filename}
 @cmindex uidls_file
@@ -470,18 +470,21 @@ mail retrieval.
 
 The standard exit codes from @code{sysexits.h} are used.
 
-@anchor{Environment / Files}
-@section Environment / Files
+@anchor{Files}
+@section Files
 @table @samp
 @item @code{~/.mpoprc}
 The default user configuration file.
 @item @code{~/.mpop_uidls}
 Default directory to store UIDLs files in.
 @item @code{~/.netrc} and @code{SYSCONFDIR/netrc}
-The @code{netrc} file contains login information. If a password is not found 
-in the configuration file, mpop will search it in @code{~/.netrc} and 
-@code{SYSCONFDIR} before prompting the user for it. The syntax of @code{netrc}
-files is described in the @code{netrc(5)} or @code{ftp(1)} manual page.
+The @code{netrc} file contains login information. Before prompting for a
+password, msmtp will search it in ~/.netrc and SYSCONFDIR/netrc.
+@end table
+
+@anchor{Environment}
+@section Environment
+@table @samp
 @item @code{$USER}, @code{$LOGNAME}
 These variables override the user's login name. @code{$LOGNAME} is only used if
 @code{$USER} is unset. The user's login name is used for @code{Received} 
@@ -848,15 +851,15 @@ particular method is supported or not. Use @option{--version} to find out which
 methods are supported by your version of mpop.
 
 Authentication data can be set with the @samp{user} and @samp{password} or
-@samp{passwordeval} commands or with the @samp{--user} option. See @ref{user},
-@ref{password}, @ref{passwordeval}, @ref{--user}.  If no password is set but
-one is needed during authentication, msmtp will try to find it. First, if
-@samp{passwordeval} is set, it will evaluate that command. If
-@samp{passwordeval} is not set, mpop will try to find the password in
-@code{~/.netrc}. If that fails, it will try to find it in
-@code{SYSCONFDIR/netrc} (use @code{--version} to find out what @code{SYSCONFDIR}
-is on your platform). If that fails, it will try to get it from a system 
-specific key ring (if available). If that fails, mpop will prompt you for it.
+@samp{passwordeval} commands or with the corresponding options. See @ref{user},
+@ref{password}, @ref{passwordeval}.  If no password is set but
+one is needed during authentication, mpop will try to find it.
+First, if @samp{passwordeval} is set, it will evaluate that command.
+Otherwise, it will try to get the password from a system specific key ring (if
+available).
+If that fails, it will try to find it in @code{~/.netrc} or
+@code{SYSCONFDIR/netrc}.
+If that fails, it will prompt you for it.
 
 Currently supported key rings are the Gnome Keyring and the Mac OS X Keychain.
 
