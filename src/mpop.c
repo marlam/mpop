@@ -245,9 +245,11 @@ char *mpop_sanitize_string(char *str)
  * mpop_password_callback()
  *
  * This function will be called by pop3_auth() to get a password if none was
- * given. It tries to read a password from .netrc. If that fails, it tries to
- * get it from the system's keychain (if available). If that fails, it reads a
- * password with getpass().
+ * given.
+ * It tries to get it from the system's keychain (if available).
+ * If that fails, it tries to read a password from .netrc.
+ * If that fails, it tries to read a password from /dev/tty (not stdin) with
+ * getpass().
  * It must return NULL on failure or a password in an allocated buffer.
  */
 
@@ -281,35 +283,6 @@ char *mpop_password_callback(const char *hostname, const char *user)
     char *prompt;
     char *gpw;
     char *password = NULL;
-
-    netrc_directory = get_homedir();
-    netrc_filename = get_filename(netrc_directory, USERNETRCFILE);
-    free(netrc_directory);
-    if ((netrc_hostlist = parse_netrc(netrc_filename)))
-    {
-        if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
-        {
-            password = xstrdup(netrc_host->password);
-        }
-        free_netrc_entry_list(netrc_hostlist);
-    }
-    free(netrc_filename);
-
-    if (!password)
-    {
-        netrc_directory = get_sysconfdir();
-        netrc_filename = get_filename(netrc_directory, SYSNETRCFILE);
-        free(netrc_directory);
-        if ((netrc_hostlist = parse_netrc(netrc_filename)))
-        {
-            if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
-            {
-                password = xstrdup(netrc_host->password);
-            }
-            free_netrc_entry_list(netrc_hostlist);
-        }
-        free(netrc_filename);
-    }
 
 #ifdef HAVE_LIBSECRET
     if (!password)
@@ -363,6 +336,38 @@ char *mpop_password_callback(const char *hostname, const char *user)
         }
     }
 #endif /* HAVE_MACOSXKEYRING */
+
+    if (!password)
+    {
+        netrc_directory = get_homedir();
+        netrc_filename = get_filename(netrc_directory, USERNETRCFILE);
+        free(netrc_directory);
+        if ((netrc_hostlist = parse_netrc(netrc_filename)))
+        {
+            if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
+            {
+                password = xstrdup(netrc_host->password);
+            }
+            free_netrc_entry_list(netrc_hostlist);
+        }
+        free(netrc_filename);
+    }
+
+    if (!password)
+    {
+        netrc_directory = get_sysconfdir();
+        netrc_filename = get_filename(netrc_directory, SYSNETRCFILE);
+        free(netrc_directory);
+        if ((netrc_hostlist = parse_netrc(netrc_filename)))
+        {
+            if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
+            {
+                password = xstrdup(netrc_host->password);
+            }
+            free_netrc_entry_list(netrc_hostlist);
+        }
+        free(netrc_filename);
+    }
 
     if (!password)
     {
