@@ -1,4 +1,4 @@
-\input texinfo   @c -*-texinfo-*-
+\input texinfo	 @c -*-texinfo-*-
 @setfilename mpop.info
 @documentlanguage en
 @documentencoding UTF-8
@@ -53,11 +53,9 @@ notice are preserved. These files are offered as-is, without any warranty.
 * Invocation::				Command line options.
 * Transport Layer Security::		How to use TLS/SSL.
 * Authentication::			How to use authentication.
-* Pipelining::				How to use POP3 pipelining.
-* Defective POP3 servers::		Common defects of POP3 servers.
 * Mail retrieval mode::			How to retrieve mail.
-* Server information mode::		How to obtain information about 
-					an POP3 server.
+* Server information mode::		How to obtain information about
+					a POP3 server.
 * Filtering::				How to filter mails.
 * Examples::				Usage examples.
 @end menu
@@ -66,7 +64,7 @@ notice are preserved. These files are offered as-is, without any warranty.
 @node Introduction
 @chapter Introduction
 
-mpop is a POP3 client. 
+mpop is a POP3 client.
 
 In its default mode of operation, it retrieves mails from one or more POP3
 mailboxes, optionally does some filtering, and delivers them through a mail
@@ -79,14 +77,14 @@ The best way to start is probably to have a look at the Examples section.
 
 In addition to the mail retrieval mode, mpop can be used in server information
 mode. In this mode, mpop prints as much information as it can get about a given
-POP3 server (greeting, supported features, login delay, maximum mail size, 
+POP3 server (greeting, supported features, login delay, maximum mail size,
 @dots{}).
 
 Normally, a configuration file contains information about which POP3 server to
 use and how to use it, but all settings can also be configured on the command
 line.
 
-POP3 server information is organized in accounts. Each account describes one 
+POP3 server information is organized in accounts. Each account describes one
 POP3 server: host name, authentication settings, TLS settings, and so on.
 Each configuration file can define multiple accounts.
 
@@ -96,7 +94,7 @@ Supported features include:
 @item Delivery to maildir folders, mbox files, Exchange pickup directories,
 or a mail delivery agent (MDA)
 @item Very fast POP3 implementation, using command pipelining
-@item TLS encrypted connections (including server certificate verification and
+@item TLS secured connections (including server certificate verification and
 the possibility to send a client certificate)
 @item Authentication methods USER/PASS, APOP, PLAIN, LOGIN and CRAM-MD5 (and
 GSSAPI, SCRAM-SHA-1, DIGEST-MD5, and NTLM when GNU SASL is used)
@@ -109,9 +107,9 @@ GSSAPI, SCRAM-SHA-1, DIGEST-MD5, and NTLM when GNU SASL is used)
 
 The default configuration file is @code{~/.mpoprc}.  Settings in this file can
 be changed by command line options.
-					         
-A configuration file is a simple text file. Empty lines and comment lines 
-(first non-blank character is '#') are ignored. Every other line must 
+
+A configuration file is a simple text file. Empty lines and comment lines
+(first non-blank character is '#') are ignored. Every other line must
 contain a command and may contain an argument to that command.
 The argument may be enclosed in double quotes (").
 
@@ -140,7 +138,7 @@ account definitions.
 Start a new account definition with the given name. The current default values
 are filled in (see @ref{defaults}).@*
 If a colon and a list of previously defined accounts is given after the account
-name, the new account, with the filled in default values, will inherit all 
+name, the new account, with the filled in default values, will inherit all
 settings from the accounts in the list.
 @anchor{host}
 @item host @var{hostname}
@@ -156,15 +154,16 @@ TLS without STARTTLS is used, in which case it is 995 ("pop3s").
 @anchor{timeout}
 @item timeout (off|@var{seconds})
 @cmindex timeout
-Set or unset a network timeout, in seconds. The default is 180 seconds. The 
+Set or unset a network timeout, in seconds. The default is 180 seconds. The
 argument @samp{off} means that no timeout will be set, which means that the
 operating system default will be used.
 @anchor{pipelining}
 @item pipelining (auto|on|off)
 @cmindex pipelining
-Enable or disable POP3 pipelining. The default is @samp{auto}, which means that
-mpop enables pipelining for POP3 servers that advertize this capability, and 
-disables it for all other servers. @xref{Pipelining}.
+Enable or disable POP3 pipelining. You should never need to change the default
+setting, which is @samp{auto}: mpop enables pipelining for POP3 servers that
+advertise this capability, and disables it for all other servers.  Pipelining
+can speed up a POP3 session substantially.
 @anchor{proxy_host}
 @item proxy_host [@var{IP}|@var{hostname}]
 @cmindex proxy_host
@@ -178,13 +177,7 @@ see also @ref{Using mpop with Tor}.
 @item proxy_port [@var{number}]
 @cmindex proxy_port
 Set the port number for the proxy host. An empty @samp{number} argument resets
-this to the default port, which is 1080 ("socks")
-@anchor{received_header}
-@item received_header [(on|off)]
-@cmindex received_header
-Enable or disable adding a Received header. By default, mpop prepends a
-Received header to the mail during delivery. This is required by the RFCs if
-the mail is subsequently further delivered e.g. via SMTP.
+this to the default port, which is 1080 ("socks").
 @end table
 
 @section Authentication commands
@@ -316,25 +309,25 @@ only a subset of what is theoretically allowed in a mail address. Other
 characters, including those interpreted by the shell, are replaced with
 @code{_}. Nevertheless, you should put @code{%F} into single quotes:
 @code{'%F'}.@*
-Use @code{delivery mda "/usr/bin/procmail -f '%F' -d $USER"} for the procmail 
+Use @code{delivery mda "/usr/bin/procmail -f '%F' -d $USER"} for the procmail
 MDA.@*
 Use @code{delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"} to let
 your MTA handle the mail.@*
-Use @code{delivery mda /usr/local/bin/msmtp --host=localhost --from='%F' -- 
+Use @code{delivery mda /usr/local/bin/msmtp --host=localhost --from='%F' --
 $USER@@`hostname`.`dnsdomainname`"} to pass the mail to your MTA via SMTP.
 @item delivery maildir @var{directory}@*
-Deliver the mails to the given maildir directory. The directory must exist and 
-it must be a valid maildir directory; mpop will not create directories. This 
+Deliver the mails to the given maildir directory. The directory must exist and
+it must be a valid maildir directory; mpop will not create directories. This
 delivery type only works on file systems that support hard links.
 @item delivery mbox @var{mbox-file}@*
-Deliver the mails to the given file in mbox format. The file will be locked 
+Deliver the mails to the given file in mbox format. The file will be locked
 with @code{fcntl(2)}. mpop uses the MBOXRD mbox format variant; see the
 documentation of the mbox format.
 @item delivery exchange @var{directory}@*
 Deliver the mails to the given Exchange pickup directory. The directory must
 exist.
 @end itemize
-If the delivery method needs to parse the mail headers for an envelope from 
+If the delivery method needs to parse the mail headers for an envelope from
 address (the mda method if the command contains @code{%F}, and the mbox method),
 then it needs to create a temporary file to store the mail headers (but not the
 body). See @code{$TMPDIR} in @ref{Environment}.
@@ -342,10 +335,10 @@ body). See @code{$TMPDIR} in @ref{Environment}.
 @item uidls_file @var{filename}
 @cmindex uidls_file
 The file to store UIDLs in. These are needed to identify new messages.
-@code{%U} in the filename will be replaced by the username of the current 
-account. @code{%H} in the filename will be replaced by the hostname of the 
-current account. If the filename contains directories that do not exist, mpop 
-will create them. mpop locks this file for exclusive access when accessing the 
+@code{%U} in the filename will be replaced by the username of the current
+account. @code{%H} in the filename will be replaced by the hostname of the
+current account. If the filename contains directories that do not exist, mpop
+will create them. mpop locks this file for exclusive access when accessing the
 associated POP3 account.@*
 The default value is @code{~/.mpop_uidls/%U_at_%H}. You can also use a single
 UIDLS file for multiple accounts, but then you cannot poll more than one of
@@ -354,20 +347,20 @@ these accounts at the same time.
 @item only_new [(on|off)]
 @cmindex only_new
 By default, mpop processes only new messages (new messages are those that were
-not already successfully retrieved in an earlier session). If this option is 
+not already successfully retrieved in an earlier session). If this option is
 turned off, mpop will process all messages.
 @anchor{keep}
 @item keep [(on|off)]
 @cmindex keep
 Keep all mails on the POP3 server, never delete them. The default behavior is
-to delete mails that have been successfully delivered or filtered by kill 
+to delete mails that have been successfully delivered or filtered by kill
 filters.
 @anchor{killsize}
 @item killsize (off|@var{size})
 @cmindex killsize
-Mails larger than the given size will be deleted, not downloaded (unless the 
-keep command is used, in which case they will just be skipped). The size 
-argument must be zero or greater. If it is followed by a 'k' or an 'm', the 
+Mails larger than the given size will be deleted, not downloaded (unless the
+keep command is used, in which case they will just be skipped). The size
+argument must be zero or greater. If it is followed by a 'k' or an 'm', the
 size is measured in kibibytes/mebibytes instead of bytes. Note that some POP3
 servers report slightly incorrect sizes for mails. @xref{Filtering}.@*
 When @samp{killsize} is set to 0 and @samp{keep} is set to on, then all mails
@@ -376,8 +369,8 @@ used to synchronize the UID list on the client to the UID list on the server.
 @anchor{skipsize}
 @item skipsize (off|@var{size})
 @cmindex skipsize
-Mails larger than the given size will be skipped (not downloaded). The size 
-argument must be zero or greater. If it is followed by a 'k' or an 'm', the 
+Mails larger than the given size will be skipped (not downloaded). The size
+argument must be zero or greater. If it is followed by a 'k' or an 'm', the
 size is measured in kibibytes/mebibytes instead of bytes. Note that some POP3
 servers report slightly incorrect sizes for mails. @xref{Filtering}.
 @anchor{filter}
@@ -408,6 +401,12 @@ what to do with the mail:
 Return codes greater than or equal to 3 mean that an error occurred.  The
 @code{sysexits.h} error codes may be used to give information about the kind of
 the error, but this is not necessary. @xref{Filtering}.
+@anchor{received_header}
+@item received_header [(on|off)]
+@cmindex received_header
+Enable or disable adding a Received header. By default, mpop prepends a
+Received header to the mail during delivery. This is required by the RFCs if
+the mail is subsequently further delivered e.g. via SMTP.
 @end table
 
 
@@ -450,7 +449,7 @@ password, msmtp will search it in ~/.netrc and SYSCONFDIR/netrc.
 @table @samp
 @item @code{$USER}, @code{$LOGNAME}
 These variables override the user's login name. @code{$LOGNAME} is only used if
-@code{$USER} is unset. The user's login name is used for @code{Received} 
+@code{$USER} is unset. The user's login name is used for @code{Received}
 headers.
 @item @code{$TMPDIR}
 Directory to create temporary files in. If this is unset, a system specific
@@ -458,7 +457,7 @@ default directory is used.@*
 @end table
 
 @section Options
-Options override configuration file settings. The following options are 
+Options override configuration file settings. The following options are
 accepted:
 
 @subsection General options
@@ -480,10 +479,10 @@ action.  An asterisk ('*') will be printed instead of the password.
 @opindex -d
 @opindex --debug
 Print lots of debugging information, including the whole conversation with the
-server. Be careful with this option: the (potentially dangerous) output 
+server. Be careful with this option: the (potentially dangerous) output
 will not be sanitized, and your password may get printed in an easily decodable
 format!@*
-This option implies @samp{--half-quiet}, because the debugging output would 
+This option implies @samp{--half-quiet}, because the debugging output would
 otherwise interfere with the progress output.
 @end table
 
@@ -514,7 +513,7 @@ Use the given file instead of @code{~/.mpoprc} as the configuration file.
 @item --host=@var{hostname}
 @opindex --host
 Use this server with settings from the command line; do not use any
-configuration file data. This option disables loading of the configuration 
+configuration file data. This option disables loading of the configuration
 file. You cannot use both this option and account names on the command line.
 @item --port=@var{number}
 @opindex --port
@@ -530,6 +529,7 @@ Enable or disable POP3 pipelining. @xref{pipelining}.
 @opindex --proxy-host
 Set or unset a SOCKS proxy to use. @xref{proxy_host}.
 @item --proxy-port=[@var{number}]
+@opindex --proxy-port
 Set or unset a port number for the proxy host. @xref{proxy_port}.
 @anchor{--received_header}
 @item --received-header[=(on|off)]
@@ -538,7 +538,7 @@ Enable or disable the Received header. @xref{received_header}.
 @anchor{--auth}
 @item --auth[=(on|@var{method})]
 @opindex --auth
-Set the authentication method to automatic (with @samp{on}) or manually choose an 
+Set the authentication method to automatic (with @samp{on}) or manually choose an
 authentication method. @xref{auth}.
 @anchor{--user}
 @item --user=[@var{username}]
@@ -554,15 +554,15 @@ Enable or disable TLS/SSL. @xref{tls}.
 @anchor{--tls-starttls}
 @item --tls-starttls[=(on|off)]
 @opindex --tls-starttls
-Enable or disable STARTTLS for TLS encryption. @xref{tls_starttls}.
+Enable or disable STARTTLS for TLS. @xref{tls_starttls}.
 @anchor{--tls-trust-file}
 @item --tls-trust-file=[@var{file}]
 @opindex --tls-trust-file
-Set or unset a trust file for TLS encryption. @xref{tls_trust_file}.
+Set or unset a trust file for TLS. @xref{tls_trust_file}.
 @anchor{--tls-crl-file}
 @item --tls-crl-file=[@var{file}]
 @opindex --tls-crl-file
-Set or unset a certificate revocation list (CRL) file for TLS. 
+Set or unset a certificate revocation list (CRL) file for TLS.
 @xref{tls_crl_file}.
 @anchor{--tls-fingerprint}
 @item --tls-fingerprint=[@var{fingerprint}]
@@ -572,15 +572,15 @@ Set ot unset the fingerprint of a trusted TLS certificate.
 @anchor{--tls-key-file}
 @item --tls-key-file=[@var{file}]
 @opindex --tls-key-file
-Set or unset a key file for TLS encryption. @xref{tls_key_file}.
+Set or unset a key file for TLS. @xref{tls_key_file}.
 @anchor{--tls-cert-file}
 @item --tls-cert-file=[@var{file}]
 @opindex --tls-cert-file
-Set or unset a cert file for TLS encryption. @xref{tls_cert_file}.
+Set or unset a cert file for TLS. @xref{tls_cert_file}.
 @anchor{--tls-certcheck}
 @item --tls-certcheck[=(on|off)]
 @opindex --tls-certcheck
-Enable or disable server certificate checks for TLS encryption.  
+Enable or disable server certificate checks for TLS.
 @xref{tls_certcheck}.
 @anchor{--tls-min-dh-prime-bits}
 @item --tls-min-dh-prime-bits=[@var{bits}]
@@ -780,7 +780,7 @@ The following user / password methods are supported:
 @item @samp{USER}@*
 A simple plain text method supported by all servers.
 @item @samp{PLAIN}@*
-Another simple plain text method (with base64 encoding) support by almost all
+Another simple plain text method (with base64 encoding) supported by almost all
 servers.
 @item @samp{SCRAM-SHA-1}@*
 A method that avoids clear-text passwords.
@@ -820,52 +820,11 @@ particular method is supported or not. Use @option{--version} to find out which
 methods are supported by your version.
 
 
-@node Pipelining
-@chapter Pipelining
-
-A POP3 client that sends multiple POP3 commands at once to a POP3 server before
-starting to read the server's answers is using POP3 pipelining. Since the client
-does not have to wait for the server's answer before sending the next command, 
-and the server does not have to wait for the next command from the client, 
-pipelining can speed up a POP3 session substantially.
-
-Pipelining in mpop works by sending up to @samp{PIPELINE_MAX} commands to the
-server, then begin to read its answers, and refill the command pipeline when the
-number of unanswered commands drops to @samp{PIPELINE_MIN}. @samp{PIPELINE_MIN}
-and @samp{PIPELINE_MAX} are compile time constants.
-
-By default, mpop will enable pipelining automatically if the server supports
-the CAPA command and advertizes the pipelining capability, and disable it for 
-all other servers. @xref{Server information mode}.
-
-You can change this behaviour with the @ref{pipelining} command or
-@ref{--pipelining} option. It is always safe to disable pipelining. It is not
-recommended to force pipelining for servers that are not known to support it.
-
-
-@node Defective POP3 servers
-@chapter Defective POP3 servers
-
-Some POP3 servers still do not support the UIDL command. In this case, mpop 
-cannot recognize messages that were already successfully retrieved, and will
-treat all messages as new. Use the @ref{--serverinfo} option to find out if a 
-server supports the UIDL command.
-
-Some POP3 servers count end-of-line characters as two bytes (CRLF) instead 
-of one (LF), so that the size of a mail as reported by the POP3 server is 
-slightly larger than the actual size. This has the following consequences:
-The size filters are not accurate. Do not rely on exact size filtering.
-The progress output may display inaccurate (slightly too low) percentage values
-for the first mail retrieved from a POP3 server. mpop will detect this after
-the first mail has been read and will display corrected values for subsequent
-mails.
-
-
 @node Mail retrieval mode
 @chapter Mail retrieval mode
 
-In this mode, mpop retrieves mail from one or more POP3 servers. It delivers 
-each of them using the method that was given with the @ref{delivery} command 
+In this mode, mpop retrieves mail from one or more POP3 servers. It delivers
+each of them using the method that was given with the @ref{delivery} command
 or @ref{--delivery} option.
 
 While retrieving the mail, mpop displays approximate progress information,
@@ -876,7 +835,7 @@ The @ref{keep} command and @ref{--keep} option prevent the deletion of mails.
 Some POP3 servers will delete mails without any user interaction. See EXPIRE in
 @ref{Server information mode}. Mpop can do nothing about that.
 
-If you do not want to download certain mails, but skip them or delete them 
+If you do not want to download certain mails, but skip them or delete them
 directly, you can do filtering based on the mail headers. @xref{Filtering}.
 
 If you just want to know if you have new mails (and how many), use the
@@ -895,7 +854,7 @@ not change the contents of the mail in any other way.
 @node Server information mode
 @chapter Server information mode
 
-In server information mode, mpop prints as much information about the POP3 
+In server information mode, mpop prints as much information about the POP3
 server as it can get and then exits.
 
 The POP3 features that can be detected are:
@@ -906,7 +865,7 @@ The implementation string of the POP3 server.
 Support for the POP3 CAPA command. The server sends a list of its capabilities
 in response to this command.
 @item PIPELINING@*
-Support for POP3 pipelining. @xref{Pipelining}.
+Support for POP3 pipelining. @xref{pipelining}.
 @item TOP@*
 Support for the POP3 TOP command. This is needed for header based filtering to
 work. @xref{Filtering}.
@@ -919,7 +878,7 @@ if the last one was active less than this time period ago.
 @item EXPIRE@*
 The time after which old mails are deleted by the POP3 server.
 @itemize
-@item NEVER: The POP3 server will not delete mail without the user requesting 
+@item NEVER: The POP3 server will not delete mail without the user requesting
 it.
 @item 0: The POP3 server will not keep mails; all mails will be deleted after
 they have been downloaded, regardless of the user's wishes.
@@ -931,21 +890,21 @@ before deleting them without user interaction.
 @item AUTH@*
 @xref{Authentication}.
 @item RESP-CODES@*
-If authentication fails and the POP3 server issues an error message beginning 
+If authentication fails and the POP3 server issues an error message beginning
 with a square bracket, this message will include additional information about
 the source of the error:
 @itemize
 @item @code{[LOGIN-DELAY]}: The login delay period hast not yet expired.
-@item @code{[IN-USE]}: Authentication succeeded but the mailbox is currently 
+@item @code{[IN-USE]}: Authentication succeeded but the mailbox is currently
 in use, possibly by another POP3 session.
 @end itemize
 @item AUTH-RESP-CODE@*
-If authentication fails and the POP3 server issues an error message beginning 
+If authentication fails and the POP3 server issues an error message beginning
 with a square bracket, this message will include additional information about
 the source of the error:
 @itemize
 @item @code{[LOGIN-DELAY]}: The login delay period hast not yet expired.
-@item @code{[IN-USE]}: Authentication succeeded but the mailbox is currently 
+@item @code{[IN-USE]}: Authentication succeeded but the mailbox is currently
 in use, possibly by another POP3 session.
 @item @code{[SYS/TEMP]}: Temporary system failure; try again later.
 @item @code{[SYS/PERM]}: Permanent system failure; ask the administrator.
@@ -967,7 +926,7 @@ be printed about the POP3 server's TLS certificate (if available):
 @item Country
 @end itemize
 @item Issuer information
-@itemize 
+@itemize
 @item Common Name
 @item Organization
 @item Organizational unit
@@ -976,7 +935,7 @@ be printed about the POP3 server's TLS certificate (if available):
 @item Country
 @end itemize
 @item General
-@itemize 
+@itemize
 @item Activation time
 @item Expiration time
 @item SHA1 fingerprint
@@ -988,7 +947,7 @@ be printed about the POP3 server's TLS certificate (if available):
 @node Filtering
 @chapter Filtering
 
-There are three filtering commands available. They will be executed in the 
+There are three filtering commands available. They will be executed in the
 following order:
 
 @enumerate
@@ -997,16 +956,16 @@ following order:
 @item @samp{filter}
 @end enumerate
 
-If a filtering command applies to a mail, the remaining filters will not be 
+If a filtering command applies to a mail, the remaining filters will not be
 executed.
 
-The POP3 server must support the POP3 TOP command 
+The POP3 server must support the POP3 TOP command
 (@ref{Server information mode}) for filtering with a filter command:
 It is used to read the mail headers (plus the blank line separating the header
 from the body) and pipe them to the filter command.
 
 Note that, if the filter decides that the mail should be retrieved, the complete
-mail has to be downloaded, including the headers, so the headers will be 
+mail has to be downloaded, including the headers, so the headers will be
 downloaded twice. This is because there's no way in POP3 to download just
 the mail body. Sometimes this overhead surpasses the savings of the filtering.
 
@@ -1017,19 +976,20 @@ mpop should do with the mail:
 @item 1: delete the mail; do not retrieve it
 @item 2: skip the mail; do not retrieve it
 @end itemize
-Return codes greater than or equal to 3 mean that an error occurred. 
+Return codes greater than or equal to 3 mean that an error occurred.
 The @code{sysexits.h} error codes may be used to give information about the kind
 of the error, but this is optional.
 
-Since the filter command will be passed to a shell, you can use all shell 
+Since the filter command will be passed to a shell, you can use all shell
 command constructs in addition to just calling a script or program. This allows
 flexible filter constructs. @xref{Filtering with SpamAssassin}.
 
 Some POP3 servers count end-of-line characters as two bytes (CRLF) instead of
 one (LF), so that the size of a mail as reported by the POP3 server is slightly
-larger than the actual size. The filters use the size values reported by the 
+larger than the actual size. The filters use the size values reported by the
 POP3 server since they cannot know the actual size in advance. Thus you cannot
 rely on @emph{exact} size filtering.
+
 
 @node Examples
 @chapter Examples
@@ -1145,11 +1105,11 @@ Use the following to delete all mails that SpamAssassin classifies as spam:
 @example
 filter "/path/to/spamc -c > /dev/null"
 @end example
-Since no message body is passed to SpamAssassin, you should disable all 
+Since no message body is passed to SpamAssassin, you should disable all
 body-specific tests in the SpamAssassin configuration file; for example set
 use_bayes 0.
 
-If your mail provider runs SpamAssassin for you, you just have to check for 
+If your mail provider runs SpamAssassin for you, you just have to check for
 the result. The following script can do that when used as an mpop filter:
 @example
 #!/bin/sh
