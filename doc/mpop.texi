@@ -70,10 +70,9 @@ mpop is a POP3 client.
 
 In its default mode of operation, it retrieves mails from one or more POP3
 mailboxes, optionally does some filtering, and delivers them through a mail
-delivery agent (MDA) or to maildir folders, mbox files, or Exchange pickup
-directories. Mails that were successfully delivered before will not be
-retrieved a second time, even if errors occur or mpop is terminated in the
-middle of a session.
+delivery agent (MDA), to a maildir folder, or to an mbox file.
+Mails that were successfully delivered before will not be retrieved a second
+time, even if errors occur or mpop is terminated in the middle of a session.
 
 The best way to start is probably to have a look at the Examples section.
 @xref{Examples}.
@@ -84,8 +83,8 @@ POP3 server (greeting, supported features, login delay, maximum mail size,
 @dots{}).
 
 Normally, a configuration file contains information about which POP3 server to
-use and how to use it, but almost all settings can also be configured on the
-command line.
+use and how to use it, but all settings can also be configured on the command
+line.
 
 POP3 server information is organized in accounts. Each account describes one 
 POP3 server: host name, authentication settings, TLS settings, and so on.
@@ -97,37 +96,33 @@ Supported features include:
 @item Delivery to maildir folders, mbox files, Exchange pickup directories,
 or a mail delivery agent (MDA)
 @item Very fast POP3 implementation, using command pipelining
-@item Authentication methods USER/PASS, APOP, PLAIN, LOGIN and CRAM-MD5 (and
-GSSAPI, SCRAM-SHA-1, DIGEST-MD5, and NTLM when GNU SASL is used)
 @item TLS encrypted connections (including server certificate verification and
 the possibility to send a client certificate)
-@item Support for Internationalized Domain Names (IDN)
-@item IPv6 support
-@item support for multiple accounts
+@item Authentication methods USER/PASS, APOP, PLAIN, LOGIN and CRAM-MD5 (and
+GSSAPI, SCRAM-SHA-1, DIGEST-MD5, and NTLM when GNU SASL is used)
+@item Internationalized Domain Names (IDN)
 @end itemize
 
 
 @node Configuration file
 @chapter Configuration file
 
-If it exists and is readable, a user configuration file will be loaded
-(@code{~/.mpoprc} by default).  This file must have no more permissions
-than user read/write.  Configuration file settings can be changed by command
-line options.
+The default configuration file is @code{~/.mpoprc}.  Settings in this file can
+be changed by command line options.
 					         
 A configuration file is a simple text file. Empty lines and comment lines 
-(whose first non-blank character is '#') are ignored. Every other line must 
+(first non-blank character is '#') are ignored. Every other line must 
 contain a command and may contain an argument to that command.
 The argument may be enclosed in double quotes (").
 
-If the first character of a filename is the tilde (~), this tilde will be 
-replaced by @code{$HOME}.
+If a file name starts with the tilde (~), this tilde will be replaced by
+@code{$HOME}.
 
 If a command accepts the argument @samp{on}, it also accepts an empty argument
 and treats that as if it was @samp{on}.
 
-Commands form groups. Each group starts with the @samp{account} command and
-defines the settings for one POP3 server.
+Commands are organized in accounts. Each account starts with the @samp{account}
+command and defines the settings for one POP3 account.
 
 @xref{Examples}.
 
@@ -137,8 +132,8 @@ defines the settings for one POP3 server.
 @anchor{defaults}
 @item defaults
 @cmindex defaults
-Set defaults. The following configuration commands will set default values for
-all following account definitions.
+Set defaults. The following commands will set default values for all following
+account definitions.
 @anchor{account}
 @item account @var{name} [ : @var{account}[,@dots{}] ]
 @cmindex account
@@ -156,8 +151,8 @@ Every account definition must contain this command.
 @anchor{port}
 @item port @var{number}
 @cmindex port
-The port that the POP3 server listens on. The default is 110, unless TLS without
-STARTTLS is used, in which case it is 995.
+The port that the POP3 server listens on. The default is 110 ("pop3"), unless
+TLS without STARTTLS is used, in which case it is 995 ("pop3s").
 @anchor{timeout}
 @item timeout (off|@var{seconds})
 @cmindex timeout
@@ -176,22 +171,20 @@ disables it for all other servers. @xref{Pipelining}.
 Use a SOCKS proxy. All network traffic will go through this proxy host,
 including DNS queries, except for a DNS query that might be necessary to
 resolve the proxy host name itself (this can be avoided by using an IP address
-as proxy host name). An empty @samp{hostname} argument disables proxy usage.
+as proxy host name). An empty argument disables proxy usage.
 The supported SOCKS protocol version is 5. If you plan to use this with Tor,
 see also @ref{Using mpop with Tor}.
 @anchor{proxy_port}
 @item proxy_port [@var{number}]
 @cmindex proxy_port
 Set the port number for the proxy host. An empty @samp{number} argument resets
-this to the default port.
+this to the default port, which is 1080 ("socks")
 @anchor{received_header}
 @item received_header [(on|off)]
 @cmindex received_header
-Enable or disable the Received header. By default, mpop prepends a Received
-header to the mail during delivery. This is required by the RFCs if the mail
-is subsequently further delivered e.g. via SMTP, and it is a good idea in all
-other cases. Nevertheless, if you absolutely have to, you can disable the
-Received header with this command.
+Enable or disable adding a Received header. By default, mpop prepends a
+Received header to the mail during delivery. This is required by the RFCs if
+the mail is subsequently further delivered e.g. via SMTP.
 @end table
 
 @section Authentication commands
@@ -202,39 +195,32 @@ Received header with this command.
 @anchor{auth}
 @item auth [(on|@var{method})]
 @cmindex auth
-This command chooses the POP3 authentication method. With the argument
-@samp{on}, mpop will choose the best one available for you (see below). This is
-the default.  Accepted methods are @samp{user}, @samp{apop}, @samp{plain}, 
+Choose an authentication method. The default argument @samp{on} chooses a
+method automatically.
+Accepted methods are @samp{user}, @samp{apop}, @samp{plain},
 @samp{scram-sha-1}, @samp{cram-md5}, @samp{gssapi}, @samp{digest-md5},
 @samp{external}, @samp{login}, and @samp{ntlm}.
-@xref{Authentication}.@*
 @anchor{user}
 @item user [@var{username}]
 @cmindex user
-Set your user name for POP3 authentication. An empty argument unsets the user
-name.
+Set the user name for authentication. An empty argument unsets the user name.
 @anchor{password}
 @item password [@var{secret}]
 @cmindex password
-Set your password for POP3 authentication. An empty argument unsets the
-password. See the @samp{auth} command for more information about authentication.
+Set the password for authentication. An empty argument unsets the password.
 Consider using the @samp{passwordeval} command or a key ring instead of this
-command, to avoid storing plain text passwords.
-@xref{Authentication}.
+command, to avoid storing plain text passwords in the configuration file.
 @anchor{passwordeval}
 @item passwordeval [@var{eval}]
 @cmindex passwordeval
-Set your password for authentication to the output (stdout) of the
-execution of @var{eval}.
+Set the password for authentication to the output (stdout) of the command
+@var{eval}.
 This can be used e.g. to decrypt password files on the fly or to query key
 rings, and thus to avoid storing plain text passwords.
-@xref{Authentication}.
 @anchor{ntlmdomain}
 @item ntlmdomain [@var{ntlmdomain}]
 @cmindex ntlmdomain
-Set a domain for the @samp{ntlm} authentication method. The default is to use 
-no domain (equivalent to an empty argument), but some servers seem to require 
-one, even if it is an arbitrary string.
+Set a domain for the @samp{ntlm} authentication method. This is obsolete.
 @end table
 
 @section TLS commands
@@ -245,90 +231,69 @@ one, even if it is an arbitrary string.
 @anchor{tls}
 @item tls [(on|off)]
 @cmindex tls
-This command enables or disables TLS/SSL encrypted connections to the POP3
-server. Not every server supports TLS, and many that support it require the
-@samp{tls_starttls off} command.@*
-To use TLS/SSL, it is required to either use the @samp{tls_trust_file} command
-(highly recommended) or to disable @samp{tls_certcheck}. 
-@xref{Transport Layer Security}.
+Enable or disable TLS (also known as SSL) for secured connections.
+You also need @samp{tls_trust_file} or @samp{tls_fingerprint}, and for some
+servers you may need to disable @samp{tls_starttls}.
 @anchor{tls_starttls}
 @item tls_starttls [(on|off)]
 @cmindex tls_starttls
-This command chooses the TLS/SSL variant: with STARTTLS (@samp{on}, default) or 
-POP3-over-TLS (@samp{off}). Most servers support the latter variant, which is 
-also commonly referred to as "POP3 with SSL".
-@xref{Transport Layer Security}.
+Choose the TLS variant: start TLS from within the session (@samp{on}, default),
+or tunnel the session through TLS (@samp{off}).
 @anchor{tls_trust_file}
 @item tls_trust_file [@var{file}]
 @cmindex tls_trust_file
-This command activates strict server certificate verification.
-The given file must contain one or more certificates of trusted Certification 
-Authorities (CAs) in PEM format.@*
-On Debian based systems, you can install the @samp{ca-certificates} package and
-use the file @file{/etc/ssl/certs/ca-certificates.crt}.@*
-An empty argument disables this feature.
-@xref{Transport Layer Security}.
+Activate server certificate verification using a list of truted Certification
+Authorities (CAs). The file must be in PEM format. Some systems provide a
+system-wide default file, e.g. @file{/etc/ssl/certs/ca-certificates.crt} on
+Debian-based systems with the @samp{ca-certificates} package.
+An empty argument disables this. You should also use @samp{tls_crl_file}.
 @anchor{tls_crl_file}
 @item tls_crl_file [@var{file}]
 @cmindex tls_crl_file
-This command sets or unsets a certificate revocation list (CRL) file for TLS,
-to be used during strict server certificate verification as enabled by the
-@ref{tls_trust_file} command. This allows the verification procedure to detect
-revoked certificates.
-@xref{Transport Layer Security}.
+Set a certificate revocation list (CRL) file for TLS, to check for revoked
+certificates. An empty argument disables this.
 @anchor{tls_fingerprint}
 @item tls_fingerprint [@var{fingerprint}]
 @cmindex tls_fingerprint
-This command sets or unsets the fingerprint of a particular TLS certificate.
-This certificate will then be trusted, regardless of its contents. This can be
-used to trust broken certificates (e.g. with a non-matching hostname) or in
-situations where @samp{tls_trust_file} cannot be used for some reason.
-You can give either an SHA1 (recommended) or an MD5 fingerprint in the format
-@code{01:23:45:67:@dots{}}.
-You can use @samp{--serverinfo --tls --tls-certcheck=off} to get the peer
-certificate's fingerprints.
-@xref{Transport Layer Security}.
+Set the fingerprint of a single certificate to accept for TLS. This certificate
+will be trusted regardless of its contents. The fingerprint can be either an
+SHA1 (recommended) or an MD5 fingerprint in the format
+@code{01:23:45:67:@dots{}}.  Use @samp{--serverinfo --tls --tls-certcheck=off}
+to get the server certificate fingerprints.
 @anchor{tls_key_file}
 @item tls_key_file [@var{file}]
 @cmindex tls_key_file
-This command (together with the @samp{tls_cert_file}) command enables mpop to
-send a client certificate to the POP3 server if requested.
-The file must contain the private key of a certificate in PEM format.
-An empty argument disables this feature.
-@xref{Transport Layer Security}.
+Send a client certificate to the server (use this together with
+@samp{tls_cert_file}).
+The file must contain the private key of a certificate in PEM format. An empty
+argument disables this feature.
 @anchor{tls_cert_file}
 @item tls_cert_file [@var{file}]
 @cmindex tls_cert_file
-This command (together with the @samp{tls_key_file} command) enables mpop to
-send a client certificate to the POP3 server if requested.
-The file must contain a certificate in PEM format.
-An empty argument disables this feature.
-@xref{Transport Layer Security}.
+Send a client certificate to the server (use this together with
+@samp{tls_key_file}).
+The file must contain a certificate in PEM format. An empty argument disables
+this feature.
 @anchor{tls_certcheck}
 @item tls_certcheck [(on|off)]
 @cmindex tls_certcheck
-This command enables or disables checks for the server certificate.@*
-WARNING: When the checks are disabled, TLS/SSL sessions will be vulnerable to
+Enable or disable checks of the server certificate.@*
+WARNING: When the checks are disabled, TLS sessions will be vulnerable to
 man-in-the-middle attacks!
-@xref{Transport Layer Security}.
 @anchor{tls_min_dh_prime_bits}
 @item tls_min_dh_prime_bits [@var{bits}]
 @cmindex tls_min_dh_prime_bits
-Set or unset the minimum number of Diffie-Hellman (DH) prime bits that mpop
-will accept for TLS sessions. The default is set by the TLS library and can be
-selected by using an empty argument to this command. Only lower the default
-(for example to 512 bits) if there is no other way to make TLS work with the
-remote server.
-@xref{Transport Layer Security}.
+Set or unset the minimum number of Diffie-Hellman (DH) prime bits accepted for
+TLS sessions. The default is set by the TLS library and can be selected by
+using an empty argument to this command. Only lower the default (for example to
+512 bits) if there is no other way to make TLS work with the remote server.
 @anchor{tls_priorities}
 @item tls_priorities [@var{priorities}]
 @cmindex tls_priorities
 Set the priorities for TLS sessions. The default is set by the TLS library and
-can be selected by using an empty argument to this command.  Currently this 
-command only works with sufficiently recent GnuTLS releases. See the GnuTLS
-documentation of the @samp{gnutls_priority_init} function for a description of 
-the @var{priorities} string.
-@xref{Transport Layer Security}.
+can be selected by using an empty argument to this command.
+See the GnuTLS documentation of the @samp{gnutls_priority_init} function for a
+description of the @var{priorities} string.
 @end table
 
 @section Commands specific to mail retrieval mode
@@ -357,7 +322,6 @@ Use @code{delivery mda "/usr/sbin/sendmail -oi -oem -f '%F' -- $USER"} to let
 your MTA handle the mail.@*
 Use @code{delivery mda /usr/local/bin/msmtp --host=localhost --from='%F' -- 
 $USER@@`hostname`.`dnsdomainname`"} to pass the mail to your MTA via SMTP.
-(This is what fetchmail does by default.)
 @item delivery maildir @var{directory}@*
 Deliver the mails to the given maildir directory. The directory must exist and 
 it must be a valid maildir directory; mpop will not create directories. This 
@@ -373,7 +337,7 @@ exist.
 If the delivery method needs to parse the mail headers for an envelope from 
 address (the mda method if the command contains @code{%F}, and the mbox method),
 then it needs to create a temporary file to store the mail headers (but not the
-body) in. See @code{$TMPDIR} in @ref{Environment}.
+body). See @code{$TMPDIR} in @ref{Environment}.
 @anchor{uidls_file}
 @item uidls_file @var{filename}
 @cmindex uidls_file
@@ -459,12 +423,11 @@ the error, but this is not necessary. @xref{Filtering}.
 @code{mpop [@var{option}@dots{}] --serverinfo [@var{account}@dots{}]}@*
 @end itemize
 
-mpop is usually run with one or more accounts as parameters (an account named
-`default' is used if none was provided) or @code{mpop -a} to fetch mail from
-all accounts defined in the configuration file.
+mpop is usually run with one or more accounts as parameters. If no account
+is provided, an account named @samp{default} is used if it exist. Alternatively,
+@code{mpop -a} will use all accounts defined in the configuration file.
 
-In turn, this can be executed from @code{cron(8)} in order to automate
-mail retrieval.
+This can be automated by running mpop from @code{cron(8)}.
 
 @section Exit code
 
@@ -502,9 +465,7 @@ accepted:
 @table @samp
 @item --version
 @opindex --version
-Print version information. This includes information about the library used for
-TLS/SSL support (if any), the library used for authentication, and the
-authentication mechanisms supported by this library.
+Print version information, including information about the libraries used.
 @item --help
 @opindex --help
 Print help.
@@ -519,7 +480,7 @@ action.  An asterisk ('*') will be printed instead of the password.
 @opindex -d
 @opindex --debug
 Print lots of debugging information, including the whole conversation with the
-POP3 server. Be careful with this option: the (potentially dangerous) output 
+server. Be careful with this option: the (potentially dangerous) output 
 will not be sanitized, and your password may get printed in an easily decodable
 format!@*
 This option implies @samp{--half-quiet}, because the debugging output would 
@@ -552,12 +513,12 @@ Please refer to @ref{Configuration file} for detailed information.
 Use the given file instead of @code{~/.mpoprc} as the configuration file.
 @item --host=@var{hostname}
 @opindex --host
-Use this POP3 server with settings from the command line; do not use any
+Use this server with settings from the command line; do not use any
 configuration file data. This option disables loading of the configuration 
 file. You cannot use both this option and account names on the command line.
 @item --port=@var{number}
 @opindex --port
-Set the port number to connect to. @xref{port}.
+Set the port number. @xref{port}.
 @item --timeout=(off|@var{seconds})
 @opindex --timeout
 Set or unset a network timeout, in seconds. @xref{timeout}.
@@ -577,7 +538,7 @@ Enable or disable the Received header. @xref{received_header}.
 @anchor{--auth}
 @item --auth[=(on|@var{method})]
 @opindex --auth
-Set the authentication method to automatic (with "on") or manually choose an 
+Set the authentication method to automatic (with @samp{on}) or manually choose an 
 authentication method. @xref{auth}.
 @anchor{--user}
 @item --user=[@var{username}]
@@ -703,190 +664,160 @@ File to store UIDLs in. @xref{uidls_file}.
 @node Transport Layer Security
 @chapter Transport Layer Security
 
-Transport Layer Security (TLS) is a new name for Secure Socket Layer (SSL).
-The TLS 1.0 protocol is an updated version of the SSL 3.0 protocol. TLS and
-SSL mean the same thing.
+Transport Layer Security (TLS)
+"@dots{} provides communications privacy over the Internet.  The protocol
+allows client/server applications to communicate in a way that is designed to
+prevent eavesdropping, tampering, or message forgery" (quote from RFC2246).
 
-Quoting from RFC2246 - the TLS 1.0 protocol specification:@*
-"The TLS protocol provides communications privacy over the Internet.
-The protocol allows client/server applications to communicate in a way that
-is designed to prevent eavesdropping, tampering, or message forgery."
-
-POP3 servers can use TLS in one of two modes:
+A server can use TLS in one of two modes:
 @itemize
+@item Via a STARTTLS command@*
+The session starts with the normal protocol initialization, and TLS is then
+started using the protocol's STARTTLS command.
 @item Immediately@*
-This is known as POP3 tunneled through TLS. The default port for this mode is 
-995 (pop3s). This is what most servers support, and is often simply called 
-"POP3 with SSL".
-@item Via the STARTTLS POP3 command@*
-The POP3 session begins normally. The client sends the STLS command when it
-wishes to begin TLS encryption. The default port for this mode is the default 
-POP3 port: 110 (pop3).
+TLS is initialized before the normal protocol initialization. This requires a
+separate port.
 @end itemize
-mpop can switch between these modes with the @samp{tls_starttls} command (see 
-@ref{tls_starttls}) command or the @samp{--tls-starttls} option (see 
-@ref{--tls-starttls}).
+The first mode is the default, but you can switch to the second mode by disabling
+@ref{tls_starttls}.
 
-When TLS is started, the server sends a certificate to identify itself. This
-certificate contains information about the certificate owner, the certificate
-issuer, and the activation and expiration times of the certificate.  This
-information can be displayed in server information mode. 
+When TLS is started, the server sends a certificate to identify itself. To
+verify the server identity, a client program is expected to check that the
+certificate is formally correct and that it was issued by a Certificate
+Authority (CA) that the user trusts. (There can also be certificate chains with
+intermediate CAs.)
+
+The list of trusted CAs is specified using the @ref{tls_trust_file} command.
+Usually there is some system-wide default file available, e.g.
+@file{/etc/ssl/certs/ca-certificates.crt} on Debian-based systems, but you can
+also choose to select the trusted CAs yourself.
+
+One practical problem with this approach is that the client program should also
+check if the server certificate has been revoked for some reason, using a
+Certificate Revocation List (CRL). A CRL file can be specified using the
+@ref{tls_crl_file} command, but getting the relevant CRL files and keeping them
+up to date is not straightforward. You are basically on your own.
+
+A much more serious and fundamental problem is is that you need to trust CAs.
+Like any other organization, a CA can be incompetent, malicious, subverted by
+bad people, or forced by government agencies to compromise end users without
+telling them. All of these things happened and continue to happen worldwide.
+The idea to have central organizations that have to be trusted for your
+communication to be secure is fundamentally broken.
+
+Instead of putting trust in a CA, you can choose to trust only a single
+certificate for the server you want to connect to. For that purpose, specify
+the certificate fingerprint with @ref{tls_fingerprint}. This makes sure that no
+man-in-the-middle can fake the identity of the server by presenting you a
+fraudulent certificate issued by some CA that happens to be in your trust list.
+However, you have to update the fingerprint whenever the server certificate
+changes, and you have to make sure that the change is legitimate each time,
+e.g. when the old certificate expired. This is inconvenient, but it's the price
+to pay.
+
+Information about a server certificate can be obtained with @samp{--serverinfo
+--tls --tls-certcheck=off}. This includes the issuer CA of the certificate (so
+you can trust that CA via @samp{tls_trust_file}), and the fingerprint of the
+certificate (so you can trust that particular certificate via
+@samp{tls_fingerprint}).
 @xref{Server information mode}.
 
-To use TLS, it is required to either enable full server certificate verification
-using the @samp{tls_trust_file} command or @samp{--tls-trust-file} option, or to
-trust one particular peer certificate using the @samp{tls_fingerprint} command
-or @samp{--tls-fingerprint} option, or to disable all certificate checks using
-@samp{tls_certcheck off} or @samp{--tls-certcheck=off}.
-WARNING: When certificate checks are disabled, TLS/SSL sessions are vulnerable
-to man-in-the-middle attacks!
-See @ref{tls_trust_file}, @ref{--tls-trust-file}, @ref{tls_fingerprint},
-@ref{--tls-fingerprint}, @ref{tls_certcheck}, @ref{--tls-certcheck}.
-
-If your system has a file that collects all system-wide trusted CA
-certificates, it is easiest to just use this in the @samp{defaults} section of
-your configuration file. On Debian-based systems, for example, the adequate
-command would be @samp{tls_trust_file /etc/ssl/certs/ca-certificates.crt}.
-
-But you can also find out manually which CA certificate you need to
-trust. First, issue the following command:
-@example
-$ mpop --serverinfo --host=pop.example.com --tls=on --tls-certcheck=off
-@end example
-The option @samp{--tls-certcheck=off} allows mpop to accept any certificate, so
-that it can print some information about it. The output of this command tells
-you the common name of the server certificate issuer. You have to trust this
-issuer to use full TLS security. Usually you can find the CA certificate
-on the issuer's homepage. With this CA certificate, the following should
-succeed:
-@example
-$ mpop --serverinfo --host=pop.example.com --tls=on \
-  --tls-trust-file=ca_cert.txt
-@end example
-
-If the server requests it, the client can send a certificate, too. This allows
-the server to verify the identity of the client. See the EXTERNAL mechanism in
-@ref{Authentication}. The @samp{tls_key_file}/@samp{tls_cert_file} commands or
-the @samp{--tls-key-file}/@samp{--tls-cert-file} options can be used to set a
-client certificate. See @ref{tls_key_file}/@ref{--tls-key-file},
-@ref{tls_cert_file}/@ref{--tls-cert-file}.
-Note that GnuTLS will only send a client certificate if it matches one of the
-CAs advertised by the server. If you set a client certificate but it is not sent
-to the server, probably does not match any CA that the server trusts.
+TLS also allows the server to verify the identity of the client. For this
+purpose, the client has to present a certificate issued by a CA that the server
+trusts. To present that certificate, the client also needs the matching key
+file. You can set the certificate and key files using @ref{tls_cert_file} and
+@ref{tls_key_file}. This mechanism can also be used to authenticate users, so
+that traditional user / password authentication is not necessary anymore. See the
+EXTERNAL mechanism in @ref{Authentication}.
 
 If you need to fine tune TLS parameters, have a look at the
-@ref{tls_min_dh_prime_bits} and @ref{tls_priorities} commands.
+@ref{tls_priorities} and @ref{tls_min_dh_prime_bits} commands.
 
 
 @node Authentication
 @chapter Authentication
 
-POP3 servers require a client to authenticate itself before it is allowed to
-retrieve mail. 
+POP3 servers require a client to authenticate before retrieving mail.
 
-Multiple authentication methods exist. Most POP3 servers support only some of
-them.  Some methods send authentication data in plain text (or nearly plain
-text) to the server, and some others are vulnerable to attacks. These methods 
-should only be used when TLS is active to prevent others from stealing the 
-password. @xref{Transport Layer Security}.
+Usually a user name and a password are used for authentication. The user name
+specified in the configuration file with the @ref{user} command. There are five
+different methods to specify the password:
+@enumerate
+@item Add the password to the system key ring.@*
+Currently supported key rings are the Gnome key ring and the Mac OS X Keychain.
+For the Gnome key ring, use the command @samp{secret-tool} (part of Gnome's
+libsecret) to store passwords:
+@example
+$ secret-tool store --label=mpop \
+  host pop.freemail.example \
+  service pop3 \
+  user joe.smith
+@end example
+On Mac OS X, use the Keychain Access GUI application.
+The @samp{account name} is same as the user name. The
+@samp{keychain item name} is @code{pop3://<hostname>} where @code{<hostname>}
+matches the @samp{host} argument.
+@item Store the password in an encrypted files, and use @ref{passwordeval}
+to specify a command to decrypt that file, e.g. using GnuPG. @xref{Examples}.
+@item Store the password in the configuration file using the @ref{password} command.
+(Usually it is not considered a good idea to store passwords in plain text files.
+If you do it anyway, you must make sure that the file can only be read by yourself.)
+@item Store the password in @file{~/.netrc}. This method is probably obsolete.
+@item Type the password into the terminal when it is required.
+@end enumerate
+It is recommended to use method 1 or 2.
 
-By default, mpop chooses a method automatically, and it will never choose one 
-that puts the authentication data at risk. See below for details.
+Multiple authentication methods exist. Most servers support only some of them.
+Historically, sophisticated methods were developed to protect passwords from
+being sent unencrypted to the server, but nowadays everybody needs
+@ref{Transport Layer Security} anyway, so the simple methods suffice since the
+whole session is protected. A suitable authentication method is chosen
+automatically, and when TLS is disabled for some reason, only methods that avoid
+sending clear text passwords are considered.
 
-mpop supports the following authentication methods:
+The following user / password methods are supported:
 @itemize
 @item @samp{USER}@*
-This authentication method needs a user name and a password. 
-Both are send in plain text. All POP3 servers support this authentication 
-method.
+A simple plain text method supported by all servers.
 @item @samp{PLAIN}@*
-This authentication method needs a user name and a password. 
-Both are send in BASE64 encoding, which can be easily decoded to plain text.
-@item @samp{APOP}@*
-This authentication method needs a user name and a password. 
-The authentication data is not sent in plain text, but APOP is vulnerable to 
-man-in-the-middle attacks. This method should not be used unless TLS is active.
+Another simple plain text method (with base64 encoding) support by almost all
+servers.
 @item @samp{SCRAM-SHA-1}@*
-This authentication method needs a user name and a password.
-The authentication data is not sent in plain text, which means this method can
-safely be used without TLS.
-@item @samp{EXTERNAL}@*
-This is a special authentication method: The actual authentication happens
-outside of the POP3 protocol, typically by sending a TLS client certificate
-(see @ref{Transport Layer Security}).@*
-The EXTERNAL method merely confirms that this authentication succeeded for the
-given user (or, if no user name is given, confirms that authentication
-succeeded). Thus it may not be necessary for authentication to use this method,
-and if the server does not support the EXTERNAL method, this does not mean that
-it does not support authentication with TLS client certificates.@*
-This authentication method is not chosen automatically; you have to request it
-manually.@*
-Note: (SMTP) Sendmail 8.12.11 advertises the EXTERNAL mechanism only after a
-TLS client certificate has been send. It seems to ignore the optional user
-name.  Does anyone know more about this?
-@item @samp{GSSAPI}@*
-This authentication method needs a user name. The Kerberos framework takes care
-of secure authentication, therefore this method can safely be used without TLS.
+A method that avoids clear-text passwords.
 @item @samp{CRAM-MD5}@*
-This authentication method needs a user name and a password.
-The authentication data is not sent in plain text, which means this method can
-safely be used without TLS.
+An obsolete method that avoids clear-text passwords.
+@item @samp{APOP}@*
+An obsolete method that avoids clear-text passwords, but is vulnerable to
+man-in-the-middle attacks.
 @item @samp{DIGEST-MD5}@*
-This is an obsolete authentication method needs a user name and a password.
-The authentication data is not sent in plain text, but the encryption based on
-MD5 is not considered secure anymore.
+An overcomplicated obsolete method that avoids clear-text passwords, but is not
+considered secure anymore.
 @item @samp{LOGIN}@*
-This is a non-standard authentication method similar to (but worse than) PLAIN.
-It needs a user name and a password, both of which are send in BASE64 encoding, 
-which can be easily decoded to plain text.
+A non-standard clear-text method similar to (but worse than) PLAIN.
 @item @samp{NTLM}@*
-This is an obscure non-standard authentication method. It needs a user name and
-a password and in some cases a special domain parameter (see @ref{ntlmdomain}). 
-The authentication data is not send in plain text, but since NTLM is not an open
-standard, it should be considered broken and insecure.
+An obscure non-standard method that is now considered broken. It sometimes requires
+a special domain parameter passed via @ref{ntlmdomain}. Do not use it.
+@end itemize
+
+There are currently two authentication methods that are not based on user /
+password information and have to be chosen manually:
+@itemize
+@item @samp{EXTERNAL}@*
+The authentication happens outside of the protocol, typically by sending a TLS
+client certificate (see @ref{Transport Layer Security}).@*
+The EXTERNAL method merely confirms that this authentication succeeded; it does
+not perform the authentication. Thus it may not be necessary to use it for
+authentication to succeed, and if the server does not support the EXTERNAL
+method, this does not mean that it does not support authentication with TLS
+client certificates.
+@item @samp{GSSAPI}@*
+With this method, the Kerberos framework takes care of secure authentication.
+Only a user name is required.
 @end itemize
 
 It depends on the underlying authentication library and its version whether a
 particular method is supported or not. Use @option{--version} to find out which
-methods are supported by your version of mpop.
-
-Authentication data can be set with the @samp{user} and @samp{password} or
-@samp{passwordeval} commands or with the corresponding options. See @ref{user},
-@ref{password}, @ref{passwordeval}.  If no password is set but
-one is needed during authentication, mpop will try to find it.
-First, if @samp{passwordeval} is set, it will evaluate that command.
-Otherwise, it will try to get the password from a system specific key ring (if
-available).
-If that fails, it will try to find it in @code{~/.netrc} or
-@code{SYSCONFDIR/netrc}.
-If that fails, it will prompt you for it.
-
-Currently supported key rings are the Gnome Keyring and the Mac OS X Keychain.
-
-The command @samp{secret-tool} (part of Gnome's libsecret) can be used to manage
-Gnome Keyring passwords for mpop. For that purpose, specify the attributes
-"host" (host name of the POP3 server), "service" (always "pop3"), and "user"
-(user name). You can also use @samp{secret-tool} via the @samp{passwordeval}
-command if your version of mpop does not have builtin support for libsecret.
-
-To manage Mac OS X Keychain passwords, use the Keychain Access GUI application.
-The @samp{account name} is same as the mpop @samp{user} argument. The
-@samp{keychain item name} is @code{smtp://<hostname>} where @code{<hostname>}
-matches the mpop @samp{host} argument.
-
-The authentication method can be chosen with the @samp{auth} command or 
-@samp{--auth} option, but it is usually sufficient to just use the @samp{on} 
-argument to let mpop choose the method itself. See @ref{auth}, @ref{--auth}.
-
-If mpop chooses the method itself, it will never choose an insecure method.
-If TLS is active, all methods are considered secure in this context, because the
-connection to the server is protected by TLS. If TLS is not active, only the
-SCRAM-SHA-1, CRAM-MD5, and GSSAPI methods are considered secure in
-this context, because all the others methods put the authentication data at
-risk.
-
-If you really want to risk your authentication data, you have to force mpop to
-do that by manually setting the authentication method while TLS is off.
+methods are supported by your version.
 
 
 @node Pipelining
@@ -907,10 +838,9 @@ By default, mpop will enable pipelining automatically if the server supports
 the CAPA command and advertizes the pipelining capability, and disable it for 
 all other servers. @xref{Server information mode}.
 
-You can change this behaviour with the @samp{pipelining} command or
-@samp{--pipelining} option. See @ref{pipelining}, @ref{--pipelining}. It is
-always safe to disable pipelining. It is not recommended to force pipelining
-for servers that are not known to support it.
+You can change this behaviour with the @ref{pipelining} command or
+@ref{--pipelining} option. It is always safe to disable pipelining. It is not
+recommended to force pipelining for servers that are not known to support it.
 
 
 @node Defective POP3 servers
@@ -918,7 +848,7 @@ for servers that are not known to support it.
 
 Some POP3 servers still do not support the UIDL command. In this case, mpop 
 cannot recognize messages that were already successfully retrieved, and will
-treat all messages as new. Use the @samp{--serverinfo} option to find out if a 
+treat all messages as new. Use the @ref{--serverinfo} option to find out if a 
 server supports the UIDL command.
 
 Some POP3 servers count end-of-line characters as two bytes (CRLF) instead 
@@ -935,35 +865,31 @@ mails.
 @chapter Mail retrieval mode
 
 In this mode, mpop retrieves mail from one or more POP3 servers. It delivers 
-each of them using the method that was given with the @samp{delivery} command 
-or @samp{--delivery} option. See @ref{delivery}, @ref{--delivery}.
+each of them using the method that was given with the @ref{delivery} command 
+or @ref{--delivery} option.
 
 While retrieving the mail, mpop displays approximate progress information,
-which can be turned off with the @samp{--half-quiet} or @samp{--quiet} options;
-see @ref{--half-quiet}, @ref{--quiet}.
+which can be turned off with the @ref{--half-quiet} or @ref{--quiet} options.
 
 If the delivery succeeded, the mail is deleted from the POP3 server by default.
-The @samp{keep} command and @samp{--keep} option can prevent the deletion of
-mails; see @ref{keep}, @ref{--keep}.
+The @ref{keep} command and @ref{--keep} option prevent the deletion of mails.
+Some POP3 servers will delete mails without any user interaction. See EXPIRE in
+@ref{Server information mode}. Mpop can do nothing about that.
 
-@emph{Important note:} Some POP3 servers will delete mails without any user
-interaction. See EXPIRE in @ref{Server information mode}. mpop can do nothing
-about that.
-
-If you don't want to download certain mails, but skip them or delete them 
+If you do not want to download certain mails, but skip them or delete them 
 directly, you can do filtering based on the mail headers. @xref{Filtering}.
 
 If you just want to know if you have new mails (and how many), use the
-@samp{--status-only} option. @xref{--status-only}.
+@ref{--status-only} option.
 
-If you just want to authenticate to the POP3 server, but don't want to look at
-your mails, use the @samp{--auth-only} option. @xref{--auth-only}. This can be
-useful for sending mail through SMTP servers that require SMTP-after-POP 
-(aka POP-before-SMTP).
+If you just want to authenticate to the POP3 server, but do not want to look at
+your mails, use the @ref{--auth-only} option. This can be useful for sending
+mail through SMTP servers that require SMTP-after-POP (aka POP-before-SMTP).
 
-Before mpop delivers a mail, it prepends a Received header to it. This is 
-necessary if the delivery method transmits the mail to an SMTP server, for 
-example. mpop does not change the contents of the mail in any other way.
+Before mpop delivers a mail, it prepends a Received header to it. This is
+necessary for example if the delivery method transmits the mail to an SMTP
+server, but can be disabled with the @ref{received_header} command. Mpop does
+not change the contents of the mail in any other way.
 
 
 @node Server information mode
@@ -1251,7 +1177,7 @@ tls on
 Use an IP address as proxy host name, so that mpop does not leak a DNS query
 when resolving it.@*
 TLS is required to prevent exit hosts from reading your POP3 session. You also
-need @samp{tls_trust_file} or @samp{tls_fingerprint} to check the server
+need @ref{tls_trust_file} or @ref{tls_fingerprint} to check the server
 identity.
 
 
