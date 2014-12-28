@@ -482,7 +482,7 @@ Print lots of debugging information, including the whole conversation with the
 server. Be careful with this option: the (potentially dangerous) output
 will not be sanitized, and your password may get printed in an easily decodable
 format!@*
-This option implies @samp{--half-quiet}, because the debugging output would
+This option implies @option{--half-quiet}, because the debugging output would
 otherwise interfere with the progress output.
 @end table
 
