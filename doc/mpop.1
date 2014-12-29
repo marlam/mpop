@@ -216,8 +216,8 @@ different methods to specify the password:
 .br
 1. Add the password to the system key ring.
 Currently supported key rings are the Gnome key ring and the Mac OS X Keychain.
-For the Gnome key ring, use the command secret-tool (part of Gnome's
-libsecret) to store passwords: secret-tool store --label=mpop host
+For the Gnome key ring, use the command secret\-tool (part of Gnome's
+libsecret) to store passwords: secret\-tool store \-\-label=mpop host
 pop.freemail.example service pop3 user joe.smith.
 On Mac OS X, use the Keychain Access GUI application.
 The account name is same as the user name. The
@@ -305,7 +305,7 @@ intermediate CAs.)
 .br
 The list of trusted CAs is specified using the \fBtls_trust_file\fP command.
 Usually there is some system-wide default file available, e.g.
-/etc/ssl/certs/ca-certificates.crt on Debian-based systems, but you can
+/etc/ssl/certs/ca\-certificates.crt on Debian-based systems, but you can
 also choose to select the trusted CAs yourself.
 .br
 One practical problem with this approach is that the client program should also
@@ -331,8 +331,8 @@ changes, and you have to make sure that the change is legitimate each time,
 e.g. when the old certificate expired. This is inconvenient, but it's the price
 to pay.
 .br
-Information about a server certificate can be obtained with \fI--serverinfo
---tls --tls-certcheck=off\fP. This includes the issuer CA of the certificate (so
+Information about a server certificate can be obtained with \fI\-\-serverinfo
+\-\-tls \-\-tls\-certcheck=off\fP. This includes the issuer CA of the certificate (so
 you can trust that CA via \fBtls_trust_file\fP), and the fingerprint of the
 certificate (so you can trust that particular certificate via
 \fBtls_fingerprint\fP).
@@ -350,8 +350,8 @@ or tunnel the session through TLS (\fIoff\fP).
 .IP "tls_trust_file \fIfile\fP"
 Activate server certificate verification using a list of truted Certification
 Authorities (CAs). The file must be in PEM format. Some systems provide a
-system-wide default file, e.g. /etc/ssl/certs/ca-certificates.crt on
-Debian-based systems with the ca-certificates package.
+system-wide default file, e.g. /etc/ssl/certs/ca\-certificates.crt on
+Debian-based systems with the ca\-certificates package.
 An empty argument disables this. You should also use \fBtls_crl_file\fP.
 .IP "tls_crl_file [\fIfile\fP]"
 Set a certificate revocation list (CRL) file for TLS, to check for revoked
@@ -360,7 +360,7 @@ certificates. An empty argument disables this.
 Set the fingerprint of a single certificate to accept for TLS. This certificate
 will be trusted regardless of its contents. The fingerprint can be either an
 SHA1 (recommended) or an MD5 fingerprint in the format
-01:23:45:67:.... Use \fI\-\-serverinfo \-\-tls \-\-tls-certcheck=off\fP
+01:23:45:67:.... Use \fI\-\-serverinfo \-\-tls \-\-tls\-certcheck=off\fP
 to get the server certificate fingerprints.
 .IP "tls_key_file \fIfile\fP"
 Send a client certificate to the server (use this together with
@@ -542,7 +542,7 @@ tls on
 .br
 # as in this example, or download the root certificate of your CA and use that.
 .br
-tls_trust_file /etc/ssl/certs/ca-certificates.crt
+tls_trust_file /etc/ssl/certs/ca\-certificates.crt
 .br
 
 .br
@@ -552,7 +552,7 @@ tls_trust_file /etc/ssl/certs/ca-certificates.crt
 .br
 # up to date is not straightforward.
 .br
-#tls_crl_file ~/.tls-crls
+#tls_crl_file ~/.tls\-crls
 .br
 
 .br
@@ -566,11 +566,11 @@ delivery mbox ~/Mail/inbox
 .br
 # Deliver mail via procmail:
 .br
-#delivery mda "/usr/bin/procmail -f '%F' -d $USER"
+#delivery mda "/usr/bin/procmail \-f '%F' \-d $USER"
 .br
 # Deliver mail via the local SMTP server:
 .br
-#delivery mda "/usr/bin/msmtp --host=localhost --from='%F' -- $USER"
+#delivery mda "/usr/bin/msmtp \-\-host=localhost \-\-from='%F' \-\- $USER"
 .br
 # Deliver mail to an Exchange pickup directory:
 .br
@@ -598,7 +598,7 @@ host pop.freemail.example
 .br
 # a fraudulent certificate. Get the fingerprint with
 .br
-# $ mpop --serverinfo --tls --tls-certcheck=off --host=pop.freemail.example
+# $ mpop \-\-serverinfo \-\-tls \-\-tls\-certcheck=off \-\-host=pop.freemail.example
 .br
 tls_fingerprint 00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF:00:11:22:33
 .br
@@ -614,7 +614,7 @@ user joe.smith
 .br
 # it automatically. To set the keyring password using Gnome's libsecret:
 .br
-# $ secret-tool store --label=mpop \\
+# $ secret\-tool store \-\-label=mpop \\
 .br
 #   host pop.freemail.example \\
 .br
@@ -628,9 +628,9 @@ user joe.smith
 .br
 # which command to use to decrypt it. This is usually used with GnuPG, as in
 .br
-# this example. Usually gpg-agent will ask once for the decryption password.
+# this example. Usually gpg\-agent will ask once for the decryption password.
 .br
-passwordeval gpg2 --no-tty -q -d ~/.mpop-password.gpg
+passwordeval gpg2 \-\-no\-tty \-q \-d ~/.mpop\-password.gpg
 .br
 
 .br
@@ -674,11 +674,11 @@ auth on
 .br
 user 12345
 .br
-# Your ISP runs SpamAssassin, so test each mail for the "X-Spam-Status: Yes"
+# Your ISP runs SpamAssassin, so test each mail for the "X\-Spam\-Status: Yes"
 .br
 # header, and delete all mails with this header before downloading them.
 .br
-filter	if [ "`grep "^X-Spam-Status: Yes"`" ]; then exit 1; else exit 0; fi
+filter	if [ "`grep "^X\-Spam\-Status: Yes"`" ]; then exit 1; else exit 0; fi
 .br
 
 .br
