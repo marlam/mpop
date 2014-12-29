@@ -2402,7 +2402,15 @@ int main(int argc, char *argv[])
         printf(_("MacOS "));
 # endif
 #endif
-        printf("\n\n");
+        printf("\n");
+        {
+            char *homedir = get_homedir();
+            char *conffile = get_filename(homedir, CONFFILE);
+            printf(_("Configuration file name: %s\n"), conffile);
+            free(conffile);
+            free(homedir);
+        }
+        printf("\n");
         printf(_("Copyright (C) 2014 Martin Lambers and others.\n"
                     "This is free software.  You may redistribute copies of "
                         "it under the terms of\n"
