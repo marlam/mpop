@@ -764,6 +764,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     }
     printf("    AUTH:\n        %s\n        ",
             _("Supported authentication methods:"));
+    if (session->cap.flags & POP3_CAP_AUTH_USER)
+    {
+        printf("USER ");
+    }
     if (session->cap.flags & POP3_CAP_AUTH_PLAIN)
     {
         printf("PLAIN ");
@@ -779,10 +783,6 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     if (session->cap.flags & POP3_CAP_AUTH_GSSAPI)
     {
         printf("GSSAPI ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_USER)
-    {
-        printf("USER ");
     }
     if (session->cap.flags & POP3_CAP_AUTH_APOP)
     {
@@ -2333,6 +2333,10 @@ int main(int argc, char *argv[])
                 _("built-in")
 #endif /* HAVE_LIBGSASL */
               );
+        if (pop3_client_supports_authmech("USER"))
+        {
+            printf("user ");
+        }
         if (pop3_client_supports_authmech("PLAIN"))
         {
             printf("plain ");
@@ -2348,10 +2352,6 @@ int main(int argc, char *argv[])
         if (pop3_client_supports_authmech("GSSAPI"))
         {
             printf("gssapi ");
-        }
-        if (pop3_client_supports_authmech("USER"))
-        {
-            printf("user ");
         }
         if (pop3_client_supports_authmech("APOP"))
         {
