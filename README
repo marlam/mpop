@@ -1,21 +1,14 @@
 mpop retrieves mails from POP3 mailboxes.
 
 Features include:
-- Fast POP3 implementation using command pipelining.
-- Header based mail filtering: filter junk mail before downloading it.
-- Delivery to mbox files, maildir folders, or a mail delivery agent (MDA).
-  Delivery with SMTP is possible by using an appropriate MDA, for example
-  msmtp.
-- Support for multiple POP3 accounts.
-- Authentication methods USER/PASS, APOP, PLAIN, LOGIN and CRAM-MD5.
-- IPv6 support.
-
-Optional features, depending on external libraries:
-- TLS/SSL support, including client certificates (requires GnuTLS or OpenSSL).
-- Additional authentication methods EXTERNAL, GSSAPI, SCRAM-SHA-1, DIGEST-MD5,
-  NTLM (requires GNU Libgsasl).
-- Support for Internationalized Domain Names (IDN) (may require GNU Libidn).
-- Native language support (NLS) (may require GNU libintl).
+- Support for multiple accounts
+- Header based mail filtering: filter junk mail before downloading it
+- Delivery to mbox files, maildir folders, or a mail delivery agent (MDA)
+- TLS/SSL support including client certificates
+- Many authentication methods
+- Support for Internationalized Domain Names (IDN)
+- Fast POP3 implementation using command pipelining
+- SOCKS proxy support
 
 The homepage of this program is <http://mpop.sourceforge.net/>.
 
