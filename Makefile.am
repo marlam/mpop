@@ -1,5 +1,5 @@
 SUBDIRS = src po doc scripts
-EXTRA_DIST = ChangeLog.old README.w32 NOTES
+EXTRA_DIST = ChangeLog.old NOTES
 
 # Create the ChangeLog file from the git log
 dist-hook:
