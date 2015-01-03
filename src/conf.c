@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2014
+ * 2014, 2015
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -1492,16 +1492,13 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
         else if (strcmp(cmd, "proxy_host") == 0)
         {
             acc->mask |= ACC_PROXY_HOST;
+            free(acc->proxy_host);
             if (*arg == '\0')
             {
-                *errstr = xasprintf(_("line %d: command %s needs an argument"),
-                        line, cmd);
-                e = CONF_ESYNTAX;
-                break;
+                acc->proxy_host = NULL;
             }
             else
             {
-                free(acc->proxy_host);
                 acc->proxy_host = xstrdup(arg);
             }
         }
