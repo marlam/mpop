@@ -916,10 +916,16 @@ void mpop_filter_output(long i, long number, int new_action, void *data)
 
 void mpop_retr_progress_start(long i, long number, long long size)
 {
-    char *sizestr = mpop_hr_size(size);
-    printf(_("retrieving message %ld of %ld (%s): "),
-            i, number, sizestr);
-    free(sizestr);
+    if (size > 0)
+    {
+        char *sizestr = mpop_hr_size(size);
+        printf(_("retrieving message %ld of %ld (%s): "), i, number, sizestr);
+        free(sizestr);
+    }
+    else
+    {
+        printf(_("retrieving message %ld of %ld: "), i, number);
+    }
     printf("  0%%\b\b\b\b");
     fflush(stdout);
 }
@@ -1257,7 +1263,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             {
                 printf(_("%ld messages"), session->new_number);
             }
-            if (session->new_number > 0)
+            if (session->new_number > 0 && session->new_size > 0)
             {
                 sizestr = mpop_hr_size(session->new_size);
                 printf(_(" in %s"), sizestr);
@@ -1278,7 +1284,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         {
             printf(_("%ld messages"), session->total_number);
         }
-        if (session->total_number > 0)
+        if (session->total_number > 0 && session->total_size > 0)
         {
             sizestr = mpop_hr_size(session->total_size);
             printf(_(" in %s"), sizestr);

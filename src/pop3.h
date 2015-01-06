@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014
+ * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014, 2015
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -122,11 +122,11 @@ typedef struct
  * The first function that handles session information is pop3_stat().
  * It fills in:
  * - total_number
- * - total_size
+ * - total_size (not reliable! may be zero even when total_number > 0)
  * - msg_action (all initialized to POP3_MSG_ACTION_NORMAL)
  * - is_old (all initialized to false)
  * - new_number (= total_number)
- * - new_size (= total_size)
+ * - new_size (= total_size, not reliable, see above)
  * The next function is pop3_uidl():
  * - msg_uid (UID of each mail)
  * With this information, the caller can update the session fields of each mail:
@@ -135,7 +135,7 @@ typedef struct
  * - msg_action (probably set to POP3_MSG_ACTION_IGNORE for retrieved mails)
  * - old_number
  * - new_number
- * - new_size
+ * - new_size (may not be reliable)
  * The filtering step is optional. It can make further changes to the msg_action
  * field.
  * The next step is retrieving and delivering with pop3_retr().
@@ -370,11 +370,11 @@ int pop3_auth(pop3_session_t *session,
  * Issues the POP3 STAT command.
  * This initializes the following fields of 'session':
  * - total_number
- * - total_size
+ * - total_size (not reliable! may be zero even when total_number > 0)
  * - msg_action (all initialized to POP3_MSG_ACTION_NORMAL)
  * - is_old (all initialized to false)
  * - new_number (= total_number)
- * - new_size (= total_size)
+ * - new_size (= total_size, not reliable, see above)
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_ELIBFAILED
  */
 int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr);

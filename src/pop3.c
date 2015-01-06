@@ -3,7 +3,8 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2014
+ * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2014,
+ * 2015
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  *
@@ -1033,8 +1034,8 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr)
     if ((q == p + 1) || session->total_size < 0
             || (session->total_size == LLONG_MAX && errno == ERANGE))
     {
-        *errstr = xasprintf(_("invalid reply to command %s"), "STAT");
-        return POP3_EPROTO;
+        /* ignore invalid values */
+        session->total_size = 0;
     }
     /* Protect against size_t overflows in the xmalloc() calls that depend on
      * the total number of messages, below and in other functions */
@@ -1307,7 +1308,8 @@ int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
                     || (session->msg_size[n - 1] == LLONG_MAX
                         && errno == ERANGE))
             {
-                goto invalid_reply;
+                /* ignore invalid values */
+                session->msg_size[n - 1] = 0;
             }
         }
     }
@@ -1505,8 +1507,11 @@ int pop3_pipe(pop3_session_t *session, volatile sig_atomic_t *abort,
         if (progress)
         {
             old_percent = percent;
-            percent = (int)((float)rcvd
-                    / (float)session->msg_size[i - 1] * 100.0f);
+            if (session->msg_size[i - 1] > 0)
+            {
+                percent = (int)((float)rcvd
+                        / (float)session->msg_size[i - 1] * 100.0f);
+            }
             if (percent > 99)
             {
                 percent = 99;
