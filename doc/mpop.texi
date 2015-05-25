@@ -319,6 +319,10 @@ $USER@@`hostname`.`dnsdomainname`"} to pass the mail to your MTA via SMTP.
 Deliver the mails to the given maildir directory. The directory must exist and
 it must be a valid maildir directory; mpop will not create directories. This
 delivery type only works on file systems that support hard links.
+Deliver the mails to the given maildir directory. The directory must exist and
+it must have the maildir subdirectories @samp{cur}, @samp{new\}, and @samp{tmp};
+mpop will not create directories. This delivery type only works on file systems
+that support hard links.
 @item delivery mbox @var{mbox-file}@*
 Deliver the mails to the given file in mbox format. The file will be locked
 with @code{fcntl(2)}. mpop uses the MBOXRD mbox format variant; see the

@@ -413,8 +413,9 @@ Use "delivery mda /usr/local/bin/msmtp \-\-host=localhost \-\-from=\(aq%F\(aq
 (This is what fetchmail does by default.)
 .IP "delivery maildir \fIdirectory\fP"
 Deliver the mails to the given maildir directory. The directory must exist and
-it must be a valid maildir directory; mpop will not create directories. This
-delivery type only works on file systems that support hard links.
+it must have the maildir subdirectories \fIcur\fP, \fInew\fP, and \fItmp\fP;
+mpop will not create directories. This delivery type only works on file systems
+that support hard links.
 .IP "delivery mbox \fImbox-file\fP"
 Deliver the mails to the given file in mbox format. The file will be locked
 with \fBfcntl(2)\fP. mpop uses the MBOXRD mbox format variant; see the
