@@ -3,7 +3,8 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014
+ * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014,
+ * 2016
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -109,8 +110,9 @@ typedef struct
     char *tls_cert_file;        /* file in PEM format */
     char *tls_trust_file;       /* file in PEM format */
     char *tls_crl_file;         /* file in PEM format */
-    unsigned char *tls_sha1_fingerprint; /* certificate fingerprint */
-    unsigned char *tls_md5_fingerprint;  /* certificate fingerprint */
+    unsigned char *tls_sha256_fingerprint; /* certificate fingerprint */
+    unsigned char *tls_sha1_fingerprint;   /* certificate fingerprint */
+    unsigned char *tls_md5_fingerprint;    /* certificate fingerprint */
     int tls_nocertcheck;        /* flag: do not check certificate? */
     int tls_min_dh_prime_bits;  /* parameter; -1 for default */
     char *tls_priorities;       /* parameter; NULL for default */

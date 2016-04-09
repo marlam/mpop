@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2014, 2015
+ * 2014, 2015, 2016
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -84,6 +84,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->tls_cert_file = NULL;
     a->tls_trust_file = NULL;
     a->tls_crl_file = NULL;
+    a->tls_sha256_fingerprint = NULL;
     a->tls_sha1_fingerprint = NULL;
     a->tls_md5_fingerprint = NULL;
     a->tls_nocertcheck = 0;
@@ -139,6 +140,15 @@ account_t *account_copy(account_t *acc)
             acc->tls_trust_file ? xstrdup(acc->tls_trust_file) : NULL;
         a->tls_crl_file =
             acc->tls_crl_file ? xstrdup(acc->tls_crl_file) : NULL;
+        if (acc->tls_sha256_fingerprint)
+        {
+            a->tls_sha256_fingerprint = xmalloc(32);
+            memcpy(a->tls_sha256_fingerprint, acc->tls_sha256_fingerprint, 32);
+        }
+        else
+        {
+            a->tls_sha256_fingerprint = NULL;
+        }
         if (acc->tls_sha1_fingerprint)
         {
             a->tls_sha1_fingerprint = xmalloc(20);
@@ -194,6 +204,7 @@ void account_free(void *a)
         free(p->tls_cert_file);
         free(p->tls_trust_file);
         free(p->tls_crl_file);
+        free(p->tls_sha256_fingerprint);
         free(p->tls_sha1_fingerprint);
         free(p->tls_md5_fingerprint);
         free(p->tls_priorities);
@@ -516,6 +527,16 @@ void override_account(account_t *acc1, account_t *acc2)
     }
     if (acc2->mask & ACC_TLS_FINGERPRINT)
     {
+        free(acc1->tls_sha256_fingerprint);
+        if (acc2->tls_sha256_fingerprint)
+        {
+            acc1->tls_sha256_fingerprint = xmalloc(32);
+            memcpy(acc1->tls_sha256_fingerprint, acc2->tls_sha256_fingerprint, 32);
+        }
+        else
+        {
+            acc1->tls_sha256_fingerprint = NULL;
+        }
         free(acc1->tls_sha1_fingerprint);
         if (acc2->tls_sha1_fingerprint)
         {
@@ -594,20 +615,23 @@ int check_account(account_t *acc, int retrmail, char **errstr)
         return CONF_ESYNTAX;
     }
     if (acc->tls_nocertcheck
-            && (acc->tls_sha1_fingerprint || acc->tls_md5_fingerprint))
+            && (acc->tls_sha256_fingerprint
+                || acc->tls_sha1_fingerprint || acc->tls_md5_fingerprint))
     {
         *errstr = xasprintf(
                 _("cannot use tls_fingerprint with tls_certcheck turned off"));
         return CONF_ESYNTAX;
     }
     if (acc->tls_trust_file
-            && (acc->tls_sha1_fingerprint || acc->tls_md5_fingerprint))
+            && (acc->tls_sha256_fingerprint
+                || acc->tls_sha1_fingerprint || acc->tls_md5_fingerprint))
     {
         *errstr = xasprintf(
                 _("cannot use both tls_trust_file and tls_fingerprint"));
         return CONF_ESYNTAX;
     }
-    if (acc->tls && !acc->tls_trust_file && !acc->tls_sha1_fingerprint
+    if (acc->tls && !acc->tls_trust_file
+            && !acc->tls_sha256_fingerprint && !acc->tls_sha1_fingerprint
             && !acc->tls_md5_fingerprint && !acc->tls_nocertcheck)
     {
         *errstr = xasprintf(
@@ -1309,13 +1333,19 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
         else if (strcmp(cmd, "tls_fingerprint") == 0)
         {
             acc->mask |= ACC_TLS_FINGERPRINT;
+            free(acc->tls_sha256_fingerprint);
+            acc->tls_sha256_fingerprint = NULL;
             free(acc->tls_sha1_fingerprint);
             acc->tls_sha1_fingerprint = NULL;
             free(acc->tls_md5_fingerprint);
             acc->tls_md5_fingerprint = NULL;
             if (*arg != '\0')
             {
-                if (strlen(arg) == 2 * 20 + 19)
+                if (strlen(arg) == 2 * 32 + 31)
+                {
+                    acc->tls_sha256_fingerprint = get_fingerprint(arg, 32);
+                }
+                else if (strlen(arg) == 2 * 20 + 19)
                 {
                     acc->tls_sha1_fingerprint = get_fingerprint(arg, 20);
                 }
@@ -1323,7 +1353,8 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
                 {
                     acc->tls_md5_fingerprint = get_fingerprint(arg, 16);
                 }
-                if (!acc->tls_sha1_fingerprint && !acc->tls_md5_fingerprint)
+                if (!acc->tls_sha256_fingerprint && !acc->tls_sha1_fingerprint
+                        && !acc->tls_md5_fingerprint)
                 {
                     *errstr = xasprintf(
                             _("line %d: invalid argument %s for command %s"),

@@ -427,16 +427,16 @@ void mpop_print_tls_cert_info(tls_cert_info_t *tci)
     const char *info_fieldname[6] = { N_("Common Name"), N_("Organization"),
         N_("Organizational unit"), N_("Locality"), N_("State or Province"),
         N_("Country") };
+    char sha256_fingerprint_string[96];
     char sha1_fingerprint_string[60];
-    char md5_fingerprint_string[48];
     char timebuf[128];          /* should be long enough for every locale */
     char *tmp;
     int i;
 
+    mpop_fingerprint_string(sha256_fingerprint_string,
+            tci->sha256_fingerprint, 32);
     mpop_fingerprint_string(sha1_fingerprint_string,
             tci->sha1_fingerprint, 20);
-    mpop_fingerprint_string(md5_fingerprint_string,
-            tci->md5_fingerprint, 16);
 
     printf(_("TLS certificate information:\n"));
     printf("    %s:\n", _("Owner"));
@@ -467,8 +467,8 @@ void mpop_print_tls_cert_info(tls_cert_info_t *tci)
     mpop_time_to_string(&tci->expiration_time, timebuf, sizeof(timebuf));
     printf("        %s: %s\n", _("Expiration time"), timebuf);
     printf("    %s:\n", _("Fingerprints"));
-    printf("        SHA1: %s\n", sha1_fingerprint_string);
-    printf("        MD5:  %s\n", md5_fingerprint_string);
+    printf("        SHA256: %s\n", sha256_fingerprint_string);
+    printf("        SHA1 (deprecated): %s\n", sha1_fingerprint_string);
 }
 #endif
 
@@ -541,6 +541,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
         tci = tls_cert_info_new();
         if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
                         acc->tls_trust_file, acc->tls_crl_file,
+                        acc->tls_sha256_fingerprint,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
                         acc->tls_min_dh_prime_bits,
                         acc->tls_priorities, errstr)) != TLS_EOK)
@@ -1026,6 +1027,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     {
         if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
                         acc->tls_trust_file, acc->tls_crl_file,
+                        acc->tls_sha256_fingerprint,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
                         acc->tls_min_dh_prime_bits,
                         acc->tls_priorities, errstr)) != TLS_EOK)
@@ -2089,13 +2091,20 @@ int main(int argc, char *argv[])
                 break;
 
             case LONGONLYOPT_TLS_FINGERPRINT:
+                free(cmdline_account->tls_sha256_fingerprint);
+                cmdline_account->tls_sha256_fingerprint = NULL;
                 free(cmdline_account->tls_sha1_fingerprint);
                 cmdline_account->tls_sha1_fingerprint = NULL;
                 free(cmdline_account->tls_md5_fingerprint);
                 cmdline_account->tls_md5_fingerprint = NULL;
                 if (*optarg)
                 {
-                    if (strlen(optarg) == 2 * 20 + 19)
+                    if (strlen(optarg) == 2 * 32 + 19)
+                    {
+                        cmdline_account->tls_sha256_fingerprint =
+                            get_fingerprint(optarg, 32);
+                    }
+                    else if (strlen(optarg) == 2 * 20 + 19)
                     {
                         cmdline_account->tls_sha1_fingerprint =
                             get_fingerprint(optarg, 20);
@@ -2105,7 +2114,8 @@ int main(int argc, char *argv[])
                         cmdline_account->tls_md5_fingerprint =
                             get_fingerprint(optarg, 16);
                     }
-                    if (!cmdline_account->tls_sha1_fingerprint
+                    if (!cmdline_account->tls_sha256_fingerprint
+                            && !cmdline_account->tls_sha1_fingerprint
                             && !cmdline_account->tls_md5_fingerprint)
                     {
                         print_error(_("invalid argument %s for %s"),
@@ -2640,7 +2650,7 @@ int main(int argc, char *argv[])
     /* print configuration */
     if (print_conf)
     {
-        char fingerprint_string[2 * 20 + 19 + 1];
+        char fingerprint_string[2 * 32 + 31 + 1];
 
         lp = account_list;
         while (!list_is_empty(lp))
@@ -2700,7 +2710,12 @@ int main(int argc, char *argv[])
                     ? account->tls_trust_file : _("(not set)"));
             printf("tls_crl_file = %s\n", account->tls_crl_file
                     ? account->tls_crl_file : _("(not set)"));
-            if (account->tls_sha1_fingerprint)
+            if (account->tls_sha256_fingerprint)
+            {
+                mpop_fingerprint_string(fingerprint_string,
+                        account->tls_sha256_fingerprint, 32);
+            }
+            else if (account->tls_sha1_fingerprint)
             {
                 mpop_fingerprint_string(fingerprint_string,
                         account->tls_sha1_fingerprint, 20);
@@ -2710,8 +2725,9 @@ int main(int argc, char *argv[])
                 mpop_fingerprint_string(fingerprint_string,
                         account->tls_md5_fingerprint, 16);
             }
-            printf("tls_fingerprint = %s\n", account->tls_sha1_fingerprint
-                    || account->tls_md5_fingerprint
+            printf("tls_fingerprint = %s\n",
+                    account->tls_sha256_fingerprint
+                    || account->tls_sha1_fingerprint || account->tls_md5_fingerprint
                     ? fingerprint_string : _("(not set)"));
             printf("tls_key_file = %s\n", account->tls_key_file
                     ? account->tls_key_file : _("(not set)"));
