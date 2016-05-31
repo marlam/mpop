@@ -24,7 +24,7 @@ dnl Process this file with autoconf to produce a configure script.
 #
 
 dnl Autotools init stuff
-AC_INIT([mpop], [1.2.4], [marlam@marlam.de], [mpop], [http://mpop.sourceforge.net/])
+AC_INIT([mpop], [1.2.5], [marlam@marlam.de], [mpop], [http://mpop.sourceforge.net/])
 AC_CONFIG_SRCDIR([src/mpop.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADERS([config.h])
