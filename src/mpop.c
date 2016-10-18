@@ -2849,27 +2849,12 @@ int main(int argc, char *argv[])
     lp = account_list;
     while (!list_is_empty(lp))
     {
+        mpop_retrmail_abort = 0;
         lp = lp->next;
         account = lp->data;
         if (serverinfo)
         {
-            if ((error_code = mpop_serverinfo(account, debug,
-                            &errmsg, &errstr)) != EX_OK)
-            {
-                if (errstr)
-                {
-                    print_error("%s", mpop_sanitize_string(errstr));
-                    free(errstr);
-                    errstr = NULL;
-                }
-                if (errmsg)
-                {
-                    print_error(_("POP3 server message: %s"),
-                            mpop_sanitize_string(errmsg));
-                    free(errmsg);
-                    errmsg = NULL;
-                }
-            }
+            e = mpop_serverinfo(account, debug, &errmsg, &errstr);
         }
         else /* retrmail */
         {
@@ -2881,7 +2866,6 @@ int main(int argc, char *argv[])
             {
                 local_user = get_username();
             }
-            mpop_retrmail_abort = 0;
 #if HAVE_SIGACTION
             signal_handler.sa_handler = mpop_retrmail_signal_handler;
             sigemptyset(&signal_handler.sa_mask);
@@ -2896,34 +2880,9 @@ int main(int argc, char *argv[])
             old_sighup_handler = signal(SIGHUP, mpop_retrmail_signal_handler);
 #endif
 #endif
-            if ((error_code = mpop_retrmail(canonical_hostname, local_user,
-                            account, debug, print_status, print_progress,
-                            auth_only, status_only, &errmsg, &errstr)) != EX_OK)
-            {
-                if (errstr)
-                {
-                    print_error("%s", mpop_sanitize_string(errstr));
-                    free(errstr);
-                    errstr = NULL;
-                }
-                if (errmsg)
-                {
-                    print_error(_("POP3 server message: %s"),
-                            mpop_sanitize_string(errmsg));
-                    free(errmsg);
-                    errmsg = NULL;
-                }
-                if (account->id && account->conffile)
-                {
-                    print_error(_("error during mail retrieval "
-                                "(account %s from %s)"),
-                            account->id, account->conffile);
-                }
-                else
-                {
-                    print_error(_("error during mail retrieval"));
-                }
-            }
+            e = mpop_retrmail(canonical_hostname, local_user,
+                    account, debug, print_status, print_progress,
+                    auth_only, status_only, &errmsg, &errstr);
 #if HAVE_SIGACTION
             (void)sigaction(SIGTERM, &old_sigterm_handler, NULL);
             (void)sigaction(SIGHUP, &old_sighup_handler, NULL);
@@ -2935,10 +2894,50 @@ int main(int argc, char *argv[])
             (void)signal(SIGHUP, old_sighup_handler);
 #endif
 #endif
-            if (mpop_retrmail_abort)
+        }
+        if (e != EX_OK)
+        {
+            if (errstr)
             {
-                break;
+                print_error("%s", mpop_sanitize_string(errstr));
+                free(errstr);
+                errstr = NULL;
             }
+            if (errmsg)
+            {
+                print_error(_("POP3 server message: %s"),
+                        mpop_sanitize_string(errmsg));
+                free(errmsg);
+                errmsg = NULL;
+            }
+            if (!serverinfo) /* retrmail */
+            {
+                if (account->id && account->conffile)
+                {
+                    print_error(_("error during mail retrieval "
+                                "(account %s from %s)"),
+                            account->id, account->conffile);
+                }
+                else
+                {
+                    print_error(_("error during mail retrieval"));
+                }
+            }
+            if (error_code == EX_OK)
+            {
+                /* this is the first error in the list of accounts */
+                error_code = e;
+            }
+            else
+            {
+                /* a previous account already generated an error; whenever
+                 * more than one account fails, we return a generic error */
+                error_code = EX_TEMPFAIL;
+            }
+        }
+        if (mpop_retrmail_abort)
+        {
+            break;
         }
     }
     free(canonical_hostname);
