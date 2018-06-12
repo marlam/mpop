@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2012, 2013, 2014, 2015, 2016
+ * 2012, 2013, 2014, 2015, 2016, 2018
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
@@ -2104,7 +2104,7 @@ int main(int argc, char *argv[])
                 cmdline_account->tls_md5_fingerprint = NULL;
                 if (*optarg)
                 {
-                    if (strlen(optarg) == 2 * 32 + 19)
+                    if (strlen(optarg) == 2 * 32 + 31)
                     {
                         cmdline_account->tls_sha256_fingerprint =
                             get_fingerprint(optarg, 32);
