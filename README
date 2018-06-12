@@ -10,7 +10,7 @@ Features include:
 - Fast POP3 implementation using command pipelining
 - SOCKS proxy support
 
-The homepage of this program is <http://mpop.sourceforge.net/>.
+The homepage of this program is <https://marlam.de/mpop>.
 
 This program is free software; you can redistribute it and/or modify it under 
 the terms of the GNU General Public License (see the file COPYING) as published 
