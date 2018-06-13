@@ -2427,11 +2427,9 @@ int main(int argc, char *argv[])
 #endif
         printf("\n");
         {
-            char *homedir = get_homedir();
-            char *conffile = get_filename(homedir, CONFFILE);
+            char *conffile = get_userconfig(CONFFILE);
             printf(_("Configuration file name: %s\n"), conffile);
             free(conffile);
-            free(homedir);
         }
         printf("\n");
         printf(_("Copyright (C) 2016 Martin Lambers and others.\n"
@@ -2527,7 +2525,7 @@ int main(int argc, char *argv[])
     {
         if (!conffile)
         {
-            conffile = get_filename(homedir, CONFFILE);
+            conffile = get_userconfig(CONFFILE);
         }
         if ((e = get_conf(conffile, 1, &conffile_account_list, &errstr))
                 != CONF_EOK)

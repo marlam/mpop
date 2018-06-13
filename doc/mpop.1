@@ -71,7 +71,8 @@ between logins, ...), and about the TLS certificate (if TLS is active).
 .IP "\fBConfiguration options\fP"
 .RS
 .IP "\-C, \-\-file=\fIconffile\fP"
-Use the given file instead of ~/.mpoprc as configuration file.
+Use the given file instead of ~/.mpoprc or $XDG_CONFIG_HOME/mpop/config as
+the user configuration file.
 .IP "\-\-host=\fIhostname\fP"
 Use this server with settings from the command line; do not use any
 configuration file data. This option disables loading of the configuration
@@ -153,8 +154,8 @@ method from its arguments.
 File to store UIDLs in. See the \fBuidls_file\fP command.
 .RE
 .SH USAGE
-The default configuration file is ~/.mpoprc.  Settings in this file can
-be changed by command line options.
+The default configuration file is ~/.mpoprc or $XDG_CONFIG_HOME/mpop/config.
+Settings in this file can be changed by command line options.
 .br
 A configuration file is a simple text file. Empty lines and comment lines
 (first non-blank character is '#') are ignored. Every other line must
@@ -741,7 +742,7 @@ identity.
 
 
 .SH FILES
-.IP "~/.mpoprc"
+.IP "~/.mpoprc" or "$XDG_CONFIG_HOME/mpop/config"
 Default configuration file.
 .IP "~/.mpop_uidls"
 Default directory to store UIDLs files in.

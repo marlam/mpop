@@ -105,7 +105,8 @@ GSSAPI, SCRAM-SHA-1, DIGEST-MD5, and NTLM when GNU SASL is used)
 @node Configuration file
 @chapter Configuration file
 
-The default configuration file is @code{~/.mpoprc}.  Settings in this file can
+The default configuration file is @code{~/.mpoprc} or
+@code{$XDG_CONFIG_HOME/mpop/config}.  Settings in this file can
 be changed by command line options.
 
 A configuration file is a simple text file. Empty lines and comment lines
@@ -437,7 +438,7 @@ The standard exit codes from @code{sysexits.h} are used.
 @anchor{Files}
 @section Files
 @table @samp
-@item @code{~/.mpoprc}
+@item @code{~/.mpoprc} or @code{$XDG_CONFIG_HOME/mpop/config}.
 The default user configuration file.
 @item @code{~/.mpop_uidls}
 Default directory to store UIDLs files in.
@@ -511,7 +512,8 @@ Please refer to @ref{Configuration file} for detailed information.
 @itemx --file=@var{filename}
 @opindex -C
 @opindex --file
-Use the given file instead of @code{~/.mpoprc} as the configuration file.
+Use the given file instead of @code{~/.mpoprc} or
+@code{XDG_CONFIG_HOME/mpop/config} as the configuration file.
 @item --host=@var{hostname}
 @opindex --host
 Use this server with settings from the command line; do not use any
