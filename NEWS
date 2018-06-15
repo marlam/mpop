@@ -1,3 +1,12 @@
+Version 1.2.7:
+- Add support for ~/.config/mpop/config as configuration file
+- Add network timeout handling on Windows
+- Fix command line handling of SHA256 TLS fingerprints
+- Update german translation
+
+Version 1.2.6:
+- Return better error code when one or more accounts fail.
+
 Version 1.2.5:
 - Support SHA256 fingerprints for tls_fingerprint, and mark both SHA1 and MD5 as
   deprecated.
