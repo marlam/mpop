@@ -31,6 +31,9 @@ delivery mbox ~/Mail/inbox
 # Deliver mail to an Exchange pickup directory:
 #delivery exchange c:\exchange\pickup
 
+# Use an UIDLS file in ~/.local/share instead of ~/.mpop_uidls
+uidls_file ~/.local/share/%U_at_%H
+
 
 # A freemail service
 account freemail
