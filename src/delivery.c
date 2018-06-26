@@ -47,8 +47,6 @@
 # define fsync(fd) _commit(fd)
 # define WIFEXITED(s) (1)
 # define WEXITSTATUS(s) (s)
-# define S_IRWXG 0
-# define S_IRWXO 0
 # define PRINTFLLD "%I64d"
 #else
 # define PRINTFLLD "%lld"
