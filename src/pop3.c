@@ -235,7 +235,7 @@ int pop3_connect(pop3_session_t *session,
  * If a newline is read, it is stored into the buffer. A '\0' is stored after
  * the last character in the buffer. The length of the resulting string (the
  * number of characters excluding the terminating '\0') will be stored in 'len'.
- * If an error occured, '\0' is stored in buffer[0], and 'len' will be 0.
+ * If an error occurred, '\0' is stored in buffer[0], and 'len' will be 0.
  * Used error codes: POP3_EIO
  */
 

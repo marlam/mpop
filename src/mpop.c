@@ -506,7 +506,7 @@ void mpop_endsession(pop3_session_t *session, int quit)
  * mpop_serverinfo()
  *
  * Prints information about the POP3 server specified in the account 'acc'.
- * If an error occured, '*errstr' points to an allocated string that descibes
+ * If an error occurred, '*errstr' points to an allocated string that descibes
  * the error or is NULL, and '*errmsg' points to the offending messages from
  * the POP3 server or is NULL.
  */

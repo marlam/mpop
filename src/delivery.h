@@ -32,7 +32,7 @@
  * DELIVERY_METHOD_MDA:
  *   This delivery method starts a mail delivery agent via popen() for each
  *   mail. The 'data' argument is the command line of the MDA. It will be
- *   interpreted by the shell, after every occurence of %F was replaced with the
+ *   interpreted by the shell, after every occurrence of %F was replaced with the
  *   envelope from address of the current mail.
  *
  * DELIVERY_METHOD_MAILDIR:
@@ -53,7 +53,7 @@
  * DELIVERY_METHOD_FILTER:
  *   This method is special. It behaves like DELIVERY_METHOD_MDA, with two
  *   exceptions:
- *   1. In addition to %F-replacement, every occurence of %S in the data
+ *   1. In addition to %F-replacement, every occurrence of %S in the data
  *      argument will be replaced with the size of the current mail as reported
  *      by the POP3 server.
  *   2. The close function does not return a DELIVERY_* exit code, but one of

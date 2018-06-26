@@ -401,7 +401,7 @@ How to deliver messages received from this account.
 .IP "delivery mda \fIcommand\fP"
 Deliver the mails through a mail delivery agent (MDA).
 .br
-All occurences of %F in the command will be replaced with the envelope from
+All occurrences of %F in the command will be replaced with the envelope from
 address of the current message (or MAILER\-DAEMON if none is found). Note that
 this address is guaranteed to contain only letters a-z and A-Z, digits 0-9, and
 any of ".@_\-+/", even though that is only a subset of what is theoretically
@@ -478,7 +478,7 @@ by investigating the mail's headers. The POP3 server must support the POP3 TOP
 command for this to work; see option \fB\-\-serverinfo\fP above. An empty argument
 disables filtering.
 .br
-All occurences of %F in the command will be replaced with the envelope from
+All occurrences of %F in the command will be replaced with the envelope from
 address of the current message (or MAILER\-DAEMON if none is found).
 Note that this address is guaranteed to contain only letters a-z and A-Z,
 digits 0-9, and any of ".@_\-+/", even though that is only a subset of what is
@@ -486,7 +486,7 @@ theoretically allowed in a mail address. Other characters, including those
 interpreted by the shell, are replaced with "_". Nevertheless, you should put
 %F into single quotes: \(aq%F\(aq.
 .br
-All occurences of %S in the command will be replaced with the size of the
+All occurrences of %S in the command will be replaced with the size of the
 current mail as reported by the POP3 server.
 .br
 The mail headers (plus the blank line separating the headers from the body)
@@ -499,7 +499,7 @@ what to do with the mail:
 .br
 2: skip the mail; do not retrieve it
 .br
-Return codes greater than or equal to 3 mean that an error occured. The
+Return codes greater than or equal to 3 mean that an error occurred. The
 sysexits.h error codes may be used to give information about the kind of the
 error, but this is not necessary.
 .RE

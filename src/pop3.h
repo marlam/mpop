@@ -420,7 +420,7 @@ int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
  * 0   - proceed normally
  * 1   - change message action to POP3_MSG_ACTION_DELETE
  * 2   - change message action to POP3_MSG_ACTION_IGNORE
- * >=3 - an error occured. Exit codes from sysexits.h are supported.
+ * >=3 - an error occurred. Exit codes from sysexits.h are supported.
  * If the action changed and filter_output is not NULL, the output function will
  * be called. 'data' can point to arbitrary user data that is passed to the
  * output function.
@@ -451,7 +451,7 @@ int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
  * - 'progress' 99 times, while retrieving the mail, with 'percent' increasing
  *    from 1 to 99
  * - 'progress_end' once, after everything was retrieved successfully
- * - 'progress_abort' only if an error occured, to clean up the output
+ * - 'progress_abort' only if an error occurred, to clean up the output
  * If 'abort' is externally set, this function will abort and return
  * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EDELIVERY,

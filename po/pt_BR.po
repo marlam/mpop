@@ -1469,7 +1469,7 @@ msgid "cannot create a TLS structure: %s"
 msgstr "não posso criar a estrutura TLS: %s"
 
 #: src/tls.c:1338
-msgid "a protocol violating EOF occured"
+msgid "a protocol violating EOF occurred"
 msgstr "ocorreu uma violação de protocolo por EOF"
 
 #: src/tls.c:1356

@@ -308,7 +308,7 @@ How to deliver messages received from this account.
 @itemize
 @item delivery mda @var{command}@*
 Deliver the mails through a mail delivery agent (MDA).@*
-All occurences of @code{%F} in the command will be replaced with the envelope
+All occurrences of @code{%F} in the command will be replaced with the envelope
 from address of the current message (or MAILER-DAEMON if none is found). Note
 that this address is guaranteed to contain only letters @code{a-z} and
 @code{A-Z}, digits @code{0-9}, and any of @code{.@@_-+/}, even though that is
@@ -388,7 +388,7 @@ Set a filter which will decide whether to retrieve, skip, or delete each mail
 by investigating the mail's headers. The POP3 server must support the POP3 TOP
 command for this to work; see @ref{Server information mode}. An empty argument
 disables filtering.@*
-All occurences of @code{%F} in the command will be replaced with the envelope
+All occurrences of @code{%F} in the command will be replaced with the envelope
 from address of the current message (or MAILER-DAEMON if none is found).
 Note that this address is guaranteed to contain only letters @code{a-z} and
 @code{A-Z}, digits @code{0-9}, and any of @code{.@@_-+/}, even though that is
@@ -396,7 +396,7 @@ only a subset of what is theoretically allowed in a mail address. Other
 characters, including those interpreted by the shell, are replaced with
 @code{_}. Nevertheless, you should put @code{%F} into single quotes:
 @code{'%F'}.@*
-All occurences of @code{%S} in the command will be replaced with the size of
+All occurrences of @code{%S} in the command will be replaced with the size of
 the current mail as reported by the POP3 server.@*
 The mail headers (plus the blank line separating the headers from the body)
 will be piped to the command. Based on the return code, mpop decides
