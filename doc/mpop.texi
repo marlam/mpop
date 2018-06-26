@@ -152,6 +152,11 @@ Every account definition must contain this command.
 @cmindex port
 The port that the POP3 server listens on. The default is 110 ("pop3"), unless
 TLS without STARTTLS is used, in which case it is 995 ("pop3s").
+@anchor{source_ip}
+@item source_ip [@var{IP}]
+@cmindex source_ip
+Set a source IP address to bind the outgoing connection to. Useful only in
+special cases on multi-home systems. An empty argument disables this.
 @anchor{proxy_host}
 @item proxy_host [@var{IP}|@var{hostname}]
 @cmindex proxy_host
@@ -522,6 +527,9 @@ file. You cannot use both this option and account names on the command line.
 @item --port=@var{number}
 @opindex --port
 Set the port number. @xref{port}.
+@item --source-ip=[@var{IP}]
+@opindex --source-ip
+Set or unset an IP address to bind the socket to. @xref{source_ip}.
 @item --proxy-host=[@var{IP}|@var{hostname}]
 @opindex --proxy-host
 Set or unset a SOCKS proxy to use. @xref{proxy_host}.

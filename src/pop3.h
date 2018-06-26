@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014, 2015,
- * 2016
+ * 2016, 2018
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -239,7 +239,7 @@ void pop3_session_free(pop3_session_t *session);
  */
 int pop3_connect(pop3_session_t *session,
         const char *proxy_hostname, int proxy_port,
-        const char *server_hostname, int port, int timeout,
+        const char *server_hostname, int port, const char *source_ip, int timeout,
         const char **server_canonical_name, const char **server_address,
         char **errstr);
 

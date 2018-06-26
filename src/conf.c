@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2014, 2015, 2016
+ * 2014, 2015, 2016, 2018
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -92,6 +92,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->tls_priorities = NULL;
     a->proxy_host = NULL;
     a->proxy_port = 0;
+    a->source_ip = NULL;
     return a;
 }
 
@@ -173,6 +174,7 @@ account_t *account_copy(account_t *acc)
             acc->tls_priorities ? xstrdup(acc->tls_priorities) : NULL;
         a->proxy_host = acc->proxy_host ? xstrdup(acc->proxy_host) : NULL;
         a->proxy_port = acc->proxy_port;
+        a->source_ip = acc->source_ip ? xstrdup(acc->source_ip) : NULL;
     }
     return a;
 }
@@ -209,6 +211,7 @@ void account_free(void *a)
         free(p->tls_md5_fingerprint);
         free(p->tls_priorities);
         free(p->proxy_host);
+        free(p->source_ip);
         free(p);
     }
 }
@@ -580,6 +583,11 @@ void override_account(account_t *acc1, account_t *acc2)
     if (acc2->mask & ACC_PROXY_PORT)
     {
         acc1->proxy_port = acc2->proxy_port;
+    }
+    if (acc2->mask & ACC_SOURCE_IP)
+    {
+        free(acc1->source_ip);
+        acc1->source_ip = acc2->source_ip ? xstrdup(acc2->source_ip) : NULL;
     }
     acc1->mask |= acc2->mask;
 }
@@ -1551,6 +1559,19 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
                     e = CONF_ESYNTAX;
                     break;
                 }
+            }
+        }
+        else if (strcmp(cmd, "source_ip") == 0)
+        {
+            acc->mask |= ACC_SOURCE_IP;
+            free(acc->source_ip);
+            if (*arg == '\0')
+            {
+                acc->source_ip = NULL;
+            }
+            else
+            {
+                acc->source_ip = xstrdup(arg);
             }
         }
         else if (strcmp(cmd, "tls_force_sslv3") == 0)

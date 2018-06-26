@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014,
- * 2016
+ * 2016, 2018
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -71,6 +71,7 @@
 #define ACC_TLS_PRIORITIES              (1 << 26)
 #define ACC_PROXY_HOST                  (1 << 27)
 #define ACC_PROXY_PORT                  (1 << 28)
+#define ACC_SOURCE_IP                   (1 << 29)
 
 typedef struct
 {
@@ -120,6 +121,8 @@ typedef struct
     /* proxy */
     char *proxy_host;           /* NULL or proxy hostname */
     int proxy_port;             /* port number; 0 for default */
+    /* source ip binding */
+    char *source_ip;            /* Source IP to bind the connection to */
 } account_t;
 
 /*
