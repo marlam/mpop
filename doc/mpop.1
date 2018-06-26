@@ -1,14 +1,14 @@
 .\" -*-nroff-*-
 .\"
 .\" Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014,
-.\" 2015, 2016
+.\" 2015, 2016, 2018
 .\" Martin Lambers
 .\"
 .\" Permission is granted to copy, distribute and/or modify this document
 .\" under the terms of the GNU Free Documentation License, Version 1.2 or
 .\" any later version published by the Free Software Foundation; with no
 .\" Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
-.TH MPOP 1 2016-02
+.TH MPOP 1 2018-06
 .SH NAME
 mpop \- A POP3 client
 .SH SYNOPSIS
@@ -79,14 +79,14 @@ configuration file data. This option disables loading of the configuration
 file. You cannot use both this option and account names on the command line.
 .IP "\-\-port=\fInumber\fP"
 Set the port number to connect to. See the \fBport\fP command.
-.IP "\-\-timeout=(\fIoff\fP|\fIseconds\fP)"
-Set a network timeout. See the \fBtimeout\fP command.
-.IP "\-\-pipelining=(\fIauto\fP|\fIon\fP|\fIoff)"
-Enable or disable POP3 pipelining. See the \fBpipelining\fP command.
 .IP "\-\-proxy\-host=[\fIIP\fP|\fIhostname\fP]"
 Set or unset a SOCKS proxy to use. See the \fBproxy_host\fP command.
 .IP "\-\-proxy\-port=[\fInumber\fP]"
 Set or unset a port number for the proxy host. See the \fBproxy_port\fP command.
+.IP "\-\-timeout=(\fIoff\fP|\fIseconds\fP)"
+Set a network timeout. See the \fBtimeout\fP command.
+.IP "\-\-pipelining=(\fIauto\fP|\fIon\fP|\fIoff)"
+Enable or disable POP3 pipelining. See the \fBpipelining\fP command.
 .IP "\-\-received\-header[=(\fIon\fP|\fIoff)]"
 Enable or disable the Received header. See the \fBreceived_header\fP command.
 .IP "\-\-auth[=(\fIon\fP|\fImethod\fP)]"
@@ -189,15 +189,6 @@ Every account definition must contain this command.
 .IP "port \fInumber\fP"
 The port that the POP3 server listens on. The default is 110 ("pop3"), unless
 TLS without STARTTLS is used, in which case it is 995 ("pop3s").
-.IP "timeout (\fIoff\fP|\fIseconds\fP)"
-Set or unset a network timeout, in seconds. The default is 180 seconds. The
-argument \fIoff\fP means that no timeout will be set, which means that the
-operating system default will be used.
-.IP "pipelining (\fIauto\fP|\fIon\fP|\fIoff\fP)"
-Enable or disable POP3 pipelining. You should never need to change the default
-setting, which is \fIauto\fP: mpop enables pipelining for POP3 servers that
-advertise this capability, and disables it for all other servers.  Pipelining
-can speed up a POP3 session substantially.
 .IP "proxy_host [\fIIP|hostname\fP]"
 Use a SOCKS proxy. All network traffic will go through this proxy host,
 including DNS queries, except for a DNS query that might be necessary to
@@ -208,6 +199,15 @@ see also "Using mpop with Tor" below.
 .IP "proxy_port [\fInumber\fP]"
 Set the port number for the proxy host. An empty \fInumber\fP argument resets
 this to the default port, which is 1080 ("socks").
+.IP "timeout (\fIoff\fP|\fIseconds\fP)"
+Set or unset a network timeout, in seconds. The default is 180 seconds. The
+argument \fIoff\fP means that no timeout will be set, which means that the
+operating system default will be used.
+.IP "pipelining (\fIauto\fP|\fIon\fP|\fIoff\fP)"
+Enable or disable POP3 pipelining. You should never need to change the default
+setting, which is \fIauto\fP: mpop enables pipelining for POP3 servers that
+advertise this capability, and disables it for all other servers.  Pipelining
+can speed up a POP3 session substantially.
 .IP "auth [(\fIon\fP|\fImethod\fP)]"
 Choose an authentication method. The default argument \fIon\fP chooses a
 method automatically.
