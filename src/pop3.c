@@ -1804,7 +1804,7 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
             /* get the from address if needed */
             if (delivery->want_from_addr)
             {
-                if (!(tmpf = tempfile(PACKAGE_NAME)))
+                if (!(tmpf = tmpfile()))
                 {
                     *errstr = xasprintf(_("cannot create temporary file: %s"),
                             strerror(errno));
