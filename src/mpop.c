@@ -29,11 +29,6 @@
 # include "config.h"
 #endif
 
-#ifdef W32_NATIVE
-# define WIN32_LEAN_AND_MEAN    /* do not include more than necessary */
-# define _WIN32_WINNT 0x0601    /* Windows 7 or later */
-# include <winsock2.h>          /* for getservbyname() */
-#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -50,12 +45,6 @@ extern int optind;
 #include <unistd.h>
 #include <signal.h>
 #include <fcntl.h>
-#ifdef HAVE_ARPA_INET_H
-# include <arpa/inet.h>
-#endif
-#ifdef HAVE_NETDB_H
-# include <netdb.h>
-#endif
 #ifdef ENABLE_NLS
 # include <locale.h>
 #endif
@@ -2603,31 +2592,16 @@ int main(int argc, char *argv[])
         {
             if (account->tls && account->tls_nostarttls)
             {
-#if HAVE_GETSERVBYNAME
-                se = getservbyname("pop3s", NULL);
-                account->port = se ? ntohs(se->s_port) : 995;
-#else
                 account->port = 995;
-#endif
             }
             else
             {
-#if HAVE_GETSERVBYNAME
-                se = getservbyname("pop3", NULL);
-                account->port = se ? ntohs(se->s_port) : 110;
-#else
                 account->port = 110;
-#endif
             }
         }
         if (account->proxy_host && account->proxy_port == 0)
         {
-#ifdef HAVE_GETSERVBYNAME
-            se = getservbyname("socks", NULL);
-            account->proxy_port = se ? ntohs(se->s_port) : 1080;
-#else
             account->proxy_port = 1080;
-#endif
         }
         if (!account->uidls_file)
         {
