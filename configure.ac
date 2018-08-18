@@ -107,7 +107,7 @@ if test "$want_gnutls" = "yes"; then
     if test "$HAVE_LIBGNUTLS" != "1"; then
 	AC_MSG_WARN([library libgnutls not found:])
 	AC_MSG_WARN([$libgnutls_PKG_ERRORS])
-	AC_MSG_WARN([libgnutls is provided by GnuTLS; Debian package: libgnutls-dev])
+	AC_MSG_WARN([libgnutls is provided by GnuTLS])
     else
 	have_tls="yes"
 	tls_lib="GnuTLS"
@@ -121,7 +121,7 @@ if test "$want_openssl" = "yes" -a "$have_tls" = "no"; then
     if test "$HAVE_LIBSSL" != "1"; then
 	AC_MSG_WARN([library libssl not found:])
 	AC_MSG_WARN([$libssl_PKG_ERRORS])
-	AC_MSG_WARN([libssl is provided by OpenSSL; Debian package: libssl-dev])
+	AC_MSG_WARN([libssl is provided by OpenSSL])
     else
 	have_tls="yes"
 	tls_lib="OpenSSL"
@@ -148,7 +148,7 @@ if test "$libgsasl" != "no"; then
     if test "$HAVE_LIBGSASL" != "1"; then
 	AC_MSG_WARN([library libgsasl not found:])
 	AC_MSG_WARN([$libgsasl_PKG_ERRORS])
-	AC_MSG_WARN([libgsasl is provided by GNU SASL; Debian package: libgsasl7-dev])
+	AC_MSG_WARN([libgsasl is provided by GNU SASL])
 	libgsasl="no"
     else
 	libgsasl="yes"
@@ -252,7 +252,7 @@ if test "$libidn" != "no"; then
     if test "$HAVE_LIBIDN" != "1"; then
 	AC_MSG_WARN([library libidn not found:])
 	AC_MSG_WARN([$libidn_PKG_ERRORS])
-	AC_MSG_WARN([libidn is provided by GNU Libidn; Debian package: libidn11-dev])
+	AC_MSG_WARN([libidn is provided by GNU Libidn])
 	libidn="no"
     else
 	libidn="yes"
@@ -269,7 +269,7 @@ if test "$libsecret" != "no"; then
     if test "$HAVE_LIBSECRET" != "1"; then
 	AC_MSG_WARN([library libsecret not found:])
 	AC_MSG_WARN([$libsecret_PKG_ERRORS])
-	AC_MSG_WARN([libsecret is provided by Gnome; Debian package: libsecret-1-dev])
+	AC_MSG_WARN([libsecret is provided by Gnome])
 	libsecret="no"
     else
 	libsecret="yes"
