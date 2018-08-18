@@ -4,9 +4,9 @@ Features include:
 - Support for multiple accounts
 - Header based mail filtering: filter junk mail before downloading it
 - Delivery to mbox files, maildir folders, or a mail delivery agent (MDA)
-- TLS/SSL support including client certificates
-- Many authentication methods
+- TLS support including client certificates
 - Support for Internationalized Domain Names (IDN)
+- Many authentication methods
 - Fast POP3 implementation using command pipelining
 - SOCKS proxy support
 
