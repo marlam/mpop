@@ -26,8 +26,8 @@ else
 mpop_SOURCES += base64.c base64.h
 endif
 
-AM_CPPFLAGS = $(tls_CFLAGS) $(libgsasl_CFLAGS) $(libidn_CFLAGS) $(libsecret_CFLAGS)
+AM_CPPFLAGS = $(tls_CFLAGS) $(libgsasl_CFLAGS) $(libidn2_CFLAGS) $(libsecret_CFLAGS)
 
-mpop_LDADD =  $(tls_LIBS) $(libgsasl_LIBS) $(libidn_LIBS) $(libsecret_LIBS) $(LIBINTL)
+mpop_LDADD =  $(tls_LIBS) $(libgsasl_LIBS) $(libidn2_LIBS) $(libsecret_LIBS) $(LIBINTL)
 
 DEFS += -DLOCALEDIR=\"$(localedir)\"
