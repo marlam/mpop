@@ -332,8 +332,6 @@ int delivery_method_filter_deinit(delivery_method_t *dm, char **errstr)
  *
  *  The maildir method.
  *
- *  You can use it on DJGPP systems, but you need long file name support.
- *
  ******************************************************************************/
 
 /* This number is unique for the current process. It is used to create unique

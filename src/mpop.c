@@ -85,11 +85,6 @@ extern int optind;
 #define UIDLSFILE       "mpop_uidls\\%U_at_%H.txt"
 #define USERNETRCFILE   "netrc.txt"
 #define SYSNETRCFILE    "netrc.txt"
-#elif defined (DJGPP)
-#define CONFFILE        "_mpoprc"
-#define UIDLSFILE       "_uidls"
-#define USERNETRCFILE   "_netrc"
-#define SYSNETRCFILE    "netrc"
 #else /* UNIX */
 #define CONFFILE        ".mpoprc"
 #define UIDLSFILE       ".mpop_uidls/%U_at_%H"
@@ -1799,7 +1794,7 @@ int main(int argc, char *argv[])
     };
 
     /* Avoid the side effects of text mode interpretations on DOS systems. */
-#if defined W32_NATIVE || defined DJGPP
+#if defined W32_NATIVE
     _fmode = O_BINARY;
 #endif
 
