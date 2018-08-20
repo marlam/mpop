@@ -2657,36 +2657,36 @@ int pop3_auth(pop3_session_t *session,
     {
         /* Choose "best" authentication mechanism. */
         /* TODO: use gsasl_client_suggest_mechanism()? */
-        if (gsasl_client_support_p(ctx, "SCRAM-SHA-1")
-                && (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1))
-        {
-            auth_mech = "SCRAM-SHA-1";
-        }
-        else if (gsasl_client_support_p(ctx, "CRAM-MD5")
-                && (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5))
-        {
-            auth_mech = "CRAM-MD5";
-        }
 #ifdef HAVE_TLS
-        else if (tls_is_active(&session->tls))
+        if (tls_is_active(&session->tls))
         {
-            if (session->cap.flags & POP3_CAP_AUTH_APOP)
-            {
-                auth_mech = "APOP";
-            }
-            else if (gsasl_client_support_p(ctx, "PLAIN")
+            if (gsasl_client_support_p(ctx, "PLAIN")
                     && (session->cap.flags & POP3_CAP_AUTH_PLAIN))
             {
                 auth_mech = "PLAIN";
+            }
+            else if (session->cap.flags & POP3_CAP_AUTH_APOP)
+            {
+                auth_mech = "APOP";
+            }
+            else if (session->cap.flags & POP3_CAP_AUTH_USER)
+            {
+                auth_mech = "USER";
+            }
+            else if (gsasl_client_support_p(ctx, "SCRAM-SHA-1")
+                    && (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1))
+            {
+                auth_mech = "SCRAM-SHA-1";
+            }
+            else if (gsasl_client_support_p(ctx, "CRAM-MD5")
+                    && (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5))
+            {
+                auth_mech = "CRAM-MD5";
             }
             else if (gsasl_client_support_p(ctx, "DIGEST-MD5")
                     && (session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5))
             {
                 auth_mech = "DIGEST-MD5";
-            }
-            else if (session->cap.flags & POP3_CAP_AUTH_USER)
-            {
-                auth_mech = "USER";
             }
             else if (gsasl_client_support_p(ctx, "LOGIN")
                     && (session->cap.flags & POP3_CAP_AUTH_LOGIN))
@@ -2699,7 +2699,15 @@ int pop3_auth(pop3_session_t *session,
                 auth_mech = "NTLM";
             }
         }
+        else
 #endif /* HAVE_TLS */
+        {
+            if (gsasl_client_support_p(ctx, "SCRAM-SHA-1")
+                    && (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1))
+            {
+                auth_mech = "SCRAM-SHA-1";
+            }
+        }
     }
     if (strcmp(auth_mech, "") == 0)
     {
@@ -2928,24 +2936,24 @@ int pop3_auth(pop3_session_t *session,
     /* Choose "best" authentication mechanism. */
     if (strcmp(auth_mech, "") == 0)
     {
-        if (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5)
-        {
-            auth_mech = "CRAM-MD5";
-        }
-        else if (session->cap.flags & POP3_CAP_AUTH_APOP)
-        {
-            auth_mech = "APOP";
-        }
 #ifdef HAVE_TLS
-        else if (tls_is_active(&session->tls))
+        if (tls_is_active(&session->tls))
         {
             if (session->cap.flags & POP3_CAP_AUTH_PLAIN)
             {
                 auth_mech = "PLAIN";
             }
+            else if (session->cap.flags & POP3_CAP_AUTH_APOP)
+            {
+                auth_mech = "APOP";
+            }
             else if (session->cap.flags & POP3_CAP_AUTH_USER)
             {
                 auth_mech = "USER";
+            }
+            else if (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5)
+            {
+                auth_mech = "CRAM-MD5";
             }
             else if (session->cap.flags & POP3_CAP_AUTH_LOGIN)
             {

@@ -792,15 +792,15 @@ The following user / password methods are supported:
 @item @samp{USER}@*
 A simple plain text method supported by all servers.
 @item @samp{PLAIN}@*
-Another simple plain text method (with base64 encoding) supported by almost all
-servers.
+Another simple plain text method supported by almost all servers.
 @item @samp{SCRAM-SHA-1}@*
 A method that avoids clear-text passwords.
-@item @samp{CRAM-MD5}@*
-An obsolete method that avoids clear-text passwords.
 @item @samp{APOP}@*
-An obsolete method that avoids clear-text passwords, but is vulnerable to
-man-in-the-middle attacks.
+An obsolete method that avoids clear-text passwords, but is not considered
+secure anymore.
+@item @samp{CRAM-MD5}@*
+An obsolete method that avoids clear-text passwords, but is not considered
+secure anymore.
 @item @samp{DIGEST-MD5}@*
 An overcomplicated obsolete method that avoids clear-text passwords, but is not
 considered secure anymore.
