@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2009, 2011
+ * Copyright (C) 2005, 2006, 2007, 2009, 2011, 2018
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -357,11 +357,7 @@ int delivery_method_maildir_open(delivery_method_t *dm, const char *from,
     (void)size;
 
     maildir_data = dm->data;
-    if (gettimeofday(&tv, NULL) < 0)
-    {
-        *errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
-        return DELIVERY_EUNKNOWN;
-    }
+    gettimeofday(&tv, NULL);
     /* See http://cr.yp.to/proto/maildir.html for a description of file name
      * generation. */
     filename = xasprintf("tmp%c" PRINTFLLD ".M%06luP" PRINTFLLD "Q%lu.%s", PATH_SEP,
@@ -516,11 +512,7 @@ int delivery_method_exchange_open(delivery_method_t *dm,
     (void)size;
 
     exchange_data = dm->data;
-    if (gettimeofday(&tv, NULL) < 0)
-    {
-        *errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
-        return DELIVERY_EUNKNOWN;
-    }
+    gettimeofday(&tv, NULL);
     /* Choose a unique filename (similar to the maildir method) that ends with
      * ".eml" */
     filename = xasprintf("%s-" PRINTFLLD "-M%06luP" PRINTFLLD "Q%lu-%s.eml", PACKAGE_NAME,
@@ -658,15 +650,9 @@ int delivery_method_exchange_deinit(delivery_method_t *dm, char **errstr)
 int delivery_method_mbox_open(delivery_method_t *dm, const char *from,
         long long size, char **errstr)
 {
-    time_t t;
-
     (void)size;
+    time_t t = time(NULL);
 
-    if ((t = time(NULL)) < 0)
-    {
-        *errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
-        return DELIVERY_EUNKNOWN;
-    }
     /* Write the From_ line. */
     if (fprintf(dm->pipe, "From %s %s", from, asctime(gmtime(&t))) < 0)
     {

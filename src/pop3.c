@@ -1653,16 +1653,10 @@ int pop3_retr_get_from_addr(pop3_session_t *session, FILE *f, char **from_addr,
 int pop3_write_received_header(pop3_session_t *session, FILE *f, int crlf,
         char **errstr)
 {
-    time_t t;
     char rfc2822_timestamp[32];
     int e;
 
-    if ((t = time(NULL)) < 0)
-    {
-        *errstr = xasprintf(_("cannot get system time: %s"), strerror(errno));
-        return POP3_ELIBFAILED;
-    }
-    print_time_rfc2822(t, rfc2822_timestamp);
+    print_time_rfc2822(time(NULL), rfc2822_timestamp);
 
     /* Write the Received header */
     e = (fprintf(f, "Received: from %s", session->server_hostname) < 0);
