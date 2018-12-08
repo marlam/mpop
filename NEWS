@@ -1,3 +1,6 @@
+Version 1.4.1:
+- Fixed our TLS code to support TLS 1.3 with GnuTLS.
+
 Version 1.4.0:
 - Using OpenSSL is discouraged and may not be supported in the future. Please
   use GnuTLS instead. The reasons are explained here:
