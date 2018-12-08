@@ -226,9 +226,10 @@ Currently supported key rings are the Gnome key ring and the Mac OS X Keychain.
 For the Gnome key ring, use the command secret\-tool (part of Gnome's
 libsecret) to store passwords: secret\-tool store \-\-label=mpop host
 pop.freemail.example service pop3 user joe.smith.
-On Mac OS X, use the Keychain Access GUI application.
-The account name is same as the user name. The
-keychain item name is pop3://<hostname> where <hostname> matches the host argument.
+On Mac OS X, use the following command: security add\-internet\-password
+\-s pop.freemail.example \-r pop3 \-a joe.smith \-w.
+In both examples, replace pop.freemail.example with the POP3 server name, and
+joe.smith with your user name.
 .br
 2. Store the password in an encrypted files, and use \fBpasswordeval\fP
 to specify a command to decrypt that file, e.g. using GnuPG. See EXAMPLES.
