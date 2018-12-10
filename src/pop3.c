@@ -984,10 +984,10 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr)
 
 #ifdef HAVE_TLS
 int pop3_tls(pop3_session_t *session, const char *hostname, int tls_nocertcheck,
-        tls_cert_info_t *tci, char **errstr)
+        tls_cert_info_t *tci, char **tls_parameter_description, char **errstr)
 {
     return tls_start(&session->tls, session->fd, hostname, tls_nocertcheck, tci,
-            errstr);
+            tls_parameter_description, errstr);
 }
 #endif /* HAVE_TLS */
 

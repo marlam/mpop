@@ -374,9 +374,9 @@ char *mpop_password_callback(const char *hostname, const char *user)
 
 
 /*
- * mpop_print_tls_cert_info()
+ * mpop_print_tls_info()
  *
- * Prints information about a TLS certificate.
+ * Prints information about a TLS session.
  */
 
 #ifdef HAVE_TLS
@@ -411,7 +411,7 @@ void mpop_fingerprint_string(char *s, unsigned char *fingerprint, size_t len)
 }
 
 #ifdef HAVE_TLS
-void mpop_print_tls_cert_info(tls_cert_info_t *tci)
+void mpop_print_tls_info(const char *tls_parameter_description, tls_cert_info_t *tci)
 {
     const char *info_fieldname[6] = { N_("Common Name"), N_("Organization"),
         N_("Organizational unit"), N_("Locality"), N_("State or Province"),
@@ -421,6 +421,10 @@ void mpop_print_tls_cert_info(tls_cert_info_t *tci)
     char timebuf[128];          /* should be long enough for every locale */
     char *tmp;
     int i;
+
+    printf(_("TLS session parameters:\n"));
+    printf("    %s\n", tls_parameter_description
+            ? tls_parameter_description : _("not available"));
 
     mpop_fingerprint_string(sha256_fingerprint_string,
             tci->sha256_fingerprint, 32);
@@ -501,6 +505,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     char server_greeting[POP3_BUFSIZE - 4];
 #ifdef HAVE_TLS
     tls_cert_info_t *tci = NULL;
+    char *tls_parameter_description = NULL;
 #endif /* HAVE_TLS */
     const char *server_canonical_name;
     const char *server_address;
@@ -547,7 +552,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     if (acc->tls && acc->tls_nostarttls)
     {
         if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
-                        errstr)) != TLS_EOK)
+                        &tls_parameter_description, errstr)) != TLS_EOK)
         {
             mpop_endsession(session, 0);
             e = exitcode_tls(e);
@@ -593,7 +598,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
             goto error_exit;
         }
         if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
-                        errstr)) != TLS_EOK)
+                        &tls_parameter_description, errstr)) != TLS_EOK)
         {
             mpop_endsession(session, 0);
             e = exitcode_tls(e);
@@ -673,7 +678,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 #ifdef HAVE_TLS
     if (acc->tls)
     {
-        mpop_print_tls_cert_info(tci);
+        mpop_print_tls_info(tls_parameter_description, tci);
     }
 #endif /* not HAVE_TLS */
     printf(_("POP3 capabilities:\n"));
@@ -837,6 +842,7 @@ error_exit:
     if (tci)
     {
         tls_cert_info_free(tci);
+        free(tls_parameter_description);
     }
 #endif /* HAVE_TLS */
     return e;
@@ -978,6 +984,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     pop3_session_t *session;
 #ifdef HAVE_TLS
     tls_cert_info_t *tci = NULL;
+    char *tls_parameter_description = NULL;
 #endif /* HAVE_TLS */
     int e;
     long i, j;
@@ -1036,19 +1043,21 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             tci = tls_cert_info_new();
         }
         if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
-                        errstr)) != POP3_EOK)
+                        &tls_parameter_description, errstr)) != POP3_EOK)
         {
             if (debug)
             {
                 tls_cert_info_free(tci);
+                free(tls_parameter_description);
             }
             mpop_endsession(session, 0);
             return exitcode_tls(e);
         }
         if (debug)
         {
-            mpop_print_tls_cert_info(tci);
+            mpop_print_tls_info(tls_parameter_description, tci);
             tls_cert_info_free(tci);
+            free(tls_parameter_description);
         }
     }
 #endif /* HAVE_TLS */
@@ -1089,19 +1098,21 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             tci = tls_cert_info_new();
         }
         if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
-                        errstr)) != TLS_EOK)
+                        &tls_parameter_description, errstr)) != TLS_EOK)
         {
             if (debug)
             {
                 tls_cert_info_free(tci);
+                free(tls_parameter_description);
             }
             mpop_endsession(session, 0);
             return exitcode_tls(e);
         }
         if (debug)
         {
-            mpop_print_tls_cert_info(tci);
+            mpop_print_tls_info(tls_parameter_description, tci);
             tls_cert_info_free(tci);
+            free(tls_parameter_description);
         }
         /* get capabilities again */
         if ((session->cap.flags & POP3_CAP_CAPA)
