@@ -2605,6 +2605,10 @@ int main(int argc, char *argv[])
                 account->port = 110;
             }
         }
+        if (!account->tls_trust_file && !(account->mask & ACC_TLS_TRUST_FILE))
+        {
+            account->tls_trust_file = xstrdup("system");
+        }
         if (account->proxy_host && account->proxy_port == 0)
         {
             account->proxy_port = 1080;
