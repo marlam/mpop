@@ -2641,6 +2641,7 @@ int main(int argc, char *argv[])
         printf(_("  -P, --pretend                print configuration info and exit\n"));
         printf(_("  -d, --debug                  print debugging information\n"));
         printf(_("Changing the mode of operation:\n"));
+        printf(_("  --configure=mailaddress      generate and print configuration for address\n"));
         printf(_("  -S, --serverinfo             print information about the server\n"));
         printf(_("Configuration options:\n"));
         printf(_("  -C, --file=filename          set configuration file\n"));
