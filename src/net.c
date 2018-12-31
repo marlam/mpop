@@ -1066,7 +1066,7 @@ int net_get_srv_record(const char* query, char **hostname, int *port)
                 continue; /* empty host name; ignore this part */
             prio = ntohs(*((unsigned short*)ns_rr_rdata(rr) + 0));
             weight = ntohs(*((unsigned short*)ns_rr_rdata(rr) + 1));
-            if (prio < current_prio || prio == current_prio && weight > current_weight) {
+            if (prio < current_prio || (prio == current_prio && weight > current_weight)) {
                 free(current_hostname);
                 current_hostname = xstrdup(name);
                 current_port = ntohs(*((unsigned short*)ns_rr_rdata(rr) + 2));
