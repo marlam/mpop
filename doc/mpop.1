@@ -8,7 +8,7 @@
 .\" under the terms of the GNU Free Documentation License, Version 1.2 or
 .\" any later version published by the Free Software Foundation; with no
 .\" Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
-.TH MPOP 1 2018-08
+.TH MPOP 1 2018-12
 .SH NAME
 mpop \- A POP3 client
 .SH SYNOPSIS
@@ -18,6 +18,9 @@ mpop \- A POP3 client
 .br
 .B mpop
 \-\-host=host [option...]
+.IP "Configuration mode:"
+.B mpop
+\-\-configure <mailaddress>
 .IP "Server information mode:"
 .B mpop
 [option...] \-\-serverinfo [account...]
@@ -62,6 +65,11 @@ with the debugging output.
 .RE
 .IP "\fBChanging the mode of operation\fP"
 .RS
+.IP "\-\-configure=\fImailaddress\fP"
+Generate a configuration for the given mail address and print it. This can be
+modified or copied unchanged to the configuration file.
+Note that this only works for mail domains that publish appropriate SRV records;
+see RFC 8314.
 .IP "\-S, \-\-serverinfo"
 Print information about the POP3 server(s) and exit. This includes information
 about supported features (pipelining, authentication methods, TOP command, ...),
@@ -156,6 +164,8 @@ method from its arguments.
 File to store UIDLs in. See the \fBuidls_file\fP command.
 .RE
 .SH USAGE
+A suggestion for a suitable configuration file can be generated using the
+\-\-configure option.
 The default configuration file is ~/.mpoprc or $XDG_CONFIG_HOME/mpop/config.
 Settings in this file can be changed by command line options.
 .br

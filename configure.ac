@@ -50,6 +50,40 @@ AC_CHECK_FUNCS([fseeko fseeko64 getpass link sigaction signal strndup syslog])
 AC_SEARCH_LIBS([nanosleep], [rt posix4])
 AC_SEARCH_LIBS([socket], [socket])
 
+dnl Unfortunately AC_SEARCH_LIBS([res_query], [resolv]) does not work because we
+dnl apparently need to include the appropriate header files, so we use a double
+dnl AC_TRY_LINK instead.
+AC_MSG_CHECKING([for library containing res_query])
+AC_TRY_LINK([
+    #include <netinet/in.h>
+    #include <arpa/nameser.h>
+    #include <resolv.h>
+    ], [res_query(0, 0, 0, 0, 0);],
+    found_res_query=yes,
+    found_res_query=no)
+if test "$found_res_query" = "yes"; then
+    AC_MSG_RESULT([none required])
+else
+    LIBS_BAK="$LIBS"
+    LIBS="$LIBS -lresolv"
+    AC_TRY_LINK([
+        #include <netinet/in.h>
+        #include <arpa/nameser.h>
+        #include <resolv.h>
+        ], [res_query(0, 0, 0, 0, 0);],
+        found_res_query=yes,
+        found_res_query=no)
+    if test "$found_res_query" = "yes"; then
+        AC_MSG_RESULT([-lresolv])
+    else
+        LIBS="$LIBS_BAK"
+        AC_MSG_RESULT([none])
+    fi
+fi
+if test "$found_res_query" = "yes"; then
+    AC_DEFINE([HAVE_LIBRESOLV], [1], [Define to 1 if libresolv is available])
+fi
+
 dnl pkg-config (required to detect libraries)
 PKG_PROG_PKG_CONFIG([])
 if test -z "$PKG_CONFIG"; then

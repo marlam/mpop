@@ -105,6 +105,8 @@ GSSAPI, SCRAM-SHA-1, DIGEST-MD5, and NTLM when GNU SASL is used)
 @node Configuration file
 @chapter Configuration file
 
+A suggestion for a suitable configuration file can be generated using the
+@samp{--configure} option; see @ref{--configure}.
 The default configuration file is @code{~/.mpoprc} or
 @code{$XDG_CONFIG_HOME/mpop/config}.  Settings in this file can
 be changed by command line options.
@@ -425,6 +427,8 @@ the mail is subsequently further delivered e.g. via SMTP.
 @itemize
 @item Mail retrieval mode (default):@*
 @code{mpop [@var{option}@dots{}] [--] [@var{account}@dots{}]}@*
+@item Configuration mode:@*
+@code{mpop --configure @var{mailaddress}}@*
 @item Server information mode:@*
 @code{mpop [@var{option}@dots{}] --serverinfo [@var{account}@dots{}]}@*
 @end itemize
@@ -495,6 +499,13 @@ otherwise interfere with the progress output.
 
 @subsection Changing the mode of operation
 @table @samp
+@anchor{--configure}
+@item --configure=@var{mailaddress}
+@opindex --configure
+Generate a configuration for the given mail address and print it. This can be
+modified or copied unchanged to the configuration file.
+Note that this only works for mail domains that publish appropriate SRV records;
+see RFC 8314.
 @anchor{--serverinfo}
 @item -S
 @itemx --serverinfo

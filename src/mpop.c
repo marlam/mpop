@@ -1519,6 +1519,162 @@ void print_error(const char *format, ...)
 
 
 /*
+ * mpop_split_address()
+ *
+ * Splits a mail address into a local part (before the last '@') and a domain
+ * part (after the last '@').
+ */
+
+void mpop_split_address(const char *address, char **local_part, char **domain_part)
+{
+    const char *p = strrchr(address, '@');
+    if (p)
+    {
+        size_t local_part_len = p - address;
+        size_t domain_part_len = strlen(p + 1);
+        *local_part = xmalloc(local_part_len + 1);
+        strncpy(*local_part, address, local_part_len);
+        (*local_part)[local_part_len] = '\0';
+        *domain_part = xmalloc(domain_part_len + 1);
+        strcpy(*domain_part, p + 1);
+    }
+    else
+    {
+        size_t local_part_len = strlen(address);
+        *local_part = xmalloc(local_part_len + 1);
+        strcpy(*local_part, address);
+        *domain_part = NULL;
+    }
+}
+
+
+/*
+ * mpop_hostname_matches_domain()
+ *
+ * Checks whether the given host name is within the given domain.
+ */
+
+int mpop_hostname_matches_domain(const char *hostname, const char *domain)
+{
+    size_t hostname_len = strlen(hostname);
+    size_t domain_len = strlen(domain);
+    size_t i;
+
+    if (hostname_len < domain_len || domain_len < 1)
+        return 0;
+
+    for (i = 0; i < domain_len; i++)
+    {
+        if (tolower(domain[domain_len - 1 - i])
+                != tolower(hostname[hostname_len - 1 - i]))
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
+/*
+ * mpop_configure()
+ *
+ * Tries autoconfiguration for the given mail address based on the methods
+ * described in RFC 8314 (SRV records).
+ * If successfull, this function will print a configuration file excerpt to
+ * standard output and return EX_OK.
+ * Otherwise, it will print an appropriate error message to standard error
+ * and return an EX_* status.
+ */
+
+int mpop_configure(const char *address, const char *conffile)
+{
+#ifdef HAVE_LIBRESOLV
+
+    int e;
+
+    char *local_part;
+    char *domain_part;
+
+    char *pop3s_query;
+    char *pop3_query;
+
+    char *hostname = NULL;
+    int port = -1;
+    int starttls = -1;
+
+    char *tmpstr;
+
+    mpop_split_address(address, &local_part, &domain_part);
+    if (!domain_part)
+    {
+        print_error(_("automatic configuration based on SRV records failed: %s"),
+                _("address has no domain part"));
+        free(local_part);
+        return EX_DATAERR;
+    }
+
+    pop3s_query = net_get_srv_query(domain_part, "pop3s");
+    e = net_get_srv_record(pop3s_query, &hostname, &port);
+    if (e == NET_EOK) {
+        starttls = 0;
+    } else {
+        pop3_query = net_get_srv_query(domain_part, "pop3");
+        e = net_get_srv_record(pop3_query, &hostname, &port);
+        if (e == NET_EOK) {
+            starttls = 1;
+        } else {
+            char *errstr = xasprintf(_("no SRV records for %s or %s"),
+                    pop3s_query, pop3_query);
+            print_error(_("automatic configuration based on SRV records failed: %s"),
+                    errstr);
+            free(errstr);
+            free(pop3s_query);
+            free(pop3_query);
+            free(local_part);
+            free(domain_part);
+            return EX_NOHOST;
+        }
+        free(pop3_query);
+    }
+    free(pop3s_query);
+
+    /* comment header */
+
+    tmpstr = xasprintf(_("copy this to your configuration file %s"), conffile);
+    printf("# - %s\n", tmpstr);
+    free(tmpstr);
+    if (!mpop_hostname_matches_domain(hostname, domain_part))
+        printf("# - %s\n", _("warning: the host does not match the mail domain; please check"));
+#if !defined HAVE_LIBSECRET && !defined HAVE_MACOSXKEYRING
+    printf("# - %s\n", _("consider using the passwordeval command"));
+#endif
+    printf("# - %s\n", _("consider changing the delivery command"));
+
+    /* account definition */
+    printf("account %s\n", address);
+    printf("host %s\n", hostname);
+    printf("port %d\n", port);
+    printf("tls on\n");
+    printf("tls_starttls %s\n", starttls ? "on" : "off");
+    printf("user %s\n", local_part);
+    printf("delivery mbox ~/MAIL\n");
+
+    free(local_part);
+    free(domain_part);
+    free(hostname);
+    return EX_OK;
+
+#else
+
+    print_error(_("automatic configuration based on SRV records failed: %s"),
+            _("this system lacks libresolv"));
+    return EX_UNAVAILABLE;
+
+#endif
+}
+
+
+/*
  * Construct a list of accounts from a list of account ids.
  * If there are no account ids (accountidc == 0), use the account "default".
  * If accountidc is -1, then all accounts will be used.
@@ -1689,6 +1845,7 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_PROXY_HOST                  26
 #define LONGONLYOPT_PROXY_PORT                  27
 #define LONGONLYOPT_SOURCE_IP                   28
+#define LONGONLYOPT_CONFIGURE                   29
 
 int main(int argc, char *argv[])
 {
@@ -1703,9 +1860,12 @@ int main(int argc, char *argv[])
     /* mode of operation */
     int retrmail;
     int serverinfo;
+    int configure;
     int all_accounts;
     int auth_only;
     int status_only;
+    /* mail address for --configure */
+    char *configure_address = NULL;
     /* account information from the command line */
     account_t *cmdline_account = NULL;
     /* account information from the configuration file */
@@ -1751,6 +1911,7 @@ int main(int argc, char *argv[])
     {
         { "version",               no_argument,       0, LONGONLYOPT_VERSION },
         { "help",                  no_argument,       0, LONGONLYOPT_HELP },
+        { "configure",             required_argument, 0, LONGONLYOPT_CONFIGURE },
         { "quiet",                 no_argument,       0, 'q' },
         { "half-quiet",            no_argument,       0, 'Q' },
         { "pretend",               no_argument,       0, 'P' },
@@ -1835,6 +1996,7 @@ int main(int argc, char *argv[])
     print_progress = 1;
     retrmail = 1;
     serverinfo = 0;
+    configure = 0;
     all_accounts = 0;
     auth_only = 0;
     status_only = 0;
@@ -1852,12 +2014,22 @@ int main(int argc, char *argv[])
                 print_version = 1;
                 retrmail = 0;
                 serverinfo = 0;
+                configure = 0;
                 break;
 
             case LONGONLYOPT_HELP:
                 print_help = 1;
                 retrmail = 0;
                 serverinfo = 0;
+                configure = 0;
+                break;
+
+            case LONGONLYOPT_CONFIGURE:
+                configure = 1;
+                retrmail = 0;
+                serverinfo = 0;
+                free(configure_address);
+                configure_address = xstrdup(optarg);
                 break;
 
             case 'q':
@@ -2508,6 +2680,15 @@ int main(int argc, char *argv[])
         printf(_("  --delivery=method,arg        set the mail delivery method\n"));
         printf(_("  --uidls-file=filename        set file to store UIDLs\n"));
         printf(_("\nReport bugs to <%s>.\n"), PACKAGE_BUGREPORT);
+    }
+
+    if (configure)
+    {
+        char *userconfigfile = conffile ? xstrdup(conffile) : get_userconfig(CONFFILE);
+        error_code = mpop_configure(configure_address, userconfigfile);
+        free(userconfigfile);
+        free(configure_address);
+        goto exit;
     }
 
     if (print_help || print_version
