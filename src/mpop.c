@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2012, 2013, 2014, 2015, 2016, 2018
+ * 2012, 2013, 2014, 2015, 2016, 2018, 2019
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
@@ -1645,10 +1645,18 @@ int mpop_configure(const char *address, const char *conffile)
     free(tmpstr);
     if (!mpop_hostname_matches_domain(hostname, domain_part))
         printf("# - %s\n", _("warning: the host does not match the mail domain; please check"));
-#if !defined HAVE_LIBSECRET && !defined HAVE_MACOSXKEYRING
-    printf("# - %s\n", _("consider using the passwordeval command"));
+#if defined HAVE_LIBSECRET
+    tmpstr = xasprintf("secret-tool store --label=mpop host %s service pop3 user %s", hostname, local_part);
+    printf("# - %s %s\n", _("add your password to the key ring:"), tmpstr);
+    free(tmpstr);
+#elif defined HAVE_MACOSXKEYRING
+    tmpstr = xasprintf("security add-internet-password -s %s -r pop3 -a %s -w", hostname, local_part);
+    printf("# - %s %s\n", _("add your password to the key ring:"), tmpstr);
+    free(tmpstr);
+#else
+    printf("# - %s %s\n", _("encrypt your password:"), "gpg -e -o ~/.mpop-password.gpg");
 #endif
-    printf("# - %s\n", _("consider changing the delivery command"));
+    printf("# - %s\n", _("adjust the delivery command"));
 
     /* account definition */
     printf("account %s\n", address);
@@ -1657,6 +1665,9 @@ int mpop_configure(const char *address, const char *conffile)
     printf("tls on\n");
     printf("tls_starttls %s\n", starttls ? "on" : "off");
     printf("user %s\n", local_part);
+#if !defined HAVE_LIBSECRET && !defined HAVE_MACOSXKEYRING
+    printf("passwordeval gpg --no-tty -q -d ~/.mpop-password.gpg\n");
+#endif
     printf("delivery mbox ~/MAIL\n");
 
     free(local_part);
