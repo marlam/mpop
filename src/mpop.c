@@ -1647,14 +1647,14 @@ int mpop_configure(const char *address, const char *conffile)
         printf("# - %s\n", _("warning: the host does not match the mail domain; please check"));
 #if defined HAVE_LIBSECRET
     tmpstr = xasprintf("secret-tool store --label=mpop host %s service pop3 user %s", hostname, local_part);
-    printf("# - %s %s\n", _("add your password to the key ring:"), tmpstr);
+    printf("# - %s\n#   %s\n", _("add your password to the key ring:"), tmpstr);
     free(tmpstr);
 #elif defined HAVE_MACOSXKEYRING
     tmpstr = xasprintf("security add-internet-password -s %s -r pop3 -a %s -w", hostname, local_part);
-    printf("# - %s %s\n", _("add your password to the key ring:"), tmpstr);
+    printf("# - %s\n#   %s\n", _("add your password to the key ring:"), tmpstr);
     free(tmpstr);
 #else
-    printf("# - %s %s\n", _("encrypt your password:"), "gpg -e -o ~/.mpop-password.gpg");
+    printf("# - %s\n#   %s\n", _("encrypt your password:"), "gpg -e -o ~/.mpop-password.gpg");
 #endif
     printf("# - %s\n", _("adjust the delivery command"));
 
