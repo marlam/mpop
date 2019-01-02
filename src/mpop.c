@@ -2627,7 +2627,7 @@ int main(int argc, char *argv[])
             free(conffile);
         }
         printf("\n");
-        printf(_("Copyright (C) 2018 Martin Lambers and others.\n"
+        printf(_("Copyright (C) 2019 Martin Lambers and others.\n"
                     "This is free software.  You may redistribute copies of "
                         "it under the terms of\n"
                     "the GNU General Public License "
