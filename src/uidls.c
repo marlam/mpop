@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2008, 2009, 2011
+ * Copyright (C) 2005, 2006, 2007, 2008, 2009, 2011, 2019
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -428,7 +428,7 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
         fclose(uidls_file);
         return UIDLS_EIO;
     }
-    if (fflush(temp_file) != 0 || fsync(temp_fd) != 0 || fclose(temp_file) != 0)
+    if (fflush(temp_file) != 0 || fsync(temp_fd) != 0)
     {
         if (errstr)
         {
@@ -436,6 +436,16 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
         }
         free(temp_filename);
         fclose(temp_file);
+        fclose(uidls_file);
+        return UIDLS_EIO;
+    }
+    if (fclose(temp_file) != 0)
+    {
+        if (errstr)
+        {
+            *errstr = xasprintf("%s: %s", temp_filename, strerror(errno));
+        }
+        free(temp_filename);
         fclose(uidls_file);
         return UIDLS_EIO;
     }
