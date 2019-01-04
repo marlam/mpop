@@ -2642,6 +2642,9 @@ int main(int argc, char *argv[])
                     "  %s --host=host [option...]\n"
                     "  Read mails from one ore more POP3 accounts and deliver "
                     "them.\n"), prgname, prgname);
+        printf(_("Configuration mode:\n"
+                    "  %s --configure=mailaddress\n"
+                    "  Generate and print configuration for address.\n"), prgname);
         printf(_("Server information mode:\n"
                     "  %s [option...] --serverinfo account...\n"
                     "  %s --host=host [option...] --serverinfo\n"
@@ -2673,11 +2676,11 @@ int main(int argc, char *argv[])
         printf(_("  --tls-trust-file=[file]      set/unset trust file for TLS\n"));
         printf(_("  --tls-crl-file=[file]        set/unset revocation file for TLS\n"));
         printf(_("  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for TLS\n"));
+        printf(_("  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"));
         printf(_("  --tls-key-file=[file]        set/unset private key file for TLS\n"));
         printf(_("  --tls-cert-file=[file]       set/unset private cert file for TLS\n"));
-        printf(_("  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"));
-        printf(_("  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"));
         printf(_("  --tls-priorities=[prios]     set/unset TLS priorities.\n"));
+        printf(_("  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"));
         printf(_("Options specific to mail retrieval mode:\n"));
         printf(_("  -q, --quiet                  do not display status or progress information\n"));
         printf(_("  -Q, --half-quiet             display status but not progress information\n"));
