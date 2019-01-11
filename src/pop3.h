@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014, 2015,
- * 2016, 2018
+ * 2016, 2018, 2019
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -508,5 +508,12 @@ int pop3_quit(pop3_session_t *session, char **errmsg, char **errstr);
  * Use pop3_session_free() afterwards.
  */
 void pop3_close(pop3_session_t *session);
+
+/*
+ * pop3_exitcode()
+ *
+ * Translate POP3_* error code to an error code from sysexits.h
+ */
+int pop3_exitcode(int pop3_error_code);
 
 #endif

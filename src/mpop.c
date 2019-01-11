@@ -110,105 +110,6 @@ void xalloc_die(void)
 
 
 /*
- * Translate error codes from net.h, tls.h, pop3.h or uidls.h
- * to error codes from sysexits.h
- */
-
-int exitcode_net(int net_error_code)
-{
-    switch (net_error_code)
-    {
-        case NET_EHOSTNOTFOUND:
-            return EX_NOHOST;
-
-        case NET_ESOCKET:
-            return EX_OSERR;
-
-        case NET_ECONNECT:
-            return EX_TEMPFAIL;
-
-        case NET_EIO:
-            return EX_IOERR;
-
-        case NET_EPROXY:
-            return EX_UNAVAILABLE;
-
-        case NET_ELIBFAILED:
-        default:
-            return EX_SOFTWARE;
-    }
-}
-
-#ifdef HAVE_TLS
-int exitcode_tls(int tls_error_code)
-{
-    switch (tls_error_code)
-    {
-        case TLS_EIO:
-            return EX_IOERR;
-
-        case TLS_EFILE:
-            return EX_NOINPUT;
-
-        case TLS_EHANDSHAKE:
-            return EX_PROTOCOL;
-
-        case TLS_ECERT:
-            /* did not find anything better... */
-            return EX_UNAVAILABLE;
-
-        case TLS_ELIBFAILED:
-        case TLS_ESEED:
-        default:
-            return EX_SOFTWARE;
-    }
-}
-#endif /* HAVE_TLS */
-
-int exitcode_pop3(int pop3_error_code)
-{
-    switch (pop3_error_code)
-    {
-        case POP3_EIO:
-        case POP3_EDELIVERY:
-            return EX_IOERR;
-
-        case POP3_EPROTO:
-            return EX_PROTOCOL;
-
-        case POP3_EINVAL:
-            return EX_DATAERR;
-
-        case POP3_EAUTHFAIL:
-            return EX_NOPERM;
-
-        case POP3_EINSECURE:
-        case POP3_EUNAVAIL:
-            return EX_UNAVAILABLE;
-
-        case POP3_ELIBFAILED:
-        default:
-            return EX_SOFTWARE;
-    }
-}
-
-int exitcode_uidls(int uidls_error_code)
-{
-    switch (uidls_error_code)
-    {
-        case UIDLS_EIO:
-            return EX_IOERR;
-
-        case UIDLS_EFORMAT:
-            return EX_DATAERR;
-
-        default:
-            return EX_SOFTWARE;
-    }
-}
-
-
-/*
  * mpop_password_callback()
  *
  * This function will be called by pop3_auth() to get a password if none was
@@ -409,7 +310,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
             != NET_EOK)
     {
         pop3_session_free(session);
-        e = exitcode_net(e);
+        e = net_exitcode(e);
         goto error_exit;
     }
 
@@ -426,7 +327,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
                         acc->tls_priorities, errstr)) != TLS_EOK)
         {
             pop3_session_free(session);
-            e = exitcode_tls(e);
+            e = tls_exitcode(e);
             goto error_exit;
         }
     }
@@ -440,7 +341,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
                         &tls_parameter_description, errstr)) != TLS_EOK)
         {
             mpop_endsession(session, 0);
-            e = exitcode_tls(e);
+            e = tls_exitcode(e);
             goto error_exit;
         }
     }
@@ -451,7 +352,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
             != POP3_EOK)
     {
         mpop_endsession(session, 0);
-        e = exitcode_pop3(e);
+        e = pop3_exitcode(e);
         goto error_exit;
     }
 
@@ -459,7 +360,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     if ((e = pop3_capa(session, errstr)) != POP3_EOK)
     {
         mpop_endsession(session, 0);
-        e = exitcode_pop3(e);
+        e = pop3_exitcode(e);
         goto error_exit;
     }
 
@@ -479,14 +380,14 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
         if ((e = pop3_tls_stls(session, errmsg, errstr)) != POP3_EOK)
         {
             mpop_endsession(session, 0);
-            e = exitcode_pop3(e);
+            e = pop3_exitcode(e);
             goto error_exit;
         }
         if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
                         &tls_parameter_description, errstr)) != TLS_EOK)
         {
             mpop_endsession(session, 0);
-            e = exitcode_tls(e);
+            e = tls_exitcode(e);
             goto error_exit;
         }
         /* get capabilities again */
@@ -494,7 +395,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
                 && (e = pop3_capa(session, errstr)) != POP3_EOK)
         {
             mpop_endsession(session, 0);
-            e = exitcode_pop3(e);
+            e = pop3_exitcode(e);
             goto error_exit;
         }
     }
@@ -511,7 +412,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
                 || e == POP3_ELIBFAILED)
         {
             mpop_endsession(session, 0);
-            e = exitcode_pop3(e);
+            e = pop3_exitcode(e);
             goto error_exit;
         }
         /* ignore other errors, but later print a message about it */
@@ -532,7 +433,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
             && (e = pop3_capa(session, errstr)) != POP3_EOK)
     {
         mpop_endsession(session, 0);
-        e = exitcode_pop3(e);
+        e = pop3_exitcode(e);
         goto error_exit;
     }
 
@@ -899,7 +800,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                     NULL, NULL, errstr)) != NET_EOK)
     {
         pop3_session_free(session);
-        return exitcode_net(e);
+        return net_exitcode(e);
     }
 
     /* prepare tls */
@@ -914,7 +815,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                         acc->tls_priorities, errstr)) != TLS_EOK)
         {
             pop3_session_free(session);
-            return exitcode_tls(e);
+            return tls_exitcode(e);
         }
     }
 #endif /* HAVE_TLS */
@@ -936,7 +837,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                 free(tls_parameter_description);
             }
             mpop_endsession(session, 0);
-            return exitcode_tls(e);
+            return tls_exitcode(e);
         }
         if (debug)
         {
@@ -951,14 +852,14 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     if ((e = pop3_get_greeting(session, NULL, errmsg, errstr)) != POP3_EOK)
     {
         mpop_endsession(session, 0);
-        return exitcode_pop3(e);
+        return pop3_exitcode(e);
     }
 
     /* get server capabilities for the first time */
     if ((e = pop3_capa(session, errstr)) != POP3_EOK)
     {
         mpop_endsession(session, 0);
-        return exitcode_pop3(e);
+        return pop3_exitcode(e);
     }
 
     /* start tls for starttls servers */
@@ -976,7 +877,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         if ((e = pop3_tls_stls(session, errmsg, errstr)) != POP3_EOK)
         {
             mpop_endsession(session, 0);
-            return exitcode_pop3(e);
+            return pop3_exitcode(e);
         }
         if (debug)
         {
@@ -991,7 +892,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                 free(tls_parameter_description);
             }
             mpop_endsession(session, 0);
-            return exitcode_tls(e);
+            return tls_exitcode(e);
         }
         if (debug)
         {
@@ -1004,7 +905,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                 && (e = pop3_capa(session, errstr)) != POP3_EOK)
         {
             mpop_endsession(session, 0);
-            return exitcode_pop3(e);
+            return pop3_exitcode(e);
         }
     }
 #endif /* HAVE_TLS */
@@ -1023,7 +924,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             != POP3_EOK)
     {
         mpop_endsession(session, 0);
-        return exitcode_pop3(e);
+        return pop3_exitcode(e);
     }
     if (auth_only)
     {
@@ -1058,7 +959,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         if ((e = pop3_capa(session, errstr)) != POP3_EOK)
         {
             mpop_endsession(session, 0);
-            return exitcode_pop3(e);
+            return pop3_exitcode(e);
         }
     }
 
@@ -1073,7 +974,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     if ((e = pop3_stat(session, errmsg, errstr)) != POP3_EOK)
     {
         mpop_endsession(session, 0);
-        return exitcode_pop3(e);
+        return pop3_exitcode(e);
     }
     if (session->total_number > 0)
     {
@@ -1081,7 +982,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                 != POP3_EOK)
         {
             mpop_endsession(session, 0);
-            return exitcode_pop3(e);
+            return pop3_exitcode(e);
         }
     }
 
@@ -1098,7 +999,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             != UIDLS_EOK)
     {
         mpop_endsession(session, 0);
-        return exitcode_uidls(e);
+        return uidls_exitcode(e);
     }
     /* Pick the UID list for this user@host. If it does not exist, create an
      * empty one. */
@@ -1122,7 +1023,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             if (e != POP3_EUNAVAIL)
             {
                 mpop_endsession(session, 0);
-                return exitcode_pop3(e);
+                return pop3_exitcode(e);
             }
             else
             {
@@ -1273,7 +1174,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             }
             fclose(uidls_fileptr);
             mpop_endsession(session, 0);
-            return exitcode_pop3(e);
+            return pop3_exitcode(e);
         }
     }
 
@@ -1326,14 +1227,14 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             (void)uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, NULL);
             list_xfree(uidl_list, uidl_free);
             mpop_endsession(session, 0);
-            return exitcode_uidls(e);
+            return uidls_exitcode(e);
         }
         if ((e = pop3_quit(session, errmsg, errstr)) != POP3_EOK)
         {
             (void)uidls_write(acc->uidls_file, uidls_fileptr, uidl_list, NULL);
             list_xfree(uidl_list, uidl_free);
             mpop_endsession(session, 0);
-            return exitcode_uidls(e);
+            return uidls_exitcode(e);
         }
         quit_was_sent = 1;
         for (i = 0; i < uidl->n; i++)
@@ -1361,7 +1262,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     {
         list_xfree(uidl_list, uidl_free);
         mpop_endsession(session, 0);
-        return exitcode_uidls(e);
+        return uidls_exitcode(e);
     }
     list_xfree(uidl_list, uidl_free);
     mpop_endsession(session, late_error == POP3_EOK && !quit_was_sent);
@@ -1374,7 +1275,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     {
         *errstr = late_errstr;
     }
-    return (late_error == POP3_EOK) ? EX_OK : exitcode_pop3(late_error);
+    return (late_error == POP3_EOK) ? EX_OK : pop3_exitcode(late_error);
 }
 
 

@@ -476,3 +476,23 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
 #endif
     return UIDLS_EOK;
 }
+
+
+/*
+ * uidls_exitcode()
+ *
+ * see uidls.h
+ */
+
+int uidls_exitcode(int uidls_error_code)
+{
+    switch (uidls_error_code)
+    {
+        case UIDLS_EIO:
+            return EX_IOERR;
+        case UIDLS_EFORMAT:
+            return EX_DATAERR;
+        default:
+            return EX_SOFTWARE;
+    }
+}

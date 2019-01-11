@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2008
+ * Copyright (C) 2005, 2006, 2007, 2008, 2019
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -102,5 +102,12 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
  */
 int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
         char **errstr);
+
+/*
+ * uidls_exitcode()
+ *
+ * Translate UIDLS_* error code to an error code from sysexits.h
+ */
+int uidls_exitcode(int uidls_error_code);
 
 #endif

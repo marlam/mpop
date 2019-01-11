@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2014,
- * 2015, 2016, 2018
+ * 2015, 2016, 2018, 2019
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  *
@@ -3107,4 +3107,33 @@ void pop3_close(pop3_session_t *session)
     }
 #endif /* HAVE_TLS */
     net_close_socket(session->fd);
+}
+
+
+/*
+ * pop3_exitcode()
+ *
+ * see pop3.h
+ */
+
+int pop3_exitcode(int pop3_error_code)
+{
+    switch (pop3_error_code)
+    {
+        case POP3_EIO:
+        case POP3_EDELIVERY:
+            return EX_IOERR;
+        case POP3_EPROTO:
+            return EX_PROTOCOL;
+        case POP3_EINVAL:
+            return EX_DATAERR;
+        case POP3_EAUTHFAIL:
+            return EX_NOPERM;
+        case POP3_EINSECURE:
+        case POP3_EUNAVAIL:
+            return EX_UNAVAILABLE;
+        case POP3_ELIBFAILED:
+        default:
+            return EX_SOFTWARE;
+    }
 }

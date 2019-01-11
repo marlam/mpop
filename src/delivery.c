@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2009, 2011, 2018
+ * Copyright (C) 2005, 2006, 2007, 2009, 2011, 2018, 2019
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -68,13 +68,13 @@
 
 
 /*
- * exitcode_to_string()
+ * exitcode_to_description()
  *
  * Return the name of a sysexits.h exitcode.
  * If the exitcode is not known, NULL is returned.
  */
 
-const char *exitcode_to_string(int exitcode)
+const char *exitcode_to_description(int exitcode)
 {
     switch (exitcode)
     {
@@ -202,7 +202,7 @@ int delivery_method_mda_close(delivery_method_t *dm, char **errstr)
         status = WEXITSTATUS(status);
         if (status != 0)
         {
-            if ((tmp = exitcode_to_string(status)))
+            if ((tmp = exitcode_to_description(status)))
             {
                 *errstr = xasprintf(_("%s returned exit status %d (%s)"),
                         (char *)(dm->data), status, tmp);
@@ -289,7 +289,7 @@ int delivery_method_filter_close(delivery_method_t *dm, char **errstr)
         status = WEXITSTATUS(status);
         if (status != 0 && status != 1 && status != 2)
         {
-            if ((tmp = exitcode_to_string(status)))
+            if ((tmp = exitcode_to_description(status)))
             {
                 *errstr = xasprintf(_("%s returned exit status %d (%s)"),
                         (char *)(dm->data), status, tmp);
