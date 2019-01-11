@@ -57,7 +57,6 @@ extern int optind;
 
 #include "gettext.h"
 #define _(string) gettext(string)
-#define N_(string) gettext_noop(string)
 
 #include "xalloc.h"
 #include "list.h"
@@ -353,84 +352,6 @@ char *mpop_password_callback(const char *hostname, const char *user)
 
 
 /*
- * mpop_print_tls_info()
- *
- * Prints information about a TLS session.
- */
-
-#ifdef HAVE_TLS
-/* Convert the given time into a string. */
-void mpop_time_to_string(time_t *t, char *buf, size_t bufsize)
-{
-#ifdef ENABLE_NLS
-    (void)strftime(buf, bufsize, "%c", localtime(t));
-#else
-    char *p;
-
-    (void)snprintf(buf, bufsize, "%s", ctime(t));
-    if ((p = strchr(buf, '\n')))
-    {
-        *p = '\0';
-    }
-#endif
-}
-#endif
-
-#ifdef HAVE_TLS
-void mpop_print_tls_info(const char *tls_parameter_description, tls_cert_info_t *tci)
-{
-    const char *info_fieldname[6] = { N_("Common Name"), N_("Organization"),
-        N_("Organizational unit"), N_("Locality"), N_("State or Province"),
-        N_("Country") };
-    char sha256_fingerprint_string[96];
-    char sha1_fingerprint_string[60];
-    char timebuf[128];          /* should be long enough for every locale */
-    char *tmp;
-    int i;
-
-    printf(_("TLS session parameters:\n"));
-    printf("    %s\n", tls_parameter_description
-            ? tls_parameter_description : _("not available"));
-
-    print_fingerprint(sha256_fingerprint_string, tci->sha256_fingerprint, 32);
-    print_fingerprint(sha1_fingerprint_string, tci->sha1_fingerprint, 20);
-
-    printf(_("TLS certificate information:\n"));
-    printf("    %s:\n", _("Owner"));
-    for (i = 0; i < 6; i++)
-    {
-        if (tci->owner_info[i])
-        {
-            tmp = xstrdup(tci->owner_info[i]);
-            printf("        %s: %s\n", gettext(info_fieldname[i]),
-                    sanitize_string(tmp));
-            free(tmp);
-        }
-    }
-    printf("    %s:\n", _("Issuer"));
-    for (i = 0; i < 6; i++)
-    {
-        if (tci->issuer_info[i])
-        {
-            tmp = xstrdup(tci->issuer_info[i]);
-            printf("        %s: %s\n", gettext(info_fieldname[i]),
-                    sanitize_string(tmp));
-            free(tmp);
-        }
-    }
-    printf("    %s:\n", _("Validity"));
-    mpop_time_to_string(&tci->activation_time, timebuf, sizeof(timebuf));
-    printf("        %s: %s\n", _("Activation time"), timebuf);
-    mpop_time_to_string(&tci->expiration_time, timebuf, sizeof(timebuf));
-    printf("        %s: %s\n", _("Expiration time"), timebuf);
-    printf("    %s:\n", _("Fingerprints"));
-    printf("        SHA256: %s\n", sha256_fingerprint_string);
-    printf("        SHA1 (deprecated): %s\n", sha1_fingerprint_string);
-}
-#endif
-
-
-/*
  * mpop_endsession()
  *
  * 1. Send QUIT if 'quit' is set
@@ -642,7 +563,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 #ifdef HAVE_TLS
     if (acc->tls)
     {
-        mpop_print_tls_info(tls_parameter_description, tci);
+        tls_print_info(tls_parameter_description, tci);
     }
 #endif /* not HAVE_TLS */
     printf(_("POP3 capabilities:\n"));
@@ -1019,7 +940,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         }
         if (debug)
         {
-            mpop_print_tls_info(tls_parameter_description, tci);
+            tls_print_info(tls_parameter_description, tci);
             tls_cert_info_free(tci);
             free(tls_parameter_description);
         }
@@ -1074,7 +995,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         }
         if (debug)
         {
-            mpop_print_tls_info(tls_parameter_description, tci);
+            tls_print_info(tls_parameter_description, tci);
             tls_cert_info_free(tci);
             free(tls_parameter_description);
         }
