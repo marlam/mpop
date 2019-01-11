@@ -7,8 +7,6 @@
  * 2012, 2013, 2014, 2015, 2016, 2018, 2019
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
- * Jay Soffian <jaysoffian@gmail.com> (Mac OS X keychain support)
- * Satoru SATOH <satoru.satoh@gmail.com> (GNOME keyring support)
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -48,12 +46,6 @@ extern int optind;
 #ifdef ENABLE_NLS
 # include <locale.h>
 #endif
-#ifdef HAVE_LIBSECRET
-# include <libsecret/secret.h>
-#endif
-#ifdef HAVE_MACOSXKEYRING
-# include <Security/Security.h>
-#endif
 
 #include "gettext.h"
 #define _(string) gettext(string)
@@ -63,9 +55,9 @@ extern int optind;
 #include "tools.h"
 #include "conf.h"
 #include "net.h"
-#include "netrc.h"
 #include "delivery.h"
 #include "pop3.h"
+#include "password.h"
 #ifdef HAVE_TLS
 #include "tls.h"
 #endif /* HAVE_TLS */
@@ -82,13 +74,9 @@ extern int optind;
 #ifdef W32_NATIVE
 #define CONFFILE        "mpoprc.txt"
 #define UIDLSFILE       "mpop_uidls\\%U_at_%H.txt"
-#define USERNETRCFILE   "netrc.txt"
-#define SYSNETRCFILE    "netrc.txt"
 #else /* UNIX */
 #define CONFFILE        ".mpoprc"
 #define UIDLSFILE       ".mpop_uidls/%U_at_%H"
-#define USERNETRCFILE   ".netrc"
-#define SYSNETRCFILE    "netrc"
 #endif
 
 
@@ -114,141 +102,11 @@ void xalloc_die(void)
  *
  * This function will be called by pop3_auth() to get a password if none was
  * given.
- * It tries to get it from the system's keychain (if available).
- * If that fails, it tries to read a password from .netrc.
- * If that fails, it tries to read a password from /dev/tty (not stdin) with
- * getpass().
- * It must return NULL on failure or a password in an allocated buffer.
  */
-
-#ifdef HAVE_LIBSECRET
-const SecretSchema *get_mpop_schema(void)
-{
-    static const SecretSchema schema = {
-        "de.marlam.mpop.password", SECRET_SCHEMA_DONT_MATCH_NAME,
-        {
-            {  "host", SECRET_SCHEMA_ATTRIBUTE_STRING },
-            {  "service", SECRET_SCHEMA_ATTRIBUTE_STRING },
-            {  "user", SECRET_SCHEMA_ATTRIBUTE_STRING },
-            {  "NULL", 0 },
-        }
-    };
-    return &schema;
-}
-#endif
 
 char *mpop_password_callback(const char *hostname, const char *user)
 {
-    char *netrc_directory;
-    char *netrc_filename;
-    netrc_entry *netrc_hostlist;
-    netrc_entry *netrc_host;
-#ifdef HAVE_MACOSXKEYRING
-    void *password_data;
-    UInt32 password_length;
-    OSStatus status;
-#endif
-    char *prompt;
-    char *gpw;
-    char *password = NULL;
-
-#ifdef HAVE_LIBSECRET
-    if (!password)
-    {
-        gchar* libsecret_pw = secret_password_lookup_sync(
-                get_mpop_schema(),
-                NULL, NULL,
-                "host", hostname,
-                "service", "pop3",
-                "user", user,
-                NULL);
-        if (!libsecret_pw)
-        {
-            /* for compatibility with passwords stored by the older
-             * libgnome-keyring */
-            libsecret_pw = secret_password_lookup_sync(
-                    SECRET_SCHEMA_COMPAT_NETWORK,
-                    NULL, NULL,
-                    "user", user,
-                    "protocol", "pop3",
-                    "server", hostname,
-                    NULL);
-        }
-        if (libsecret_pw)
-        {
-            password = xstrdup(libsecret_pw);
-            secret_password_free(libsecret_pw);
-        }
-    }
-#endif /* HAVE_LIBSECRET */
-
-#ifdef HAVE_MACOSXKEYRING
-    if (!password)
-    {
-        if (SecKeychainFindInternetPassword(
-                    NULL,
-                    strlen(hostname), hostname,
-                    0, NULL,
-                    strlen(user), user,
-                    0, (char *)NULL,
-                    0,
-                    kSecProtocolTypePOP3,
-                    kSecAuthenticationTypeDefault,
-                    &password_length, &password_data,
-                    NULL) == noErr)
-        {
-            password = xmalloc((password_length + 1) * sizeof(char));
-            strncpy(password, password_data, (size_t)password_length);
-            password[password_length] = '\0';
-            SecKeychainItemFreeContent(NULL, password_data);
-        }
-    }
-#endif /* HAVE_MACOSXKEYRING */
-
-    if (!password)
-    {
-        netrc_directory = get_homedir();
-        netrc_filename = get_filename(netrc_directory, USERNETRCFILE);
-        free(netrc_directory);
-        if ((netrc_hostlist = parse_netrc(netrc_filename)))
-        {
-            if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
-            {
-                password = xstrdup(netrc_host->password);
-            }
-            free_netrc(netrc_hostlist);
-        }
-        free(netrc_filename);
-    }
-
-    if (!password)
-    {
-        netrc_directory = get_sysconfdir();
-        netrc_filename = get_filename(netrc_directory, SYSNETRCFILE);
-        free(netrc_directory);
-        if ((netrc_hostlist = parse_netrc(netrc_filename)))
-        {
-            if ((netrc_host = search_netrc(netrc_hostlist, hostname, user)))
-            {
-                password = xstrdup(netrc_host->password);
-            }
-            free_netrc(netrc_hostlist);
-        }
-        free(netrc_filename);
-    }
-
-    if (!password)
-    {
-        prompt = xasprintf(_("password for %s at %s: "), user, hostname);
-        gpw = getpass(prompt);
-        free(prompt);
-        if (gpw)
-        {
-            password = xstrdup(gpw);
-        }
-    }
-
-    return password;
+    return password_get(hostname, user, password_service_pop3, 0);
 }
 
 

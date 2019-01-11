@@ -15,7 +15,8 @@ mpop_SOURCES = \
 	xalloc.c xalloc.h \
 	gettext.h \
 	md5.c md5.h \
-	md5-apps.c md5-apps.h
+	md5-apps.c md5-apps.h \
+	password.c password.h
 
 if HAVE_TLS
 mpop_SOURCES += tls.c tls.h
