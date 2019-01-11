@@ -210,29 +210,6 @@ int exitcode_uidls(int uidls_error_code)
 
 
 /*
- * mpop_sanitize_string()
- *
- * Replaces all control characters in the string with a question mark
- */
-
-char *mpop_sanitize_string(char *str)
-{
-    char *p = str;
-
-    while (*p != '\0')
-    {
-        if (iscntrl((unsigned char)*p))
-        {
-            *p = '?';
-        }
-        p++;
-    }
-
-    return str;
-}
-
-
-/*
  * mpop_password_callback()
  *
  * This function will be called by pop3_auth() to get a password if none was
@@ -441,7 +418,7 @@ void mpop_print_tls_info(const char *tls_parameter_description, tls_cert_info_t 
         {
             tmp = xstrdup(tci->owner_info[i]);
             printf("        %s: %s\n", gettext(info_fieldname[i]),
-                    mpop_sanitize_string(tmp));
+                    sanitize_string(tmp));
             free(tmp);
         }
     }
@@ -452,7 +429,7 @@ void mpop_print_tls_info(const char *tls_parameter_description, tls_cert_info_t 
         {
             tmp = xstrdup(tci->issuer_info[i]);
             printf("        %s: %s\n", gettext(info_fieldname[i]),
-                    mpop_sanitize_string(tmp));
+                    sanitize_string(tmp));
             free(tmp);
         }
     }
@@ -675,7 +652,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     }
     if (*server_greeting != '\0')
     {
-        printf("    %s\n", mpop_sanitize_string(server_greeting));
+        printf("    %s\n", sanitize_string(server_greeting));
     }
 #ifdef HAVE_TLS
     if (acc->tls)
@@ -692,7 +669,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     if (session->cap.flags & POP3_CAP_IMPLEMENTATION)
     {
         printf("    IMPLEMENTATION:\n        %s\n",
-                mpop_sanitize_string(session->cap.implementation));
+                sanitize_string(session->cap.implementation));
     }
     if (session->cap.flags & POP3_CAP_PIPELINING)
     {
@@ -2683,7 +2660,7 @@ int main(int argc, char *argv[])
         if ((e = get_conf(conffile, 1, &conffile_account_list, &errstr))
                 != CONF_EOK)
         {
-            print_error("%s: %s", conffile, mpop_sanitize_string(errstr));
+            print_error("%s: %s", conffile, sanitize_string(errstr));
             if (e == CONF_EIO)
             {
                 error_code = EX_IOERR;
@@ -2730,7 +2707,7 @@ int main(int argc, char *argv[])
             if (get_password_eval(account->passwordeval,
                         &account->password, &errstr) != CONF_EOK)
             {
-                print_error("%s", mpop_sanitize_string(errstr));
+                print_error("%s", sanitize_string(errstr));
                 error_code = EX_CONFIG;
                 goto exit;
             }
@@ -2765,11 +2742,11 @@ int main(int argc, char *argv[])
             if (account->id && account->conffile)
             {
                 print_error(_("account %s from %s: %s"), account->id,
-                        account->conffile, mpop_sanitize_string(errstr));
+                        account->conffile, sanitize_string(errstr));
             }
             else
             {
-                print_error("%s", mpop_sanitize_string(errstr));
+                print_error("%s", sanitize_string(errstr));
             }
             error_code = EX_CONFIG;
             goto exit;
@@ -2968,7 +2945,7 @@ int main(int argc, char *argv[])
                 if (tls_lib_init(&errstr) != TLS_EOK)
                 {
                     print_error(_("cannot initialize TLS library: %s"),
-                            mpop_sanitize_string(errstr));
+                            sanitize_string(errstr));
                     error_code = EX_SOFTWARE;
                     goto exit;
                 }
@@ -2984,7 +2961,7 @@ int main(int argc, char *argv[])
     if (net_lib_init(&errstr) != NET_EOK)
     {
         print_error(_("cannot initialize network library: %s"),
-                mpop_sanitize_string(errstr));
+                sanitize_string(errstr));
         error_code = EX_SOFTWARE;
         goto exit;
     }
@@ -3046,14 +3023,14 @@ int main(int argc, char *argv[])
         {
             if (errstr)
             {
-                print_error("%s", mpop_sanitize_string(errstr));
+                print_error("%s", sanitize_string(errstr));
                 free(errstr);
                 errstr = NULL;
             }
             if (errmsg)
             {
                 print_error(_("POP3 server message: %s"),
-                        mpop_sanitize_string(errmsg));
+                        sanitize_string(errmsg));
                 free(errmsg);
                 errmsg = NULL;
             }
