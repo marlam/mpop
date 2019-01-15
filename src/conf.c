@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2014, 2015, 2016, 2018
+ * 2014, 2015, 2016, 2018, 2019
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -997,6 +997,7 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
                 list_free(copy_from);
                 *errstr = xasprintf(_("line %d: missing account name"), line);
                 e = CONF_ESYNTAX;
+                free(acc_id);
                 break;
             }
             if (strchr(acc_id, ':') || strchr(acc_id, ','))
@@ -1005,6 +1006,7 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
                 *errstr = xasprintf(_("line %d: an account name must not "
                             "contain colons or commas"), line);
                 e = CONF_ESYNTAX;
+                free(acc_id);
                 break;
             }
             if (find_account(*acc_list, acc_id))
@@ -1012,8 +1014,9 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
                 list_free(copy_from);
                 *errstr = xasprintf(
                         _("line %d: account %s was already defined"),
-                        line, arg);
+                        line, acc_id);
                 e = CONF_ESYNTAX;
+                free(acc_id);
                 break;
             }
             acc = account_copy(defaults);
