@@ -177,7 +177,8 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     if (acc->tls)
     {
         tci = tls_cert_info_new();
-        if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
+        if ((e = pop3_tls_init(session,
+                        acc->tls_key_file, acc->tls_cert_file, acc->password,
                         acc->tls_trust_file, acc->tls_crl_file,
                         acc->tls_sha256_fingerprint,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
@@ -669,7 +670,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 #ifdef HAVE_TLS
     if (acc->tls)
     {
-        if ((e = pop3_tls_init(session, acc->tls_key_file, acc->tls_cert_file,
+        if ((e = pop3_tls_init(session,
+                        acc->tls_key_file, acc->tls_cert_file, acc->password,
                         acc->tls_trust_file, acc->tls_crl_file,
                         acc->tls_sha256_fingerprint,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,

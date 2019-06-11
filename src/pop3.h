@@ -282,7 +282,7 @@ int pop3_capa(pop3_session_t *session, char **errstr);
  */
 #ifdef HAVE_TLS
 int pop3_tls_init(pop3_session_t *session,
-        const char *tls_key_file, const char *tls_cert_file,
+        const char *tls_key_file, const char *tls_cert_file, const char *pin,
         const char *tls_trust_file, const char *tls_crl_file,
         const unsigned char *tls_sha256_fingerprint,
         const unsigned char *tls_sha1_fingerprint,
