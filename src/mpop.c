@@ -183,7 +183,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
                         acc->tls_sha256_fingerprint,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
                         acc->tls_min_dh_prime_bits,
-                        acc->tls_priorities, errstr)) != TLS_EOK)
+                        acc->tls_priorities,
+                        acc->host,
+                        acc->tls_nocertcheck,
+                        errstr)) != TLS_EOK)
         {
             pop3_session_free(session);
             e = tls_exitcode(e);
@@ -196,7 +199,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 #ifdef HAVE_TLS
     if (acc->tls && acc->tls_nostarttls)
     {
-        if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
+        if ((e = pop3_tls(session, tci,
                         &tls_parameter_description, errstr)) != TLS_EOK)
         {
             mpop_endsession(session, 0);
@@ -242,7 +245,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
             e = pop3_exitcode(e);
             goto error_exit;
         }
-        if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
+        if ((e = pop3_tls(session, tci,
                         &tls_parameter_description, errstr)) != TLS_EOK)
         {
             mpop_endsession(session, 0);
@@ -676,7 +679,10 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                         acc->tls_sha256_fingerprint,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
                         acc->tls_min_dh_prime_bits,
-                        acc->tls_priorities, errstr)) != TLS_EOK)
+                        acc->tls_priorities,
+                        acc->host,
+                        acc->tls_nocertcheck,
+                        errstr)) != TLS_EOK)
         {
             pop3_session_free(session);
             return tls_exitcode(e);
@@ -692,7 +698,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         {
             tci = tls_cert_info_new();
         }
-        if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
+        if ((e = pop3_tls(session, tci,
                         &tls_parameter_description, errstr)) != POP3_EOK)
         {
             if (debug)
@@ -747,7 +753,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         {
             tci = tls_cert_info_new();
         }
-        if ((e = pop3_tls(session, acc->host, acc->tls_nocertcheck, tci,
+        if ((e = pop3_tls(session, tci,
                         &tls_parameter_description, errstr)) != TLS_EOK)
         {
             if (debug)

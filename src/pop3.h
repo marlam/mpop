@@ -288,6 +288,8 @@ int pop3_tls_init(pop3_session_t *session,
         const unsigned char *tls_sha1_fingerprint,
         const unsigned char *tls_md5_fingerprint,
         int min_dh_prime_bits, const char *priorities,
+        const char *hostname,
+        int tls_nocertcheck,
         char **errstr);
 #endif /* HAVE_TLS */
 
@@ -316,7 +318,7 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr);
  * Used error codes: TLS_ELIBFAILED, TLS_ECERT, TLS_EHANDSHAKE
  */
 #ifdef HAVE_TLS
-int pop3_tls(pop3_session_t *session, const char *hostname, int tls_nocertcheck,
+int pop3_tls(pop3_session_t *session,
         tls_cert_info_t *tci, char **tls_parameter_description, char **errstr);
 #endif /* HAVE_TLS */
 

@@ -934,12 +934,14 @@ int pop3_tls_init(pop3_session_t *session,
         const unsigned char *tls_sha1_fingerprint,
         const unsigned char *tls_md5_fingerprint,
         int min_dh_prime_bits, const char *priorities,
+        const char *hostname,
+        int no_certcheck,
         char **errstr)
 {
     return tls_init(&session->tls, tls_key_file, tls_cert_file, pin,
             tls_trust_file, tls_crl_file,
             tls_sha256_fingerprint, tls_sha1_fingerprint, tls_md5_fingerprint,
-            min_dh_prime_bits, priorities, errstr);
+            min_dh_prime_bits, priorities, hostname, no_certcheck, errstr);
 }
 #endif /* HAVE_TLS */
 
@@ -987,10 +989,10 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr)
  */
 
 #ifdef HAVE_TLS
-int pop3_tls(pop3_session_t *session, const char *hostname, int tls_nocertcheck,
+int pop3_tls(pop3_session_t *session,
         tls_cert_info_t *tci, char **tls_parameter_description, char **errstr)
 {
-    return tls_start(&session->tls, session->fd, hostname, tls_nocertcheck, tci,
+    return tls_start(&session->tls, session->fd, tci,
             tls_parameter_description, errstr);
 }
 #endif /* HAVE_TLS */
