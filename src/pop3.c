@@ -2546,7 +2546,7 @@ int pop3_auth_external(pop3_session_t *session, const char *user,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
     {
         return e;
     }
