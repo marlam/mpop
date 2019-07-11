@@ -55,6 +55,8 @@ syn match mpopNumber /\<\(\d\+$\)/
 "Strings
 syntax region mpopString start=/"/ end=/"/
 syntax region mpopString start=/'/ end=/'/
+" Booleans
+syntax match mpopBool "\s\@<=\(on\|off\)$"
 
 highlight default link mpopComment Comment
 highlight default link mpopOption Type
@@ -63,6 +65,7 @@ highlight default link mpopString String
 highlight default link mpopAddress Constant
 highlight default link mpopNumber Number
 highlight default link mpopHost Identifier
+highlight default link mpopBool Constant
 
 
 let b:current_syntax = "mpop"
