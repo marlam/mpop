@@ -40,9 +40,8 @@
 
 #ifdef HAVE_LIBGSASL
 # include <gsasl.h>
-#else
-# include "base64.h"
 #endif
+#include "base64.h"
 #include "md5-apps.h"
 
 #include "gettext.h"

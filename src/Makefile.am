@@ -14,17 +14,13 @@ mpop_SOURCES = \
 	uidls.c uidls.h \
 	xalloc.c xalloc.h \
 	gettext.h \
+	base64.c base64.h \
 	md5.c md5.h \
 	md5-apps.c md5-apps.h \
 	password.c password.h
 
 if HAVE_TLS
 mpop_SOURCES += tls.c tls.h
-endif
-
-if HAVE_LIBGSASL
-else
-mpop_SOURCES += base64.c base64.h
 endif
 
 AM_CPPFLAGS = $(tls_CFLAGS) $(libgsasl_CFLAGS) $(libidn2_CFLAGS) $(libsecret_CFLAGS)
