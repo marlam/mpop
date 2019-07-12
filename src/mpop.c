@@ -266,7 +266,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     /* authenticate */
     auth_successful = 0;
     if ((e = pop3_auth(session, acc->auth_mech, acc->username,
-                    acc->password, acc->host, acc->ntlmdomain,
+                    acc->password, acc->host, acc->port, acc->ntlmdomain,
                     mpop_password_callback, errmsg, errstr))
             != POP3_EOK)
     {
@@ -789,7 +789,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 
     /* authenticate */
     if ((e = pop3_auth(session, acc->auth_mech, acc->username,
-                    acc->password, acc->host, acc->ntlmdomain,
+                    acc->password, acc->host, acc->port, acc->ntlmdomain,
                     mpop_password_callback, errmsg, errstr))
             != POP3_EOK)
     {

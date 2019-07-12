@@ -2252,12 +2252,35 @@ int pop3_auth_apop(pop3_session_t *session,
  */
 
 int pop3_auth_oauthbearer(pop3_session_t *session,
-        const char *password,
+        const char *hostname, unsigned short port,
+        const char *user, const char *token,
         char **errmsg, char **errstr)
 {
     int e;
+    char *oauth;
+    size_t oa_len;
+    char *b64;
+    size_t b64_len;
 
-    if ((e = pop3_send_cmd(session, errstr, "AUTH OAUTHBEARER %s", password)) != POP3_EOK)
+    oa_len = 4 + /* "n,a=" */
+             strlen(user) +
+             7 + /* ",^Ahost=" */
+             strlen(hostname) +
+             6 + 5 + /* "^Aport=" + up to 5 digits */
+             13 + /* "^Aauth=Bearer " */
+             strlen(token) +
+             2 /* "^A^A" */;
+    oauth = xmalloc(oa_len + 1);
+    oa_len = snprintf(oauth, oa_len + 1,
+                      "n,a=%s,\001host=%s\001port=%d\001auth=Bearer %s\001\001",
+                      user, hostname, port, token);
+    b64_len = BASE64_LENGTH(oa_len) + 1;
+    b64 = xmalloc(b64_len);
+    base64_encode(oauth, oa_len, b64, b64_len);
+    e = pop3_send_cmd(session, errstr, "AUTH OAUTHBEARER %s", b64);
+    free(oauth);
+    free(b64);
+    if (e != POP3_EOK)
     {
         return e;
     }
@@ -2669,6 +2692,7 @@ int pop3_auth(pop3_session_t *session,
         const char *user,
         const char *password,
         const char *hostname,
+        unsigned short port,
         const char *ntlmdomain,
         char *(*password_callback)(const char *hostname, const char *user),
         char **errmsg,
@@ -2783,9 +2807,8 @@ int pop3_auth(pop3_session_t *session,
     /* Check availability of required authentication data */
     if (strcmp(auth_mech, "EXTERNAL") != 0)
     {
-        /* GSSAPI, SCRAM-SHA-1, DIGEST-MD5, CRAM-MD5, PLAIN, LOGIN, NTLM, USER,
-         * APOP all need a user name, but OAUTHBEARER does not */
-        if (strcmp(auth_mech, "OAUTHBEARER") != 0 && !user)
+        /* All authentication schemes need a user name */
+        if (!user)
         {
             gsasl_done(ctx);
             *errstr = xasprintf(_("authentication method %s needs a user name"),
@@ -2827,7 +2850,7 @@ int pop3_auth(pop3_session_t *session,
     else if (strcmp(auth_mech, "OAUTHBEARER") == 0)
     {
         gsasl_done(ctx);
-        e = pop3_auth_oauthbearer(session, password, errmsg, errstr);
+        e = pop3_auth_oauthbearer(session, hostname, port, user, password, errmsg, errstr);
         free(callback_password);
         return e;
     }
@@ -3042,9 +3065,9 @@ int pop3_auth(pop3_session_t *session,
     /* Check availability of required authentication data */
     if (strcmp(auth_mech, "EXTERNAL") != 0)
     {
-        /* CRAM-MD5, PLAIN, LOGIN, APOP, USER all need a user name and
-         * password, OAUTHBEARER just needs the password */
-        if (strcmp(auth_mech, "OAUTHBEARER") != 0 && !user)
+        /* CRAM-MD5, PLAIN, LOGIN, APOP, USER, OAUTHBEARER all need a user name and
+         * password */
+        if (!user)
         {
             *errstr = xasprintf(_("authentication method %s needs a user name"),
                     auth_mech);
@@ -3090,7 +3113,7 @@ int pop3_auth(pop3_session_t *session,
     }
     else if (strcmp(auth_mech, "OAUTHBEARER") == 0)
     {
-        e = pop3_auth_oauthbearer(session, password, errmsg, errstr);
+        e = pop3_auth_oauthbearer(session, hostname, port, user, password, errmsg, errstr);
     }
     else
     {

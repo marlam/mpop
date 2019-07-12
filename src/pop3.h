@@ -350,6 +350,8 @@ int pop3_server_supports_authmech(pop3_session_t *session, const char *mech);
  * POP3_EINSECURE.
  * The hostname is the name of the POP3 server. It may be needed for
  * authentication.
+ * The port is port number POP3 server accepts connections on. It may be needed
+ * for authentication.
  * The ntlmdomain may be NULL (even if you use NTLM authentication).
  * If 'password' is NULL, but the authentication method needs a password,
  * the 'password_callback' function is called (if 'password_callback' is not
@@ -364,6 +366,7 @@ int pop3_auth(pop3_session_t *session,
         const char *user,
         const char *password,
         const char *hostname,
+        unsigned short port,
         const char *ntlmdomain,
         char *(*password_callback)(const char *hostname, const char *user),
         char **errmsg,
