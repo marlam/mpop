@@ -2665,7 +2665,7 @@ int main(int argc, char *argv[])
         {
             if (!canonical_hostname)
             {
-                canonical_hostname = net_get_canonical_hostname();
+                canonical_hostname = net_get_canonical_hostname(NULL);
             }
             if (!local_user)
             {
