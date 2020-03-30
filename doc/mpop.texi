@@ -824,7 +824,7 @@ being sent unencrypted to the server, but nowadays everybody needs
 @ref{Transport Layer Security} anyway, so the simple methods suffice since the
 whole session is protected. A suitable authentication method is chosen
 automatically, and when TLS is disabled for some reason, only methods that avoid
-sending clear text passwords are considered.
+sending cleartext passwords are considered.
 
 The following user / password methods are supported:
 @itemize
@@ -833,18 +833,18 @@ A simple plain text method supported by all servers.
 @item @samp{PLAIN}@*
 Another simple plain text method supported by almost all servers.
 @item @samp{SCRAM-SHA-1}@*
-A method that avoids clear-text passwords.
+A method that avoids cleartext passwords.
 @item @samp{APOP}@*
-An obsolete method that avoids clear-text passwords, but is not considered
+An obsolete method that avoids cleartext passwords, but is not considered
 secure anymore.
 @item @samp{CRAM-MD5}@*
-An obsolete method that avoids clear-text passwords, but is not considered
+An obsolete method that avoids cleartext passwords, but is not considered
 secure anymore.
 @item @samp{DIGEST-MD5}@*
-An overcomplicated obsolete method that avoids clear-text passwords, but is not
+An overcomplicated obsolete method that avoids cleartext passwords, but is not
 considered secure anymore.
 @item @samp{LOGIN}@*
-A non-standard clear-text method similar to (but worse than) PLAIN.
+A non-standard cleartext method similar to (but worse than) PLAIN.
 @item @samp{NTLM}@*
 An obscure non-standard method that is now considered broken. It sometimes requires
 a special domain parameter passed via @ref{ntlmdomain}. Do not use it.
