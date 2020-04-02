@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2014, 2015, 2016, 2018, 2019
+ * 2014, 2015, 2016, 2018, 2019, 2020
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -93,6 +93,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->proxy_host = NULL;
     a->proxy_port = 0;
     a->source_ip = NULL;
+    a->socketname = NULL;
     return a;
 }
 
@@ -175,6 +176,7 @@ account_t *account_copy(account_t *acc)
         a->proxy_host = acc->proxy_host ? xstrdup(acc->proxy_host) : NULL;
         a->proxy_port = acc->proxy_port;
         a->source_ip = acc->source_ip ? xstrdup(acc->source_ip) : NULL;
+        a->socketname = acc->socketname ? xstrdup(acc->socketname) : NULL;
     }
     return a;
 }
@@ -212,6 +214,7 @@ void account_free(void *a)
         free(p->tls_priorities);
         free(p->proxy_host);
         free(p->source_ip);
+        free(p->socketname);
         free(p);
     }
 }
@@ -590,6 +593,11 @@ void override_account(account_t *acc1, account_t *acc2)
         free(acc1->source_ip);
         acc1->source_ip = acc2->source_ip ? xstrdup(acc2->source_ip) : NULL;
     }
+    if (acc2->mask & ACC_SOCKET)
+    {
+        free(acc1->socketname);
+        acc1->socketname = acc2->socketname ? xstrdup(acc2->socketname) : NULL;
+    }
     acc1->mask |= acc2->mask;
 }
 
@@ -602,7 +610,7 @@ void override_account(account_t *acc1, account_t *acc2)
 
 int check_account(account_t *acc, int retrmail, char **errstr)
 {
-    if (!acc->host)
+    if (!acc->host && !(acc->socketname && !acc->tls))
     {
         *errstr = xasprintf(_("host not set"));
         return CONF_ESYNTAX;
@@ -1556,6 +1564,19 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
             else
             {
                 acc->source_ip = xstrdup(arg);
+            }
+        }
+        else if (strcmp(cmd, "socket") == 0)
+        {
+            acc->mask |= ACC_SOCKET;
+            free(acc->socketname);
+            if (*arg == '\0')
+            {
+                acc->socketname = NULL;
+            }
+            else
+            {
+                acc->socketname = xstrdup(arg);
             }
         }
         else if (strcmp(cmd, "tls_force_sslv3") == 0)

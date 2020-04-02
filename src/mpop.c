@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2012, 2013, 2014, 2015, 2016, 2018, 2019
+ * 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
@@ -162,7 +162,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     session = pop3_session_new(acc->pipelining, "", "", debug ? stdout : NULL);
 
     /* connect */
-    if ((e = pop3_connect(session, acc->proxy_host, acc->proxy_port,
+    if ((e = pop3_connect(session, acc->socketname, acc->proxy_host, acc->proxy_port,
                     acc->host, acc->port, acc->source_ip, acc->timeout,
                     &server_canonical_name, &server_address, errstr))
             != NET_EOK)
@@ -661,7 +661,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
             debug ? stdout : NULL);
 
     /* connect */
-    if ((e = pop3_connect(session, acc->proxy_host, acc->proxy_port,
+    if ((e = pop3_connect(session, acc->socketname, acc->proxy_host, acc->proxy_port,
                     acc->host, acc->port, acc->source_ip, acc->timeout,
                     NULL, NULL, errstr)) != NET_EOK)
     {
@@ -1455,6 +1455,7 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_PROXY_PORT                  27
 #define LONGONLYOPT_SOURCE_IP                   28
 #define LONGONLYOPT_CONFIGURE                   29
+#define LONGONLYOPT_SOCKET                      30
 
 int main(int argc, char *argv[])
 {
@@ -1552,6 +1553,7 @@ int main(int argc, char *argv[])
         { "proxy-host",            required_argument, 0, LONGONLYOPT_PROXY_HOST },
         { "proxy-port",            required_argument, 0, LONGONLYOPT_PROXY_PORT },
         { "source-ip",             required_argument, 0, LONGONLYOPT_SOURCE_IP },
+        { "socket",                required_argument, 0, LONGONLYOPT_SOCKET },
         { "tls",                   optional_argument, 0, LONGONLYOPT_TLS },
         { "tls-starttls",          optional_argument, 0,
             LONGONLYOPT_TLS_STARTTLS },
@@ -1836,6 +1838,19 @@ int main(int argc, char *argv[])
                     cmdline_account->source_ip = NULL;
                 }
                 cmdline_account->mask |= ACC_SOURCE_IP;
+                break;
+
+            case LONGONLYOPT_SOCKET:
+                free(cmdline_account->socketname);
+                if (*optarg)
+                {
+                    cmdline_account->socketname = xstrdup(optarg);
+                }
+                else
+                {
+                    cmdline_account->socketname = NULL;
+                }
+                cmdline_account->mask |= ACC_SOCKET;
                 break;
 
             case LONGONLYOPT_TLS:
@@ -2264,9 +2279,10 @@ int main(int argc, char *argv[])
         printf(_("  --host=hostname              set the server, use only command-line settings;\n"
                     "                               do not use any configuration file data\n"));
         printf(_("  --port=number                set port number\n"));
+        printf(_("  --source-ip=[IP]             set/unset source ip address to bind the socket to\n"));
         printf(_("  --proxy-host=[IP|hostname]   set/unset proxy\n"));
         printf(_("  --proxy-port=[number]        set/unset proxy port\n"));
-        printf(_("  --source-ip=[IP]             set/unset source ip address to bind the socket to\n"));
+        printf(_("  --socket=[socketname]        set/unset local socket to connect to\n"));
         printf(_("  --timeout=(off|seconds)      set/unset network timeout in seconds\n"));
         printf(_("  --pipelining=(auto|on|off)   enable/disable pipelining\n"));
         printf(_("  --received-header[=(on|off)] enable/disable Received-header\n"));
@@ -2472,6 +2488,8 @@ int main(int argc, char *argv[])
             printf("proxy host = %s\n",
                     account->proxy_host ? account->proxy_host : _("(not set)"));
             printf("proxy port = %d\n", account->proxy_port);
+            printf("socket = %s\n",
+                    account->socketname ? account->socketname : _("(not set)"));
             printf("timeout = ");
             if (account->timeout <= 0)
             {

@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2014,
- * 2015, 2016, 2018, 2019
+ * 2015, 2016, 2018, 2019, 2020
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  *
@@ -203,6 +203,7 @@ void pop3_session_free(pop3_session_t *session)
  */
 
 int pop3_connect(pop3_session_t *session,
+        const char *socketname,
         const char *proxy_hostname, int proxy_port,
         const char *server_hostname, int port, const char *source_ip, int timeout,
         const char **server_canonical_name, const char **server_address,
@@ -211,7 +212,7 @@ int pop3_connect(pop3_session_t *session,
     int e;
 
     session->server_hostname = xstrdup(server_hostname);
-    e = net_open_socket(proxy_hostname, proxy_port,
+    e = net_open_socket(socketname, proxy_hostname, proxy_port,
             server_hostname, port, source_ip, timeout, &session->fd,
             &session->server_canonical_name, &session->server_address, errstr);
     if (server_canonical_name)
