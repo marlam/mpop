@@ -1507,10 +1507,6 @@ int main(int argc, char *argv[])
     void (*old_sighup_handler)(int);
     void (*old_sigint_handler)(int);
 #endif
-    /* misc */
-#if HAVE_GETSERVBYNAME
-    struct servent *se;
-#endif
     int c;
     int net_lib_initialized = 0;
 #ifdef HAVE_TLS
