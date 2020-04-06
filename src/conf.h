@@ -42,37 +42,38 @@
 /*
  * An account
  */
-#define ACC_HOST                        (1 << 0)
-#define ACC_PORT                        (1 << 1)
-#define ACC_TIMEOUT                     (1 << 2)
-#define ACC_PIPELINING                  (1 << 3)
-#define ACC_DELIVERY                    (1 << 4)
-#define ACC_RECEIVED_HEADER             (1 << 5)
-#define ACC_UIDLS_FILE                  (1 << 6)
-#define ACC_ONLY_NEW                    (1 << 7)
-#define ACC_KEEP                        (1 << 8)
-#define ACC_KILLSIZE                    (1 << 9)
-#define ACC_SKIPSIZE                    (1 << 10)
-#define ACC_FILTER                      (1 << 11)
-#define ACC_AUTH_MECH                   (1 << 12)
-#define ACC_USERNAME                    (1 << 13)
-#define ACC_PASSWORD                    (1 << 14)
-#define ACC_PASSWORDEVAL                (1 << 15)
-#define ACC_NTLMDOMAIN                  (1 << 16)
-#define ACC_TLS                         (1 << 17)
-#define ACC_TLS_KEY_FILE                (1 << 18)
-#define ACC_TLS_CERT_FILE               (1 << 19)
-#define ACC_TLS_TRUST_FILE              (1 << 20)
-#define ACC_TLS_CRL_FILE                (1 << 21)
-#define ACC_TLS_FINGERPRINT             (1 << 22)
-#define ACC_TLS_NOCERTCHECK             (1 << 23)
-#define ACC_TLS_NOSTARTTLS              (1 << 24)
-#define ACC_TLS_MIN_DH_PRIME_BITS       (1 << 25)
-#define ACC_TLS_PRIORITIES              (1 << 26)
-#define ACC_PROXY_HOST                  (1 << 27)
-#define ACC_PROXY_PORT                  (1 << 28)
-#define ACC_SOURCE_IP                   (1 << 29)
-#define ACC_SOCKET                      (1 << 30)
+#define ACC_HOST                        (1LL << 0LL)
+#define ACC_PORT                        (1LL << 1LL)
+#define ACC_TIMEOUT                     (1LL << 2LL)
+#define ACC_PIPELINING                  (1LL << 3LL)
+#define ACC_DELIVERY                    (1LL << 4LL)
+#define ACC_RECEIVED_HEADER             (1LL << 5LL)
+#define ACC_UIDLS_FILE                  (1LL << 6LL)
+#define ACC_ONLY_NEW                    (1LL << 7LL)
+#define ACC_KEEP                        (1LL << 8LL)
+#define ACC_KILLSIZE                    (1LL << 9LL)
+#define ACC_SKIPSIZE                    (1LL << 10LL)
+#define ACC_FILTER                      (1LL << 11LL)
+#define ACC_AUTH_MECH                   (1LL << 12LL)
+#define ACC_USERNAME                    (1LL << 13LL)
+#define ACC_PASSWORD                    (1LL << 14LL)
+#define ACC_PASSWORDEVAL                (1LL << 15LL)
+#define ACC_NTLMDOMAIN                  (1LL << 16LL)
+#define ACC_TLS                         (1LL << 17LL)
+#define ACC_TLS_KEY_FILE                (1LL << 18LL)
+#define ACC_TLS_CERT_FILE               (1LL << 19LL)
+#define ACC_TLS_TRUST_FILE              (1LL << 20LL)
+#define ACC_TLS_CRL_FILE                (1LL << 21LL)
+#define ACC_TLS_FINGERPRINT             (1LL << 22LL)
+#define ACC_TLS_NOCERTCHECK             (1LL << 23LL)
+#define ACC_TLS_NOSTARTTLS              (1LL << 24LL)
+#define ACC_TLS_MIN_DH_PRIME_BITS       (1LL << 25LL)
+#define ACC_TLS_PRIORITIES              (1LL << 26LL)
+#define ACC_TLS_HOST_OVERRIDE           (1LL << 27LL)
+#define ACC_PROXY_HOST                  (1LL << 28LL)
+#define ACC_PROXY_PORT                  (1LL << 29LL)
+#define ACC_SOURCE_IP                   (1LL << 30LL)
+#define ACC_SOCKET                      (1LL << 31LL)
 
 typedef struct
 {
@@ -80,7 +81,7 @@ typedef struct
     char *id;                   /* name of this account */
     char *conffile;             /* name of the configuration file of this
                                    account or NULL for command line */
-    int mask;                   /* combination of the above ACC_* flags.
+    long long mask;             /* combination of the above ACC_* flags.
                                    Shows which settings were changed */
     /* POP3 server */
     char *host;                 /* hostname of POP3 server */
@@ -118,7 +119,7 @@ typedef struct
     int tls_nocertcheck;        /* flag: do not check certificate? */
     int tls_min_dh_prime_bits;  /* parameter; -1 for default */
     char *tls_priorities;       /* parameter; NULL for default */
-
+    char *tls_host_override;    /* overrides 'host' for verification; or NULL */
     /* proxy */
     char *proxy_host;           /* NULL or proxy hostname */
     int proxy_port;             /* port number; 0 for default */

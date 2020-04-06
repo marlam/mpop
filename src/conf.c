@@ -90,6 +90,7 @@ account_t *account_new(const char *conffile, const char *id)
     a->tls_nocertcheck = 0;
     a->tls_min_dh_prime_bits = -1;
     a->tls_priorities = NULL;
+    a->tls_host_override = NULL;
     a->proxy_host = NULL;
     a->proxy_port = 0;
     a->source_ip = NULL;
@@ -173,6 +174,8 @@ account_t *account_copy(account_t *acc)
         a->tls_min_dh_prime_bits = acc->tls_min_dh_prime_bits;
         a->tls_priorities =
             acc->tls_priorities ? xstrdup(acc->tls_priorities) : NULL;
+        a->tls_host_override =
+            acc->tls_host_override ? xstrdup(acc->tls_host_override) : NULL;
         a->proxy_host = acc->proxy_host ? xstrdup(acc->proxy_host) : NULL;
         a->proxy_port = acc->proxy_port;
         a->source_ip = acc->source_ip ? xstrdup(acc->source_ip) : NULL;
@@ -212,6 +215,7 @@ void account_free(void *a)
         free(p->tls_sha1_fingerprint);
         free(p->tls_md5_fingerprint);
         free(p->tls_priorities);
+        free(p->tls_host_override);
         free(p->proxy_host);
         free(p->source_ip);
         free(p->socketname);
@@ -579,6 +583,12 @@ void override_account(account_t *acc1, account_t *acc2)
         acc1->tls_priorities = acc2->tls_priorities
             ? xstrdup(acc2->tls_priorities) : NULL;
     }
+    if (acc2->mask & ACC_TLS_HOST_OVERRIDE)
+    {
+        free(acc1->tls_host_override);
+        acc1->tls_host_override = acc2->tls_host_override
+            ? xstrdup(acc2->tls_host_override) : NULL;
+    }
     if (acc2->mask & ACC_PROXY_HOST)
     {
         free(acc1->proxy_host);
@@ -610,7 +620,12 @@ void override_account(account_t *acc1, account_t *acc2)
 
 int check_account(account_t *acc, int retrmail, char **errstr)
 {
-    if (!acc->host && !(acc->socketname && !acc->tls))
+    if (!acc->host && !acc->socketname)
+    {
+        *errstr = xasprintf(_("host not set"));
+        return CONF_ESYNTAX;
+    }
+    if (acc->tls && !(acc->host || acc->tls_host_override))
     {
         *errstr = xasprintf(_("host not set"));
         return CONF_ESYNTAX;
@@ -1415,6 +1430,19 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
             else
             {
                 acc->tls_priorities = xstrdup(arg);
+            }
+        }
+        else if (strcmp(cmd, "tls_host_override") == 0)
+        {
+            acc->mask |= ACC_TLS_HOST_OVERRIDE;
+            free(acc->tls_host_override);
+            if (*arg == '\0')
+            {
+                acc->tls_host_override = NULL;
+            }
+            else
+            {
+                acc->tls_host_override = xstrdup(arg);
             }
         }
         else if (strcmp(cmd, "only_new") == 0)

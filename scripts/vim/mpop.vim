@@ -22,7 +22,7 @@ syntax match mpopOption /\<\(defaults\|account\|host\|port\|source_ip\|proxy_hos
 " Authentication commands.
 syntax match mpopOption /\<\(auth\|user\|password\|passwordeval\|ntlmdomain\)\>/
 " TLS commands.
-syntax match mpopOption /\<\(tls\|tls_trust_file\|tls_crl_file\|tls_fingerprint\|tls_key_file\|tls_cert_file\|tls_certcheck\|tls_starttls\|tls_min_dh_prime_bits\|tls_priorities\)\>/
+syntax match mpopOption /\<\(tls\|tls_trust_file\|tls_crl_file\|tls_fingerprint\|tls_key_file\|tls_cert_file\|tls_certcheck\|tls_starttls\|tls_min_dh_prime_bits\|tls_priorities\|tls_host_override\)\>/
 " Retrieval commands.
 syntax match mpopOption /\<\(only_new\|keep\|killsize\|skipsize\|filter\|received_header\)\>/
 

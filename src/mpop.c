@@ -184,7 +184,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
                         acc->tls_min_dh_prime_bits,
                         acc->tls_priorities,
-                        acc->host,
+                        acc->tls_host_override ? acc->tls_host_override : acc->host,
                         acc->tls_nocertcheck,
                         errstr)) != TLS_EOK)
         {
@@ -680,7 +680,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                         acc->tls_sha1_fingerprint, acc->tls_md5_fingerprint,
                         acc->tls_min_dh_prime_bits,
                         acc->tls_priorities,
-                        acc->host,
+                        acc->tls_host_override ? acc->tls_host_override : acc->host,
                         acc->tls_nocertcheck,
                         errstr)) != TLS_EOK)
         {
@@ -1425,37 +1425,38 @@ int make_needed_dirs(const char *pathname)
  */
 
 /* long options without a corresponding short option */
-#define LONGONLYOPT_VERSION                     0
-#define LONGONLYOPT_HELP                        1
-#define LONGONLYOPT_HOST                        2
-#define LONGONLYOPT_PORT                        3
-#define LONGONLYOPT_TIMEOUT                     4
-#define LONGONLYOPT_PIPELINING                  5
-#define LONGONLYOPT_RECEIVED_HEADER             6
-#define LONGONLYOPT_AUTH                        7
-#define LONGONLYOPT_USER                        8
-#define LONGONLYOPT_PASSWORDEVAL                9
-#define LONGONLYOPT_TLS                         10
-#define LONGONLYOPT_TLS_STARTTLS                11
-#define LONGONLYOPT_TLS_TRUST_FILE              12
-#define LONGONLYOPT_TLS_CRL_FILE                13
-#define LONGONLYOPT_TLS_FINGERPRINT             14
-#define LONGONLYOPT_TLS_KEY_FILE                15
-#define LONGONLYOPT_TLS_CERT_FILE               16
-#define LONGONLYOPT_TLS_CERTCHECK               17
-#define LONGONLYOPT_TLS_FORCE_SSLV3             18
-#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       19
-#define LONGONLYOPT_TLS_PRIORITIES              20
-#define LONGONLYOPT_KILLSIZE                    21
-#define LONGONLYOPT_SKIPSIZE                    22
-#define LONGONLYOPT_FILTER                      23
-#define LONGONLYOPT_DELIVERY                    24
-#define LONGONLYOPT_UIDLS_FILE                  25
-#define LONGONLYOPT_PROXY_HOST                  26
-#define LONGONLYOPT_PROXY_PORT                  27
-#define LONGONLYOPT_SOURCE_IP                   28
-#define LONGONLYOPT_CONFIGURE                   29
-#define LONGONLYOPT_SOCKET                      30
+#define LONGONLYOPT_VERSION                     (256 + 0)
+#define LONGONLYOPT_HELP                        (256 + 1)
+#define LONGONLYOPT_HOST                        (256 + 2)
+#define LONGONLYOPT_PORT                        (256 + 3)
+#define LONGONLYOPT_TIMEOUT                     (256 + 4)
+#define LONGONLYOPT_PIPELINING                  (256 + 5)
+#define LONGONLYOPT_RECEIVED_HEADER             (256 + 6)
+#define LONGONLYOPT_AUTH                        (256 + 7)
+#define LONGONLYOPT_USER                        (256 + 8)
+#define LONGONLYOPT_PASSWORDEVAL                (256 + 9)
+#define LONGONLYOPT_TLS                         (256 + 10)
+#define LONGONLYOPT_TLS_STARTTLS                (256 + 11)
+#define LONGONLYOPT_TLS_TRUST_FILE              (256 + 12)
+#define LONGONLYOPT_TLS_CRL_FILE                (256 + 13)
+#define LONGONLYOPT_TLS_FINGERPRINT             (256 + 14)
+#define LONGONLYOPT_TLS_KEY_FILE                (256 + 15)
+#define LONGONLYOPT_TLS_CERT_FILE               (256 + 16)
+#define LONGONLYOPT_TLS_CERTCHECK               (256 + 17)
+#define LONGONLYOPT_TLS_FORCE_SSLV3             (256 + 18)
+#define LONGONLYOPT_TLS_MIN_DH_PRIME_BITS       (256 + 19)
+#define LONGONLYOPT_TLS_PRIORITIES              (256 + 20)
+#define LONGONLYOPT_TLS_HOST_OVERRIDE           (256 + 21)
+#define LONGONLYOPT_KILLSIZE                    (256 + 22)
+#define LONGONLYOPT_SKIPSIZE                    (256 + 23)
+#define LONGONLYOPT_FILTER                      (256 + 24)
+#define LONGONLYOPT_DELIVERY                    (256 + 25)
+#define LONGONLYOPT_UIDLS_FILE                  (256 + 26)
+#define LONGONLYOPT_PROXY_HOST                  (256 + 27)
+#define LONGONLYOPT_PROXY_PORT                  (256 + 28)
+#define LONGONLYOPT_SOURCE_IP                   (256 + 29)
+#define LONGONLYOPT_CONFIGURE                   (256 + 30)
+#define LONGONLYOPT_SOCKET                      (256 + 31)
 
 int main(int argc, char *argv[])
 {
@@ -1571,6 +1572,8 @@ int main(int argc, char *argv[])
             LONGONLYOPT_TLS_MIN_DH_PRIME_BITS },
         { "tls-priorities",        required_argument, 0,
             LONGONLYOPT_TLS_PRIORITIES },
+        { "tls-host-override",     required_argument, 0,
+            LONGONLYOPT_TLS_HOST_OVERRIDE },
         { 0, 0, 0, 0 }
     };
 
@@ -2003,6 +2006,19 @@ int main(int argc, char *argv[])
                 cmdline_account->mask |= ACC_TLS_PRIORITIES;
                 break;
 
+            case LONGONLYOPT_TLS_HOST_OVERRIDE:
+                free(cmdline_account->tls_host_override);
+                if (*optarg)
+                {
+                    cmdline_account->tls_host_override = xstrdup(optarg);
+                }
+                else
+                {
+                    cmdline_account->tls_host_override = NULL;
+                }
+                cmdline_account->mask |= ACC_TLS_HOST_OVERRIDE;
+                break;
+
             case 'n':
                 if (!optarg || is_on(optarg))
                 {
@@ -2294,6 +2310,7 @@ int main(int argc, char *argv[])
         printf(_("  --tls-key-file=[file]        set/unset private key file for TLS\n"));
         printf(_("  --tls-cert-file=[file]       set/unset private cert file for TLS\n"));
         printf(_("  --tls-priorities=[prios]     set/unset TLS priorities.\n"));
+        printf(_("  --tls-host-override=[host]   set/unset override for TLS host verification.\n"));
         printf(_("  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"));
         printf(_("Options specific to mail retrieval mode:\n"));
         printf(_("  -q, --quiet                  do not display status or progress information\n"));
@@ -2565,6 +2582,8 @@ int main(int argc, char *argv[])
             }
             printf("tls_priorities = %s\n", account->tls_priorities
                     ? account->tls_priorities : _("(not set)"));
+            printf("tls_host_override = %s\n", account->tls_host_override
+                    ? account->tls_host_override : _("(not set)"));
             if (retrmail)
             {
                 printf("delivery = ");
