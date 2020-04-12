@@ -360,17 +360,20 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
         printf("    LOGIN-DELAY %ld:\n        ",
                 session->cap.login_delay);
-        printf(_("minimum time between logins is %ld seconds"),
-                session->cap.login_delay);
         if (session->cap.login_delay > 60 * 60)
         {
-            printf(_(" = %.2f hours"),
-                    (float)session->cap.login_delay / (60.0 * 60.0));
+            printf(_("minimum time between logins is %ld seconds = %.2f hours"),
+                    session->cap.login_delay, session->cap.login_delay / (60.0f * 60.0f));
         }
         else if (session->cap.login_delay > 60)
         {
-            printf(_(" = %.2f minutes"),
-                    (float)session->cap.login_delay / 60.0);
+            printf(_("minimum time between logins is %ld seconds = %.2f minutes"),
+                    session->cap.login_delay, session->cap.login_delay / 60.0f);
+        }
+        else
+        {
+            printf(_("minimum time between logins is %ld seconds"),
+                    session->cap.login_delay);
         }
         printf("\n");
     }
