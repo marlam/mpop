@@ -18,6 +18,7 @@ configure
 *~
 *.pot
 *.gmo
+stamp-po
 doc/*.info
 doc/version.texi
 doc/stamp-vti
