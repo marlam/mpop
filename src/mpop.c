@@ -2270,10 +2270,11 @@ int main(int argc, char *argv[])
     {
         printf(_("Usage:\n\n"));
         printf(_("Mail retrieval mode (default):\n"
-                    "  %s [option...] [--] account...\n"
+                    "  %s [option...] account...\n"
+                    "  %s [option...] --all-accounts\n"
                     "  %s --host=host [option...]\n"
-                    "  Read mails from one ore more POP3 accounts and deliver "
-                    "them.\n"), prgname, prgname);
+                    "  Read mails from one or more POP3 accounts and deliver "
+                    "them.\n"), prgname, prgname, prgname);
         printf(_("Configuration mode:\n"
                     "  %s --configure=mailaddress\n"
                     "  Generate and print configuration for address.\n"), prgname);
