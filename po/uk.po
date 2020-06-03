@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.4.8rc2\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2020-04-23 08:43+0200\n"
+"POT-Creation-Date: 2020-06-03 21:51+0200\n"
 "PO-Revision-Date: 2020-04-07 13:30+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -427,12 +427,18 @@ msgstr ""
 "\n"
 
 #: src/mpop.c:2272
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Mail retrieval mode (default):\n"
+#| "  %s [option...] [--] account...\n"
+#| "  %s --host=host [option...]\n"
+#| "  Read mails from one ore more POP3 accounts and deliver them.\n"
 msgid ""
 "Mail retrieval mode (default):\n"
-"  %s [option...] [--] account...\n"
+"  %s [option...] account...\n"
+"  %s [option...] --all-accounts\n"
 "  %s --host=host [option...]\n"
-"  Read mails from one ore more POP3 accounts and deliver them.\n"
+"  Read mails from one or more POP3 accounts and deliver them.\n"
 msgstr ""
 "Режим отримання пошти (типовий):\n"
 "  %s [параметр...] [--] обліковий_запис...\n"
@@ -440,7 +446,7 @@ msgstr ""
 "  Прочитати повідомлення з одного або декількох записів POP3 і розіслати "
 "надіслані повідомлення.\n"
 
-#: src/mpop.c:2277
+#: src/mpop.c:2278
 #, c-format
 msgid ""
 "Configuration mode:\n"
@@ -451,7 +457,7 @@ msgstr ""
 "  %s --configure=поштова_адреса\n"
 "  створити і вивести налаштування для вказаної адреси\n"
 
-#: src/mpop.c:2280
+#: src/mpop.c:2281
 #, c-format
 msgid ""
 "Server information mode:\n"
@@ -466,39 +472,39 @@ msgstr ""
 "  Вивести дані щодо одного або декількох серверів POP3.\n"
 "\n"
 
-#: src/mpop.c:2284
+#: src/mpop.c:2285
 #, c-format
 msgid "General options:\n"
 msgstr "Загальні параметри:\n"
 
-#: src/mpop.c:2285
+#: src/mpop.c:2286
 #, c-format
 msgid "  --version                    print version\n"
 msgstr "  --version                    вивести дані щодо версії\n"
 
-#: src/mpop.c:2286
+#: src/mpop.c:2287
 #, c-format
 msgid "  --help                       print help\n"
 msgstr "  --help                       вивести додаткове повідомлення\n"
 
-#: src/mpop.c:2287
+#: src/mpop.c:2288
 #, c-format
 msgid "  -P, --pretend                print configuration info and exit\n"
 msgstr ""
 "  -P, --pretend                вивести дані щодо налаштування і завершити "
 "роботу\n"
 
-#: src/mpop.c:2288
+#: src/mpop.c:2289
 #, c-format
 msgid "  -d, --debug                  print debugging information\n"
 msgstr "  -d, --debug                  вивести діагностичну інформацію\n"
 
-#: src/mpop.c:2289
+#: src/mpop.c:2290
 #, c-format
 msgid "Changing the mode of operation:\n"
 msgstr "Зміна режиму роботи:\n"
 
-#: src/mpop.c:2290
+#: src/mpop.c:2291
 #, c-format
 msgid ""
 "  --configure=mailaddress      generate and print configuration for address\n"
@@ -506,22 +512,22 @@ msgstr ""
 "  --configure=поштова_адреса   створити і вивести налаштування для вказаної "
 "адреси\n"
 
-#: src/mpop.c:2291
+#: src/mpop.c:2292
 #, c-format
 msgid "  -S, --serverinfo             print information about the server\n"
 msgstr "  -S, --serverinfo             вивести відомості щодо сервера\n"
 
-#: src/mpop.c:2292
+#: src/mpop.c:2293
 #, c-format
 msgid "Configuration options:\n"
 msgstr "Параметри налаштовування:\n"
 
-#: src/mpop.c:2293
+#: src/mpop.c:2294
 #, c-format
 msgid "  -C, --file=filename          set configuration file\n"
 msgstr "  -C, --file=назва_файла       вказати файл налаштувань\n"
 
-#: src/mpop.c:2294
+#: src/mpop.c:2295
 #, c-format
 msgid ""
 "  --host=hostname              set the server, use only command-line "
@@ -532,12 +538,12 @@ msgstr ""
 "параметри командного рядка;\n"
 "                               не використовувати дані з файла налаштувань\n"
 
-#: src/mpop.c:2296
+#: src/mpop.c:2297
 #, c-format
 msgid "  --port=number                set port number\n"
 msgstr "  --port=число                 вказати номер порту\n"
 
-#: src/mpop.c:2297
+#: src/mpop.c:2298
 #, c-format
 msgid ""
 "  --source-ip=[IP]             set/unset source ip address to bind the "
@@ -546,83 +552,83 @@ msgstr ""
 "  --source-ip=[IP]             вказати/скасувати визначення ip-адреси для "
 "прив'язування сокета\n"
 
-#: src/mpop.c:2298
+#: src/mpop.c:2299
 #, c-format
 msgid "  --proxy-host=[IP|hostname]   set/unset proxy\n"
 msgstr "  --proxy-host=[IP|вузол]     визначити/скасувати визначення проксі\n"
 
-#: src/mpop.c:2299
+#: src/mpop.c:2300
 #, c-format
 msgid "  --proxy-port=[number]        set/unset proxy port\n"
 msgstr ""
 "  --proxy-port=[число]         вказати/скасувати визначення порту проксі\n"
 
-#: src/mpop.c:2300
+#: src/mpop.c:2301
 #, c-format
 msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
 msgstr ""
 "  --socket=[назва_сокета]      вказати/скасувати визначення сокет для "
 "з'єднання\n"
 
-#: src/mpop.c:2301
+#: src/mpop.c:2302
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
 msgstr ""
 "  --timeout=(off|секунди)      вказати/скасувати визначення часу очікування "
 "у секундах\n"
 
-#: src/mpop.c:2302
+#: src/mpop.c:2303
 #, c-format
 msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
 msgstr "  --pipelining=(auto|on|off)   увімкнути/вимкнути конвеєрну обробку\n"
 
-#: src/mpop.c:2303
+#: src/mpop.c:2304
 #, c-format
 msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
 msgstr "  --received-header[=(on|off)] увімкнути/вимкнути заголовок Received\n"
 
-#: src/mpop.c:2304
+#: src/mpop.c:2305
 #, c-format
 msgid "  --auth[=(on|method)]         choose the authentication method\n"
 msgstr "  --auth[=(on|спосіб)]         вибрати спосіб розпізнавання\n"
 
-#: src/mpop.c:2305
+#: src/mpop.c:2306
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
 msgstr ""
 "  --user=[користувач]          вказати/скасувати визначення користувача для "
 "розпізнавання\n"
 
-#: src/mpop.c:2306
+#: src/mpop.c:2307
 #, c-format
 msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
 msgstr "  --passwordeval=[eval]        перевірити пароль для розпізнавання\n"
 
-#: src/mpop.c:2307
+#: src/mpop.c:2308
 #, c-format
 msgid "  --tls[=(on|off)]             enable/disable TLS encryption\n"
 msgstr "  --tls[=(on|off)]             увімкнути/вимкнути шифрування TLS\n"
 
-#: src/mpop.c:2308
+#: src/mpop.c:2309
 #, c-format
 msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
 msgstr "  --tls-starttls[=(on|off)]    увімкнути/вимкнути STARTTLS для TLS\n"
 
-#: src/mpop.c:2309
+#: src/mpop.c:2310
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
 msgstr ""
 "  --tls-trust-file=[файл]      вказати/скасувати визначення файла довіри для "
 "TLS\n"
 
-#: src/mpop.c:2310
+#: src/mpop.c:2311
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
 msgstr ""
 "  --tls-crl-file=[файл]        вказати/скасувати визначення файла "
 "відкликання для TLS\n"
 
-#: src/mpop.c:2311
+#: src/mpop.c:2312
 #, c-format
 msgid ""
 "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
@@ -631,7 +637,7 @@ msgstr ""
 "  --tls-fingerprint=[f]        вказати/скасувати визначення відбитка "
 "надійного сертифіката для TLS\n"
 
-#: src/mpop.c:2312
+#: src/mpop.c:2313
 #, c-format
 msgid ""
 "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
@@ -640,28 +646,28 @@ msgstr ""
 "  --tls-certcheck[=(on|off)]   увімкнути/вимкнути перевірки сертифіката для "
 "TLS\n"
 
-#: src/mpop.c:2313
+#: src/mpop.c:2314
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
 msgstr ""
 "  --tls-key-file=[файл]        вказати/скасувати визначення файла закритого "
 "ключа для TLS\n"
 
-#: src/mpop.c:2314
+#: src/mpop.c:2315
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
 msgstr ""
 "  --tls-cert-file=[файл]        вказати/скасувати визначення файла закритого "
 "сертифіката для TLS\n"
 
-#: src/mpop.c:2315
+#: src/mpop.c:2316
 #, c-format
 msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
 msgstr ""
 "  --tls-priorities=[пріор]     вказати/скасувати визначення пріоритетностей "
 "TLS.\n"
 
-#: src/mpop.c:2316
+#: src/mpop.c:2317
 #, c-format
 msgid ""
 "  --tls-host-override=[host]   set/unset override for TLS host "
@@ -670,19 +676,19 @@ msgstr ""
 "  --tls-host-override=[вузол]  встановити або зняти перевизначення для "
 "перевірки вузла TLS.\n"
 
-#: src/mpop.c:2317
+#: src/mpop.c:2318
 #, c-format
 msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
 msgstr ""
 "  --tls-min-dh-prime-bits=[b]  встановити/скасувати визначення мінімального "
 "розміру у бітах для основи DH\n"
 
-#: src/mpop.c:2318
+#: src/mpop.c:2319
 #, c-format
 msgid "Options specific to mail retrieval mode:\n"
 msgstr "Параметри, які є специфічними для режиму отримання пошти:\n"
 
-#: src/mpop.c:2319
+#: src/mpop.c:2320
 #, c-format
 msgid ""
 "  -q, --quiet                  do not display status or progress "
@@ -690,7 +696,7 @@ msgid ""
 msgstr ""
 "  -q, --quiet                  не виводити даних щодо стану та поступу\n"
 
-#: src/mpop.c:2320
+#: src/mpop.c:2321
 #, c-format
 msgid ""
 "  -Q, --half-quiet             display status but not progress information\n"
@@ -698,7 +704,7 @@ msgstr ""
 "  -Q, --half-quiet             вивести дані щодо стану, але не виводити "
 "даних щодо поступу\n"
 
-#: src/mpop.c:2321
+#: src/mpop.c:2322
 #, c-format
 msgid ""
 "  -a, --all-accounts           query all accounts in the configuration file\n"
@@ -706,7 +712,7 @@ msgstr ""
 "  -a, --all-accounts           опитати усі облікові записи із файла "
 "налаштувань\n"
 
-#: src/mpop.c:2322
+#: src/mpop.c:2323
 #, c-format
 msgid ""
 "  -A, --auth-only              authenticate only; do not retrieve mail\n"
@@ -714,7 +720,7 @@ msgstr ""
 "  -A, --auth-only              лише пройти розпізнавання; не отримувати "
 "пошти\n"
 
-#: src/mpop.c:2323
+#: src/mpop.c:2324
 #, c-format
 msgid ""
 "  -s, --status-only            print account status only; do not retrieve "
@@ -723,48 +729,48 @@ msgstr ""
 "  -s, --status-only            вивести лише стан облікового запису; не "
 "отримувати пошти\n"
 
-#: src/mpop.c:2324
+#: src/mpop.c:2325
 #, c-format
 msgid "  -n, --only-new[=(on|off)]    process only new messages\n"
 msgstr "  -n, --only-new[=(on|off)]    обробити лише нові повідомлення\n"
 
-#: src/mpop.c:2325
+#: src/mpop.c:2326
 #, c-format
 msgid "  -k, --keep[=(on|off)]        do not delete mails from servers\n"
 msgstr "  -k, --keep[=(on|off)]        не вилучати повідомлення з серверів\n"
 
-#: src/mpop.c:2326
+#: src/mpop.c:2327
 #, c-format
 msgid "  --killsize=(off|number)      set/unset kill size\n"
 msgstr ""
 "  --killsize=(off|число)       вказати/скасувати визначення розміру "
 "вилучення\n"
 
-#: src/mpop.c:2327
+#: src/mpop.c:2328
 #, c-format
 msgid "  --skipsize=(off|number)      set/unset skip size\n"
 msgstr ""
 "  --skipsize=(off|число)       вказати/скасувати визначення розміру "
 "пропускання\n"
 
-#: src/mpop.c:2328
+#: src/mpop.c:2329
 #, c-format
 msgid "  --filter=[program]           set/unset header filter\n"
 msgstr ""
 "  --filter=[програма]          вказати/скасувати визначення фільтра "
 "заголовків\n"
 
-#: src/mpop.c:2329
+#: src/mpop.c:2330
 #, c-format
 msgid "  --delivery=method,arg        set the mail delivery method\n"
 msgstr "  --delivery=спосіб,аргумент   встановити спосіб доставлення пошти\n"
 
-#: src/mpop.c:2330
+#: src/mpop.c:2331
 #, c-format
 msgid "  --uidls-file=filename        set file to store UIDLs\n"
 msgstr "  --uidls-file=файл           вказати файл для зберігання UIDL\n"
 
-#: src/mpop.c:2331
+#: src/mpop.c:2332
 #, c-format
 msgid ""
 "\n"
@@ -773,107 +779,107 @@ msgstr ""
 "\n"
 "Сповіщайте про помилки за адресою <%s>.\n"
 
-#: src/mpop.c:2355
+#: src/mpop.c:2356
 msgid "cannot use both --host and accounts"
 msgstr "не можна одночасно користуватися --host і вказувати облікові записи"
 
-#: src/mpop.c:2361
+#: src/mpop.c:2362
 msgid "cannot use both --all-accounts and a list of accounts"
 msgstr ""
 "не можна одночасно використовувати --all-accounts і список облікових записів"
 
-#: src/mpop.c:2457
+#: src/mpop.c:2458
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "обліковий запис %s з %s: %s"
 
-#: src/mpop.c:2475
+#: src/mpop.c:2476
 #, c-format
 msgid "cannot create directories for %s: %s"
 msgstr "неможливо створити каталоги для %s: %s"
 
-#: src/mpop.c:2478
+#: src/mpop.c:2479
 msgid "a component already exists but is not a directory"
 msgstr "компонент вже існує, але не є каталогом"
 
-#: src/mpop.c:2497
+#: src/mpop.c:2498
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "з використанням облікового запису %s з %s\n"
 
-#: src/mpop.c:2503 src/mpop.c:2505 src/mpop.c:2508 src/mpop.c:2540
-#: src/mpop.c:2541 src/mpop.c:2543 src/mpop.c:2545 src/mpop.c:2549
-#: src/mpop.c:2551 src/mpop.c:2570 src/mpop.c:2572 src/mpop.c:2574
-#: src/mpop.c:2584 src/mpop.c:2587 src/mpop.c:2589 src/mpop.c:2633
+#: src/mpop.c:2504 src/mpop.c:2506 src/mpop.c:2509 src/mpop.c:2541
+#: src/mpop.c:2542 src/mpop.c:2544 src/mpop.c:2546 src/mpop.c:2550
+#: src/mpop.c:2552 src/mpop.c:2571 src/mpop.c:2573 src/mpop.c:2575
+#: src/mpop.c:2585 src/mpop.c:2588 src/mpop.c:2590 src/mpop.c:2634
 msgid "(not set)"
 msgstr "(не встановлено)"
 
-#: src/mpop.c:2512 src/mpop.c:2617 src/mpop.c:2626
+#: src/mpop.c:2513 src/mpop.c:2618 src/mpop.c:2627
 #, c-format
 msgid "off\n"
 msgstr "вимкнено\n"
 
-#: src/mpop.c:2518
+#: src/mpop.c:2519
 #, c-format
 msgid "1 second\n"
 msgstr "1 секунда\n"
 
-#: src/mpop.c:2522
+#: src/mpop.c:2523
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d секунд\n"
 
-#: src/mpop.c:2526 src/mpop.c:2529 src/mpop.c:2546 src/mpop.c:2547
-#: src/mpop.c:2576 src/mpop.c:2612 src/mpop.c:2613
+#: src/mpop.c:2527 src/mpop.c:2530 src/mpop.c:2547 src/mpop.c:2548
+#: src/mpop.c:2577 src/mpop.c:2613 src/mpop.c:2614
 msgid "off"
 msgstr "вимкнено"
 
-#: src/mpop.c:2527 src/mpop.c:2529 src/mpop.c:2546 src/mpop.c:2547
-#: src/mpop.c:2576 src/mpop.c:2612 src/mpop.c:2613
+#: src/mpop.c:2528 src/mpop.c:2530 src/mpop.c:2547 src/mpop.c:2548
+#: src/mpop.c:2577 src/mpop.c:2613 src/mpop.c:2614
 msgid "on"
 msgstr "увімкнено"
 
-#: src/mpop.c:2527
+#: src/mpop.c:2528
 msgid "auto"
 msgstr "авто"
 
-#: src/mpop.c:2533
+#: src/mpop.c:2534
 #, c-format
 msgid "choose\n"
 msgstr "виберіть\n"
 
-#: src/mpop.c:2652
+#: src/mpop.c:2653
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr ""
 "під час збирання програми не було увімкнено підтримку способу розпізнавання "
 "%s"
 
-#: src/mpop.c:2664
+#: src/mpop.c:2665
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "не вдалося ініціалізувати бібліотеку TLS: %s"
 
-#: src/mpop.c:2672
+#: src/mpop.c:2673
 msgid "support for TLS is not compiled in"
 msgstr "підтримку TLS не було увімкнено під час збирання програми"
 
-#: src/mpop.c:2680
+#: src/mpop.c:2681
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "не вдалося ініціалізувати бібліотеку для роботи у мережі: %s"
 
-#: src/mpop.c:2749
+#: src/mpop.c:2750
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "Повідомлення сервера POP3: %s"
 
-#: src/mpop.c:2758
+#: src/mpop.c:2759
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "помилка під час отримання пошти (обліковий запис %s з %s)"
 
-#: src/mpop.c:2764
+#: src/mpop.c:2765
 msgid "error during mail retrieval"
 msgstr "помилка під час отримання пошти"
 

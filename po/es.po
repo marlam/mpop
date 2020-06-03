@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.0.8\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2020-04-23 08:43+0200\n"
+"POT-Creation-Date: 2020-06-03 21:51+0200\n"
 "PO-Revision-Date: 2006-09-03 14:51+0200\n"
 "Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
 "Language-Team: Spanish\n"
@@ -424,12 +424,13 @@ msgstr ""
 #, c-format
 msgid ""
 "Mail retrieval mode (default):\n"
-"  %s [option...] [--] account...\n"
+"  %s [option...] account...\n"
+"  %s [option...] --all-accounts\n"
 "  %s --host=host [option...]\n"
-"  Read mails from one ore more POP3 accounts and deliver them.\n"
+"  Read mails from one or more POP3 accounts and deliver them.\n"
 msgstr ""
 
-#: src/mpop.c:2277
+#: src/mpop.c:2278
 #, c-format
 msgid ""
 "Configuration mode:\n"
@@ -437,7 +438,7 @@ msgid ""
 "  Generate and print configuration for address.\n"
 msgstr ""
 
-#: src/mpop.c:2280
+#: src/mpop.c:2281
 #, c-format
 msgid ""
 "Server information mode:\n"
@@ -447,58 +448,58 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/mpop.c:2284
+#: src/mpop.c:2285
 #, c-format
 msgid "General options:\n"
 msgstr ""
 
-#: src/mpop.c:2285
+#: src/mpop.c:2286
 #, c-format
 msgid "  --version                    print version\n"
 msgstr ""
 
-#: src/mpop.c:2286
+#: src/mpop.c:2287
 #, c-format
 msgid "  --help                       print help\n"
 msgstr ""
 
-#: src/mpop.c:2287
+#: src/mpop.c:2288
 #, c-format
 msgid "  -P, --pretend                print configuration info and exit\n"
 msgstr ""
 
-#: src/mpop.c:2288
+#: src/mpop.c:2289
 #, c-format
 msgid "  -d, --debug                  print debugging information\n"
 msgstr ""
 
-#: src/mpop.c:2289
+#: src/mpop.c:2290
 #, c-format
 msgid "Changing the mode of operation:\n"
 msgstr ""
 
-#: src/mpop.c:2290
+#: src/mpop.c:2291
 #, c-format
 msgid ""
 "  --configure=mailaddress      generate and print configuration for address\n"
 msgstr ""
 
-#: src/mpop.c:2291
+#: src/mpop.c:2292
 #, c-format
 msgid "  -S, --serverinfo             print information about the server\n"
 msgstr ""
 
-#: src/mpop.c:2292
+#: src/mpop.c:2293
 #, c-format
 msgid "Configuration options:\n"
 msgstr ""
 
-#: src/mpop.c:2293
+#: src/mpop.c:2294
 #, c-format
 msgid "  -C, --file=filename          set configuration file\n"
 msgstr ""
 
-#: src/mpop.c:2294
+#: src/mpop.c:2295
 #, c-format
 msgid ""
 "  --host=hostname              set the server, use only command-line "
@@ -506,301 +507,301 @@ msgid ""
 "                               do not use any configuration file data\n"
 msgstr ""
 
-#: src/mpop.c:2296
+#: src/mpop.c:2297
 #, c-format
 msgid "  --port=number                set port number\n"
 msgstr ""
 
-#: src/mpop.c:2297
+#: src/mpop.c:2298
 #, c-format
 msgid ""
 "  --source-ip=[IP]             set/unset source ip address to bind the "
 "socket to\n"
 msgstr ""
 
-#: src/mpop.c:2298
+#: src/mpop.c:2299
 #, c-format
 msgid "  --proxy-host=[IP|hostname]   set/unset proxy\n"
 msgstr ""
 
-#: src/mpop.c:2299
+#: src/mpop.c:2300
 #, c-format
 msgid "  --proxy-port=[number]        set/unset proxy port\n"
 msgstr ""
 
-#: src/mpop.c:2300
+#: src/mpop.c:2301
 #, c-format
 msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
 msgstr ""
 
-#: src/mpop.c:2301
+#: src/mpop.c:2302
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
 msgstr ""
 
-#: src/mpop.c:2302
+#: src/mpop.c:2303
 #, c-format
 msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
 msgstr ""
 
-#: src/mpop.c:2303
+#: src/mpop.c:2304
 #, c-format
 msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
 msgstr ""
 
-#: src/mpop.c:2304
+#: src/mpop.c:2305
 #, c-format
 msgid "  --auth[=(on|method)]         choose the authentication method\n"
 msgstr ""
 
-#: src/mpop.c:2305
+#: src/mpop.c:2306
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
 msgstr ""
 
-#: src/mpop.c:2306
+#: src/mpop.c:2307
 #, c-format
 msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
 msgstr ""
 
-#: src/mpop.c:2307
+#: src/mpop.c:2308
 #, c-format
 msgid "  --tls[=(on|off)]             enable/disable TLS encryption\n"
 msgstr ""
 
-#: src/mpop.c:2308
+#: src/mpop.c:2309
 #, c-format
 msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
 msgstr ""
 
-#: src/mpop.c:2309
+#: src/mpop.c:2310
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
 msgstr ""
 
-#: src/mpop.c:2310
+#: src/mpop.c:2311
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
 msgstr ""
 
-#: src/mpop.c:2311
+#: src/mpop.c:2312
 #, c-format
 msgid ""
 "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
 "TLS\n"
 msgstr ""
 
-#: src/mpop.c:2312
+#: src/mpop.c:2313
 #, c-format
 msgid ""
 "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
 "TLS\n"
 msgstr ""
 
-#: src/mpop.c:2313
+#: src/mpop.c:2314
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
 msgstr ""
 
-#: src/mpop.c:2314
+#: src/mpop.c:2315
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
 msgstr ""
 
-#: src/mpop.c:2315
+#: src/mpop.c:2316
 #, c-format
 msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
 msgstr ""
 
-#: src/mpop.c:2316
+#: src/mpop.c:2317
 #, c-format
 msgid ""
 "  --tls-host-override=[host]   set/unset override for TLS host "
 "verification.\n"
 msgstr ""
 
-#: src/mpop.c:2317
+#: src/mpop.c:2318
 #, c-format
 msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
 msgstr ""
 
-#: src/mpop.c:2318
+#: src/mpop.c:2319
 #, c-format
 msgid "Options specific to mail retrieval mode:\n"
 msgstr ""
 
-#: src/mpop.c:2319
+#: src/mpop.c:2320
 #, c-format
 msgid ""
 "  -q, --quiet                  do not display status or progress "
 "information\n"
 msgstr ""
 
-#: src/mpop.c:2320
+#: src/mpop.c:2321
 #, c-format
 msgid ""
 "  -Q, --half-quiet             display status but not progress information\n"
 msgstr ""
 
-#: src/mpop.c:2321
+#: src/mpop.c:2322
 #, c-format
 msgid ""
 "  -a, --all-accounts           query all accounts in the configuration file\n"
 msgstr ""
 
-#: src/mpop.c:2322
+#: src/mpop.c:2323
 #, c-format
 msgid ""
 "  -A, --auth-only              authenticate only; do not retrieve mail\n"
 msgstr ""
 
-#: src/mpop.c:2323
+#: src/mpop.c:2324
 #, c-format
 msgid ""
 "  -s, --status-only            print account status only; do not retrieve "
 "mail\n"
 msgstr ""
 
-#: src/mpop.c:2324
+#: src/mpop.c:2325
 #, c-format
 msgid "  -n, --only-new[=(on|off)]    process only new messages\n"
 msgstr ""
 
-#: src/mpop.c:2325
+#: src/mpop.c:2326
 #, c-format
 msgid "  -k, --keep[=(on|off)]        do not delete mails from servers\n"
 msgstr ""
 
-#: src/mpop.c:2326
+#: src/mpop.c:2327
 #, c-format
 msgid "  --killsize=(off|number)      set/unset kill size\n"
 msgstr ""
 
-#: src/mpop.c:2327
+#: src/mpop.c:2328
 #, c-format
 msgid "  --skipsize=(off|number)      set/unset skip size\n"
 msgstr ""
 
-#: src/mpop.c:2328
+#: src/mpop.c:2329
 #, c-format
 msgid "  --filter=[program]           set/unset header filter\n"
 msgstr ""
 
-#: src/mpop.c:2329
+#: src/mpop.c:2330
 #, c-format
 msgid "  --delivery=method,arg        set the mail delivery method\n"
 msgstr ""
 
-#: src/mpop.c:2330
+#: src/mpop.c:2331
 #, c-format
 msgid "  --uidls-file=filename        set file to store UIDLs\n"
 msgstr ""
 
-#: src/mpop.c:2331
+#: src/mpop.c:2332
 #, c-format
 msgid ""
 "\n"
 "Report bugs to <%s>.\n"
 msgstr ""
 
-#: src/mpop.c:2355
+#: src/mpop.c:2356
 msgid "cannot use both --host and accounts"
 msgstr "no se pueden usar --host y cuentas a la vez"
 
-#: src/mpop.c:2361
+#: src/mpop.c:2362
 msgid "cannot use both --all-accounts and a list of accounts"
 msgstr "no se pueden usar --all-accounts y una lista de cuentas a la vez"
 
-#: src/mpop.c:2457
+#: src/mpop.c:2458
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "cuenta %s de %s: %s"
 
-#: src/mpop.c:2475
+#: src/mpop.c:2476
 #, c-format
 msgid "cannot create directories for %s: %s"
 msgstr "no se pueden crear los directorios para %s: %s"
 
-#: src/mpop.c:2478
+#: src/mpop.c:2479
 msgid "a component already exists but is not a directory"
 msgstr "un componente ya existe pero no es un directorio"
 
-#: src/mpop.c:2497
+#: src/mpop.c:2498
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "usando cuenta %s de %s\n"
 
-#: src/mpop.c:2503 src/mpop.c:2505 src/mpop.c:2508 src/mpop.c:2540
-#: src/mpop.c:2541 src/mpop.c:2543 src/mpop.c:2545 src/mpop.c:2549
-#: src/mpop.c:2551 src/mpop.c:2570 src/mpop.c:2572 src/mpop.c:2574
-#: src/mpop.c:2584 src/mpop.c:2587 src/mpop.c:2589 src/mpop.c:2633
+#: src/mpop.c:2504 src/mpop.c:2506 src/mpop.c:2509 src/mpop.c:2541
+#: src/mpop.c:2542 src/mpop.c:2544 src/mpop.c:2546 src/mpop.c:2550
+#: src/mpop.c:2552 src/mpop.c:2571 src/mpop.c:2573 src/mpop.c:2575
+#: src/mpop.c:2585 src/mpop.c:2588 src/mpop.c:2590 src/mpop.c:2634
 msgid "(not set)"
 msgstr "(no seleccionado)"
 
-#: src/mpop.c:2512 src/mpop.c:2617 src/mpop.c:2626
+#: src/mpop.c:2513 src/mpop.c:2618 src/mpop.c:2627
 #, c-format
 msgid "off\n"
 msgstr "desactivado\n"
 
-#: src/mpop.c:2518
+#: src/mpop.c:2519
 #, c-format
 msgid "1 second\n"
 msgstr "1 segundo\n"
 
-#: src/mpop.c:2522
+#: src/mpop.c:2523
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d segundos\n"
 
-#: src/mpop.c:2526 src/mpop.c:2529 src/mpop.c:2546 src/mpop.c:2547
-#: src/mpop.c:2576 src/mpop.c:2612 src/mpop.c:2613
+#: src/mpop.c:2527 src/mpop.c:2530 src/mpop.c:2547 src/mpop.c:2548
+#: src/mpop.c:2577 src/mpop.c:2613 src/mpop.c:2614
 msgid "off"
 msgstr "desactivado"
 
-#: src/mpop.c:2527 src/mpop.c:2529 src/mpop.c:2546 src/mpop.c:2547
-#: src/mpop.c:2576 src/mpop.c:2612 src/mpop.c:2613
+#: src/mpop.c:2528 src/mpop.c:2530 src/mpop.c:2547 src/mpop.c:2548
+#: src/mpop.c:2577 src/mpop.c:2613 src/mpop.c:2614
 msgid "on"
 msgstr "activado"
 
-#: src/mpop.c:2527
+#: src/mpop.c:2528
 msgid "auto"
 msgstr "automático"
 
-#: src/mpop.c:2533
+#: src/mpop.c:2534
 #, c-format
 msgid "choose\n"
 msgstr "automático\n"
 
-#: src/mpop.c:2652
+#: src/mpop.c:2653
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr "soporte para el método de autentificación %s no está compilado"
 
-#: src/mpop.c:2664
+#: src/mpop.c:2665
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "no se puede iniciar la biblioteca TLS: %s"
 
-#: src/mpop.c:2672
+#: src/mpop.c:2673
 msgid "support for TLS is not compiled in"
 msgstr "soporte para TLS no está compilado"
 
-#: src/mpop.c:2680
+#: src/mpop.c:2681
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "no se puede iniciar la biblioteca de red: %s"
 
-#: src/mpop.c:2749
+#: src/mpop.c:2750
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "mensaje del servidor POP3: %s"
 
-#: src/mpop.c:2758
+#: src/mpop.c:2759
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "error durante la recogida de correo (cuenta %s de %s)"
 
-#: src/mpop.c:2764
+#: src/mpop.c:2765
 msgid "error during mail retrieval"
 msgstr "error durante la recogida de correo"
 
@@ -1833,14 +1834,6 @@ msgid "cannot write to TLS connection"
 msgstr "no se puede escribir en la conexión TLS"
 
 #, c-format
-#~ msgid " = %.2f hours"
-#~ msgstr " = %.2f horas"
-
-#, c-format
-#~ msgid " = %.2f minutes"
-#~ msgstr " = %.2f minutos"
-
-#, c-format
 #~ msgid "cannot use tls_trust_file with tls_certcheck turned off"
 #~ msgstr "no se puede usar tls_trust_file con tls_certcheck desactivado"
 
@@ -1851,6 +1844,14 @@ msgstr "no se puede escribir en la conexión TLS"
 #, c-format
 #~ msgid "password for %s at %s: "
 #~ msgstr "contraseña de %s en %s: "
+
+#, c-format
+#~ msgid " = %.2f hours"
+#~ msgstr " = %.2f horas"
+
+#, c-format
+#~ msgid " = %.2f minutes"
+#~ msgstr " = %.2f minutos"
 
 #~ msgid "must be owned by you"
 #~ msgstr "debe ser poseido por tí"

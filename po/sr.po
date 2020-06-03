@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.4.8rc2\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2020-04-23 08:43+0200\n"
+"POT-Creation-Date: 2020-06-03 21:51+0200\n"
 "PO-Revision-Date: 2020-04-21 17:43+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
@@ -418,19 +418,25 @@ msgstr ""
 "\n"
 
 #: src/mpop.c:2272
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Mail retrieval mode (default):\n"
+#| "  %s [option...] [--] account...\n"
+#| "  %s --host=host [option...]\n"
+#| "  Read mails from one ore more POP3 accounts and deliver them.\n"
 msgid ""
 "Mail retrieval mode (default):\n"
-"  %s [option...] [--] account...\n"
+"  %s [option...] account...\n"
+"  %s [option...] --all-accounts\n"
 "  %s --host=host [option...]\n"
-"  Read mails from one ore more POP3 accounts and deliver them.\n"
+"  Read mails from one or more POP3 accounts and deliver them.\n"
 msgstr ""
 "Режим довлачења поште (подразумевано):\n"
 "  %s [опција...] [--] налог...\n"
 "  %s --host=домаћин [опција...]\n"
 "  Чита пошту са једног или више „POP3“ налога и испоручује је.\n"
 
-#: src/mpop.c:2277
+#: src/mpop.c:2278
 #, c-format
 msgid ""
 "Configuration mode:\n"
@@ -441,7 +447,7 @@ msgstr ""
 "  %s --configure=адреса_поште\n"
 "  Ствара и исписује подешавање за адресу.\n"
 
-#: src/mpop.c:2280
+#: src/mpop.c:2281
 #, c-format
 msgid ""
 "Server information mode:\n"
@@ -456,60 +462,60 @@ msgstr ""
 "  Исписује податке о једном или више „POP3“ сервера.\n"
 "\n"
 
-#: src/mpop.c:2284
+#: src/mpop.c:2285
 #, c-format
 msgid "General options:\n"
 msgstr "Опште опције:\n"
 
-#: src/mpop.c:2285
+#: src/mpop.c:2286
 #, c-format
 msgid "  --version                    print version\n"
 msgstr "  --version                      исписује издање\n"
 
-#: src/mpop.c:2286
+#: src/mpop.c:2287
 #, c-format
 msgid "  --help                       print help\n"
 msgstr "  --help                         исписује помоћ\n"
 
-#: src/mpop.c:2287
+#: src/mpop.c:2288
 #, c-format
 msgid "  -P, --pretend                print configuration info and exit\n"
 msgstr ""
 "  -P, --pretend                  исписује податке подешавања и излази\n"
 
-#: src/mpop.c:2288
+#: src/mpop.c:2289
 #, c-format
 msgid "  -d, --debug                  print debugging information\n"
 msgstr "  -d, --debug                    исписује податке пречишћавања\n"
 
-#: src/mpop.c:2289
+#: src/mpop.c:2290
 #, c-format
 msgid "Changing the mode of operation:\n"
 msgstr "Промена режима рада:\n"
 
-#: src/mpop.c:2290
+#: src/mpop.c:2291
 #, c-format
 msgid ""
 "  --configure=mailaddress      generate and print configuration for address\n"
 msgstr ""
 "  --configure=адреса_поште       ствара и исписује подешавање за адресу\n"
 
-#: src/mpop.c:2291
+#: src/mpop.c:2292
 #, c-format
 msgid "  -S, --serverinfo             print information about the server\n"
 msgstr "  -S, --serverinfo               исписује податке о серверу\n"
 
-#: src/mpop.c:2292
+#: src/mpop.c:2293
 #, c-format
 msgid "Configuration options:\n"
 msgstr "Опције подешавања:\n"
 
-#: src/mpop.c:2293
+#: src/mpop.c:2294
 #, c-format
 msgid "  -C, --file=filename          set configuration file\n"
 msgstr "  -C, --file=датотека            поставља датотеку подешавања\n"
 
-#: src/mpop.c:2294
+#: src/mpop.c:2295
 #, c-format
 msgid ""
 "  --host=hostname              set the server, use only command-line "
@@ -521,12 +527,12 @@ msgstr ""
 "                                 не користи никакве податке датотеке "
 "подешавања\n"
 
-#: src/mpop.c:2296
+#: src/mpop.c:2297
 #, c-format
 msgid "  --port=number                set port number\n"
 msgstr "  --port=број                    подешава број прикључника\n"
 
-#: src/mpop.c:2297
+#: src/mpop.c:2298
 #, c-format
 msgid ""
 "  --source-ip=[IP]             set/unset source ip address to bind the "
@@ -535,88 +541,88 @@ msgstr ""
 "  --source-ip=[ИП]               подешава/расподешава ип адресу извора на "
 "коју ће свезати прикључницу\n"
 
-#: src/mpop.c:2298
+#: src/mpop.c:2299
 #, c-format
 msgid "  --proxy-host=[IP|hostname]   set/unset proxy\n"
 msgstr "  --proxy-host=[ИП|домаћин]      подешава/расподешава посредника\n"
 
-#: src/mpop.c:2299
+#: src/mpop.c:2300
 #, c-format
 msgid "  --proxy-port=[number]        set/unset proxy port\n"
 msgstr ""
 "  --proxy-port=[број]            подешава/расподешава прикључник посредника\n"
 
-#: src/mpop.c:2300
+#: src/mpop.c:2301
 #, c-format
 msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
 msgstr ""
 "  --socket=[прикључница]         подешава/расподешава локалну прикључницу на "
 "коју ће се повезати\n"
 
-#: src/mpop.c:2301
+#: src/mpop.c:2302
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
 msgstr ""
 "  --timeout=(искљ.|сек.)         подешава/расподешава време истека мреже у "
 "секундама\n"
 
-#: src/mpop.c:2302
+#: src/mpop.c:2303
 #, c-format
 msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
 msgstr ""
 "  --pipelining=(ауто|укљ|искљ)   омогућује/онемогућује надовезивање спојки\n"
 
-#: src/mpop.c:2303
+#: src/mpop.c:2304
 #, c-format
 msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
 msgstr ""
 "  --received-header[=(укљ|искљ)] омогућује/онемогућује заглавље примљеног\n"
 
-#: src/mpop.c:2304
+#: src/mpop.c:2305
 #, c-format
 msgid "  --auth[=(on|method)]         choose the authentication method\n"
 msgstr "  --auth[=(укљ|начин)]           бира начин потврђивања идентитета\n"
 
-#: src/mpop.c:2305
+#: src/mpop.c:2306
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
 msgstr ""
 "  --user=[корисник]              подешава/расподешава корисничко име за "
 "потврђивање идентитета\n"
 
-#: src/mpop.c:2306
+#: src/mpop.c:2307
 #, c-format
 msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
 msgstr ""
 "  --passwordeval=[оцењ]          оцењује лозинку за потврђивање идентитета\n"
 
-#: src/mpop.c:2307
+#: src/mpop.c:2308
 #, c-format
 msgid "  --tls[=(on|off)]             enable/disable TLS encryption\n"
 msgstr ""
 "  --tls[=(укљ|искљ)]             омогућује/онемогућује „TLS“ шифровање\n"
 
-#: src/mpop.c:2308
+#: src/mpop.c:2309
 #, c-format
 msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
 msgstr ""
 "  --tls-starttls[=(укљ|искљ)]    омогућује/онемогућује „STARTTLS“ за „TLS“\n"
 
-#: src/mpop.c:2309
+#: src/mpop.c:2310
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
 msgstr ""
 "  --tls-trust-file=[датотека]    подешава/расподешава датотеку поверења за "
 "„TLS“\n"
 
-#: src/mpop.c:2310
+#: src/mpop.c:2311
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
 msgstr ""
 "  --tls-crl-file=[датотека]      подешава/расподешава датотеку опозивања за "
 "„TLS“\n"
 
-#: src/mpop.c:2311
+#: src/mpop.c:2312
 #, c-format
 msgid ""
 "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
@@ -625,7 +631,7 @@ msgstr ""
 "  --tls-fingerprint=[ф]          подешава/расподешава отисак поверљивог "
 "уверења за „TLS“\n"
 
-#: src/mpop.c:2312
+#: src/mpop.c:2313
 #, c-format
 msgid ""
 "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
@@ -634,27 +640,27 @@ msgstr ""
 "  --tls-certcheck[=(укљ|искљ)]   подешава/расподешава провере уверења "
 "сервера за „TLS“\n"
 
-#: src/mpop.c:2313
+#: src/mpop.c:2314
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
 msgstr ""
 "  --tls-key-file=[датотека]      подешава/расподешава датотеку личног кључа "
 "за „TLS“\n"
 
-#: src/mpop.c:2314
+#: src/mpop.c:2315
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
 msgstr ""
 "  --tls-cert-file=[датотека]     подешава/расподешава датотеку личног "
 "уверења за „TLS“\n"
 
-#: src/mpop.c:2315
+#: src/mpop.c:2316
 #, c-format
 msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
 msgstr ""
 "  --tls-priorities=[приор]       подешава/расподешава „TLS“ приоритете.\n"
 
-#: src/mpop.c:2316
+#: src/mpop.c:2317
 #, c-format
 msgid ""
 "  --tls-host-override=[host]   set/unset override for TLS host "
@@ -663,19 +669,19 @@ msgstr ""
 "  --tls-host-override=[домаћин]  подешава/расподешава прескок за проверу "
 "„TLS“ домаћина.\n"
 
-#: src/mpop.c:2317
+#: src/mpop.c:2318
 #, c-format
 msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
 msgstr ""
 "  --tls-min-dh-prime-bits=[б]    подешава/расподешава најмању величину бита "
 "„DH“ простог броја\n"
 
-#: src/mpop.c:2318
+#: src/mpop.c:2319
 #, c-format
 msgid "Options specific to mail retrieval mode:\n"
 msgstr "Опције специфичне за режим довлачења поште:\n"
 
-#: src/mpop.c:2319
+#: src/mpop.c:2320
 #, c-format
 msgid ""
 "  -q, --quiet                  do not display status or progress "
@@ -684,7 +690,7 @@ msgstr ""
 "  -q, --quiet                    не приказује податке о стању или "
 "напредовању\n"
 
-#: src/mpop.c:2320
+#: src/mpop.c:2321
 #, c-format
 msgid ""
 "  -Q, --half-quiet             display status but not progress information\n"
@@ -692,21 +698,21 @@ msgstr ""
 "  -Q, --half-quiet               приказује податке о стању али не о "
 "напредовању\n"
 
-#: src/mpop.c:2321
+#: src/mpop.c:2322
 #, c-format
 msgid ""
 "  -a, --all-accounts           query all accounts in the configuration file\n"
 msgstr ""
 "  -a, --all-accounts             пропитује све налоге у датотеци подешавања\n"
 
-#: src/mpop.c:2322
+#: src/mpop.c:2323
 #, c-format
 msgid ""
 "  -A, --auth-only              authenticate only; do not retrieve mail\n"
 msgstr ""
 "  -A, --auth-only                само потврђује идентитет; не довлачи пошту\n"
 
-#: src/mpop.c:2323
+#: src/mpop.c:2324
 #, c-format
 msgid ""
 "  -s, --status-only            print account status only; do not retrieve "
@@ -715,46 +721,46 @@ msgstr ""
 "  -s, --status-only              исписује само стање налога; не довлачи "
 "пошту\n"
 
-#: src/mpop.c:2324
+#: src/mpop.c:2325
 #, c-format
 msgid "  -n, --only-new[=(on|off)]    process only new messages\n"
 msgstr "  -n, --only-new[=(укљ|искљ)]    обрађује само нове поруке\n"
 
-#: src/mpop.c:2325
+#: src/mpop.c:2326
 #, c-format
 msgid "  -k, --keep[=(on|off)]        do not delete mails from servers\n"
 msgstr "  -k, --keep[=(укљ|искљ)]        не брише пошту на серверу\n"
 
-#: src/mpop.c:2326
+#: src/mpop.c:2327
 #, c-format
 msgid "  --killsize=(off|number)      set/unset kill size\n"
 msgstr ""
 "  --killsize=(искљ|број)         подешава/расподешава величину прекида\n"
 
-#: src/mpop.c:2327
+#: src/mpop.c:2328
 #, c-format
 msgid "  --skipsize=(off|number)      set/unset skip size\n"
 msgstr ""
 "  --skipsize=(искљ|број)         подешава/расподешава величину прескока\n"
 
-#: src/mpop.c:2328
+#: src/mpop.c:2329
 #, c-format
 msgid "  --filter=[program]           set/unset header filter\n"
 msgstr ""
 "  --filter=[програм]             подешава/расподешава филтер заглавља\n"
 
-#: src/mpop.c:2329
+#: src/mpop.c:2330
 #, c-format
 msgid "  --delivery=method,arg        set the mail delivery method\n"
 msgstr "  --delivery=начин,арг           подешава начин испоруке поште\n"
 
-#: src/mpop.c:2330
+#: src/mpop.c:2331
 #, c-format
 msgid "  --uidls-file=filename        set file to store UIDLs\n"
 msgstr ""
 "  --uidls-file=датотека          подешава датотеку за смештај „UIDL“-а\n"
 
-#: src/mpop.c:2331
+#: src/mpop.c:2332
 #, c-format
 msgid ""
 "\n"
@@ -763,104 +769,104 @@ msgstr ""
 "\n"
 "Грешке пријавите на <%s>.\n"
 
-#: src/mpop.c:2355
+#: src/mpop.c:2356
 msgid "cannot use both --host and accounts"
 msgstr "не можете користити и „--host“ и налоге"
 
-#: src/mpop.c:2361
+#: src/mpop.c:2362
 msgid "cannot use both --all-accounts and a list of accounts"
 msgstr "не можете користити и „--all-accounts“ и списак налога"
 
-#: src/mpop.c:2457
+#: src/mpop.c:2458
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "налог „%s“ са „%s“: %s"
 
-#: src/mpop.c:2475
+#: src/mpop.c:2476
 #, c-format
 msgid "cannot create directories for %s: %s"
 msgstr "не могу да направим директоријуме за „%s“: %s"
 
-#: src/mpop.c:2478
+#: src/mpop.c:2479
 msgid "a component already exists but is not a directory"
 msgstr "састојак већ постоји али није директоријум"
 
-#: src/mpop.c:2497
+#: src/mpop.c:2498
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "користим налог „%s“ са „%s“\n"
 
-#: src/mpop.c:2503 src/mpop.c:2505 src/mpop.c:2508 src/mpop.c:2540
-#: src/mpop.c:2541 src/mpop.c:2543 src/mpop.c:2545 src/mpop.c:2549
-#: src/mpop.c:2551 src/mpop.c:2570 src/mpop.c:2572 src/mpop.c:2574
-#: src/mpop.c:2584 src/mpop.c:2587 src/mpop.c:2589 src/mpop.c:2633
+#: src/mpop.c:2504 src/mpop.c:2506 src/mpop.c:2509 src/mpop.c:2541
+#: src/mpop.c:2542 src/mpop.c:2544 src/mpop.c:2546 src/mpop.c:2550
+#: src/mpop.c:2552 src/mpop.c:2571 src/mpop.c:2573 src/mpop.c:2575
+#: src/mpop.c:2585 src/mpop.c:2588 src/mpop.c:2590 src/mpop.c:2634
 msgid "(not set)"
 msgstr "(није постављено)"
 
-#: src/mpop.c:2512 src/mpop.c:2617 src/mpop.c:2626
+#: src/mpop.c:2513 src/mpop.c:2618 src/mpop.c:2627
 #, c-format
 msgid "off\n"
 msgstr "искљ\n"
 
-#: src/mpop.c:2518
+#: src/mpop.c:2519
 #, c-format
 msgid "1 second\n"
 msgstr "1 секунда\n"
 
-#: src/mpop.c:2522
+#: src/mpop.c:2523
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d секунде\n"
 
-#: src/mpop.c:2526 src/mpop.c:2529 src/mpop.c:2546 src/mpop.c:2547
-#: src/mpop.c:2576 src/mpop.c:2612 src/mpop.c:2613
+#: src/mpop.c:2527 src/mpop.c:2530 src/mpop.c:2547 src/mpop.c:2548
+#: src/mpop.c:2577 src/mpop.c:2613 src/mpop.c:2614
 msgid "off"
 msgstr "искљ"
 
-#: src/mpop.c:2527 src/mpop.c:2529 src/mpop.c:2546 src/mpop.c:2547
-#: src/mpop.c:2576 src/mpop.c:2612 src/mpop.c:2613
+#: src/mpop.c:2528 src/mpop.c:2530 src/mpop.c:2547 src/mpop.c:2548
+#: src/mpop.c:2577 src/mpop.c:2613 src/mpop.c:2614
 msgid "on"
 msgstr "укљ"
 
-#: src/mpop.c:2527
+#: src/mpop.c:2528
 msgid "auto"
 msgstr "самостално"
 
-#: src/mpop.c:2533
+#: src/mpop.c:2534
 #, c-format
 msgid "choose\n"
 msgstr "изабери\n"
 
-#: src/mpop.c:2652
+#: src/mpop.c:2653
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr "подршка за начин потврђивања идентитета „%s“ није преведена"
 
-#: src/mpop.c:2664
+#: src/mpop.c:2665
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "не могу да покренем „TLS“ библиотеку: %s"
 
-#: src/mpop.c:2672
+#: src/mpop.c:2673
 msgid "support for TLS is not compiled in"
 msgstr "подршка за „TLS“ није преведена"
 
-#: src/mpop.c:2680
+#: src/mpop.c:2681
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "не могу да покренем библиотеку мреже: %s"
 
-#: src/mpop.c:2749
+#: src/mpop.c:2750
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "порука „POP3“ сервера: %s"
 
-#: src/mpop.c:2758
+#: src/mpop.c:2759
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "грешка приликом довлачења поште (налог „%s“ са „%s“)"
 
-#: src/mpop.c:2764
+#: src/mpop.c:2765
 msgid "error during mail retrieval"
 msgstr "грешка приликом довлачења поште"
 
