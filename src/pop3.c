@@ -868,6 +868,10 @@ int pop3_capa(pop3_session_t *session, char **errstr)
                 {
                     session->cap.flags |= POP3_CAP_AUTH_OAUTHBEARER;
                 }
+                if (strstr(session->buffer + 5, "XOAUTH2"))
+                {
+                    session->cap.flags |= POP3_CAP_AUTH_XOAUTH2;
+                }
             }
             else if (strncmp(session->buffer, "IMPLEMENTATION", 14) == 0)
             {
@@ -2315,6 +2319,72 @@ int pop3_auth_oauthbearer(pop3_session_t *session,
 
 
 /*
+ * pop3_auth_xoauth2()
+ *
+ * Do POP3 authentication via AUTH XOAUTH2.
+ * The POP3 server must support POP3_CAP_AUTH_XOAUTH2
+ * Used error codes: POP3_EIO, POP3_EAUTHFAIL, POP3_EINVAL
+ */
+
+int pop3_auth_xoauth2(pop3_session_t *session,
+        const char *user, const char *token,
+        char **errmsg, char **errstr)
+{
+    int e;
+    char *oauth;
+    size_t oa_len;
+    char *b64;
+    size_t b64_len;
+
+    oa_len = 5 + /* "user=" */
+             strlen(user) +
+             13 + /* "^Aauth=Bearer " */
+             strlen(token) +
+             2 /* "^A^A" */;
+    oauth = xmalloc(oa_len + 1);
+    oa_len = snprintf(oauth, oa_len + 1,
+            "user=%s\001auth=Bearer %s\001\001", user, token);
+    b64_len = BASE64_LENGTH(oa_len) + 1;
+    b64 = xmalloc(b64_len);
+    base64_encode(oauth, oa_len, b64, b64_len);
+    e = pop3_send_cmd(session, errstr, "AUTH XOAUTH2 %s", b64);
+    free(oauth);
+    free(b64);
+    if (e != POP3_EOK)
+    {
+        return e;
+    }
+    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    {
+        return e;
+    }
+    if (session->buffer[0] == '+' && session->buffer[1] == 'O' && session->buffer[2] == 'K')
+    {
+        return POP3_EOK;
+    }
+    if (session->buffer[0] == '+' && session->buffer[1] == ' ')
+    {
+        if ((e = pop3_send_cmd(session, errstr, "")) != POP3_EOK)
+        {
+            return e;
+        }
+        if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+        {
+            return e;
+        }
+    }
+    if (!pop3_msg_ok(session->buffer))
+    {
+        *errmsg = xstrdup(session->buffer);
+        *errstr = xasprintf(_("authentication failed (method %s)"), "XOAUTH2");
+        return POP3_EAUTHFAIL;
+    }
+
+    return POP3_EOK;
+}
+
+
+/*
  * pop3_auth_plain()
  *
  * Do POP3 authentication via the SASL PLAIN method.
@@ -2634,7 +2704,9 @@ int pop3_server_supports_authmech(pop3_session_t *session, const char *mech)
             || ((session->cap.flags & POP3_CAP_AUTH_NTLM)
                 && strcmp(mech, "NTLM") == 0)
             || ((session->cap.flags & POP3_CAP_AUTH_OAUTHBEARER)
-                && strcmp(mech, "OAUTHBEARER") == 0));
+                && strcmp(mech, "OAUTHBEARER") == 0)
+            || ((session->cap.flags & POP3_CAP_AUTH_XOAUTH2)
+                && strcmp(mech, "XOAUTH2") == 0));
 }
 
 
@@ -2652,7 +2724,7 @@ int pop3_client_supports_authmech(const char *mech)
     Gsasl *ctx;
 
     if (strcmp(mech, "USER") == 0 || strcmp(mech, "APOP") == 0
-            || strcmp(mech, "OAUTHBEARER") == 0)
+            || strcmp(mech, "OAUTHBEARER") == 0 || strcmp(mech, "XOAUTH2") == 0)
     {
         supported = 1;
     }
@@ -2675,7 +2747,8 @@ int pop3_client_supports_authmech(const char *mech)
             || strcmp(mech, "PLAIN") == 0
             || strcmp(mech, "EXTERNAL") == 0
             || strcmp(mech, "LOGIN") == 0
-            || strcmp(mech, "OAUTHBEARER") == 0);
+            || strcmp(mech, "OAUTHBEARER") == 0
+            || strcmp(mech, "XOAUTH2") == 0);
 
 #endif /* not HAVE_LIBGSASL */
 }
@@ -2816,7 +2889,7 @@ int pop3_auth(pop3_session_t *session,
             return POP3_EUNAVAIL;
         }
         /* SCRAM-SHA-1, DIGEST-MD5, CRAM-MD5, PLAIN, LOGIN, NTLM, USER, APOP,
-         * OAUTHBEARER all need a password */
+         * OAUTHBEARER, XOAUTH2 all need a password */
         if (strcmp(auth_mech, "GSSAPI") != 0 && !password)
         {
             if (!password_callback
@@ -2832,7 +2905,7 @@ int pop3_auth(pop3_session_t *session,
         }
     }
 
-    /* USER, APOP, OAUTHBEARER are built-in, all other methods are provided by GNU SASL */
+    /* USER, APOP, OAUTHBEARER, XOAUTH2 are built-in, all other methods are provided by GNU SASL */
     if (strcmp(auth_mech, "USER") == 0)
     {
         gsasl_done(ctx);
@@ -2851,6 +2924,13 @@ int pop3_auth(pop3_session_t *session,
     {
         gsasl_done(ctx);
         e = pop3_auth_oauthbearer(session, hostname, port, user, password, errmsg, errstr);
+        free(callback_password);
+        return e;
+    }
+    else if (strcmp(auth_mech, "XOAUTH2") == 0)
+    {
+        gsasl_done(ctx);
+        e = pop3_auth_xoauth2(session, user, password, errmsg, errstr);
         free(callback_password);
         return e;
     }
@@ -3065,7 +3145,7 @@ int pop3_auth(pop3_session_t *session,
     /* Check availability of required authentication data */
     if (strcmp(auth_mech, "EXTERNAL") != 0)
     {
-        /* CRAM-MD5, PLAIN, LOGIN, APOP, USER, OAUTHBEARER all need a user name and
+        /* CRAM-MD5, PLAIN, LOGIN, APOP, USER, OAUTHBEARER, XOAUTH2 all need a user name and
          * password */
         if (!user)
         {
@@ -3114,6 +3194,10 @@ int pop3_auth(pop3_session_t *session,
     else if (strcmp(auth_mech, "OAUTHBEARER") == 0)
     {
         e = pop3_auth_oauthbearer(session, hostname, port, user, password, errmsg, errstr);
+    }
+    else if (strcmp(auth_mech, "XOAUTH2") == 0)
+    {
+        e = pop3_auth_xoauth2(session, user, password, errmsg, errstr);
     }
     else
     {

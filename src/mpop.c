@@ -454,6 +454,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
         printf("OAUTHBEARER ");
     }
+    if (session->cap.flags & POP3_CAP_AUTH_XOAUTH2)
+    {
+        printf("XOAUTH2 ");
+    }
     printf("\n");
     if (session->cap.flags & POP3_CAP_RESP_CODES)
     {
@@ -2172,7 +2176,7 @@ int main(int argc, char *argv[])
         printf(_("Authentication library: %s\n"
                     "Supported authentication methods:\n"),
 #ifdef HAVE_LIBGSASL
-                _("GNU SASL; user, apop, oauthbearer: built-in")
+                _("GNU SASL; user, apop, oauthbearer, xoauth2: built-in")
 #else
                 _("built-in")
 #endif /* HAVE_LIBGSASL */
@@ -2220,6 +2224,10 @@ int main(int argc, char *argv[])
         if (pop3_client_supports_authmech("OAUTHBEARER"))
         {
             printf("oauthbearer ");
+        }
+        if (pop3_client_supports_authmech("XOAUTH2"))
+        {
+            printf("xoauth2 ");
         }
         printf("\n");
         /* Internationalized Domain Names support */

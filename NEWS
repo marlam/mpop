@@ -1,3 +1,6 @@
+Version 1.4.11:
+- Added support for XOAUTH2, the predecessor of OAUTHBEARER.
+
 Version 1.4.10:
 - Improved handling of temporary files on Windows systems.
 - Re-enabled support for systems lacking vasprintf(), such as IBM i PASE.
