@@ -1,5 +1,8 @@
 Version 1.4.11:
 - Added support for XOAUTH2, the predecessor of OAUTHBEARER.
+- The passwordeval command can now handle very long input, which can be
+  necessary for OAUTHBEARER and XOAUTH2.
+- GnuTLS >= 3.4 is required
 
 Version 1.4.10:
 - Improved handling of temporary files on Windows systems.
