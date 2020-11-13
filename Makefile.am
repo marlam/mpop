@@ -1,5 +1,5 @@
 SUBDIRS = src po doc scripts
-EXTRA_DIST = m4/ChangeLog  ChangeLog.old NOTES
+EXTRA_DIST = ChangeLog.old NOTES
 
 # Create the ChangeLog file from the git log
 dist-hook:
@@ -12,5 +12,3 @@ dist-hook:
 mydist:
 	umask 022; \
 	TAR_OPTIONS='--owner=0 --group=0 --numeric-owner --mode=u+rw,go+r-w' $(MAKE) dist-xz
-
-ACLOCAL_AMFLAGS = -I m4
