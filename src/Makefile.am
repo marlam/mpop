@@ -20,7 +20,13 @@ mpop_SOURCES = \
 	password.c password.h
 
 if HAVE_TLS
-mpop_SOURCES += tls.c tls.h
+mpop_SOURCES += mtls.c mtls.h
+endif
+if HAVE_GNUTLS
+mpop_SOURCES += mtls-gnutls.c
+endif
+if HAVE_OPENSSL
+mpop_SOURCES += mtls-openssl.c
 endif
 
 AM_CPPFLAGS = $(tls_CFLAGS) $(libgsasl_CFLAGS) $(libidn2_CFLAGS) $(libsecret_CFLAGS)

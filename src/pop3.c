@@ -54,7 +54,7 @@
 #include "tools.h"
 #include "stream.h"
 #ifdef HAVE_TLS
-# include "tls.h"
+# include "mtls.h"
 #endif /* HAVE_TLS */
 #include "pop3.h"
 #include "uidls.h"
@@ -140,7 +140,7 @@ pop3_session_t *pop3_session_new(int pipelining,
     session->server_address = NULL;
     readbuf_init(&(session->readbuf));
 #ifdef HAVE_TLS
-    tls_clear(&session->tls);
+    mtls_clear(&session->mtls);
 #endif /* HAVE_TLS */
     session->cap.flags = 0;
     session->pipelining = pipelining;
@@ -244,9 +244,9 @@ int pop3_gets(pop3_session_t *session, size_t *len, char **errstr)
     int e = 0;
 
 #ifdef HAVE_TLS
-    if (tls_is_active(&session->tls))
+    if (mtls_is_active(&session->mtls))
     {
-        e = (tls_gets(&session->tls, &(session->readbuf),
+        e = (mtls_gets(&session->mtls, &(session->readbuf),
                     session->buffer, POP3_BUFSIZE, len, errstr) != TLS_EOK);
     }
     else
@@ -389,9 +389,9 @@ int pop3_send_cmd(pop3_session_t *session, char **errstr,
     line[count++] = '\n';
     line[count] = '\0';
 #ifdef HAVE_TLS
-    if (tls_is_active(&session->tls))
+    if (mtls_is_active(&session->mtls))
     {
-        e = (tls_puts(&session->tls, line, (size_t)count, errstr) != TLS_EOK);
+        e = (mtls_puts(&session->mtls, line, (size_t)count, errstr) != TLS_EOK);
     }
     else
     {
@@ -942,7 +942,7 @@ int pop3_tls_init(pop3_session_t *session,
         int no_certcheck,
         char **errstr)
 {
-    return tls_init(&session->tls, tls_key_file, tls_cert_file, pin,
+    return mtls_init(&session->mtls, tls_key_file, tls_cert_file, pin,
             tls_trust_file, tls_crl_file,
             tls_sha256_fingerprint, tls_sha1_fingerprint, tls_md5_fingerprint,
             min_dh_prime_bits, priorities, hostname, no_certcheck, errstr);
@@ -994,9 +994,9 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr)
 
 #ifdef HAVE_TLS
 int pop3_tls(pop3_session_t *session,
-        tls_cert_info_t *tci, char **tls_parameter_description, char **errstr)
+        mtls_cert_info_t *tci, char **tls_parameter_description, char **errstr)
 {
-    return tls_start(&session->tls, session->fd, tci,
+    return mtls_start(&session->mtls, session->fd, tci,
             tls_parameter_description, errstr);
 }
 #endif /* HAVE_TLS */
@@ -2807,7 +2807,7 @@ int pop3_auth(pop3_session_t *session,
         /* Choose "best" authentication mechanism. */
         /* TODO: use gsasl_client_suggest_mechanism()? */
 #ifdef HAVE_TLS
-        if (tls_is_active(&session->tls))
+        if (mtls_is_active(&session->mtls))
         {
             if (gsasl_client_support_p(ctx, "PLAIN")
                     && (session->cap.flags & POP3_CAP_AUTH_PLAIN))
@@ -2862,7 +2862,7 @@ int pop3_auth(pop3_session_t *session,
     {
         gsasl_done(ctx);
 #ifdef HAVE_TLS
-        if (!tls_is_active(&session->tls))
+        if (!mtls_is_active(&session->mtls))
         {
 #endif /* HAVE_TLS */
             *errstr = xasprintf(_("cannot use a secure authentication method"));
@@ -3099,7 +3099,7 @@ int pop3_auth(pop3_session_t *session,
     if (strcmp(auth_mech, "") == 0)
     {
 #ifdef HAVE_TLS
-        if (tls_is_active(&session->tls))
+        if (mtls_is_active(&session->mtls))
         {
             if (session->cap.flags & POP3_CAP_AUTH_PLAIN)
             {
@@ -3127,7 +3127,7 @@ int pop3_auth(pop3_session_t *session,
     if (strcmp(auth_mech, "") == 0)
     {
 #ifdef HAVE_TLS
-        if (!tls_is_active(&session->tls))
+        if (!mtls_is_active(&session->mtls))
         {
 #endif /* HAVE_TLS */
             *errstr = xasprintf(_("cannot use a secure authentication method"));
@@ -3277,9 +3277,9 @@ int pop3_quit(pop3_session_t *session, char **errmsg, char **errstr)
 void pop3_close(pop3_session_t *session)
 {
 #ifdef HAVE_TLS
-    if (tls_is_active(&session->tls))
+    if (mtls_is_active(&session->mtls))
     {
-        tls_close(&session->tls);
+        mtls_close(&session->mtls);
     }
 #endif /* HAVE_TLS */
     net_close_socket(session->fd);

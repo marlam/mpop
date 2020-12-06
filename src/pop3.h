@@ -30,7 +30,7 @@
 #include "readbuf.h"
 #include "net.h"
 #ifdef HAVE_TLS
-# include "tls.h"
+# include "mtls.h"
 #endif /* HAVE_TLS */
 
 
@@ -178,7 +178,7 @@ typedef struct
     int count_newline_as_crlf;  /* does the server count newline as 2 chars? */
     int fd;                     /* the socket */
 #ifdef HAVE_TLS
-    tls_t tls;                  /* TLS descriptor */
+    mtls_t mtls;                /* TLS descriptor */
 #endif /* HAVE_TLS */
     char buffer[POP3_BUFSIZE];  /* input/output buffer */
     readbuf_t readbuf;          /* net input buffering */
@@ -321,7 +321,7 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr);
  */
 #ifdef HAVE_TLS
 int pop3_tls(pop3_session_t *session,
-        tls_cert_info_t *tci, char **tls_parameter_description, char **errstr);
+        mtls_cert_info_t *tci, char **tls_parameter_description, char **errstr);
 #endif /* HAVE_TLS */
 
 /*

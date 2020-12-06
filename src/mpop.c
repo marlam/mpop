@@ -59,7 +59,7 @@ extern int optind;
 #include "pop3.h"
 #include "password.h"
 #ifdef HAVE_TLS
-#include "tls.h"
+#include "mtls.h"
 #endif /* HAVE_TLS */
 #include "uidls.h"
 
@@ -148,8 +148,8 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     pop3_session_t *session;
     char server_greeting[POP3_BUFSIZE - 4];
 #ifdef HAVE_TLS
-    tls_cert_info_t *tci = NULL;
-    char *tls_parameter_description = NULL;
+    mtls_cert_info_t *tci = NULL;
+    char *mtls_parameter_description = NULL;
 #endif /* HAVE_TLS */
     const char *server_canonical_name;
     const char *server_address;
@@ -176,7 +176,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 #ifdef HAVE_TLS
     if (acc->tls)
     {
-        tci = tls_cert_info_new();
+        tci = mtls_cert_info_new();
         if ((e = pop3_tls_init(session,
                         acc->tls_key_file, acc->tls_cert_file, acc->password,
                         acc->tls_trust_file, acc->tls_crl_file,
@@ -189,7 +189,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
                         errstr)) != TLS_EOK)
         {
             pop3_session_free(session);
-            e = tls_exitcode(e);
+            e = mtls_exitcode(e);
             goto error_exit;
         }
     }
@@ -200,10 +200,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     if (acc->tls && acc->tls_nostarttls)
     {
         if ((e = pop3_tls(session, tci,
-                        &tls_parameter_description, errstr)) != TLS_EOK)
+                        &mtls_parameter_description, errstr)) != TLS_EOK)
         {
             mpop_endsession(session, 0);
-            e = tls_exitcode(e);
+            e = mtls_exitcode(e);
             goto error_exit;
         }
     }
@@ -246,10 +246,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
             goto error_exit;
         }
         if ((e = pop3_tls(session, tci,
-                        &tls_parameter_description, errstr)) != TLS_EOK)
+                        &mtls_parameter_description, errstr)) != TLS_EOK)
         {
             mpop_endsession(session, 0);
-            e = tls_exitcode(e);
+            e = mtls_exitcode(e);
             goto error_exit;
         }
         /* get capabilities again */
@@ -326,7 +326,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 #ifdef HAVE_TLS
     if (acc->tls)
     {
-        tls_print_info(tls_parameter_description, tci);
+        mtls_print_info(mtls_parameter_description, tci);
     }
 #endif /* not HAVE_TLS */
     printf(_("POP3 capabilities:\n"));
@@ -500,8 +500,8 @@ error_exit:
 #ifdef HAVE_TLS
     if (tci)
     {
-        tls_cert_info_free(tci);
-        free(tls_parameter_description);
+        mtls_cert_info_free(tci);
+        free(mtls_parameter_description);
     }
 #endif /* HAVE_TLS */
     return e;
@@ -642,8 +642,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 {
     pop3_session_t *session;
 #ifdef HAVE_TLS
-    tls_cert_info_t *tci = NULL;
-    char *tls_parameter_description = NULL;
+    mtls_cert_info_t *tci = NULL;
+    char *mtls_parameter_description = NULL;
 #endif /* HAVE_TLS */
     int e;
     long i, j;
@@ -692,7 +692,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                         errstr)) != TLS_EOK)
         {
             pop3_session_free(session);
-            return tls_exitcode(e);
+            return mtls_exitcode(e);
         }
     }
 #endif /* HAVE_TLS */
@@ -703,24 +703,24 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     {
         if (debug)
         {
-            tci = tls_cert_info_new();
+            tci = mtls_cert_info_new();
         }
         if ((e = pop3_tls(session, tci,
-                        &tls_parameter_description, errstr)) != POP3_EOK)
+                        &mtls_parameter_description, errstr)) != POP3_EOK)
         {
             if (debug)
             {
-                tls_cert_info_free(tci);
-                free(tls_parameter_description);
+                mtls_cert_info_free(tci);
+                free(mtls_parameter_description);
             }
             mpop_endsession(session, 0);
-            return tls_exitcode(e);
+            return mtls_exitcode(e);
         }
         if (debug)
         {
-            tls_print_info(tls_parameter_description, tci);
-            tls_cert_info_free(tci);
-            free(tls_parameter_description);
+            mtls_print_info(mtls_parameter_description, tci);
+            mtls_cert_info_free(tci);
+            free(mtls_parameter_description);
         }
     }
 #endif /* HAVE_TLS */
@@ -758,24 +758,24 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         }
         if (debug)
         {
-            tci = tls_cert_info_new();
+            tci = mtls_cert_info_new();
         }
         if ((e = pop3_tls(session, tci,
-                        &tls_parameter_description, errstr)) != TLS_EOK)
+                        &mtls_parameter_description, errstr)) != TLS_EOK)
         {
             if (debug)
             {
-                tls_cert_info_free(tci);
-                free(tls_parameter_description);
+                mtls_cert_info_free(tci);
+                free(mtls_parameter_description);
             }
             mpop_endsession(session, 0);
-            return tls_exitcode(e);
+            return mtls_exitcode(e);
         }
         if (debug)
         {
-            tls_print_info(tls_parameter_description, tci);
-            tls_cert_info_free(tci);
-            free(tls_parameter_description);
+            mtls_print_info(mtls_parameter_description, tci);
+            mtls_cert_info_free(tci);
+            free(mtls_parameter_description);
         }
         /* get capabilities again */
         if ((session->cap.flags & POP3_CAP_CAPA)
@@ -2668,7 +2668,7 @@ int main(int argc, char *argv[])
 #ifdef HAVE_TLS
             if (!tls_lib_initialized)
             {
-                if (tls_lib_init(&errstr) != TLS_EOK)
+                if (mtls_lib_init(&errstr) != TLS_EOK)
                 {
                     print_error(_("cannot initialize TLS library: %s"),
                             sanitize_string(errstr));
@@ -2801,7 +2801,7 @@ exit:
 #ifdef HAVE_TLS
     if (tls_lib_initialized)
     {
-        tls_lib_deinit();
+        mtls_lib_deinit();
     }
 #endif /* HAVE_TLS */
     if (net_lib_initialized)
