@@ -28,6 +28,9 @@ endif
 if HAVE_OPENSSL
 mpop_SOURCES += mtls-openssl.c
 endif
+if HAVE_LIBTLS
+mpop_SOURCES += mtls-libtls.c
+endif
 
 AM_CPPFLAGS = $(tls_CFLAGS) $(libgsasl_CFLAGS) $(libidn2_CFLAGS) $(libsecret_CFLAGS)
 

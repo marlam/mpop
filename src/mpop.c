@@ -2168,6 +2168,8 @@ int main(int argc, char *argv[])
                 "GnuTLS"
 #elif defined (HAVE_LIBSSL)
                 "OpenSSL"
+#elif defined (HAVE_LIBTLS)
+                "libtls"
 #else
                 _("none")
 #endif
