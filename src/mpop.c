@@ -32,17 +32,12 @@
 #include <stdarg.h>
 #include <limits.h>
 #include <string.h>
-#include <ctype.h>
 #include <errno.h>
-#include <time.h>
 #include <getopt.h>
 extern char *optarg;
 extern int optind;
-#include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <signal.h>
-#include <fcntl.h>
 #ifdef ENABLE_NLS
 # include <locale.h>
 #endif

@@ -23,6 +23,8 @@
 #ifndef UIDLS_H
 #define UIDLS_H
 
+#include <stdio.h>
+
 #include "list.h"
 
 

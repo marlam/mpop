@@ -26,7 +26,6 @@
 # include "config.h"
 #endif
 
-#include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
