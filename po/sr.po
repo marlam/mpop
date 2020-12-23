@@ -4,10 +4,10 @@
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.10\n"
+"Project-Id-Version: mpop 1.4.11\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2020-11-13 16:11+0100\n"
-"PO-Revision-Date: 2020-08-04 10:18+0200\n"
+"POT-Creation-Date: 2020-12-23 15:22+0100\n"
+"PO-Revision-Date: 2020-11-16 06:57+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
@@ -21,98 +21,98 @@ msgstr ""
 
 #. TRANSLATORS: mpop shares a lot of code and translatable strings with
 #. msmtp <https://marlam.de/msmtp>.
-#: src/mpop.c:95
+#: src/mpop.c:90
 #, c-format
 msgid "%s: FATAL: %s\n"
 msgstr "%s: КОБНО: %s\n"
 
-#: src/mpop.c:236 src/mpop.c:749
+#: src/mpop.c:231 src/mpop.c:744
 #, c-format
 msgid "the POP3 server does not support TLS via the STLS command"
 msgstr "„POP3“ сервер не подржава „TLS“ путем „STLS“ наредбе"
 
-#: src/mpop.c:305
+#: src/mpop.c:300
 #, c-format
 msgid "POP3 server at %s (%s [%s]), port %d:\n"
 msgstr "„POP3“ сервер на „%s“ (%s [%s]), прикључник %d:\n"
 
-#: src/mpop.c:310
+#: src/mpop.c:305
 #, c-format
 msgid "POP3 server at %s (%s), port %d:\n"
 msgstr "„POP3“ сервер на „%s“ (%s), прикључник %d:\n"
 
-#: src/mpop.c:315
+#: src/mpop.c:310
 #, c-format
 msgid "POP3 server at %s ([%s]), port %d:\n"
 msgstr "„POP3“ сервер на „%s“ ([%s]), прикључник %d:\n"
 
-#: src/mpop.c:320
+#: src/mpop.c:315
 #, c-format
 msgid "POP3 server at %s, port %d:\n"
 msgstr "„POP3“ сервер на „%s“, прикључник %d:\n"
 
-#: src/mpop.c:332
+#: src/mpop.c:327
 #, c-format
 msgid "POP3 capabilities:\n"
 msgstr "„POP3“ могућности:\n"
 
-#: src/mpop.c:336
+#: src/mpop.c:331
 msgid "Support for the CAPA command (get list of capabilities)"
 msgstr "Подршка за наредбу „CAPA“ (добавља списак могућности)"
 
-#: src/mpop.c:346
+#: src/mpop.c:341
 msgid "Support for command grouping for faster transmission"
 msgstr "Подршка за груписање наредби ради бржег преноса"
 
-#: src/mpop.c:351
+#: src/mpop.c:346
 msgid "Support for the TOP command (get mail headers)"
 msgstr "Подршка за наредбу „TOP“ (добавља заглавља поште)"
 
-#: src/mpop.c:356
+#: src/mpop.c:351
 msgid "Support for the UIDL command (get unique mail identifiers)"
 msgstr "Подршка за наредбу „UIDL“ (добавља јединствене одреднике поште)"
 
-#: src/mpop.c:365
+#: src/mpop.c:360
 #, c-format
 msgid "minimum time between logins is %ld seconds = %.2f hours"
 msgstr "најмање време између пријављивања је %ld секунде = %.2f сата"
 
-#: src/mpop.c:370
+#: src/mpop.c:365
 #, c-format
 msgid "minimum time between logins is %ld seconds = %.2f minutes"
 msgstr "најмање време између пријављивања је %ld секунде = %.2f минута"
 
-#: src/mpop.c:375
+#: src/mpop.c:370
 #, c-format
 msgid "minimum time between logins is %ld seconds"
 msgstr "најмање време између пријављивања је %ld секунде"
 
-#: src/mpop.c:386
+#: src/mpop.c:381
 msgid "this POP3 server will never delete mails"
 msgstr "овај „POP3“ сервер никада неће обрисати пошту"
 
-#: src/mpop.c:391
+#: src/mpop.c:386
 msgid "this POP3 server will not keep mails"
 msgstr "овај „POP3“ сервер неће чувати пошту"
 
-#: src/mpop.c:396
+#: src/mpop.c:391
 #, c-format
 msgid "this POP3 server will keep mails for %ld days"
 msgstr "овај „POP3“ сервер ће чувати пошту %ld дана"
 
-#: src/mpop.c:409
+#: src/mpop.c:404
 msgid "Support for TLS encryption via the STLS command"
 msgstr "Подршка за „TLS“ шифровање путем наредбе „STLS“"
 
-#: src/mpop.c:412
+#: src/mpop.c:407
 msgid "Supported authentication methods:"
 msgstr "Подржани начини потврђивања идентитета:"
 
-#: src/mpop.c:465 src/mpop.c:471
+#: src/mpop.c:460 src/mpop.c:466
 msgid "Server error messages in square brackets have a special meaning"
 msgstr "Поруке грешке са сервера у средњој загради имају посебно значење"
 
-#: src/mpop.c:480
+#: src/mpop.c:475
 #, c-format
 msgid ""
 "This server might advertise more or other capabilities\n"
@@ -121,7 +121,7 @@ msgstr ""
 "Овај сервер може обавестити о више или о другим могућностима\n"
 "    када је „TLS“ активно.\n"
 
-#: src/mpop.c:485
+#: src/mpop.c:480
 #, c-format
 msgid ""
 "This server might advertise more or other capabilities\n"
@@ -130,7 +130,7 @@ msgstr ""
 "Овај сервер може обавестити о више или о другим могућностима\n"
 "    након успешног потврђивања идентитета.\n"
 
-#: src/mpop.c:490
+#: src/mpop.c:485
 #, c-format
 msgid ""
 "This server does not support the CAPA command, so this\n"
@@ -139,197 +139,198 @@ msgstr ""
 "Овај сервер не подржава наредбу „CAPA“, тако да\n"
 "    овај списак вероватно није потпун.\n"
 
-#: src/mpop.c:524
+#: src/mpop.c:519
 #, c-format
 msgid "%.2f GiB"
 msgstr "%.2f GiB"
 
-#: src/mpop.c:528
+#: src/mpop.c:523
 #, c-format
 msgid "%.2f MiB"
 msgstr "%.2f MiB"
 
-#: src/mpop.c:532
+#: src/mpop.c:527
 #, c-format
 msgid "%.2f KiB"
 msgstr "%.2f KiB"
 
-#: src/mpop.c:536
+#: src/mpop.c:531
 #, c-format
 msgid " bytes"
 msgstr " бајтова"
 
-#: src/mpop.c:540
+#: src/mpop.c:535
 #, c-format
 msgid "1 byte"
 msgstr "1 бајт"
 
-#: src/mpop.c:557
+#: src/mpop.c:552
 #, c-format
 msgid "skipping message %ld of %ld (reason: filter + keep)\n"
 msgstr "прескачем %ld. поруку од %ld (разлог: филтер + задржи)\n"
 
-#: src/mpop.c:562
+#: src/mpop.c:557
 #, c-format
 msgid "deleting message %ld of %ld (reason: filter)\n"
 msgstr "бришем %ld. поруку од %ld (разлог: филтер)\n"
 
-#: src/mpop.c:568
+#: src/mpop.c:563
 #, c-format
 msgid "skipping message %ld of %ld (reason: filter)\n"
 msgstr "прескачем %ld. поруку од %ld (разлог: филтер)\n"
 
-#: src/mpop.c:577
+#: src/mpop.c:572
 #, c-format
 msgid "retrieving message %ld of %ld (%s): "
 msgstr "довлачим %ld. поруку од %ld (%s): "
 
-#: src/mpop.c:582
+#: src/mpop.c:577
 #, c-format
 msgid "retrieving message %ld of %ld: "
 msgstr "довлачим %ld. поруку од %ld: "
 
-#: src/mpop.c:793 src/mpop.c:846 src/mpop.c:869 src/mpop.c:1024 src/pop3.c:1140
-#: src/pop3.c:1277 src/pop3.c:1390 src/pop3.c:1781 src/pop3.c:2068 src/net.c:97
-#: src/net.c:208 src/net.c:255 src/net.c:767 src/net.c:894 src/tls.c:1513
-#: src/tls.c:1578 src/tls.c:1621 src/tls.c:1708 src/tls.c:1747
+#: src/mpop.c:788 src/mpop.c:841 src/mpop.c:864 src/mpop.c:1019 src/pop3.c:1139
+#: src/pop3.c:1276 src/pop3.c:1389 src/pop3.c:1780 src/pop3.c:2067 src/net.c:97
+#: src/net.c:208 src/net.c:255 src/net.c:767 src/net.c:894
+#: src/mtls-gnutls.c:596 src/mtls-gnutls.c:643 src/mtls-openssl.c:866
+#: src/mtls-openssl.c:933 src/mtls-openssl.c:975
 #, c-format
 msgid "operation aborted"
 msgstr "радња је обустављена"
 
-#: src/mpop.c:915
+#: src/mpop.c:910
 #, c-format
 msgid "%s at %s:\n"
 msgstr "„%s“ на „%s“:\n"
 
-#: src/mpop.c:918
+#: src/mpop.c:913
 #, c-format
 msgid "new: "
 msgstr "нова: "
 
-#: src/mpop.c:921 src/mpop.c:942
+#: src/mpop.c:916 src/mpop.c:937
 #, c-format
 msgid "no messages"
 msgstr "нема порука"
 
-#: src/mpop.c:925 src/mpop.c:946
+#: src/mpop.c:920 src/mpop.c:941
 #, c-format
 msgid "1 message"
 msgstr "1 порука"
 
-#: src/mpop.c:929 src/mpop.c:950
+#: src/mpop.c:924 src/mpop.c:945
 #, c-format
 msgid "%ld messages"
 msgstr "%ld порукa"
 
-#: src/mpop.c:934 src/mpop.c:955
+#: src/mpop.c:929 src/mpop.c:950
 #, c-format
 msgid " in %s"
 msgstr " у „%s“"
 
-#: src/mpop.c:938
+#: src/mpop.c:933
 #, c-format
 msgid "total: "
 msgstr "укупно: "
 
-#: src/mpop.c:992
+#: src/mpop.c:987
 #, c-format
 msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
 msgstr "прескачем %ld. поруку од %ld (разлог: величина_прекида + задржи)\n"
 
-#: src/mpop.c:998
+#: src/mpop.c:993
 #, c-format
 msgid "deleting message %ld of %ld (reason: killsize)\n"
 msgstr "бришем %ld. поруку од %ld (разлог: величина_прекида)\n"
 
-#: src/mpop.c:1009
+#: src/mpop.c:1004
 #, c-format
 msgid "skipping message %ld of %ld (reason: skipsize)\n"
 msgstr "прескачем %ld. поруку од %ld (разлог: величина_прескока)\n"
 
-#: src/mpop.c:1034
+#: src/mpop.c:1029
 #, c-format
 msgid "the POP3 server does not support the TOP command needed for filtering"
 msgstr "„POP3“ сервер не подржава наредбу „TOP“ потребну за филтрирање"
 
-#: src/mpop.c:1214 src/mpop.c:1233 src/mpop.c:1285
+#: src/mpop.c:1209 src/mpop.c:1228 src/mpop.c:1280
 #, c-format
 msgid "automatic configuration based on SRV records failed: %s"
 msgstr "самоподешавање на основу „SRV“ снимака није успело: %s"
 
-#: src/mpop.c:1215
+#: src/mpop.c:1210
 msgid "invalid mail address"
 msgstr "нетачна адреса е-поште"
 
-#: src/mpop.c:1231
+#: src/mpop.c:1226
 #, c-format
 msgid "no SRV records for %s or %s"
 msgstr "нема „SRV“ снимака за „%s“ или „%s“"
 
-#: src/mpop.c:1248
+#: src/mpop.c:1243
 #, c-format
 msgid "copy this to your configuration file %s"
 msgstr "умножите ово у вашу датотеку подешавања „%s“"
 
-#: src/mpop.c:1252
+#: src/mpop.c:1247
 msgid "warning: the host does not match the mail domain; please check"
 msgstr "упозорење: домаћин не одговара домену поште; проверите то"
 
-#: src/mpop.c:1255 src/mpop.c:1259
+#: src/mpop.c:1250 src/mpop.c:1254
 msgid "add your password to the key ring:"
 msgstr "додајте вашу лозинку у привезак кључева:"
 
-#: src/mpop.c:1262
+#: src/mpop.c:1257
 msgid "encrypt your password:"
 msgstr "шифрујте вашу лозинку:"
 
-#: src/mpop.c:1264
+#: src/mpop.c:1259
 msgid "adjust the delivery command"
 msgstr "дотерајте наредбу испоручивања"
 
-#: src/mpop.c:1286
+#: src/mpop.c:1281
 msgid "this system lacks libresolv"
 msgstr "овом систему недостаје „libresolv“"
 
-#: src/mpop.c:1315
+#: src/mpop.c:1310
 #, c-format
 msgid "%s: no accounts defined"
 msgstr "%s: нема дефинисаних налога"
 
-#: src/mpop.c:1333 src/mpop.c:1344
+#: src/mpop.c:1328 src/mpop.c:1339
 #, c-format
 msgid "%s: no account %s"
 msgstr "%s: нема налога „%s“"
 
-#: src/mpop.c:1705 src/mpop.c:1722 src/mpop.c:1745 src/mpop.c:1763
-#: src/mpop.c:1783 src/mpop.c:1824 src/mpop.c:1873 src/mpop.c:1891
-#: src/mpop.c:1940 src/mpop.c:1973 src/mpop.c:1995 src/mpop.c:2040
-#: src/mpop.c:2058 src/mpop.c:2074 src/mpop.c:2091 src/mpop.c:2133
+#: src/mpop.c:1700 src/mpop.c:1717 src/mpop.c:1740 src/mpop.c:1758
+#: src/mpop.c:1778 src/mpop.c:1819 src/mpop.c:1868 src/mpop.c:1886
+#: src/mpop.c:1935 src/mpop.c:1968 src/mpop.c:1990 src/mpop.c:2035
+#: src/mpop.c:2053 src/mpop.c:2069 src/mpop.c:2086 src/mpop.c:2128
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "неисправан аргумент „%s“ за „%s“"
 
-#: src/mpop.c:2163
+#: src/mpop.c:2158
 #, c-format
 msgid "%s version %s\n"
 msgstr "%s издање %s\n"
 
-#: src/mpop.c:2164
+#: src/mpop.c:2159
 #, c-format
 msgid "Platform: %s\n"
 msgstr "Платформа: %s\n"
 
-#: src/mpop.c:2166
+#: src/mpop.c:2161
 #, c-format
 msgid "TLS/SSL library: %s\n"
 msgstr "„TLS/SSL“ библиотека: %s\n"
 
-#: src/mpop.c:2172 src/mpop.c:2254
+#: src/mpop.c:2169 src/mpop.c:2251
 #, c-format
 msgid "none"
 msgstr "ништа"
 
-#: src/mpop.c:2176
+#: src/mpop.c:2173
 #, c-format
 msgid ""
 "Authentication library: %s\n"
@@ -338,61 +339,60 @@ msgstr ""
 "Библиотека потврђивања идентитета: %s\n"
 "Подржани начини потврђивања идентитета:\n"
 
-#: src/mpop.c:2179
-#, fuzzy
+#: src/mpop.c:2176
 msgid "GNU SASL; user, apop, oauthbearer, xoauth2: built-in"
-msgstr "GNU SASL; user, apop, oauthbearer: уграђено"
+msgstr "GNU SASL; user, apop, oauthbearer, xoauth2: уграђено"
 
-#: src/mpop.c:2181
+#: src/mpop.c:2178
 msgid "built-in"
 msgstr "уграђено"
 
-#: src/mpop.c:2234
+#: src/mpop.c:2231
 #, c-format
 msgid "IDN support: "
 msgstr "„IDN“ подршка: "
 
-#: src/mpop.c:2238 src/mpop.c:2246
+#: src/mpop.c:2235 src/mpop.c:2243
 #, c-format
 msgid "enabled"
 msgstr "омогућено"
 
-#: src/mpop.c:2240 src/mpop.c:2249
+#: src/mpop.c:2237 src/mpop.c:2246
 #, c-format
 msgid "disabled"
 msgstr "онемогућено"
 
-#: src/mpop.c:2244
+#: src/mpop.c:2241
 #, c-format
 msgid "NLS: "
 msgstr "NLS: "
 
-#: src/mpop.c:2247
+#: src/mpop.c:2244
 #, c-format
 msgid ", LOCALEDIR is %s"
 msgstr ", ДИРЈЕЗИКА ЈЕ „%s“"
 
-#: src/mpop.c:2252
+#: src/mpop.c:2249
 #, c-format
 msgid "Keyring support: "
 msgstr "Подршка привеска кључева: "
 
-#: src/mpop.c:2257
+#: src/mpop.c:2254
 #, c-format
 msgid "Gnome "
 msgstr "Гном "
 
-#: src/mpop.c:2260
+#: src/mpop.c:2257
 #, c-format
 msgid "MacOS "
 msgstr "MacOS "
 
-#: src/mpop.c:2266
+#: src/mpop.c:2263
 #, c-format
 msgid "Configuration file name: %s\n"
 msgstr "Назив датотеке подешавања: %s\n"
 
-#: src/mpop.c:2270
+#: src/mpop.c:2267
 #, c-format
 msgid ""
 "Copyright (C) 2020 Martin Lambers and others.\n"
@@ -407,7 +407,7 @@ msgstr ""
 "Гнуове Опште Јавне Лиценце <http://www.gnu.org/licenses/gpl.html>.\n"
 "Не постоји НИКАКВА ГАРАНЦИЈА, у оквирима дозвољеним законом.\n"
 
-#: src/mpop.c:2279
+#: src/mpop.c:2276
 #, c-format
 msgid ""
 "Usage:\n"
@@ -416,7 +416,7 @@ msgstr ""
 "Употреба:\n"
 "\n"
 
-#: src/mpop.c:2280
+#: src/mpop.c:2277
 #, c-format
 msgid ""
 "Mail retrieval mode (default):\n"
@@ -431,7 +431,7 @@ msgstr ""
 "  %s --host=домаћин [опција...]\n"
 "  Чита пошту са једног или више „POP3“ налога и испоручује је.\n"
 
-#: src/mpop.c:2286
+#: src/mpop.c:2283
 #, c-format
 msgid ""
 "Configuration mode:\n"
@@ -442,7 +442,7 @@ msgstr ""
 "  %s --configure=адреса_поште\n"
 "  Ствара и исписује подешавање за адресу.\n"
 
-#: src/mpop.c:2289
+#: src/mpop.c:2286
 #, c-format
 msgid ""
 "Server information mode:\n"
@@ -457,60 +457,60 @@ msgstr ""
 "  Исписује податке о једном или више „POP3“ сервера.\n"
 "\n"
 
-#: src/mpop.c:2293
+#: src/mpop.c:2290
 #, c-format
 msgid "General options:\n"
 msgstr "Опште опције:\n"
 
-#: src/mpop.c:2294
+#: src/mpop.c:2291
 #, c-format
 msgid "  --version                    print version\n"
 msgstr "  --version                      исписује издање\n"
 
-#: src/mpop.c:2295
+#: src/mpop.c:2292
 #, c-format
 msgid "  --help                       print help\n"
 msgstr "  --help                         исписује помоћ\n"
 
-#: src/mpop.c:2296
+#: src/mpop.c:2293
 #, c-format
 msgid "  -P, --pretend                print configuration info and exit\n"
 msgstr ""
 "  -P, --pretend                  исписује податке подешавања и излази\n"
 
-#: src/mpop.c:2297
+#: src/mpop.c:2294
 #, c-format
 msgid "  -d, --debug                  print debugging information\n"
 msgstr "  -d, --debug                    исписује податке пречишћавања\n"
 
-#: src/mpop.c:2298
+#: src/mpop.c:2295
 #, c-format
 msgid "Changing the mode of operation:\n"
 msgstr "Промена режима рада:\n"
 
-#: src/mpop.c:2299
+#: src/mpop.c:2296
 #, c-format
 msgid ""
 "  --configure=mailaddress      generate and print configuration for address\n"
 msgstr ""
 "  --configure=адреса_поште       ствара и исписује подешавање за адресу\n"
 
-#: src/mpop.c:2300
+#: src/mpop.c:2297
 #, c-format
 msgid "  -S, --serverinfo             print information about the server\n"
 msgstr "  -S, --serverinfo               исписује податке о серверу\n"
 
-#: src/mpop.c:2301
+#: src/mpop.c:2298
 #, c-format
 msgid "Configuration options:\n"
 msgstr "Опције подешавања:\n"
 
-#: src/mpop.c:2302
+#: src/mpop.c:2299
 #, c-format
 msgid "  -C, --file=filename          set configuration file\n"
 msgstr "  -C, --file=датотека            поставља датотеку подешавања\n"
 
-#: src/mpop.c:2303
+#: src/mpop.c:2300
 #, c-format
 msgid ""
 "  --host=hostname              set the server, use only command-line "
@@ -522,12 +522,12 @@ msgstr ""
 "                                 не користи никакве податке датотеке "
 "подешавања\n"
 
-#: src/mpop.c:2305
+#: src/mpop.c:2302
 #, c-format
 msgid "  --port=number                set port number\n"
 msgstr "  --port=број                    подешава број прикључника\n"
 
-#: src/mpop.c:2306
+#: src/mpop.c:2303
 #, c-format
 msgid ""
 "  --source-ip=[IP]             set/unset source ip address to bind the "
@@ -536,88 +536,88 @@ msgstr ""
 "  --source-ip=[ИП]               подешава/расподешава ип адресу извора на "
 "коју ће свезати прикључницу\n"
 
-#: src/mpop.c:2307
+#: src/mpop.c:2304
 #, c-format
 msgid "  --proxy-host=[IP|hostname]   set/unset proxy\n"
 msgstr "  --proxy-host=[ИП|домаћин]      подешава/расподешава посредника\n"
 
-#: src/mpop.c:2308
+#: src/mpop.c:2305
 #, c-format
 msgid "  --proxy-port=[number]        set/unset proxy port\n"
 msgstr ""
 "  --proxy-port=[број]            подешава/расподешава прикључник посредника\n"
 
-#: src/mpop.c:2309
+#: src/mpop.c:2306
 #, c-format
 msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
 msgstr ""
 "  --socket=[прикључница]         подешава/расподешава локалну прикључницу на "
 "коју ће се повезати\n"
 
-#: src/mpop.c:2310
+#: src/mpop.c:2307
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
 msgstr ""
 "  --timeout=(искљ.|сек.)         подешава/расподешава време истека мреже у "
 "секундама\n"
 
-#: src/mpop.c:2311
+#: src/mpop.c:2308
 #, c-format
 msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
 msgstr ""
 "  --pipelining=(ауто|укљ|искљ)   омогућује/онемогућује надовезивање спојки\n"
 
-#: src/mpop.c:2312
+#: src/mpop.c:2309
 #, c-format
 msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
 msgstr ""
 "  --received-header[=(укљ|искљ)] омогућује/онемогућује заглавље примљеног\n"
 
-#: src/mpop.c:2313
+#: src/mpop.c:2310
 #, c-format
 msgid "  --auth[=(on|method)]         choose the authentication method\n"
 msgstr "  --auth[=(укљ|начин)]           бира начин потврђивања идентитета\n"
 
-#: src/mpop.c:2314
+#: src/mpop.c:2311
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
 msgstr ""
 "  --user=[корисник]              подешава/расподешава корисничко име за "
 "потврђивање идентитета\n"
 
-#: src/mpop.c:2315
+#: src/mpop.c:2312
 #, c-format
 msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
 msgstr ""
 "  --passwordeval=[оцењ]          оцењује лозинку за потврђивање идентитета\n"
 
-#: src/mpop.c:2316
+#: src/mpop.c:2313
 #, c-format
 msgid "  --tls[=(on|off)]             enable/disable TLS encryption\n"
 msgstr ""
 "  --tls[=(укљ|искљ)]             омогућује/онемогућује „TLS“ шифровање\n"
 
-#: src/mpop.c:2317
+#: src/mpop.c:2314
 #, c-format
 msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
 msgstr ""
 "  --tls-starttls[=(укљ|искљ)]    омогућује/онемогућује „STARTTLS“ за „TLS“\n"
 
-#: src/mpop.c:2318
+#: src/mpop.c:2315
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
 msgstr ""
 "  --tls-trust-file=[датотека]    подешава/расподешава датотеку поверења за "
 "„TLS“\n"
 
-#: src/mpop.c:2319
+#: src/mpop.c:2316
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
 msgstr ""
 "  --tls-crl-file=[датотека]      подешава/расподешава датотеку опозивања за "
 "„TLS“\n"
 
-#: src/mpop.c:2320
+#: src/mpop.c:2317
 #, c-format
 msgid ""
 "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
@@ -626,7 +626,7 @@ msgstr ""
 "  --tls-fingerprint=[ф]          подешава/расподешава отисак поверљивог "
 "уверења за „TLS“\n"
 
-#: src/mpop.c:2321
+#: src/mpop.c:2318
 #, c-format
 msgid ""
 "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
@@ -635,27 +635,27 @@ msgstr ""
 "  --tls-certcheck[=(укљ|искљ)]   подешава/расподешава провере уверења "
 "сервера за „TLS“\n"
 
-#: src/mpop.c:2322
+#: src/mpop.c:2319
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
 msgstr ""
 "  --tls-key-file=[датотека]      подешава/расподешава датотеку личног кључа "
 "за „TLS“\n"
 
-#: src/mpop.c:2323
+#: src/mpop.c:2320
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
 msgstr ""
 "  --tls-cert-file=[датотека]     подешава/расподешава датотеку личног "
 "уверења за „TLS“\n"
 
-#: src/mpop.c:2324
+#: src/mpop.c:2321
 #, c-format
 msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
 msgstr ""
 "  --tls-priorities=[приор]       подешава/расподешава „TLS“ приоритете.\n"
 
-#: src/mpop.c:2325
+#: src/mpop.c:2322
 #, c-format
 msgid ""
 "  --tls-host-override=[host]   set/unset override for TLS host "
@@ -664,19 +664,19 @@ msgstr ""
 "  --tls-host-override=[домаћин]  подешава/расподешава прескок за проверу "
 "„TLS“ домаћина.\n"
 
-#: src/mpop.c:2326
+#: src/mpop.c:2323
 #, c-format
 msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
 msgstr ""
 "  --tls-min-dh-prime-bits=[б]    подешава/расподешава најмању величину бита "
 "„DH“ простог броја\n"
 
-#: src/mpop.c:2327
+#: src/mpop.c:2324
 #, c-format
 msgid "Options specific to mail retrieval mode:\n"
 msgstr "Опције специфичне за режим довлачења поште:\n"
 
-#: src/mpop.c:2328
+#: src/mpop.c:2325
 #, c-format
 msgid ""
 "  -q, --quiet                  do not display status or progress "
@@ -685,7 +685,7 @@ msgstr ""
 "  -q, --quiet                    не приказује податке о стању или "
 "напредовању\n"
 
-#: src/mpop.c:2329
+#: src/mpop.c:2326
 #, c-format
 msgid ""
 "  -Q, --half-quiet             display status but not progress information\n"
@@ -693,21 +693,21 @@ msgstr ""
 "  -Q, --half-quiet               приказује податке о стању али не о "
 "напредовању\n"
 
-#: src/mpop.c:2330
+#: src/mpop.c:2327
 #, c-format
 msgid ""
 "  -a, --all-accounts           query all accounts in the configuration file\n"
 msgstr ""
 "  -a, --all-accounts             пропитује све налоге у датотеци подешавања\n"
 
-#: src/mpop.c:2331
+#: src/mpop.c:2328
 #, c-format
 msgid ""
 "  -A, --auth-only              authenticate only; do not retrieve mail\n"
 msgstr ""
 "  -A, --auth-only                само потврђује идентитет; не довлачи пошту\n"
 
-#: src/mpop.c:2332
+#: src/mpop.c:2329
 #, c-format
 msgid ""
 "  -s, --status-only            print account status only; do not retrieve "
@@ -716,46 +716,46 @@ msgstr ""
 "  -s, --status-only              исписује само стање налога; не довлачи "
 "пошту\n"
 
-#: src/mpop.c:2333
+#: src/mpop.c:2330
 #, c-format
 msgid "  -n, --only-new[=(on|off)]    process only new messages\n"
 msgstr "  -n, --only-new[=(укљ|искљ)]    обрађује само нове поруке\n"
 
-#: src/mpop.c:2334
+#: src/mpop.c:2331
 #, c-format
 msgid "  -k, --keep[=(on|off)]        do not delete mails from servers\n"
 msgstr "  -k, --keep[=(укљ|искљ)]        не брише пошту на серверу\n"
 
-#: src/mpop.c:2335
+#: src/mpop.c:2332
 #, c-format
 msgid "  --killsize=(off|number)      set/unset kill size\n"
 msgstr ""
 "  --killsize=(искљ|број)         подешава/расподешава величину прекида\n"
 
-#: src/mpop.c:2336
+#: src/mpop.c:2333
 #, c-format
 msgid "  --skipsize=(off|number)      set/unset skip size\n"
 msgstr ""
 "  --skipsize=(искљ|број)         подешава/расподешава величину прескока\n"
 
-#: src/mpop.c:2337
+#: src/mpop.c:2334
 #, c-format
 msgid "  --filter=[program]           set/unset header filter\n"
 msgstr ""
 "  --filter=[програм]             подешава/расподешава филтер заглавља\n"
 
-#: src/mpop.c:2338
+#: src/mpop.c:2335
 #, c-format
 msgid "  --delivery=method,arg        set the mail delivery method\n"
 msgstr "  --delivery=начин,арг           подешава начин испоруке поште\n"
 
-#: src/mpop.c:2339
+#: src/mpop.c:2336
 #, c-format
 msgid "  --uidls-file=filename        set file to store UIDLs\n"
 msgstr ""
 "  --uidls-file=датотека          подешава датотеку за смештај „UIDL“-а\n"
 
-#: src/mpop.c:2340
+#: src/mpop.c:2337
 #, c-format
 msgid ""
 "\n"
@@ -764,123 +764,123 @@ msgstr ""
 "\n"
 "Грешке пријавите на <%s>.\n"
 
-#: src/mpop.c:2364
+#: src/mpop.c:2361
 msgid "cannot use both --host and accounts"
 msgstr "не можете користити и „--host“ и налоге"
 
-#: src/mpop.c:2370
+#: src/mpop.c:2367
 msgid "cannot use both --all-accounts and a list of accounts"
 msgstr "не можете користити и „--all-accounts“ и списак налога"
 
-#: src/mpop.c:2466
+#: src/mpop.c:2463
 #, c-format
 msgid "account %s from %s: %s"
 msgstr "налог „%s“ са „%s“: %s"
 
-#: src/mpop.c:2484
+#: src/mpop.c:2481
 #, c-format
 msgid "cannot create directories for %s: %s"
 msgstr "не могу да направим директоријуме за „%s“: %s"
 
-#: src/mpop.c:2487
+#: src/mpop.c:2484
 msgid "a component already exists but is not a directory"
 msgstr "састојак већ постоји али није директоријум"
 
-#: src/mpop.c:2506
+#: src/mpop.c:2503
 #, c-format
 msgid "using account %s from %s\n"
 msgstr "користим налог „%s“ са „%s“\n"
 
-#: src/mpop.c:2512 src/mpop.c:2514 src/mpop.c:2517 src/mpop.c:2549
-#: src/mpop.c:2550 src/mpop.c:2552 src/mpop.c:2554 src/mpop.c:2558
-#: src/mpop.c:2560 src/mpop.c:2579 src/mpop.c:2581 src/mpop.c:2583
-#: src/mpop.c:2593 src/mpop.c:2596 src/mpop.c:2598 src/mpop.c:2642
+#: src/mpop.c:2509 src/mpop.c:2511 src/mpop.c:2514 src/mpop.c:2546
+#: src/mpop.c:2547 src/mpop.c:2549 src/mpop.c:2551 src/mpop.c:2555
+#: src/mpop.c:2557 src/mpop.c:2576 src/mpop.c:2578 src/mpop.c:2580
+#: src/mpop.c:2590 src/mpop.c:2593 src/mpop.c:2595 src/mpop.c:2639
 msgid "(not set)"
 msgstr "(није постављено)"
 
-#: src/mpop.c:2521 src/mpop.c:2626 src/mpop.c:2635
+#: src/mpop.c:2518 src/mpop.c:2623 src/mpop.c:2632
 #, c-format
 msgid "off\n"
 msgstr "искљ\n"
 
-#: src/mpop.c:2527
+#: src/mpop.c:2524
 #, c-format
 msgid "1 second\n"
 msgstr "1 секунда\n"
 
-#: src/mpop.c:2531
+#: src/mpop.c:2528
 #, c-format
 msgid "%d seconds\n"
 msgstr "%d секунде\n"
 
-#: src/mpop.c:2535 src/mpop.c:2538 src/mpop.c:2555 src/mpop.c:2556
-#: src/mpop.c:2585 src/mpop.c:2621 src/mpop.c:2622
+#: src/mpop.c:2532 src/mpop.c:2535 src/mpop.c:2552 src/mpop.c:2553
+#: src/mpop.c:2582 src/mpop.c:2618 src/mpop.c:2619
 msgid "off"
 msgstr "искљ"
 
-#: src/mpop.c:2536 src/mpop.c:2538 src/mpop.c:2555 src/mpop.c:2556
-#: src/mpop.c:2585 src/mpop.c:2621 src/mpop.c:2622
+#: src/mpop.c:2533 src/mpop.c:2535 src/mpop.c:2552 src/mpop.c:2553
+#: src/mpop.c:2582 src/mpop.c:2618 src/mpop.c:2619
 msgid "on"
 msgstr "укљ"
 
-#: src/mpop.c:2536
+#: src/mpop.c:2533
 msgid "auto"
 msgstr "самостално"
 
-#: src/mpop.c:2542
+#: src/mpop.c:2539
 #, c-format
 msgid "choose\n"
 msgstr "изабери\n"
 
-#: src/mpop.c:2661
+#: src/mpop.c:2658
 #, c-format
 msgid "support for authentication method %s is not compiled in"
 msgstr "подршка за начин потврђивања идентитета „%s“ није преведена"
 
-#: src/mpop.c:2673
+#: src/mpop.c:2670
 #, c-format
 msgid "cannot initialize TLS library: %s"
 msgstr "не могу да покренем „TLS“ библиотеку: %s"
 
-#: src/mpop.c:2681
+#: src/mpop.c:2678
 msgid "support for TLS is not compiled in"
 msgstr "подршка за „TLS“ није преведена"
 
-#: src/mpop.c:2689
+#: src/mpop.c:2686
 #, c-format
 msgid "cannot initialize network library: %s"
 msgstr "не могу да покренем библиотеку мреже: %s"
 
-#: src/mpop.c:2758
+#: src/mpop.c:2755
 #, c-format
 msgid "POP3 server message: %s"
 msgstr "порука „POP3“ сервера: %s"
 
-#: src/mpop.c:2767
+#: src/mpop.c:2764
 #, c-format
 msgid "error during mail retrieval (account %s from %s)"
 msgstr "грешка приликом довлачења поште (налог „%s“ са „%s“)"
 
-#: src/mpop.c:2773
+#: src/mpop.c:2770
 msgid "error during mail retrieval"
 msgstr "грешка приликом довлачења поште"
 
-#: src/conf.c:626 src/conf.c:631
+#: src/conf.c:625 src/conf.c:630
 #, c-format
 msgid "host not set"
 msgstr "домаћин није подешен"
 
-#: src/conf.c:636
+#: src/conf.c:635
 #, c-format
 msgid "tls_key_file requires tls_cert_file"
 msgstr "„tls_key_file“ захтева „tls_cert_file“"
 
-#: src/conf.c:641
+#: src/conf.c:640
 #, c-format
 msgid "tls_cert_file requires tls_key_file"
 msgstr "„tls_cert_file“ захтева „tls_key_file“"
 
-#: src/conf.c:649
+#: src/conf.c:648
 #, c-format
 msgid ""
 "tls requires either tls_trust_file (highly recommended) or tls_fingerprint "
@@ -889,96 +889,96 @@ msgstr ""
 "тлс захтева или „tls_trust_file“ (веома препоручљиво) или „tls_fingerprint“ "
 "или искључено „tls_certcheck“"
 
-#: src/conf.c:655
+#: src/conf.c:654
 #, c-format
 msgid "tls_crl_file requires tls_trust_file"
 msgstr "„tls_crl_file“ захтева „tls_trust_file“"
 
-#: src/conf.c:660
+#: src/conf.c:659
 #, c-format
 msgid "no delivery information"
 msgstr "нема података о испоруци"
 
-#: src/conf.c:691
+#: src/conf.c:690
 #, c-format
 msgid "cannot evaluate '%s': %s"
 msgstr "не могу да проценим „%s“: %s"
 
-#: src/conf.c:701
+#: src/conf.c:700
 #, c-format
 msgid "cannot read output of '%s'"
 msgstr "не могу да прочитам излаз „%s“"
 
-#: src/conf.c:827 src/stream.c:63
+#: src/conf.c:826 src/stream.c:63
 #, c-format
 msgid "input error"
 msgstr "улазна грешка"
 
-#: src/conf.c:849
+#: src/conf.c:848
 #, c-format
 msgid "line longer than %d characters"
 msgstr "ред је дужи од %d знака"
 
-#: src/conf.c:900 src/conf.c:1022
+#: src/conf.c:899 src/conf.c:1021
 #, c-format
 msgid "line %d: missing account name"
 msgstr "%d. ред: недостаје назив налога"
 
-#: src/conf.c:905
+#: src/conf.c:904
 #, c-format
 msgid "line %d: account %s not (yet) defined"
 msgstr "%d. ред: налог „%s“ није (још увек) дефинисан"
 
-#: src/conf.c:984
+#: src/conf.c:983
 #, c-format
 msgid "line %d: first command must be account or defaults"
 msgstr "%d. ред: прва наредба мора бити налог или основности"
 
-#: src/conf.c:994
+#: src/conf.c:993
 #, c-format
 msgid "line %d: command %s does not take an argument"
 msgstr "%d. ред: наредба „%s“ не захтева аргумент"
 
-#: src/conf.c:1030
+#: src/conf.c:1029
 #, c-format
 msgid "line %d: an account name must not contain colons or commas"
 msgstr "%d. ред: назив налога не сме да садржи двотачке или зарезе"
 
-#: src/conf.c:1040
+#: src/conf.c:1039
 #, c-format
 msgid "line %d: account %s was already defined"
 msgstr "%d. ред: налог „%s“ је већ дефинисан"
 
-#: src/conf.c:1065 src/conf.c:1081 src/conf.c:1104 src/conf.c:1207
-#: src/conf.c:1227 src/conf.c:1493 src/conf.c:1518
+#: src/conf.c:1064 src/conf.c:1080 src/conf.c:1103 src/conf.c:1206
+#: src/conf.c:1226 src/conf.c:1492 src/conf.c:1517
 #, c-format
 msgid "line %d: command %s needs an argument"
 msgstr "%d. ред: наредба „%s“ захтева аргумент"
 
-#: src/conf.c:1092 src/conf.c:1120 src/conf.c:1146 src/conf.c:1166
-#: src/conf.c:1215 src/conf.c:1253 src/conf.c:1298 src/conf.c:1318
-#: src/conf.c:1375 src/conf.c:1396 src/conf.c:1415 src/conf.c:1462
-#: src/conf.c:1482 src/conf.c:1577
+#: src/conf.c:1091 src/conf.c:1119 src/conf.c:1145 src/conf.c:1165
+#: src/conf.c:1214 src/conf.c:1252 src/conf.c:1297 src/conf.c:1317
+#: src/conf.c:1374 src/conf.c:1395 src/conf.c:1414 src/conf.c:1461
+#: src/conf.c:1481 src/conf.c:1576
 #, c-format
 msgid "line %d: invalid argument %s for command %s"
 msgstr "%d. ред: неисправан аргумент „%s“ за наредбу „%s“"
 
-#: src/conf.c:1506 src/conf.c:1531
+#: src/conf.c:1505 src/conf.c:1530
 #, c-format
 msgid "line %d: invalid size (not a number or out of range): %s"
 msgstr "%d. ред: неисправна величина (није број или је ван опсега): %s"
 
-#: src/conf.c:1616
+#: src/conf.c:1615
 #, c-format
 msgid "line %d: unknown command %s"
 msgstr "%d. ред: непозната наредба „%s“"
 
-#: src/conf.c:1668
+#: src/conf.c:1667
 #, c-format
 msgid "contains secrets and therefore must be owned by you"
 msgstr "садржи тајне и стога мора бити у вашем власништву"
 
-#: src/conf.c:1674
+#: src/conf.c:1673
 #, c-format
 msgid ""
 "contains secrets and therefore must have no more than user read/write "
@@ -987,17 +987,17 @@ msgstr ""
 "садржи тајне и стога не сме имати ништа сем корисникових овлашћења за читање/"
 "писање"
 
-#: src/pop3.c:324
+#: src/pop3.c:323
 #, c-format
 msgid "POP3 server sent an empty reply"
 msgstr "„POP3“ сервер је послао празан одговор"
 
-#: src/pop3.c:328
+#: src/pop3.c:327
 #, c-format
 msgid "POP3 server sent an invalid reply"
 msgstr "„POP3“ сервер је послао неисправан одговор"
 
-#: src/pop3.c:383
+#: src/pop3.c:382
 #, c-format
 msgid ""
 "Cannot send POP3 command because it is longer than %d characters. Increase "
@@ -1006,126 +1006,126 @@ msgstr ""
 "Не могу послати „POP3“ наредбу јер је дужа од %d знака. Повећајте "
 "„POP3_BUFSIZE“."
 
-#: src/pop3.c:691
+#: src/pop3.c:690
 #, c-format
 msgid "cannot get initial OK message from POP3 server"
 msgstr "не могу добити почетну потврдну поруку са „POP3“ сервера"
 
-#: src/pop3.c:752 src/pop3.c:904 src/pop3.c:1036 src/pop3.c:1219
-#: src/pop3.c:1334
+#: src/pop3.c:751 src/pop3.c:903 src/pop3.c:1035 src/pop3.c:1218
+#: src/pop3.c:1333
 #, c-format
 msgid "invalid reply to command %s"
 msgstr "неисправан одговор на наредбу „%s“"
 
-#: src/pop3.c:975 src/pop3.c:981 src/pop3.c:1028 src/pop3.c:1120
-#: src/pop3.c:1260 src/pop3.c:2477 src/pop3.c:2563 src/pop3.c:2649
-#: src/pop3.c:3236 src/pop3.c:3264
+#: src/pop3.c:974 src/pop3.c:980 src/pop3.c:1027 src/pop3.c:1119
+#: src/pop3.c:1259 src/pop3.c:2476 src/pop3.c:2562 src/pop3.c:2648
+#: src/pop3.c:3235 src/pop3.c:3263
 #, c-format
 msgid "command %s failed"
 msgstr "наредба „%s“ није успела"
 
-#: src/pop3.c:1051
+#: src/pop3.c:1050
 #, c-format
 msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
 msgstr ""
 "Не могу да радим са бројем порука већим од %ld. Повећајте "
 "„POP3_MAX_MESSAGES“."
 
-#: src/pop3.c:1506 src/pop3.c:1535
+#: src/pop3.c:1505 src/pop3.c:1534
 #, c-format
 msgid "cannot write mail: output error"
 msgstr "не могу да пишем поруку: излазна грешка"
 
-#: src/pop3.c:1619
+#: src/pop3.c:1618
 #, c-format
 msgid "cannot write to temporary file: output error"
 msgstr "не могу да пишем у привремену датотеку: излазна грешка"
 
-#: src/pop3.c:1700
+#: src/pop3.c:1699
 #, c-format
 msgid "cannot add Received header: %s"
 msgstr "не могу да додам заглавље примљених: %s"
 
-#: src/pop3.c:1797
+#: src/pop3.c:1796
 #, c-format
 msgid "command TOP %ld 0 failed"
 msgstr "наредба „TOP %ld 0“ није успела"
 
-#: src/pop3.c:1802
+#: src/pop3.c:1801
 #, c-format
 msgid "command RETR %ld failed"
 msgstr "наредба „TOP %ld“ није успела"
 
-#: src/pop3.c:1813
+#: src/pop3.c:1812
 #, c-format
 msgid "cannot create temporary file: %s"
 msgstr "не могу да направим привремену датотеку: %s"
 
-#: src/pop3.c:1825
+#: src/pop3.c:1824
 #, c-format
 msgid "cannot rewind temporary file: %s"
 msgstr "не могу да премотам привремену датотеку: %s"
 
-#: src/pop3.c:2082
+#: src/pop3.c:2081
 #, c-format
 msgid "command DELE %ld failed"
 msgstr "наредба „DELE %ld“ није успела"
 
-#: src/pop3.c:2152 src/pop3.c:2164 src/pop3.c:2187 src/pop3.c:2202
-#: src/pop3.c:2242 src/pop3.c:2313 src/pop3.c:2379 src/pop3.c:2438
-#: src/pop3.c:2497 src/pop3.c:2517 src/pop3.c:2610 src/pop3.c:2669
-#: src/pop3.c:3009 src/pop3.c:3042 src/pop3.c:3076
+#: src/pop3.c:2151 src/pop3.c:2163 src/pop3.c:2186 src/pop3.c:2201
+#: src/pop3.c:2241 src/pop3.c:2312 src/pop3.c:2378 src/pop3.c:2437
+#: src/pop3.c:2496 src/pop3.c:2516 src/pop3.c:2609 src/pop3.c:2668
+#: src/pop3.c:3008 src/pop3.c:3041 src/pop3.c:3075
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "потврђивање идентитета није успело (начин „%s“)"
 
-#: src/pop3.c:2573
+#: src/pop3.c:2572
 #, c-format
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr ""
 "начин потврђивања идентитета „CRAM-MD5“: сервер је послао неисправан изазов"
 
-#: src/pop3.c:2788 src/pop3.c:3094
+#: src/pop3.c:2787 src/pop3.c:3093
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "„POP3“ сервер не подржава „%s“ начин потврђивања идентитета"
 
-#: src/pop3.c:2794 src/pop3.c:2941 src/pop3.c:2984
+#: src/pop3.c:2793 src/pop3.c:2940 src/pop3.c:2983
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2801
+#: src/pop3.c:2800
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: „%s“ начин потврђивања идентитета није подржан"
 
-#: src/pop3.c:2868 src/pop3.c:3133
+#: src/pop3.c:2867 src/pop3.c:3132
 #, c-format
 msgid "cannot use a secure authentication method"
 msgstr "не могу да користим безбедни начин потврђивања идентитета"
 
-#: src/pop3.c:2874 src/pop3.c:3139
+#: src/pop3.c:2873 src/pop3.c:3138
 #, c-format
 msgid "cannot find a usable authentication method"
 msgstr "не могу да нађем употребљив начин потврђивања идентитета"
 
-#: src/pop3.c:2887 src/pop3.c:3152
+#: src/pop3.c:2886 src/pop3.c:3151
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "„%s“ начин потврђивања идентитета тражи корисничко име"
 
-#: src/pop3.c:2900 src/pop3.c:3162
+#: src/pop3.c:2899 src/pop3.c:3161
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "„%s“ начин потврђивања идентитета тражи лозинку"
 
-#: src/pop3.c:3055
+#: src/pop3.c:3054
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "потврђивање идентитета није успело: %s (начин „%s“)"
 
-#: src/pop3.c:3204
+#: src/pop3.c:3203
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "„%s“ начин потврђивања идентитета није подржан"
@@ -1314,7 +1314,7 @@ msgstr "„%s“, %ld. ред: неисправан или недостаје к
 msgid "%s, line %ld: too few UIDs for user %s, host %s"
 msgstr "„%s“, %ld. ред: премало УИБ-ова за корисника „%s“, домаћин „%s“"
 
-#: src/uidls.c:351 src/tls.c:116
+#: src/uidls.c:351 src/mtls-openssl.c:98
 #, c-format
 msgid "%s: input error"
 msgstr "%s: улазна грешка"
@@ -1432,7 +1432,8 @@ msgstr "ограничење у броју задатака је достигн�
 msgid "invalid request"
 msgstr "неисправан захтев"
 
-#: src/net.c:178 src/net.c:648 src/tls.c:1409 src/tls.c:1433 src/tls.c:1724
+#: src/net.c:178 src/net.c:648 src/mtls-gnutls.c:659 src/mtls-openssl.c:809
+#: src/mtls-openssl.c:833
 msgid "unknown error"
 msgstr "непозната грешка"
 
@@ -1441,7 +1442,8 @@ msgstr "непозната грешка"
 msgid "network read error: %s"
 msgstr "грешка читања мреже: %s"
 
-#: src/net.c:198 src/net.c:213 src/net.c:245 src/net.c:260 src/tls.c:1428
+#: src/net.c:198 src/net.c:213 src/net.c:245 src/net.c:260
+#: src/mtls-openssl.c:828
 msgid "the operation timed out"
 msgstr "истекло је време за радњу"
 
@@ -1520,212 +1522,139 @@ msgstr "не могу да свежем ип извора „%s“: %s"
 msgid "cannot connect to %s, port %d: %s"
 msgstr "не могу да се повежем на „%s“, прикључник %d: %s"
 
-#: src/tls.c:110
-#, c-format
-msgid ""
-"no environment variables RANDFILE or HOME, or filename of rand file too long"
-msgstr ""
-"нема променљиве окружења „RANDFILE“ или „HOME“, или је назив датотеке предуг "
-"или је предуга насумична датотека"
-
-#: src/tls.c:138
-#, c-format
-msgid "random file + time + pseudo randomness is not enough, giving up"
-msgstr ""
-"насумична датотека + време + псеудо насумичност није довољно, дижем руке од "
-"свега"
-
-#: src/tls.c:375 src/tls.c:489
-msgid "cannot get TLS certificate info"
-msgstr "не могу да добавим податке „TLS“ уверења"
-
-#: src/tls.c:380 src/tls.c:492 src/tls.c:752
-#, c-format
-msgid "%s: no certificate was found"
-msgstr "%s: нисам нашао ниједно уверење"
-
-#: src/tls.c:385 src/tls.c:758
-#, c-format
-msgid "%s: cannot initialize certificate structure"
-msgstr "%s: не могу да покренем структуру уверења"
-
-#: src/tls.c:391
-#, c-format
-msgid "%s: error parsing certificate"
-msgstr "%s: грешка обраде уверења"
-
-#: src/tls.c:401 src/tls.c:512 src/tls.c:775 src/tls.c:898
-#, c-format
-msgid "%s: error getting SHA256 fingerprint"
-msgstr "%s: грешка добављања „SHA256“ отиска"
-
-#: src/tls.c:409 src/tls.c:518 src/tls.c:794 src/tls.c:916
-#, c-format
-msgid "%s: error getting SHA1 fingerprint"
-msgstr "%s: грешка добављања „SHA1“ отиска"
-
-#: src/tls.c:415 src/tls.c:526
-#, c-format
-msgid "%s: cannot get activation time"
-msgstr "%s: не могу да добавим време активирања"
-
-#: src/tls.c:421 src/tls.c:536
-#, c-format
-msgid "%s: cannot get expiration time"
-msgstr "%s: не могу да добавим време истека"
-
-#: src/tls.c:497 src/tls.c:1007
-#, c-format
-msgid "%s: cannot get certificate subject"
-msgstr "%s: не могу да добавим субјекат уверења"
-
-#: src/tls.c:503
-#, c-format
-msgid "%s: cannot get certificate issuer"
-msgstr "%s: не могу да добавим издавача уверења"
-
-#: src/tls.c:605
-msgid "Common Name"
-msgstr "Општи назив"
-
-#: src/tls.c:605
-msgid "Organization"
-msgstr "Организација"
-
-#: src/tls.c:606
-msgid "Organizational unit"
-msgstr "Организациона јединица"
-
-#: src/tls.c:606
-msgid "Locality"
-msgstr "Место"
-
-#: src/tls.c:606
-msgid "State or Province"
-msgstr "Држава или Покрајина"
-
-#: src/tls.c:607
-msgid "Country"
-msgstr "Земља"
-
-#: src/tls.c:614
+#: src/mtls.c:142
 #, c-format
 msgid "TLS session parameters:\n"
 msgstr "Параметри „TLS“ сесије:\n"
 
-#: src/tls.c:616
+#: src/mtls.c:144
 msgid "not available"
 msgstr "недоступно"
 
-#: src/tls.c:621
+#: src/mtls.c:152
 #, c-format
 msgid "TLS certificate information:\n"
 msgstr "Подаци „TLS“ уверења:\n"
 
-#: src/tls.c:622
-msgid "Owner"
-msgstr "Власник"
+#: src/mtls.c:153
+msgid "Subject"
+msgstr ""
 
-#: src/tls.c:633
+#: src/mtls.c:155
 msgid "Issuer"
 msgstr "Издавач"
 
-#: src/tls.c:644
+#: src/mtls.c:157
 msgid "Validity"
 msgstr "Исправност"
 
-#: src/tls.c:646
+#: src/mtls.c:159
 msgid "Activation time"
 msgstr "Време активирања"
 
-#: src/tls.c:648
+#: src/mtls.c:161
 msgid "Expiration time"
 msgstr "Време истека"
 
-#: src/tls.c:649
+#: src/mtls.c:162
 msgid "Fingerprints"
 msgstr "Отисци"
 
-#: src/tls.c:734 src/tls.c:874
+#: src/mtls-gnutls.c:87 src/mtls-openssl.c:285 src/mtls-libtls.c:105
+msgid "cannot get TLS certificate info"
+msgstr "не могу да добавим податке „TLS“ уверења"
+
+#: src/mtls-gnutls.c:92 src/mtls-gnutls.c:211 src/mtls-openssl.c:288
+#, c-format
+msgid "%s: no certificate was found"
+msgstr "%s: нисам нашао ниједно уверење"
+
+#: src/mtls-gnutls.c:97 src/mtls-gnutls.c:217
+#, c-format
+msgid "%s: cannot initialize certificate structure"
+msgstr "%s: не могу да покренем структуру уверења"
+
+#: src/mtls-gnutls.c:103
+#, c-format
+msgid "%s: error parsing certificate"
+msgstr "%s: грешка обраде уверења"
+
+#: src/mtls-gnutls.c:113 src/mtls-gnutls.c:234 src/mtls-openssl.c:308
+#: src/mtls-openssl.c:470 src/mtls-libtls.c:113 src/mtls-libtls.c:179
+#, c-format
+msgid "%s: error getting SHA256 fingerprint"
+msgstr "%s: грешка добављања „SHA256“ отиска"
+
+#: src/mtls-gnutls.c:121 src/mtls-gnutls.c:253 src/mtls-openssl.c:314
+#: src/mtls-openssl.c:488
+#, c-format
+msgid "%s: error getting SHA1 fingerprint"
+msgstr "%s: грешка добављања „SHA1“ отиска"
+
+#: src/mtls-gnutls.c:127 src/mtls-openssl.c:322 src/mtls-libtls.c:126
+#, c-format
+msgid "%s: cannot get activation time"
+msgstr "%s: не могу да добавим време активирања"
+
+#: src/mtls-gnutls.c:133 src/mtls-openssl.c:332 src/mtls-libtls.c:133
+#, c-format
+msgid "%s: cannot get expiration time"
+msgstr "%s: не могу да добавим време истека"
+
+#: src/mtls-gnutls.c:193 src/mtls-openssl.c:446 src/mtls-libtls.c:166
 msgid "TLS certificate verification failed"
 msgstr "Потврђивање „TLS“ уверења није успело"
 
-#: src/tls.c:765
+#: src/mtls-gnutls.c:224
 #, c-format
 msgid "%s: error parsing certificate %u of %u"
 msgstr "%s: грешка обраде уверења „%u“ од „%u“"
 
-#: src/tls.c:782 src/tls.c:801 src/tls.c:820 src/tls.c:905 src/tls.c:923
-#: src/tls.c:941
+#: src/mtls-gnutls.c:241 src/mtls-gnutls.c:260 src/mtls-gnutls.c:279
+#: src/mtls-openssl.c:477 src/mtls-openssl.c:495 src/mtls-openssl.c:513
+#: src/mtls-libtls.c:191
 #, c-format
 msgid "%s: the certificate fingerprint does not match"
 msgstr "%s: отисак уверења не одговара"
 
-#: src/tls.c:813 src/tls.c:934
+#: src/mtls-gnutls.c:272 src/mtls-openssl.c:506
 #, c-format
 msgid "%s: error getting MD5 fingerprint"
 msgstr "%s: грешка добављања „MD5“ отиска"
 
-#: src/tls.c:842
+#: src/mtls-gnutls.c:301
 #, c-format
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: src/tls.c:878
-msgid "TLS certificate check failed"
-msgstr "Провера „TLS“ уверења није успела"
-
-#: src/tls.c:884
-#, c-format
-msgid "%s: no certificate was sent"
-msgstr "%s: није послато никакво уверење"
-
-#: src/tls.c:987
-#, c-format
-msgid "%s: certificate subject alternative name contains NUL"
-msgstr "%s: заменски назив субјекта уверења садржи „NUL“"
-
-#: src/tls.c:1019
-#, c-format
-msgid "%s: cannot get certificate common name"
-msgstr "%s: не могу да добавим уопштен назив уверења"
-
-#: src/tls.c:1028
-#, c-format
-msgid "%s: certificate common name contains NUL"
-msgstr "%s: уопштен назив уверења садржи „NUL“"
-
-#: src/tls.c:1045
-#, c-format
-msgid "%s: the certificate owner does not match hostname %s"
-msgstr "%s: власник уверења не одговара домаћину „%s“"
-
-#: src/tls.c:1105
+#: src/mtls-gnutls.c:360 src/mtls-libtls.c:238 src/mtls-libtls.c:370
 #, c-format
 msgid "cannot initialize TLS session: %s"
 msgstr "не могу да покренем „TLS“ сесију: %s"
 
-#: src/tls.c:1118
+#: src/mtls-gnutls.c:373
 #, c-format
 msgid "error in priority string at position %d"
 msgstr "грешка у нисци приоритета на положају %d"
 
-#: src/tls.c:1121 src/tls.c:1128 src/tls.c:1264
+#: src/mtls-gnutls.c:376 src/mtls-gnutls.c:383 src/mtls-openssl.c:657
+#: src/mtls-libtls.c:257 src/mtls-libtls.c:272 src/mtls-libtls.c:287
+#: src/mtls-libtls.c:297
 #, c-format
 msgid "cannot set priorities for TLS session: %s"
 msgstr "не могу да подесим приоритете за „TLS“ сесију: %s"
 
-#: src/tls.c:1139
+#: src/mtls-gnutls.c:396
 #, c-format
 msgid "cannot set default priority for TLS session: %s"
 msgstr "не могу да подесим основни приоритет за „TLS“ сесију: %s"
 
-#: src/tls.c:1152
+#: src/mtls-gnutls.c:411
 #, c-format
 msgid "cannot allocate certificate for TLS session: %s"
 msgstr "не могу да доделим уверење за „TLS“ сесију: %s"
 
-#: src/tls.c:1163
+#: src/mtls-gnutls.c:424 src/mtls-libtls.c:312
 #, c-format
 msgid ""
 "cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
@@ -1733,109 +1662,203 @@ msgstr ""
 "не могу да подесим датотеку „%s“ „X509“ кључа и/или датотеку „%s“ „X509“ "
 "уверења за „TLS“ сесију: %s"
 
-#: src/tls.c:1183 src/tls.c:1320
+#: src/mtls-gnutls.c:446 src/mtls-openssl.c:720
 #, c-format
 msgid "cannot set X509 system trust for TLS session: %s"
 msgstr "не могу да подесим поверење „X509“ система за „TLS“ сесију: %s"
 
-#: src/tls.c:1196
+#: src/mtls-gnutls.c:461 src/mtls-libtls.c:338
 #, c-format
 msgid "cannot set X509 trust file %s for TLS session: %s"
 msgstr "не могу да подесим датотеку „%s“ „X509“ поверења за „TLS“ сесију: %s"
 
-#: src/tls.c:1209
+#: src/mtls-gnutls.c:476 src/mtls-libtls.c:351
 #, c-format
 msgid "cannot set X509 CRL file %s for TLS session: %s"
 msgstr "не могу да подесим „X509 CRL“ датотеку „%s“ за „TLS“ сесију: %s"
 
-#: src/tls.c:1236
+#: src/mtls-gnutls.c:505
 #, c-format
 msgid "cannot set credentials for TLS session: %s"
 msgstr "не могу да подесим поверења за „TLS“ сесију: %s"
 
-#: src/tls.c:1256
-#, c-format
-msgid "cannot set minimum number of DH prime bits for TLS: %s"
-msgstr "не могу да подесим најмањи број „DH“ простих битова за „TLS“: %s"
-
-#: src/tls.c:1257 src/tls.c:1265 src/tls.c:1273
-msgid "feature not yet implemented for OpenSSL"
-msgstr "функција још није примењена за „OpenSSL“"
-
-#: src/tls.c:1272
-#, c-format
-msgid "cannot load CRL file: %s"
-msgstr "не могу да учитам „CRL“ датотеку: %s"
-
-#: src/tls.c:1279
-#, c-format
-msgid "cannot set TLS method"
-msgstr "не могу да подесим „TLS“ начин"
-
-#: src/tls.c:1284
-#, c-format
-msgid "cannot create TLS context: %s"
-msgstr "не могу да направим „TLS“ контекст: %s"
-
-#: src/tls.c:1295
-#, c-format
-msgid "cannot load key file %s: %s"
-msgstr "не могу да учитам датотеку кључа „%s“: %s"
-
-#: src/tls.c:1303
-#, c-format
-msgid "cannot load certificate file %s: %s"
-msgstr "не могу да учитам датотеку уверења „%s“: %s"
-
-#: src/tls.c:1331
-#, c-format
-msgid "cannot load trust file %s: %s"
-msgstr "не могу да учитам датотеку поверења „%s“: %s"
-
-#: src/tls.c:1357
-#, c-format
-msgid "cannot create a TLS structure: %s"
-msgstr "не могу да направим „TLS“ структуру: %s"
-
-#: src/tls.c:1401
-msgid "a protocol violating EOF occurred"
-msgstr "догодио се протокол који је прекршио крај датотеке"
-
-#: src/tls.c:1419
-msgid "the connection was closed unexpectedly"
-msgstr "веза је неочекивано затворена"
-
-#: src/tls.c:1463
+#: src/mtls-gnutls.c:540 src/mtls-libtls.c:406
 #, c-format
 msgid "TLS handshake failed: %s"
 msgstr "„TLS“ руковање није успело: %s"
 
-#: src/tls.c:1500
-#, c-format
-msgid "cannot set the file descriptor for TLS: %s"
-msgstr "не могу да подесим описника датотеке за „TLS“: %s"
-
-#: src/tls.c:1519
-msgid "TLS handshake failed"
-msgstr "„TLS“ руковање није успело"
-
-#: src/tls.c:1582
+#: src/mtls-gnutls.c:600 src/mtls-libtls.c:493
 #, c-format
 msgid "cannot read from TLS connection: %s"
 msgstr "не могу да читам са „TLS“ везе: %s"
 
-#: src/tls.c:1626
-msgid "cannot read from TLS connection"
-msgstr "не могу да читам са „TLS“ везе"
-
-#: src/tls.c:1712 src/tls.c:1723
+#: src/mtls-gnutls.c:647 src/mtls-gnutls.c:658 src/mtls-libtls.c:525
 #, c-format
 msgid "cannot write to TLS connection: %s"
 msgstr "не могу да пишем на „TLS“ везу: %s"
 
-#: src/tls.c:1753
+#: src/mtls-openssl.c:92
+#, c-format
+msgid ""
+"no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgstr ""
+"нема променљиве окружења „RANDFILE“ или „HOME“, или је назив датотеке предуг "
+"или је предуга насумична датотека"
+
+#: src/mtls-openssl.c:120
+#, c-format
+msgid "random file + time + pseudo randomness is not enough, giving up"
+msgstr ""
+"насумична датотека + време + псеудо насумичност није довољно, дижем руке од "
+"свега"
+
+#: src/mtls-openssl.c:293 src/mtls-openssl.c:579
+#, c-format
+msgid "%s: cannot get certificate subject"
+msgstr "%s: не могу да добавим субјекат уверења"
+
+#: src/mtls-openssl.c:299
+#, c-format
+msgid "%s: cannot get certificate issuer"
+msgstr "%s: не могу да добавим издавача уверења"
+
+#: src/mtls-openssl.c:450
+msgid "TLS certificate check failed"
+msgstr "Провера „TLS“ уверења није успела"
+
+#: src/mtls-openssl.c:456
+#, c-format
+msgid "%s: no certificate was sent"
+msgstr "%s: није послато никакво уверење"
+
+#: src/mtls-openssl.c:559
+#, c-format
+msgid "%s: certificate subject alternative name contains NUL"
+msgstr "%s: заменски назив субјекта уверења садржи „NUL“"
+
+#: src/mtls-openssl.c:591
+#, c-format
+msgid "%s: cannot get certificate common name"
+msgstr "%s: не могу да добавим уопштен назив уверења"
+
+#: src/mtls-openssl.c:600
+#, c-format
+msgid "%s: certificate common name contains NUL"
+msgstr "%s: уопштен назив уверења садржи „NUL“"
+
+#: src/mtls-openssl.c:617
+#, c-format
+msgid "%s: the certificate owner does not match hostname %s"
+msgstr "%s: власник уверења не одговара домаћину „%s“"
+
+#: src/mtls-openssl.c:649 src/mtls-libtls.c:231
+#, c-format
+msgid "cannot set minimum number of DH prime bits for TLS: %s"
+msgstr "не могу да подесим најмањи број „DH“ простих битова за „TLS“: %s"
+
+#: src/mtls-openssl.c:650 src/mtls-openssl.c:658 src/mtls-openssl.c:666
+msgid "feature not yet implemented for OpenSSL"
+msgstr "функција још није примењена за „OpenSSL“"
+
+#: src/mtls-openssl.c:665
+#, c-format
+msgid "cannot load CRL file: %s"
+msgstr "не могу да учитам „CRL“ датотеку: %s"
+
+#: src/mtls-openssl.c:672
+#, c-format
+msgid "cannot set TLS method"
+msgstr "не могу да подесим „TLS“ начин"
+
+#: src/mtls-openssl.c:680
+#, c-format
+msgid "cannot create TLS context: %s"
+msgstr "не могу да направим „TLS“ контекст: %s"
+
+#: src/mtls-openssl.c:693
+#, c-format
+msgid "cannot load key file %s: %s"
+msgstr "не могу да учитам датотеку кључа „%s“: %s"
+
+#: src/mtls-openssl.c:702
+#, c-format
+msgid "cannot load certificate file %s: %s"
+msgstr "не могу да учитам датотеку уверења „%s“: %s"
+
+#: src/mtls-openssl.c:732
+#, c-format
+msgid "cannot load trust file %s: %s"
+msgstr "не могу да учитам датотеку поверења „%s“: %s"
+
+#: src/mtls-openssl.c:759 src/mtls-libtls.c:361
+#, c-format
+msgid "cannot create a TLS structure: %s"
+msgstr "не могу да направим „TLS“ структуру: %s"
+
+#: src/mtls-openssl.c:801
+msgid "a protocol violating EOF occurred"
+msgstr "догодио се протокол који је прекршио крај датотеке"
+
+#: src/mtls-openssl.c:819
+msgid "the connection was closed unexpectedly"
+msgstr "веза је неочекивано затворена"
+
+#: src/mtls-openssl.c:853 src/mtls-libtls.c:398
+#, c-format
+msgid "cannot set the file descriptor for TLS: %s"
+msgstr "не могу да подесим описника датотеке за „TLS“: %s"
+
+#: src/mtls-openssl.c:872
+msgid "TLS handshake failed"
+msgstr "„TLS“ руковање није успело"
+
+#: src/mtls-openssl.c:938
+msgid "cannot read from TLS connection"
+msgstr "не могу да читам са „TLS“ везе"
+
+#: src/mtls-openssl.c:981
 msgid "cannot write to TLS connection"
 msgstr "не могу да пишем на „TLS“ везу"
+
+#: src/mtls-libtls.c:59
+#, fuzzy, c-format
+msgid "cannot initialize libtls"
+msgstr "не могу да покренем „TLS“ библиотеку: %s"
+
+#: src/mtls-libtls.c:223
+#, c-format
+msgid "cannot use deprecated fingerprints, please update to SHA256"
+msgstr ""
+
+#: src/mtls-libtls.c:232
+#, fuzzy
+msgid "feature not yet implemented for libtls"
+msgstr "функција још није примењена за „OpenSSL“"
+
+#: src/mtls-libtls.c:288
+msgid "could not parse protocols"
+msgstr ""
+
+#~ msgid "Common Name"
+#~ msgstr "Општи назив"
+
+#~ msgid "Organization"
+#~ msgstr "Организација"
+
+#~ msgid "Organizational unit"
+#~ msgstr "Организациона јединица"
+
+#~ msgid "Locality"
+#~ msgstr "Место"
+
+#~ msgid "State or Province"
+#~ msgstr "Држава или Покрајина"
+
+#~ msgid "Country"
+#~ msgstr "Земља"
+
+#~ msgid "Owner"
+#~ msgstr "Власник"
 
 #~ msgid "output of '%s' is longer than %d characters"
 #~ msgstr "излаз „%s“ је дужи од %d знака"
