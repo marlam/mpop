@@ -96,8 +96,8 @@ or a mail delivery agent (MDA)
 @item Very fast POP3 implementation, using command pipelining
 @item TLS secured connections (including server certificate verification and
 the possibility to send a client certificate)
-@item Authentication methods USER/PASS, APOP, PLAIN, LOGIN and CRAM-MD5 (and
-GSSAPI, SCRAM-SHA-1, DIGEST-MD5, and NTLM when GNU SASL is used)
+@item Authentication methods USER/PASS, APOP, PLAIN, LOGIN and CRAM-MD5
+(and GSSAPI, SCRAM-SHA-1, SCRAM-SHA-256, DIGEST-MD5, and NTLM when GNU SASL is used)
 @item Internationalized Domain Names (IDN)
 @end itemize
 
@@ -204,7 +204,7 @@ can speed up a POP3 session substantially.
 Choose an authentication method. The default argument @samp{on} chooses a
 method automatically.
 Accepted methods are @samp{user}, @samp{apop}, @samp{plain},
-@samp{scram-sha-1}, @samp{oauthbearer}, @samp{xoauth2}, @samp{cram-md5}, @samp{gssapi}, @samp{digest-md5},
+@samp{scram-sha-1}, @samp{scram-sha-256}, @samp{oauthbearer}, @samp{xoauth2}, @samp{cram-md5}, @samp{gssapi}, @samp{digest-md5},
 @samp{external}, @samp{login}, and @samp{ntlm}.
 @anchor{user}
 @item user [@var{username}]
@@ -856,6 +856,9 @@ A simple cleartext method supported by all servers.
 Another simple cleartext method supported by almost all servers.
 @item @samp{SCRAM-SHA-1}@*
 A method that avoids cleartext passwords.
+@item @samp{SCRAM-SHA-256}@*
+A method that avoids cleartext passwords.  Same family as SCRAM-SHA-1
+but with stronger hash function.
 @item @samp{APOP}@*
 An obsolete method that avoids cleartext passwords, but is not considered
 secure anymore.

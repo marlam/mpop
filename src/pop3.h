@@ -80,6 +80,7 @@
 #define POP3_CAP_STLS                   (1 << 19)
 #define POP3_CAP_RESP_CODES             (1 << 20)
 #define POP3_CAP_AUTH_RESP_CODE         (1 << 21)
+#define POP3_CAP_AUTH_SCRAM_SHA_256     (1 << 22)
 
 /*
  * Buffer size for communication with the POP3 server. This restricts the length

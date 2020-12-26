@@ -417,6 +417,10 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     {
         printf("SCRAM-SHA-1 ");
     }
+    if (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_256)
+    {
+        printf("SCRAM-SHA-256 ");
+    }
     if (session->cap.flags & POP3_CAP_AUTH_EXTERNAL)
     {
         printf("EXTERNAL ");
@@ -2189,6 +2193,10 @@ int main(int argc, char *argv[])
         if (pop3_client_supports_authmech("SCRAM-SHA-1"))
         {
             printf("scram-sha-1 ");
+        }
+        if (pop3_client_supports_authmech("SCRAM-SHA-256"))
+        {
+            printf("scram-sha-256 ");
         }
         if (pop3_client_supports_authmech("EXTERNAL"))
         {
