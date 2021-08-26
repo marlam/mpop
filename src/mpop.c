@@ -1077,9 +1077,10 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         }
         free(uidl->uidv);
         uidl->uidv = NULL;
-        uidl->n = session->old_number;
-        if (uidl->n > 0)
+        uidl->n = 0;
+        if (session->old_number > 0 && session->msg_uid)
         {
+            uidl->n = session->old_number;
             uidl->uidv = xmalloc(uidl->n * sizeof(char *));
             j = 0;
             for (i = 0; i < session->total_number; i++)
@@ -1119,9 +1120,10 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         }
         free(uidl->uidv);
         uidl->uidv = NULL;
-        uidl->n = session->old_number;
-        if (uidl->n > 0)
+        uidl->n = 0;
+        if (session->old_number > 0 && session->msg_uid)
         {
+            uidl->n = session->old_number;
             uidl->uidv = xmalloc(uidl->n * sizeof(char *));
             j = 0;
             for (i = 0; i < session->total_number; i++)
