@@ -1,3 +1,6 @@
+Version 1.4.14:
+- No significant changes.
+
 Version 1.4.13:
 - Added support for SCRAM-SHA-256 authentication via GNU SASL
 
