@@ -27,6 +27,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,6 +42,8 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
+#include <syslog.h>
 #include <getopt.h>
 extern char *optarg;
 extern int optind;
@@ -53,6 +56,83 @@ extern int optind;
 static const char* DEFAULT_INTERFACE = "127.0.0.1";
 static const int DEFAULT_PORT = 1100;
 static const size_t POP3_BUFSIZE = 1024;
+
+/* Logging */
+
+typedef enum {
+    log_info = 0,
+    log_error = 1,
+    log_nothing = 2
+} log_level_t;
+
+typedef struct {
+    FILE* file; /* if NULL then use syslog */
+    log_level_t level;
+} log_t;
+
+void log_open(int log_to_syslog, const char* log_file_name, log_level_t log_level, log_t* log)
+{
+    log->file = NULL;
+    log->level = log_level;
+    int log_file_open_failure = 0;
+    if (log_file_name) {
+        log->file = fopen(log_file_name, "a");
+        if (!log->file) {
+            log_file_open_failure = 1;
+            log_to_syslog = 1;
+        }
+    }
+    if (log_to_syslog) {
+        openlog("mpopd", LOG_PID, LOG_MAIL);
+        if (log_file_open_failure)
+            syslog(LOG_ERR, "cannot open log file, using syslog instead");
+    }
+    if (!log_file_name && !log_to_syslog) {
+        log->level = log_nothing;
+    }
+}
+
+void log_close(log_t* log)
+{
+    if (log->level < log_nothing) {
+        if (log->file)
+            fclose(log->file);
+        else
+            closelog();
+    }
+}
+
+void
+#ifdef __GNUC__
+__attribute__ ((format (printf, 3, 4)))
+#endif
+log_msg(log_t* log,
+        log_level_t msg_level,
+        const char* msg_format, ...)
+{
+    if (msg_level >= log->level) {
+        if (log->file) {
+            long long pid = getpid();
+            time_t t = time(NULL);
+            struct tm* tm = localtime(&t);
+            char time_str[128];
+            strftime(time_str, sizeof(time_str), "%F %T", tm);
+            fprintf(log->file, "%s mpopd[%lld] %s: ", time_str, pid,
+                    msg_level >= log_error ? "error" : "info");
+            va_list args;
+            va_start(args, msg_format);
+            vfprintf(log->file, msg_format, args);
+            va_end(args);
+            fputc('\n', log->file);
+        } else {
+            int priority = (msg_level >= log_error ? LOG_ERR : LOG_INFO);
+            va_list args;
+            va_start(args, msg_format);
+            vsyslog(priority, msg_format, args);
+            va_end(args);
+        }
+    }
+}
 
 /* Representation of one mail */
 typedef struct {
@@ -538,6 +618,7 @@ int parse_command_line(int argc, char* argv[],
         int* print_version, int* print_help,
         int* inetd,
         const char** interface, int* port,
+        int* log_to_syslog, const char** log_file, log_level_t* log_level,
         user_t** users, size_t* user_count)
 {
     enum {
@@ -546,6 +627,8 @@ int parse_command_line(int argc, char* argv[],
         mpopd_option_inetd,
         mpopd_option_port,
         mpopd_option_interface,
+        mpopd_option_log,
+        mpopd_option_log_level,
         mpopd_option_auth,
         mpopd_option_maildir
     };
@@ -556,6 +639,8 @@ int parse_command_line(int argc, char* argv[],
         { "inetd", no_argument, 0, mpopd_option_inetd },
         { "port", required_argument, 0, mpopd_option_port },
         { "interface", required_argument, 0, mpopd_option_interface },
+        { "log", required_argument, 0, mpopd_option_log },
+        { "log-level", required_argument, 0, mpopd_option_log_level },
         { "auth", required_argument, 0, mpopd_option_auth },
         { "maildir", required_argument, 0, mpopd_option_maildir },
         { 0, 0, 0, 0 }
@@ -586,6 +671,28 @@ int parse_command_line(int argc, char* argv[],
             break;
         case mpopd_option_interface:
             *interface = optarg;
+            break;
+        case mpopd_option_log:
+            if (strcmp(optarg, "none") == 0) {
+                *log_to_syslog = 0;
+                *log_file = NULL;
+            } else if (strcmp(optarg, "syslog") == 0) {
+                *log_to_syslog = 1;
+                *log_file = NULL;
+            } else {
+                *log_to_syslog = 0;
+                *log_file = optarg;
+            }
+            break;
+        case mpopd_option_log_level:
+            if (strcmp(optarg, "info") == 0) {
+                *log_level = log_info;
+            } else if (strcmp(optarg, "error") == 0) {
+                *log_level = log_error;
+            } else {
+                fprintf(stderr, "%s: invalid argument to option '--%s'\n", argv[0],
+                        options[option_index].name);
+            }
             break;
         case mpopd_option_maildir:
             if (*user_count == 0) {
@@ -650,6 +757,9 @@ int main(int argc, char* argv[])
     int inetd = 0;
     const char* interface = DEFAULT_INTERFACE;
     int port = DEFAULT_PORT;
+    int log_to_syslog = 0;
+    const char* log_file = NULL;
+    log_level_t log_level = log_info;
     user_t* users = NULL;
     size_t user_count = 0;
     int ret = exit_ok;
@@ -658,6 +768,7 @@ int main(int argc, char* argv[])
     if (parse_command_line(argc, argv,
                 &print_version, &print_help,
                 &inetd, &interface, &port,
+                &log_to_syslog, &log_file, &log_level,
                 &users, &user_count) != 0) {
         ret = exit_not_running;
     } else if (print_version) {
@@ -674,6 +785,10 @@ int main(int argc, char* argv[])
         printf("  --inetd         start single SMTP session on stdin/stdout\n");
         printf("  --interface=ip  listen on ip instead of %s\n", DEFAULT_INTERFACE);
         printf("  --port=number   listen on port number instead of %d\n", DEFAULT_PORT);
+        printf("  --log=none|syslog|FILE  do not log anything (default)\n");
+        printf("                  or log to syslog or log to the given file\n");
+        printf("  --log-level=error|info  log messages of this or\n");
+        printf("                  higher severity\n");
         printf("  --auth=user[,passwordeval] require authentication with this user name;\n");
         printf("                  the password will be retrieved from the given\n");
         printf("                  passwordeval command or, if none is given, from\n");
@@ -705,7 +820,10 @@ int main(int argc, char* argv[])
     /* Do it */
     if (inetd) {
         /* We are no daemon, so we can just signal error with exit status 1 and success with 0 */
+        log_t log;
+        log_open(log_to_syslog, log_file, log_level, &log);
         ret = mpopd_session(stdin, stdout, users, user_count);
+        log_close(&log);
     } else {
         int ipv6;
         struct sockaddr_in6 sa6;
@@ -767,9 +885,12 @@ int main(int argc, char* argv[])
             if (fork() == 0) {
                 /* Child process */
                 signal(SIGTERM, SIG_IGN); /* A running session should not be terminated */
+                log_t log;
+                log_open(log_to_syslog, log_file, log_level, &log);
                 FILE* conn = fdopen(conn_fd, "rb+");
                 int ret = mpopd_session(conn, conn, users, user_count);
                 fclose(conn);
+                log_close(&log);
                 exit(ret); /* exit status does not really matter since nobody checks it, but still... */
             } else {
                 /* Parent process */
