@@ -46,6 +46,7 @@ extern char *optarg;
 extern int optind;
 
 #include "password.h"
+#include "xalloc.h"
 
 
 /* Built-in defaults */
@@ -523,7 +524,7 @@ int parse_command_line(int argc, char* argv[],
         int* inetd,
         const char** interface, int* port,
         const char** maildir,
-        char* user, char* password, size_t user_password_bufsize)
+        char** user, char** password)
 {
     enum {
         mpopd_option_version,
@@ -579,44 +580,32 @@ int parse_command_line(int argc, char* argv[],
             {
                 char* comma = strchr(optarg, ',');
                 if (!comma) {
-                    if (strlen(optarg) >= user_password_bufsize) {
-                        fprintf(stderr, "%s: user name too long\n", argv[0]);
-                        return 1;
-                    }
-                    strcpy(user, optarg);
-                    char* pw = password_get("localhost", user, password_service_pop3, 0, 0);
-                    if (!pw) {
+                    char* tmp_user = xstrdup(optarg);
+                    char* tmp_password = password_get("localhost", tmp_user, password_service_pop3, 0, 0);
+                    if (!tmp_password) {
                         fprintf(stderr, "%s: cannot get password for (localhost, pop3, %s)\n",
-                                argv[0], user);
+                                argv[0], tmp_user);
+                        free(tmp_user);
                         return 1;
                     }
-                    if (strlen(pw) >= user_password_bufsize) {
-                        free(pw);
-                        fprintf(stderr, "%s: password too long\n", argv[0]);
-                        return 1;
-                    }
-                    strcpy(password, pw);
-                    free(pw);
+                    free(*user);
+                    *user = tmp_user;
+                    free(*password);
+                    *password = tmp_password;
                 } else {
-                    if (comma - optarg >= (ptrdiff_t)user_password_bufsize) {
-                        fprintf(stderr, "%s: user name too long\n", argv[0]);
-                        return 1;
-                    }
-                    strncpy(user, optarg, comma - optarg);
-                    user[comma - optarg] = '\0';
-                    char* pw = NULL;
+                    char* tmp_user = xstrndup(optarg, comma - optarg);
+                    char* tmp_password = NULL;
                     char* errstr = NULL;
-                    if (password_eval(comma + 1, &pw, &errstr) != 0) {
+                    if (password_eval(comma + 1, &tmp_password, &errstr) != 0) {
                         fprintf(stderr, "%s: cannot get password: %s\n", argv[0], errstr);
+                        free(tmp_user);
+                        free(errstr);
                         return 1;
                     }
-                    if (strlen(pw) >= user_password_bufsize) {
-                        free(pw);
-                        fprintf(stderr, "%s: password too long\n", argv[0]);
-                        return 1;
-                    }
-                    strcpy(password, pw);
-                    free(pw);
+                    free(*user);
+                    *user = tmp_user;
+                    free(*password);
+                    *password = tmp_password;
                 }
             }
             break;
@@ -645,16 +634,15 @@ int main(int argc, char* argv[])
     const char* interface = DEFAULT_INTERFACE;
     int port = DEFAULT_PORT;
     const char* maildir = NULL;
-    char user[POP3_BUFSIZE];
-    char password[POP3_BUFSIZE];
-    user[0] = '\0';
+    char* user;
+    char* password;
 
     /* Command line */
     if (parse_command_line(argc, argv,
                 &print_version, &print_help,
                 &inetd, &interface, &port,
                 &maildir,
-                user, password, POP3_BUFSIZE) != 0) {
+                &user, &password) != 0) {
         return exit_not_running;
     }
     if (print_version) {
@@ -684,15 +672,16 @@ int main(int argc, char* argv[])
         fprintf(stderr, "%s: missing required option --maildir\n", argv[0]);
         return exit_not_running;
     }
-    if (user[0] == '\0') {
+    if (!user) {
         fprintf(stderr, "%s: missing required option --auth\n", argv[0]);
         return exit_not_running;
     }
 
     /* Do it */
+    int ret = exit_ok;
     if (inetd) {
         /* We are no daemon, so we can just signal error with exit status 1 and success with 0 */
-        return mpopd_session(stdin, stdout, maildir, user, password);
+        ret = mpopd_session(stdin, stdout, maildir, user, password);
     } else {
         int ipv6;
         struct sockaddr_in6 sa6;
@@ -753,11 +742,9 @@ int main(int argc, char* argv[])
             }
             if (fork() == 0) {
                 /* Child process */
-                FILE* conn;
-                int ret;
                 signal(SIGTERM, SIG_IGN); /* A running session should not be terminated */
-                conn = fdopen(conn_fd, "rb+");
-                ret = mpopd_session(conn, conn, maildir, user, password);
+                FILE* conn = fdopen(conn_fd, "rb+");
+                int ret = mpopd_session(conn, conn, maildir, user, password);
                 fclose(conn);
                 exit(ret); /* exit status does not really matter since nobody checks it, but still... */
             } else {
@@ -767,7 +754,9 @@ int main(int argc, char* argv[])
         }
     }
 
-    return exit_ok;
+    free(user);
+    free(password);
+    return ret;
 }
 
 /* Die if memory allocation fails. Note that we only use xalloc() etc
