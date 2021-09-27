@@ -355,10 +355,16 @@ int get_message_number(const char* s, unsigned long long* n)
     return 0;
 }
 
+/* Table of user/password pairs and corresponding maildir */
+typedef struct {
+    char* user;
+    char* password;
+    char* maildir;
+} user_t;
+
 /* POP3 session with input and output from FILE descriptors. */
 int mpopd_session(FILE* in, FILE* out,
-        const char* maildir,
-        const char* user, const char* password)
+        const user_t* users, size_t user_count)
 {
     char buf[POP3_BUFSIZE];
     char buf2[POP3_BUFSIZE];
@@ -389,8 +395,17 @@ int mpopd_session(FILE* in, FILE* out,
             }
             if (strncasecmp(buf, "PASS ", 5) == 0) {
                 sleep(1); /* prevent brute force attacks */
-                if (strcmp(user, buf2) == 0 && strcmp(password, buf + 5) == 0) {
-                    if (initialize_authorized_session(&session, maildir) == 0) {
+                /* user parameter is in buf2 and password parameter in buf + 5 */
+                /* first find the corresponding user in the table */
+                /* TODO: we could do binary search in a sorted array but it seems overkill */
+                size_t user_index;
+                for (user_index = 0; user_index < user_count; user_index++)
+                    if (strcmp(buf2, users[user_index].user) == 0)
+                        break;
+                /* next check if the password matches too */
+                if (user_index < user_count && strcmp(buf + 5, users[user_index].password) == 0) {
+                    /* then try to initialize the session */
+                    if (initialize_authorized_session(&session, users[user_index].maildir) == 0) {
                         authorized = 1;
                         fprintf(out, "+OK\r\n");
                     } else {
@@ -523,8 +538,7 @@ int parse_command_line(int argc, char* argv[],
         int* print_version, int* print_help,
         int* inetd,
         const char** interface, int* port,
-        const char** maildir,
-        char** user, char** password)
+        user_t** users, size_t* user_count)
 {
     enum {
         mpopd_option_version,
@@ -532,8 +546,8 @@ int parse_command_line(int argc, char* argv[],
         mpopd_option_inetd,
         mpopd_option_port,
         mpopd_option_interface,
-        mpopd_option_maildir,
-        mpopd_option_auth
+        mpopd_option_auth,
+        mpopd_option_maildir
     };
 
     struct option options[] = {
@@ -542,8 +556,8 @@ int parse_command_line(int argc, char* argv[],
         { "inetd", no_argument, 0, mpopd_option_inetd },
         { "port", required_argument, 0, mpopd_option_port },
         { "interface", required_argument, 0, mpopd_option_interface },
-        { "maildir", required_argument, 0, mpopd_option_maildir },
         { "auth", required_argument, 0, mpopd_option_auth },
+        { "maildir", required_argument, 0, mpopd_option_maildir },
         { 0, 0, 0, 0 }
     };
 
@@ -574,27 +588,29 @@ int parse_command_line(int argc, char* argv[],
             *interface = optarg;
             break;
         case mpopd_option_maildir:
-            *maildir = optarg;
+            if (*user_count == 0) {
+                fprintf(stderr, "%s: option '--%s' requires preceding option '--auth'\n",
+                        argv[0], options[option_index].name);
+                return 1;
+            }
+            (*users)[*user_count - 1].maildir = xstrdup(optarg);
             break;
         case mpopd_option_auth:
             {
                 char* comma = strchr(optarg, ',');
+                char* tmp_user = NULL;
+                char* tmp_password = NULL;
                 if (!comma) {
-                    char* tmp_user = xstrdup(optarg);
-                    char* tmp_password = password_get("localhost", tmp_user, password_service_pop3, 0, 0);
+                    tmp_user = xstrdup(optarg);
+                    tmp_password = password_get("localhost", tmp_user, password_service_pop3, 0, 0);
                     if (!tmp_password) {
                         fprintf(stderr, "%s: cannot get password for (localhost, pop3, %s)\n",
                                 argv[0], tmp_user);
                         free(tmp_user);
                         return 1;
                     }
-                    free(*user);
-                    *user = tmp_user;
-                    free(*password);
-                    *password = tmp_password;
                 } else {
-                    char* tmp_user = xstrndup(optarg, comma - optarg);
-                    char* tmp_password = NULL;
+                    tmp_user = xstrndup(optarg, comma - optarg);
                     char* errstr = NULL;
                     if (password_eval(comma + 1, &tmp_password, &errstr) != 0) {
                         fprintf(stderr, "%s: cannot get password: %s\n", argv[0], errstr);
@@ -602,11 +618,12 @@ int parse_command_line(int argc, char* argv[],
                         free(errstr);
                         return 1;
                     }
-                    free(*user);
-                    *user = tmp_user;
-                    free(*password);
-                    *password = tmp_password;
                 }
+                (*user_count)++;
+                *users = xrealloc(*users, *user_count * sizeof(user_t));
+                (*users)[*user_count - 1].user = tmp_user;
+                (*users)[*user_count - 1].password = tmp_password;
+                (*users)[*user_count - 1].maildir = NULL;
             }
             break;
         default:
@@ -633,27 +650,23 @@ int main(int argc, char* argv[])
     int inetd = 0;
     const char* interface = DEFAULT_INTERFACE;
     int port = DEFAULT_PORT;
-    const char* maildir = NULL;
-    char* user;
-    char* password;
+    user_t* users = NULL;
+    size_t user_count = 0;
+    int ret = exit_ok;
 
     /* Command line */
     if (parse_command_line(argc, argv,
                 &print_version, &print_help,
                 &inetd, &interface, &port,
-                &maildir,
-                &user, &password) != 0) {
-        return exit_not_running;
-    }
-    if (print_version) {
+                &users, &user_count) != 0) {
+        ret = exit_not_running;
+    } else if (print_version) {
         printf("mpopd version %s\n", VERSION);
         printf("Copyright (C) 2021 Martin Lambers.\n"
                 "This is free software.  You may redistribute copies of it under the terms of\n"
                 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n");
-        return exit_ok;
-    }
-    if (print_help) {
+    } else if (print_help) {
         printf("Usage: mpopd [option...]\n");
         printf("Options:\n");
         printf("  --version       print version\n");
@@ -661,27 +674,38 @@ int main(int argc, char* argv[])
         printf("  --inetd         start single SMTP session on stdin/stdout\n");
         printf("  --interface=ip  listen on ip instead of %s\n", DEFAULT_INTERFACE);
         printf("  --port=number   listen on port number instead of %d\n", DEFAULT_PORT);
-        printf("  --maildir=dir   use this maildir as mailbox\n");
         printf("  --auth=user[,passwordeval] require authentication with this user name;\n");
         printf("                  the password will be retrieved from the given\n");
         printf("                  passwordeval command or, if none is given, from\n");
         printf("                  the key ring or, if that fails, from a prompt.\n");
-        return exit_ok;
+        printf("  --maildir=dir   use this maildir as mailbox\n");
+        printf("Each pair of --auth and --maildir options defines one POP3 mailbox.\n");
+        printf("At least one such pair must be given.\n");
+    } else if (user_count == 0) {
+        fprintf(stderr, "%s: missing --auth and --maildir option\n", argv[0]);
+        ret = exit_not_running;
+    } else {
+        for (size_t i = 0; i < user_count; i++) {
+            if (!users[i].maildir) {
+                fprintf(stderr, "%s: missing --maildir option for user %s\n", argv[0], users[i].user);
+                ret = exit_not_running;
+            }
+        }
     }
-    if (!maildir) {
-        fprintf(stderr, "%s: missing required option --maildir\n", argv[0]);
-        return exit_not_running;
-    }
-    if (!user) {
-        fprintf(stderr, "%s: missing required option --auth\n", argv[0]);
-        return exit_not_running;
+    if (ret != exit_ok) {
+        for (size_t i = 0; i < user_count; i++) {
+            free(users[i].user);
+            free(users[i].password);
+            free(users[i].maildir);
+        }
+        free(users);
+        return ret;
     }
 
     /* Do it */
-    int ret = exit_ok;
     if (inetd) {
         /* We are no daemon, so we can just signal error with exit status 1 and success with 0 */
-        ret = mpopd_session(stdin, stdout, maildir, user, password);
+        ret = mpopd_session(stdin, stdout, users, user_count);
     } else {
         int ipv6;
         struct sockaddr_in6 sa6;
@@ -744,7 +768,7 @@ int main(int argc, char* argv[])
                 /* Child process */
                 signal(SIGTERM, SIG_IGN); /* A running session should not be terminated */
                 FILE* conn = fdopen(conn_fd, "rb+");
-                int ret = mpopd_session(conn, conn, maildir, user, password);
+                int ret = mpopd_session(conn, conn, users, user_count);
                 fclose(conn);
                 exit(ret); /* exit status does not really matter since nobody checks it, but still... */
             } else {
@@ -754,8 +778,12 @@ int main(int argc, char* argv[])
         }
     }
 
-    free(user);
-    free(password);
+    for (size_t i = 0; i < user_count; i++) {
+        free(users[i].user);
+        free(users[i].password);
+        free(users[i].maildir);
+    }
+    free(users);
     return ret;
 }
 
