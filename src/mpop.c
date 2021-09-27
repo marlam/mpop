@@ -101,7 +101,7 @@ void xalloc_die(void)
 
 char *mpop_password_callback(const char *hostname, const char *user)
 {
-    return password_get(hostname, user, password_service_pop3, 0);
+    return password_get(hostname, user, password_service_pop3, 1, 0);
 }
 
 
