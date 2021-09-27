@@ -227,15 +227,6 @@ void override_account(account_t *acc1, account_t *acc2);
 int check_account(account_t *acc, int retrmail, char **errstr);
 
 /*
- * get_password_eval()
- *
- * Evaluates command in 'arg' and stores result in 'buf' (which is allocated).
- * Returns CONF_EIO if command execution failed, otherwise CONF_EOK. On error,
- * *errstr will contain an error string.
- */
-int get_password_eval(const char *arg, char **buf, char **errstr);
-
-/*
  * get_conf()
  *
  * Read 'conffile' and store all account data in 'acc_list'.
