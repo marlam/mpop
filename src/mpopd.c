@@ -377,12 +377,10 @@ int mpopd_session(FILE* in, FILE* out,
         if (strcasecmp(buf, "QUIT") == 0) {
             fprintf(out, "+OK\r\n");
             return 0;
-        }
-        if (strcasecmp(buf, "CAPA") == 0) {
+        } else if (strcasecmp(buf, "CAPA") == 0) {
             send_pop3_capa_response(out);
             continue;
-        }
-        if (strncasecmp(buf, "USER ", 5) == 0) {
+        } else if (strncasecmp(buf, "USER ", 5) == 0) {
             strcpy(buf2, buf + 5);
             fprintf(out, "+OK\r\n");
             if (read_pop3_cmd(in, buf, POP3_BUFSIZE) != 0) {
@@ -401,6 +399,9 @@ int mpopd_session(FILE* in, FILE* out,
                     fprintf(out, "-ERR authorization failed\r\n");
                 }
             }
+        } else {
+            fprintf(out, "-ERR command not understood\r\n");
+            continue;
         }
     }
     if (ferror(out))
