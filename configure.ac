@@ -38,8 +38,9 @@ AC_PROG_INSTALL
 AC_LANG([C])
 
 dnl System
+build_mpopd_default="yes"
 AC_DEFINE_UNQUOTED([PLATFORM], ["${target}"], [Platform triplet])
-case "${target}" in *-*-mingw*) LIBS="$LIBS -lws2_32" ;; esac
+case "${target}" in *-*-mingw*) LIBS="$LIBS -lws2_32"; build_mpopd_default="no" ;; esac
 
 dnl Gettext
 AM_GNU_GETTEXT([external])
@@ -330,6 +331,12 @@ if test "$macosx_keyring" != "no"; then
     fi
 fi
 
+dnl Check if mpopd should be built
+AC_ARG_WITH([mpopd],
+    [AS_HELP_STRING([--with-mpopd], [Build mpopd. Enabled by default.])],
+    [if test "$withval" = "yes"; then build_mpopd="yes"; else build_mpopd="no"; fi], [build_mpopd="$build_mpopd_default"])
+AM_CONDITIONAL([BUILD_MPOPD], [test "$build_mpopd" = "yes"])
+
 dnl Global #defines for all source files
 AH_VERBATIM([W32_NATIVE],
 [/* Define to 1 if the native W32 API should be used. */
@@ -355,3 +362,4 @@ fi
 echo "GNU SASL support ....... : $libgsasl (most likely unnecessary)"
 echo "Libsecret support (GNOME): $libsecret"
 echo "MacOS X Keychain support : $macosx_keyring"
+echo "Build mpopd .............: $build_mpopd"
