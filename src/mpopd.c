@@ -49,6 +49,7 @@ extern char *optarg;
 extern int optind;
 
 #include "password.h"
+#include "tools.h"
 #include "xalloc.h"
 
 
@@ -443,7 +444,7 @@ typedef struct {
 } user_t;
 
 /* POP3 session with input and output from FILE descriptors. */
-int mpopd_session(FILE* in, FILE* out,
+int mpopd_session(log_t* log, FILE* in, FILE* out,
         const user_t* users, size_t user_count)
 {
     char buf[POP3_BUFSIZE];
@@ -455,22 +456,30 @@ int mpopd_session(FILE* in, FILE* out,
     setlinebuf(out);
 
     /* AUTHORIZATION state */
+    log_msg(log, log_info, "starting POP3 session");
     fprintf(out, "+OK mpopd ready.\r\n");
     while (!authorized) {
-        if (ferror(out))
+        if (ferror(out)) {
+            log_msg(log, log_error, "output error, session aborted");
             return 1;
-        if (read_pop3_cmd(in, buf, POP3_BUFSIZE) != 0)
+        }
+        if (read_pop3_cmd(in, buf, POP3_BUFSIZE) != 0) {
+            log_msg(log, log_error, "input error, session aborted");
             return 1;
+        }
         if (strcasecmp(buf, "QUIT") == 0) {
             fprintf(out, "+OK\r\n");
+            log_msg(log, log_info, "client ended session");
             return 0;
         } else if (strcasecmp(buf, "CAPA") == 0) {
             send_pop3_capa_response(out);
             continue;
         } else if (strncasecmp(buf, "USER ", 5) == 0) {
             strcpy(buf2, buf + 5);
+            log_msg(log, log_info, "client started authorization");
             fprintf(out, "+OK\r\n");
             if (read_pop3_cmd(in, buf, POP3_BUFSIZE) != 0) {
+                log_msg(log, log_error, "input error, session aborted");
                 return 1;
             }
             if (strncasecmp(buf, "PASS ", 5) == 0) {
@@ -488,10 +497,16 @@ int mpopd_session(FILE* in, FILE* out,
                     if (initialize_authorized_session(&session, users[user_index].maildir) == 0) {
                         authorized = 1;
                         fprintf(out, "+OK\r\n");
+                        log_msg(log, log_info, "user %s authorized and mailbox locked",
+                                users[user_index].user);
                     } else {
                         fprintf(out, "-ERR cannot access mailbox\r\n");
+                        log_msg(log, log_info, "authorization for user %s failed: cannot lock mailbox",
+                                users[user_index].user);
                     }
                 } else {
+                    log_msg(log, log_info, "authorization for user %s failed: invalid credentials",
+                            sanitize_string(buf2));
                     fprintf(out, "-ERR authorization failed\r\n");
                 }
             }
@@ -500,23 +515,25 @@ int mpopd_session(FILE* in, FILE* out,
             continue;
         }
     }
-    if (ferror(out))
-        return 1;
 
     /* TRANSACTION state */
+    log_msg(log, log_info, "starting transaction phase with %llu mails in mailbox", session.mail_count);
     int error = 0;
     unsigned long long msgnum; /* message numbers start at 1! */
     for (;;) {
         if (ferror(out)) {
+            log_msg(log, log_error, "output error, session aborted");
             error = 1;
             break;
         }
         if (read_pop3_cmd(in, buf, POP3_BUFSIZE) != 0) {
+            log_msg(log, log_error, "input error, session aborted");
             error = 1;
             break;
         }
         if (strcasecmp(buf, "QUIT") == 0) {
             fprintf(out, "+OK\r\n");
+            log_msg(log, log_info, "client ended transaction phase");
             break;
         } else if (strcasecmp(buf, "NOOP") == 0) {
             fprintf(out, "+OK\r\n");
@@ -571,11 +588,13 @@ int mpopd_session(FILE* in, FILE* out,
                 FILE* mailf = fopen(session.mails[msgnum - 1].filename, "r");
                 if (!mailf) {
                     fprintf(out, "-ERR cannot open message\r\n");
+                    log_msg(log, log_error, "cannot open mail file %s", session.mails[msgnum - 1].filename);
                 } else {
                     fprintf(out, "+OK\r\n");
                     if (send_pop3_retr_response(mailf, out) != 0) {
                         error = 1;
                         fclose(mailf);
+                        log_msg(log, log_error, "cannot send mail file %s", session.mails[msgnum - 1].filename);
                         break;
                     }
                     fclose(mailf);
@@ -596,17 +615,21 @@ int mpopd_session(FILE* in, FILE* out,
         }
     }
     if (ferror(out)) {
+        log_msg(log, log_error, "output error, session aborted");
         error = 1;
     }
 
     /* UPDATE state */
     if (!error) {
+        unsigned long long mails_deleted = 0;
         for (unsigned long long i = 0; i < session.mail_count; i++) {
             if (session.mails[i].marked_as_deleted) {
                 unlink(session.mails[i].filename);
                 /* ignore errors here as there is nothing we can do */
+                mails_deleted++;
             }
         }
+        log_msg(log, log_info, "%llu mails deleted in update phase; session ends", mails_deleted);
     }
     end_authorized_session(&session);
 
@@ -822,7 +845,7 @@ int main(int argc, char* argv[])
         /* We are no daemon, so we can just signal error with exit status 1 and success with 0 */
         log_t log;
         log_open(log_to_syslog, log_file, log_level, &log);
-        ret = mpopd_session(stdin, stdout, users, user_count);
+        ret = mpopd_session(&log, stdin, stdout, users, user_count);
         log_close(&log);
     } else {
         int ipv6;
@@ -888,7 +911,7 @@ int main(int argc, char* argv[])
                 log_t log;
                 log_open(log_to_syslog, log_file, log_level, &log);
                 FILE* conn = fdopen(conn_fd, "rb+");
-                int ret = mpopd_session(conn, conn, users, user_count);
+                int ret = mpopd_session(&log, conn, conn, users, user_count);
                 fclose(conn);
                 log_close(&log);
                 exit(ret); /* exit status does not really matter since nobody checks it, but still... */
