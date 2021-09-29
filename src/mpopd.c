@@ -56,6 +56,9 @@ extern int optind;
 /* Built-in defaults */
 static const char* DEFAULT_INTERFACE = "127.0.0.1";
 static const int DEFAULT_PORT = 1100;
+static const int MAX_ACTIVE_SESSIONS = 16;
+static const int AUTH_DELAY_SECONDS = 1;
+static const int AUTH_DELAY_EXPIRATION_SECONDS = 60;
 static const size_t POP3_BUFSIZE = 1024;
 
 /* Logging */
@@ -443,13 +446,21 @@ typedef struct {
     char* maildir;
 } user_t;
 
-/* POP3 session with input and output from FILE descriptors. */
+/* POP3 session with input and output from FILE descriptors.
+ *
+ * Return value:
+ * 0 if the session ended normally / successfully
+ * 1 if the session had errors and/or was aborted
+ * 2 same as 1 and the session had authentication failures
+ */
 int mpopd_session(log_t* log, FILE* in, FILE* out,
-        const user_t* users, size_t user_count)
+        const user_t* users, size_t user_count,
+        int impose_auth_delay)
 {
     char buf[POP3_BUFSIZE];
     char buf2[POP3_BUFSIZE];
     int authorized = 0;
+    int authorization_failure_occurred = 0;
     session_t session;
     init_session(&session);
 
@@ -461,16 +472,16 @@ int mpopd_session(log_t* log, FILE* in, FILE* out,
     while (!authorized) {
         if (ferror(out)) {
             log_msg(log, log_error, "output error, session aborted");
-            return 1;
+            return authorization_failure_occurred ? 2 : 1;
         }
         if (read_pop3_cmd(in, buf, POP3_BUFSIZE) != 0) {
             log_msg(log, log_error, "input error, session aborted");
-            return 1;
+            return authorization_failure_occurred ? 2 : 1;
         }
         if (strcasecmp(buf, "QUIT") == 0) {
             fprintf(out, "+OK\r\n");
             log_msg(log, log_info, "client ended session");
-            return 0;
+            return authorization_failure_occurred ? 2 : 0;
         } else if (strcasecmp(buf, "CAPA") == 0) {
             send_pop3_capa_response(out);
             continue;
@@ -480,10 +491,11 @@ int mpopd_session(log_t* log, FILE* in, FILE* out,
             fprintf(out, "+OK\r\n");
             if (read_pop3_cmd(in, buf, POP3_BUFSIZE) != 0) {
                 log_msg(log, log_error, "input error, session aborted");
-                return 1;
+                return authorization_failure_occurred ? 2 : 1;
             }
             if (strncasecmp(buf, "PASS ", 5) == 0) {
-                sleep(1); /* prevent brute force attacks */
+                if (impose_auth_delay || authorization_failure_occurred)
+                    sleep(AUTH_DELAY_SECONDS);
                 /* user parameter is in buf2 and password parameter in buf + 5 */
                 /* first find the corresponding user in the table */
                 /* TODO: we could do binary search in a sorted array but it seems overkill */
@@ -505,6 +517,7 @@ int mpopd_session(log_t* log, FILE* in, FILE* out,
                                 users[user_index].user);
                     }
                 } else {
+                    authorization_failure_occurred = 1;
                     log_msg(log, log_info, "authorization for user %s failed: invalid credentials",
                             sanitize_string(buf2));
                     fprintf(out, "-ERR authorization failed\r\n");
@@ -633,7 +646,34 @@ int mpopd_session(log_t* log, FILE* in, FILE* out,
     }
     end_authorized_session(&session);
 
-    return error;
+    return authorization_failure_occurred ? 2 : error;
+}
+
+/* Manage the maximum number of concurrent sessions and impose a delay to
+ * authentication requests after an authentication failure occured, to make
+ * brute force attacks infeasible */
+
+volatile sig_atomic_t active_sessions_count;
+volatile sig_atomic_t auth_failure_occurred;
+volatile time_t last_auth_failure_time;
+
+void sigchld_action(int signum, siginfo_t* si, void* ucontext)
+{
+    (void)signum;   /* unused */
+    (void)ucontext; /* unused */
+    int wstatus;
+    if (waitpid(si->si_pid, &wstatus, 0) == si->si_pid) {
+        int child_exit_status = -1;
+        if (WIFEXITED(wstatus))
+            child_exit_status = WEXITSTATUS(wstatus);
+        if (child_exit_status >= 2) {
+            struct timespec tp;
+            clock_gettime(CLOCK_MONOTONIC, &tp);
+            last_auth_failure_time = tp.tv_sec;
+            auth_failure_occurred = 1;
+        }
+        active_sessions_count--;
+    }
 }
 
 /* Parse the command line */
@@ -845,7 +885,9 @@ int main(int argc, char* argv[])
         /* We are no daemon, so we can just signal error with exit status 1 and success with 0 */
         log_t log;
         log_open(log_to_syslog, log_file, log_level, &log);
-        ret = mpopd_session(&log, stdin, stdout, users, user_count);
+        int impose_auth_delay = 1; /* since we cannot keep track of auth failures in inetd mode */
+        ret = mpopd_session(&log, stdin, stdout, users, user_count, impose_auth_delay);
+        ret = (ret == 0 ? 0 : 1);
         log_close(&log);
     } else {
         int ipv6;
@@ -868,7 +910,8 @@ int main(int argc, char* argv[])
                 sa4.sin_port = htons(port);
             } else {
                 fprintf(stderr, "%s: invalid interface\n", argv[0]);
-                return exit_not_running;
+                ret = exit_not_running;
+                goto exit;
             }
         }
 
@@ -876,52 +919,100 @@ int main(int argc, char* argv[])
         listen_fd = socket(ipv6 ? PF_INET6 : PF_INET, SOCK_STREAM, 0);
         if (listen_fd < 0) {
             fprintf(stderr, "%s: cannot create socket: %s\n", argv[0], strerror(errno));
-            return exit_not_running;
+            ret = exit_not_running;
+            goto exit;
         }
         if (setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
             fprintf(stderr, "%s: cannot set socket option: %s\n", argv[0], strerror(errno));
-            return exit_not_running;
+            ret = exit_not_running;
+            goto exit;
         }
         if (bind(listen_fd,
                     ipv6 ? (struct sockaddr*)&sa6 : (struct sockaddr*)&sa4,
                     ipv6 ? sizeof(sa6) : sizeof(sa4)) < 0) {
             fprintf(stderr, "%s: cannot bind to %s:%d: %s\n", argv[0], interface, port, strerror(errno));
-            return exit_not_running;
+            ret = exit_not_running;
+            goto exit;
         }
         if (listen(listen_fd, 128) < 0) {
             fprintf(stderr, "%s: cannot listen on socket: %s\n", argv[0], strerror(errno));
-            return exit_not_running;
+            ret = exit_not_running;
+            goto exit;
         }
 
         /* Set up signal handling, in part conforming to freedesktop.org modern daemon requirements */
         signal(SIGHUP, SIG_IGN); /* Reloading configuration does not make sense for us */
         signal(SIGTERM, SIG_DFL); /* We can be terminated as long as there is no running session */
-        signal(SIGCHLD, SIG_IGN); /* Make sure child processes do not become zombies */
+
+        /* Set SIGCHLD signal handler to manage maximum number of active sessions and impose
+         * authentication delays in case of authentication failures (to make brute force attacks unfeasible) */
+        active_sessions_count = 0;
+        auth_failure_occurred = 0;
+        struct sigaction sa;
+        memset(&sa, 0, sizeof(sa));
+        sa.sa_flags = SA_NOCLDSTOP | SA_SIGINFO | SA_RESTART; /* SA_RESTART: restart accept() after SIGCHLD */
+        sa.sa_sigaction = sigchld_action;
+        sigaction(SIGCHLD, &sa, NULL); /* cannot fail */
 
         /* Accept connection */
         for (;;) {
-            int conn_fd = accept(listen_fd, NULL, NULL);
+            while (active_sessions_count >= MAX_ACTIVE_SESSIONS) {
+                sleep(1);
+            }
+            socklen_t client_len = ipv6 ? sizeof(sa6) : sizeof(sa4);
+            int conn_fd = accept(listen_fd, ipv6 ? (struct sockaddr*)&sa6 : (struct sockaddr*)&sa4, &client_len);
             if (conn_fd < 0) {
                 fprintf(stderr, "%s: cannot accept connection: %s\n", argv[0], strerror(errno));
-                return exit_not_running;
+                ret = exit_not_running;
+                break;
             }
-            if (fork() == 0) {
+            char client_ip_str[INET6_ADDRSTRLEN];
+            int client_port;
+            if (ipv6) {
+                inet_ntop(AF_INET6, &sa6.sin6_addr, client_ip_str, sizeof(client_ip_str));
+                client_port = ntohs(sa6.sin6_port);
+            } else {
+                inet_ntop(AF_INET, &sa4.sin_addr, client_ip_str, sizeof(client_ip_str));
+                client_port = ntohs(sa4.sin_port);
+            }
+            pid_t pid = fork();
+            if (pid == 0) {
                 /* Child process */
+                int impose_auth_delay = 0;
+                if (auth_failure_occurred) {
+                    struct timespec tp;
+                    clock_gettime(CLOCK_MONOTONIC, &tp);
+                    int seconds_since_last_auth_failure = tp.tv_sec - last_auth_failure_time;
+                    if (seconds_since_last_auth_failure <= AUTH_DELAY_EXPIRATION_SECONDS)
+                        impose_auth_delay = 1;
+                }
                 signal(SIGTERM, SIG_IGN); /* A running session should not be terminated */
                 log_t log;
                 log_open(log_to_syslog, log_file, log_level, &log);
+                log_msg(&log, log_info, "connection from %s port %d, active sessions %d (max %d), auth_delay=%s",
+                        client_ip_str, client_port,
+                        active_sessions_count + 1, MAX_ACTIVE_SESSIONS, impose_auth_delay ? "yes" : "no");
                 FILE* conn = fdopen(conn_fd, "rb+");
-                int ret = mpopd_session(&log, conn, conn, users, user_count);
+                int ret = mpopd_session(&log, conn, conn, users, user_count, impose_auth_delay);
                 fclose(conn);
+                log_msg(&log, log_info, "connection closed");
                 log_close(&log);
-                exit(ret); /* exit status does not really matter since nobody checks it, but still... */
+                exit(ret);
             } else {
                 /* Parent process */
                 close(conn_fd);
+                if (pid > 0) {
+                    active_sessions_count++;
+                } else {
+                    fprintf(stderr, "%s: fork failed: %s\n", argv[0], strerror(errno));
+                    ret = exit_not_running;
+                    break;
+                }
             }
         }
     }
 
+exit:
     for (size_t i = 0; i < user_count; i++) {
         free(users[i].user);
         free(users[i].password);
