@@ -1,0 +1,85 @@
+.\" -*-nroff-*-
+.\"
+.\" Copyright (C) 2021 Martin Lambers
+.\"
+.\" Permission is granted to copy, distribute and/or modify this document
+.\" under the terms of the GNU Free Documentation License, Version 1.2 or
+.\" any later version published by the Free Software Foundation; with no
+.\" Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+.TH MPOPD 1 2021-09
+.SH NAME
+mpopd \- A minimal POP3 server
+.SH SYNOPSIS
+.B mpopd
+[option...]
+.SH DESCRIPTION
+Mpopd is a minimal POP3 server that delivers mails from a local mailbox in maildir
+format. It can be used by end users as a way to handle incoming mail via mpop with
+mail clients that insist on using POP3. See the EXAMPLES section below.
+.br
+Mpopd listens on 127.0.0.1 port 1100 by default, but can also run without its
+own network sockets in inetd mode, where it handles a single POP3 session on
+standard input / output.
+.br
+To prevent abuse, mpopd will allow only a limited number of concurrent POP3
+sessions, and an authentication failure
+occurrs, future authentication requests in any POP3 session will (for a limited
+duration) only be answered after a small delay.
+.SH OPTIONS
+.IP "\-\-version"
+Print version information
+.IP "\-\-help"
+Print help
+.IP "\-\-inetd"
+Start single POP3 session on stdin/stdout
+.IP "\-\-interface=\fIip\fP
+Listen on the given IPv6 or IPv4 address instead of 127.0.0.1
+.IP "\-\-port=\fInumber\fP
+Listen on the given port number instead of 25
+.IP "\-\-log=\fInone\fP|\fIsyslog\fP|\fIfilename\fP
+Set logging: none (default), syslog, or logging to the given file.
+.IP "\-\-auth=\fIuser\fP[,\fIpasswordeval\fP]
+Require authentication with this user name. The password will be
+retrieved from the given \fIpasswordeval\fP command (this works 
+just like passwordeval in mpop) or, if none is given,
+from the key ring or, if that fails, from a prompt.
+.IP "\-\-maildir=\fIdir\fP
+Use this maildir as the mailbox.
+.SH EXAMPLES
+.br
+.B Using mpopd to handle incoming mail for a POP3-based mail client
+.br
+Some mail clients cannot get incoming mail from local files and
+instead insist on using a POP3 server. You can configure mpopd to be that
+POP3 server and serve your incoming mail from a local maildir folder.
+.br
+(Similarly, some mail clients cannot send outgoing mail via a program such
+as msmtp and instead insist on using an SMTP server.
+You can configure msmtpd to be that SMTP
+server and hand the mail over to msmtp. See the relevant section in the msmtp manual.)
+.br
+For this purpose, mpopd should listen on an unprivileged port, e.g. 1100 (the default).
+A mailbox is defined using first the \fI--auth\fP option to set a user name and password
+and then using the \fI--maildir\fP option to specify the maildir folder that holds the incoming mail.
+Multiple such option pairs can be used to define multiple mailboxes, e.g. from different remote mail accounts.
+Programs such as mpop can deliver new mail into the maildir folders at any time, but as long as mpopd is
+running no other programs may alter or remove mails from these folders.
+.br
+Let's use the user name \fImpopd-user\fP. You have two options to manage the password:
+.IP
+Store the password in your key ring, e.g. with \fIsecret-tool store \-\-label=mpopd host localhost service pop3 user mpopd-user\fP.
+In this case, use the mpopd option \fI\-\-auth=mpopd-user\fP.
+.IP
+Store the password in an encrypted file and use the passwordeval
+mechanism. Example for gpg: \fImpopd ... \-\-auth=mpopd\-user,'gpg -q -d ~/.mpopd\-password.gpg'\fP
+.PP
+The complete command then is (using the keyring): \fImpopd \-\-auth=mpopd-user \-\-maildir=/path/to/your/maildir/folder\fP
+.br
+The mail client software must then be configured to use \fIlocalhost\fP at
+port \fI1100\fP for incoming mail via POP3, and to use authentication with
+user \fImpopd-user\fP and the password you chose. The mail client will
+probably complain that the POP3 server does not support TLS, but in this
+special case that is ok since all communication between your mail client and
+mpopd will stay on the local machine.
+.SH SEE ALSO
+.BR mpop(1)

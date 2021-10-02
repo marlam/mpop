@@ -14,7 +14,7 @@
 This manual was last updated @value{UPDATED} for version
 @value{VERSION} of mpop.
 
-Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020
+Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021
 Martin Lambers
 
 @quotation
@@ -58,6 +58,7 @@ notice are preserved. These files are offered as-is, without any warranty.
 					a POP3 server.
 * Filtering::				How to filter mails.
 * Examples::				Usage examples.
+* Minimal POP3 server (mpopd)::		When and how to use mpopd.
 @end menu
 
 
@@ -1219,5 +1220,97 @@ TLS is required to prevent exit hosts from reading your POP3 session. You also
 need @ref{tls_trust_file} or @ref{tls_fingerprint} to check the server
 identity.
 
+
+@node Minimal POP3 server (mpopd)
+@chapter Minimal POP3 server (mpopd)
+
+Mpopd is a minimal POP3 server that delivers mails from a local mailbox in maildir
+format. It can be used by end users as a way to handle incoming mail via mpop with
+mail clients that insist on using POP3 (see @ref{Example: using mpopd to
+handle incoming mail for a POP3-based mail client}).
+
+Mpopd listens on 127.0.0.1 port 1100 by default, but can also run without its
+own network sockets in inetd mode, where it handles a single POP3 session on
+standard input / output.
+
+To prevent abuse, mpopd will allow only a limited number of concurrent POP3
+sessions, and if an authentication failure occurrs, future authentication
+requests in any POP3 session will (for a limited duration) only be answered
+after a small delay.
+
+Mpopd works fine with other programs delivering additional mails into the
+maildir folders it serves via POP3, but it expects to be the only program to
+remove or alter mails in these folders. You can e.g. use mpop to deliver new
+mails into the maildir folder, but you cannot use a mail client to work on the
+maildir folder at the same time as mpopd.
+
+Mpopd handles the following options:
+@table @samp
+@item --version
+Print version information
+@item --help
+Print help.
+@item --inetd
+Start single POP3 session on stdin/stdout
+@item --interface=@var{ip}
+Listen on the given IPv6 or IPv4 address instead of 127.0.0.1
+@item --port=@var{number}
+Listen on the given port number instead of 1100
+@item --log=@var{none}|@var{syslog}|@var{filename}
+Set logging: none (default), syslog, or logging to the given file.
+@item --auth=@var{user}[,@var{passwordeval}]
+Require authentication with this user name. The password will be
+retrieved from the given @var{passwordeval} command (this works 
+just like @ref{passwordeval} in msmtp) or, if none is given,
+from the key ring or, if that fails, from a prompt.
+@item --maildir=@var{dir}
+Use this maildir as the mailbox.
+@end table
+
+@node Example: using mpopd to handle incoming mail for a POP3-based mail client
+@section Example: using mpopd to handle incoming mail for a POP3-based mail client
+
+Some mail clients cannot get incoming mail from local files and
+instead insist on using a POP3 server. You can configure mpopd to be that
+POP3 server and serve your incoming mail from a local maildir folder.
+
+(Similarly, some mail clients cannot send outgoing mail via a program such
+as msmtp and instead insist on using an SMTP server.
+You can configure msmtpd to be that SMTP
+server and hand the mail over to msmtp. See the
+@url{https://marlam.de/msmtp/documentation/msmtp.html#Example_003a-using-msmtpd-to-handle-outgoing-mail-for-an-SMTP_002dbased-mail-client, corresponding section in the msmtp manual}.)
+
+For this purpose, mpopd should listen on an unprivileged port, e.g. 1100 (the default).
+A mailbox is defined using first the @samp{--auth} option to set a user name and password
+and then using the @samp{--maildir} option to specify the maildir folder that holds the incoming mail.
+Multiple such option pairs can be used to define multiple mailboxes, e.g. from different remote mail accounts.
+Programs such as mpop can deliver new mail into the maildir folders at any time, but as long as mpopd is
+running no other programs may alter or remove mails from these folders.
+
+Let's use the user name @var{mpopd-user}. You have two options to manage the password:
+@enumerate
+@item Store the password in your key ring, e.g. with
+@example
+secret-tool store --label=mpopd host localhost service pop3 user mpopd-user
+@end example
+In this case, use the mpopd option @samp{--auth=mpopd-user}.
+@item Store the password in an encrypted file and use the passwordeval
+mechanism. Example for gpg:
+@example
+mpopd ... --auth=mpopd-user,'gpg -q -d ~/.mpopd-password.gpg'
+@end example
+@end enumerate
+
+The complete command then is (using the keyring):
+@example
+mpopd --auth=mpopd-user --maildir=/path/to/your/maildir/folder
+@end example
+
+The mail client software must then be configured to use @samp{localhost} at
+port @samp{1100} for incoming mail via POP3, and to use authentication with
+user @samp{mpopd-user} and the password you chose. The mail client will
+probably complain that the POP3 server does not support TLS, but in this
+special case that is ok since all communication between your mail client and
+mpopd will stay on the local machine.
 
 @bye
