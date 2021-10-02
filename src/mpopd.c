@@ -827,6 +827,7 @@ int main(int argc, char* argv[])
                 "This is free software.  You may redistribute copies of it under the terms of\n"
                 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
                 "There is NO WARRANTY, to the extent permitted by law.\n");
+        return exit_ok;
     } else if (print_help) {
         printf("Usage: mpopd [option...]\n");
         printf("Options:\n");
@@ -844,6 +845,7 @@ int main(int argc, char* argv[])
         printf("  --maildir=dir   use this maildir as mailbox\n");
         printf("Each pair of --auth and --maildir options defines one POP3 mailbox.\n");
         printf("At least one such pair must be given.\n");
+        return exit_ok;
     } else if (user_count == 0) {
         fprintf(stderr, "%s: missing --auth and --maildir option\n", argv[0]);
         ret = exit_not_running;
