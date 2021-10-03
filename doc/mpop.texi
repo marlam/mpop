@@ -1278,7 +1278,7 @@ POP3 server and serve your incoming mail from a local maildir folder.
 as msmtp and instead insist on using an SMTP server.
 You can configure msmtpd to be that SMTP
 server and hand the mail over to msmtp. See the
-@url{https://marlam.de/msmtp/documentation/msmtp.html#Example_003a-using-msmtpd-to-handle-outgoing-mail-for-an-SMTP_002dbased-mail-client, corresponding section in the msmtp manual}.)
+@url{https://marlam.de/msmtp/msmtp.html#Example_003a-using-msmtpd-to-handle-outgoing-mail-for-an-SMTP_002dbased-mail-client, corresponding section in the msmtp manual}.)
 
 For this purpose, mpopd should listen on an unprivileged port, e.g. 1100 (the default).
 A mailbox is defined using first the @samp{--auth} option to set a user name and password
