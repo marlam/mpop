@@ -1226,7 +1226,7 @@ identity.
 
 Mpopd is a minimal POP3 server that delivers mails from a local mailbox in maildir
 format. It can be used by end users as a way to handle incoming mail via mpop with
-mail clients that insist on using POP3 (see @ref{Example: using mpopd to
+mail clients that insist on using POP3 (see @ref{Example using mpopd to
 handle incoming mail for a POP3-based mail client}).
 
 Mpopd listens on 127.0.0.1 port 1100 by default, but can also run without its
@@ -1267,7 +1267,7 @@ from the key ring or, if that fails, from a prompt.
 Use this maildir as the mailbox.
 @end table
 
-@node Example: using mpopd to handle incoming mail for a POP3-based mail client
+@node Example using mpopd to handle incoming mail for a POP3-based mail client
 @section Example: using mpopd to handle incoming mail for a POP3-based mail client
 
 Some mail clients cannot get incoming mail from local files and
