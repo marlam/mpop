@@ -42,6 +42,9 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifdef __APPLE__
+#define st_mtim st_mtimespec
+#endif
 #include <time.h>
 #include <syslog.h>
 #include <getopt.h>
