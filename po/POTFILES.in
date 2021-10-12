@@ -1,15 +1,16 @@
 # List of source files containing translatable strings.
-# Copyright (C) 2005, 2011, 2020 Martin Lambers <marlam@marlam.de>
+# Copyright (C) 2005, 2011, 2020, 2021 Martin Lambers <marlam@marlam.de>
 
 # Package source files
-src/mpop.c
 src/conf.c
-src/pop3.c
 src/delivery.c
-src/uidls.c
-src/stream.c
-src/net.c
+src/mpop.c
 src/mtls.c
 src/mtls-gnutls.c
-src/mtls-openssl.c
 src/mtls-libtls.c
+src/mtls-openssl.c
+src/net.c
+src/password.c
+src/pop3.c
+src/stream.c
+src/uidls.c
