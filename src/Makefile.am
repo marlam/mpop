@@ -41,5 +41,5 @@ DEFS += -DLOCALEDIR=\"$(localedir)\"
 if BUILD_MPOPD
 bin_PROGRAMS += mpopd
 mpopd_SOURCES = mpopd.c base64.c base64.h password.c password.h tools.c tools.h xalloc.c xalloc.h netrc.c netrc.h
-mpopd_LDADD =  $(libsecret_LIBS)
+mpopd_LDADD = $(libsecret_LIBS) $(LIBINTL)
 endif
