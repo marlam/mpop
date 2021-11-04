@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2014,
- * 2015, 2016, 2018, 2019, 2020
+ * 2015, 2016, 2018, 2019, 2020, 2021
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  *
@@ -645,13 +645,14 @@ char *pop3_get_addr(const char *s)
             if ((*p >= 'a' && *p <= 'z')
                     || (*p >= 'A' && *p <= 'Z')
                     || (*p >= '0' && *p <= '9')
-                    || *p == '.' || *p == '@' || *p == '_' || *p == '-'
+                    || *p == '.' || *p == '@' || *p == '_'
+                    || (p > s && *p == '-') /* must not start with hyphen */
                     || *p == '+' || *p == '/')
             {
                 addr[addr_len - 1] = *p;
             }
-            else if (*p == ' ' || *p == '\f' || *p == '\n' || *p == '\r'
-                    || *p == '\t' || *p == '\v')
+            else if (*p == ' ' || *p == '-' || *p == '\f' || *p == '\n'
+                    || *p == '\r' || *p == '\t' || *p == '\v')
             {
                 addr[addr_len - 1] = '-';
             }
