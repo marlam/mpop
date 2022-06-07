@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021
+ * 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
@@ -261,7 +261,8 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     /* authenticate */
     auth_successful = 0;
     if ((e = pop3_auth(session, acc->auth_mech, acc->username,
-                    acc->password, acc->host, acc->port, acc->ntlmdomain,
+                    acc->password, acc->host ? acc->host : acc->socketname,
+                    acc->port, acc->ntlmdomain,
                     mpop_password_callback, errmsg, errstr))
             != POP3_EOK)
     {
@@ -298,21 +299,25 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     if (server_canonical_name && server_address)
     {
         printf(_("POP3 server at %s (%s [%s]), port %d:\n"),
-                acc->host, server_canonical_name, server_address, acc->port);
+                acc->host ? acc->host : acc->socketname,
+                server_canonical_name, server_address, acc->port);
     }
     else if (server_canonical_name)
     {
         printf(_("POP3 server at %s (%s), port %d:\n"),
-                acc->host, server_canonical_name, acc->port);
+                acc->host ? acc->host : acc->socketname,
+                server_canonical_name, acc->port);
     }
     else if (server_address)
     {
         printf(_("POP3 server at %s ([%s]), port %d:\n"),
-                acc->host, server_address, acc->port);
+                acc->host ? acc->host : acc->socketname,
+                server_address, acc->port);
     }
     else
     {
-        printf(_("POP3 server at %s, port %d:\n"), acc->host, acc->port);
+        printf(_("POP3 server at %s, port %d:\n"),
+                acc->host ? acc->host : acc->socketname, acc->port);
     }
     if (*server_greeting != '\0')
     {
@@ -795,7 +800,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 
     /* authenticate */
     if ((e = pop3_auth(session, acc->auth_mech, acc->username,
-                    acc->password, acc->host, acc->port, acc->ntlmdomain,
+                    acc->password, acc->host ? acc->host : acc->socketname,
+                    acc->port, acc->ntlmdomain,
                     mpop_password_callback, errmsg, errstr))
             != POP3_EOK)
     {
@@ -879,9 +885,10 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     }
     /* Pick the UID list for this user@host. If it does not exist, create an
      * empty one. */
-    if (!(uidl = find_uidl(uidl_list, acc->host, acc->username)))
+    if (!(uidl = find_uidl(uidl_list, acc->host ? acc->host : acc->socketname,
+                    acc->username)))
     {
-        uidl = uidl_new(acc->host, acc->username);
+        uidl = uidl_new(acc->host ? acc->host : acc->socketname, acc->username);
         list_insert(uidl_list, uidl);
     }
 
@@ -911,7 +918,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     /* Print status */
     if (print_status)
     {
-        printf(_("%s at %s:\n"), acc->username, acc->host);
+        printf(_("%s at %s:\n"), acc->username,
+                acc->host ? acc->host : acc->socketname);
         if (session->total_number > 0)
         {
             printf(_("new: "));
@@ -2484,7 +2492,7 @@ int main(int argc, char *argv[])
         account->uidls_file = string_replace(account->uidls_file, "%U",
                 account->username ? account->username : "");
         account->uidls_file = string_replace(account->uidls_file, "%H",
-                account->host);
+                account->host ? account->host : account->socketname);
         /* create directories needed for uidls_file */
         if (retrmail && !pretend && make_needed_dirs(account->uidls_file) != 0)
         {
@@ -2513,7 +2521,8 @@ int main(int argc, char *argv[])
                 printf(_("using account %s from %s\n"),
                         account->id, account->conffile);
             }
-            printf("host = %s\n", account->host);
+            printf("host = %s\n",
+                    account->host ? account->host : _("(not set)"));
             printf("port = %d\n", account->port);
             printf("source ip = %s\n",
                     account->source_ip ? account->source_ip : _("(not set)"));
