@@ -3,6 +3,7 @@ bin_PROGRAMS = mpop
 mpop_SOURCES = \
 	conf.c conf.h \
 	delivery.c delivery.h \
+	eval.c eval.h \
 	list.c list.h \
 	mpop.c \
 	net.c net.h \
@@ -40,6 +41,6 @@ DEFS += -DLOCALEDIR=\"$(localedir)\"
 
 if BUILD_MPOPD
 bin_PROGRAMS += mpopd
-mpopd_SOURCES = mpopd.c base64.c base64.h password.c password.h tools.c tools.h xalloc.c xalloc.h netrc.c netrc.h
+mpopd_SOURCES = mpopd.c base64.c base64.h eval.c eval.h password.c password.h tools.c tools.h xalloc.c xalloc.h netrc.c netrc.h
 mpopd_LDADD = $(libsecret_LIBS) $(LIBINTL)
 endif

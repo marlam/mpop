@@ -52,6 +52,7 @@ extern char *optarg;
 extern int optind;
 
 #include "password.h"
+#include "eval.h"
 #include "tools.h"
 #include "xalloc.h"
 
@@ -773,7 +774,7 @@ int parse_command_line(int argc, char* argv[],
                 } else {
                     tmp_user = xstrndup(optarg, comma - optarg);
                     char* errstr = NULL;
-                    if (password_eval(comma + 1, &tmp_password, &errstr) != 0) {
+                    if (eval(comma + 1, &tmp_password, &errstr) != 0) {
                         fprintf(stderr, "%s: cannot get password: %s\n", argv[0], errstr);
                         free(tmp_user);
                         free(errstr);

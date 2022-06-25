@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2014, 2015, 2016, 2018, 2019, 2020
+ * 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -40,6 +40,7 @@
 #include "list.h"
 #include "tools.h"
 #include "xalloc.h"
+#include "eval.h"
 #include "conf.h"
 
 /* buffer size for configuration file lines */
@@ -734,43 +735,19 @@ char *trim_string(const char *s)
 
 
 /*
- * get_next_cmd()
+ * get_cmd()
  *
- * Read a line from 'f'. Split it in a command part (first word after
+ * Split the given line into a command part (first word after
  * whitespace) and an argument part (the word after the command).
  * Whitespace is ignored.
- * Sets the flag 'empty_line' if the line is empty.
- * Sets the flag 'eof' if EOF occurred.
- * On errors, 'empty_line' and 'eof', 'cmd' and 'arg' NULL.
- * On success, 'cmd' and 'arg' are allocated strings.
- * Used error codes: CONF_EIO, CONF_EPARSE
+ * If the line is empty or a comment, 'cmd' and 'arg' are unchanged.
  */
 
-int get_next_cmd(FILE *f, char **cmd, char **arg, int *empty_line, int *eof,
-        char **errstr)
+void get_cmd(const char* line, char **cmd, char **arg)
 {
-    char line[LINEBUFSIZE];
     char *p;
     int i;
     int l;
-
-    *eof = 0;
-    *empty_line = 0;
-    *cmd = NULL;
-    *arg = NULL;
-    if (!fgets(line, (int)sizeof(line), f))
-    {
-        if (ferror(f))
-        {
-            *errstr = xasprintf(_("input error"));
-            return CONF_EIO;
-        }
-        else /* EOF */
-        {
-            *eof = 1;
-            return CONF_EOK;
-        }
-    }
 
     /* Kill '\n'. Beware: sometimes the last line of a file has no '\n' */
     if ((p = strchr(line, '\n')))
@@ -782,19 +759,12 @@ int get_next_cmd(FILE *f, char **cmd, char **arg, int *empty_line, int *eof,
             *(p - 1) = '\0';
         }
     }
-    else if (strlen(line) == LINEBUFSIZE - 1)
-    {
-        *errstr = xasprintf(_("line longer than %d characters"),
-                LINEBUFSIZE - 1);
-        return CONF_EPARSE;
-    }
 
     i = skip_blanks(line, 0);
 
     if (line[i] == '#' || line[i] == '\0')
     {
-        *empty_line = 1;
-        return CONF_EOK;
+        return;
     }
 
     l = get_cmd_length(line + i);
@@ -803,8 +773,6 @@ int get_next_cmd(FILE *f, char **cmd, char **arg, int *empty_line, int *eof,
     (*cmd)[l] = '\0';
 
     *arg = trim_string(line + i + l);
-
-    return CONF_EOK;
 }
 
 
@@ -884,14 +852,11 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
     int line;
     char *cmd;
     char *arg;
-    int empty_line;
-    int eof;
     /* temporary variables: */
     char *acc_id;
     char *t;
     list_t *copy_from;
     list_t *lp;
-
 
     *conffile_contains_secrets = 0;
     defaults = account_new(NULL, NULL);
@@ -899,23 +864,73 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
     p = *acc_list;
     acc = NULL;
     e = CONF_EOK;
+    cmd = NULL;
+    arg = NULL;
 
     for (line = 1; ; line++)
     {
-        if ((e = get_next_cmd(f, &cmd, &arg, &empty_line, &eof,
-                        errstr)) != CONF_EOK)
+        /* read the next line */
+        int line_comes_from_eval = 0;
+        char linebuf[LINEBUFSIZE];
+        size_t linelen;
+        if (!fgets(linebuf, sizeof(linebuf), f))
         {
-            break;
+            if (ferror(f))
+            {
+                *errstr = xasprintf(_("input error"));
+                e = CONF_EIO;
+                break;
+            }
+            else /* EOF */
+            {
+                break;
+            }
         }
-        if (empty_line)
+        linelen = strlen(linebuf);
+        if (linelen == LINEBUFSIZE - 1 && linebuf[linelen - 1] != '\n')
+        {
+            *errstr = xasprintf(_("line longer than %d characters"),
+                    LINEBUFSIZE - 1);
+            return CONF_EPARSE;
+        }
+
+        /* split line into command and argument */
+        get_cmd(linebuf, &cmd, &arg);
+        if (!cmd)
         {
             continue;
         }
-        if (eof)
+
+        /* handle the special eval command first */
+        if (strcmp(cmd, "eval") == 0)
         {
-            break;
+            if (*arg == '\0')
+            {
+                *errstr = xasprintf(_("line %d: command %s needs an argument"),
+                        line, cmd);
+                e = CONF_ESYNTAX;
+                break;
+            }
+            /* replace the current cmd/arg with the output of the given command */
+            char* evalbuf;
+            if (eval(arg, &evalbuf, errstr) != 0)
+            {
+                e = CONF_EIO;
+                break;
+            }
+            free(cmd);
+            cmd = NULL;
+            free(arg);
+            arg = NULL;
+            get_cmd(evalbuf, &cmd, &arg);
+            if (!cmd)
+            {
+                continue;
+            }
+            line_comes_from_eval = 1;
         }
 
+        /* handle commands */
         if (!acc && strcmp(cmd, "account") != 0 && strcmp(cmd, "defaults") != 0)
         {
             *errstr = xasprintf(
@@ -1202,7 +1217,8 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
         }
         else if (strcmp(cmd, "password") == 0)
         {
-            *conffile_contains_secrets = 1;
+            if (!line_comes_from_eval)
+                *conffile_contains_secrets = 1;
             acc->mask |= ACC_PASSWORD;
             free(acc->password);
             acc->password = (*arg == '\0') ? NULL : xstrdup(arg);
@@ -1556,7 +1572,9 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
             break;
         }
         free(cmd);
+        cmd = NULL;
         free(arg);
+        arg = NULL;
     }
     free(cmd);
     free(arg);
