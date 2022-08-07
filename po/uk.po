@@ -2,13 +2,13 @@
 # Copyright (C) 2018 Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2018, 2019, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018, 2019, 2020, 2021.
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.12\n"
+"Project-Id-Version: mpop 1.4.16\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2021-03-12 15:43+0100\n"
-"PO-Revision-Date: 2020-12-23 18:17+0200\n"
+"POT-Creation-Date: 2022-08-07 12:44+0200\n"
+"PO-Revision-Date: 2021-10-23 19:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -16,884 +16,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 20.11.70\n"
-
-#. TRANSLATORS: mpop shares a lot of code and translatable strings with
-#. msmtp <https://marlam.de/msmtp>.
-#: src/mpop.c:90
-#, c-format
-msgid "%s: FATAL: %s\n"
-msgstr "%s: КРИТИЧНА ПОМИЛКА: %s\n"
-
-#: src/mpop.c:231 src/mpop.c:748
-#, c-format
-msgid "the POP3 server does not support TLS via the STLS command"
-msgstr "на сервері POP3 не передбачено підтримки TLS на основі команди STLS"
-
-#: src/mpop.c:300
-#, c-format
-msgid "POP3 server at %s (%s [%s]), port %d:\n"
-msgstr "Сервер POP3 на %s (%s [%s]), порт %d:\n"
-
-#: src/mpop.c:305
-#, c-format
-msgid "POP3 server at %s (%s), port %d:\n"
-msgstr "Сервер POP3 на %s (%s), порт %d:\n"
-
-#: src/mpop.c:310
-#, c-format
-msgid "POP3 server at %s ([%s]), port %d:\n"
-msgstr "Сервер POP3 на %s ([%s]), порт %d:\n"
-
-#: src/mpop.c:315
-#, c-format
-msgid "POP3 server at %s, port %d:\n"
-msgstr "Сервер POP3 на %s, порт %d:\n"
-
-#: src/mpop.c:327
-#, c-format
-msgid "POP3 capabilities:\n"
-msgstr "Можливості POP3:\n"
-
-#: src/mpop.c:331
-msgid "Support for the CAPA command (get list of capabilities)"
-msgstr "Підтримка команди CAPA (отримання списку можливостей)"
-
-#: src/mpop.c:341
-msgid "Support for command grouping for faster transmission"
-msgstr "Підтримка групування команд для швидшого передавання даних"
-
-#: src/mpop.c:346
-msgid "Support for the TOP command (get mail headers)"
-msgstr "Підтримка команди TOP (отримання заголовків пошти)"
-
-#: src/mpop.c:351
-msgid "Support for the UIDL command (get unique mail identifiers)"
-msgstr "Підтримка команди UIDL (отримання унікальних ідентифікаторів пошти)"
-
-#: src/mpop.c:360
-#, c-format
-msgid "minimum time between logins is %ld seconds = %.2f hours"
-msgstr "мінімальний час між спробами входу дорівнює %ld секунд = %.2f годин"
-
-#: src/mpop.c:365
-#, c-format
-msgid "minimum time between logins is %ld seconds = %.2f minutes"
-msgstr "мінімальний час між спробами входу дорівнює %ld секунд = %.2f хвилин"
-
-#: src/mpop.c:370
-#, c-format
-msgid "minimum time between logins is %ld seconds"
-msgstr "мінімальний час між спробами входу дорівнює %ld секунд"
-
-#: src/mpop.c:381
-msgid "this POP3 server will never delete mails"
-msgstr "цей сервер POP3 ніколи не вилучатиме повідомлення"
-
-#: src/mpop.c:386
-msgid "this POP3 server will not keep mails"
-msgstr "цей сервер POP3 не зберігатиме повідомлення"
-
-#: src/mpop.c:391
-#, c-format
-msgid "this POP3 server will keep mails for %ld days"
-msgstr "цей сервер POP3 зберігатиме повідомлення протягом %ld днів"
-
-#: src/mpop.c:404
-msgid "Support for TLS encryption via the STLS command"
-msgstr "Підтримка шифрування TLS на основі команди STLS"
-
-#: src/mpop.c:407
-msgid "Supported authentication methods:"
-msgstr "Підтримувані способи розпізнавання:"
-
-#: src/mpop.c:464 src/mpop.c:470
-msgid "Server error messages in square brackets have a special meaning"
-msgstr ""
-"Повідомлення про помилки сервера у квадратних дужках мають особливе значення"
-
-#: src/mpop.c:479
-#, c-format
-msgid ""
-"This server might advertise more or other capabilities\n"
-"    when TLS is active.\n"
-msgstr ""
-"Можливості цього сервера можуть бути ширшими, якщо\n"
-"    увімкнено TLS.\n"
-
-#: src/mpop.c:484
-#, c-format
-msgid ""
-"This server might advertise more or other capabilities\n"
-"    after successful authentication.\n"
-msgstr ""
-"Можливості цього сервера можуть бути ширшими, якщо\n"
-"    вдасться успішно пройти розпізнавання.\n"
-
-#: src/mpop.c:489
-#, c-format
-msgid ""
-"This server does not support the CAPA command, so this\n"
-"    list is probably not complete.\n"
-msgstr ""
-"На цьому сервері не передбачено підтримки команди CAPA, тому\n"
-"    цей список, ймовірно, є неповним.\n"
-
-#: src/mpop.c:523
-#, c-format
-msgid "%.2f GiB"
-msgstr "%.2f ГіБ"
-
-#: src/mpop.c:527
-#, c-format
-msgid "%.2f MiB"
-msgstr "%.2f МіБ"
-
-#: src/mpop.c:531
-#, c-format
-msgid "%.2f KiB"
-msgstr "%.2f КіБ"
-
-#: src/mpop.c:535
-#, c-format
-msgid " bytes"
-msgstr " байтів"
-
-#: src/mpop.c:539
-#, c-format
-msgid "1 byte"
-msgstr "1 байт"
-
-#: src/mpop.c:556
-#, c-format
-msgid "skipping message %ld of %ld (reason: filter + keep)\n"
-msgstr ""
-"пропускаємо повідомлення %ld з %ld (причина: фільтрування + збереження)\n"
-
-#: src/mpop.c:561
-#, c-format
-msgid "deleting message %ld of %ld (reason: filter)\n"
-msgstr "вилучаємо повідомлення %ld з %ld (причина: фільтрування)\n"
-
-#: src/mpop.c:567
-#, c-format
-msgid "skipping message %ld of %ld (reason: filter)\n"
-msgstr "пропускаємо повідомлення %ld з %ld (причина: фільтрування)\n"
-
-#: src/mpop.c:576
-#, c-format
-msgid "retrieving message %ld of %ld (%s): "
-msgstr "отримуємо повідомлення %ld з %ld (%s): "
-
-#: src/mpop.c:581
-#, c-format
-msgid "retrieving message %ld of %ld: "
-msgstr "отримуємо повідомлення %ld з %ld: "
-
-#: src/mpop.c:792 src/mpop.c:845 src/mpop.c:868 src/mpop.c:1023 src/pop3.c:1143
-#: src/pop3.c:1280 src/pop3.c:1393 src/pop3.c:1784 src/pop3.c:2071 src/net.c:97
-#: src/net.c:208 src/net.c:255 src/net.c:767 src/net.c:894
-#: src/mtls-gnutls.c:623 src/mtls-gnutls.c:670 src/mtls-openssl.c:866
-#: src/mtls-openssl.c:933 src/mtls-openssl.c:975
-#, c-format
-msgid "operation aborted"
-msgstr "виконання дії перервано"
-
-#: src/mpop.c:914
-#, c-format
-msgid "%s at %s:\n"
-msgstr "%s о %s:\n"
-
-#: src/mpop.c:917
-#, c-format
-msgid "new: "
-msgstr "нове: "
-
-#: src/mpop.c:920 src/mpop.c:941
-#, c-format
-msgid "no messages"
-msgstr "немає повідомлень"
-
-#: src/mpop.c:924 src/mpop.c:945
-#, c-format
-msgid "1 message"
-msgstr "1 повідомлення"
-
-#: src/mpop.c:928 src/mpop.c:949
-#, c-format
-msgid "%ld messages"
-msgstr "%ld повідомлень"
-
-#: src/mpop.c:933 src/mpop.c:954
-#, c-format
-msgid " in %s"
-msgstr " у %s"
-
-#: src/mpop.c:937
-#, c-format
-msgid "total: "
-msgstr "загалом: "
-
-#: src/mpop.c:991
-#, c-format
-msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
-msgstr ""
-"пропускаємо повідомлення %ld з %ld (причина: розмір вилучення + збереження)\n"
-
-#: src/mpop.c:997
-#, c-format
-msgid "deleting message %ld of %ld (reason: killsize)\n"
-msgstr "вилучаємо повідомлення %ld з %ld (причина: розмір вилучення)\n"
-
-#: src/mpop.c:1008
-#, c-format
-msgid "skipping message %ld of %ld (reason: skipsize)\n"
-msgstr "пропускаємо повідомлення %ld з %ld (причина: розмір пропускання)\n"
-
-#: src/mpop.c:1033
-#, c-format
-msgid "the POP3 server does not support the TOP command needed for filtering"
-msgstr ""
-"на сервері POP3 не передбачено підтримки команди TOP, яка потрібна для "
-"фільтрування"
-
-#: src/mpop.c:1213 src/mpop.c:1232 src/mpop.c:1284
-#, c-format
-msgid "automatic configuration based on SRV records failed: %s"
-msgstr ""
-"не вдалося виконати автоматичне налаштовування на основі записів SRV: %s"
-
-#: src/mpop.c:1214
-msgid "invalid mail address"
-msgstr "некоректна поштова адреса"
-
-#: src/mpop.c:1230
-#, c-format
-msgid "no SRV records for %s or %s"
-msgstr "немає записів SRV для %s або %s"
-
-#: src/mpop.c:1247
-#, c-format
-msgid "copy this to your configuration file %s"
-msgstr "скопіюйте це до вашого файла налаштувань %s"
-
-#: src/mpop.c:1251
-msgid "warning: the host does not match the mail domain; please check"
-msgstr ""
-"попередження: вузол є невідповідним поштовому домену; будь ласка, перевірте"
-
-#: src/mpop.c:1254 src/mpop.c:1258
-msgid "add your password to the key ring:"
-msgstr "додайте ваш пароль до сховища ключів:"
-
-#: src/mpop.c:1261
-msgid "encrypt your password:"
-msgstr "зашифруйте ваш пароль:"
-
-#: src/mpop.c:1263
-msgid "adjust the delivery command"
-msgstr "скоригуйте команду доставлення"
-
-#: src/mpop.c:1285
-msgid "this system lacks libresolv"
-msgstr "у цій системі немає libresolv"
-
-#: src/mpop.c:1314
-#, c-format
-msgid "%s: no accounts defined"
-msgstr "%s: не визначено жодного облікового запису"
-
-#: src/mpop.c:1332 src/mpop.c:1343
-#, c-format
-msgid "%s: no account %s"
-msgstr "%s: немає облікового запису %s"
-
-#: src/mpop.c:1704 src/mpop.c:1721 src/mpop.c:1744 src/mpop.c:1762
-#: src/mpop.c:1782 src/mpop.c:1823 src/mpop.c:1872 src/mpop.c:1890
-#: src/mpop.c:1939 src/mpop.c:1972 src/mpop.c:1994 src/mpop.c:2039
-#: src/mpop.c:2057 src/mpop.c:2073 src/mpop.c:2090 src/mpop.c:2132
-#, c-format
-msgid "invalid argument %s for %s"
-msgstr "неправильний аргумент %s для %s"
-
-#: src/mpop.c:2162
-#, c-format
-msgid "%s version %s\n"
-msgstr "%s, версія %s\n"
-
-#: src/mpop.c:2163
-#, c-format
-msgid "Platform: %s\n"
-msgstr "Платформа: %s\n"
-
-#: src/mpop.c:2165
-#, c-format
-msgid "TLS/SSL library: %s\n"
-msgstr "Бібліотека TLS/SSL: %s\n"
-
-#: src/mpop.c:2173 src/mpop.c:2259
-#, c-format
-msgid "none"
-msgstr "немає"
-
-#: src/mpop.c:2177
-#, c-format
-msgid ""
-"Authentication library: %s\n"
-"Supported authentication methods:\n"
-msgstr ""
-"Бібліотека для розпізнавання: %s\n"
-"Підтримувані способи розпізнавання:\n"
-
-#: src/mpop.c:2180
-msgid "GNU SASL; user, apop, oauthbearer, xoauth2: built-in"
-msgstr "GNU SASL; user, apop, oauthbearer, xoauth2: вбудовані"
-
-#: src/mpop.c:2182
-msgid "built-in"
-msgstr "вбудований"
-
-#: src/mpop.c:2239
-#, c-format
-msgid "IDN support: "
-msgstr "Підтримка IDN: "
-
-#: src/mpop.c:2243 src/mpop.c:2251
-#, c-format
-msgid "enabled"
-msgstr "увімкнено"
-
-#: src/mpop.c:2245 src/mpop.c:2254
-#, c-format
-msgid "disabled"
-msgstr "вимкнено"
-
-#: src/mpop.c:2249
-#, c-format
-msgid "NLS: "
-msgstr "NLS: "
-
-#: src/mpop.c:2252
-#, c-format
-msgid ", LOCALEDIR is %s"
-msgstr ", LOCALEDIR %s"
-
-#: src/mpop.c:2257
-#, c-format
-msgid "Keyring support: "
-msgstr "Підтримка сховища ключів: "
-
-#: src/mpop.c:2262
-#, c-format
-msgid "Gnome "
-msgstr "GNOME "
-
-#: src/mpop.c:2265
-#, c-format
-msgid "MacOS "
-msgstr "MacOS "
-
-#: src/mpop.c:2271
-#, c-format
-msgid "Configuration file name: %s\n"
-msgstr "Назва файла налаштувань: %s\n"
-
-#: src/mpop.c:2275
-#, c-format
-msgid ""
-"Copyright (C) 2021 Martin Lambers and others.\n"
-"This is free software.  You may redistribute copies of it under the terms "
-"of\n"
-"the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
-"There is NO WARRANTY, to the extent permitted by law.\n"
-msgstr ""
-"© Martin Lambers та інші, 2021.\n"
-"Це вільне програмне забезпечення. Ви можете поширювати його копії за умов "
-"дотримання\n"
-"Загальної громадської ліцензії GNU <http://www.gnu.org/licenses/gpl.html>.\n"
-"Щодо користування ним не надається ЖОДНИХ ГАРАНТІЙ, окрім передбачених "
-"законодавством.\n"
-
-#: src/mpop.c:2284
-#, c-format
-msgid ""
-"Usage:\n"
-"\n"
-msgstr ""
-"Користування:\n"
-"\n"
-
-#: src/mpop.c:2285
-#, c-format
-msgid ""
-"Mail retrieval mode (default):\n"
-"  %s [option...] account...\n"
-"  %s [option...] --all-accounts\n"
-"  %s --host=host [option...]\n"
-"  Read mails from one or more POP3 accounts and deliver them.\n"
-msgstr ""
-"Режим отримання пошти (типовий):\n"
-"  %s [параметр...] [--] обліковий_запис...\n"
-"  %s [параметр...] --all-accounts\n"
-"  %s --host=вузол [параметр...]\n"
-"  Прочитати повідомлення з одного або декількох записів POP3 і розіслати "
-"надіслані повідомлення.\n"
-
-#: src/mpop.c:2291
-#, c-format
-msgid ""
-"Configuration mode:\n"
-"  %s --configure=mailaddress\n"
-"  Generate and print configuration for address.\n"
-msgstr ""
-"Режим налаштовування:\n"
-"  %s --configure=поштова_адреса\n"
-"  створити і вивести налаштування для вказаної адреси\n"
-
-#: src/mpop.c:2294
-#, c-format
-msgid ""
-"Server information mode:\n"
-"  %s [option...] --serverinfo account...\n"
-"  %s --host=host [option...] --serverinfo\n"
-"  Print information about one or more POP3 servers.\n"
-"\n"
-msgstr ""
-"Режим даних щодо сервера:\n"
-"  %s [параметр...] --serverinfo обліковий_запис...\n"
-"  %s --host=host [параметр...] --serverinfo\n"
-"  Вивести дані щодо одного або декількох серверів POP3.\n"
-"\n"
-
-#: src/mpop.c:2298
-#, c-format
-msgid "General options:\n"
-msgstr "Загальні параметри:\n"
-
-#: src/mpop.c:2299
-#, c-format
-msgid "  --version                    print version\n"
-msgstr "  --version                    вивести дані щодо версії\n"
-
-#: src/mpop.c:2300
-#, c-format
-msgid "  --help                       print help\n"
-msgstr "  --help                       вивести додаткове повідомлення\n"
-
-#: src/mpop.c:2301
-#, c-format
-msgid "  -P, --pretend                print configuration info and exit\n"
-msgstr ""
-"  -P, --pretend                вивести дані щодо налаштування і завершити "
-"роботу\n"
-
-#: src/mpop.c:2302
-#, c-format
-msgid "  -d, --debug                  print debugging information\n"
-msgstr "  -d, --debug                  вивести діагностичну інформацію\n"
-
-#: src/mpop.c:2303
-#, c-format
-msgid "Changing the mode of operation:\n"
-msgstr "Зміна режиму роботи:\n"
-
-#: src/mpop.c:2304
-#, c-format
-msgid ""
-"  --configure=mailaddress      generate and print configuration for address\n"
-msgstr ""
-"  --configure=поштова_адреса   створити і вивести налаштування для вказаної "
-"адреси\n"
-
-#: src/mpop.c:2305
-#, c-format
-msgid "  -S, --serverinfo             print information about the server\n"
-msgstr "  -S, --serverinfo             вивести відомості щодо сервера\n"
-
-#: src/mpop.c:2306
-#, c-format
-msgid "Configuration options:\n"
-msgstr "Параметри налаштовування:\n"
-
-#: src/mpop.c:2307
-#, c-format
-msgid "  -C, --file=filename          set configuration file\n"
-msgstr "  -C, --file=назва_файла       вказати файл налаштувань\n"
-
-#: src/mpop.c:2308
-#, c-format
-msgid ""
-"  --host=hostname              set the server, use only command-line "
-"settings;\n"
-"                               do not use any configuration file data\n"
-msgstr ""
-"  --host=назва_вузла           вказати сервер, використовувати лише "
-"параметри командного рядка;\n"
-"                               не використовувати дані з файла налаштувань\n"
-
-#: src/mpop.c:2310
-#, c-format
-msgid "  --port=number                set port number\n"
-msgstr "  --port=число                 вказати номер порту\n"
-
-#: src/mpop.c:2311
-#, c-format
-msgid ""
-"  --source-ip=[IP]             set/unset source ip address to bind the "
-"socket to\n"
-msgstr ""
-"  --source-ip=[IP]             вказати/скасувати визначення ip-адреси для "
-"прив'язування сокета\n"
-
-#: src/mpop.c:2312
-#, c-format
-msgid "  --proxy-host=[IP|hostname]   set/unset proxy\n"
-msgstr "  --proxy-host=[IP|вузол]     визначити/скасувати визначення проксі\n"
-
-#: src/mpop.c:2313
-#, c-format
-msgid "  --proxy-port=[number]        set/unset proxy port\n"
-msgstr ""
-"  --proxy-port=[число]         вказати/скасувати визначення порту проксі\n"
-
-#: src/mpop.c:2314
-#, c-format
-msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
-msgstr ""
-"  --socket=[назва_сокета]      вказати/скасувати визначення сокет для "
-"з'єднання\n"
-
-#: src/mpop.c:2315
-#, c-format
-msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
-msgstr ""
-"  --timeout=(off|секунди)      вказати/скасувати визначення часу очікування "
-"у секундах\n"
-
-#: src/mpop.c:2316
-#, c-format
-msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
-msgstr "  --pipelining=(auto|on|off)   увімкнути/вимкнути конвеєрну обробку\n"
-
-#: src/mpop.c:2317
-#, c-format
-msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
-msgstr "  --received-header[=(on|off)] увімкнути/вимкнути заголовок Received\n"
-
-#: src/mpop.c:2318
-#, c-format
-msgid "  --auth[=(on|method)]         choose the authentication method\n"
-msgstr "  --auth[=(on|спосіб)]         вибрати спосіб розпізнавання\n"
-
-#: src/mpop.c:2319
-#, c-format
-msgid "  --user=[username]            set/unset user name for authentication\n"
-msgstr ""
-"  --user=[користувач]          вказати/скасувати визначення користувача для "
-"розпізнавання\n"
-
-#: src/mpop.c:2320
-#, c-format
-msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
-msgstr "  --passwordeval=[eval]        перевірити пароль для розпізнавання\n"
-
-#: src/mpop.c:2321
-#, c-format
-msgid "  --tls[=(on|off)]             enable/disable TLS encryption\n"
-msgstr "  --tls[=(on|off)]             увімкнути/вимкнути шифрування TLS\n"
-
-#: src/mpop.c:2322
-#, c-format
-msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
-msgstr "  --tls-starttls[=(on|off)]    увімкнути/вимкнути STARTTLS для TLS\n"
-
-#: src/mpop.c:2323
-#, c-format
-msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
-msgstr ""
-"  --tls-trust-file=[файл]      вказати/скасувати визначення файла довіри для "
-"TLS\n"
-
-#: src/mpop.c:2324
-#, c-format
-msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
-msgstr ""
-"  --tls-crl-file=[файл]        вказати/скасувати визначення файла "
-"відкликання для TLS\n"
-
-#: src/mpop.c:2325
-#, c-format
-msgid ""
-"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
-"TLS\n"
-msgstr ""
-"  --tls-fingerprint=[f]        вказати/скасувати визначення відбитка "
-"надійного сертифіката для TLS\n"
-
-#: src/mpop.c:2326
-#, c-format
-msgid ""
-"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
-"TLS\n"
-msgstr ""
-"  --tls-certcheck[=(on|off)]   увімкнути/вимкнути перевірки сертифіката для "
-"TLS\n"
-
-#: src/mpop.c:2327
-#, c-format
-msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
-msgstr ""
-"  --tls-key-file=[файл]        вказати/скасувати визначення файла закритого "
-"ключа для TLS\n"
-
-#: src/mpop.c:2328
-#, c-format
-msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
-msgstr ""
-"  --tls-cert-file=[файл]        вказати/скасувати визначення файла закритого "
-"сертифіката для TLS\n"
-
-#: src/mpop.c:2329
-#, c-format
-msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
-msgstr ""
-"  --tls-priorities=[пріор]     вказати/скасувати визначення пріоритетностей "
-"TLS.\n"
-
-#: src/mpop.c:2330
-#, c-format
-msgid ""
-"  --tls-host-override=[host]   set/unset override for TLS host "
-"verification.\n"
-msgstr ""
-"  --tls-host-override=[вузол]  встановити або зняти перевизначення для "
-"перевірки вузла TLS.\n"
-
-#: src/mpop.c:2331
-#, c-format
-msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
-msgstr ""
-"  --tls-min-dh-prime-bits=[b]  встановити/скасувати визначення мінімального "
-"розміру у бітах для основи DH\n"
-
-#: src/mpop.c:2332
-#, c-format
-msgid "Options specific to mail retrieval mode:\n"
-msgstr "Параметри, які є специфічними для режиму отримання пошти:\n"
-
-#: src/mpop.c:2333
-#, c-format
-msgid ""
-"  -q, --quiet                  do not display status or progress "
-"information\n"
-msgstr ""
-"  -q, --quiet                  не виводити даних щодо стану та поступу\n"
-
-#: src/mpop.c:2334
-#, c-format
-msgid ""
-"  -Q, --half-quiet             display status but not progress information\n"
-msgstr ""
-"  -Q, --half-quiet             вивести дані щодо стану, але не виводити "
-"даних щодо поступу\n"
-
-#: src/mpop.c:2335
-#, c-format
-msgid ""
-"  -a, --all-accounts           query all accounts in the configuration file\n"
-msgstr ""
-"  -a, --all-accounts           опитати усі облікові записи із файла "
-"налаштувань\n"
-
-#: src/mpop.c:2336
-#, c-format
-msgid ""
-"  -A, --auth-only              authenticate only; do not retrieve mail\n"
-msgstr ""
-"  -A, --auth-only              лише пройти розпізнавання; не отримувати "
-"пошти\n"
-
-#: src/mpop.c:2337
-#, c-format
-msgid ""
-"  -s, --status-only            print account status only; do not retrieve "
-"mail\n"
-msgstr ""
-"  -s, --status-only            вивести лише стан облікового запису; не "
-"отримувати пошти\n"
-
-#: src/mpop.c:2338
-#, c-format
-msgid "  -n, --only-new[=(on|off)]    process only new messages\n"
-msgstr "  -n, --only-new[=(on|off)]    обробити лише нові повідомлення\n"
-
-#: src/mpop.c:2339
-#, c-format
-msgid "  -k, --keep[=(on|off)]        do not delete mails from servers\n"
-msgstr "  -k, --keep[=(on|off)]        не вилучати повідомлення з серверів\n"
-
-#: src/mpop.c:2340
-#, c-format
-msgid "  --killsize=(off|number)      set/unset kill size\n"
-msgstr ""
-"  --killsize=(off|число)       вказати/скасувати визначення розміру "
-"вилучення\n"
-
-#: src/mpop.c:2341
-#, c-format
-msgid "  --skipsize=(off|number)      set/unset skip size\n"
-msgstr ""
-"  --skipsize=(off|число)       вказати/скасувати визначення розміру "
-"пропускання\n"
-
-#: src/mpop.c:2342
-#, c-format
-msgid "  --filter=[program]           set/unset header filter\n"
-msgstr ""
-"  --filter=[програма]          вказати/скасувати визначення фільтра "
-"заголовків\n"
-
-#: src/mpop.c:2343
-#, c-format
-msgid "  --delivery=method,arg        set the mail delivery method\n"
-msgstr "  --delivery=спосіб,аргумент   встановити спосіб доставлення пошти\n"
-
-#: src/mpop.c:2344
-#, c-format
-msgid "  --uidls-file=filename        set file to store UIDLs\n"
-msgstr "  --uidls-file=файл           вказати файл для зберігання UIDL\n"
-
-#: src/mpop.c:2345
-#, c-format
-msgid ""
-"\n"
-"Report bugs to <%s>.\n"
-msgstr ""
-"\n"
-"Сповіщайте про помилки за адресою <%s>.\n"
-
-#: src/mpop.c:2369
-msgid "cannot use both --host and accounts"
-msgstr "не можна одночасно користуватися --host і вказувати облікові записи"
-
-#: src/mpop.c:2375
-msgid "cannot use both --all-accounts and a list of accounts"
-msgstr ""
-"не можна одночасно використовувати --all-accounts і список облікових записів"
-
-#: src/mpop.c:2471
-#, c-format
-msgid "account %s from %s: %s"
-msgstr "обліковий запис %s з %s: %s"
-
-#: src/mpop.c:2489
-#, c-format
-msgid "cannot create directories for %s: %s"
-msgstr "неможливо створити каталоги для %s: %s"
-
-#: src/mpop.c:2492
-msgid "a component already exists but is not a directory"
-msgstr "компонент вже існує, але не є каталогом"
-
-#: src/mpop.c:2511
-#, c-format
-msgid "using account %s from %s\n"
-msgstr "з використанням облікового запису %s з %s\n"
-
-#: src/mpop.c:2517 src/mpop.c:2519 src/mpop.c:2522 src/mpop.c:2554
-#: src/mpop.c:2555 src/mpop.c:2557 src/mpop.c:2559 src/mpop.c:2563
-#: src/mpop.c:2565 src/mpop.c:2584 src/mpop.c:2586 src/mpop.c:2588
-#: src/mpop.c:2598 src/mpop.c:2601 src/mpop.c:2603 src/mpop.c:2647
-msgid "(not set)"
-msgstr "(не встановлено)"
-
-#: src/mpop.c:2526 src/mpop.c:2631 src/mpop.c:2640
-#, c-format
-msgid "off\n"
-msgstr "вимкнено\n"
-
-#: src/mpop.c:2532
-#, c-format
-msgid "1 second\n"
-msgstr "1 секунда\n"
-
-#: src/mpop.c:2536
-#, c-format
-msgid "%d seconds\n"
-msgstr "%d секунд\n"
-
-#: src/mpop.c:2540 src/mpop.c:2543 src/mpop.c:2560 src/mpop.c:2561
-#: src/mpop.c:2590 src/mpop.c:2626 src/mpop.c:2627
-msgid "off"
-msgstr "вимкнено"
-
-#: src/mpop.c:2541 src/mpop.c:2543 src/mpop.c:2560 src/mpop.c:2561
-#: src/mpop.c:2590 src/mpop.c:2626 src/mpop.c:2627
-msgid "on"
-msgstr "увімкнено"
-
-#: src/mpop.c:2541
-msgid "auto"
-msgstr "авто"
-
-#: src/mpop.c:2547
-#, c-format
-msgid "choose\n"
-msgstr "виберіть\n"
-
-#: src/mpop.c:2666
-#, c-format
-msgid "support for authentication method %s is not compiled in"
-msgstr ""
-"під час збирання програми не було увімкнено підтримку способу розпізнавання "
-"%s"
-
-#: src/mpop.c:2678
-#, c-format
-msgid "cannot initialize TLS library: %s"
-msgstr "не вдалося ініціалізувати бібліотеку TLS: %s"
-
-#: src/mpop.c:2686
-msgid "support for TLS is not compiled in"
-msgstr "підтримку TLS не було увімкнено під час збирання програми"
-
-#: src/mpop.c:2694
-#, c-format
-msgid "cannot initialize network library: %s"
-msgstr "не вдалося ініціалізувати бібліотеку для роботи у мережі: %s"
-
-#: src/mpop.c:2763
-#, c-format
-msgid "POP3 server message: %s"
-msgstr "Повідомлення сервера POP3: %s"
-
-#: src/mpop.c:2772
-#, c-format
-msgid "error during mail retrieval (account %s from %s)"
-msgstr "помилка під час отримання пошти (обліковий запис %s з %s)"
-
-#: src/mpop.c:2778
-msgid "error during mail retrieval"
-msgstr "помилка під час отримання пошти"
-
-#: src/conf.c:626 src/conf.c:631
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 20.12.0\n"
+
+#: src/conf.c:627 src/conf.c:632
 #, c-format
 msgid "host not set"
 msgstr "не вказано вузол"
 
-#: src/conf.c:636
+#: src/conf.c:637
 #, c-format
 msgid "tls_key_file requires tls_cert_file"
 msgstr "tls_key_file потребує визначення tls_cert_file"
 
-#: src/conf.c:641
+#: src/conf.c:642
 #, c-format
 msgid "tls_cert_file requires tls_key_file"
 msgstr "tls_cert_file потребує визначення tls_key_file"
 
-#: src/conf.c:649
+#: src/conf.c:650
 #, c-format
 msgid ""
 "tls requires either tls_trust_file (highly recommended) or tls_fingerprint "
@@ -902,98 +44,88 @@ msgstr ""
 "tls потребує встановлення tls_trust_file (наполегливо рекомендуємо) або "
 "tls_fingerprint чи вимикання tls_certcheck"
 
-#: src/conf.c:655
+#: src/conf.c:656
 #, c-format
 msgid "tls_crl_file requires tls_trust_file"
 msgstr "tls_crl_file потребує визначення tls_trust_file"
 
-#: src/conf.c:660
+#: src/conf.c:661
 #, c-format
 msgid "no delivery information"
 msgstr "немає даних щодо доставлення"
 
-#: src/conf.c:691
-#, c-format
-msgid "cannot evaluate '%s': %s"
-msgstr "не вдалося обчислити «%s»: %s"
-
-#: src/conf.c:701
-#, c-format
-msgid "cannot read output of '%s'"
-msgstr "не вдалося прочитати дані, які виведено «%s»"
-
-#: src/conf.c:827 src/stream.c:63
-#, c-format
-msgid "input error"
-msgstr "помилка у вхідних даних"
-
-#: src/conf.c:849
-#, c-format
-msgid "line longer than %d characters"
-msgstr "довжина рядка перевищує %d символів"
-
-#: src/conf.c:900 src/conf.c:1022
+#: src/conf.c:806 src/conf.c:975
 #, c-format
 msgid "line %d: missing account name"
 msgstr "рядок %d: пропущено назву облікового запису"
 
-#: src/conf.c:905
+#: src/conf.c:811
 #, c-format
 msgid "line %d: account %s not (yet) defined"
 msgstr "рядок %d: обліковий запис %s (ще) не визначено"
 
-#: src/conf.c:984
+#: src/conf.c:880 src/stream.c:63
 #, c-format
-msgid "line %d: first command must be account or defaults"
-msgstr "рядок %d: першою командою має бути account або defaults"
+msgid "input error"
+msgstr "помилка у вхідних даних"
 
-#: src/conf.c:994
+#: src/conf.c:892
 #, c-format
-msgid "line %d: command %s does not take an argument"
-msgstr "рядок %d: команді %s не слід передавати аргументи"
+msgid "line longer than %d characters"
+msgstr "довжина рядка перевищує %d символів"
 
-#: src/conf.c:1030
-#, c-format
-msgid "line %d: an account name must not contain colons or commas"
-msgstr "рядок %d: назва облікового запису не повинна містити двокрапок і ком"
-
-#: src/conf.c:1040
-#, c-format
-msgid "line %d: account %s was already defined"
-msgstr "рядок %d: обліковий запис %s вже визначено"
-
-#: src/conf.c:1065 src/conf.c:1081 src/conf.c:1104 src/conf.c:1207
-#: src/conf.c:1227 src/conf.c:1493 src/conf.c:1518
+#: src/conf.c:909 src/conf.c:1018 src/conf.c:1034 src/conf.c:1057
+#: src/conf.c:1160 src/conf.c:1180 src/conf.c:1447 src/conf.c:1472
 #, c-format
 msgid "line %d: command %s needs an argument"
 msgstr "рядок %d: команді %s слід передати аргумент"
 
-#: src/conf.c:1092 src/conf.c:1120 src/conf.c:1146 src/conf.c:1166
-#: src/conf.c:1215 src/conf.c:1253 src/conf.c:1298 src/conf.c:1318
-#: src/conf.c:1375 src/conf.c:1396 src/conf.c:1415 src/conf.c:1462
-#: src/conf.c:1482 src/conf.c:1577
+#: src/conf.c:937
+#, c-format
+msgid "line %d: first command must be account or defaults"
+msgstr "рядок %d: першою командою має бути account або defaults"
+
+#: src/conf.c:947
+#, c-format
+msgid "line %d: command %s does not take an argument"
+msgstr "рядок %d: команді %s не слід передавати аргументи"
+
+#: src/conf.c:983
+#, c-format
+msgid "line %d: an account name must not contain colons or commas"
+msgstr "рядок %d: назва облікового запису не повинна містити двокрапок і ком"
+
+#: src/conf.c:993
+#, c-format
+msgid "line %d: account %s was already defined"
+msgstr "рядок %d: обліковий запис %s вже визначено"
+
+#: src/conf.c:1045 src/conf.c:1073 src/conf.c:1099 src/conf.c:1119
+#: src/conf.c:1168 src/conf.c:1206 src/conf.c:1252 src/conf.c:1272
+#: src/conf.c:1329 src/conf.c:1350 src/conf.c:1369 src/conf.c:1416
+#: src/conf.c:1436 src/conf.c:1531
 #, c-format
 msgid "line %d: invalid argument %s for command %s"
 msgstr "рядок %d: некоректний аргумент %s команди %s"
 
-#: src/conf.c:1506 src/conf.c:1531
+#: src/conf.c:1460 src/conf.c:1485
 #, c-format
 msgid "line %d: invalid size (not a number or out of range): %s"
 msgstr ""
 "рядок %d: некоректний розмір (не є числом або є числом поза межами "
 "припустимого діапазону): %s"
 
-#: src/conf.c:1616
+#: src/conf.c:1570
 #, c-format
 msgid "line %d: unknown command %s"
 msgstr "рядок %d: невідома команда %s"
 
-#: src/conf.c:1668
+#: src/conf.c:1624
 #, c-format
 msgid "contains secrets and therefore must be owned by you"
 msgstr "містить конфіденційні дані, тому його власником маєте бути ви"
 
-#: src/conf.c:1674
+#: src/conf.c:1630
 #, c-format
 msgid ""
 "contains secrets and therefore must have no more than user read/write "
@@ -1001,149 +133,6 @@ msgid ""
 msgstr ""
 "містить конфіденційні дані, тому права доступу до нього не можуть бути "
 "ширшими, ніж читання і запису для користувача"
-
-#: src/pop3.c:323
-#, c-format
-msgid "POP3 server sent an empty reply"
-msgstr "Сервером POP3 надіслано порожню відповідь"
-
-#: src/pop3.c:327
-#, c-format
-msgid "POP3 server sent an invalid reply"
-msgstr "Сервером POP3 надіслано некоректну відповідь"
-
-#: src/pop3.c:382
-#, c-format
-msgid ""
-"Cannot send POP3 command because it is longer than %d characters. Increase "
-"POP3_BUFSIZE."
-msgstr ""
-"Не вдалося надіслати команду POP3, оскільки її довжина перевищує %d "
-"символів. Збільште POP3_BUFSIZE."
-
-#: src/pop3.c:690
-#, c-format
-msgid "cannot get initial OK message from POP3 server"
-msgstr "не вдалося отримати початкове повідомлення OK від сервера POP3"
-
-#: src/pop3.c:751 src/pop3.c:907 src/pop3.c:1039 src/pop3.c:1222
-#: src/pop3.c:1337
-#, c-format
-msgid "invalid reply to command %s"
-msgstr "некоректна відповідь на команду %s"
-
-#: src/pop3.c:978 src/pop3.c:984 src/pop3.c:1031 src/pop3.c:1123
-#: src/pop3.c:1263 src/pop3.c:2480 src/pop3.c:2566 src/pop3.c:2652
-#: src/pop3.c:3252 src/pop3.c:3280
-#, c-format
-msgid "command %s failed"
-msgstr "помилка під час спроби виконати команду %s"
-
-#: src/pop3.c:1054
-#, c-format
-msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
-msgstr "Обробка понад %ld повідомлень неможлива. Збільште POP3_MAX_MESSAGES."
-
-#: src/pop3.c:1509 src/pop3.c:1538
-#, c-format
-msgid "cannot write mail: output error"
-msgstr "не вдалося записати пошту: помилка під час виведення даних"
-
-#: src/pop3.c:1622
-#, c-format
-msgid "cannot write to temporary file: output error"
-msgstr ""
-"не вдалося виконати запис до тимчасового файла: помилка під час виведення "
-"даних"
-
-#: src/pop3.c:1703
-#, c-format
-msgid "cannot add Received header: %s"
-msgstr "не вдалося додати заголовок Received: %s"
-
-#: src/pop3.c:1800
-#, c-format
-msgid "command TOP %ld 0 failed"
-msgstr "помилка команди TOP %ld 0"
-
-#: src/pop3.c:1805
-#, c-format
-msgid "command RETR %ld failed"
-msgstr "помилка команди RETR %ld"
-
-#: src/pop3.c:1816
-#, c-format
-msgid "cannot create temporary file: %s"
-msgstr "не вдалося створити тимчасовий файл: %s"
-
-#: src/pop3.c:1828
-#, c-format
-msgid "cannot rewind temporary file: %s"
-msgstr "не вдалося виконати гортання назад тимчасового файла: %s"
-
-#: src/pop3.c:2085
-#, c-format
-msgid "command DELE %ld failed"
-msgstr "помилка команди DELE %ld"
-
-#: src/pop3.c:2155 src/pop3.c:2167 src/pop3.c:2190 src/pop3.c:2205
-#: src/pop3.c:2245 src/pop3.c:2316 src/pop3.c:2382 src/pop3.c:2441
-#: src/pop3.c:2500 src/pop3.c:2520 src/pop3.c:2613 src/pop3.c:2672
-#: src/pop3.c:3024 src/pop3.c:3058 src/pop3.c:3092
-#, c-format
-msgid "authentication failed (method %s)"
-msgstr "не вдалося пройти розпізнавання (спосіб %s)"
-
-#: src/pop3.c:2576
-#, c-format
-msgid "authentication method CRAM-MD5: server sent invalid challenge"
-msgstr "спосіб розпізнавання CRAM-MD5: сервером надіслано некоректний запит"
-
-#: src/pop3.c:2793 src/pop3.c:3110
-#, c-format
-msgid "POP3 server does not support authentication method %s"
-msgstr "На сервері POP3 не передбачено способу розпізнавання %s"
-
-#: src/pop3.c:2799 src/pop3.c:2956 src/pop3.c:2999
-#, c-format
-msgid "GNU SASL: %s"
-msgstr "GNU SASL: %s"
-
-#: src/pop3.c:2806
-#, c-format
-msgid "GNU SASL: authentication method %s not supported"
-msgstr "GNU SASL: не передбачено підтримки способу розпізнавання %s"
-
-#: src/pop3.c:2883 src/pop3.c:3149
-#, c-format
-msgid "cannot use a secure authentication method"
-msgstr "неможливо скористатися безпечним способом розпізнавання"
-
-#: src/pop3.c:2889 src/pop3.c:3155
-#, c-format
-msgid "cannot find a usable authentication method"
-msgstr "не вдалося знайти придатний до використання спосіб розпізнавання"
-
-#: src/pop3.c:2902 src/pop3.c:3168
-#, c-format
-msgid "authentication method %s needs a user name"
-msgstr ""
-"для використання способу розпізнавання %s слід вказати ім'я користувача"
-
-#: src/pop3.c:2915 src/pop3.c:3178
-#, c-format
-msgid "authentication method %s needs a password"
-msgstr "для використання способу розпізнавання %s слід вказати пароль"
-
-#: src/pop3.c:3071
-#, c-format
-msgid "authentication failed: %s (method %s)"
-msgstr "помилка розпізнавання: %s (спосіб %s)"
-
-#: src/pop3.c:3220
-#, c-format
-msgid "authentication method %s not supported"
-msgstr "не передбачено підтримки способу розпізнавання %s"
 
 #: src/delivery.c:82
 msgid "EX_OK: no error"
@@ -1299,46 +288,1195 @@ msgstr "не вдалося заблокувати %s: %s"
 msgid "cannot close %s: %s"
 msgstr "не вдалося закрити %s: %s"
 
-#: src/uidls.c:224
+#. TRANSLATORS: mpop shares a lot of code and translatable strings with
+#. msmtp <https://marlam.de/msmtp>.
+#: src/mpop.c:91
 #, c-format
-msgid "%s, line %ld: line longer than %d characters"
-msgstr "%s, рядок %ld: довжина рядка перевищує %d символів"
+msgid "%s: FATAL: %s\n"
+msgstr "%s: КРИТИЧНА ПОМИЛКА: %s\n"
 
-#: src/uidls.c:250
+#: src/mpop.c:232 src/mpop.c:754
 #, c-format
-msgid "%s, line %ld: UID without a list"
-msgstr "%s, рядок %ld: UID без списку"
+msgid "the POP3 server does not support TLS via the STLS command"
+msgstr "на сервері POP3 не передбачено підтримки TLS на основі команди STLS"
 
-#: src/uidls.c:261
+#: src/mpop.c:302
 #, c-format
-msgid "%s, line %ld: invalid number of UIDs"
-msgstr "%s, рядок %ld: некоректна кількість UID"
+msgid "POP3 server at %s (%s [%s]), port %d:\n"
+msgstr "Сервер POP3 на %s (%s [%s]), порт %d:\n"
 
-#: src/uidls.c:276
+#: src/mpop.c:308
 #, c-format
-msgid "%s, line %ld: invalid or missing host name"
-msgstr "%s, рядок %ld: некоректна назва вузла або назву вузла не вказано"
+msgid "POP3 server at %s (%s), port %d:\n"
+msgstr "Сервер POP3 на %s (%s), порт %d:\n"
 
-#: src/uidls.c:288
+#: src/mpop.c:314
 #, c-format
-msgid "%s, line %ld: invalid or missing user name"
+msgid "POP3 server at %s ([%s]), port %d:\n"
+msgstr "Сервер POP3 на %s ([%s]), порт %d:\n"
+
+#: src/mpop.c:320
+#, c-format
+msgid "POP3 server at %s, port %d:\n"
+msgstr "Сервер POP3 на %s, порт %d:\n"
+
+#: src/mpop.c:333
+#, c-format
+msgid "POP3 capabilities:\n"
+msgstr "Можливості POP3:\n"
+
+#: src/mpop.c:337
+msgid "Support for the CAPA command (get list of capabilities)"
+msgstr "Підтримка команди CAPA (отримання списку можливостей)"
+
+#: src/mpop.c:347
+msgid "Support for command grouping for faster transmission"
+msgstr "Підтримка групування команд для швидшого передавання даних"
+
+#: src/mpop.c:352
+msgid "Support for the TOP command (get mail headers)"
+msgstr "Підтримка команди TOP (отримання заголовків пошти)"
+
+#: src/mpop.c:357
+msgid "Support for the UIDL command (get unique mail identifiers)"
+msgstr "Підтримка команди UIDL (отримання унікальних ідентифікаторів пошти)"
+
+#: src/mpop.c:366
+#, c-format
+msgid "minimum time between logins is %ld seconds = %.2f hours"
+msgstr "мінімальний час між спробами входу дорівнює %ld секунд = %.2f годин"
+
+#: src/mpop.c:371
+#, c-format
+msgid "minimum time between logins is %ld seconds = %.2f minutes"
+msgstr "мінімальний час між спробами входу дорівнює %ld секунд = %.2f хвилин"
+
+#: src/mpop.c:376
+#, c-format
+msgid "minimum time between logins is %ld seconds"
+msgstr "мінімальний час між спробами входу дорівнює %ld секунд"
+
+#: src/mpop.c:387
+msgid "this POP3 server will never delete mails"
+msgstr "цей сервер POP3 ніколи не вилучатиме повідомлення"
+
+#: src/mpop.c:392
+msgid "this POP3 server will not keep mails"
+msgstr "цей сервер POP3 не зберігатиме повідомлення"
+
+#: src/mpop.c:397
+#, c-format
+msgid "this POP3 server will keep mails for %ld days"
+msgstr "цей сервер POP3 зберігатиме повідомлення протягом %ld днів"
+
+#: src/mpop.c:410
+msgid "Support for TLS encryption via the STLS command"
+msgstr "Підтримка шифрування TLS на основі команди STLS"
+
+#: src/mpop.c:413
+msgid "Supported authentication methods:"
+msgstr "Підтримувані способи розпізнавання:"
+
+#: src/mpop.c:470 src/mpop.c:476
+msgid "Server error messages in square brackets have a special meaning"
 msgstr ""
-"%s, рядок %ld: некоректне ім'я користувача або ім'я користувача не вказано"
+"Повідомлення про помилки сервера у квадратних дужках мають особливе значення"
 
-#: src/uidls.c:302 src/uidls.c:336
+#: src/mpop.c:485
 #, c-format
-msgid "%s, line %ld: too few UIDs for user %s, host %s"
-msgstr "%s, рядок %ld: замало UID для користувача %s, вузол %s"
+msgid ""
+"This server might advertise more or other capabilities\n"
+"    when TLS is active.\n"
+msgstr ""
+"Можливості цього сервера можуть бути ширшими, якщо\n"
+"    увімкнено TLS.\n"
 
-#: src/uidls.c:351 src/mtls-openssl.c:98
+#: src/mpop.c:490
+#, c-format
+msgid ""
+"This server might advertise more or other capabilities\n"
+"    after successful authentication.\n"
+msgstr ""
+"Можливості цього сервера можуть бути ширшими, якщо\n"
+"    вдасться успішно пройти розпізнавання.\n"
+
+#: src/mpop.c:495
+#, c-format
+msgid ""
+"This server does not support the CAPA command, so this\n"
+"    list is probably not complete.\n"
+msgstr ""
+"На цьому сервері не передбачено підтримки команди CAPA, тому\n"
+"    цей список, ймовірно, є неповним.\n"
+
+#: src/mpop.c:529
+#, c-format
+msgid "%.2f GiB"
+msgstr "%.2f ГіБ"
+
+#: src/mpop.c:533
+#, c-format
+msgid "%.2f MiB"
+msgstr "%.2f МіБ"
+
+#: src/mpop.c:537
+#, c-format
+msgid "%.2f KiB"
+msgstr "%.2f КіБ"
+
+#: src/mpop.c:541
+#, c-format
+msgid " bytes"
+msgstr " байтів"
+
+#: src/mpop.c:545
+#, c-format
+msgid "1 byte"
+msgstr "1 байт"
+
+#: src/mpop.c:562
+#, c-format
+msgid "skipping message %ld of %ld (reason: filter + keep)\n"
+msgstr ""
+"пропускаємо повідомлення %ld з %ld (причина: фільтрування + збереження)\n"
+
+#: src/mpop.c:567
+#, c-format
+msgid "deleting message %ld of %ld (reason: filter)\n"
+msgstr "вилучаємо повідомлення %ld з %ld (причина: фільтрування)\n"
+
+#: src/mpop.c:573
+#, c-format
+msgid "skipping message %ld of %ld (reason: filter)\n"
+msgstr "пропускаємо повідомлення %ld з %ld (причина: фільтрування)\n"
+
+#: src/mpop.c:582
+#, c-format
+msgid "retrieving message %ld of %ld (%s): "
+msgstr "отримуємо повідомлення %ld з %ld (%s): "
+
+#: src/mpop.c:587
+#, c-format
+msgid "retrieving message %ld of %ld: "
+msgstr "отримуємо повідомлення %ld з %ld: "
+
+#: src/mpop.c:798 src/mpop.c:852 src/mpop.c:875 src/mpop.c:1032
+#: src/mtls-gnutls.c:623 src/mtls-gnutls.c:670 src/mtls-openssl.c:866
+#: src/mtls-openssl.c:933 src/mtls-openssl.c:975 src/net.c:97 src/net.c:208
+#: src/net.c:255 src/net.c:767 src/net.c:894 src/pop3.c:1144 src/pop3.c:1281
+#: src/pop3.c:1394 src/pop3.c:1785 src/pop3.c:2072
+#, c-format
+msgid "operation aborted"
+msgstr "виконання дії перервано"
+
+#: src/mpop.c:922
+#, c-format
+msgid "%s at %s:\n"
+msgstr "%s о %s:\n"
+
+#: src/mpop.c:926
+#, c-format
+msgid "new: "
+msgstr "нове: "
+
+#: src/mpop.c:929 src/mpop.c:950
+#, c-format
+msgid "no messages"
+msgstr "немає повідомлень"
+
+#: src/mpop.c:933 src/mpop.c:954
+#, c-format
+msgid "1 message"
+msgstr "1 повідомлення"
+
+#: src/mpop.c:937 src/mpop.c:958
+#, c-format
+msgid "%ld messages"
+msgstr "%ld повідомлень"
+
+#: src/mpop.c:942 src/mpop.c:963
+#, c-format
+msgid " in %s"
+msgstr " у %s"
+
+#: src/mpop.c:946
+#, c-format
+msgid "total: "
+msgstr "загалом: "
+
+#: src/mpop.c:1000
+#, c-format
+msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
+msgstr ""
+"пропускаємо повідомлення %ld з %ld (причина: розмір вилучення + збереження)\n"
+
+#: src/mpop.c:1006
+#, c-format
+msgid "deleting message %ld of %ld (reason: killsize)\n"
+msgstr "вилучаємо повідомлення %ld з %ld (причина: розмір вилучення)\n"
+
+#: src/mpop.c:1017
+#, c-format
+msgid "skipping message %ld of %ld (reason: skipsize)\n"
+msgstr "пропускаємо повідомлення %ld з %ld (причина: розмір пропускання)\n"
+
+#: src/mpop.c:1042
+#, c-format
+msgid "the POP3 server does not support the TOP command needed for filtering"
+msgstr ""
+"на сервері POP3 не передбачено підтримки команди TOP, яка потрібна для "
+"фільтрування"
+
+#: src/mpop.c:1224 src/mpop.c:1243 src/mpop.c:1295
+#, c-format
+msgid "automatic configuration based on SRV records failed: %s"
+msgstr ""
+"не вдалося виконати автоматичне налаштовування на основі записів SRV: %s"
+
+#: src/mpop.c:1225
+msgid "invalid mail address"
+msgstr "некоректна поштова адреса"
+
+#: src/mpop.c:1241
+#, c-format
+msgid "no SRV records for %s or %s"
+msgstr "немає записів SRV для %s або %s"
+
+#: src/mpop.c:1258
+#, c-format
+msgid "copy this to your configuration file %s"
+msgstr "скопіюйте це до вашого файла налаштувань %s"
+
+#: src/mpop.c:1262
+msgid "warning: the host does not match the mail domain; please check"
+msgstr ""
+"попередження: вузол є невідповідним поштовому домену; будь ласка, перевірте"
+
+#: src/mpop.c:1265 src/mpop.c:1269
+msgid "add your password to the key ring:"
+msgstr "додайте ваш пароль до сховища ключів:"
+
+#: src/mpop.c:1272
+msgid "encrypt your password:"
+msgstr "зашифруйте ваш пароль:"
+
+#: src/mpop.c:1274
+msgid "adjust the delivery command"
+msgstr "скоригуйте команду доставлення"
+
+#: src/mpop.c:1296
+msgid "this system lacks libresolv"
+msgstr "у цій системі немає libresolv"
+
+#: src/mpop.c:1325
+#, c-format
+msgid "%s: no accounts defined"
+msgstr "%s: не визначено жодного облікового запису"
+
+#: src/mpop.c:1343 src/mpop.c:1354
+#, c-format
+msgid "%s: no account %s"
+msgstr "%s: немає облікового запису %s"
+
+#: src/mpop.c:1715 src/mpop.c:1732 src/mpop.c:1755 src/mpop.c:1773
+#: src/mpop.c:1793 src/mpop.c:1834 src/mpop.c:1883 src/mpop.c:1901
+#: src/mpop.c:1950 src/mpop.c:1983 src/mpop.c:2005 src/mpop.c:2050
+#: src/mpop.c:2068 src/mpop.c:2084 src/mpop.c:2101 src/mpop.c:2143
+#, c-format
+msgid "invalid argument %s for %s"
+msgstr "неправильний аргумент %s для %s"
+
+#: src/mpop.c:2173
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s, версія %s\n"
+
+#: src/mpop.c:2174
+#, c-format
+msgid "Platform: %s\n"
+msgstr "Платформа: %s\n"
+
+#: src/mpop.c:2176
+#, c-format
+msgid "TLS/SSL library: %s\n"
+msgstr "Бібліотека TLS/SSL: %s\n"
+
+#: src/mpop.c:2184 src/mpop.c:2270
+#, c-format
+msgid "none"
+msgstr "немає"
+
+#: src/mpop.c:2188
+#, c-format
+msgid ""
+"Authentication library: %s\n"
+"Supported authentication methods:\n"
+msgstr ""
+"Бібліотека для розпізнавання: %s\n"
+"Підтримувані способи розпізнавання:\n"
+
+#: src/mpop.c:2191
+msgid "GNU SASL; user, apop, oauthbearer, xoauth2: built-in"
+msgstr "GNU SASL; user, apop, oauthbearer, xoauth2: вбудовані"
+
+#: src/mpop.c:2193
+msgid "built-in"
+msgstr "вбудований"
+
+#: src/mpop.c:2250
+#, c-format
+msgid "IDN support: "
+msgstr "Підтримка IDN: "
+
+#: src/mpop.c:2254 src/mpop.c:2262
+#, c-format
+msgid "enabled"
+msgstr "увімкнено"
+
+#: src/mpop.c:2256 src/mpop.c:2265
+#, c-format
+msgid "disabled"
+msgstr "вимкнено"
+
+#: src/mpop.c:2260
+#, c-format
+msgid "NLS: "
+msgstr "NLS: "
+
+#: src/mpop.c:2263
+#, c-format
+msgid ", LOCALEDIR is %s"
+msgstr ", LOCALEDIR %s"
+
+#: src/mpop.c:2268
+#, c-format
+msgid "Keyring support: "
+msgstr "Підтримка сховища ключів: "
+
+#: src/mpop.c:2273
+#, c-format
+msgid "Gnome "
+msgstr "GNOME "
+
+#: src/mpop.c:2276
+#, c-format
+msgid "MacOS "
+msgstr "MacOS "
+
+#: src/mpop.c:2282
+#, c-format
+msgid "Configuration file name: %s\n"
+msgstr "Назва файла налаштувань: %s\n"
+
+#: src/mpop.c:2286
+#, c-format
+msgid ""
+"Copyright (C) %d Martin Lambers and others.\n"
+"This is free software.  You may redistribute copies of it under the terms "
+"of\n"
+"the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr ""
+"© Martin Lambers та інші, %d.\n"
+"Це вільне програмне забезпечення. Ви можете поширювати його копії за умов "
+"дотримання\n"
+"Загальної громадської ліцензії GNU <http://www.gnu.org/licenses/gpl.html>.\n"
+"Щодо користування ним не надається ЖОДНИХ ГАРАНТІЙ, окрім передбачених "
+"законодавством.\n"
+
+#: src/mpop.c:2295
+#, c-format
+msgid ""
+"Usage:\n"
+"\n"
+msgstr ""
+"Користування:\n"
+"\n"
+
+#: src/mpop.c:2296
+#, c-format
+msgid ""
+"Mail retrieval mode (default):\n"
+"  %s [option...] account...\n"
+"  %s [option...] --all-accounts\n"
+"  %s --host=host [option...]\n"
+"  Read mails from one or more POP3 accounts and deliver them.\n"
+msgstr ""
+"Режим отримання пошти (типовий):\n"
+"  %s [параметр...] [--] обліковий_запис...\n"
+"  %s [параметр...] --all-accounts\n"
+"  %s --host=вузол [параметр...]\n"
+"  Прочитати повідомлення з одного або декількох записів POP3 і розіслати "
+"надіслані повідомлення.\n"
+
+#: src/mpop.c:2302
+#, c-format
+msgid ""
+"Configuration mode:\n"
+"  %s --configure=mailaddress\n"
+"  Generate and print configuration for address.\n"
+msgstr ""
+"Режим налаштовування:\n"
+"  %s --configure=поштова_адреса\n"
+"  створити і вивести налаштування для вказаної адреси\n"
+
+#: src/mpop.c:2305
+#, c-format
+msgid ""
+"Server information mode:\n"
+"  %s [option...] --serverinfo account...\n"
+"  %s --host=host [option...] --serverinfo\n"
+"  Print information about one or more POP3 servers.\n"
+"\n"
+msgstr ""
+"Режим даних щодо сервера:\n"
+"  %s [параметр...] --serverinfo обліковий_запис...\n"
+"  %s --host=host [параметр...] --serverinfo\n"
+"  Вивести дані щодо одного або декількох серверів POP3.\n"
+"\n"
+
+#: src/mpop.c:2309
+#, c-format
+msgid "General options:\n"
+msgstr "Загальні параметри:\n"
+
+#: src/mpop.c:2310
+#, c-format
+msgid "  --version                    print version\n"
+msgstr "  --version                    вивести дані щодо версії\n"
+
+#: src/mpop.c:2311
+#, c-format
+msgid "  --help                       print help\n"
+msgstr "  --help                       вивести додаткове повідомлення\n"
+
+#: src/mpop.c:2312
+#, c-format
+msgid "  -P, --pretend                print configuration info and exit\n"
+msgstr ""
+"  -P, --pretend                вивести дані щодо налаштування і завершити "
+"роботу\n"
+
+#: src/mpop.c:2313
+#, c-format
+msgid "  -d, --debug                  print debugging information\n"
+msgstr "  -d, --debug                  вивести діагностичну інформацію\n"
+
+#: src/mpop.c:2314
+#, c-format
+msgid "Changing the mode of operation:\n"
+msgstr "Зміна режиму роботи:\n"
+
+#: src/mpop.c:2315
+#, c-format
+msgid ""
+"  --configure=mailaddress      generate and print configuration for address\n"
+msgstr ""
+"  --configure=поштова_адреса   створити і вивести налаштування для вказаної "
+"адреси\n"
+
+#: src/mpop.c:2316
+#, c-format
+msgid "  -S, --serverinfo             print information about the server\n"
+msgstr "  -S, --serverinfo             вивести відомості щодо сервера\n"
+
+#: src/mpop.c:2317
+#, c-format
+msgid "Configuration options:\n"
+msgstr "Параметри налаштовування:\n"
+
+#: src/mpop.c:2318
+#, c-format
+msgid "  -C, --file=filename          set configuration file\n"
+msgstr "  -C, --file=назва_файла       вказати файл налаштувань\n"
+
+#: src/mpop.c:2319
+#, c-format
+msgid ""
+"  --host=hostname              set the server, use only command-line "
+"settings;\n"
+"                               do not use any configuration file data\n"
+msgstr ""
+"  --host=назва_вузла           вказати сервер, використовувати лише "
+"параметри командного рядка;\n"
+"                               не використовувати дані з файла налаштувань\n"
+
+#: src/mpop.c:2321
+#, c-format
+msgid "  --port=number                set port number\n"
+msgstr "  --port=число                 вказати номер порту\n"
+
+#: src/mpop.c:2322
+#, c-format
+msgid ""
+"  --source-ip=[IP]             set/unset source ip address to bind the "
+"socket to\n"
+msgstr ""
+"  --source-ip=[IP]             вказати/скасувати визначення ip-адреси для "
+"прив'язування сокета\n"
+
+#: src/mpop.c:2323
+#, c-format
+msgid "  --proxy-host=[IP|hostname]   set/unset proxy\n"
+msgstr "  --proxy-host=[IP|вузол]     визначити/скасувати визначення проксі\n"
+
+#: src/mpop.c:2324
+#, c-format
+msgid "  --proxy-port=[number]        set/unset proxy port\n"
+msgstr ""
+"  --proxy-port=[число]         вказати/скасувати визначення порту проксі\n"
+
+#: src/mpop.c:2325
+#, c-format
+msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
+msgstr ""
+"  --socket=[назва_сокета]      вказати/скасувати визначення сокет для "
+"з'єднання\n"
+
+#: src/mpop.c:2326
+#, c-format
+msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
+msgstr ""
+"  --timeout=(off|секунди)      вказати/скасувати визначення часу очікування "
+"у секундах\n"
+
+#: src/mpop.c:2327
+#, c-format
+msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
+msgstr "  --pipelining=(auto|on|off)   увімкнути/вимкнути конвеєрну обробку\n"
+
+#: src/mpop.c:2328
+#, c-format
+msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
+msgstr "  --received-header[=(on|off)] увімкнути/вимкнути заголовок Received\n"
+
+#: src/mpop.c:2329
+#, c-format
+msgid "  --auth[=(on|method)]         choose the authentication method\n"
+msgstr "  --auth[=(on|спосіб)]         вибрати спосіб розпізнавання\n"
+
+#: src/mpop.c:2330
+#, c-format
+msgid "  --user=[username]            set/unset user name for authentication\n"
+msgstr ""
+"  --user=[користувач]          вказати/скасувати визначення користувача для "
+"розпізнавання\n"
+
+#: src/mpop.c:2331
+#, c-format
+msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
+msgstr "  --passwordeval=[eval]        перевірити пароль для розпізнавання\n"
+
+#: src/mpop.c:2332
+#, c-format
+msgid "  --tls[=(on|off)]             enable/disable TLS encryption\n"
+msgstr "  --tls[=(on|off)]             увімкнути/вимкнути шифрування TLS\n"
+
+#: src/mpop.c:2333
+#, c-format
+msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
+msgstr "  --tls-starttls[=(on|off)]    увімкнути/вимкнути STARTTLS для TLS\n"
+
+#: src/mpop.c:2334
+#, c-format
+msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
+msgstr ""
+"  --tls-trust-file=[файл]      вказати/скасувати визначення файла довіри для "
+"TLS\n"
+
+#: src/mpop.c:2335
+#, c-format
+msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
+msgstr ""
+"  --tls-crl-file=[файл]        вказати/скасувати визначення файла "
+"відкликання для TLS\n"
+
+#: src/mpop.c:2336
+#, c-format
+msgid ""
+"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
+"TLS\n"
+msgstr ""
+"  --tls-fingerprint=[f]        вказати/скасувати визначення відбитка "
+"надійного сертифіката для TLS\n"
+
+#: src/mpop.c:2337
+#, c-format
+msgid ""
+"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
+"TLS\n"
+msgstr ""
+"  --tls-certcheck[=(on|off)]   увімкнути/вимкнути перевірки сертифіката для "
+"TLS\n"
+
+#: src/mpop.c:2338
+#, c-format
+msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
+msgstr ""
+"  --tls-key-file=[файл]        вказати/скасувати визначення файла закритого "
+"ключа для TLS\n"
+
+#: src/mpop.c:2339
+#, c-format
+msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
+msgstr ""
+"  --tls-cert-file=[файл]        вказати/скасувати визначення файла закритого "
+"сертифіката для TLS\n"
+
+#: src/mpop.c:2340
+#, c-format
+msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
+msgstr ""
+"  --tls-priorities=[пріор]     вказати/скасувати визначення пріоритетностей "
+"TLS.\n"
+
+#: src/mpop.c:2341
+#, c-format
+msgid ""
+"  --tls-host-override=[host]   set/unset override for TLS host "
+"verification.\n"
+msgstr ""
+"  --tls-host-override=[вузол]  встановити або зняти перевизначення для "
+"перевірки вузла TLS.\n"
+
+#: src/mpop.c:2342
+#, c-format
+msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
+msgstr ""
+"  --tls-min-dh-prime-bits=[b]  встановити/скасувати визначення мінімального "
+"розміру у бітах для основи DH\n"
+
+#: src/mpop.c:2343
+#, c-format
+msgid "Options specific to mail retrieval mode:\n"
+msgstr "Параметри, які є специфічними для режиму отримання пошти:\n"
+
+#: src/mpop.c:2344
+#, c-format
+msgid ""
+"  -q, --quiet                  do not display status or progress "
+"information\n"
+msgstr ""
+"  -q, --quiet                  не виводити даних щодо стану та поступу\n"
+
+#: src/mpop.c:2345
+#, c-format
+msgid ""
+"  -Q, --half-quiet             display status but not progress information\n"
+msgstr ""
+"  -Q, --half-quiet             вивести дані щодо стану, але не виводити "
+"даних щодо поступу\n"
+
+#: src/mpop.c:2346
+#, c-format
+msgid ""
+"  -a, --all-accounts           query all accounts in the configuration file\n"
+msgstr ""
+"  -a, --all-accounts           опитати усі облікові записи із файла "
+"налаштувань\n"
+
+#: src/mpop.c:2347
+#, c-format
+msgid ""
+"  -A, --auth-only              authenticate only; do not retrieve mail\n"
+msgstr ""
+"  -A, --auth-only              лише пройти розпізнавання; не отримувати "
+"пошти\n"
+
+#: src/mpop.c:2348
+#, c-format
+msgid ""
+"  -s, --status-only            print account status only; do not retrieve "
+"mail\n"
+msgstr ""
+"  -s, --status-only            вивести лише стан облікового запису; не "
+"отримувати пошти\n"
+
+#: src/mpop.c:2349
+#, c-format
+msgid "  -n, --only-new[=(on|off)]    process only new messages\n"
+msgstr "  -n, --only-new[=(on|off)]    обробити лише нові повідомлення\n"
+
+#: src/mpop.c:2350
+#, c-format
+msgid "  -k, --keep[=(on|off)]        do not delete mails from servers\n"
+msgstr "  -k, --keep[=(on|off)]        не вилучати повідомлення з серверів\n"
+
+#: src/mpop.c:2351
+#, c-format
+msgid "  --killsize=(off|number)      set/unset kill size\n"
+msgstr ""
+"  --killsize=(off|число)       вказати/скасувати визначення розміру "
+"вилучення\n"
+
+#: src/mpop.c:2352
+#, c-format
+msgid "  --skipsize=(off|number)      set/unset skip size\n"
+msgstr ""
+"  --skipsize=(off|число)       вказати/скасувати визначення розміру "
+"пропускання\n"
+
+#: src/mpop.c:2353
+#, c-format
+msgid "  --filter=[program]           set/unset header filter\n"
+msgstr ""
+"  --filter=[програма]          вказати/скасувати визначення фільтра "
+"заголовків\n"
+
+#: src/mpop.c:2354
+#, c-format
+msgid "  --delivery=method,arg        set the mail delivery method\n"
+msgstr "  --delivery=спосіб,аргумент   встановити спосіб доставлення пошти\n"
+
+#: src/mpop.c:2355
+#, c-format
+msgid "  --uidls-file=filename        set file to store UIDLs\n"
+msgstr "  --uidls-file=файл           вказати файл для зберігання UIDL\n"
+
+#: src/mpop.c:2356
+#, c-format
+msgid ""
+"\n"
+"Report bugs to <%s>.\n"
+msgstr ""
+"\n"
+"Сповіщайте про помилки за адресою <%s>.\n"
+
+#: src/mpop.c:2380
+msgid "cannot use both --host and accounts"
+msgstr "не можна одночасно користуватися --host і вказувати облікові записи"
+
+#: src/mpop.c:2386
+msgid "cannot use both --all-accounts and a list of accounts"
+msgstr ""
+"не можна одночасно використовувати --all-accounts і список облікових записів"
+
+#: src/mpop.c:2481
+#, c-format
+msgid "account %s from %s: %s"
+msgstr "обліковий запис %s з %s: %s"
+
+#: src/mpop.c:2499
+#, c-format
+msgid "cannot create directories for %s: %s"
+msgstr "неможливо створити каталоги для %s: %s"
+
+#: src/mpop.c:2502
+msgid "a component already exists but is not a directory"
+msgstr "компонент вже існує, але не є каталогом"
+
+#: src/mpop.c:2521
+#, c-format
+msgid "using account %s from %s\n"
+msgstr "з використанням облікового запису %s з %s\n"
+
+#: src/mpop.c:2525 src/mpop.c:2528 src/mpop.c:2530 src/mpop.c:2533
+#: src/mpop.c:2565 src/mpop.c:2566 src/mpop.c:2568 src/mpop.c:2570
+#: src/mpop.c:2574 src/mpop.c:2576 src/mpop.c:2595 src/mpop.c:2597
+#: src/mpop.c:2599 src/mpop.c:2609 src/mpop.c:2612 src/mpop.c:2614
+#: src/mpop.c:2658
+msgid "(not set)"
+msgstr "(не встановлено)"
+
+#: src/mpop.c:2537 src/mpop.c:2642 src/mpop.c:2651
+#, c-format
+msgid "off\n"
+msgstr "вимкнено\n"
+
+#: src/mpop.c:2543
+#, c-format
+msgid "1 second\n"
+msgstr "1 секунда\n"
+
+#: src/mpop.c:2547
+#, c-format
+msgid "%d seconds\n"
+msgstr "%d секунд\n"
+
+#: src/mpop.c:2551 src/mpop.c:2554 src/mpop.c:2571 src/mpop.c:2572
+#: src/mpop.c:2601 src/mpop.c:2637 src/mpop.c:2638
+msgid "off"
+msgstr "вимкнено"
+
+#: src/mpop.c:2552 src/mpop.c:2554 src/mpop.c:2571 src/mpop.c:2572
+#: src/mpop.c:2601 src/mpop.c:2637 src/mpop.c:2638
+msgid "on"
+msgstr "увімкнено"
+
+#: src/mpop.c:2552
+msgid "auto"
+msgstr "авто"
+
+#: src/mpop.c:2558
+#, c-format
+msgid "choose\n"
+msgstr "виберіть\n"
+
+#: src/mpop.c:2677
+#, c-format
+msgid "support for authentication method %s is not compiled in"
+msgstr ""
+"під час збирання програми не було увімкнено підтримку способу розпізнавання "
+"%s"
+
+#: src/mpop.c:2689
+#, c-format
+msgid "cannot initialize TLS library: %s"
+msgstr "не вдалося ініціалізувати бібліотеку TLS: %s"
+
+#: src/mpop.c:2697
+msgid "support for TLS is not compiled in"
+msgstr "підтримку TLS не було увімкнено під час збирання програми"
+
+#: src/mpop.c:2705
+#, c-format
+msgid "cannot initialize network library: %s"
+msgstr "не вдалося ініціалізувати бібліотеку для роботи у мережі: %s"
+
+#: src/mpop.c:2774
+#, c-format
+msgid "POP3 server message: %s"
+msgstr "Повідомлення сервера POP3: %s"
+
+#: src/mpop.c:2783
+#, c-format
+msgid "error during mail retrieval (account %s from %s)"
+msgstr "помилка під час отримання пошти (обліковий запис %s з %s)"
+
+#: src/mpop.c:2789
+msgid "error during mail retrieval"
+msgstr "помилка під час отримання пошти"
+
+#: src/mtls.c:142
+#, c-format
+msgid "TLS session parameters:\n"
+msgstr "Параметри сеансу TLS:\n"
+
+#: src/mtls.c:144
+msgid "not available"
+msgstr "не доступні"
+
+#: src/mtls.c:152
+#, c-format
+msgid "TLS certificate information:\n"
+msgstr "Дані щодо сертифіката TLS:\n"
+
+#: src/mtls.c:153
+msgid "Subject"
+msgstr "Призначення"
+
+#: src/mtls.c:155
+msgid "Issuer"
+msgstr "Видавець"
+
+#: src/mtls.c:157
+msgid "Validity"
+msgstr "Коректність"
+
+#: src/mtls.c:159
+msgid "Activation time"
+msgstr "Час активації"
+
+#: src/mtls.c:161
+msgid "Expiration time"
+msgstr "Завершення строку дії"
+
+#: src/mtls.c:162
+msgid "Fingerprints"
+msgstr "Відбитки"
+
+#: src/mtls-gnutls.c:120 src/mtls-libtls.c:105 src/mtls-openssl.c:285
+msgid "cannot get TLS certificate info"
+msgstr "не вдалося отримати даних щодо сертифіката TLS"
+
+#: src/mtls-gnutls.c:125 src/mtls-gnutls.c:241 src/mtls-openssl.c:288
+#, c-format
+msgid "%s: no certificate was found"
+msgstr "%s: не знайдено сертифіката"
+
+#: src/mtls-gnutls.c:130 src/mtls-gnutls.c:247
+#, c-format
+msgid "%s: cannot initialize certificate structure"
+msgstr "%s: не вдалося ініціалізувати структуру сертифікації"
+
+#: src/mtls-gnutls.c:136
+#, c-format
+msgid "%s: error parsing certificate"
+msgstr "%s: помилка під час спроби обробити сертифікат"
+
+#: src/mtls-gnutls.c:145 src/mtls-gnutls.c:263 src/mtls-libtls.c:113
+#: src/mtls-libtls.c:179 src/mtls-openssl.c:308 src/mtls-openssl.c:470
+#, c-format
+msgid "%s: error getting SHA256 fingerprint"
+msgstr "%s: помилка під час спроби отримання відбитка SHA256"
+
+#: src/mtls-gnutls.c:152 src/mtls-gnutls.c:281 src/mtls-openssl.c:314
+#: src/mtls-openssl.c:488
+#, c-format
+msgid "%s: error getting SHA1 fingerprint"
+msgstr "%s: помилка під час спроби отримання відбитка SHA1"
+
+#: src/mtls-gnutls.c:158 src/mtls-libtls.c:126 src/mtls-openssl.c:322
+#, c-format
+msgid "%s: cannot get activation time"
+msgstr "%s: не вдалося отримати час активації"
+
+#: src/mtls-gnutls.c:164 src/mtls-libtls.c:133 src/mtls-openssl.c:332
+#, c-format
+msgid "%s: cannot get expiration time"
+msgstr "%s: не вдалося отримати строку дії"
+
+#: src/mtls-gnutls.c:224 src/mtls-libtls.c:166 src/mtls-openssl.c:446
+msgid "TLS certificate verification failed"
+msgstr "Сертифікат TLS не пройшов перевірки"
+
+#: src/mtls-gnutls.c:254
+#, c-format
+msgid "%s: error parsing certificate %u of %u"
+msgstr "%s: помилка під час спроби обробити сертифікат %u з %u"
+
+#: src/mtls-gnutls.c:270 src/mtls-gnutls.c:288 src/mtls-gnutls.c:306
+#: src/mtls-libtls.c:191 src/mtls-openssl.c:477 src/mtls-openssl.c:495
+#: src/mtls-openssl.c:513
+#, c-format
+msgid "%s: the certificate fingerprint does not match"
+msgstr "%s: відбиток сертифіката не збігається із еталонним"
+
+#: src/mtls-gnutls.c:299 src/mtls-openssl.c:506
+#, c-format
+msgid "%s: error getting MD5 fingerprint"
+msgstr "%s: помилка під час спроби отримати відбиток MD5"
+
+#: src/mtls-gnutls.c:328
+#, c-format
+msgid "%s: %s"
+msgstr "%s: %s"
+
+#: src/mtls-gnutls.c:387 src/mtls-libtls.c:238 src/mtls-libtls.c:374
+#, c-format
+msgid "cannot initialize TLS session: %s"
+msgstr "не вдалося ініціалізувати сеанс TLS: %s"
+
+#: src/mtls-gnutls.c:400
+#, c-format
+msgid "error in priority string at position %d"
+msgstr "помилка у рядку пріоритетності на позиції %d"
+
+#: src/mtls-gnutls.c:403 src/mtls-gnutls.c:410 src/mtls-libtls.c:257
+#: src/mtls-libtls.c:272 src/mtls-libtls.c:287 src/mtls-libtls.c:297
+#: src/mtls-openssl.c:657
+#, c-format
+msgid "cannot set priorities for TLS session: %s"
+msgstr "не вдалося встановити пріоритетності для сеансу TLS: %s"
+
+#: src/mtls-gnutls.c:423
+#, c-format
+msgid "cannot set default priority for TLS session: %s"
+msgstr "не вдалося встановити типову пріоритетність для сеансу TLS: %s"
+
+#: src/mtls-gnutls.c:438
+#, c-format
+msgid "cannot allocate certificate for TLS session: %s"
+msgstr "не вдалося розмістити сертифікат для сеансу TLS: %s"
+
+#: src/mtls-gnutls.c:451 src/mtls-libtls.c:312
+#, c-format
+msgid ""
+"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+msgstr ""
+"не вдалося встановити файл ключа X509 %s і/або файл сертифіката X509 %s для "
+"сеансу TLS: %s"
+
+#: src/mtls-gnutls.c:473 src/mtls-openssl.c:720
+#, c-format
+msgid "cannot set X509 system trust for TLS session: %s"
+msgstr "не вдалося встановити загальносистемну довіру X509 для сеансу TLS: %s"
+
+#: src/mtls-gnutls.c:488 src/mtls-libtls.c:342
+#, c-format
+msgid "cannot set X509 trust file %s for TLS session: %s"
+msgstr "не вдалося встановити файл довіри X509 %s для сеансу TLS: %s"
+
+#: src/mtls-gnutls.c:503 src/mtls-libtls.c:355
+#, c-format
+msgid "cannot set X509 CRL file %s for TLS session: %s"
+msgstr "не вдалося встановити файл CRL X509 %s для сеансу TLS: %s"
+
+#: src/mtls-gnutls.c:532
+#, c-format
+msgid "cannot set credentials for TLS session: %s"
+msgstr "не вдалося встановити реєстраційні дані для сеансу TLS: %s"
+
+#: src/mtls-gnutls.c:567 src/mtls-libtls.c:410
+#, c-format
+msgid "TLS handshake failed: %s"
+msgstr "Помилка при ініціалізації TLS: %s"
+
+#: src/mtls-gnutls.c:627 src/mtls-libtls.c:497
+#, c-format
+msgid "cannot read from TLS connection: %s"
+msgstr "не вдалося прочитати дані зі з'єднання TLS: %s"
+
+#: src/mtls-gnutls.c:674 src/mtls-gnutls.c:685 src/mtls-libtls.c:529
+#, c-format
+msgid "cannot write to TLS connection: %s"
+msgstr "не вдалося записати дані до з'єднання TLS: %s"
+
+#: src/mtls-gnutls.c:686 src/mtls-openssl.c:809 src/mtls-openssl.c:833
+#: src/net.c:178 src/net.c:648
+msgid "unknown error"
+msgstr "невідома помилка"
+
+#: src/mtls-libtls.c:59
+#, c-format
+msgid "cannot initialize libtls"
+msgstr "не вдалося ініціалізувати libtls"
+
+#: src/mtls-libtls.c:223
+#, c-format
+msgid "cannot use deprecated fingerprints, please update to SHA256"
+msgstr ""
+"використання застарілих відбитків неможливе, будь ласка, оновіться до SHA256"
+
+#: src/mtls-libtls.c:231 src/mtls-openssl.c:649
+#, c-format
+msgid "cannot set minimum number of DH prime bits for TLS: %s"
+msgstr "не вдалося встановити мінімальне число основних бітів DH для TLS: %s"
+
+#: src/mtls-libtls.c:232
+msgid "feature not yet implemented for libtls"
+msgstr "можливість ще не реалізовано для libtls"
+
+#: src/mtls-libtls.c:288
+msgid "could not parse protocols"
+msgstr "не вдалося обробити дані протоколів"
+
+#: src/mtls-libtls.c:365 src/mtls-openssl.c:759
+#, c-format
+msgid "cannot create a TLS structure: %s"
+msgstr "не вдалося створити структуру TLS: %s"
+
+#: src/mtls-libtls.c:402 src/mtls-openssl.c:853
+#, c-format
+msgid "cannot set the file descriptor for TLS: %s"
+msgstr "не вдалося встановити дескриптор файла для TLS: %s"
+
+#: src/mtls-openssl.c:92
+#, c-format
+msgid ""
+"no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgstr ""
+"немає змінної середовища RANDFILE або HOME, або назва файла rand є надто "
+"довгою"
+
+#: src/mtls-openssl.c:98 src/uidls.c:351
 #, c-format
 msgid "%s: input error"
 msgstr "%s: помилка у вхідних даних"
 
-#: src/uidls.c:466
+#: src/mtls-openssl.c:120
 #, c-format
-msgid "cannot rename %s to %s: %s"
-msgstr "не вдається перейменувати `%s' на `%s': %s"
+msgid "random file + time + pseudo randomness is not enough, giving up"
+msgstr ""
+"випадкового файла + часу + псевдовипадковості недостатньо, припиняємо спроби"
+
+#: src/mtls-openssl.c:293 src/mtls-openssl.c:579
+#, c-format
+msgid "%s: cannot get certificate subject"
+msgstr "%s: не вдалося отримати призначення сертифіката"
+
+#: src/mtls-openssl.c:299
+#, c-format
+msgid "%s: cannot get certificate issuer"
+msgstr "%s: не вдалося отримати дані щодо видавця сертифіката"
+
+#: src/mtls-openssl.c:450
+msgid "TLS certificate check failed"
+msgstr "Не вдалося перевірити сертифікат TLS"
+
+#: src/mtls-openssl.c:456
+#, c-format
+msgid "%s: no certificate was sent"
+msgstr "%s: не було надіслано жодного сертифіката"
+
+#: src/mtls-openssl.c:559
+#, c-format
+msgid "%s: certificate subject alternative name contains NUL"
+msgstr "%s: альтернативна назва призначення сертифіката містить NUL"
+
+#: src/mtls-openssl.c:591
+#, c-format
+msgid "%s: cannot get certificate common name"
+msgstr "%s: не вдалося отримати загальну назву сертифіката"
+
+#: src/mtls-openssl.c:600
+#, c-format
+msgid "%s: certificate common name contains NUL"
+msgstr "%s: загальна назва сертифіката містить NUL"
+
+#: src/mtls-openssl.c:617
+#, c-format
+msgid "%s: the certificate owner does not match hostname %s"
+msgstr "%s: запис власника сертифіката не відповідає назві вузла %s"
+
+#: src/mtls-openssl.c:650 src/mtls-openssl.c:658 src/mtls-openssl.c:666
+msgid "feature not yet implemented for OpenSSL"
+msgstr "можливість ще не реалізовано для OpenSSL"
+
+#: src/mtls-openssl.c:665
+#, c-format
+msgid "cannot load CRL file: %s"
+msgstr "не вдалося завантажити файл CRL: %s"
+
+#: src/mtls-openssl.c:672
+#, c-format
+msgid "cannot set TLS method"
+msgstr "не вдалося встановити спосіб TLS"
+
+#: src/mtls-openssl.c:680
+#, c-format
+msgid "cannot create TLS context: %s"
+msgstr "не вдалося створити контекст TLS: %s"
+
+#: src/mtls-openssl.c:693
+#, c-format
+msgid "cannot load key file %s: %s"
+msgstr "не вдалося завантажити файл ключа %s: %s"
+
+#: src/mtls-openssl.c:702
+#, c-format
+msgid "cannot load certificate file %s: %s"
+msgstr "не вдалося завантажити файл сертифіката %s: %s"
+
+#: src/mtls-openssl.c:732
+#, c-format
+msgid "cannot load trust file %s: %s"
+msgstr "не вдалося завантажити файл довіри %s: %s"
+
+#: src/mtls-openssl.c:801
+msgid "a protocol violating EOF occurred"
+msgstr "виявлено EOF, що порушує протокол"
+
+#: src/mtls-openssl.c:819
+msgid "the connection was closed unexpectedly"
+msgstr "з'єднання неочікувано розірвано"
+
+#: src/mtls-openssl.c:828 src/net.c:198 src/net.c:213 src/net.c:245
+#: src/net.c:260
+msgid "the operation timed out"
+msgstr "строк очікування на завершення дії перевищено"
+
+#: src/mtls-openssl.c:872
+msgid "TLS handshake failed"
+msgstr "Помилка при ініціалізації TLS"
+
+#: src/mtls-openssl.c:938
+msgid "cannot read from TLS connection"
+msgstr "не вдалося прочитати дані зі з'єднання TLS"
+
+#: src/mtls-openssl.c:981
+msgid "cannot write to TLS connection"
+msgstr "не вдалося записати дані до з'єднання TLS"
 
 #: src/net.c:94
 msgid "not enough memory"
@@ -1448,20 +1586,10 @@ msgstr "досягнуто граничної можливої кількост�
 msgid "invalid request"
 msgstr "некоректний запит"
 
-#: src/net.c:178 src/net.c:648 src/mtls-gnutls.c:686 src/mtls-openssl.c:809
-#: src/mtls-openssl.c:833
-msgid "unknown error"
-msgstr "невідома помилка"
-
 #: src/net.c:197 src/net.c:202 src/net.c:212 src/net.c:217
 #, c-format
 msgid "network read error: %s"
 msgstr "помилка читання у мережі: %s"
-
-#: src/net.c:198 src/net.c:213 src/net.c:245 src/net.c:260
-#: src/mtls-openssl.c:828
-msgid "the operation timed out"
-msgstr "строк очікування на завершення дії перевищено"
 
 #: src/net.c:244 src/net.c:249 src/net.c:259 src/net.c:264
 #, c-format
@@ -1538,321 +1666,197 @@ msgstr "не вдалося прив'язати ip джерела %s: %s"
 msgid "cannot connect to %s, port %d: %s"
 msgstr "не вдалося з'єднатися із %s, порт %d: %s"
 
-#: src/mtls.c:142
+#: src/password.c:214
 #, c-format
-msgid "TLS session parameters:\n"
-msgstr "Параметри сеансу TLS:\n"
+msgid "password for %s at %s: "
+msgstr "пароль до %s на %s: "
 
-#: src/mtls.c:144
-msgid "not available"
-msgstr "не доступні"
-
-#: src/mtls.c:152
+#: src/pop3.c:323
 #, c-format
-msgid "TLS certificate information:\n"
-msgstr "Дані щодо сертифіката TLS:\n"
+msgid "POP3 server sent an empty reply"
+msgstr "Сервером POP3 надіслано порожню відповідь"
 
-#: src/mtls.c:153
-msgid "Subject"
-msgstr "Призначення"
-
-#: src/mtls.c:155
-msgid "Issuer"
-msgstr "Видавець"
-
-#: src/mtls.c:157
-msgid "Validity"
-msgstr "Коректність"
-
-#: src/mtls.c:159
-msgid "Activation time"
-msgstr "Час активації"
-
-#: src/mtls.c:161
-msgid "Expiration time"
-msgstr "Завершення строку дії"
-
-#: src/mtls.c:162
-msgid "Fingerprints"
-msgstr "Відбитки"
-
-#: src/mtls-gnutls.c:120 src/mtls-openssl.c:285 src/mtls-libtls.c:105
-msgid "cannot get TLS certificate info"
-msgstr "не вдалося отримати даних щодо сертифіката TLS"
-
-#: src/mtls-gnutls.c:125 src/mtls-gnutls.c:241 src/mtls-openssl.c:288
+#: src/pop3.c:327
 #, c-format
-msgid "%s: no certificate was found"
-msgstr "%s: не знайдено сертифіката"
+msgid "POP3 server sent an invalid reply"
+msgstr "Сервером POP3 надіслано некоректну відповідь"
 
-#: src/mtls-gnutls.c:130 src/mtls-gnutls.c:247
-#, c-format
-msgid "%s: cannot initialize certificate structure"
-msgstr "%s: не вдалося ініціалізувати структуру сертифікації"
-
-#: src/mtls-gnutls.c:136
-#, c-format
-msgid "%s: error parsing certificate"
-msgstr "%s: помилка під час спроби обробити сертифікат"
-
-#: src/mtls-gnutls.c:145 src/mtls-gnutls.c:263 src/mtls-openssl.c:308
-#: src/mtls-openssl.c:470 src/mtls-libtls.c:113 src/mtls-libtls.c:179
-#, c-format
-msgid "%s: error getting SHA256 fingerprint"
-msgstr "%s: помилка під час спроби отримання відбитка SHA256"
-
-#: src/mtls-gnutls.c:152 src/mtls-gnutls.c:281 src/mtls-openssl.c:314
-#: src/mtls-openssl.c:488
-#, c-format
-msgid "%s: error getting SHA1 fingerprint"
-msgstr "%s: помилка під час спроби отримання відбитка SHA1"
-
-#: src/mtls-gnutls.c:158 src/mtls-openssl.c:322 src/mtls-libtls.c:126
-#, c-format
-msgid "%s: cannot get activation time"
-msgstr "%s: не вдалося отримати час активації"
-
-#: src/mtls-gnutls.c:164 src/mtls-openssl.c:332 src/mtls-libtls.c:133
-#, c-format
-msgid "%s: cannot get expiration time"
-msgstr "%s: не вдалося отримати строку дії"
-
-#: src/mtls-gnutls.c:224 src/mtls-openssl.c:446 src/mtls-libtls.c:166
-msgid "TLS certificate verification failed"
-msgstr "Сертифікат TLS не пройшов перевірки"
-
-#: src/mtls-gnutls.c:254
-#, c-format
-msgid "%s: error parsing certificate %u of %u"
-msgstr "%s: помилка під час спроби обробити сертифікат %u з %u"
-
-#: src/mtls-gnutls.c:270 src/mtls-gnutls.c:288 src/mtls-gnutls.c:306
-#: src/mtls-openssl.c:477 src/mtls-openssl.c:495 src/mtls-openssl.c:513
-#: src/mtls-libtls.c:191
-#, c-format
-msgid "%s: the certificate fingerprint does not match"
-msgstr "%s: відбиток сертифіката не збігається із еталонним"
-
-#: src/mtls-gnutls.c:299 src/mtls-openssl.c:506
-#, c-format
-msgid "%s: error getting MD5 fingerprint"
-msgstr "%s: помилка під час спроби отримати відбиток MD5"
-
-#: src/mtls-gnutls.c:328
-#, c-format
-msgid "%s: %s"
-msgstr "%s: %s"
-
-#: src/mtls-gnutls.c:387 src/mtls-libtls.c:238 src/mtls-libtls.c:370
-#, c-format
-msgid "cannot initialize TLS session: %s"
-msgstr "не вдалося ініціалізувати сеанс TLS: %s"
-
-#: src/mtls-gnutls.c:400
-#, c-format
-msgid "error in priority string at position %d"
-msgstr "помилка у рядку пріоритетності на позиції %d"
-
-#: src/mtls-gnutls.c:403 src/mtls-gnutls.c:410 src/mtls-openssl.c:657
-#: src/mtls-libtls.c:257 src/mtls-libtls.c:272 src/mtls-libtls.c:287
-#: src/mtls-libtls.c:297
-#, c-format
-msgid "cannot set priorities for TLS session: %s"
-msgstr "не вдалося встановити пріоритетності для сеансу TLS: %s"
-
-#: src/mtls-gnutls.c:423
-#, c-format
-msgid "cannot set default priority for TLS session: %s"
-msgstr "не вдалося встановити типову пріоритетність для сеансу TLS: %s"
-
-#: src/mtls-gnutls.c:438
-#, c-format
-msgid "cannot allocate certificate for TLS session: %s"
-msgstr "не вдалося розмістити сертифікат для сеансу TLS: %s"
-
-#: src/mtls-gnutls.c:451 src/mtls-libtls.c:312
+#: src/pop3.c:382
 #, c-format
 msgid ""
-"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+"Cannot send POP3 command because it is longer than %d characters. Increase "
+"POP3_BUFSIZE."
 msgstr ""
-"не вдалося встановити файл ключа X509 %s і/або файл сертифіката X509 %s для "
-"сеансу TLS: %s"
+"Не вдалося надіслати команду POP3, оскільки її довжина перевищує %d "
+"символів. Збільште POP3_BUFSIZE."
 
-#: src/mtls-gnutls.c:473 src/mtls-openssl.c:720
+#: src/pop3.c:691
 #, c-format
-msgid "cannot set X509 system trust for TLS session: %s"
-msgstr "не вдалося встановити загальносистемну довіру X509 для сеансу TLS: %s"
+msgid "cannot get initial OK message from POP3 server"
+msgstr "не вдалося отримати початкове повідомлення OK від сервера POP3"
 
-#: src/mtls-gnutls.c:488 src/mtls-libtls.c:338
+#: src/pop3.c:752 src/pop3.c:908 src/pop3.c:1040 src/pop3.c:1223
+#: src/pop3.c:1338
 #, c-format
-msgid "cannot set X509 trust file %s for TLS session: %s"
-msgstr "не вдалося встановити файл довіри X509 %s для сеансу TLS: %s"
+msgid "invalid reply to command %s"
+msgstr "некоректна відповідь на команду %s"
 
-#: src/mtls-gnutls.c:503 src/mtls-libtls.c:351
+#: src/pop3.c:979 src/pop3.c:985 src/pop3.c:1032 src/pop3.c:1124
+#: src/pop3.c:1264 src/pop3.c:2481 src/pop3.c:2567 src/pop3.c:2653
+#: src/pop3.c:3253 src/pop3.c:3281
 #, c-format
-msgid "cannot set X509 CRL file %s for TLS session: %s"
-msgstr "не вдалося встановити файл CRL X509 %s для сеансу TLS: %s"
+msgid "command %s failed"
+msgstr "помилка під час спроби виконати команду %s"
 
-#: src/mtls-gnutls.c:532
+#: src/pop3.c:1055
 #, c-format
-msgid "cannot set credentials for TLS session: %s"
-msgstr "не вдалося встановити реєстраційні дані для сеансу TLS: %s"
+msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
+msgstr "Обробка понад %ld повідомлень неможлива. Збільште POP3_MAX_MESSAGES."
 
-#: src/mtls-gnutls.c:567 src/mtls-libtls.c:406
+#: src/pop3.c:1510 src/pop3.c:1539
 #, c-format
-msgid "TLS handshake failed: %s"
-msgstr "Помилка при ініціалізації TLS: %s"
+msgid "cannot write mail: output error"
+msgstr "не вдалося записати пошту: помилка під час виведення даних"
 
-#: src/mtls-gnutls.c:627 src/mtls-libtls.c:493
+#: src/pop3.c:1623
 #, c-format
-msgid "cannot read from TLS connection: %s"
-msgstr "не вдалося прочитати дані зі з'єднання TLS: %s"
-
-#: src/mtls-gnutls.c:674 src/mtls-gnutls.c:685 src/mtls-libtls.c:525
-#, c-format
-msgid "cannot write to TLS connection: %s"
-msgstr "не вдалося записати дані до з'єднання TLS: %s"
-
-#: src/mtls-openssl.c:92
-#, c-format
-msgid ""
-"no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgid "cannot write to temporary file: output error"
 msgstr ""
-"немає змінної середовища RANDFILE або HOME, або назва файла rand є надто "
-"довгою"
+"не вдалося виконати запис до тимчасового файла: помилка під час виведення "
+"даних"
 
-#: src/mtls-openssl.c:120
+#: src/pop3.c:1704
 #, c-format
-msgid "random file + time + pseudo randomness is not enough, giving up"
+msgid "cannot add Received header: %s"
+msgstr "не вдалося додати заголовок Received: %s"
+
+#: src/pop3.c:1801
+#, c-format
+msgid "command TOP %ld 0 failed"
+msgstr "помилка команди TOP %ld 0"
+
+#: src/pop3.c:1806
+#, c-format
+msgid "command RETR %ld failed"
+msgstr "помилка команди RETR %ld"
+
+#: src/pop3.c:1817
+#, c-format
+msgid "cannot create temporary file: %s"
+msgstr "не вдалося створити тимчасовий файл: %s"
+
+#: src/pop3.c:1829
+#, c-format
+msgid "cannot rewind temporary file: %s"
+msgstr "не вдалося виконати гортання назад тимчасового файла: %s"
+
+#: src/pop3.c:2086
+#, c-format
+msgid "command DELE %ld failed"
+msgstr "помилка команди DELE %ld"
+
+#: src/pop3.c:2156 src/pop3.c:2168 src/pop3.c:2191 src/pop3.c:2206
+#: src/pop3.c:2246 src/pop3.c:2317 src/pop3.c:2383 src/pop3.c:2442
+#: src/pop3.c:2501 src/pop3.c:2521 src/pop3.c:2614 src/pop3.c:2673
+#: src/pop3.c:3025 src/pop3.c:3059 src/pop3.c:3093
+#, c-format
+msgid "authentication failed (method %s)"
+msgstr "не вдалося пройти розпізнавання (спосіб %s)"
+
+#: src/pop3.c:2577
+#, c-format
+msgid "authentication method CRAM-MD5: server sent invalid challenge"
+msgstr "спосіб розпізнавання CRAM-MD5: сервером надіслано некоректний запит"
+
+#: src/pop3.c:2794 src/pop3.c:3111
+#, c-format
+msgid "POP3 server does not support authentication method %s"
+msgstr "На сервері POP3 не передбачено способу розпізнавання %s"
+
+#: src/pop3.c:2800 src/pop3.c:2957 src/pop3.c:3000
+#, c-format
+msgid "GNU SASL: %s"
+msgstr "GNU SASL: %s"
+
+#: src/pop3.c:2807
+#, c-format
+msgid "GNU SASL: authentication method %s not supported"
+msgstr "GNU SASL: не передбачено підтримки способу розпізнавання %s"
+
+#: src/pop3.c:2884 src/pop3.c:3150
+#, c-format
+msgid "cannot use a secure authentication method"
+msgstr "неможливо скористатися безпечним способом розпізнавання"
+
+#: src/pop3.c:2890 src/pop3.c:3156
+#, c-format
+msgid "cannot find a usable authentication method"
+msgstr "не вдалося знайти придатний до використання спосіб розпізнавання"
+
+#: src/pop3.c:2903 src/pop3.c:3169
+#, c-format
+msgid "authentication method %s needs a user name"
 msgstr ""
-"випадкового файла + часу + псевдовипадковості недостатньо, припиняємо спроби"
+"для використання способу розпізнавання %s слід вказати ім'я користувача"
 
-#: src/mtls-openssl.c:293 src/mtls-openssl.c:579
+#: src/pop3.c:2916 src/pop3.c:3179
 #, c-format
-msgid "%s: cannot get certificate subject"
-msgstr "%s: не вдалося отримати призначення сертифіката"
+msgid "authentication method %s needs a password"
+msgstr "для використання способу розпізнавання %s слід вказати пароль"
 
-#: src/mtls-openssl.c:299
+#: src/pop3.c:3072
 #, c-format
-msgid "%s: cannot get certificate issuer"
-msgstr "%s: не вдалося отримати дані щодо видавця сертифіката"
+msgid "authentication failed: %s (method %s)"
+msgstr "помилка розпізнавання: %s (спосіб %s)"
 
-#: src/mtls-openssl.c:450
-msgid "TLS certificate check failed"
-msgstr "Не вдалося перевірити сертифікат TLS"
-
-#: src/mtls-openssl.c:456
+#: src/pop3.c:3221
 #, c-format
-msgid "%s: no certificate was sent"
-msgstr "%s: не було надіслано жодного сертифіката"
+msgid "authentication method %s not supported"
+msgstr "не передбачено підтримки способу розпізнавання %s"
 
-#: src/mtls-openssl.c:559
+#: src/uidls.c:224
 #, c-format
-msgid "%s: certificate subject alternative name contains NUL"
-msgstr "%s: альтернативна назва призначення сертифіката містить NUL"
+msgid "%s, line %ld: line longer than %d characters"
+msgstr "%s, рядок %ld: довжина рядка перевищує %d символів"
 
-#: src/mtls-openssl.c:591
+#: src/uidls.c:250
 #, c-format
-msgid "%s: cannot get certificate common name"
-msgstr "%s: не вдалося отримати загальну назву сертифіката"
+msgid "%s, line %ld: UID without a list"
+msgstr "%s, рядок %ld: UID без списку"
 
-#: src/mtls-openssl.c:600
+#: src/uidls.c:261
 #, c-format
-msgid "%s: certificate common name contains NUL"
-msgstr "%s: загальна назва сертифіката містить NUL"
+msgid "%s, line %ld: invalid number of UIDs"
+msgstr "%s, рядок %ld: некоректна кількість UID"
 
-#: src/mtls-openssl.c:617
+#: src/uidls.c:276
 #, c-format
-msgid "%s: the certificate owner does not match hostname %s"
-msgstr "%s: запис власника сертифіката не відповідає назві вузла %s"
+msgid "%s, line %ld: invalid or missing host name"
+msgstr "%s, рядок %ld: некоректна назва вузла або назву вузла не вказано"
 
-#: src/mtls-openssl.c:649 src/mtls-libtls.c:231
+#: src/uidls.c:288
 #, c-format
-msgid "cannot set minimum number of DH prime bits for TLS: %s"
-msgstr "не вдалося встановити мінімальне число основних бітів DH для TLS: %s"
-
-#: src/mtls-openssl.c:650 src/mtls-openssl.c:658 src/mtls-openssl.c:666
-msgid "feature not yet implemented for OpenSSL"
-msgstr "можливість ще не реалізовано для OpenSSL"
-
-#: src/mtls-openssl.c:665
-#, c-format
-msgid "cannot load CRL file: %s"
-msgstr "не вдалося завантажити файл CRL: %s"
-
-#: src/mtls-openssl.c:672
-#, c-format
-msgid "cannot set TLS method"
-msgstr "не вдалося встановити спосіб TLS"
-
-#: src/mtls-openssl.c:680
-#, c-format
-msgid "cannot create TLS context: %s"
-msgstr "не вдалося створити контекст TLS: %s"
-
-#: src/mtls-openssl.c:693
-#, c-format
-msgid "cannot load key file %s: %s"
-msgstr "не вдалося завантажити файл ключа %s: %s"
-
-#: src/mtls-openssl.c:702
-#, c-format
-msgid "cannot load certificate file %s: %s"
-msgstr "не вдалося завантажити файл сертифіката %s: %s"
-
-#: src/mtls-openssl.c:732
-#, c-format
-msgid "cannot load trust file %s: %s"
-msgstr "не вдалося завантажити файл довіри %s: %s"
-
-#: src/mtls-openssl.c:759 src/mtls-libtls.c:361
-#, c-format
-msgid "cannot create a TLS structure: %s"
-msgstr "не вдалося створити структуру TLS: %s"
-
-#: src/mtls-openssl.c:801
-msgid "a protocol violating EOF occurred"
-msgstr "виявлено EOF, що порушує протокол"
-
-#: src/mtls-openssl.c:819
-msgid "the connection was closed unexpectedly"
-msgstr "з'єднання неочікувано розірвано"
-
-#: src/mtls-openssl.c:853 src/mtls-libtls.c:398
-#, c-format
-msgid "cannot set the file descriptor for TLS: %s"
-msgstr "не вдалося встановити дескриптор файла для TLS: %s"
-
-#: src/mtls-openssl.c:872
-msgid "TLS handshake failed"
-msgstr "Помилка при ініціалізації TLS"
-
-#: src/mtls-openssl.c:938
-msgid "cannot read from TLS connection"
-msgstr "не вдалося прочитати дані зі з'єднання TLS"
-
-#: src/mtls-openssl.c:981
-msgid "cannot write to TLS connection"
-msgstr "не вдалося записати дані до з'єднання TLS"
-
-#: src/mtls-libtls.c:59
-#, c-format
-msgid "cannot initialize libtls"
-msgstr "не вдалося ініціалізувати libtls"
-
-#: src/mtls-libtls.c:223
-#, c-format
-msgid "cannot use deprecated fingerprints, please update to SHA256"
+msgid "%s, line %ld: invalid or missing user name"
 msgstr ""
-"використання застарілих відбитків неможливе, будь ласка, оновіться до SHA256"
+"%s, рядок %ld: некоректне ім'я користувача або ім'я користувача не вказано"
 
-#: src/mtls-libtls.c:232
-msgid "feature not yet implemented for libtls"
-msgstr "можливість ще не реалізовано для libtls"
+#: src/uidls.c:302 src/uidls.c:336
+#, c-format
+msgid "%s, line %ld: too few UIDs for user %s, host %s"
+msgstr "%s, рядок %ld: замало UID для користувача %s, вузол %s"
 
-#: src/mtls-libtls.c:288
-msgid "could not parse protocols"
-msgstr "не вдалося обробити дані протоколів"
+#: src/uidls.c:466
+#, c-format
+msgid "cannot rename %s to %s: %s"
+msgstr "не вдається перейменувати `%s' на `%s': %s"
+
+#, c-format
+#~ msgid "cannot evaluate '%s': %s"
+#~ msgstr "не вдалося обчислити «%s»: %s"
+
+#, c-format
+#~ msgid "cannot read output of '%s'"
+#~ msgstr "не вдалося прочитати дані, які виведено «%s»"
 
 #~ msgid "Common Name"
 #~ msgstr "Звичайне ім'я"

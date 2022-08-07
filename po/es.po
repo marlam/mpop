@@ -1,827 +1,40 @@
 # Spanish translations for mpop package.
-# Copyright (C) 2006 Carlos Martín Nieto <carlos@cmartin.tk>
+# Copyright (C) 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020 Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
 # Carlos Martín Nieto <carlos@cmartin.tk>, 2006.
+# Cristian Othón Martínez Vera <cfuga@cfuga.mx>, 2021, 2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.0.8\n"
+"Project-Id-Version: mpop 1.4.16\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2021-03-12 15:43+0100\n"
-"PO-Revision-Date: 2006-09-03 14:51+0200\n"
-"Last-Translator: Carlos Martín Nieto <carlos@cmartin.tk>\n"
-"Language-Team: Spanish\n"
+"POT-Creation-Date: 2022-08-07 12:44+0200\n"
+"PO-Revision-Date: 2022-03-03 22:25-0600\n"
+"Last-Translator: Cristian Othón Martínez Vera <cfuga@cfuga.mx>\n"
+"Language-Team: Spanish <es@tp.org.es>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. TRANSLATORS: mpop shares a lot of code and translatable strings with
-#. msmtp <https://marlam.de/msmtp>.
-#: src/mpop.c:90
-#, fuzzy, c-format
-msgid "%s: FATAL: %s\n"
-msgstr "%s: GRAVE: %s"
-
-#: src/mpop.c:231 src/mpop.c:748
-#, c-format
-msgid "the POP3 server does not support TLS via the STLS command"
-msgstr "el servidor POP3 no soporta TLS a través de la orden STLS"
-
-#: src/mpop.c:300
-#, c-format
-msgid "POP3 server at %s (%s [%s]), port %d:\n"
-msgstr "servidor POP3 en %s (%s [%s]), puerto %d:\n"
-
-#: src/mpop.c:305
-#, c-format
-msgid "POP3 server at %s (%s), port %d:\n"
-msgstr "servidor POP3 en %s (%s), puerto %d:\n"
-
-#: src/mpop.c:310
-#, c-format
-msgid "POP3 server at %s ([%s]), port %d:\n"
-msgstr "servidor POP3 %s ([%s]), puerto %d:\n"
-
-#: src/mpop.c:315
-#, c-format
-msgid "POP3 server at %s, port %d:\n"
-msgstr "servidor POP3 en %s, puerto %d:\n"
-
-#: src/mpop.c:327
-#, c-format
-msgid "POP3 capabilities:\n"
-msgstr "capacidades POP3:\n"
-
-#: src/mpop.c:331
-msgid "Support for the CAPA command (get list of capabilities)"
-msgstr "Soporte para la orden CAPA (pedir lista de capacidades)"
-
-#: src/mpop.c:341
-msgid "Support for command grouping for faster transmission"
-msgstr "Soporte para agrupación de órdenes para una transmisión más rápida"
-
-#: src/mpop.c:346
-msgid "Support for the TOP command (get mail headers)"
-msgstr "Soporte para la orden TOP (pedir los encabezamientos de los correos)"
-
-#: src/mpop.c:351
-msgid "Support for the UIDL command (get unique mail identifiers)"
-msgstr ""
-"Soporte para la orden UIDL (pedir los identificadores únicos de correo)"
-
-#: src/mpop.c:360
-#, fuzzy, c-format
-#| msgid "minimum time between logins is %ld seconds"
-msgid "minimum time between logins is %ld seconds = %.2f hours"
-msgstr "tiempo mínimo entre logins es %ld segundos"
-
-#: src/mpop.c:365
-#, fuzzy, c-format
-#| msgid "minimum time between logins is %ld seconds"
-msgid "minimum time between logins is %ld seconds = %.2f minutes"
-msgstr "tiempo mínimo entre logins es %ld segundos"
-
-#: src/mpop.c:370
-#, c-format
-msgid "minimum time between logins is %ld seconds"
-msgstr "tiempo mínimo entre logins es %ld segundos"
-
-#: src/mpop.c:381
-msgid "this POP3 server will never delete mails"
-msgstr "este servidor POP3 nunca borrará correo"
-
-#: src/mpop.c:386
-msgid "this POP3 server will not keep mails"
-msgstr "este servidor POP3 no guardará correo"
-
-#: src/mpop.c:391
-#, c-format
-msgid "this POP3 server will keep mails for %ld days"
-msgstr "este servidor POP3 guardará los correos durante %ld días"
-
-#: src/mpop.c:404
-msgid "Support for TLS encryption via the STLS command"
-msgstr "Soporte para encriptación TLS por la orden STLS"
-
-#: src/mpop.c:407
-msgid "Supported authentication methods:"
-msgstr "Métodos de autentificación disponibles:"
-
-#: src/mpop.c:464 src/mpop.c:470
-msgid "Server error messages in square brackets have a special meaning"
-msgstr ""
-"Los mensajes de error del servidor entre corchetes tienen un significado "
-"especial"
-
-#: src/mpop.c:479
-#, c-format
-msgid ""
-"This server might advertise more or other capabilities\n"
-"    when TLS is active.\n"
-msgstr ""
-"Este servidor puede que anuncie más u otras capacidades\n"
-"    cuando TLS esté activo.\n"
-
-#: src/mpop.c:484
-#, c-format
-msgid ""
-"This server might advertise more or other capabilities\n"
-"    after successful authentication.\n"
-msgstr ""
-"Este servidor puede que anuncie más u otras capacidades\n"
-"    después de una autentificación correcta.\n"
-
-#: src/mpop.c:489
-#, c-format
-msgid ""
-"This server does not support the CAPA command, so this\n"
-"    list is probably not complete.\n"
-msgstr ""
-"Este servidor no sooporta la orden CAPA, así que\n"
-"    esta lista está probablemente incompleta\n"
-
-#: src/mpop.c:523
-#, c-format
-msgid "%.2f GiB"
-msgstr "%.2f GiB"
-
-#: src/mpop.c:527
-#, c-format
-msgid "%.2f MiB"
-msgstr "%.2f MiB"
-
-#: src/mpop.c:531
-#, c-format
-msgid "%.2f KiB"
-msgstr "%.2f KiB"
-
-#: src/mpop.c:535
-#, fuzzy, c-format
-msgid " bytes"
-msgstr "1 byte"
-
-#: src/mpop.c:539
-#, c-format
-msgid "1 byte"
-msgstr "1 byte"
-
-#: src/mpop.c:556
-#, c-format
-msgid "skipping message %ld of %ld (reason: filter + keep)\n"
-msgstr "saltándose mensaje %ld de %ld (razón: filter + keep)\n"
-
-#: src/mpop.c:561
-#, c-format
-msgid "deleting message %ld of %ld (reason: filter)\n"
-msgstr "borrando mensaje %ld de %ld (razón: filter)\n"
-
-#: src/mpop.c:567
-#, c-format
-msgid "skipping message %ld of %ld (reason: filter)\n"
-msgstr "saltándose mensaje %ld de %ld (razón: filter)\n"
-
-#: src/mpop.c:576
-#, c-format
-msgid "retrieving message %ld of %ld (%s): "
-msgstr "descargando mensaje %ld de %ld (%s): "
-
-#: src/mpop.c:581
-#, fuzzy, c-format
-msgid "retrieving message %ld of %ld: "
-msgstr "descargando mensaje %ld de %ld (%s): "
-
-#: src/mpop.c:792 src/mpop.c:845 src/mpop.c:868 src/mpop.c:1023 src/pop3.c:1143
-#: src/pop3.c:1280 src/pop3.c:1393 src/pop3.c:1784 src/pop3.c:2071 src/net.c:97
-#: src/net.c:208 src/net.c:255 src/net.c:767 src/net.c:894
-#: src/mtls-gnutls.c:623 src/mtls-gnutls.c:670 src/mtls-openssl.c:866
-#: src/mtls-openssl.c:933 src/mtls-openssl.c:975
-#, c-format
-msgid "operation aborted"
-msgstr "operación calcelada"
-
-#: src/mpop.c:914
-#, c-format
-msgid "%s at %s:\n"
-msgstr "%s en %s:\n"
-
-#: src/mpop.c:917
-#, c-format
-msgid "new: "
-msgstr "nuevos: "
-
-#: src/mpop.c:920 src/mpop.c:941
-#, c-format
-msgid "no messages"
-msgstr "ningún mensaje"
-
-#: src/mpop.c:924 src/mpop.c:945
-#, c-format
-msgid "1 message"
-msgstr "1 mensaje"
-
-#: src/mpop.c:928 src/mpop.c:949
-#, c-format
-msgid "%ld messages"
-msgstr "%ld mensajes"
-
-#: src/mpop.c:933 src/mpop.c:954
-#, c-format
-msgid " in %s"
-msgstr " en %s"
-
-#: src/mpop.c:937
-#, c-format
-msgid "total: "
-msgstr "total: "
-
-#: src/mpop.c:991
-#, c-format
-msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
-msgstr "saltandose mensaje %ld de %ld (razón: killsize + keep)\n"
-
-#: src/mpop.c:997
-#, c-format
-msgid "deleting message %ld of %ld (reason: killsize)\n"
-msgstr "borrando mensaje %ld de %ld (razón: killsize)\n"
-
-#: src/mpop.c:1008
-#, c-format
-msgid "skipping message %ld of %ld (reason: skipsize)\n"
-msgstr "saltandose mensaje %ld de %ld (razón: skipsize)\n"
-
-#: src/mpop.c:1033
-#, c-format
-msgid "the POP3 server does not support the TOP command needed for filtering"
-msgstr "el servidor POP3 no soporta la orden TOP necesara para filtrar"
-
-#: src/mpop.c:1213 src/mpop.c:1232 src/mpop.c:1284
-#, c-format
-msgid "automatic configuration based on SRV records failed: %s"
-msgstr ""
-
-#: src/mpop.c:1214
-#, fuzzy
-#| msgid "invalid request"
-msgid "invalid mail address"
-msgstr "solicitud inválida"
-
-#: src/mpop.c:1230
-#, fuzzy, c-format
-#| msgid "cannot create directories for %s: %s"
-msgid "no SRV records for %s or %s"
-msgstr "no se pueden crear los directorios para %s: %s"
-
-#: src/mpop.c:1247
-#, c-format
-msgid "copy this to your configuration file %s"
-msgstr ""
-
-#: src/mpop.c:1251
-msgid "warning: the host does not match the mail domain; please check"
-msgstr ""
-
-#: src/mpop.c:1254 src/mpop.c:1258
-msgid "add your password to the key ring:"
-msgstr ""
-
-#: src/mpop.c:1261
-msgid "encrypt your password:"
-msgstr ""
-
-#: src/mpop.c:1263
-msgid "adjust the delivery command"
-msgstr ""
-
-#: src/mpop.c:1285
-msgid "this system lacks libresolv"
-msgstr ""
-
-#: src/mpop.c:1314
-#, c-format
-msgid "%s: no accounts defined"
-msgstr "%s: ninguna cuenta definida"
-
-#: src/mpop.c:1332 src/mpop.c:1343
-#, c-format
-msgid "%s: no account %s"
-msgstr "%s: no se ha encontrado la cuenta %s"
-
-#: src/mpop.c:1704 src/mpop.c:1721 src/mpop.c:1744 src/mpop.c:1762
-#: src/mpop.c:1782 src/mpop.c:1823 src/mpop.c:1872 src/mpop.c:1890
-#: src/mpop.c:1939 src/mpop.c:1972 src/mpop.c:1994 src/mpop.c:2039
-#: src/mpop.c:2057 src/mpop.c:2073 src/mpop.c:2090 src/mpop.c:2132
-#, c-format
-msgid "invalid argument %s for %s"
-msgstr "argumento inválido %s para %s"
-
-#: src/mpop.c:2162
-#, c-format
-msgid "%s version %s\n"
-msgstr "%s versión %s\n"
-
-#: src/mpop.c:2163
-#, c-format
-msgid "Platform: %s\n"
-msgstr ""
-
-#: src/mpop.c:2165
-#, c-format
-msgid "TLS/SSL library: %s\n"
-msgstr "Biblioteca TLS/SSL: %s\n"
-
-#: src/mpop.c:2173 src/mpop.c:2259
-#, c-format
-msgid "none"
-msgstr "ninguna"
-
-#: src/mpop.c:2177
-#, c-format
-msgid ""
-"Authentication library: %s\n"
-"Supported authentication methods:\n"
-msgstr ""
-"Biblioteca de autentificación: %s\n"
-"Métodos de autentificación disponibles:\n"
-
-#: src/mpop.c:2180
-#, fuzzy
-#| msgid "GNU SASL; user and apop: built-in"
-msgid "GNU SASL; user, apop, oauthbearer, xoauth2: built-in"
-msgstr "GNU SASL; user y apop: interno"
-
-#: src/mpop.c:2182
-msgid "built-in"
-msgstr "interno"
-
-#: src/mpop.c:2239
-#, c-format
-msgid "IDN support: "
-msgstr "soporte IDN: "
-
-#: src/mpop.c:2243 src/mpop.c:2251
-#, c-format
-msgid "enabled"
-msgstr "activado"
-
-#: src/mpop.c:2245 src/mpop.c:2254
-#, c-format
-msgid "disabled"
-msgstr "desactivado"
-
-#: src/mpop.c:2249
-#, c-format
-msgid "NLS: "
-msgstr "NLS: "
-
-#: src/mpop.c:2252
-#, c-format
-msgid ", LOCALEDIR is %s"
-msgstr ", LOCALEDIR es %s"
-
-#: src/mpop.c:2257
-#, c-format
-msgid "Keyring support: "
-msgstr "soporte keyring: "
-
-#: src/mpop.c:2262
-#, c-format
-msgid "Gnome "
-msgstr "Gnome "
-
-#: src/mpop.c:2265
-#, c-format
-msgid "MacOS "
-msgstr "MacOS "
-
-#: src/mpop.c:2271
-#, c-format
-msgid "Configuration file name: %s\n"
-msgstr ""
-
-#: src/mpop.c:2275
-#, fuzzy, c-format
-msgid ""
-"Copyright (C) 2021 Martin Lambers and others.\n"
-"This is free software.  You may redistribute copies of it under the terms "
-"of\n"
-"the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
-"There is NO WARRANTY, to the extent permitted by law.\n"
-msgstr ""
-"Copyright (C) 2010 Martin Lambers y otros.\n"
-"Este programa es software libre. Usted puede distribuir copias de acuerdo\n"
-"con la GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
-"No hey NINGUNA GARANTÍA, en cuanto a lo permitido por la ley\n"
-
-#: src/mpop.c:2284
-#, c-format
-msgid ""
-"Usage:\n"
-"\n"
-msgstr ""
-
-#: src/mpop.c:2285
-#, c-format
-msgid ""
-"Mail retrieval mode (default):\n"
-"  %s [option...] account...\n"
-"  %s [option...] --all-accounts\n"
-"  %s --host=host [option...]\n"
-"  Read mails from one or more POP3 accounts and deliver them.\n"
-msgstr ""
-
-#: src/mpop.c:2291
-#, c-format
-msgid ""
-"Configuration mode:\n"
-"  %s --configure=mailaddress\n"
-"  Generate and print configuration for address.\n"
-msgstr ""
-
-#: src/mpop.c:2294
-#, c-format
-msgid ""
-"Server information mode:\n"
-"  %s [option...] --serverinfo account...\n"
-"  %s --host=host [option...] --serverinfo\n"
-"  Print information about one or more POP3 servers.\n"
-"\n"
-msgstr ""
-
-#: src/mpop.c:2298
-#, c-format
-msgid "General options:\n"
-msgstr ""
-
-#: src/mpop.c:2299
-#, c-format
-msgid "  --version                    print version\n"
-msgstr ""
-
-#: src/mpop.c:2300
-#, c-format
-msgid "  --help                       print help\n"
-msgstr ""
-
-#: src/mpop.c:2301
-#, c-format
-msgid "  -P, --pretend                print configuration info and exit\n"
-msgstr ""
-
-#: src/mpop.c:2302
-#, c-format
-msgid "  -d, --debug                  print debugging information\n"
-msgstr ""
-
-#: src/mpop.c:2303
-#, c-format
-msgid "Changing the mode of operation:\n"
-msgstr ""
-
-#: src/mpop.c:2304
-#, c-format
-msgid ""
-"  --configure=mailaddress      generate and print configuration for address\n"
-msgstr ""
-
-#: src/mpop.c:2305
-#, c-format
-msgid "  -S, --serverinfo             print information about the server\n"
-msgstr ""
-
-#: src/mpop.c:2306
-#, c-format
-msgid "Configuration options:\n"
-msgstr ""
-
-#: src/mpop.c:2307
-#, c-format
-msgid "  -C, --file=filename          set configuration file\n"
-msgstr ""
-
-#: src/mpop.c:2308
-#, c-format
-msgid ""
-"  --host=hostname              set the server, use only command-line "
-"settings;\n"
-"                               do not use any configuration file data\n"
-msgstr ""
-
-#: src/mpop.c:2310
-#, c-format
-msgid "  --port=number                set port number\n"
-msgstr ""
-
-#: src/mpop.c:2311
-#, c-format
-msgid ""
-"  --source-ip=[IP]             set/unset source ip address to bind the "
-"socket to\n"
-msgstr ""
-
-#: src/mpop.c:2312
-#, c-format
-msgid "  --proxy-host=[IP|hostname]   set/unset proxy\n"
-msgstr ""
-
-#: src/mpop.c:2313
-#, c-format
-msgid "  --proxy-port=[number]        set/unset proxy port\n"
-msgstr ""
-
-#: src/mpop.c:2314
-#, c-format
-msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
-msgstr ""
-
-#: src/mpop.c:2315
-#, c-format
-msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
-msgstr ""
-
-#: src/mpop.c:2316
-#, c-format
-msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
-msgstr ""
-
-#: src/mpop.c:2317
-#, c-format
-msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
-msgstr ""
-
-#: src/mpop.c:2318
-#, c-format
-msgid "  --auth[=(on|method)]         choose the authentication method\n"
-msgstr ""
-
-#: src/mpop.c:2319
-#, c-format
-msgid "  --user=[username]            set/unset user name for authentication\n"
-msgstr ""
-
-#: src/mpop.c:2320
-#, c-format
-msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
-msgstr ""
-
-#: src/mpop.c:2321
-#, c-format
-msgid "  --tls[=(on|off)]             enable/disable TLS encryption\n"
-msgstr ""
-
-#: src/mpop.c:2322
-#, c-format
-msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
-msgstr ""
-
-#: src/mpop.c:2323
-#, c-format
-msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
-msgstr ""
-
-#: src/mpop.c:2324
-#, c-format
-msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
-msgstr ""
-
-#: src/mpop.c:2325
-#, c-format
-msgid ""
-"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
-"TLS\n"
-msgstr ""
-
-#: src/mpop.c:2326
-#, c-format
-msgid ""
-"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
-"TLS\n"
-msgstr ""
-
-#: src/mpop.c:2327
-#, c-format
-msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
-msgstr ""
-
-#: src/mpop.c:2328
-#, c-format
-msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
-msgstr ""
-
-#: src/mpop.c:2329
-#, c-format
-msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
-msgstr ""
-
-#: src/mpop.c:2330
-#, c-format
-msgid ""
-"  --tls-host-override=[host]   set/unset override for TLS host "
-"verification.\n"
-msgstr ""
-
-#: src/mpop.c:2331
-#, c-format
-msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
-msgstr ""
-
-#: src/mpop.c:2332
-#, c-format
-msgid "Options specific to mail retrieval mode:\n"
-msgstr ""
-
-#: src/mpop.c:2333
-#, c-format
-msgid ""
-"  -q, --quiet                  do not display status or progress "
-"information\n"
-msgstr ""
-
-#: src/mpop.c:2334
-#, c-format
-msgid ""
-"  -Q, --half-quiet             display status but not progress information\n"
-msgstr ""
-
-#: src/mpop.c:2335
-#, c-format
-msgid ""
-"  -a, --all-accounts           query all accounts in the configuration file\n"
-msgstr ""
-
-#: src/mpop.c:2336
-#, c-format
-msgid ""
-"  -A, --auth-only              authenticate only; do not retrieve mail\n"
-msgstr ""
-
-#: src/mpop.c:2337
-#, c-format
-msgid ""
-"  -s, --status-only            print account status only; do not retrieve "
-"mail\n"
-msgstr ""
-
-#: src/mpop.c:2338
-#, c-format
-msgid "  -n, --only-new[=(on|off)]    process only new messages\n"
-msgstr ""
-
-#: src/mpop.c:2339
-#, c-format
-msgid "  -k, --keep[=(on|off)]        do not delete mails from servers\n"
-msgstr ""
-
-#: src/mpop.c:2340
-#, c-format
-msgid "  --killsize=(off|number)      set/unset kill size\n"
-msgstr ""
-
-#: src/mpop.c:2341
-#, c-format
-msgid "  --skipsize=(off|number)      set/unset skip size\n"
-msgstr ""
-
-#: src/mpop.c:2342
-#, c-format
-msgid "  --filter=[program]           set/unset header filter\n"
-msgstr ""
-
-#: src/mpop.c:2343
-#, c-format
-msgid "  --delivery=method,arg        set the mail delivery method\n"
-msgstr ""
-
-#: src/mpop.c:2344
-#, c-format
-msgid "  --uidls-file=filename        set file to store UIDLs\n"
-msgstr ""
-
-#: src/mpop.c:2345
-#, c-format
-msgid ""
-"\n"
-"Report bugs to <%s>.\n"
-msgstr ""
-
-#: src/mpop.c:2369
-msgid "cannot use both --host and accounts"
-msgstr "no se pueden usar --host y cuentas a la vez"
-
-#: src/mpop.c:2375
-msgid "cannot use both --all-accounts and a list of accounts"
-msgstr "no se pueden usar --all-accounts y una lista de cuentas a la vez"
-
-#: src/mpop.c:2471
-#, c-format
-msgid "account %s from %s: %s"
-msgstr "cuenta %s de %s: %s"
-
-#: src/mpop.c:2489
-#, c-format
-msgid "cannot create directories for %s: %s"
-msgstr "no se pueden crear los directorios para %s: %s"
-
-#: src/mpop.c:2492
-msgid "a component already exists but is not a directory"
-msgstr "un componente ya existe pero no es un directorio"
-
-#: src/mpop.c:2511
-#, c-format
-msgid "using account %s from %s\n"
-msgstr "usando cuenta %s de %s\n"
-
-#: src/mpop.c:2517 src/mpop.c:2519 src/mpop.c:2522 src/mpop.c:2554
-#: src/mpop.c:2555 src/mpop.c:2557 src/mpop.c:2559 src/mpop.c:2563
-#: src/mpop.c:2565 src/mpop.c:2584 src/mpop.c:2586 src/mpop.c:2588
-#: src/mpop.c:2598 src/mpop.c:2601 src/mpop.c:2603 src/mpop.c:2647
-msgid "(not set)"
-msgstr "(no seleccionado)"
-
-#: src/mpop.c:2526 src/mpop.c:2631 src/mpop.c:2640
-#, c-format
-msgid "off\n"
-msgstr "desactivado\n"
-
-#: src/mpop.c:2532
-#, c-format
-msgid "1 second\n"
-msgstr "1 segundo\n"
-
-#: src/mpop.c:2536
-#, c-format
-msgid "%d seconds\n"
-msgstr "%d segundos\n"
-
-#: src/mpop.c:2540 src/mpop.c:2543 src/mpop.c:2560 src/mpop.c:2561
-#: src/mpop.c:2590 src/mpop.c:2626 src/mpop.c:2627
-msgid "off"
-msgstr "desactivado"
-
-#: src/mpop.c:2541 src/mpop.c:2543 src/mpop.c:2560 src/mpop.c:2561
-#: src/mpop.c:2590 src/mpop.c:2626 src/mpop.c:2627
-msgid "on"
-msgstr "activado"
-
-#: src/mpop.c:2541
-msgid "auto"
-msgstr "automático"
-
-#: src/mpop.c:2547
-#, c-format
-msgid "choose\n"
-msgstr "automático\n"
-
-#: src/mpop.c:2666
-#, c-format
-msgid "support for authentication method %s is not compiled in"
-msgstr "soporte para el método de autentificación %s no está compilado"
-
-#: src/mpop.c:2678
-#, c-format
-msgid "cannot initialize TLS library: %s"
-msgstr "no se puede iniciar la biblioteca TLS: %s"
-
-#: src/mpop.c:2686
-msgid "support for TLS is not compiled in"
-msgstr "soporte para TLS no está compilado"
-
-#: src/mpop.c:2694
-#, c-format
-msgid "cannot initialize network library: %s"
-msgstr "no se puede iniciar la biblioteca de red: %s"
-
-#: src/mpop.c:2763
-#, c-format
-msgid "POP3 server message: %s"
-msgstr "mensaje del servidor POP3: %s"
-
-#: src/mpop.c:2772
-#, c-format
-msgid "error during mail retrieval (account %s from %s)"
-msgstr "error durante la recogida de correo (cuenta %s de %s)"
-
-#: src/mpop.c:2778
-msgid "error during mail retrieval"
-msgstr "error durante la recogida de correo"
-
-#: src/conf.c:626 src/conf.c:631
+#: src/conf.c:627 src/conf.c:632
 #, c-format
 msgid "host not set"
-msgstr "el host no está puesto"
+msgstr "el host no está definido"
 
-#: src/conf.c:636
+#: src/conf.c:637
 #, c-format
 msgid "tls_key_file requires tls_cert_file"
 msgstr "tls_key_file requiere tls_cert_file"
 
-#: src/conf.c:641
+#: src/conf.c:642
 #, c-format
 msgid "tls_cert_file requires tls_key_file"
 msgstr "tls_cert_file requiere tls_key_file"
 
-#: src/conf.c:649
+#: src/conf.c:650
 #, c-format
 msgid ""
 "tls requires either tls_trust_file (highly recommended) or tls_fingerprint "
@@ -830,244 +43,94 @@ msgstr ""
 "tls requiere o bien tls_trust_file (muy recomendado) o tls_fingerprint o que "
 "tls_certcheck esté desactivado"
 
-#: src/conf.c:655
+#: src/conf.c:656
 #, c-format
 msgid "tls_crl_file requires tls_trust_file"
 msgstr "tls_crl_file requiere tls_trust_file"
 
-#: src/conf.c:660
+#: src/conf.c:661
 #, c-format
 msgid "no delivery information"
 msgstr "ninguna información sobre el envío (delivery no especificado)"
 
-#: src/conf.c:691
-#, fuzzy, c-format
-msgid "cannot evaluate '%s': %s"
-msgstr "no se puede crear %s%c%s: %s"
-
-#: src/conf.c:701
-#, fuzzy, c-format
-msgid "cannot read output of '%s'"
-msgstr "no se puede escribir correo: error de salida"
-
-#: src/conf.c:827 src/stream.c:63
-#, c-format
-msgid "input error"
-msgstr "error de entrada"
-
-#: src/conf.c:849
-#, c-format
-msgid "line longer than %d characters"
-msgstr "la línea tiene más de %d caracteres"
-
-#: src/conf.c:900 src/conf.c:1022
+#: src/conf.c:806 src/conf.c:975
 #, c-format
 msgid "line %d: missing account name"
 msgstr "línea %d: falta el nombre de la cuenta"
 
-#: src/conf.c:905
+#: src/conf.c:811
 #, c-format
 msgid "line %d: account %s not (yet) defined"
 msgstr "línea %d: la cuenta %s no está definida (todavía)"
 
-#: src/conf.c:984
+#: src/conf.c:880 src/stream.c:63
 #, c-format
-msgid "line %d: first command must be account or defaults"
-msgstr "línea: %d: la primera orden debe ser account o defaults"
+msgid "input error"
+msgstr "error de entrada"
 
-#: src/conf.c:994
+#: src/conf.c:892
 #, c-format
-msgid "line %d: command %s does not take an argument"
-msgstr "línea %d: la orden %s no lleva argumentos"
+msgid "line longer than %d characters"
+msgstr "la línea tiene más de %d caracteres"
 
-#: src/conf.c:1030
-#, c-format
-msgid "line %d: an account name must not contain colons or commas"
-msgstr "línea %d: un nombre de cuenta no puede tener puntos ni comas"
-
-#: src/conf.c:1040
-#, c-format
-msgid "line %d: account %s was already defined"
-msgstr "línea %d: la cuenta %s ya está definida"
-
-#: src/conf.c:1065 src/conf.c:1081 src/conf.c:1104 src/conf.c:1207
-#: src/conf.c:1227 src/conf.c:1493 src/conf.c:1518
+#: src/conf.c:909 src/conf.c:1018 src/conf.c:1034 src/conf.c:1057
+#: src/conf.c:1160 src/conf.c:1180 src/conf.c:1447 src/conf.c:1472
 #, c-format
 msgid "line %d: command %s needs an argument"
 msgstr "línea %d: la orden %s necesita un argumento"
 
-#: src/conf.c:1092 src/conf.c:1120 src/conf.c:1146 src/conf.c:1166
-#: src/conf.c:1215 src/conf.c:1253 src/conf.c:1298 src/conf.c:1318
-#: src/conf.c:1375 src/conf.c:1396 src/conf.c:1415 src/conf.c:1462
-#: src/conf.c:1482 src/conf.c:1577
+#: src/conf.c:937
+#, c-format
+msgid "line %d: first command must be account or defaults"
+msgstr "línea: %d: la primera orden debe ser account o defaults"
+
+#: src/conf.c:947
+#, c-format
+msgid "line %d: command %s does not take an argument"
+msgstr "línea %d: la orden %s no lleva argumentos"
+
+#: src/conf.c:983
+#, c-format
+msgid "line %d: an account name must not contain colons or commas"
+msgstr "línea %d: un nombre de cuenta no puede tener puntos ni comas"
+
+#: src/conf.c:993
+#, c-format
+msgid "line %d: account %s was already defined"
+msgstr "línea %d: la cuenta %s ya está definida"
+
+#: src/conf.c:1045 src/conf.c:1073 src/conf.c:1099 src/conf.c:1119
+#: src/conf.c:1168 src/conf.c:1206 src/conf.c:1252 src/conf.c:1272
+#: src/conf.c:1329 src/conf.c:1350 src/conf.c:1369 src/conf.c:1416
+#: src/conf.c:1436 src/conf.c:1531
 #, c-format
 msgid "line %d: invalid argument %s for command %s"
 msgstr "línea %d: argumento inválido %s para la orden %s"
 
-#: src/conf.c:1506 src/conf.c:1531
+#: src/conf.c:1460 src/conf.c:1485
 #, c-format
 msgid "line %d: invalid size (not a number or out of range): %s"
 msgstr ""
 "línea %d: tamaño inválido (no es un número o está fuera del intervalo): %s"
 
-#: src/conf.c:1616
+#: src/conf.c:1570
 #, c-format
 msgid "line %d: unknown command %s"
 msgstr "línea: %d: orden desconocida %s"
 
-#: src/conf.c:1668
+#: src/conf.c:1624
 #, c-format
 msgid "contains secrets and therefore must be owned by you"
-msgstr ""
+msgstr "contiene secretos y por lo tanto debe ser de su propiedad"
 
-#: src/conf.c:1674
-#, fuzzy, c-format
+#: src/conf.c:1630
+#, c-format
 msgid ""
 "contains secrets and therefore must have no more than user read/write "
 "permissions"
-msgstr "no puede tener más que permiso de lectura/escritura del usuario"
-
-#: src/pop3.c:323
-#, c-format
-msgid "POP3 server sent an empty reply"
-msgstr "el servidor POP3 mandó una respuesta vacía"
-
-#: src/pop3.c:327
-#, c-format
-msgid "POP3 server sent an invalid reply"
-msgstr "el servidor POP3 mandó una respuesta inválida"
-
-#: src/pop3.c:382
-#, c-format
-msgid ""
-"Cannot send POP3 command because it is longer than %d characters. Increase "
-"POP3_BUFSIZE."
 msgstr ""
-"No se puede mandar una orden POP3 más larga que %d caracteres. Incremente "
-"POP3_BUFSIZE."
-
-#: src/pop3.c:690
-#, c-format
-msgid "cannot get initial OK message from POP3 server"
-msgstr "no se puede recibir el mensaje inicial OK del servidor POP3"
-
-#: src/pop3.c:751 src/pop3.c:907 src/pop3.c:1039 src/pop3.c:1222
-#: src/pop3.c:1337
-#, c-format
-msgid "invalid reply to command %s"
-msgstr "respuesta inválida a la orden %s"
-
-#: src/pop3.c:978 src/pop3.c:984 src/pop3.c:1031 src/pop3.c:1123
-#: src/pop3.c:1263 src/pop3.c:2480 src/pop3.c:2566 src/pop3.c:2652
-#: src/pop3.c:3252 src/pop3.c:3280
-#, c-format
-msgid "command %s failed"
-msgstr "fallo de la orden %s"
-
-#: src/pop3.c:1054
-#, c-format
-msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
-msgstr ""
-"no se pueden manejas más de %ld mensajes. Incremente POP3_MAX_MESSAGES."
-
-#: src/pop3.c:1509 src/pop3.c:1538
-#, c-format
-msgid "cannot write mail: output error"
-msgstr "no se puede escribir correo: error de salida"
-
-#: src/pop3.c:1622
-#, c-format
-msgid "cannot write to temporary file: output error"
-msgstr "no se puede escribir en el archivo temporal: error de salida"
-
-#: src/pop3.c:1703
-#, c-format
-msgid "cannot add Received header: %s"
-msgstr "no se puede añadir el encabezamiento Received: %s"
-
-#: src/pop3.c:1800
-#, c-format
-msgid "command TOP %ld 0 failed"
-msgstr "fallo en la orden TOP %ld 0"
-
-#: src/pop3.c:1805
-#, c-format
-msgid "command RETR %ld failed"
-msgstr "fallo en la orden RETR %ld"
-
-#: src/pop3.c:1816
-#, c-format
-msgid "cannot create temporary file: %s"
-msgstr "no se puede crear un archivo temporal: %s"
-
-#: src/pop3.c:1828
-#, c-format
-msgid "cannot rewind temporary file: %s"
-msgstr "no se puede rebobinar el archivo temporal: %s"
-
-#: src/pop3.c:2085
-#, c-format
-msgid "command DELE %ld failed"
-msgstr "fallo en la orden DELE %ld"
-
-#: src/pop3.c:2155 src/pop3.c:2167 src/pop3.c:2190 src/pop3.c:2205
-#: src/pop3.c:2245 src/pop3.c:2316 src/pop3.c:2382 src/pop3.c:2441
-#: src/pop3.c:2500 src/pop3.c:2520 src/pop3.c:2613 src/pop3.c:2672
-#: src/pop3.c:3024 src/pop3.c:3058 src/pop3.c:3092
-#, c-format
-msgid "authentication failed (method %s)"
-msgstr "fallo en la autentificación (método %s)"
-
-#: src/pop3.c:2576
-#, c-format
-msgid "authentication method CRAM-MD5: server sent invalid challenge"
-msgstr ""
-"método de autentificación CRAM-MD5: el servidor mandó un desfío inválido"
-
-#: src/pop3.c:2793 src/pop3.c:3110
-#, c-format
-msgid "POP3 server does not support authentication method %s"
-msgstr "el servidor POP3 no es compatible con el método de autentificación %s"
-
-#: src/pop3.c:2799 src/pop3.c:2956 src/pop3.c:2999
-#, c-format
-msgid "GNU SASL: %s"
-msgstr "GNU SASL: %s"
-
-#: src/pop3.c:2806
-#, c-format
-msgid "GNU SASL: authentication method %s not supported"
-msgstr "GNU SASL: no es compatible con el método de autentificación %s"
-
-#: src/pop3.c:2883 src/pop3.c:3149
-#, c-format
-msgid "cannot use a secure authentication method"
-msgstr "no se puede usar ningún método de autentificación seguro"
-
-#: src/pop3.c:2889 src/pop3.c:3155
-#, c-format
-msgid "cannot find a usable authentication method"
-msgstr "no se puede encontrar ningún método usable de autentificación"
-
-#: src/pop3.c:2902 src/pop3.c:3168
-#, c-format
-msgid "authentication method %s needs a user name"
-msgstr "el método de autentificación %s necesita un nombre de usuario"
-
-#: src/pop3.c:2915 src/pop3.c:3178
-#, c-format
-msgid "authentication method %s needs a password"
-msgstr "el método de autentificación %s necesita una contraseña"
-
-#: src/pop3.c:3071
-#, c-format
-msgid "authentication failed: %s (method %s)"
-msgstr "fallo en la autentificación: %s (método %s)"
-
-#: src/pop3.c:3220
-#, c-format
-msgid "authentication method %s not supported"
-msgstr "el programa no es compatible con el método de autntificación %s"
+"contiene secretos y por lo tanto no debe tener más que permiso de lectura/"
+"escritura del usuario"
 
 #: src/delivery.c:82
 msgid "EX_OK: no error"
@@ -1085,7 +148,6 @@ msgstr "EX_DATAERR: error en el formato de datos"
 msgid "EX_NOINPUT: no input"
 msgstr "EX_NOINPUT: ninguna entrada"
 
-# FIXME: ¿cuál es la traducción de input?
 #: src/delivery.c:94
 msgid "EX_NOUSER: user unknown"
 msgstr "EX_NOUSER: usuario desconocido"
@@ -1224,45 +286,1180 @@ msgstr "no se puede bloquear %s: %s"
 msgid "cannot close %s: %s"
 msgstr "no se puede cerrar %s: %s"
 
-#: src/uidls.c:224
+#. TRANSLATORS: mpop shares a lot of code and translatable strings with
+#. msmtp <https://marlam.de/msmtp>.
+#: src/mpop.c:91
 #, c-format
-msgid "%s, line %ld: line longer than %d characters"
-msgstr "%s, línea %ld: la línea es más larga de %d caracteres"
+msgid "%s: FATAL: %s\n"
+msgstr "%s: FATAL: %s\n"
 
-#: src/uidls.c:250
+#: src/mpop.c:232 src/mpop.c:754
 #, c-format
-msgid "%s, line %ld: UID without a list"
-msgstr "%s, línea %ld: UID sin lista"
+msgid "the POP3 server does not support TLS via the STLS command"
+msgstr "el servidor POP3 no soporta TLS a través de la orden STLS"
 
-#: src/uidls.c:261
+#: src/mpop.c:302
 #, c-format
-msgid "%s, line %ld: invalid number of UIDs"
-msgstr "%s, línea %ld: número inválido de UIDs"
+msgid "POP3 server at %s (%s [%s]), port %d:\n"
+msgstr "servidor POP3 en %s (%s [%s]), puerto %d:\n"
 
-#: src/uidls.c:276
+#: src/mpop.c:308
 #, c-format
-msgid "%s, line %ld: invalid or missing host name"
-msgstr "%s, línea %ld: nombre de host inválido u omitido"
+msgid "POP3 server at %s (%s), port %d:\n"
+msgstr "servidor POP3 en %s (%s), puerto %d:\n"
 
-#: src/uidls.c:288
+#: src/mpop.c:314
 #, c-format
-msgid "%s, line %ld: invalid or missing user name"
-msgstr "%s, línea %ld: nombre de usuario inválido u omitido"
+msgid "POP3 server at %s ([%s]), port %d:\n"
+msgstr "servidor POP3 %s ([%s]), puerto %d:\n"
 
-#: src/uidls.c:302 src/uidls.c:336
+#: src/mpop.c:320
 #, c-format
-msgid "%s, line %ld: too few UIDs for user %s, host %s"
-msgstr "%s, línea %ld: faltan UIDs para el usuario %s, host %s"
+msgid "POP3 server at %s, port %d:\n"
+msgstr "servidor POP3 en %s, puerto %d:\n"
 
-#: src/uidls.c:351 src/mtls-openssl.c:98
+#: src/mpop.c:333
+#, c-format
+msgid "POP3 capabilities:\n"
+msgstr "capacidades POP3:\n"
+
+#: src/mpop.c:337
+msgid "Support for the CAPA command (get list of capabilities)"
+msgstr "Soporte para la orden CAPA (pedir lista de capacidades)"
+
+#: src/mpop.c:347
+msgid "Support for command grouping for faster transmission"
+msgstr "Soporte para agrupación de órdenes para una transmisión más rápida"
+
+#: src/mpop.c:352
+msgid "Support for the TOP command (get mail headers)"
+msgstr "Soporte para la orden TOP (pedir los encabezamientos de los correos)"
+
+#: src/mpop.c:357
+msgid "Support for the UIDL command (get unique mail identifiers)"
+msgstr ""
+"Soporte para la orden UIDL (pedir los identificadores únicos de correo)"
+
+#: src/mpop.c:366
+#, c-format
+msgid "minimum time between logins is %ld seconds = %.2f hours"
+msgstr "tiempo mínimo entre logins es %ld segundos = %.2f horas"
+
+#: src/mpop.c:371
+#, c-format
+msgid "minimum time between logins is %ld seconds = %.2f minutes"
+msgstr "tiempo mínimo entre logins es %ld segundos = %.2f minutos"
+
+#: src/mpop.c:376
+#, c-format
+msgid "minimum time between logins is %ld seconds"
+msgstr "tiempo mínimo entre logins es %ld segundos"
+
+#: src/mpop.c:387
+msgid "this POP3 server will never delete mails"
+msgstr "este servidor POP3 nunca borrará correo"
+
+#: src/mpop.c:392
+msgid "this POP3 server will not keep mails"
+msgstr "este servidor POP3 no guardará correo"
+
+#: src/mpop.c:397
+#, c-format
+msgid "this POP3 server will keep mails for %ld days"
+msgstr "este servidor POP3 guardará los correos durante %ld días"
+
+#: src/mpop.c:410
+msgid "Support for TLS encryption via the STLS command"
+msgstr "Soporte para encriptación TLS por la orden STLS"
+
+#: src/mpop.c:413
+msgid "Supported authentication methods:"
+msgstr "Métodos de autenticación disponibles:"
+
+#: src/mpop.c:470 src/mpop.c:476
+msgid "Server error messages in square brackets have a special meaning"
+msgstr ""
+"Los mensajes de error del servidor entre corchetes tienen un significado "
+"especial"
+
+#: src/mpop.c:485
+#, c-format
+msgid ""
+"This server might advertise more or other capabilities\n"
+"    when TLS is active.\n"
+msgstr ""
+"Este servidor puede que anuncie más u otras capacidades\n"
+"    cuando TLS esté activo.\n"
+
+#: src/mpop.c:490
+#, c-format
+msgid ""
+"This server might advertise more or other capabilities\n"
+"    after successful authentication.\n"
+msgstr ""
+"Este servidor puede que anuncie más u otras capacidades\n"
+"    después de una autenticación correcta.\n"
+
+#: src/mpop.c:495
+#, c-format
+msgid ""
+"This server does not support the CAPA command, so this\n"
+"    list is probably not complete.\n"
+msgstr ""
+"Este servidor no sooporta la orden CAPA, así que\n"
+"    esta lista está probablemente incompleta\n"
+
+#: src/mpop.c:529
+#, c-format
+msgid "%.2f GiB"
+msgstr "%.2f GiB"
+
+#: src/mpop.c:533
+#, c-format
+msgid "%.2f MiB"
+msgstr "%.2f MiB"
+
+#: src/mpop.c:537
+#, c-format
+msgid "%.2f KiB"
+msgstr "%.2f KiB"
+
+#: src/mpop.c:541
+#, c-format
+msgid " bytes"
+msgstr " bytes"
+
+#: src/mpop.c:545
+#, c-format
+msgid "1 byte"
+msgstr "1 byte"
+
+#: src/mpop.c:562
+#, c-format
+msgid "skipping message %ld of %ld (reason: filter + keep)\n"
+msgstr "saltándose mensaje %ld de %ld (razón: filter + keep)\n"
+
+#: src/mpop.c:567
+#, c-format
+msgid "deleting message %ld of %ld (reason: filter)\n"
+msgstr "borrando mensaje %ld de %ld (razón: filter)\n"
+
+#: src/mpop.c:573
+#, c-format
+msgid "skipping message %ld of %ld (reason: filter)\n"
+msgstr "saltándose mensaje %ld de %ld (razón: filter)\n"
+
+#: src/mpop.c:582
+#, c-format
+msgid "retrieving message %ld of %ld (%s): "
+msgstr "descargando mensaje %ld de %ld (%s): "
+
+#: src/mpop.c:587
+#, c-format
+msgid "retrieving message %ld of %ld: "
+msgstr "descargando mensaje %ld de %ld: "
+
+#: src/mpop.c:798 src/mpop.c:852 src/mpop.c:875 src/mpop.c:1032
+#: src/mtls-gnutls.c:623 src/mtls-gnutls.c:670 src/mtls-openssl.c:866
+#: src/mtls-openssl.c:933 src/mtls-openssl.c:975 src/net.c:97 src/net.c:208
+#: src/net.c:255 src/net.c:767 src/net.c:894 src/pop3.c:1144 src/pop3.c:1281
+#: src/pop3.c:1394 src/pop3.c:1785 src/pop3.c:2072
+#, c-format
+msgid "operation aborted"
+msgstr "operación cancelada"
+
+#: src/mpop.c:922
+#, c-format
+msgid "%s at %s:\n"
+msgstr "%s en %s:\n"
+
+#: src/mpop.c:926
+#, c-format
+msgid "new: "
+msgstr "nuevos: "
+
+#: src/mpop.c:929 src/mpop.c:950
+#, c-format
+msgid "no messages"
+msgstr "ningún mensaje"
+
+#: src/mpop.c:933 src/mpop.c:954
+#, c-format
+msgid "1 message"
+msgstr "1 mensaje"
+
+#: src/mpop.c:937 src/mpop.c:958
+#, c-format
+msgid "%ld messages"
+msgstr "%ld mensajes"
+
+#: src/mpop.c:942 src/mpop.c:963
+#, c-format
+msgid " in %s"
+msgstr " en %s"
+
+#: src/mpop.c:946
+#, c-format
+msgid "total: "
+msgstr "total: "
+
+#: src/mpop.c:1000
+#, c-format
+msgid "skipping message %ld of %ld (reason: killsize + keep)\n"
+msgstr "saltandose mensaje %ld de %ld (razón: killsize + keep)\n"
+
+#: src/mpop.c:1006
+#, c-format
+msgid "deleting message %ld of %ld (reason: killsize)\n"
+msgstr "borrando mensaje %ld de %ld (razón: killsize)\n"
+
+#: src/mpop.c:1017
+#, c-format
+msgid "skipping message %ld of %ld (reason: skipsize)\n"
+msgstr "saltandose mensaje %ld de %ld (razón: skipsize)\n"
+
+#: src/mpop.c:1042
+#, c-format
+msgid "the POP3 server does not support the TOP command needed for filtering"
+msgstr "el servidor POP3 no soporta la orden TOP necesara para filtrar"
+
+#: src/mpop.c:1224 src/mpop.c:1243 src/mpop.c:1295
+#, c-format
+msgid "automatic configuration based on SRV records failed: %s"
+msgstr "falló la configuración automática basada en registros SRV: %s"
+
+#: src/mpop.c:1225
+msgid "invalid mail address"
+msgstr "dirección de correo inválida"
+
+#: src/mpop.c:1241
+#, c-format
+msgid "no SRV records for %s or %s"
+msgstr "no hay registros SRV para %s o %s"
+
+#: src/mpop.c:1258
+#, c-format
+msgid "copy this to your configuration file %s"
+msgstr "copie esto a su archivo de configuración %s"
+
+#: src/mpop.c:1262
+msgid "warning: the host does not match the mail domain; please check"
+msgstr "aviso: el host no coincide con el dominio de correo; por favor revise"
+
+#: src/mpop.c:1265 src/mpop.c:1269
+msgid "add your password to the key ring:"
+msgstr "agrega su contraseña al anillo de llaves:"
+
+#: src/mpop.c:1272
+msgid "encrypt your password:"
+msgstr "cifra su contraseña:"
+
+#: src/mpop.c:1274
+msgid "adjust the delivery command"
+msgstr "ajusta la orden de entrega"
+
+#: src/mpop.c:1296
+msgid "this system lacks libresolv"
+msgstr "este sistema no tiene libresolv"
+
+#: src/mpop.c:1325
+#, c-format
+msgid "%s: no accounts defined"
+msgstr "%s: ninguna cuenta definida"
+
+#: src/mpop.c:1343 src/mpop.c:1354
+#, c-format
+msgid "%s: no account %s"
+msgstr "%s: no se ha encontrado la cuenta %s"
+
+#: src/mpop.c:1715 src/mpop.c:1732 src/mpop.c:1755 src/mpop.c:1773
+#: src/mpop.c:1793 src/mpop.c:1834 src/mpop.c:1883 src/mpop.c:1901
+#: src/mpop.c:1950 src/mpop.c:1983 src/mpop.c:2005 src/mpop.c:2050
+#: src/mpop.c:2068 src/mpop.c:2084 src/mpop.c:2101 src/mpop.c:2143
+#, c-format
+msgid "invalid argument %s for %s"
+msgstr "argumento inválido %s para %s"
+
+#: src/mpop.c:2173
+#, c-format
+msgid "%s version %s\n"
+msgstr "%s versión %s\n"
+
+#: src/mpop.c:2174
+#, c-format
+msgid "Platform: %s\n"
+msgstr "Plataforma: %s\n"
+
+#: src/mpop.c:2176
+#, c-format
+msgid "TLS/SSL library: %s\n"
+msgstr "Biblioteca TLS/SSL: %s\n"
+
+#: src/mpop.c:2184 src/mpop.c:2270
+#, c-format
+msgid "none"
+msgstr "ninguna"
+
+#: src/mpop.c:2188
+#, c-format
+msgid ""
+"Authentication library: %s\n"
+"Supported authentication methods:\n"
+msgstr ""
+"Biblioteca de autenticación: %s\n"
+"Métodos de autenticación disponibles:\n"
+
+#: src/mpop.c:2191
+msgid "GNU SASL; user, apop, oauthbearer, xoauth2: built-in"
+msgstr "GNU SASL; user, apop, oauthbearer, xoauth2: interno"
+
+#: src/mpop.c:2193
+msgid "built-in"
+msgstr "interno"
+
+#: src/mpop.c:2250
+#, c-format
+msgid "IDN support: "
+msgstr "soporte IDN: "
+
+#: src/mpop.c:2254 src/mpop.c:2262
+#, c-format
+msgid "enabled"
+msgstr "activado"
+
+#: src/mpop.c:2256 src/mpop.c:2265
+#, c-format
+msgid "disabled"
+msgstr "desactivado"
+
+#: src/mpop.c:2260
+#, c-format
+msgid "NLS: "
+msgstr "NLS: "
+
+#: src/mpop.c:2263
+#, c-format
+msgid ", LOCALEDIR is %s"
+msgstr ", LOCALEDIR es %s"
+
+#: src/mpop.c:2268
+#, c-format
+msgid "Keyring support: "
+msgstr "soporte keyring: "
+
+#: src/mpop.c:2273
+#, c-format
+msgid "Gnome "
+msgstr "Gnome "
+
+#: src/mpop.c:2276
+#, c-format
+msgid "MacOS "
+msgstr "MacOS "
+
+#: src/mpop.c:2282
+#, c-format
+msgid "Configuration file name: %s\n"
+msgstr "Nombre del archivo de configuración: %s\n"
+
+#: src/mpop.c:2286
+#, c-format
+msgid ""
+"Copyright (C) %d Martin Lambers and others.\n"
+"This is free software.  You may redistribute copies of it under the terms "
+"of\n"
+"the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr ""
+"Copyright (C) %d Martin Lambers y otros.\n"
+"Este programa es software libre. Usted puede distribuir copias de acuerdo\n"
+"con la GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
+"No hey NINGUNA GARANTÍA, en cuanto a lo permitido por la ley\n"
+
+#: src/mpop.c:2295
+#, c-format
+msgid ""
+"Usage:\n"
+"\n"
+msgstr ""
+"Uso:\n"
+"\n"
+
+#: src/mpop.c:2296
+#, c-format
+msgid ""
+"Mail retrieval mode (default):\n"
+"  %s [option...] account...\n"
+"  %s [option...] --all-accounts\n"
+"  %s --host=host [option...]\n"
+"  Read mails from one or more POP3 accounts and deliver them.\n"
+msgstr ""
+"Modo de descarga de correo (por defecto):\n"
+"  %s [opción...] cuenta...\n"
+"  %s [opción...] --all-accounts\n"
+"  %s --host=host [opción...]\n"
+"  Lee mails de una o más cuentas POP3 y los entrega.\n"
+
+#: src/mpop.c:2302
+#, c-format
+msgid ""
+"Configuration mode:\n"
+"  %s --configure=mailaddress\n"
+"  Generate and print configuration for address.\n"
+msgstr ""
+"Modo de configuración:\n"
+"  %s --configure=direccionmail\n"
+"  Genera y muestra la configuración para la dirección.\n"
+
+#: src/mpop.c:2305
+#, c-format
+msgid ""
+"Server information mode:\n"
+"  %s [option...] --serverinfo account...\n"
+"  %s --host=host [option...] --serverinfo\n"
+"  Print information about one or more POP3 servers.\n"
+"\n"
+msgstr ""
+"Modo de información de servidor\n"
+"  %s [opción...] --serverinfo cuenta...\n"
+"  %s --host=host [opción...] --serverinfo\n"
+"  Muestra información sobre uno o más servidores POP3.\n"
+
+#: src/mpop.c:2309
+#, c-format
+msgid "General options:\n"
+msgstr "Opciones generales:\n"
+
+#: src/mpop.c:2310
+#, c-format
+msgid "  --version                    print version\n"
+msgstr "  --version                    muestra la versión\n"
+
+#: src/mpop.c:2311
+#, c-format
+msgid "  --help                       print help\n"
+msgstr "  --help                       muestra la ayuda\n"
+
+#: src/mpop.c:2312
+#, c-format
+msgid "  -P, --pretend                print configuration info and exit\n"
+msgstr ""
+"  -P, --pretend                muestra la info de configuración y termina\n"
+
+#: src/mpop.c:2313
+#, c-format
+msgid "  -d, --debug                  print debugging information\n"
+msgstr "  -d, --debug                  muestra información de depuración\n"
+
+#: src/mpop.c:2314
+#, c-format
+msgid "Changing the mode of operation:\n"
+msgstr "Se cambia el modo de operación:\n"
+
+#: src/mpop.c:2315
+#, c-format
+msgid ""
+"  --configure=mailaddress      generate and print configuration for address\n"
+msgstr ""
+"  --configure=direccionmail     genera y muestra la configuración para la "
+"dirección\n"
+
+#: src/mpop.c:2316
+#, c-format
+msgid "  -S, --serverinfo             print information about the server\n"
+msgstr "  -S, --serverinfo             muestra información sobre el servidor\n"
+
+#: src/mpop.c:2317
+#, c-format
+msgid "Configuration options:\n"
+msgstr "Opciones de configuración:\n"
+
+#: src/mpop.c:2318
+#, c-format
+msgid "  -C, --file=filename          set configuration file\n"
+msgstr "  -C, --file=archivo           establece el archivo de configuración\n"
+
+#: src/mpop.c:2319
+#, c-format
+msgid ""
+"  --host=hostname              set the server, use only command-line "
+"settings;\n"
+"                               do not use any configuration file data\n"
+msgstr ""
+"  --host=nombredehost          establece el servidor, sólo usa opciones de "
+"la\n"
+"                               línea de órdenes; no usa ningún dato de\n"
+"                               archivos de configuración\n"
+
+#: src/mpop.c:2321
+#, c-format
+msgid "  --port=number                set port number\n"
+msgstr "  --port=número                establece el número de puerto\n"
+
+#: src/mpop.c:2322
+#, c-format
+msgid ""
+"  --source-ip=[IP]             set/unset source ip address to bind the "
+"socket to\n"
+msgstr ""
+"  --source-ip=[IP]              activa/desactiva la dirección ip fuente para "
+"unir el zócalo\n"
+
+#: src/mpop.c:2323
+#, c-format
+msgid "  --proxy-host=[IP|hostname]   set/unset proxy\n"
+msgstr "  --proxy-host=[IP|nombrehost] activa/desactiva el proxy\n"
+
+#: src/mpop.c:2324
+#, c-format
+msgid "  --proxy-port=[number]        set/unset proxy port\n"
+msgstr "  --proxy-port=[número]        activa/desactiva el puerto de proxy\n"
+
+#: src/mpop.c:2325
+#, c-format
+msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
+msgstr ""
+"  --socket=[nombrezócalo]      activa/desactiva el zócalo local para "
+"conexión\n"
+
+#: src/mpop.c:2326
+#, c-format
+msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
+msgstr ""
+"  --timeout=(off|segundos)     activa/desactiva el tiempo de expiración de "
+"red en segundos\n"
+
+#: src/mpop.c:2327
+#, c-format
+msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
+msgstr ""
+"  --pipelining=(auto|on|off)   establece/borra la agrupación de órdenes\n"
+
+#: src/mpop.c:2328
+#, c-format
+msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
+msgstr ""
+"  --received-header[=(on|off)] establece/borra el encabezado Received\n"
+
+#: src/mpop.c:2329
+#, c-format
+msgid "  --auth[=(on|method)]         choose the authentication method\n"
+msgstr "  --auth[=(on|método)]         selecciona el método de autenticación\n"
+
+#: src/mpop.c:2330
+#, c-format
+msgid "  --user=[username]            set/unset user name for authentication\n"
+msgstr ""
+"  --user=[nombreusuario]       activa/desactiva el nombre de usuario a "
+"autenticar\n"
+
+#: src/mpop.c:2331
+#, c-format
+msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
+msgstr ""
+"  --passwordeval=[eval]        evalúa la contraseña para autenticación\n"
+
+#: src/mpop.c:2332
+#, c-format
+msgid "  --tls[=(on|off)]             enable/disable TLS encryption\n"
+msgstr "  --tls[=(on|off)]             establece/borra el cifrado TLS\n"
+
+#: src/mpop.c:2333
+#, c-format
+msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
+msgstr "  --tls-starttls[=(on|off)]    establece/borra STARTTLS para TLS\n"
+
+#: src/mpop.c:2334
+#, c-format
+msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
+msgstr ""
+"  --tls-trust-file=[archivo]   activa/desactiva el archivo de confianza para "
+"TLS\n"
+
+#: src/mpop.c:2335
+#, c-format
+msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
+msgstr ""
+"  --tls-crl-file=[archivo]     activa/desactiva el archivo de revocación "
+"para TLS\n"
+
+#: src/mpop.c:2336
+#, c-format
+msgid ""
+"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
+"TLS\n"
+msgstr ""
+"  --tls-fingerprint=[f]        activa/desactiva la huella del certificado de "
+"confianza para TLS\n"
+
+#: src/mpop.c:2337
+#, c-format
+msgid ""
+"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
+"TLS\n"
+msgstr ""
+"  --tls-certcheck[=(on|off)]   activa/desactiva la revisión de certificado "
+"de servidor para TLS\n"
+
+#: src/mpop.c:2338
+#, c-format
+msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
+msgstr ""
+"  --tls-key-file=[archivo]     activa/desactiva el archivo de llave privada "
+"para TLS\n"
+
+#: src/mpop.c:2339
+#, c-format
+msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
+msgstr ""
+"  --tls-cert-file=[archivo]    activa/desactiva el archivo de certificado "
+"privado para TLS\n"
+
+#: src/mpop.c:2340
+#, c-format
+msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
+msgstr "  --tls-priorities=[prios]     activa/desactiva las prioridades TLS.\n"
+
+#: src/mpop.c:2341
+#, c-format
+msgid ""
+"  --tls-host-override=[host]   set/unset override for TLS host "
+"verification.\n"
+msgstr ""
+"  --tls-host-override=[host]   activa/desactiva la sobreescritura para la "
+"verificación del host TLS.\n"
+
+#: src/mpop.c:2342
+#, c-format
+msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
+msgstr ""
+"  --tls-min-dh-prime-bits=[b]  activa/desactiva el tamaño mínimo de bit del "
+"primo DH\n"
+
+#: src/mpop.c:2343
+#, c-format
+msgid "Options specific to mail retrieval mode:\n"
+msgstr "Opciones específicas para el modo de descarga de correo:\n"
+
+#: src/mpop.c:2344
+#, c-format
+msgid ""
+"  -q, --quiet                  do not display status or progress "
+"information\n"
+msgstr ""
+"  -q, --quiet                  no muestra información de estado o progreso\n"
+
+#: src/mpop.c:2345
+#, c-format
+msgid ""
+"  -Q, --half-quiet             display status but not progress information\n"
+msgstr ""
+"  -Q, --half-quiet             muestra información de estado pero no de "
+"progreso\n"
+
+#: src/mpop.c:2346
+#, c-format
+msgid ""
+"  -a, --all-accounts           query all accounts in the configuration file\n"
+msgstr ""
+"  -a, --all-accounts           consulta todas las cuentas del archivo de "
+"configuración\n"
+
+#: src/mpop.c:2347
+#, c-format
+msgid ""
+"  -A, --auth-only              authenticate only; do not retrieve mail\n"
+msgstr ""
+"  -A, --auth-only              sólo autenticación; no descarga correo\n"
+
+#: src/mpop.c:2348
+#, c-format
+msgid ""
+"  -s, --status-only            print account status only; do not retrieve "
+"mail\n"
+msgstr ""
+"  -s, --status-only            muestra sólo el estado de la cuenta; no "
+"descarga correo\n"
+
+#: src/mpop.c:2349
+#, c-format
+msgid "  -n, --only-new[=(on|off)]    process only new messages\n"
+msgstr "  -n, --only-new[=(on|off)]    solamente procesa mensajes nuevos\n"
+
+#: src/mpop.c:2350
+#, c-format
+msgid "  -k, --keep[=(on|off)]        do not delete mails from servers\n"
+msgstr "  -k, --keep[=(on|off)]        no descarga correos de los servidores\n"
+
+#: src/mpop.c:2351
+#, c-format
+msgid "  --killsize=(off|number)      set/unset kill size\n"
+msgstr "  --killsize=(off|número)      activa/desactiva el tamaño de kill\n"
+
+#: src/mpop.c:2352
+#, c-format
+msgid "  --skipsize=(off|number)      set/unset skip size\n"
+msgstr "  --skipsize=(off|número)      activa/desactiva el tamaño de salto\n"
+
+#: src/mpop.c:2353
+#, c-format
+msgid "  --filter=[program]           set/unset header filter\n"
+msgstr ""
+"  --filter=[programa]          activa/desactiva el filtro de encabezado\n"
+
+#: src/mpop.c:2354
+#, c-format
+msgid "  --delivery=method,arg        set the mail delivery method\n"
+msgstr "  --delivery=método,arg        establece el método de entrega\n"
+
+#: src/mpop.c:2355
+#, c-format
+msgid "  --uidls-file=filename        set file to store UIDLs\n"
+msgstr "  --uidls-file=archivo         define el archivo para guardar UIDLs\n"
+
+#: src/mpop.c:2356
+#, c-format
+msgid ""
+"\n"
+"Report bugs to <%s>.\n"
+msgstr ""
+"\n"
+"Reporte bichos a <%s>.\n"
+
+#: src/mpop.c:2380
+msgid "cannot use both --host and accounts"
+msgstr "no se pueden usar --host y cuentas a la vez"
+
+#: src/mpop.c:2386
+msgid "cannot use both --all-accounts and a list of accounts"
+msgstr "no se pueden usar --all-accounts y una lista de cuentas a la vez"
+
+#: src/mpop.c:2481
+#, c-format
+msgid "account %s from %s: %s"
+msgstr "cuenta %s de %s: %s"
+
+#: src/mpop.c:2499
+#, c-format
+msgid "cannot create directories for %s: %s"
+msgstr "no se pueden crear los directorios para %s: %s"
+
+#: src/mpop.c:2502
+msgid "a component already exists but is not a directory"
+msgstr "un componente ya existe pero no es un directorio"
+
+#: src/mpop.c:2521
+#, c-format
+msgid "using account %s from %s\n"
+msgstr "usando cuenta %s de %s\n"
+
+#: src/mpop.c:2525 src/mpop.c:2528 src/mpop.c:2530 src/mpop.c:2533
+#: src/mpop.c:2565 src/mpop.c:2566 src/mpop.c:2568 src/mpop.c:2570
+#: src/mpop.c:2574 src/mpop.c:2576 src/mpop.c:2595 src/mpop.c:2597
+#: src/mpop.c:2599 src/mpop.c:2609 src/mpop.c:2612 src/mpop.c:2614
+#: src/mpop.c:2658
+msgid "(not set)"
+msgstr "(no seleccionado)"
+
+#: src/mpop.c:2537 src/mpop.c:2642 src/mpop.c:2651
+#, c-format
+msgid "off\n"
+msgstr "desactivado\n"
+
+#: src/mpop.c:2543
+#, c-format
+msgid "1 second\n"
+msgstr "1 segundo\n"
+
+#: src/mpop.c:2547
+#, c-format
+msgid "%d seconds\n"
+msgstr "%d segundos\n"
+
+#: src/mpop.c:2551 src/mpop.c:2554 src/mpop.c:2571 src/mpop.c:2572
+#: src/mpop.c:2601 src/mpop.c:2637 src/mpop.c:2638
+msgid "off"
+msgstr "desactivado"
+
+#: src/mpop.c:2552 src/mpop.c:2554 src/mpop.c:2571 src/mpop.c:2572
+#: src/mpop.c:2601 src/mpop.c:2637 src/mpop.c:2638
+msgid "on"
+msgstr "activado"
+
+#: src/mpop.c:2552
+msgid "auto"
+msgstr "automático"
+
+#: src/mpop.c:2558
+#, c-format
+msgid "choose\n"
+msgstr "automático\n"
+
+#: src/mpop.c:2677
+#, c-format
+msgid "support for authentication method %s is not compiled in"
+msgstr "soporte para el método de autenticación %s no está compilado"
+
+#: src/mpop.c:2689
+#, c-format
+msgid "cannot initialize TLS library: %s"
+msgstr "no se puede iniciar la biblioteca TLS: %s"
+
+#: src/mpop.c:2697
+msgid "support for TLS is not compiled in"
+msgstr "soporte para TLS no está compilado"
+
+#: src/mpop.c:2705
+#, c-format
+msgid "cannot initialize network library: %s"
+msgstr "no se puede iniciar la biblioteca de red: %s"
+
+#: src/mpop.c:2774
+#, c-format
+msgid "POP3 server message: %s"
+msgstr "mensaje del servidor POP3: %s"
+
+#: src/mpop.c:2783
+#, c-format
+msgid "error during mail retrieval (account %s from %s)"
+msgstr "error durante la recogida de correo (cuenta %s de %s)"
+
+#: src/mpop.c:2789
+msgid "error during mail retrieval"
+msgstr "error durante la recogida de correo"
+
+#: src/mtls.c:142
+#, c-format
+msgid "TLS session parameters:\n"
+msgstr "Parámetros de sesión TLS:\n"
+
+#: src/mtls.c:144
+msgid "not available"
+msgstr "no disponible"
+
+#: src/mtls.c:152
+#, c-format
+msgid "TLS certificate information:\n"
+msgstr "Información del certificado TLS:\n"
+
+#: src/mtls.c:153
+msgid "Subject"
+msgstr "Asunto"
+
+#: src/mtls.c:155
+msgid "Issuer"
+msgstr "Emisor"
+
+#: src/mtls.c:157
+msgid "Validity"
+msgstr "Válido"
+
+#: src/mtls.c:159
+msgid "Activation time"
+msgstr "Fecha de activación"
+
+#: src/mtls.c:161
+msgid "Expiration time"
+msgstr "Fecha de caducidad"
+
+#: src/mtls.c:162
+msgid "Fingerprints"
+msgstr "Huellas digitales (fingerprints)"
+
+#: src/mtls-gnutls.c:120 src/mtls-libtls.c:105 src/mtls-openssl.c:285
+msgid "cannot get TLS certificate info"
+msgstr "no se puede conseguir la información del certificado TLS"
+
+#: src/mtls-gnutls.c:125 src/mtls-gnutls.c:241 src/mtls-openssl.c:288
+#, c-format
+msgid "%s: no certificate was found"
+msgstr "%s: no se encontró ningún certificado"
+
+#: src/mtls-gnutls.c:130 src/mtls-gnutls.c:247
+#, c-format
+msgid "%s: cannot initialize certificate structure"
+msgstr "%s: no se puede iniciar la estructura del certificado"
+
+#: src/mtls-gnutls.c:136
+#, c-format
+msgid "%s: error parsing certificate"
+msgstr "%s: error al analizar el certificado"
+
+#: src/mtls-gnutls.c:145 src/mtls-gnutls.c:263 src/mtls-libtls.c:113
+#: src/mtls-libtls.c:179 src/mtls-openssl.c:308 src/mtls-openssl.c:470
+#, c-format
+msgid "%s: error getting SHA256 fingerprint"
+msgstr "%s: error al obtener la huella digital SHA256"
+
+#: src/mtls-gnutls.c:152 src/mtls-gnutls.c:281 src/mtls-openssl.c:314
+#: src/mtls-openssl.c:488
+#, c-format
+msgid "%s: error getting SHA1 fingerprint"
+msgstr "%s: error al obtener la huella digital SHA1"
+
+#: src/mtls-gnutls.c:158 src/mtls-libtls.c:126 src/mtls-openssl.c:322
+#, c-format
+msgid "%s: cannot get activation time"
+msgstr "%s: no se puede conseguir la fecha de activación"
+
+#: src/mtls-gnutls.c:164 src/mtls-libtls.c:133 src/mtls-openssl.c:332
+#, c-format
+msgid "%s: cannot get expiration time"
+msgstr "%s: no se puede conseguir la fecha de caducidad"
+
+#: src/mtls-gnutls.c:224 src/mtls-libtls.c:166 src/mtls-openssl.c:446
+msgid "TLS certificate verification failed"
+msgstr "fallo en la verificación del certificado TLS"
+
+#: src/mtls-gnutls.c:254
+#, c-format
+msgid "%s: error parsing certificate %u of %u"
+msgstr "%s: error al analizar elcertificado %u de %u"
+
+#: src/mtls-gnutls.c:270 src/mtls-gnutls.c:288 src/mtls-gnutls.c:306
+#: src/mtls-libtls.c:191 src/mtls-openssl.c:477 src/mtls-openssl.c:495
+#: src/mtls-openssl.c:513
+#, c-format
+msgid "%s: the certificate fingerprint does not match"
+msgstr "%s: la huella del certificado no coincide"
+
+#: src/mtls-gnutls.c:299 src/mtls-openssl.c:506
+#, c-format
+msgid "%s: error getting MD5 fingerprint"
+msgstr "%s: error consiguiendo la huella digital MD5"
+
+#: src/mtls-gnutls.c:328
+#, c-format
+msgid "%s: %s"
+msgstr "%s: %s"
+
+#: src/mtls-gnutls.c:387 src/mtls-libtls.c:238 src/mtls-libtls.c:374
+#, c-format
+msgid "cannot initialize TLS session: %s"
+msgstr "no se puede iniciar la sesión TLS: %s"
+
+#: src/mtls-gnutls.c:400
+#, c-format
+msgid "error in priority string at position %d"
+msgstr "error en la cadena de prioridad en la posición %d"
+
+#: src/mtls-gnutls.c:403 src/mtls-gnutls.c:410 src/mtls-libtls.c:257
+#: src/mtls-libtls.c:272 src/mtls-libtls.c:287 src/mtls-libtls.c:297
+#: src/mtls-openssl.c:657
+#, c-format
+msgid "cannot set priorities for TLS session: %s"
+msgstr "no se pueden ajustar las prioridades de la sesión TLS: %s"
+
+#: src/mtls-gnutls.c:423
+#, c-format
+msgid "cannot set default priority for TLS session: %s"
+msgstr "no se puede ajustar la prioridad por defecto de la sesión TLS: %s"
+
+#: src/mtls-gnutls.c:438
+#, c-format
+msgid "cannot allocate certificate for TLS session: %s"
+msgstr "no se puede reservar el certificado para la sesión TLS: %s"
+
+#: src/mtls-gnutls.c:451 src/mtls-libtls.c:312
+#, c-format
+msgid ""
+"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+msgstr ""
+"no se puede establecer el archivo llave X509 %s y/o el archivo de "
+"certificado X509 %s para la sesión TLS: %s "
+
+#: src/mtls-gnutls.c:473 src/mtls-openssl.c:720
+#, c-format
+msgid "cannot set X509 system trust for TLS session: %s"
+msgstr ""
+"no se puede establecer la confianza del sistema X509 para la sesión TLS: %s"
+
+#: src/mtls-gnutls.c:488 src/mtls-libtls.c:342
+#, c-format
+msgid "cannot set X509 trust file %s for TLS session: %s"
+msgstr ""
+"no se puede establecer el archivo de confianza X509 %s para la sesión TLS: %s"
+
+#: src/mtls-gnutls.c:503 src/mtls-libtls.c:355
+#, c-format
+msgid "cannot set X509 CRL file %s for TLS session: %s"
+msgstr "no se puede establecer el archivo CRL X509 %s para la sesión TLS: %s"
+
+#: src/mtls-gnutls.c:532
+#, c-format
+msgid "cannot set credentials for TLS session: %s"
+msgstr "no se pueden ajustar las credenciales para la sesión TLS: %s"
+
+#: src/mtls-gnutls.c:567 src/mtls-libtls.c:410
+#, c-format
+msgid "TLS handshake failed: %s"
+msgstr "fallo en el apretón de manos TLS: %s"
+
+#: src/mtls-gnutls.c:627 src/mtls-libtls.c:497
+#, c-format
+msgid "cannot read from TLS connection: %s"
+msgstr "no se puede leer de la conexión TLS: %s"
+
+#: src/mtls-gnutls.c:674 src/mtls-gnutls.c:685 src/mtls-libtls.c:529
+#, c-format
+msgid "cannot write to TLS connection: %s"
+msgstr "no se puede escribir en la conexión TLS: %s"
+
+#: src/mtls-gnutls.c:686 src/mtls-openssl.c:809 src/mtls-openssl.c:833
+#: src/net.c:178 src/net.c:648
+msgid "unknown error"
+msgstr "error desconocido"
+
+#: src/mtls-libtls.c:59
+#, c-format
+msgid "cannot initialize libtls"
+msgstr "no se puede iniciar libtls"
+
+#: src/mtls-libtls.c:223
+#, c-format
+msgid "cannot use deprecated fingerprints, please update to SHA256"
+msgstr "no se pueden usar huellas obsoletas, por favor actulice a SHA256"
+
+#: src/mtls-libtls.c:231 src/mtls-openssl.c:649
+#, c-format
+msgid "cannot set minimum number of DH prime bits for TLS: %s"
+msgstr "no se puede establecer el número mínimo de bits primo DH para TLS: %s"
+
+#: src/mtls-libtls.c:232
+msgid "feature not yet implemented for libtls"
+msgstr "característica sin implementar para libtls"
+
+#: src/mtls-libtls.c:288
+msgid "could not parse protocols"
+msgstr "no se pueden decodificar los protocolos"
+
+#: src/mtls-libtls.c:365 src/mtls-openssl.c:759
+#, c-format
+msgid "cannot create a TLS structure: %s"
+msgstr "no se puede crear una estructura TLS: %s"
+
+#: src/mtls-libtls.c:402 src/mtls-openssl.c:853
+#, c-format
+msgid "cannot set the file descriptor for TLS: %s"
+msgstr "no se puede ajustar el descriptor de archivo para TLS: %s"
+
+#: src/mtls-openssl.c:92
+#, c-format
+msgid ""
+"no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgstr ""
+"no existen las variables de entorno RANDFILE o HOME, or el nombre del "
+"archivorand es demasiado largo"
+
+#: src/mtls-openssl.c:98 src/uidls.c:351
 #, c-format
 msgid "%s: input error"
 msgstr "%s: error de entrada"
 
-#: src/uidls.c:466
+#: src/mtls-openssl.c:120
 #, c-format
-msgid "cannot rename %s to %s: %s"
-msgstr "no se puede mover %s a %s: %s"
+msgid "random file + time + pseudo randomness is not enough, giving up"
+msgstr ""
+"archivo alatorio + tiempo + pseudoaleatoriedad no es suficiente, rindiendose"
+
+#: src/mtls-openssl.c:293 src/mtls-openssl.c:579
+#, c-format
+msgid "%s: cannot get certificate subject"
+msgstr "%s: no se puede conseguir el asunto del certificado"
+
+#: src/mtls-openssl.c:299
+#, c-format
+msgid "%s: cannot get certificate issuer"
+msgstr "%s: no se puede conseguir el emisor del certificado"
+
+#: src/mtls-openssl.c:450
+msgid "TLS certificate check failed"
+msgstr "fallo en la comprobación del certificado TLS"
+
+#: src/mtls-openssl.c:456
+#, c-format
+msgid "%s: no certificate was sent"
+msgstr "%s: no se mandó ningún certificado"
+
+#: src/mtls-openssl.c:559
+#, c-format
+msgid "%s: certificate subject alternative name contains NUL"
+msgstr "%s: el nombre alternativo de sujeto del certificado contiene NUL"
+
+#: src/mtls-openssl.c:591
+#, c-format
+msgid "%s: cannot get certificate common name"
+msgstr "%s: no se puede conseguir el nombre común del certificado"
+
+#: src/mtls-openssl.c:600
+#, c-format
+msgid "%s: certificate common name contains NUL"
+msgstr "%s: el nombre común del certificado contiene NUL"
+
+#: src/mtls-openssl.c:617
+#, c-format
+msgid "%s: the certificate owner does not match hostname %s"
+msgstr ""
+"%s: el propietario del certificado no el el mismo que el nombre del host %s"
+
+#: src/mtls-openssl.c:650 src/mtls-openssl.c:658 src/mtls-openssl.c:666
+msgid "feature not yet implemented for OpenSSL"
+msgstr "característica sin implementar para OpenSSL"
+
+#: src/mtls-openssl.c:665
+#, c-format
+msgid "cannot load CRL file: %s"
+msgstr "no se puede cargar el archivo CRL: %s"
+
+#: src/mtls-openssl.c:672
+#, c-format
+msgid "cannot set TLS method"
+msgstr "no se puede ajustar el método TLS"
+
+#: src/mtls-openssl.c:680
+#, c-format
+msgid "cannot create TLS context: %s"
+msgstr "no se puede crear un contexto TLS: %s"
+
+#: src/mtls-openssl.c:693
+#, c-format
+msgid "cannot load key file %s: %s"
+msgstr "no se puede cargar el archivo de llave %s: %s"
+
+#: src/mtls-openssl.c:702
+#, c-format
+msgid "cannot load certificate file %s: %s"
+msgstr "no se puede cargar el archivo de certificado %s: %s"
+
+#: src/mtls-openssl.c:732
+#, c-format
+msgid "cannot load trust file %s: %s"
+msgstr "no se puede cargar el archivo de confianza %s: %s"
+
+#: src/mtls-openssl.c:801
+msgid "a protocol violating EOF occurred"
+msgstr "se ha encontrado un EOF que viola el protocolo"
+
+#: src/mtls-openssl.c:819
+msgid "the connection was closed unexpectedly"
+msgstr "la conexión se cerró por sorpresa"
+
+#: src/mtls-openssl.c:828 src/net.c:198 src/net.c:213 src/net.c:245
+#: src/net.c:260
+msgid "the operation timed out"
+msgstr "se ha superado el tiempo de espera"
+
+#: src/mtls-openssl.c:872
+msgid "TLS handshake failed"
+msgstr "fallo en el apretón de manos TLS"
+
+#: src/mtls-openssl.c:938
+msgid "cannot read from TLS connection"
+msgstr "no se puede leer de la conexión TLS"
+
+#: src/mtls-openssl.c:981
+msgid "cannot write to TLS connection"
+msgstr "no se puede escribir en la conexión TLS"
 
 #: src/net.c:94
 msgid "not enough memory"
@@ -1373,20 +1570,10 @@ msgstr "se ha alcanzado el límite de tareas"
 msgid "invalid request"
 msgstr "solicitud inválida"
 
-#: src/net.c:178 src/net.c:648 src/mtls-gnutls.c:686 src/mtls-openssl.c:809
-#: src/mtls-openssl.c:833
-msgid "unknown error"
-msgstr "error desconocido"
-
 #: src/net.c:197 src/net.c:202 src/net.c:212 src/net.c:217
 #, c-format
 msgid "network read error: %s"
 msgstr "error de lectura de red: %s"
-
-#: src/net.c:198 src/net.c:213 src/net.c:245 src/net.c:260
-#: src/mtls-openssl.c:828
-msgid "the operation timed out"
-msgstr "se ha superado el tiempo de espera"
 
 #: src/net.c:244 src/net.c:249 src/net.c:259 src/net.c:264
 #, c-format
@@ -1398,11 +1585,11 @@ msgstr "error de escritura de red: %s"
 #: src/net.c:645 src/net.c:648
 #, c-format
 msgid "proxy failure: %s"
-msgstr ""
+msgstr "fallo de proxy: %s"
 
 #: src/net.c:528
 msgid "host name too long"
-msgstr ""
+msgstr "nombre de host demasiado largo"
 
 #: src/net.c:542 src/net.c:576 src/net.c:1007
 #, c-format
@@ -1410,42 +1597,38 @@ msgid "network write error"
 msgstr "error de escritura de red"
 
 #: src/net.c:552 src/net.c:586 src/net.c:615
-#, fuzzy, c-format
+#, c-format
 msgid "network read error"
-msgstr "error de lectura de red: %s"
+msgstr "error de lectura de red"
 
 #: src/net.c:558 src/net.c:593
 msgid "unexpected reply"
-msgstr ""
+msgstr "respuesta inesperada"
 
 #: src/net.c:624
 msgid "general server failure"
-msgstr ""
+msgstr "error general de servidor"
 
 #: src/net.c:627
-#, fuzzy
 msgid "connection not allowed"
-msgstr "conexión rechazada"
+msgstr "no se permite la conexión"
 
 #: src/net.c:639
 msgid "time-to-live expired"
-msgstr ""
+msgstr "expiró el tiempo de vida"
 
 #: src/net.c:642
-#, fuzzy
 msgid "command not supported"
-msgstr "protocolo no compatible"
+msgstr "no se admite la orden"
 
 #: src/net.c:645
-#, fuzzy
 msgid "address type not supported"
-msgstr "familia de dirección no compatible"
+msgstr "no se admite el tipo de dirección"
 
 #: src/net.c:676 src/net.c:683 src/net.c:698
-#, fuzzy, c-format
-#| msgid "cannot change to %s: %s"
+#, c-format
 msgid "cannot connect to %s: %s"
-msgstr "no se puede cambiar a %s: %s"
+msgstr "no se puede conectar a %s: %s"
 
 #: src/net.c:689 src/net.c:862
 #, c-format
@@ -1458,352 +1641,203 @@ msgid "cannot locate host %s: %s"
 msgstr "no se puede localizar al host %s: %s"
 
 #: src/net.c:873
-#, fuzzy, c-format
+#, c-format
 msgid "cannot bind source ip %s: %s"
-msgstr "no se puede sincronizar %s: %s"
+msgstr "no se puede unir a la ip fuente %s: %s"
 
 #: src/net.c:889 src/net.c:902
 #, c-format
 msgid "cannot connect to %s, port %d: %s"
 msgstr "no se puede conectar con %s, puerto %d: %s"
 
-#: src/mtls.c:142
+#: src/password.c:214
 #, c-format
-msgid "TLS session parameters:\n"
-msgstr ""
+msgid "password for %s at %s: "
+msgstr "contraseña de %s en %s: "
 
-#: src/mtls.c:144
-#, fuzzy
-#| msgid "no buffer space available"
-msgid "not available"
-msgstr "no hay espacio de memoria intermedia disponible"
-
-#: src/mtls.c:152
+#: src/pop3.c:323
 #, c-format
-msgid "TLS certificate information:\n"
-msgstr "Información del certificado TLS:\n"
+msgid "POP3 server sent an empty reply"
+msgstr "el servidor POP3 mandó una respuesta vacía"
 
-#: src/mtls.c:153
-msgid "Subject"
-msgstr ""
-
-#: src/mtls.c:155
-msgid "Issuer"
-msgstr "Emisor"
-
-#: src/mtls.c:157
-msgid "Validity"
-msgstr "Válido"
-
-#: src/mtls.c:159
-msgid "Activation time"
-msgstr "Fecha de activación"
-
-#: src/mtls.c:161
-msgid "Expiration time"
-msgstr "Fecha de caducidad"
-
-#: src/mtls.c:162
-msgid "Fingerprints"
-msgstr "Huellas digitales (fingerprints)"
-
-#: src/mtls-gnutls.c:120 src/mtls-openssl.c:285 src/mtls-libtls.c:105
-msgid "cannot get TLS certificate info"
-msgstr "no se puede conseguir la información del certificado TLS"
-
-#: src/mtls-gnutls.c:125 src/mtls-gnutls.c:241 src/mtls-openssl.c:288
+#: src/pop3.c:327
 #, c-format
-msgid "%s: no certificate was found"
-msgstr "%s: no se encontró ningún certificado"
+msgid "POP3 server sent an invalid reply"
+msgstr "el servidor POP3 mandó una respuesta inválida"
 
-#: src/mtls-gnutls.c:130 src/mtls-gnutls.c:247
-#, c-format
-msgid "%s: cannot initialize certificate structure"
-msgstr "%s: no se puede iniciar la estructura del certificado"
-
-#: src/mtls-gnutls.c:136
-#, c-format
-msgid "%s: error parsing certificate"
-msgstr "%s: error al analizar el certificado"
-
-#: src/mtls-gnutls.c:145 src/mtls-gnutls.c:263 src/mtls-openssl.c:308
-#: src/mtls-openssl.c:470 src/mtls-libtls.c:113 src/mtls-libtls.c:179
-#, fuzzy, c-format
-msgid "%s: error getting SHA256 fingerprint"
-msgstr "%s: error consiguiendo la huella digital SHA1"
-
-#: src/mtls-gnutls.c:152 src/mtls-gnutls.c:281 src/mtls-openssl.c:314
-#: src/mtls-openssl.c:488
-#, c-format
-msgid "%s: error getting SHA1 fingerprint"
-msgstr "%s: error consiguiendo la huella digital SHA1"
-
-#: src/mtls-gnutls.c:158 src/mtls-openssl.c:322 src/mtls-libtls.c:126
-#, c-format
-msgid "%s: cannot get activation time"
-msgstr "%s: no se puede conseguir la fecha de activación"
-
-#: src/mtls-gnutls.c:164 src/mtls-openssl.c:332 src/mtls-libtls.c:133
-#, c-format
-msgid "%s: cannot get expiration time"
-msgstr "%s: no se puede conseguir la fecha de caducidad"
-
-#: src/mtls-gnutls.c:224 src/mtls-openssl.c:446 src/mtls-libtls.c:166
-msgid "TLS certificate verification failed"
-msgstr "fallo en la verificación del certificado TLS"
-
-#: src/mtls-gnutls.c:254
-#, c-format
-msgid "%s: error parsing certificate %u of %u"
-msgstr "%s: error al analizar elcertificado %u de %u"
-
-#: src/mtls-gnutls.c:270 src/mtls-gnutls.c:288 src/mtls-gnutls.c:306
-#: src/mtls-openssl.c:477 src/mtls-openssl.c:495 src/mtls-openssl.c:513
-#: src/mtls-libtls.c:191
-#, c-format
-msgid "%s: the certificate fingerprint does not match"
-msgstr ""
-
-#: src/mtls-gnutls.c:299 src/mtls-openssl.c:506
-#, c-format
-msgid "%s: error getting MD5 fingerprint"
-msgstr "%s: error consiguiendo la huella digital MD5"
-
-#: src/mtls-gnutls.c:328
-#, fuzzy, c-format
-msgid "%s: %s"
-msgstr "%s: GRAVE: %s"
-
-#: src/mtls-gnutls.c:387 src/mtls-libtls.c:238 src/mtls-libtls.c:370
-#, c-format
-msgid "cannot initialize TLS session: %s"
-msgstr "no se puede iniciar la sesión TLS: %s"
-
-#: src/mtls-gnutls.c:400
-#, c-format
-msgid "error in priority string at position %d"
-msgstr ""
-
-#: src/mtls-gnutls.c:403 src/mtls-gnutls.c:410 src/mtls-openssl.c:657
-#: src/mtls-libtls.c:257 src/mtls-libtls.c:272 src/mtls-libtls.c:287
-#: src/mtls-libtls.c:297
-#, c-format
-msgid "cannot set priorities for TLS session: %s"
-msgstr "no se pueden ajustar las prioridades de la sesión TLS: %s"
-
-#: src/mtls-gnutls.c:423
-#, fuzzy, c-format
-msgid "cannot set default priority for TLS session: %s"
-msgstr "no se pueden ajustar las prioridades de la sesión TLS: %s"
-
-#: src/mtls-gnutls.c:438
-#, c-format
-msgid "cannot allocate certificate for TLS session: %s"
-msgstr "no se puede reservar el certificado para la sesión TLS: %s"
-
-#: src/mtls-gnutls.c:451 src/mtls-libtls.c:312
+#: src/pop3.c:382
 #, c-format
 msgid ""
-"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+"Cannot send POP3 command because it is longer than %d characters. Increase "
+"POP3_BUFSIZE."
 msgstr ""
-"no se puede ajustar el archivo llave X509 %s y/o el archivo del certificado "
-"X509 %s para la sesión TLS: %s "
+"No se puede mandar una orden POP3 más larga que %d caracteres. Incremente "
+"POP3_BUFSIZE."
 
-#: src/mtls-gnutls.c:473 src/mtls-openssl.c:720
-#, fuzzy, c-format
-#| msgid "cannot set X509 trust file %s for TLS session: %s"
-msgid "cannot set X509 system trust for TLS session: %s"
+#: src/pop3.c:691
+#, c-format
+msgid "cannot get initial OK message from POP3 server"
+msgstr "no se puede recibir el mensaje inicial OK del servidor POP3"
+
+#: src/pop3.c:752 src/pop3.c:908 src/pop3.c:1040 src/pop3.c:1223
+#: src/pop3.c:1338
+#, c-format
+msgid "invalid reply to command %s"
+msgstr "respuesta inválida a la orden %s"
+
+#: src/pop3.c:979 src/pop3.c:985 src/pop3.c:1032 src/pop3.c:1124
+#: src/pop3.c:1264 src/pop3.c:2481 src/pop3.c:2567 src/pop3.c:2653
+#: src/pop3.c:3253 src/pop3.c:3281
+#, c-format
+msgid "command %s failed"
+msgstr "fallo de la orden %s"
+
+#: src/pop3.c:1055
+#, c-format
+msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
 msgstr ""
-"no se puede ajustar el archivo de confianza X509%s para la sesión TLS: %s"
+"no se pueden manejas más de %ld mensajes. Incremente POP3_MAX_MESSAGES."
 
-#: src/mtls-gnutls.c:488 src/mtls-libtls.c:338
+#: src/pop3.c:1510 src/pop3.c:1539
 #, c-format
-msgid "cannot set X509 trust file %s for TLS session: %s"
-msgstr ""
-"no se puede ajustar el archivo de confianza X509%s para la sesión TLS: %s"
+msgid "cannot write mail: output error"
+msgstr "no se puede escribir correo: error de salida"
 
-#: src/mtls-gnutls.c:503 src/mtls-libtls.c:351
+#: src/pop3.c:1623
 #, c-format
-msgid "cannot set X509 CRL file %s for TLS session: %s"
-msgstr ""
+msgid "cannot write to temporary file: output error"
+msgstr "no se puede escribir en el archivo temporal: error de salida"
 
-#: src/mtls-gnutls.c:532
+#: src/pop3.c:1704
 #, c-format
-msgid "cannot set credentials for TLS session: %s"
-msgstr "no se pueden ajustar las credenciales para la sesión TLS: %s"
+msgid "cannot add Received header: %s"
+msgstr "no se puede añadir el encabezamiento Received: %s"
 
-#: src/mtls-gnutls.c:567 src/mtls-libtls.c:406
+#: src/pop3.c:1801
 #, c-format
-msgid "TLS handshake failed: %s"
-msgstr "fallo en el apretón de manos TLS: %s"
+msgid "command TOP %ld 0 failed"
+msgstr "fallo en la orden TOP %ld 0"
 
-#: src/mtls-gnutls.c:627 src/mtls-libtls.c:493
+#: src/pop3.c:1806
 #, c-format
-msgid "cannot read from TLS connection: %s"
-msgstr "no se puede leer de la conexión TLS: %s"
+msgid "command RETR %ld failed"
+msgstr "fallo en la orden RETR %ld"
 
-#: src/mtls-gnutls.c:674 src/mtls-gnutls.c:685 src/mtls-libtls.c:525
+#: src/pop3.c:1817
 #, c-format
-msgid "cannot write to TLS connection: %s"
-msgstr "no se puede escribir en la conexión TLS: %s"
+msgid "cannot create temporary file: %s"
+msgstr "no se puede crear un archivo temporal: %s"
 
-#: src/mtls-openssl.c:92
+#: src/pop3.c:1829
 #, c-format
-msgid ""
-"no environment variables RANDFILE or HOME, or filename of rand file too long"
-msgstr ""
-"no existen las variables de entorno RANDFILE o HOME, or el nombre del "
-"archivorand es demasiado largo"
+msgid "cannot rewind temporary file: %s"
+msgstr "no se puede rebobinar el archivo temporal: %s"
 
-#: src/mtls-openssl.c:120
+#: src/pop3.c:2086
 #, c-format
-msgid "random file + time + pseudo randomness is not enough, giving up"
-msgstr ""
-"archivo alatorio + tiempo + pseudoaleatoriedad no es suficiente, rindiendose"
+msgid "command DELE %ld failed"
+msgstr "fallo en la orden DELE %ld"
 
-#: src/mtls-openssl.c:293 src/mtls-openssl.c:579
+#: src/pop3.c:2156 src/pop3.c:2168 src/pop3.c:2191 src/pop3.c:2206
+#: src/pop3.c:2246 src/pop3.c:2317 src/pop3.c:2383 src/pop3.c:2442
+#: src/pop3.c:2501 src/pop3.c:2521 src/pop3.c:2614 src/pop3.c:2673
+#: src/pop3.c:3025 src/pop3.c:3059 src/pop3.c:3093
 #, c-format
-msgid "%s: cannot get certificate subject"
-msgstr "%s: no se puede conseguir el asunto del certificado"
+msgid "authentication failed (method %s)"
+msgstr "fallo en la autenticación (método %s)"
 
-#: src/mtls-openssl.c:299
+#: src/pop3.c:2577
 #, c-format
-msgid "%s: cannot get certificate issuer"
-msgstr "%s: no se puede conseguir el emisor del certificado"
+msgid "authentication method CRAM-MD5: server sent invalid challenge"
+msgstr "método de autenticación CRAM-MD5: el servidor mandó un desfío inválido"
 
-#: src/mtls-openssl.c:450
-msgid "TLS certificate check failed"
-msgstr "fallo en la comprobación del certificado TLS"
-
-#: src/mtls-openssl.c:456
+#: src/pop3.c:2794 src/pop3.c:3111
 #, c-format
-msgid "%s: no certificate was sent"
-msgstr "%s: no se mandó ningún certificado"
+msgid "POP3 server does not support authentication method %s"
+msgstr "el servidor POP3 no es compatible con el método de autenticación %s"
 
-#: src/mtls-openssl.c:559
+#: src/pop3.c:2800 src/pop3.c:2957 src/pop3.c:3000
 #, c-format
-msgid "%s: certificate subject alternative name contains NUL"
-msgstr ""
+msgid "GNU SASL: %s"
+msgstr "GNU SASL: %s"
 
-#: src/mtls-openssl.c:591
+#: src/pop3.c:2807
 #, c-format
-msgid "%s: cannot get certificate common name"
-msgstr "%s: no se puede conseguir el nombre común del certificado"
+msgid "GNU SASL: authentication method %s not supported"
+msgstr "GNU SASL: no es compatible con el método de autenticación %s"
 
-#: src/mtls-openssl.c:600
+#: src/pop3.c:2884 src/pop3.c:3150
 #, c-format
-msgid "%s: certificate common name contains NUL"
-msgstr ""
+msgid "cannot use a secure authentication method"
+msgstr "no se puede usar ningún método de autenticación seguro"
 
-#: src/mtls-openssl.c:617
+#: src/pop3.c:2890 src/pop3.c:3156
 #, c-format
-msgid "%s: the certificate owner does not match hostname %s"
-msgstr ""
-"%s: el propietario del certificado no el el mismo que el nombre del host %s"
+msgid "cannot find a usable authentication method"
+msgstr "no se puede encontrar ningún método usable de autenticación"
 
-#: src/mtls-openssl.c:649 src/mtls-libtls.c:231
+#: src/pop3.c:2903 src/pop3.c:3169
 #, c-format
-msgid "cannot set minimum number of DH prime bits for TLS: %s"
-msgstr ""
+msgid "authentication method %s needs a user name"
+msgstr "el método de autenticación %s necesita un nombre de usuario"
 
-#: src/mtls-openssl.c:650 src/mtls-openssl.c:658 src/mtls-openssl.c:666
-msgid "feature not yet implemented for OpenSSL"
-msgstr ""
-
-#: src/mtls-openssl.c:665
+#: src/pop3.c:2916 src/pop3.c:3179
 #, c-format
-msgid "cannot load CRL file: %s"
-msgstr ""
+msgid "authentication method %s needs a password"
+msgstr "el método de autenticación %s necesita una contraseña"
 
-#: src/mtls-openssl.c:672
+#: src/pop3.c:3072
 #, c-format
-msgid "cannot set TLS method"
-msgstr "no se puede ajustar el método TLS"
+msgid "authentication failed: %s (method %s)"
+msgstr "fallo en la autenticación: %s (método %s)"
 
-#: src/mtls-openssl.c:680
+#: src/pop3.c:3221
 #, c-format
-msgid "cannot create TLS context: %s"
-msgstr "no se puede crear un contexto TLS: %s"
+msgid "authentication method %s not supported"
+msgstr "el programa no es compatible con el método de autntificación %s"
 
-#: src/mtls-openssl.c:693
+#: src/uidls.c:224
 #, c-format
-msgid "cannot load key file %s: %s"
-msgstr "no se puede cargar el archivo de llave %s: %s"
+msgid "%s, line %ld: line longer than %d characters"
+msgstr "%s, línea %ld: la línea es más larga de %d caracteres"
 
-#: src/mtls-openssl.c:702
+#: src/uidls.c:250
 #, c-format
-msgid "cannot load certificate file %s: %s"
-msgstr "no se puede cargar el archivo de certificado %s: %s"
+msgid "%s, line %ld: UID without a list"
+msgstr "%s, línea %ld: UID sin lista"
 
-#: src/mtls-openssl.c:732
+#: src/uidls.c:261
 #, c-format
-msgid "cannot load trust file %s: %s"
-msgstr "no se puede cargar el archivo de confianza %s: %s"
+msgid "%s, line %ld: invalid number of UIDs"
+msgstr "%s, línea %ld: número inválido de UIDs"
 
-#: src/mtls-openssl.c:759 src/mtls-libtls.c:361
+#: src/uidls.c:276
 #, c-format
-msgid "cannot create a TLS structure: %s"
-msgstr "no se puede crear una estructura TLS: %s"
+msgid "%s, line %ld: invalid or missing host name"
+msgstr "%s, línea %ld: nombre de host inválido u omitido"
 
-#: src/mtls-openssl.c:801
-msgid "a protocol violating EOF occurred"
-msgstr "se ha encontrado un EOF que viola el protocolo"
-
-#: src/mtls-openssl.c:819
-msgid "the connection was closed unexpectedly"
-msgstr "la conexión se cerró por sorpresa"
-
-#: src/mtls-openssl.c:853 src/mtls-libtls.c:398
+#: src/uidls.c:288
 #, c-format
-msgid "cannot set the file descriptor for TLS: %s"
-msgstr "no se puede ajustar el descriptor de archivo para TLS: %s"
+msgid "%s, line %ld: invalid or missing user name"
+msgstr "%s, línea %ld: nombre de usuario inválido u omitido"
 
-#: src/mtls-openssl.c:872
-msgid "TLS handshake failed"
-msgstr "fallo en el apretón de manos TLS"
-
-#: src/mtls-openssl.c:938
-msgid "cannot read from TLS connection"
-msgstr "no se puede leer de la conexión TLS"
-
-#: src/mtls-openssl.c:981
-msgid "cannot write to TLS connection"
-msgstr "no se puede escribir en la conexión TLS"
-
-#: src/mtls-libtls.c:59
-#, fuzzy, c-format
-#| msgid "cannot initialize TLS library: %s"
-msgid "cannot initialize libtls"
-msgstr "no se puede iniciar la biblioteca TLS: %s"
-
-#: src/mtls-libtls.c:223
+#: src/uidls.c:302 src/uidls.c:336
 #, c-format
-msgid "cannot use deprecated fingerprints, please update to SHA256"
-msgstr ""
+msgid "%s, line %ld: too few UIDs for user %s, host %s"
+msgstr "%s, línea %ld: faltan UIDs para el usuario %s, host %s"
 
-#: src/mtls-libtls.c:232
-msgid "feature not yet implemented for libtls"
-msgstr ""
-
-#: src/mtls-libtls.c:288
-msgid "could not parse protocols"
-msgstr ""
+#: src/uidls.c:466
+#, c-format
+msgid "cannot rename %s to %s: %s"
+msgstr "no se puede mover %s a %s: %s"
 
 #, c-format
-#~ msgid "cannot use tls_trust_file with tls_certcheck turned off"
-#~ msgstr "no se puede usar tls_trust_file con tls_certcheck desactivado"
+#~ msgid "cannot evaluate '%s': %s"
+#~ msgstr "no se puede evaluar '%s': %s"
 
 #, c-format
-#~ msgid "cannot use tls_fingerprint with tls_certcheck turned off"
-#~ msgstr "no se puede usar tls_fingerprint con tls_certcheck desactivado"
-
-#, fuzzy, c-format
-#~ msgid "output of '%s' is longer than %d characters"
-#~ msgstr "la línea tiene más de %d caracteres"
-
-#, c-format
-#~ msgid "password for %s at %s: "
-#~ msgstr "contraseña de %s en %s: "
+#~ msgid "cannot read output of '%s'"
+#~ msgstr "no se puede leer la salida de '%s'"
 
 #~ msgid "Common Name"
 #~ msgstr "Nombre común"
@@ -1826,47 +1860,52 @@ msgstr ""
 #~ msgid "Owner"
 #~ msgstr "Propietario"
 
-#, c-format
-#~ msgid " = %.2f hours"
-#~ msgstr " = %.2f horas"
+#~ msgid "output of '%s' is longer than %d characters"
+#~ msgstr "la salida de '%s' tiene más de %d caracteres"
 
-#, c-format
-#~ msgid " = %.2f minutes"
-#~ msgstr " = %.2f minutos"
-
-#, c-format
-#~ msgid "%s: the certificate has been revoked"
-#~ msgstr "%s: el certificado ha sido revocado"
-
-#, c-format
-#~ msgid "%s: the certificate hasn't got a known issuer"
-#~ msgstr "%s: el certificado no tiene un emisor conocido"
-
-#, c-format
-#~ msgid "%s: the certificate is not trusted"
-#~ msgstr "%s: el certificado no es confiable"
-
-#, c-format
 #~ msgid "%s: the certificate type is not X509"
 #~ msgstr "%s: el tipo del certificado no es X509"
 
-#, c-format
+#~ msgid "%s: the certificate has been revoked"
+#~ msgstr "%s: el certificado ha sido revocado"
+
+#~ msgid "%s: the certificate hasn't got a known issuer"
+#~ msgstr "%s: el certificado no tiene un emisor conocido"
+
+#~ msgid "%s: the certificate is not trusted"
+#~ msgstr "%s: el certificado no es confiable"
+
 #~ msgid "%s: cannot get activation time for certificate %u of %u"
 #~ msgstr ""
 #~ "%s: no se puede conseguir la fecha de activación del certificado %u de %u"
 
-#, c-format
 #~ msgid "%s: certificate %u of %u is not yet activated"
 #~ msgstr "%s: el certificado %u de %u no está activado todavía"
 
-#, c-format
 #~ msgid "%s: cannot get expiration time for certificate %u of %u"
 #~ msgstr ""
 #~ "%s: no se puede conseguir la fecha de caducidad del certificado %u de %u"
 
-#, c-format
 #~ msgid "%s: certificate %u of %u has expired"
 #~ msgstr "%s: el certificado %u de %u ha caducado"
+
+#~ msgid " = %.2f hours"
+#~ msgstr " = %.2f horas"
+
+#~ msgid " = %.2f minutes"
+#~ msgstr " = %.2f minutos"
+
+#~ msgid "address has no domain part"
+#~ msgstr "la dirección no tiene parte de dominio"
+
+#~ msgid "cannot use tls_trust_file with tls_certcheck turned off"
+#~ msgstr "no se puede usar tls_trust_file con tls_certcheck desactivado"
+
+#~ msgid "cannot use tls_fingerprint with tls_certcheck turned off"
+#~ msgstr "no se puede usar tls_fingerprint con tls_certcheck desactivado"
+
+#~ msgid "cannot use both tls_trust_file and tls_fingerprint"
+#~ msgstr "no se puede usar tls_trust_file y tls_fingerprint al mismo tiempo"
 
 #~ msgid "must be owned by you"
 #~ msgstr "debe ser poseido por tí"
@@ -1874,7 +1913,6 @@ msgstr ""
 #~ msgid "cannot get system time: %s"
 #~ msgstr "no se puede averiguar la hora del sistema %s"
 
-#, fuzzy
 #~ msgid ""
 #~ "USAGE:\n"
 #~ "\n"
@@ -1976,10 +2014,10 @@ msgstr ""
 #~ "  --pipelining=(auto|on|off)   Activar/desactivar la agrupación de "
 #~ "órdenes\n"
 #~ "                               POP3.\n"
-#~ "  --auth[=(on|método)]         Seleccionar el método de autentificación.\n"
+#~ "  --auth[=(on|método)]         Seleccionar el método de autenticación.\n"
 #~ "  --user=[nombredeusuario]     Seleccionar/desactivar el nombre de "
 #~ "usuario\n"
-#~ "                               para la autentificación.\n"
+#~ "                               para la autenticación.\n"
 #~ "  --tls[=(on|off)]             Activar/desactivar la encriptación TLS.\n"
 #~ "  --tls-starttls[=(on|off)]    Activar/desactivar STLS para TLS.\n"
 #~ "  --tls-trust-file=[archivo]   Seleccionar/borrar el archivo confiado "
