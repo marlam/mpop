@@ -151,6 +151,8 @@ Replace the current configuration file line with the first line of the output
 (stdout) of the command @var{cmd}. This can be used to decrypt settings or to
 create them via scripts. For example, @code{eval echo host localhost} replaces
 the current line with @code{host localhost}.@*
+Note that every @samp{eval} line will be evaluated when the configuration
+file is read.@*
 Note that for passwords you can also use the @ref{passwordeval} command instead
 of @code{eval password cmd}. This has the advantage that the command is only
 evaluated if needed.
