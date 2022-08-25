@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2014,
- * 2015, 2016, 2018, 2019, 2020, 2021
+ * 2015, 2016, 2018, 2019, 2020, 2021, 2022
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  *
@@ -2340,6 +2340,22 @@ int pop3_auth_xoauth2(pop3_session_t *session,
     char *b64;
     size_t b64_len;
 
+    e = pop3_send_cmd(session, errstr, "AUTH XOAUTH2");
+    if (e != POP3_EOK)
+    {
+        return e;
+    }
+    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    {
+        return e;
+    }
+    if (!pop3_msg_ok(session->buffer))
+    {
+        *errmsg = xstrdup(session->buffer);
+        *errstr = xasprintf(_("command %s failed"), "AUTH XOAUTH2");
+        return POP3_EPROTO;
+    }
+
     oa_len = 5 + /* "user=" */
              strlen(user) +
              13 + /* "^Aauth=Bearer " */
@@ -2351,7 +2367,7 @@ int pop3_auth_xoauth2(pop3_session_t *session,
     b64_len = BASE64_LENGTH(oa_len) + 1;
     b64 = xmalloc(b64_len);
     base64_encode(oauth, oa_len, b64, b64_len);
-    e = pop3_send_cmd(session, errstr, "AUTH XOAUTH2 %s", b64);
+    e = pop3_send_cmd(session, errstr, "%s", b64);
     free(oauth);
     free(b64);
     if (e != POP3_EOK)
