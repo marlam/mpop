@@ -3,13 +3,13 @@
 # Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
 # Martin Lambers <marlam@marlam.de>, 2018.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2019, 2020.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2019, 2020, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.12\n"
+"Project-Id-Version: mpop 1.4.17\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2022-08-07 12:44+0200\n"
-"PO-Revision-Date: 2020-12-23 22:46+0100\n"
+"POT-Creation-Date: 2023-01-30 18:32+0100\n"
+"PO-Revision-Date: 2022-12-08 21:03+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #: src/conf.c:627 src/conf.c:632
 #, c-format
@@ -664,13 +664,7 @@ msgid "Configuration file name: %s\n"
 msgstr "Konfigurationsdatei: %s\n"
 
 #: src/mpop.c:2286
-#, fuzzy, c-format
-#| msgid ""
-#| "Copyright (C) 2020 Martin Lambers and others.\n"
-#| "This is free software.  You may redistribute copies of it under the terms "
-#| "of\n"
-#| "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format
 msgid ""
 "Copyright (C) %d Martin Lambers and others.\n"
 "This is free software.  You may redistribute copies of it under the terms "
@@ -678,7 +672,7 @@ msgid ""
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Copyright (C) 2020 Martin Lambers und andere.\n"
+"Copyright (C) %d Martin Lambers und andere.\n"
 "Dieses Programm ist freie Software. Sie dürfen Kopien davon weitergeben "
 "gemäß\n"
 "der GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
@@ -1664,7 +1658,7 @@ msgstr "Verbindung zu %s, Port %d kann nicht hergestellt werden: %s"
 #: src/password.c:214
 #, c-format
 msgid "password for %s at %s: "
-msgstr ""
+msgstr "Passwort für %s auf %s: "
 
 #: src/pop3.c:323
 #, c-format
@@ -1697,8 +1691,8 @@ msgid "invalid reply to command %s"
 msgstr "ungültige Antwort auf Befehl %s"
 
 #: src/pop3.c:979 src/pop3.c:985 src/pop3.c:1032 src/pop3.c:1124
-#: src/pop3.c:1264 src/pop3.c:2481 src/pop3.c:2567 src/pop3.c:2653
-#: src/pop3.c:3253 src/pop3.c:3281
+#: src/pop3.c:1264 src/pop3.c:2355 src/pop3.c:2497 src/pop3.c:2583
+#: src/pop3.c:2669 src/pop3.c:3269 src/pop3.c:3297
 #, c-format
 msgid "command %s failed"
 msgstr "Befehl %s fehlgeschlagen"
@@ -1751,59 +1745,59 @@ msgid "command DELE %ld failed"
 msgstr "Befehl DELE %ld fehlgeschlagen"
 
 #: src/pop3.c:2156 src/pop3.c:2168 src/pop3.c:2191 src/pop3.c:2206
-#: src/pop3.c:2246 src/pop3.c:2317 src/pop3.c:2383 src/pop3.c:2442
-#: src/pop3.c:2501 src/pop3.c:2521 src/pop3.c:2614 src/pop3.c:2673
-#: src/pop3.c:3025 src/pop3.c:3059 src/pop3.c:3093
+#: src/pop3.c:2246 src/pop3.c:2317 src/pop3.c:2399 src/pop3.c:2458
+#: src/pop3.c:2517 src/pop3.c:2537 src/pop3.c:2630 src/pop3.c:2689
+#: src/pop3.c:3041 src/pop3.c:3075 src/pop3.c:3109
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "Authentifizierung fehlgeschlagen (Methode %s)"
 
-#: src/pop3.c:2577
+#: src/pop3.c:2593
 #, c-format
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr "Authentifizierungsmethode CRAM-MD5: Server sendete ungültige Challenge"
 
-#: src/pop3.c:2794 src/pop3.c:3111
+#: src/pop3.c:2810 src/pop3.c:3127
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "POP3-Server unterstützt Authentifizierungsmethode %s nicht"
 
-#: src/pop3.c:2800 src/pop3.c:2957 src/pop3.c:3000
+#: src/pop3.c:2816 src/pop3.c:2973 src/pop3.c:3016
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2807
+#: src/pop3.c:2823
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: Authentifizierungsmethode %s wird nicht unterstützt"
 
-#: src/pop3.c:2884 src/pop3.c:3150
+#: src/pop3.c:2900 src/pop3.c:3166
 #, c-format
 msgid "cannot use a secure authentication method"
 msgstr "sichere Authentifizierungsmethode kann nicht benutzt werden"
 
-#: src/pop3.c:2890 src/pop3.c:3156
+#: src/pop3.c:2906 src/pop3.c:3172
 #, c-format
 msgid "cannot find a usable authentication method"
 msgstr "keine benutzbare Authentifizierungsmethode verfügbar"
 
-#: src/pop3.c:2903 src/pop3.c:3169
+#: src/pop3.c:2919 src/pop3.c:3185
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr "Authentifizierungsmethode %s braucht einen Benutzernamen"
 
-#: src/pop3.c:2916 src/pop3.c:3179
+#: src/pop3.c:2932 src/pop3.c:3195
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "Authentifizierungsmethode %s braucht ein Passwort"
 
-#: src/pop3.c:3072
+#: src/pop3.c:3088
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "Authentifizierung fehlgeschlagen: %s (Methode %s)"
 
-#: src/pop3.c:3221
+#: src/pop3.c:3237
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "Authentifizierungsmethode %s wird nicht unterstützt"
@@ -1842,32 +1836,3 @@ msgstr "%s, Zeile %ld: zu wenig UIDs für Benutzer %s, Host %s"
 #, c-format
 msgid "cannot rename %s to %s: %s"
 msgstr "%s kann nicht nach %s umbenannt werden: %s"
-
-#, c-format
-#~ msgid "cannot evaluate '%s': %s"
-#~ msgstr "»%s« kann nicht ausgewertet werden: %s"
-
-#, c-format
-#~ msgid "cannot read output of '%s'"
-#~ msgstr "Ausgabe von »%s« kann nicht gelesen werden"
-
-#~ msgid "Common Name"
-#~ msgstr "Allgemeiner Name"
-
-#~ msgid "Organization"
-#~ msgstr "Organisation"
-
-#~ msgid "Organizational unit"
-#~ msgstr "Organisationseinheit"
-
-#~ msgid "Locality"
-#~ msgstr "Ort"
-
-#~ msgid "State or Province"
-#~ msgstr "Staat oder Provinz"
-
-#~ msgid "Country"
-#~ msgstr "Land"
-
-#~ msgid "Owner"
-#~ msgstr "Eigentümer"

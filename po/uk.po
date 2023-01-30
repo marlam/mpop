@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.4.16\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2022-08-07 12:44+0200\n"
+"POT-Creation-Date: 2023-01-30 18:32+0100\n"
 "PO-Revision-Date: 2021-10-23 19:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1702,8 +1702,8 @@ msgid "invalid reply to command %s"
 msgstr "некоректна відповідь на команду %s"
 
 #: src/pop3.c:979 src/pop3.c:985 src/pop3.c:1032 src/pop3.c:1124
-#: src/pop3.c:1264 src/pop3.c:2481 src/pop3.c:2567 src/pop3.c:2653
-#: src/pop3.c:3253 src/pop3.c:3281
+#: src/pop3.c:1264 src/pop3.c:2355 src/pop3.c:2497 src/pop3.c:2583
+#: src/pop3.c:2669 src/pop3.c:3269 src/pop3.c:3297
 #, c-format
 msgid "command %s failed"
 msgstr "помилка під час спроби виконати команду %s"
@@ -1756,60 +1756,60 @@ msgid "command DELE %ld failed"
 msgstr "помилка команди DELE %ld"
 
 #: src/pop3.c:2156 src/pop3.c:2168 src/pop3.c:2191 src/pop3.c:2206
-#: src/pop3.c:2246 src/pop3.c:2317 src/pop3.c:2383 src/pop3.c:2442
-#: src/pop3.c:2501 src/pop3.c:2521 src/pop3.c:2614 src/pop3.c:2673
-#: src/pop3.c:3025 src/pop3.c:3059 src/pop3.c:3093
+#: src/pop3.c:2246 src/pop3.c:2317 src/pop3.c:2399 src/pop3.c:2458
+#: src/pop3.c:2517 src/pop3.c:2537 src/pop3.c:2630 src/pop3.c:2689
+#: src/pop3.c:3041 src/pop3.c:3075 src/pop3.c:3109
 #, c-format
 msgid "authentication failed (method %s)"
 msgstr "не вдалося пройти розпізнавання (спосіб %s)"
 
-#: src/pop3.c:2577
+#: src/pop3.c:2593
 #, c-format
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
 msgstr "спосіб розпізнавання CRAM-MD5: сервером надіслано некоректний запит"
 
-#: src/pop3.c:2794 src/pop3.c:3111
+#: src/pop3.c:2810 src/pop3.c:3127
 #, c-format
 msgid "POP3 server does not support authentication method %s"
 msgstr "На сервері POP3 не передбачено способу розпізнавання %s"
 
-#: src/pop3.c:2800 src/pop3.c:2957 src/pop3.c:3000
+#: src/pop3.c:2816 src/pop3.c:2973 src/pop3.c:3016
 #, c-format
 msgid "GNU SASL: %s"
 msgstr "GNU SASL: %s"
 
-#: src/pop3.c:2807
+#: src/pop3.c:2823
 #, c-format
 msgid "GNU SASL: authentication method %s not supported"
 msgstr "GNU SASL: не передбачено підтримки способу розпізнавання %s"
 
-#: src/pop3.c:2884 src/pop3.c:3150
+#: src/pop3.c:2900 src/pop3.c:3166
 #, c-format
 msgid "cannot use a secure authentication method"
 msgstr "неможливо скористатися безпечним способом розпізнавання"
 
-#: src/pop3.c:2890 src/pop3.c:3156
+#: src/pop3.c:2906 src/pop3.c:3172
 #, c-format
 msgid "cannot find a usable authentication method"
 msgstr "не вдалося знайти придатний до використання спосіб розпізнавання"
 
-#: src/pop3.c:2903 src/pop3.c:3169
+#: src/pop3.c:2919 src/pop3.c:3185
 #, c-format
 msgid "authentication method %s needs a user name"
 msgstr ""
 "для використання способу розпізнавання %s слід вказати ім'я користувача"
 
-#: src/pop3.c:2916 src/pop3.c:3179
+#: src/pop3.c:2932 src/pop3.c:3195
 #, c-format
 msgid "authentication method %s needs a password"
 msgstr "для використання способу розпізнавання %s слід вказати пароль"
 
-#: src/pop3.c:3072
+#: src/pop3.c:3088
 #, c-format
 msgid "authentication failed: %s (method %s)"
 msgstr "помилка розпізнавання: %s (спосіб %s)"
 
-#: src/pop3.c:3221
+#: src/pop3.c:3237
 #, c-format
 msgid "authentication method %s not supported"
 msgstr "не передбачено підтримки способу розпізнавання %s"
