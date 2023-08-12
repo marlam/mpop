@@ -27,15 +27,15 @@ syntax match mpopOption /\<\(tls\|tls_starttls\|tls_trust_file\|tls_crl_file\|tl
 syntax match mpopOption /\<\(only_new\|keep\|killsize\|skipsize\|filter\|received_header\)\>/
 
 " Options which accept only an on/off value.
-syn match mpopWrongOption /\<\(tls\|tls_starttls\|tls_certcheck\|only_new\|keep\|received_header\) \(on$\|off$\)\@!.*$/
+syn match mpopWrongOption /\<\(tls\|tls_starttls\|tls_certcheck\|only_new\|keep\|received_header\)\s+\(on$\|off$\)\@!.*$/
 " Options which accept only an on/off/auto value.
-syn match mpopWrongOption /\<\(pipelining\) \(on$\|off$\|auto$\)\@!.*$/
+syn match mpopWrongOption /\<\(pipelining\)\s+\(on$\|off$\|auto$\)\@!.*$/
 " Options which accept numeric values.
-syn match mpopWrongOption /\<\(port\|proxy_port\|killsize\|skipsize\) \(\d\+$\)\@!.*$/
+syn match mpopWrongOption /\<\(port\|proxy_port\|killsize\|skipsize\)\s+\(\d\+$\)\@!.*$/
 " Option timeout accepts off and numeric values.
-syn match mpopWrongOption /\<timeout \(off$\|\d\+$\)\@!.*$/
+syn match mpopWrongOption /\<timeout\s+\(off$\|\d\+$\)\@!.*$/
 " Option auth accepts on, off and the method.
-syn match mpopWrongOption /\<auth \(on$\|off$\|user$\|plain$\|cram-md5$\|digest-md5$\|scram-sha-1$\|scram-sha-256$\|gssapi$\|external$\|login$\|ntlm$\|oauthbearer\|xoauth2\)\@!.*$/
+syn match mpopWrongOption /\<auth\s+\(on$\|off$\|user$\|plain$\|cram-md5$\|digest-md5$\|scram-sha-1$\|scram-sha-256$\|gssapi$\|external$\|login$\|ntlm$\|oauthbearer\|xoauth2\)\@!.*$/
 
 " Marks all wrong option values as errors.
 syn match mpopWrongOptionValue /\S* \zs.*$/ contained containedin=mpopWrongOption
