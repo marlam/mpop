@@ -411,58 +411,36 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
     }
     printf("    AUTH:\n        %s\n        ",
             _("Supported authentication methods:"));
-    if (session->cap.flags & POP3_CAP_AUTH_USER)
-    {
-        printf("USER ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_PLAIN)
-    {
-        printf("PLAIN ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1)
-    {
-        printf("SCRAM-SHA-1 ");
-    }
+    if (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_256_PLUS)
+        printf("SCRAM-SHA-256-PLUS ");
+    if (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1_PLUS)
+        printf("SCRAM-SHA-1-PLUS ");
     if (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_256)
-    {
         printf("SCRAM-SHA-256 ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_EXTERNAL)
-    {
-        printf("EXTERNAL ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_GSSAPI)
-    {
-        printf("GSSAPI ");
-    }
+    if (session->cap.flags & POP3_CAP_AUTH_SCRAM_SHA_1)
+        printf("SCRAM-SHA-1 ");
+    if (session->cap.flags & POP3_CAP_AUTH_PLAIN)
+        printf("PLAIN ");
     if (session->cap.flags & POP3_CAP_AUTH_APOP)
-    {
         printf("APOP ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5)
-    {
-        printf("CRAM-MD5 ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5)
-    {
-        printf("DIGEST-MD5 ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_LOGIN)
-    {
-        printf("LOGIN ");
-    }
-    if (session->cap.flags & POP3_CAP_AUTH_NTLM)
-    {
-        printf("NTLM ");
-    }
+    if (session->cap.flags & POP3_CAP_AUTH_USER)
+        printf("USER ");
+    if (session->cap.flags & POP3_CAP_AUTH_GSSAPI)
+        printf("GSSAPI ");
+    if (session->cap.flags & POP3_CAP_AUTH_EXTERNAL)
+        printf("EXTERNAL ");
     if (session->cap.flags & POP3_CAP_AUTH_OAUTHBEARER)
-    {
         printf("OAUTHBEARER ");
-    }
+    if (session->cap.flags & POP3_CAP_AUTH_CRAM_MD5)
+        printf("CRAM-MD5 ");
+    if (session->cap.flags & POP3_CAP_AUTH_DIGEST_MD5)
+        printf("DIGEST-MD5 ");
+    if (session->cap.flags & POP3_CAP_AUTH_LOGIN)
+        printf("LOGIN ");
+    if (session->cap.flags & POP3_CAP_AUTH_NTLM)
+        printf("NTLM ");
     if (session->cap.flags & POP3_CAP_AUTH_XOAUTH2)
-    {
         printf("XOAUTH2 ");
-    }
     printf("\n");
     if (session->cap.flags & POP3_CAP_RESP_CODES)
     {
@@ -2193,58 +2171,36 @@ int main(int argc, char *argv[])
                 _("built-in")
 #endif /* HAVE_LIBGSASL */
               );
-        if (pop3_client_supports_authmech("USER"))
-        {
-            printf("user ");
-        }
-        if (pop3_client_supports_authmech("PLAIN"))
-        {
-            printf("plain ");
-        }
-        if (pop3_client_supports_authmech("SCRAM-SHA-1"))
-        {
-            printf("scram-sha-1 ");
-        }
+        if (pop3_client_supports_authmech("SCRAM-SHA-256-PLUS"))
+            printf("scram-sha-256-plus ");
+        if (pop3_client_supports_authmech("SCRAM-SHA-1-PLUS"))
+            printf("scram-sha-1-plus ");
         if (pop3_client_supports_authmech("SCRAM-SHA-256"))
-        {
             printf("scram-sha-256 ");
-        }
-        if (pop3_client_supports_authmech("EXTERNAL"))
-        {
-            printf("external ");
-        }
-        if (pop3_client_supports_authmech("GSSAPI"))
-        {
-            printf("gssapi ");
-        }
+        if (pop3_client_supports_authmech("SCRAM-SHA-1"))
+            printf("scram-sha-1 ");
+        if (pop3_client_supports_authmech("PLAIN"))
+            printf("plain ");
         if (pop3_client_supports_authmech("APOP"))
-        {
             printf("apop ");
-        }
-        if (pop3_client_supports_authmech("CRAM-MD5"))
-        {
-            printf("cram-md5 ");
-        }
-        if (pop3_client_supports_authmech("DIGEST-MD5"))
-        {
-            printf("digest-md5 ");
-        }
-        if (pop3_client_supports_authmech("LOGIN"))
-        {
-            printf("login ");
-        }
-        if (pop3_client_supports_authmech("NTLM"))
-        {
-            printf("ntlm ");
-        }
+        if (pop3_client_supports_authmech("USER"))
+            printf("user ");
+        if (pop3_client_supports_authmech("GSSAPI"))
+            printf("gssapi ");
+        if (pop3_client_supports_authmech("EXTERNAL"))
+            printf("external ");
         if (pop3_client_supports_authmech("OAUTHBEARER"))
-        {
             printf("oauthbearer ");
-        }
+        if (pop3_client_supports_authmech("CRAM-MD5"))
+            printf("cram-md5 ");
+        if (pop3_client_supports_authmech("DIGEST-MD5"))
+            printf("digest-md5 ");
+        if (pop3_client_supports_authmech("LOGIN"))
+            printf("login ");
+        if (pop3_client_supports_authmech("NTLM"))
+            printf("ntlm ");
         if (pop3_client_supports_authmech("XOAUTH2"))
-        {
             printf("xoauth2 ");
-        }
         printf("\n");
         /* Internationalized Domain Names support */
         printf(_("IDN support: "));

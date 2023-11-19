@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014, 2015,
- * 2016, 2018, 2019, 2020
+ * 2016, 2018, 2019, 2020, 2021, 2022, 2023
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -58,29 +58,31 @@
 #define POP3_EABORT             9       /* The current action was aborted */
 
 /* POP3 capabilities */
-#define POP3_CAP_AUTH_USER              (1 << 0)
-#define POP3_CAP_AUTH_APOP              (1 << 1)
-#define POP3_CAP_AUTH_PLAIN             (1 << 2)
-#define POP3_CAP_AUTH_CRAM_MD5          (1 << 3)
-#define POP3_CAP_AUTH_DIGEST_MD5        (1 << 4)
-#define POP3_CAP_AUTH_SCRAM_SHA_1       (1 << 5)
-#define POP3_CAP_AUTH_GSSAPI            (1 << 6)
-#define POP3_CAP_AUTH_EXTERNAL          (1 << 7)
-#define POP3_CAP_AUTH_LOGIN             (1 << 8)
-#define POP3_CAP_AUTH_NTLM              (1 << 9)
-#define POP3_CAP_AUTH_OAUTHBEARER       (1 << 10)
-#define POP3_CAP_AUTH_XOAUTH2           (1 << 11)
-#define POP3_CAP_CAPA                   (1 << 12)
-#define POP3_CAP_TOP                    (1 << 13)
-#define POP3_CAP_LOGIN_DELAY            (1 << 14)
-#define POP3_CAP_PIPELINING             (1 << 15)
-#define POP3_CAP_EXPIRE                 (1 << 16)
-#define POP3_CAP_UIDL                   (1 << 17)
-#define POP3_CAP_IMPLEMENTATION         (1 << 18)
-#define POP3_CAP_STLS                   (1 << 19)
-#define POP3_CAP_RESP_CODES             (1 << 20)
-#define POP3_CAP_AUTH_RESP_CODE         (1 << 21)
-#define POP3_CAP_AUTH_SCRAM_SHA_256     (1 << 22)
+#define POP3_CAP_AUTH_SCRAM_SHA_256_PLUS (1 << 0)
+#define POP3_CAP_AUTH_SCRAM_SHA_1_PLUS   (1 << 1)
+#define POP3_CAP_AUTH_SCRAM_SHA_256      (1 << 2)
+#define POP3_CAP_AUTH_SCRAM_SHA_1        (1 << 3)
+#define POP3_CAP_AUTH_PLAIN              (1 << 4)
+#define POP3_CAP_AUTH_APOP               (1 << 5)
+#define POP3_CAP_AUTH_USER               (1 << 6)
+#define POP3_CAP_AUTH_GSSAPI             (1 << 7)
+#define POP3_CAP_AUTH_EXTERNAL           (1 << 8)
+#define POP3_CAP_AUTH_OAUTHBEARER        (1 << 9)
+#define POP3_CAP_AUTH_CRAM_MD5           (1 << 10)
+#define POP3_CAP_AUTH_DIGEST_MD5         (1 << 11)
+#define POP3_CAP_AUTH_LOGIN              (1 << 12)
+#define POP3_CAP_AUTH_NTLM               (1 << 13)
+#define POP3_CAP_AUTH_XOAUTH2            (1 << 14)
+#define POP3_CAP_CAPA                    (1 << 15)
+#define POP3_CAP_TOP                     (1 << 16)
+#define POP3_CAP_LOGIN_DELAY             (1 << 17)
+#define POP3_CAP_PIPELINING              (1 << 18)
+#define POP3_CAP_EXPIRE                  (1 << 19)
+#define POP3_CAP_UIDL                    (1 << 20)
+#define POP3_CAP_IMPLEMENTATION          (1 << 21)
+#define POP3_CAP_STLS                    (1 << 22)
+#define POP3_CAP_RESP_CODES              (1 << 23)
+#define POP3_CAP_AUTH_RESP_CODE          (1 << 24)
 
 /*
  * Buffer size for communication with the POP3 server. This restricts the length

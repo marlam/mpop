@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022
+ * 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -391,18 +391,20 @@ int check_auth_arg(char *arg)
     {
         return 0;
     }
-    else if (strcmp(arg, "user") == 0
-            || strcmp(arg, "apop") == 0
-            || strcmp(arg, "plain") == 0
-            || strcmp(arg, "cram-md5") == 0
-            || strcmp(arg, "digest-md5") == 0
-            || strcmp(arg, "scram-sha-1") == 0
+    else if (  strcmp(arg, "scram-sha-256-plus") == 0
+            || strcmp(arg, "scram-sha-1-plus") == 0
             || strcmp(arg, "scram-sha-256") == 0
+            || strcmp(arg, "scram-sha-1") == 0
+            || strcmp(arg, "plain") == 0
+            || strcmp(arg, "apop") == 0
+            || strcmp(arg, "user") == 0
             || strcmp(arg, "gssapi") == 0
             || strcmp(arg, "external") == 0
+            || strcmp(arg, "oauthbearer") == 0
+            || strcmp(arg, "cram-md5") == 0
+            || strcmp(arg, "digest-md5") == 0
             || strcmp(arg, "login") == 0
             || strcmp(arg, "ntlm") == 0
-            || strcmp(arg, "oauthbearer") == 0
             || strcmp(arg, "xoauth2") == 0)
     {
         l = strlen(arg);
