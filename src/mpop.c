@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023
+ * 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
@@ -2244,7 +2244,7 @@ int main(int argc, char *argv[])
                         "it under the terms of\n"
                     "the GNU General Public License "
                         "<http://www.gnu.org/licenses/gpl.html>.\n"
-                    "There is NO WARRANTY, to the extent permitted by law.\n"), 2023);
+                    "There is NO WARRANTY, to the extent permitted by law.\n"), 2024);
     }
     if (print_help)
     {
