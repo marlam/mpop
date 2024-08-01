@@ -1,3 +1,6 @@
+Version 1.4.20:
+- No significant changes.
+
 Version 1.4.19:
 - Add support for SCRAM-SHA-256-PLUS and SCRAM-SHA-1-PLUS authentication, and
   prefer SCRAM methods over the PLAIN method because of their superior
