@@ -2,14 +2,14 @@
 # Copyright (C) 2022 Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
 # Luna Jernberg <droidbittin@gmail.com>, 2022
-# Kristian Nordin <kristian.po@proton.me>, 2023
+# Kristian Nordin <kristian.po@proton.me>, 2023, 2024
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.17\n"
+"Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-06-04 12:55+0200\n"
-"PO-Revision-Date: 2023-05-22 22:26+0200\n"
+"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"PO-Revision-Date: 2024-06-05 21:15+0200\n"
 "Last-Translator: Kristian Nordin <kristian.po@proton.me>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: src/conf.c:629 src/conf.c:634
 #, c-format
@@ -1772,10 +1772,9 @@ msgid "authentication method %s needs a password"
 msgstr "autentiseringsmetod %s behöver ett lösenord"
 
 #: src/pop3.c:2946
-#, fuzzy, c-format
-#| msgid "authentication method %s needs a user name"
+#, c-format
 msgid "authentication method %s needs TLS channel binding information"
-msgstr "autentiseringsmetod %s behöver ett användarnamn"
+msgstr "autentiseringsmetod %s behöver information om bindning för TLS-kanal"
 
 #: src/pop3.c:3111
 #, c-format

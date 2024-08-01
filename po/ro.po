@@ -1,20 +1,21 @@
 # Romanian translation for mpop.
 # Mesajele în limba română pentru pachetul mpop.
-# Copyright © 2023 Martin Lambers <marlam@marlam.de>
+# Copyright © 2023, 2024 Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
 #
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2023.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2023, 2024.
 #
 # Cronologia traducerii fișierului „mpop”:
 # Traducerea inițială, făcută de R-GC, pentru versiunea mpop 1.4.17, aug-2023.
+# Traducerea inițială, făcută de R-GC, pentru versiunea mpop 1.4.19, iun-2024.
 # Actualizare a traducerii pentru versiunea Y, făcută de X, Z(luna-anul).
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.17\n"
+"Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-06-04 12:55+0200\n"
-"PO-Revision-Date: 2023-08-02 23:39+0200\n"
+"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"PO-Revision-Date: 2024-06-06 01:36+0200\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
 "Language: ro\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && "
 "n%100<=19) ? 1 : 2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.3\n"
 
 #: src/conf.c:629 src/conf.c:634
 #, c-format
@@ -440,7 +441,7 @@ msgstr " octeți"
 #: src/mpop.c:523
 #, c-format
 msgid "1 byte"
-msgstr "1 octet"
+msgstr "un octet"
 
 #: src/mpop.c:540
 #, c-format
@@ -494,7 +495,7 @@ msgstr "niciun mesaj"
 #: src/mpop.c:911 src/mpop.c:932
 #, c-format
 msgid "1 message"
-msgstr "1 mesaj"
+msgstr "un mesaj"
 
 #: src/mpop.c:915 src/mpop.c:936
 #, c-format
@@ -1103,7 +1104,7 @@ msgstr "dezactivat\n"
 #: src/mpop.c:2499
 #, c-format
 msgid "1 second\n"
-msgstr "1 secundă\n"
+msgstr "o secundă\n"
 
 #: src/mpop.c:2503
 #, c-format
@@ -1825,10 +1826,11 @@ msgid "authentication method %s needs a password"
 msgstr "metoda de autentificare %s necesită o parolă"
 
 #: src/pop3.c:2946
-#, fuzzy, c-format
-#| msgid "authentication method %s needs a user name"
+#, c-format
 msgid "authentication method %s needs TLS channel binding information"
-msgstr "metoda de autentificare %s are nevoie de un nume de utilizator"
+msgstr ""
+"metoda de autentificare %s are nevoie de informații de asociere a canalului "
+"TLS"
 
 #: src/pop3.c:3111
 #, c-format

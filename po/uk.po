@@ -2,13 +2,13 @@
 # Copyright (C) 2018 Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2018, 2019, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018, 2019, 2020, 2021, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.16\n"
+"Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-06-04 12:55+0200\n"
-"PO-Revision-Date: 2021-10-23 19:10+0300\n"
+"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"PO-Revision-Date: 2024-06-05 20:45+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: src/conf.c:629 src/conf.c:634
 #, c-format
@@ -1805,11 +1805,11 @@ msgid "authentication method %s needs a password"
 msgstr "для використання способу розпізнавання %s слід вказати пароль"
 
 #: src/pop3.c:2946
-#, fuzzy, c-format
-#| msgid "authentication method %s needs a user name"
+#, c-format
 msgid "authentication method %s needs TLS channel binding information"
 msgstr ""
-"для використання способу розпізнавання %s слід вказати ім'я користувача"
+"для використання способу розпізнавання %s потрібні дані щодо прив'язки TLS-"
+"каналу"
 
 #: src/pop3.c:3111
 #, c-format

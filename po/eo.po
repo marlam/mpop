@@ -1,14 +1,14 @@
 # Esperanto translations for mpop package.
 # Copyright (C) 2020 Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
-# Keith Bowes <zooplah@gmail.com>, 2020, 2021.
+# Keith Bowes <zooplah@gmail.com>, 2020, 2021, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.16\n"
+"Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-06-04 12:55+0200\n"
-"PO-Revision-Date: 2021-10-24 12:07-0400\n"
+"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"PO-Revision-Date: 2024-06-06 00:33-0400\n"
 "Last-Translator: Keith Bowes <zooplah@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -1771,10 +1771,9 @@ msgid "authentication method %s needs a password"
 msgstr "aŭtentiga metodo %s postulas pasvorton"
 
 #: src/pop3.c:2946
-#, fuzzy, c-format
-#| msgid "authentication method %s needs a user name"
+#, c-format
 msgid "authentication method %s needs TLS channel binding information"
-msgstr "aŭtentiga metodo %s postulas salutnomon"
+msgstr "aŭtentiga metodo %s postulas informojn pri la TSL-kanalo bindaĵo"
 
 #: src/pop3.c:3111
 #, c-format
@@ -1820,11 +1819,3 @@ msgstr "%s, linio %ld: maltro da UID-oj por uzanto %s, retnodo %s"
 #, c-format
 msgid "cannot rename %s to %s: %s"
 msgstr "ne eblas alinomi de %s al %s: %s"
-
-#, c-format
-#~ msgid "cannot evaluate '%s': %s"
-#~ msgstr "'%s' ne estas taksebla: %s"
-
-#, c-format
-#~ msgid "cannot read output of '%s'"
-#~ msgstr "ne eblas legi eligon de '%s'"

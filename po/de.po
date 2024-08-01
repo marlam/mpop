@@ -3,13 +3,13 @@
 # Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
 # Martin Lambers <marlam@marlam.de>, 2018.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2019, 2020, 2022.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2019, 2020, 2022, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.17\n"
+"Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-06-04 12:55+0200\n"
-"PO-Revision-Date: 2022-12-08 21:03+0100\n"
+"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"PO-Revision-Date: 2024-06-30 17:48+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 24.05.0\n"
 
 #: src/conf.c:629 src/conf.c:634
 #, c-format
@@ -1793,10 +1793,9 @@ msgid "authentication method %s needs a password"
 msgstr "Authentifizierungsmethode %s braucht ein Passwort"
 
 #: src/pop3.c:2946
-#, fuzzy, c-format
-#| msgid "authentication method %s needs a user name"
+#, c-format
 msgid "authentication method %s needs TLS channel binding information"
-msgstr "Authentifizierungsmethode %s braucht einen Benutzernamen"
+msgstr "Authentifizierungsmethode %s braucht TLS-Kanalbindungsinformation"
 
 #: src/pop3.c:3111
 #, c-format

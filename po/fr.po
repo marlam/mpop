@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.16\n"
+"Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-06-04 12:55+0200\n"
-"PO-Revision-Date: 2021-10-24 14:01+0200\n"
+"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"PO-Revision-Date: 2024-06-05 19:06+0200\n"
 "Last-Translator: Frédéric Marchal <fmarchal@perso.be>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -1807,10 +1807,11 @@ msgid "authentication method %s needs a password"
 msgstr "la méthode d'authentification %s a besoin d'un mot de passe"
 
 #: src/pop3.c:2946
-#, fuzzy, c-format
-#| msgid "authentication method %s needs a user name"
+#, c-format
 msgid "authentication method %s needs TLS channel binding information"
-msgstr "la méthode d'authentification %s a besoin d'un nom d'utilisateur"
+msgstr ""
+"la méthode d'authentification %s a besoin des informations de liaison du "
+"canal TLS"
 
 #: src/pop3.c:3111
 #, c-format
