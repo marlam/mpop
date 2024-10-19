@@ -1,3 +1,6 @@
+Version 1.4.21:
+- Add IDN support to --configure (build with libidn2 to enable this).
+
 Version 1.4.20:
 - No significant changes.
 
