@@ -374,7 +374,7 @@ exist.
 If the delivery method needs to parse the mail headers for an envelope from
 address (the mda method if the command contains @code{%F}, and the mbox method),
 then it needs to create a temporary file to store the mail headers (but not the
-body). See @code{$TMPDIR} in @ref{Environment}.
+body).
 @anchor{uidls_file}
 @item uidls_file @var{filename}
 @cmindex uidls_file
@@ -497,9 +497,6 @@ password, msmtp will search it in ~/.netrc and SYSCONFDIR/netrc.
 These variables override the user's login name. @code{$LOGNAME} is only used if
 @code{$USER} is unset. The user's login name is used for @code{Received}
 headers.
-@item @code{$TMPDIR}
-Directory to create temporary files in. If this is unset, a system specific
-default directory is used.@*
 @end table
 
 @section Options
