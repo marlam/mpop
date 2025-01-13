@@ -1,13 +1,14 @@
 # Serbian translation for mpop.
 # Copyright © 2020 Martin Lambers <marlam@marlam.de>
 # This file is distributed under the same license as the mpop package.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2020–2021.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2020-2024.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: mpop 1.4.16\n"
+"Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
 "POT-Creation-Date: 2024-08-01 12:23+0200\n"
-"PO-Revision-Date: 2021-12-11 19:17+0200\n"
+"PO-Revision-Date: 2024-12-15 14:21+0100\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
@@ -17,6 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
+"X-Generator: Gtranslator 47.0\n"
 
 #: src/conf.c:629 src/conf.c:634
 #, c-format
@@ -1789,10 +1791,9 @@ msgid "authentication method %s needs a password"
 msgstr "„%s“ начин потврђивања идентитета тражи лозинку"
 
 #: src/pop3.c:2946
-#, fuzzy, c-format
-#| msgid "authentication method %s needs a user name"
+#, c-format
 msgid "authentication method %s needs TLS channel binding information"
-msgstr "„%s“ начин потврђивања идентитета тражи корисничко име"
+msgstr "„%s“ начин потврђивања идентитета тражи свезивне податке ТЛС  канала"
 
 #: src/pop3.c:3111
 #, c-format
