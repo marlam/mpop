@@ -90,7 +90,7 @@
  * mails. Nevertheless, it should be greater than 1000, so that a line of the
  * maximum length allowed by RFC 2822 can fit entirely into it.
  */
-#define POP3_BUFSIZE 4096
+#define POP3_BUFSIZE 8192
 
 /*
  * This structure describes the capabilities of a POP3 server.
