@@ -4,7 +4,7 @@
  * This file is part of msmtp, an SMTP client, and of mpop, a POP3 client.
  *
  * Copyright (C) 2004, 2005, 2006, 2007, 2009, 2011, 2014, 2018, 2019, 2020,
- * 2021, 2022, 2023
+ * 2021, 2022, 2023, 2024, 2025
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -54,6 +54,10 @@
 #endif
 #ifdef HAVE_LANGINFO_H
 # include <langinfo.h>
+#endif
+
+#ifdef __MINGW32__
+# include <libgen.h>
 #endif
 
 #include "xalloc.h"
@@ -313,6 +317,31 @@ const char *get_prgname(const char *argv0)
 }
 
 
+#ifdef __MINGW32__
+/*
+ * get_parentdir()
+ *
+ * Get the parent installation directory.
+ * The returned string is allocated.
+ */
+
+char *get_parentdir(void)
+{
+    char path[MAX_PATH];
+    GetModuleFileNameA(NULL, path, MAX_PATH - 1);
+
+    char *path1 = strdup(path);
+    char *progdir = dirname(path1);
+
+    char *path2 = strdup(progdir);
+    char *parentdir = dirname(path2);
+
+    free(path1);
+    return parentdir;
+}
+#endif
+
+
 /*
  * get_sysconfdir()
  *
@@ -321,7 +350,7 @@ const char *get_prgname(const char *argv0)
 
 char *get_sysconfdir(void)
 {
-#ifdef W32_NATIVE
+#if defined(_MSC_VER)
 
     BYTE sysconfdir[MAX_PATH + 1];
     HKEY hkey;
@@ -348,6 +377,13 @@ char *get_sysconfdir(void)
     RegCloseKey(hkey);
     return xstrdup((char *)sysconfdir);
 
+#elif defined(__MINGW32__)
+
+    char *parentdir = get_parentdir();
+    char *sysconfdir = get_filename(parentdir, "etc");
+    free(parentdir);
+    return sysconfdir;
+
 #else /* UNIX */
 
 #ifdef SYSCONFDIR
@@ -358,6 +394,35 @@ char *get_sysconfdir(void)
 
 #endif
 }
+
+
+#ifdef ENABLE_NLS
+/*
+ * get_localedir()
+ *
+ * see tools.h
+ */
+
+const char *get_localedir(void)
+{
+#ifdef __MINGW32__
+    static char buf[MAX_PATH];
+    static int initialized = 0;
+    if (!initialized)
+    {
+        char *parentdir = get_parentdir();
+        char *localedir = get_filename(parentdir, "share\\locale");
+        strncpy(buf, localedir, MAX_PATH);
+        free(parentdir);
+        free(localedir);
+        initialized = 1;
+    }
+    return buf;
+#else
+    return LOCALEDIR;
+#endif
+}
+#endif
 
 
 /*
@@ -947,7 +1012,13 @@ char *encode_for_header(const char *s)
         size_t b64_s_len = BASE64_LENGTH(s_len);
         char* encoding =
 #ifdef HAVE_LANGINFO_H
+            /* With disabled NLS, nl_langinfo() always seems to return
+             * ANSI_X3.4-1968 (i.e. ASCII). We want to assume UTF-8 instead. */
+# ifdef ENABLE_NLS
                 nl_langinfo(CODESET);
+# else
+                "UTF-8";
+# endif
 #else
 # ifdef W32_NATIVE
                 w32_langinfo_codeset();
