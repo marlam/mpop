@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2014,
- * 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023
+ * 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  *
@@ -274,13 +274,14 @@ int pop3_gets(pop3_session_t *session, size_t *len, char **errstr)
  * pop3_get_msg()
  *
  * This function gets a POP3 server message (one line).
- * The line will at least contain "+OK" or "-ERR", unless 'sasl' is set, in
- * which case it will at least contain "+ " or "- ".
+ * The line will at least contain "+" or "-" as the initial character.
+ * Everything following that is ignored, even though it should start with either
+ * "OK" or "ERR" (in normal mode) or a single space (in SASL mode).
  * In case of errors, the buffer will contain an empty string.
  * Used error codes: POP3_EIO, POP3_EPROTO
  */
 
-int pop3_get_msg(pop3_session_t *session, int sasl, char **errstr)
+int pop3_get_msg(pop3_session_t *session, char **errstr)
 {
     int e;
     size_t l;
@@ -294,23 +295,9 @@ int pop3_get_msg(pop3_session_t *session, int sasl, char **errstr)
     {
         valid = 0;
     }
-    if (sasl)
+    if (session->buffer[0] != '+' && session->buffer[0] != '-')
     {
-        if (strncmp(session->buffer, "+ ", 2) != 0
-                && strncmp(session->buffer, "- ", 2) != 0
-                && strncmp(session->buffer, "+OK", 3) != 0
-                && strncmp(session->buffer, "-ERR", 4) != 0)
-        {
-            valid = 0;
-        }
-    }
-    else
-    {
-        if (strncmp(session->buffer, "+OK", 3) != 0
-                && strncmp(session->buffer, "-ERR", 4) != 0)
-        {
-            valid = 0;
-        }
+        valid = 0;
     }
     if (!valid)
     {
@@ -680,7 +667,7 @@ int pop3_get_greeting(pop3_session_t *session, char *greeting,
     int e;
     char *p, *q, *a;
 
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -952,7 +939,7 @@ int pop3_tls_stls(pop3_session_t *session, char **errmsg, char **errstr)
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -1005,7 +992,7 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr)
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -1097,7 +1084,7 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -1237,7 +1224,7 @@ int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -1772,7 +1759,7 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
             {
                 continue;
             }
-            if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+            if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
             {
                 goto error_exit;
             }
@@ -2059,7 +2046,7 @@ int pop3_dele(pop3_session_t *session, volatile sig_atomic_t *abort,
             {
                 continue;
             }
-            if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+            if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
             {
                 return e;
             }
@@ -2128,7 +2115,7 @@ int pop3_auth_user(pop3_session_t *session,
         {
             return e;
         }
-        if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+        if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
         {
             return e;
         }
@@ -2139,7 +2126,7 @@ int pop3_auth_user(pop3_session_t *session,
             *errstr = xasprintf(_("authentication failed (method %s)"), "USER");
             e = POP3_EAUTHFAIL;
         }
-        if ((etmp = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+        if ((etmp = pop3_get_msg(session, errstr)) != POP3_EOK)
         {
             return etmp;
         }
@@ -2164,7 +2151,7 @@ int pop3_auth_user(pop3_session_t *session,
         {
             return e;
         }
-        if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+        if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
         {
             return e;
         }
@@ -2179,7 +2166,7 @@ int pop3_auth_user(pop3_session_t *session,
         {
             return e;
         }
-        if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+        if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
         {
             return e;
         }
@@ -2219,7 +2206,7 @@ int pop3_auth_apop(pop3_session_t *session,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2275,7 +2262,7 @@ int pop3_auth_oauthbearer(pop3_session_t *session,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2289,7 +2276,7 @@ int pop3_auth_oauthbearer(pop3_session_t *session,
         {
             return e;
         }
-        if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+        if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
         {
             return e;
         }
@@ -2328,7 +2315,7 @@ int pop3_auth_xoauth2(pop3_session_t *session,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2357,7 +2344,7 @@ int pop3_auth_xoauth2(pop3_session_t *session,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2371,7 +2358,7 @@ int pop3_auth_xoauth2(pop3_session_t *session,
         {
             return e;
         }
-        if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+        if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
         {
             return e;
         }
@@ -2414,7 +2401,7 @@ int pop3_auth_plain(pop3_session_t *session,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2431,7 +2418,7 @@ int pop3_auth_plain(pop3_session_t *session,
         return e;
     }
     free(b64);
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2470,7 +2457,7 @@ int pop3_auth_login(pop3_session_t *session,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2490,7 +2477,7 @@ int pop3_auth_login(pop3_session_t *session,
         return e;
     }
     free(b64);
-    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2510,7 +2497,7 @@ int pop3_auth_login(pop3_session_t *session,
         return e;
     }
     free(b64);
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2556,7 +2543,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2603,7 +2590,7 @@ int pop3_auth_cram_md5(pop3_session_t *session,
         return e;
     }
     free(b64);
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2642,7 +2629,7 @@ int pop3_auth_external(pop3_session_t *session, const char *user,
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -2662,7 +2649,7 @@ int pop3_auth_external(pop3_session_t *session, const char *user,
         return e;
     }
     free(b64);
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -3047,7 +3034,7 @@ int pop3_auth(pop3_session_t *session,
                 free(outbuf);
                 return e;
             }
-            if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+            if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
             {
                 gsasl_finish(sctx);
                 gsasl_done(ctx);
@@ -3083,7 +3070,7 @@ int pop3_auth(pop3_session_t *session,
                 free(outbuf);
                 return e;
             }
-            if ((e = pop3_get_msg(session, 1, errstr)) != POP3_EOK)
+            if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
             {
                 gsasl_finish(sctx);
                 gsasl_done(ctx);
@@ -3122,7 +3109,7 @@ int pop3_auth(pop3_session_t *session,
         {
             return e;
         }
-        if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+        if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
         {
             return e;
         }
@@ -3282,7 +3269,7 @@ int pop3_rset(pop3_session_t *session, char **errmsg, char **errstr)
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
@@ -3310,7 +3297,7 @@ int pop3_quit(pop3_session_t *session, char **errmsg, char **errstr)
     {
         return e;
     }
-    if ((e = pop3_get_msg(session, 0, errstr)) != POP3_EOK)
+    if ((e = pop3_get_msg(session, errstr)) != POP3_EOK)
     {
         return e;
     }
