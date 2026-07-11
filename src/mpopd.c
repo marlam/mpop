@@ -324,6 +324,8 @@ int read_pop3_cmd(FILE* in, char* buf, int bufsize)
     if (!fgets(buf, bufsize, in))
         return 1;
     size_t len = strlen(buf);
+    if (len == 0)
+        return 1;
     if (buf[len - 1] != '\n')
         return 1;
     buf[len - 1] = '\0';
