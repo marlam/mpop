@@ -352,7 +352,6 @@ int send_pop3_retr_response(FILE* in, FILE* out)
     char *buffer;
     size_t len;
     char *send_buf;
-    size_t send_len;
     int in_header;
     int line_starts;
     int line_continues;
@@ -403,18 +402,15 @@ int send_pop3_retr_response(FILE* in, FILE* out)
         /* TODO: if in_header is 0, we can start counting mail body lines
          * to implement the TOP command later. */
         send_buf = buffer;
-        send_len = len;
         if (line_starts && buffer[0] == '.') {
             /* Quote the leading dot with another dot */
             send_buf = bigbuffer;
-            send_len = len + 1;
         }
         if (!line_continues) {
             /* Append CRLF */
             buffer[len] = '\r';
             buffer[len + 1] = '\n';
             buffer[len + 2] = '\0';
-            send_len += 2;
         }
         if (fputs(send_buf, out) == EOF) {
             return 1;
