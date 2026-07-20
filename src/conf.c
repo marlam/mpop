@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023
+ * 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2026
  * Martin Lambers <marlam@marlam.de>
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
  *
@@ -323,6 +323,105 @@ long long get_size_arg(const char *s)
     {
         /* trailing garbage */
         x = -1;
+    }
+
+    return x;
+}
+
+
+/*
+ * get_keep_arg()
+ *
+ * see conf.h
+ */
+
+long long get_keep_arg(const char *s)
+{
+    long long int x = 0;
+    const char *p = s;
+
+    errno = 0;
+    while (*s)
+    {
+        unsigned long v = strtoul(s, (char **)(&p), 10);
+        if (p == s || (v == ULONG_MAX && errno == ERANGE))
+        {
+            x = -1;
+            break;
+        }
+        else if (*p == 'd')
+        {
+            if (v > ULONG_MAX / (24 * 60 * 60))
+            {
+                x = -1;
+                break;
+            }
+            else if ((unsigned long long)x > LLONG_MAX - v * 24 * 60 * 60)
+            {
+                x = -1;
+                break;
+            }
+            else
+            {
+                x += v * 24 * 60 * 60;
+                p++;
+            }
+        }
+        else if (*p == 'h')
+        {
+            if (v > ULONG_MAX / (60 * 60))
+            {
+                x = -1;
+                break;
+            }
+            else if ((unsigned long long)x > LLONG_MAX - v * 60 * 60)
+            {
+                x = -1;
+                break;
+            }
+            else
+            {
+                x += v * 60 * 60;
+                p++;
+            }
+        }
+        else if (*p == 'm')
+        {
+            if (v > ULONG_MAX / 60)
+            {
+                x = -1;
+                break;
+            }
+            else if ((unsigned long long)x > LLONG_MAX - v * 60)
+            {
+                x = -1;
+                break;
+            }
+            else
+            {
+                x += v * 60;
+                p++;
+            }
+        }
+        else if (*p == 's')
+        {
+            if ((unsigned long long)x > LLONG_MAX - v)
+            {
+                x = -1;
+                break;
+            }
+            else
+            {
+                x += v;
+                p++;
+            }
+        }
+        else
+        {
+            x = -1;
+            break;
+        }
+        s = p;
     }
 
     return x;
@@ -1426,7 +1525,7 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
             acc->mask |= ACC_KEEP;
             if (*arg == '\0' || is_on(arg))
             {
-                acc->keep = 1;
+                acc->keep = LLONG_MAX;
             }
             else if (is_off(arg))
             {
@@ -1434,11 +1533,14 @@ int read_conffile(const char *conffile, FILE *f, list_t **acc_list,
             }
             else
             {
-                *errstr = xasprintf(
-                        _("line %d: invalid argument %s for command %s"),
-                        line, arg, cmd);
-                e = CONF_ESYNTAX;
-                break;
+                if ((acc->keep = get_keep_arg(arg)) < 0)
+                {
+                    *errstr = xasprintf(
+                            _("line %d: invalid argument %s for command %s"),
+                            line, arg, cmd);
+                    e = CONF_ESYNTAX;
+                    break;
+                }
             }
         }
         else if (strcmp(cmd, "killsize") == 0)

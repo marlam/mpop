@@ -107,7 +107,7 @@
  * see pop3.h
  */
 
-pop3_session_t *pop3_session_new(int pipelining,
+pop3_session_t *pop3_session_new(long long timestamp, int pipelining,
         const char *local_hostname, const char *local_user,
         FILE *debug)
 {
@@ -115,6 +115,7 @@ pop3_session_t *pop3_session_new(int pipelining,
     char *p;
 
     session = xmalloc(sizeof(pop3_session_t));
+    session->timestamp = timestamp;
     session->local_hostname = xstrdup(local_hostname);
     session->local_user = xstrdup(local_user);
     /* sanitize the user name because it will appear in Received headers */
@@ -156,7 +157,7 @@ pop3_session_t *pop3_session_new(int pipelining,
     session->new_number = 0;
     session->new_size = 0;
     session->msg_size = NULL;
-    session->msg_uid = NULL;
+    session->uids = NULL;
     session->msg_action = NULL;
 
     return session;
@@ -180,13 +181,13 @@ void pop3_session_free(pop3_session_t *session)
     free(session->server_address);
     free(session->cap.apop_timestamp);
     free(session->cap.implementation);
-    if (session->msg_uid)
+    if (session->uids)
     {
         for (i = 0; i < session->total_number; i++)
         {
-            free(session->msg_uid[i]);
+            free(session->uids[i].uid);
         }
-        free(session->msg_uid);
+        free(session->uids);
     }
     free(session->msg_action);
     free(session->is_old);
@@ -1071,7 +1072,7 @@ int pop3_uidl_check_uid(const char *uid)
     return (p != uid);
 }
 
-int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
+int pop3_uidl(pop3_session_t *session, uidt_t *uids, long uids_len, int only_new,
         volatile sig_atomic_t *abort, char **errmsg, char **errstr)
 {
     int e;
@@ -1079,6 +1080,7 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
     char *p;
     size_t l;
     long n;
+    uidt_t *uidt;
 
     if ((e = pop3_send_cmd(session, errstr, "UIDL")) != POP3_EOK)
     {
@@ -1096,11 +1098,12 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
     }
 
     /* initialize the UIDs so that we can later check if all of them were set */
-    session->msg_uid = (session->total_number == 0) ? NULL :
-        xmalloc(session->total_number * sizeof(char *));
+    session->uids = (session->total_number == 0) ? NULL :
+        xmalloc(session->total_number * sizeof(uidt_t));
     for (i = 0; i < session->total_number; i++)
     {
-        session->msg_uid[i] = NULL;
+        session->uids[i].uid = NULL;
+        session->uids[i].timestamp = session->timestamp;
     }
 
     /* get 'total_number' UIDs plus one stop line (".") */
@@ -1142,7 +1145,7 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
             if (p == session->buffer || *p != ' '
                     || (n == LONG_MAX && errno == ERANGE)
                     || n < 1 || n > session->total_number
-                    || session->msg_uid[n - 1])
+                    || session->uids[n - 1].uid)
             {
                 goto invalid_reply;
             }
@@ -1158,9 +1161,10 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
             {
                 goto invalid_reply;
             }
-            session->msg_uid[n - 1] = xstrdup(p);
-            if (bsearch(&session->msg_uid[n - 1], uidv, uidv_len, sizeof(*uidv),
-                        uidls_uidcmp) == NULL)
+            session->uids[n - 1].uid = xstrdup(p);
+            session->uids[n - 1].timestamp = session->timestamp;
+            if ((uidt = bsearch(&session->uids[n - 1], uids, uids_len,
+                            sizeof(*uids), uidls_uidcmp)) == NULL)
             {
                 /* The UID is new */
                 session->is_old[n - 1]= 0;
@@ -1170,9 +1174,10 @@ int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
             else
             {
                 /* The UID is old */
+                session->uids[n - 1].timestamp = uidt->timestamp;
                 if (only_new)
                 {
-                    session->msg_action[n - 1]= POP3_MSG_ACTION_DELETE;
+                    session->msg_action[n - 1] = POP3_MSG_ACTION_DELETE;
                 }
                 session->is_old[n - 1] = 1;
                 session->old_number++;
@@ -1196,10 +1201,10 @@ invalid_reply:
 error_exit:
     for (i = 0; i < session->total_number; i++)
     {
-        free(session->msg_uid[i]);
+        free(session->uids[i].uid);
     }
-    free(session->msg_uid);
-    session->msg_uid = NULL;
+    free(session->uids);
+    session->uids = NULL;
     return e;
 }
 
@@ -1695,8 +1700,8 @@ int pop3_write_received_header(pop3_session_t *session, FILE *f, int crlf,
 
 int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
         int filter,
-        void (*filter_output)(long i, long number, int new_status,
-            void *filter_output_data),
+        void (*filter_output)(long i, long number, long long age,
+            int new_status, void *filter_output_data),
         void *filter_output_data,
         int delivery_method, const char *delivery_method_arguments,
         int write_received_header,
@@ -1859,6 +1864,7 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
                     if (filter_output)
                     {
                         filter_output(recv_index + 1, session->total_number,
+                                session->timestamp - session->uids[recv_index].timestamp,
                                 POP3_MSG_ACTION_DELETE, filter_output_data);
                     }
                 }
@@ -1869,6 +1875,7 @@ int pop3_delivery(pop3_session_t *session, volatile sig_atomic_t *abort,
                     if (filter_output)
                     {
                         filter_output(recv_index + 1, session->total_number,
+                                session->timestamp - session->uids[recv_index].timestamp,
                                 POP3_MSG_ACTION_IGNORE, filter_output_data);
                     }
                 }
@@ -1964,8 +1971,8 @@ error_exit:
 
 int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
         const char *filtercmd,
-        void (*filter_output)(long i, long number, int new_action,
-            void *filter_output_data),
+        void (*filter_output)(long i, long number, long long age,
+            int new_action, void *filter_output_data),
         void *filter_output_data,
         char **errmsg, char **errstr)
 {

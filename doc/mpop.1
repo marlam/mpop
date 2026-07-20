@@ -1,14 +1,14 @@
 .\" -*-nroff-*-
 .\"
 .\" Copyright (C) 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014,
-.\" 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+.\" 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026
 .\" Martin Lambers
 .\"
 .\" Permission is granted to copy, distribute and/or modify this document
 .\" under the terms of the GNU Free Documentation License, Version 1.2 or
 .\" any later version published by the Free Software Foundation; with no
 .\" Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
-.TH MPOP 1 2024-10
+.TH MPOP 1 2026-07
 .SH NAME
 mpop \- A POP3 client
 .SH SYNOPSIS
@@ -151,8 +151,8 @@ Authenticate only; do not retrieve mail. Useful for SMTP-after-POP.
 Print number and size of mails in each account only; do not retrieve mail.
 .IP "\-n, \-\-only\-new[=(\fIon\fP|\fIoff\fP)]"
 Process only new messages. See the \fBonly_new\fP command.
-.IP "\-k, \-\-keep[=(\fIon\fP|\fIoff\fP)]"
-Do not delete mails from POP3 servers, regardless of other options or settings.
+.IP "\-k, \-\-keep[=(\fIon\fP|\fIoff\fP|\fIduration\fP)]"
+Do not delete mails from POP3 servers (for the given duration), regardless of other options or settings.
 See the \fBkeep\fP command.
 .IP "\-\-killsize=(\fIoff\fP|\fIsize\fP)"
 Set or unset kill size. See the \fBkillsize\fP command.
@@ -513,19 +513,26 @@ accounts at the same time.
 By default, mpop processes only new messages (new messages are those that were
 not already successfully retrieved in an earlier session). If this option is
 turned off, mpop will process all messages.
-.IP "keep [(\fIon\fP|\fIoff\fP)]"
-Keep all mails on the POP3 server, never delete them. The default behaviour is
-to delete mails that have been successfully retrieved or filtered by kill
-filters.
+.IP "keep [(\fIon\fP|\fIoff\fP\fIduration\fP)]"
+Keep all mails on the POP3 server, do not delete them.
+.br
+If a \fIduration\fP is given instead of \fIon\fP or \fIoff\fP, then mails
+are kept for at least that duration before being deleted. A duration is a string
+consisting of one or more time specifications of the form \fINd\fP for N days,
+\fINh\fP for N hours, \fINm\fP for N minutes or \fINs\fP for N seconds. For example,
+the strings \fI1d12h\fP, \fI36h\fP, \fI1d 11h 60m\fP all specify 36 hours.
+.br
+The default behavior is to delete mails that have been successfully delivered
+or filtered by kill filters.
 .IP "killsize (\fIoff\fP|\fIsize\fP)"
 Mails larger than the given size will be deleted (unless the \fBkeep\fP command
-is used, in which case they will just be skipped).
+says otherwise, in which case they will just be skipped).
 The size argument must be zero or greater. If it is followed by a `k' or
 an `m', the size is measured in kibibytes/mebibytes instead of bytes.
 Note that some POP3 servers report slightly incorrect sizes for mails; see
 \fBNOTES\fP below.
 .br
-When \fBkillsize\fP is set to 0 and \fBkeep\fP is set to on, then all mails are
+When \fBkillsize\fP is set to 0 and \fBkeep\fP is set, then all mails are
 marked as retrieved, but no mail gets deleted from the server. This can be used
 to synchronize the UID list on the client to the UID list on the server.
 .IP "skipsize (\fIoff\fP|\fIsize\fP)"
@@ -557,7 +564,7 @@ what to do with the mail:
 .br
 0: proceed normally; no special action
 .br
-1: delete the mail; do not retrieve it
+1: delete the mail (unless \fBkeep\fP says otherwise); do not retrieve it
 .br
 2: skip the mail; do not retrieve it
 .br

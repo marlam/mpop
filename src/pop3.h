@@ -4,7 +4,7 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2014, 2015,
- * 2016, 2018, 2019, 2020, 2021, 2022, 2023
+ * 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -28,6 +28,7 @@
 #include <signal.h>
 
 #include "readbuf.h"
+#include "uidls.h"
 #ifdef HAVE_TLS
 # include "mtls.h"
 #endif /* HAVE_TLS */
@@ -133,7 +134,7 @@ typedef struct
  * - new_number (= total_number)
  * - new_size (= total_size, not reliable, see above)
  * The next function is pop3_uidl():
- * - msg_uid (UID of each mail)
+ * - uids (UID of each mail)
  * With this information, the caller can update the session fields of each mail:
  * Given a list of UIDs of previously retrieved mails, it can update:
  * - is_old (set true for retrieved mails)
@@ -164,6 +165,7 @@ typedef struct
 
 typedef struct
 {
+    long long timestamp;        /* Time of the start of this session */
     /* Information about the local system */
     char *local_hostname;       /* A canonical name of this host */
     char *local_user;           /* The (login) name of the user for which mails
@@ -195,7 +197,7 @@ typedef struct
     long new_number;            /* number of new messages */
     long long new_size;         /* size of new messages */
     unsigned char *msg_action;  /* action for each mail */
-    char **msg_uid;             /* UID of each mail */
+    uidt_t *uids;               /* UID and timestamp of each mail */
     long long *msg_size;        /* size of each mail */
 } pop3_session_t;
 
@@ -213,11 +215,13 @@ typedef struct
  * means on, and auto means to enable it for servers that advertize the
  * PIPELINING capability in response to the CAPA command and disable it for all
  * other servers.
+ * The 'timestamp' argument is the global session timestamp that will be used
+ * whenever mail age becomes relevant.
  * If 'debug' is not NULL, the complete conversation with the POP3 server will
  * be logged to the referenced file.
  * Beware: this log may contain user passwords.
  */
-pop3_session_t *pop3_session_new(int pipelining,
+pop3_session_t *pop3_session_new(long long timestamp, int pipelining,
         const char *canonical_hostname, const char *local_user,
         FILE *debug);
 
@@ -396,14 +400,14 @@ int pop3_stat(pop3_session_t *session, char **errmsg, char **errstr);
  *
  * Issues the POP3 UIDL command without an argument.
  * This initializes the following fields of 'session':
- * - msg_uid
+ * - uids
  * If 'abort' is externally set, this function will abort and return
  * POP3_EABORTED. The POP3 session is not usable thereafter.
  * Used error codes: POP3_EIO, POP3_EPROTO, POP3_EINVAL, POP3_EUNAVAIL.
  * The error POP3_EUNAVAIL is not critical: it means that the POP3 server does
  * not support the UIDL command.
  */
-int pop3_uidl(pop3_session_t *session, char **uidv, long uidv_len, int only_new,
+int pop3_uidl(pop3_session_t *session, uidt_t *uids, long uids_len, int only_new,
         volatile sig_atomic_t *abort, char **errmsg, char **errstr);
 
 /*
@@ -428,7 +432,7 @@ int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
  * to 'filtercmd'.
  * The exit status will be interpreted as follows:
  * 0   - proceed normally
- * 1   - change message action to POP3_MSG_ACTION_DELETE
+ e 1   - change message action to POP3_MSG_ACTION_DELETE
  * 2   - change message action to POP3_MSG_ACTION_IGNORE
  * >=3 - an error occurred. Exit codes from sysexits.h are supported.
  * If the action changed and filter_output is not NULL, the output function will
@@ -441,8 +445,9 @@ int pop3_list(pop3_session_t *session, volatile sig_atomic_t *abort,
  */
 int pop3_filter(pop3_session_t *session, volatile sig_atomic_t *abort,
         const char *filtercmd,
-        void (*filter_output)(long i, long number, int new_action, void *data),
-        void *data, char **errmsg, char **errstr);
+        void (*filter_output)(long i, long number, long long age,
+            int new_action, void *data), void *data,
+        char **errmsg, char **errstr);
 
 /*
  * pop3_retr()

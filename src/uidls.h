@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2008, 2019
+ * Copyright (C) 2005, 2006, 2007, 2008, 2019, 2026
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -38,13 +38,20 @@
 #define UIDLS_EIO       1       /* input/output error */
 #define UIDLS_EFORMAT   2       /* file has invalid format */
 
+/* An UIDT is a pair consisting of the UID and a timestamp. */
+typedef struct
+{
+    char* uid;                  /* Mail identifier */
+    long long timestamp;        /* Timestamp of first sighting of this mail */
+} uidt_t;
+
 /* An UIDL is a list of n UIDs for one user/hostname pair. */
 typedef struct
 {
     char *hostname;
     char *user;
     long n;
-    char **uidv;
+    uidt_t *uids;
 } uidl_t;
 
 /*
@@ -88,9 +95,12 @@ uidl_t *find_uidl(list_t *uidl_list, const char *hostname, const char *user);
  * be closed when no call to uidls_write() follows).
  * A nonexistant file will be treated as an empty file.
  * The UIDs in each uidl in the list will be in ascending order.
+ * The 'session_timestamp' must be identical to the timestamp used in the POP3
+ * session to avoid inconsistency.
  * Used error codes: UIDLS_EIO, UIDLS_EFORMAT
  */
-int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
+int uidls_read(long long session_timesamp,
+        const char *filename, FILE **uidls_file, list_t **uidl_list,
         char **errstr);
 
 /*

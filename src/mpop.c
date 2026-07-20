@@ -4,7 +4,8 @@
  * This file is part of mpop, a POP3 client.
  *
  * Copyright (C) 2000, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
- * 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024
+ * 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
+ * 2026
  * Martin Lambers <marlam@marlam.de>
  * Dimitrios Apostolou <jimis@gmx.net> (UID handling)
  * Martin Stenberg <martin@gnutiken.se> (passwordeval support)
@@ -30,6 +31,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <time.h>
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
@@ -155,7 +157,7 @@ int mpop_serverinfo(account_t *acc, int debug, char **errmsg, char **errstr)
 
     /* Create a new pop3_server_t. We won't actually retrieve any mail, so the
      * FQDN and the local user are meaningless. */
-    session = pop3_session_new(acc->pipelining, "", "", debug ? stdout : NULL);
+    session = pop3_session_new(0, acc->pipelining, "", "", debug ? stdout : NULL);
 
     /* connect */
     if ((e = pop3_connect(session, acc->socketname, acc->proxy_host, acc->proxy_port,
@@ -531,11 +533,11 @@ char *mpop_hr_size(long long size)
  * Progress output functions for filtering and mail retrieval
  */
 
-void mpop_filter_output(long i, long number, int new_action, void *data)
+void mpop_filter_output(long i, long number, long long age, int new_action, void *data)
 {
     if (new_action == POP3_MSG_ACTION_DELETE)
     {
-        if (((account_t *)data)->keep)
+        if (age < ((account_t *)data)->keep)
         {
             printf(_("skipping message %ld of %ld (reason: filter + keep)\n"),
                     i, number);
@@ -647,8 +649,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 
 
     /* create a new pop3_server_t */
-    session = pop3_session_new(acc->pipelining, canonical_hostname, local_user,
-            debug ? stdout : NULL);
+    session = pop3_session_new(time(NULL), acc->pipelining, canonical_hostname,
+            local_user, debug ? stdout : NULL);
 
     /* connect */
     if ((e = pop3_connect(session, acc->socketname, acc->proxy_host, acc->proxy_port,
@@ -856,8 +858,8 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
 
     /* Load the list of UID lists (if the file does not exist, the returned
      * list will be empty) */
-    if ((e = uidls_read(acc->uidls_file, &uidls_fileptr, &uidl_list, errstr))
-            != UIDLS_EOK)
+    if ((e = uidls_read(session->timestamp, acc->uidls_file, &uidls_fileptr,
+                    &uidl_list, errstr)) != UIDLS_EOK)
     {
         mpop_endsession(session, 0);
         return uidls_exitcode(e);
@@ -879,7 +881,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         {
             /* the POP3 server does not support UIDL */
         }
-        else if ((e = pop3_uidl(session, uidl->uidv, uidl->n, acc->only_new,
+        else if ((e = pop3_uidl(session, uidl->uids, uidl->n, acc->only_new,
                         &mpop_retrmail_abort, errmsg, errstr)) != POP3_EOK)
         {
             if (e != POP3_EUNAVAIL)
@@ -973,7 +975,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                 }
                 if (print_progress)
                 {
-                    if (acc->keep)
+                    if (session->timestamp - session->uids[i - 1].timestamp < acc->keep)
                     {
                         printf(_("skipping message %ld of %ld (reason: "
                                     "killsize + keep)\n"),
@@ -1060,21 +1062,39 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
                 &late_errmsg, &late_errstr);
         for (i = 0; i < uidl->n; i++)
         {
-            free(uidl->uidv[i]);
+            free(uidl->uids[i].uid);
         }
-        free(uidl->uidv);
-        uidl->uidv = NULL;
+        free(uidl->uids);
+        uidl->uids = NULL;
         uidl->n = 0;
-        if (session->old_number > 0 && session->msg_uid)
+        if (session->old_number > 0 && session->uids)
         {
             uidl->n = session->old_number;
-            uidl->uidv = xmalloc(uidl->n * sizeof(char *));
+            uidl->uids = xmalloc(uidl->n * sizeof(uidt_t));
             j = 0;
             for (i = 0; i < session->total_number; i++)
             {
                 if (session->is_old[i])
                 {
-                    uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
+                    uidl->uids[j].uid = xstrdup(session->uids[i].uid);
+                    uidl->uids[j].timestamp = session->uids[i].timestamp;
+                    j++;
+                }
+            }
+        }
+    }
+
+    /* Check if messages that are marked for deletion should be kept instead
+     * because they are not yet old enough. */
+    if (acc->keep)
+    {
+        for (i = 0; i < session->total_number; i++)
+        {
+            if (session->msg_action[i] == POP3_MSG_ACTION_DELETE)
+            {
+                if (session->timestamp - session->uids[i].timestamp < acc->keep)
+                {
+                    session->msg_action[i] = POP3_MSG_ACTION_IGNORE;
                 }
             }
         }
@@ -1083,7 +1103,7 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
     /* Delete mails. If a failure occurs, save the current UIDL state.
      * Otherwise, end the session to commit the changes, then
      * update the UIDL state and save it. */
-    if (late_error == POP3_EOK && !acc->keep)
+    if (late_error == POP3_EOK)
     {
         if ((e = pop3_dele(session, &mpop_retrmail_abort, errmsg, errstr))
                 != POP3_EOK)
@@ -1103,21 +1123,23 @@ int mpop_retrmail(const char *canonical_hostname, const char *local_user,
         quit_was_sent = 1;
         for (i = 0; i < uidl->n; i++)
         {
-            free(uidl->uidv[i]);
+            free(uidl->uids[i].uid);
         }
-        free(uidl->uidv);
-        uidl->uidv = NULL;
+        free(uidl->uids);
+        uidl->uids = NULL;
         uidl->n = 0;
-        if (session->old_number > 0 && session->msg_uid)
+        if (session->old_number > 0 && session->uids)
         {
             uidl->n = session->old_number;
-            uidl->uidv = xmalloc(uidl->n * sizeof(char *));
+            uidl->uids = xmalloc(uidl->n * sizeof(uidt_t));
             j = 0;
             for (i = 0; i < session->total_number; i++)
             {
                 if (session->is_old[i])
                 {
-                    uidl->uidv[j++] = xstrdup(session->msg_uid[i]);
+                    uidl->uids[j].uid = xstrdup(session->uids[i].uid);
+                    uidl->uids[j].timestamp = session->uids[i].timestamp;
+                    j++;
                 }
             }
         }
@@ -2035,7 +2057,7 @@ int main(int argc, char *argv[])
             case 'k':
                 if (!optarg || is_on(optarg))
                 {
-                    cmdline_account->keep = 1;
+                    cmdline_account->keep = LLONG_MAX;
                 }
                 else if (is_off(optarg))
                 {
@@ -2043,9 +2065,12 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    print_error(_("invalid argument %s for %s"),
-                            optarg, "--keep");
-                    error_code = 1;
+                    if ((cmdline_account->keep = get_keep_arg(optarg)) < 0)
+                    {
+                        print_error(_("invalid argument %s for %s"),
+                                optarg, "--keep");
+                        error_code = 1;
+                    }
                 }
                 cmdline_account->mask |= ACC_KEEP;
                 break;
@@ -2303,7 +2328,7 @@ int main(int argc, char *argv[])
         printf(_("  -A, --auth-only              authenticate only; do not retrieve mail\n"));
         printf(_("  -s, --status-only            print account status only; do not retrieve mail\n"));
         printf(_("  -n, --only-new[=(on|off)]    process only new messages\n"));
-        printf(_("  -k, --keep[=(on|off)]        do not delete mails from servers\n"));
+        printf(_("  -k, --keep[=(on|off|time)]   do not delete mails from servers (for a given time)\n"));
         printf(_("  --killsize=(off|number)      set/unset kill size\n"));
         printf(_("  --skipsize=(off|number)      set/unset skip size\n"));
         printf(_("  --filter=[program]           set/unset header filter\n"));
@@ -2591,7 +2616,18 @@ int main(int argc, char *argv[])
                 printf("uidls file = %s\n", account->uidls_file);
                 printf("only_new = %s\n",
                         account->only_new ? _("on") : _("off"));
-                printf("keep = %s\n", account->keep ? _("on") : _("off"));
+                if (account->keep == 0)
+                {
+                    printf("keep = %s\n", _("off"));
+                }
+                else if (account->keep == LLONG_MAX)
+                {
+                    printf("keep = %s\n", _("on"));
+                }
+                else
+                {
+                    printf("keep = " PRINTFLLD " %s\n", account->keep, _("seconds"));
+                }
                 printf("killsize = ");
                 if (account->killsize < 0)
                 {

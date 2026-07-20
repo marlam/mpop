@@ -96,7 +96,7 @@ typedef struct
     char *delivery_args;        /* arguments for the delivery method */
     char *uidls_file;           /* file to store UIDLs */
     int only_new;               /* flag: retrieve only new messages? */
-    int keep;                   /* flag: keep messages on the server? */
+    long long keep;             /* number of seconds to keep messages on the server */
     long long killsize;         /* killsize, -1 when disabled */
     long long skipsize;         /* skipsize, -1 when disabled */
     char *filter;               /* a program to filter the mail headers
@@ -205,6 +205,18 @@ int get_non_neg_int(const char *arg);
  * Gets a size argument. Returns -1 on error.
  */
 long long get_size_arg(const char *arg);
+
+/*
+ * get_keep_arg()
+ *
+ * Gets a duration argument. Returns -1 on error.
+ *
+ * The string must be sequence of "[0-9]X" bits, possibly separated by spaces,
+ * where X is either d for days, h for hours, m for minutes, or s for seconds.
+ *
+ * This function returns the sum of all of those bits in seconds.
+ */
+long long int get_keep_arg(const char *arg);
 
 /*
  * override_account()

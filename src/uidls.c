@@ -3,7 +3,7 @@
  *
  * This file is part of mpop, a POP3 client.
  *
- * Copyright (C) 2005, 2006, 2007, 2008, 2009, 2011, 2019
+ * Copyright (C) 2005, 2006, 2007, 2008, 2009, 2011, 2019, 2026
  * Martin Lambers <marlam@marlam.de>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -26,6 +26,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
@@ -66,7 +67,7 @@ uidl_t *_uidl_new(void)
     uidl->hostname = NULL;
     uidl->user = NULL;
     uidl->n = 0;
-    uidl->uidv = NULL;
+    uidl->uids = NULL;
     return uidl;
 }
 
@@ -94,13 +95,13 @@ void uidl_free(void *u)
     {
         free(uidl->hostname);
         free(uidl->user);
-        if (uidl->uidv)
+        if (uidl->uids)
         {
             for (i = 0; i < uidl->n; i++)
             {
-                free(uidl->uidv[i]);
+                free(uidl->uids[i].uid);
             }
-            free(uidl->uidv);
+            free(uidl->uids);
         }
         free(uidl);
     }
@@ -143,7 +144,7 @@ uidl_t *find_uidl(list_t *uidl_list, const char *hostname, const char *user)
 
 int uidls_uidcmp(const void *a, const void *b)
 {
-    return strcmp(*(const char **)a, *(const char **)b);
+    return strcmp(((const uidt_t *)a)->uid, ((const uidt_t *)b)->uid);
 }
 
 
@@ -153,7 +154,8 @@ int uidls_uidcmp(const void *a, const void *b)
  * see uidls.h
  */
 
-int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
+int uidls_read(long long session_timestamp,
+        const char *filename, FILE **uidls_file, list_t **uidl_list,
         char **errstr)
 {
     char line[UIDLS_LINEBUFSIZE];
@@ -264,10 +266,11 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
                 uidl->n = 0;
                 break;
             }
-            uidl->uidv = xmalloc(uidl->n * sizeof(char *));
+            uidl->uids = xmalloc(uidl->n * sizeof(uidt_t));
             for (i = 0; i < uidl->n; i++)
             {
-                uidl->uidv[i] = NULL;
+                uidl->uids[i].uid = NULL;
+                uidl->uids[i].timestamp = 0;
             }
             p++;
             if (!(q = strchr(p, ' ')) || (q == p))
@@ -296,6 +299,7 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
         }
         else
         {
+            char *last_space;
             /* expecting a uid */
             if (line[0] == ' ')
             {
@@ -305,12 +309,37 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
                 e = UIDLS_EFORMAT;
                 break;
             }
-            uidl->uidv[uidcounter] = xstrdup(line);
+            uidl->uids[uidcounter].uid = xstrdup(line);
+            last_space = strrchr(uidl->uids[uidcounter].uid, ' ');
+            if (!last_space)
+            {
+                /* This file was written with mpop <= 1.4.22 and does not yet
+                 * contain timestamps. Assume the current time. */
+                uidl->uids[uidcounter].timestamp = session_timestamp;
+            }
+            else
+            {
+                /* Read the timestamp and then cut it from the string. */
+                char *endptr;
+                long long ts = strtoll(last_space + 1, &endptr, 10);
+                if (ts == LLONG_MIN || ts == LLONG_MAX || *endptr != '\0')
+                {
+                    *errstr = xasprintf(_("%s, line %ld: invalid timestamp"),
+                            filename, linecounter);
+                    e = UIDLS_EFORMAT;
+                    break;
+                }
+                else
+                {
+                    uidl->uids[uidcounter].timestamp = ts;
+                    *last_space = '\0';
+                }
+            }
             uidcounter++;
             if (uidcounter >= 2 && sorted)
             {
-                if (strcmp(uidl->uidv[uidcounter - 2],
-                            uidl->uidv[uidcounter - 1]) > 0)
+                if (strcmp(uidl->uids[uidcounter - 2].uid,
+                            uidl->uids[uidcounter - 1].uid) > 0)
                 {
                     sorted = 0;
                 }
@@ -321,7 +350,7 @@ int uidls_read(const char *filename, FILE **uidls_file, list_t **uidl_list,
                 {
                     /* This should only happen when we read an UIDLS written by
                      * a version <= 0.8.3. */
-                    qsort(uidl->uidv, (size_t)uidl->n, sizeof(char *),
+                    qsort(uidl->uids, (size_t)uidl->n, sizeof(uidt_t),
                             uidls_uidcmp);
                 }
                 list_insert(lp, uidl);
@@ -409,11 +438,13 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
         {
             error = (fprintf(temp_file, " %ld %s %s\n",
                         uidl->n, uidl->hostname, uidl->user) < 0);
-            qsort(uidl->uidv, (size_t)uidl->n, sizeof(char *), uidls_uidcmp);
+            qsort(uidl->uids, (size_t)uidl->n, sizeof(uidt_t *), uidls_uidcmp);
             for (i = 0; !error && i < uidl->n; i++)
             {
-                error = (fputs(uidl->uidv[i], temp_file) == EOF
-                        || fputc((unsigned char)'\n', temp_file) == EOF);
+                error = (fputs(uidl->uids[i].uid, temp_file) == EOF
+                        || fputc((unsigned char)' ', temp_file) == EOF
+                        || fprintf(temp_file, "%lld\n",
+                            (long long)(uidl->uids[i].timestamp)) < 0);
             }
         }
     }
