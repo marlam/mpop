@@ -745,7 +745,7 @@ char *trim_string(const char *s)
  * If the line is empty or a comment, 'cmd' and 'arg' are unchanged.
  */
 
-void get_cmd(const char* line, char **cmd, char **arg)
+void get_cmd(char* line, char **cmd, char **arg)
 {
     char *p;
     int i;
