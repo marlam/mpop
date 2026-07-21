@@ -438,7 +438,7 @@ int uidls_write(const char *filename, FILE *uidls_file, list_t *uidl_list,
         {
             error = (fprintf(temp_file, " %ld %s %s\n",
                         uidl->n, uidl->hostname, uidl->user) < 0);
-            qsort(uidl->uids, (size_t)uidl->n, sizeof(uidt_t *), uidls_uidcmp);
+            qsort(uidl->uids, (size_t)uidl->n, sizeof(uidt_t), uidls_uidcmp);
             for (i = 0; !error && i < uidl->n; i++)
             {
                 error = (fputs(uidl->uids[i].uid, temp_file) == EOF
