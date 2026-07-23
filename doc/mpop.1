@@ -517,10 +517,12 @@ turned off, mpop will process all messages.
 Keep all mails on the POP3 server, do not delete them.
 .br
 If a \fIduration\fP is given instead of \fIon\fP or \fIoff\fP, then mails
-are kept for at least that duration before being deleted. A duration is a string
-consisting of one or more time specifications of the form \fINd\fP for N days,
-\fINh\fP for N hours, \fINm\fP for N minutes or \fINs\fP for N seconds. For example,
-the strings \fI1d12h\fP, \fI36h\fP, \fI1d 11h 60m\fP all specify 36 hours.
+are kept for at least that duration before being deleted, measured from the
+first time mpop encounters the mails on the POP3 server.
+A duration is a string consisting of one or more time specifications of the
+form \fINd\fP for N days, \fINh\fP for N hours, \fINm\fP for N minutes or
+\fINs\fP for N seconds, optionally separated by spaces. For example, the
+strings \fI1d12h\fP, \fI36h\fP, \fI1d 11h 60m\fP all specify 36 hours.
 .br
 The default behavior is to delete mails that have been successfully delivered
 or filtered by kill filters.

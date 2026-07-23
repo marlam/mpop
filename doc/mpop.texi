@@ -402,10 +402,12 @@ turned off, mpop will process all messages.
 @cmindex keep
 Keep all mails on the POP3 server, do not delete them.@*
 If a @samp{duration} is given instead of @samp{on} or @samp{off}, then mails
-are kept for at least that duration before being deleted. A duration is a string
-consisting of one or more time specifications of the form @samp{Nd} for N days,
-@samp{Nh} for N hours, @samp{Nm} for N minutes or @samp{Ns} for N seconds. For example,
-the strings @samp{1d12h}, @samp{36h}, @samp{1d 11h 60m} all specify 36 hours.@*
+are kept for at least that duration before being deleted, measured from the
+first time mpop encounters the mails on the POP3 server.
+A duration is a string consisting of one or more time specifications of the
+form @samp{Nd} for N days, @samp{Nh} for N hours, @samp{Nm} for N minutes or
+@samp{Ns} for N seconds, optionally separated by spaces. For example, the
+strings @samp{1d12h}, @samp{36h}, @samp{1d 11h 60m} all specify 36 hours.@*
 The default behavior is to delete mails that have been successfully delivered
 or filtered by kill filters.
 @anchor{killsize}
