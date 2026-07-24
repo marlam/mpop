@@ -27,6 +27,9 @@ mpop \- A POP3 client
 .br
 .B mpop
 \-\-host=host [option...] \-\-serverinfo
+.IP "Mail Delivery Agent (MDA) mode:"
+.B mpop
+\-\-mda \-\-delivery=\fImethod\fP,\fImethod_arguments...\fP [envelope-from-address]
 .SH DESCRIPTION
 In mail retrieval mode of operation, mpop retrieves mails from one or more POP3
 mailboxes, optionally does some filtering, and delivers them through a mail
@@ -75,6 +78,21 @@ Print information about the POP3 server(s) and exit. This includes information
 about supported features (pipelining, authentication methods, TOP command, ...),
 about parameters (time for which mails will not be deleted, minimum time
 between logins, ...), and about the TLS certificate (if TLS is active).
+.IP "\-\-mda"
+Act as a mail delivery agent (MDA): read a mail from standard input and deliver
+it according to the \fI--delivery\fP option. See the \fBdelivery\fP command.
+There is one minor difference: the envelope from address is not extracted from
+the mail, it is instead given as a command line argument, or set to
+\fIMAILER-DAEMON\fP if no argument is given.
+Examples:
+.br
+$ mpop --mda --delivery=mbox,~/Mail/inbox
+.br
+$ mpop --mda --delivery=maildir,~/Mail/incoming
+.br
+$ mpop --mda --delivery=mda,"msmtp --host=localhost --from=me@localhost -- you@localhost"
+.br
+$ mpop --mda --delivery=mda,"msmtp --host=localhost --from=%F -- you@localhost" me@localhost
 .RE
 .IP "\fBConfiguration options\fP"
 .RS

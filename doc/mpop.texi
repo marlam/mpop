@@ -560,6 +560,21 @@ about supported features (pipelining, authentication methods, TOP command,
 time between logins, @dots{}), and about the TLS certificate (if TLS is
 active).
 @xref{Server information mode}.
+@anchor{--mda}
+@item --mda
+@opindex --mda
+Act as a mail delivery agent (MDA): read a mail from standard input and deliver
+it according to the @samp{--delivery} option. @xref{delivery}.
+There is one minor difference: the envelope from address is not extracted from
+the mail, it is instead given as a command line argument, or set to
+@samp{MAILER-DAEMON} if no argument is given.
+Examples:
+@example
+$ mpop --mda --delivery=mbox,~/Mail/inbox
+$ mpop --mda --delivery=maildir,~/Mail/incoming
+$ mpop --mda --delivery=mda,"msmtp --host=localhost --from=me@@localhost -- you@@localhost"
+$ mpop --mda --delivery=mda,"msmtp --host=localhost --from=%F -- you@@localhost" me@@localhost
+@end example
 @end table
 
 @subsection Configuration options

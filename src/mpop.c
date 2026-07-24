@@ -60,6 +60,7 @@ extern int optind;
 #include "mtls.h"
 #endif /* HAVE_TLS */
 #include "uidls.h"
+#include "stream.h"
 
 #ifdef W32_NATIVE
 # define PRINTFLLD "%I64d"
@@ -1301,6 +1302,145 @@ int mpop_configure(const char *address, const char *conffile)
 
 
 /*
+ * mpop_mda()
+ *
+ * In this mode, mpop behaves like a Mail Delivery Agent:
+ * It delivers a mail read from stdin in the same way it would have been
+ * delivered from a POP3 server via the 'delivery' command.
+ * In case of errors, this function will print an appropriate error message to
+ * standard error and return an EX_* status.
+ */
+int mpop_mda(int method, char* args, const char* from)
+{
+    int e;
+    char *errstr = NULL;
+    int line_continues = 0;
+    char buf[POP3_BUFSIZE];
+    delivery_method_t *delivery = delivery_method_new(method, args, &errstr);
+    if (!delivery)
+    {
+        print_error(_("cannot initialize delivery: %s"), errstr);
+        free(errstr);
+        return EX_CONFIG;
+    }
+    if ((e = delivery->open(delivery, from, 0, &errstr)) != DELIVERY_EOK)
+    {
+        char *free_errstr = NULL;
+        delivery_method_free(delivery, &free_errstr);
+        free(free_errstr);
+        print_error(_("cannot start delivery: %s"), errstr);
+        free(errstr);
+        return (e == DELIVERY_EIO ? EX_IOERR : EX_OSERR);
+    }
+    /* The following loop is a simplified version of pop3_pipe() */
+    for (;;)
+    {
+        int line_starts = !line_continues;
+        size_t l;
+        if ((e = stream_gets(stdin, buf, sizeof(buf), &l, &errstr)) != STREAM_EOK)
+        {
+            print_error(_("cannot read mail: %s"), errstr);
+            free(errstr);
+            e = EX_IOERR;
+            break;
+        }
+        if (l == 0)
+        {
+            /* end of mail */
+            break;
+        }
+        if (l > 0 && buf[l - 1] == '\n')
+        {
+            /* first case: we have a line end */
+            buf[--l] = '\0';
+            if (l > 0 && buf[l - 1] == '\r')
+            {
+                buf[--l] = '\0';
+            }
+            line_continues = 0;
+        }
+        else if (l == POP3_BUFSIZE - 1)
+        {
+            /* second case: the line continues */
+            if (buf[l - 1] == '\r')
+            {
+                /* We have CRLF that is divided by the buffer boundary. Since CR
+                 * may not appear alone in a mail according to RFC2822, we
+                 * know that the next buffer will be "\n\0", so it's safe to
+                 * just delete the CR. */
+                buf[--l] = '\0';
+            }
+            line_continues = 1;
+        }
+        else
+        {
+            /* third case: this is the last line, and it lacks a newline
+             * character */
+            line_continues = 0;
+        }
+        e = 0;
+        if (line_starts && delivery->need_from_quoting)
+        {
+            /* This is MBOXRD style From quoting. See
+             * http://www.qmail.org/qmail-manual-html/man5/mbox.html */
+            if (strncmp(buf + strspn(buf, ">"), "From ", 5) == 0)
+            {
+                e = (fputc('>', delivery->pipe) == EOF);
+            }
+        }
+        if (!e)
+        {
+            e = (fwrite(buf, sizeof(char), l, delivery->pipe) != l);
+        }
+        if (!e  && !line_continues)
+        {
+            if (delivery->need_crlf)
+            {
+                e = (fputs("\r\n", delivery->pipe) == EOF);
+            }
+            else
+            {
+                e = (fputc('\n', delivery->pipe) == EOF);
+            }
+        }
+        if (e)
+        {
+            print_error(_("cannot write mail: output error"));
+            e = EX_IOERR;
+            break;
+        }
+    }
+    if (e == EX_OK && fflush(delivery->pipe) != 0)
+    {
+        print_error(_("cannot write mail: output error"));
+        e = EX_IOERR;
+    }
+    if (e == EX_OK && (e = delivery->close(delivery, &errstr) != DELIVERY_EOK))
+    {
+        print_error(_("cannot finish delivery: %s"), errstr);
+        free(errstr);
+        e = (e == DELIVERY_EIO ? EX_IOERR : EX_OSERR);
+    }
+    if (e == EX_OK)
+    {
+        if (delivery_method_free(delivery, &errstr) != DELIVERY_EOK)
+        {
+            print_error(_("cannot clean up after delivery: %s"), errstr);
+            free(errstr);
+            return (e == DELIVERY_EIO ? EX_IOERR : EX_OSERR);
+        }
+    }
+    else
+    {
+        char *free_errstr = NULL;
+        delivery_method_free(delivery, &free_errstr);
+        free(free_errstr);
+    }
+    return e;
+}
+
+
+/*
  * Construct a list of accounts from a list of account ids.
  * If there are no account ids (accountidc == 0), use the account "default".
  * If accountidc is -1, then all accounts will be used.
@@ -1474,6 +1614,7 @@ int make_needed_dirs(const char *pathname)
 #define LONGONLYOPT_SOURCE_IP                   (256 + 29)
 #define LONGONLYOPT_CONFIGURE                   (256 + 30)
 #define LONGONLYOPT_SOCKET                      (256 + 31)
+#define LONGONLYOPT_MDA                         (256 + 32)
 
 int main(int argc, char *argv[])
 {
@@ -1489,6 +1630,7 @@ int main(int argc, char *argv[])
     int retrmail;
     int serverinfo;
     int configure;
+    int mda;
     int all_accounts;
     int auth_only;
     int status_only;
@@ -1536,6 +1678,7 @@ int main(int argc, char *argv[])
         { "version",               no_argument,       0, LONGONLYOPT_VERSION },
         { "help",                  no_argument,       0, LONGONLYOPT_HELP },
         { "configure",             required_argument, 0, LONGONLYOPT_CONFIGURE },
+        { "mda",                   no_argument,       0, LONGONLYOPT_MDA },
         { "quiet",                 no_argument,       0, 'q' },
         { "half-quiet",            no_argument,       0, 'Q' },
         { "pretend",               no_argument,       0, 'P' },
@@ -1624,6 +1767,7 @@ int main(int argc, char *argv[])
     retrmail = 1;
     serverinfo = 0;
     configure = 0;
+    mda = 0;
     all_accounts = 0;
     auth_only = 0;
     status_only = 0;
@@ -1642,6 +1786,7 @@ int main(int argc, char *argv[])
                 retrmail = 0;
                 serverinfo = 0;
                 configure = 0;
+                mda = 0;
                 break;
 
             case LONGONLYOPT_HELP:
@@ -1649,14 +1794,23 @@ int main(int argc, char *argv[])
                 retrmail = 0;
                 serverinfo = 0;
                 configure = 0;
+                mda = 0;
                 break;
 
             case LONGONLYOPT_CONFIGURE:
                 configure = 1;
                 retrmail = 0;
                 serverinfo = 0;
+                mda = 0;
                 free(configure_address);
                 configure_address = xstrdup(optarg);
+                break;
+
+            case LONGONLYOPT_MDA:
+                mda = 1;
+                configure = 0;
+                retrmail = 0;
+                serverinfo = 0;
                 break;
 
             case 'q':
@@ -2343,6 +2497,26 @@ int main(int argc, char *argv[])
         error_code = mpop_configure(configure_address, userconfigfile);
         free(userconfigfile);
         free(configure_address);
+        goto exit;
+    }
+
+    if (mda)
+    {
+        if (cmdline_account->delivery_method < 0)
+        {
+            print_error(_("--mda requires --delivery"));
+            error_code = EX_USAGE;
+            goto exit;
+        }
+        if (argc > optind + 1)
+        {
+            print_error(_("--mda requires zero or one argument"));
+            error_code = EX_USAGE;
+            goto exit;
+        }
+        error_code = mpop_mda(cmdline_account->delivery_method,
+                cmdline_account->delivery_args,
+                argc > optind ? argv[optind] : "MAILER-DAEMON");
         goto exit;
     }
 

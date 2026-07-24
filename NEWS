@@ -1,5 +1,6 @@
 Version 1.4.23:
 - The 'keep' command now accepts a duration argument.
+- Added a new MDA mode, activated with the --mda option.
 
 Version 1.4.22:
 - No significant changes.
