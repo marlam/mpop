@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"POT-Creation-Date: 2024-06-04 21:45+0200\n"
 "PO-Revision-Date: 2024-06-06 01:36+0200\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -22,8 +22,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && "
-"n%100<=19) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n%100<=19) ? 1 : 2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Poedit 3.4.3\n"
 
@@ -44,12 +43,8 @@ msgstr "tls_cert_file necesită tls_key_file"
 
 #: src/conf.c:652
 #, c-format
-msgid ""
-"tls requires either tls_trust_file (highly recommended) or tls_fingerprint "
-"or a disabled tls_certcheck"
-msgstr ""
-"tls necesită fie tls_trust_file (foarte recomandat), fie tls_fingerprint sau "
-"opțiunea tls_certcheck dezactivată"
+msgid "tls requires either tls_trust_file (highly recommended) or tls_fingerprint or a disabled tls_certcheck"
+msgstr "tls necesită fie tls_trust_file (foarte recomandat), fie tls_fingerprint sau opțiunea tls_certcheck dezactivată"
 
 #: src/conf.c:658
 #, c-format
@@ -100,8 +95,7 @@ msgstr "linia %d: comanda %s nu acceptă un argument"
 #: src/conf.c:985
 #, c-format
 msgid "line %d: an account name must not contain colons or commas"
-msgstr ""
-"linia %d: un nume de cont nu trebuie să conțină două puncte „:” sau virgule"
+msgstr "linia %d: un nume de cont nu trebuie să conțină două puncte „:” sau virgule"
 
 #: src/conf.c:995
 #, c-format
@@ -119,9 +113,7 @@ msgstr "linia %d: argument nevalid %s pentru comanda %s"
 #: src/conf.c:1462 src/conf.c:1487
 #, c-format
 msgid "line %d: invalid size (not a number or out of range): %s"
-msgstr ""
-"linia %d: dimensiune nevalidă (nu este un număr sau este în afara "
-"intervalului): %s"
+msgstr "linia %d: dimensiune nevalidă (nu este un număr sau este în afara intervalului): %s"
 
 #: src/conf.c:1572
 #, c-format
@@ -135,12 +127,8 @@ msgstr "conține secrete și, prin urmare, trebuie să vă aparțină"
 
 #: src/conf.c:1632
 #, c-format
-msgid ""
-"contains secrets and therefore must have no more than user read/write "
-"permissions"
-msgstr ""
-"conține secrete și, prin urmare, nu trebuie să aibă mai mult decât "
-"permisiuni de citire/scriere pentru utilizator"
+msgid "contains secrets and therefore must have no more than user read/write permissions"
+msgstr "conține secrete și, prin urmare, nu trebuie să aibă mai mult decât permisiuni de citire/scriere pentru utilizator"
 
 #: src/delivery.c:82
 msgid "EX_OK: no error"
@@ -387,9 +375,7 @@ msgstr "Metode de autentificare acceptate:"
 
 #: src/mpop.c:448 src/mpop.c:454
 msgid "Server error messages in square brackets have a special meaning"
-msgstr ""
-"Mesajele de eroare ale serverului în paranteze drepte au o semnificație "
-"specială"
+msgstr "Mesajele de eroare ale serverului în paranteze drepte au o semnificație specială"
 
 #: src/mpop.c:463
 #, c-format
@@ -553,9 +539,7 @@ msgstr "copiați aceasta în fișierul de configurare %s"
 
 #: src/mpop.c:1240
 msgid "warning: the host does not match the mail domain; please check"
-msgstr ""
-"avertisment: gazda nu se potrivește cu domeniul de e-mail; vă rugăm să "
-"verificați"
+msgstr "avertisment: gazda nu se potrivește cu domeniul de e-mail; vă rugăm să verificați"
 
 #: src/mpop.c:1243 src/mpop.c:1247
 msgid "add your password to the key ring:"
@@ -677,8 +661,7 @@ msgstr "Numele fișierului de configurare: %s\n"
 #, c-format
 msgid ""
 "Copyright (C) %d Martin Lambers and others.\n"
-"This is free software.  You may redistribute copies of it under the terms "
-"of\n"
+"This is free software.  You may redistribute copies of it under the terms of\n"
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -755,9 +738,7 @@ msgstr "  --help                       imprimă ajutorul și iese\n"
 #: src/mpop.c:2268
 #, c-format
 msgid "  -P, --pretend                print configuration info and exit\n"
-msgstr ""
-"  -P, --pretend                afișează informațiile despre configurare și "
-"iese\n"
+msgstr "  -P, --pretend                afișează informațiile despre configurare și iese\n"
 
 #: src/mpop.c:2269
 #, c-format
@@ -771,11 +752,8 @@ msgstr "Schimbarea modului de operare:\n"
 
 #: src/mpop.c:2271
 #, c-format
-msgid ""
-"  --configure=mailaddress      generate and print configuration for address\n"
-msgstr ""
-"  --configure=adresă-email     generează și afișează configurația pentru "
-"adresă\n"
+msgid "  --configure=mailaddress      generate and print configuration for address\n"
+msgstr "  --configure=adresă-email     generează și afișează configurația pentru adresă\n"
 
 #: src/mpop.c:2272
 #, c-format
@@ -795,14 +773,11 @@ msgstr "  -C, --file=nume-fișier       stabilește fișierul de configurare\n"
 #: src/mpop.c:2275
 #, c-format
 msgid ""
-"  --host=hostname              set the server, use only command-line "
-"settings;\n"
+"  --host=hostname              set the server, use only command-line settings;\n"
 "                               do not use any configuration file data\n"
 msgstr ""
-"  --host=nume-gazdă            specifică numele serverului, utilizează "
-"numai\n"
-"                               parametrii din linia de comandă; nu "
-"utilizează\n"
+"  --host=nume-gazdă            specifică numele serverului, utilizează numai\n"
+"                               parametrii din linia de comandă; nu utilizează\n"
 "                               datele din fișierul de configurare\n"
 
 #: src/mpop.c:2277
@@ -812,9 +787,7 @@ msgstr "  --port=număr                 stabilește numărul portului\n"
 
 #: src/mpop.c:2278
 #, c-format
-msgid ""
-"  --source-ip=[IP]             set/unset source ip address to bind the "
-"socket to\n"
+msgid "  --source-ip=[IP]             set/unset source ip address to bind the socket to\n"
 msgstr ""
 "  --source-ip=[IP]             specifică/elimină adresa IP sursă la care se\n"
 "                               asociază soclul\n"
@@ -827,8 +800,7 @@ msgstr "  --proxy-host=[IP|nume-gazdă]  specifică/elimină serverul proxy\n"
 #: src/mpop.c:2280
 #, c-format
 msgid "  --proxy-port=[number]        set/unset proxy port\n"
-msgstr ""
-"  --proxy-port=[număr]         specifică/elimină portul serverului proxy\n"
+msgstr "  --proxy-port=[număr]         specifică/elimină portul serverului proxy\n"
 
 #: src/mpop.c:2281
 #, c-format
@@ -841,23 +813,20 @@ msgstr ""
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
 msgstr ""
-"  --timeout=(off|secunde)      stabilește/dezactivează timpul de așteptare "
-"al\n"
+"  --timeout=(off|secunde)      stabilește/dezactivează timpul de așteptare al\n"
 "                               rețelei în secunde\n"
 
 #: src/mpop.c:2283
 #, c-format
 msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
 msgstr ""
-"  --pipelining=(auto|on|off)   activează/dezactivează „pipelining”-ul, "
-"gruparea\n"
+"  --pipelining=(auto|on|off)   activează/dezactivează „pipelining”-ul, gruparea\n"
 "                               de comenzi prin conducte\n"
 
 #: src/mpop.c:2284
 #, c-format
 msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
-msgstr ""
-"  --received-header[=(on|off)] activează/dezactivează antetul „Received”\n"
+msgstr "  --received-header[=(on|off)] activează/dezactivează antetul „Received”\n"
 
 #: src/mpop.c:2285
 #, c-format
@@ -868,8 +837,7 @@ msgstr "  --auth[=(on|metoda)]         alege metoda de autentificare\n"
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
 msgstr ""
-"  --user=[nume-utilizator]     specifică/elimină numele utilizatorului "
-"pentru\n"
+"  --user=[nume-utilizator]     specifică/elimină numele utilizatorului pentru\n"
 "                               autentificare\n"
 
 #: src/mpop.c:2287
@@ -885,57 +853,44 @@ msgstr "  --tls[=(on|off)]             activează/dezactivează criptarea TLS\n"
 #: src/mpop.c:2289
 #, c-format
 msgid "  --tls-starttls[=(on|off)]    enable/disable STARTTLS for TLS\n"
-msgstr ""
-"  --tls-starttls[=(on|off)]    activează/dezactivează STARTTLS pentru TLS\n"
+msgstr "  --tls-starttls[=(on|off)]    activează/dezactivează STARTTLS pentru TLS\n"
 
 #: src/mpop.c:2290
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
-msgstr ""
-"  --tls-trust-file=[fișier]    specifică/elimină fișierul de încredere "
-"pentru TLS\n"
+msgstr "  --tls-trust-file=[fișier]    specifică/elimină fișierul de încredere pentru TLS\n"
 
 #: src/mpop.c:2291
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
-msgstr ""
-"  --tls-crl-file=[fișier]      specifică/elimină fișierul de revocare pentru "
-"TLS\n"
+msgstr "  --tls-crl-file=[fișier]      specifică/elimină fișierul de revocare pentru TLS\n"
 
 #: src/mpop.c:2292
 #, c-format
-msgid ""
-"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
-"TLS\n"
+msgid "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for TLS\n"
 msgstr ""
-"  --tls-fingerprint=[f]        specifică/elimină amprenta digitală a "
-"certificatului\n"
+"  --tls-fingerprint=[f]        specifică/elimină amprenta digitală a certificatului\n"
 "                               de încredere pentru TLS\n"
 
 #: src/mpop.c:2293
 #, c-format
-msgid ""
-"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
-"TLS\n"
+msgid "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"
 msgstr ""
-"  --tls-certcheck[=(on|off)]   activează/dezactivează verificările "
-"certificatelor\n"
+"  --tls-certcheck[=(on|off)]   activează/dezactivează verificările certificatelor\n"
 "                               serverului pentru TLS\n"
 
 #: src/mpop.c:2294
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
 msgstr ""
-"  --tls-key-file=[fișier]      specifică/elimină fișierul de chei private "
-"pentru\n"
+"  --tls-key-file=[fișier]      specifică/elimină fișierul de chei private pentru\n"
 "                               TLS\n"
 
 #: src/mpop.c:2295
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
 msgstr ""
-"  --tls-cert-file=[fișier]     specifică/elimină fișierul de certificat "
-"privat\n"
+"  --tls-cert-file=[fișier]     specifică/elimină fișierul de certificat privat\n"
 "                               pentru TLS\n"
 
 #: src/mpop.c:2296
@@ -945,9 +900,7 @@ msgstr "  --tls-priorities=[priorități]  stabilește/elimină prioritățile T
 
 #: src/mpop.c:2297
 #, c-format
-msgid ""
-"  --tls-host-override=[host]   set/unset override for TLS host "
-"verification.\n"
+msgid "  --tls-host-override=[host]   set/unset override for TLS host verification.\n"
 msgstr ""
 "  --tls-host-override=[gazda]  activează/dezactivează suprascrierea pentru\n"
 "                               verificarea unei gazdei TLS\n"
@@ -966,45 +919,32 @@ msgstr "Opțiuni specifice modului de preluare a corespondenței:\n"
 
 #: src/mpop.c:2300
 #, c-format
-msgid ""
-"  -q, --quiet                  do not display status or progress "
-"information\n"
-msgstr ""
-"  -q, --quiet                  nu afișează informații privind starea sau "
-"progresul\n"
+msgid "  -q, --quiet                  do not display status or progress information\n"
+msgstr "  -q, --quiet                  nu afișează informații privind starea sau progresul\n"
 
 #: src/mpop.c:2301
 #, c-format
-msgid ""
-"  -Q, --half-quiet             display status but not progress information\n"
+msgid "  -Q, --half-quiet             display status but not progress information\n"
 msgstr ""
-"  -Q, --half-quiet             afișează informațiile despre stare, dar nu "
-"și\n"
+"  -Q, --half-quiet             afișează informațiile despre stare, dar nu și\n"
 "                               despre progres\n"
 
 #: src/mpop.c:2302
 #, c-format
-msgid ""
-"  -a, --all-accounts           query all accounts in the configuration file\n"
+msgid "  -a, --all-accounts           query all accounts in the configuration file\n"
 msgstr ""
 "  -a, --all-accounts           interoghează toate conturile din fișierul de\n"
 "                               configurare\n"
 
 #: src/mpop.c:2303
 #, c-format
-msgid ""
-"  -A, --auth-only              authenticate only; do not retrieve mail\n"
-msgstr ""
-"  -A, --auth-only              doar autentificare; nu preia corespondența\n"
+msgid "  -A, --auth-only              authenticate only; do not retrieve mail\n"
+msgstr "  -A, --auth-only              doar autentificare; nu preia corespondența\n"
 
 #: src/mpop.c:2304
 #, c-format
-msgid ""
-"  -s, --status-only            print account status only; do not retrieve "
-"mail\n"
-msgstr ""
-"  -s, --status-only            afișează starea contului doar; nu preia "
-"corespondența\n"
+msgid "  -s, --status-only            print account status only; do not retrieve mail\n"
+msgstr "  -s, --status-only            afișează starea contului doar; nu preia corespondența\n"
 
 #: src/mpop.c:2305
 #, c-format
@@ -1020,37 +960,30 @@ msgstr "  -k, --keep[=(on|off)]        nu șterge e-mail-urile de pe servere\n"
 #, c-format
 msgid "  --killsize=(off|number)      set/unset kill size\n"
 msgstr ""
-"  --killsize=(off|număr)       activează/dezactivează ștergerea unei "
-"dimensiuni\n"
+"  --killsize=(off|număr)       activează/dezactivează ștergerea unei dimensiuni\n"
 "                               mai mari decăt „număr”\n"
 
 #: src/mpop.c:2308
 #, c-format
 msgid "  --skipsize=(off|number)      set/unset skip size\n"
 msgstr ""
-"  --skipsize=(off|număr)       activează/dezactivează omiterea unei "
-"dimensiuni\n"
+"  --skipsize=(off|număr)       activează/dezactivează omiterea unei dimensiuni\n"
 "                               mai mari decăt „număr”\n"
 
 #: src/mpop.c:2309
 #, c-format
 msgid "  --filter=[program]           set/unset header filter\n"
-msgstr ""
-"  --filter=[program]           activează/dezactivează filtrul de antet\n"
+msgstr "  --filter=[program]           activează/dezactivează filtrul de antet\n"
 
 #: src/mpop.c:2310
 #, c-format
 msgid "  --delivery=method,arg        set the mail delivery method\n"
-msgstr ""
-"  --delivery=metoda,arg        stabilește metoda de livrare a "
-"corespondenței\n"
+msgstr "  --delivery=metoda,arg        stabilește metoda de livrare a corespondenței\n"
 
 #: src/mpop.c:2311
 #, c-format
 msgid "  --uidls-file=filename        set file to store UIDLs\n"
-msgstr ""
-"  --uidls-file=nume-fișier     stabilește fișierul pentru stocarea UIDL-"
-"urilor\n"
+msgstr "  --uidls-file=nume-fișier     stabilește fișierul pentru stocarea UIDL-urilor\n"
 
 #: src/mpop.c:2312
 #, c-format
@@ -1297,23 +1230,18 @@ msgstr "nu se poate aloca un certificat pentru sesiunea TLS: %s"
 
 #: src/mtls-gnutls.c:452 src/mtls-libtls.c:312
 #, c-format
-msgid ""
-"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
-msgstr ""
-"nu se poate configura fișierul cheie X509 %s și/sau fișierul certificat X509 "
-"%s pentru sesiunea TLS: %s"
+msgid "cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+msgstr "nu se poate configura fișierul cheie X509 %s și/sau fișierul certificat X509 %s pentru sesiunea TLS: %s"
 
 #: src/mtls-gnutls.c:474 src/mtls-openssl.c:720
 #, c-format
 msgid "cannot set X509 system trust for TLS session: %s"
-msgstr ""
-"nu se poate configura un sistem de încredere X509 pentru sesiunea TLS: %s"
+msgstr "nu se poate configura un sistem de încredere X509 pentru sesiunea TLS: %s"
 
 #: src/mtls-gnutls.c:489 src/mtls-libtls.c:342
 #, c-format
 msgid "cannot set X509 trust file %s for TLS session: %s"
-msgstr ""
-"nu se poate configura fișierul de încredere X509 %s pentru sesiunea TLS: %s"
+msgstr "nu se poate configura fișierul de încredere X509 %s pentru sesiunea TLS: %s"
 
 #: src/mtls-gnutls.c:504 src/mtls-libtls.c:355
 #, c-format
@@ -1353,15 +1281,12 @@ msgstr "nu se poate inițializa „libtls”"
 #: src/mtls-libtls.c:223
 #, c-format
 msgid "cannot use deprecated fingerprints, please update to SHA256"
-msgstr ""
-"nu se pot utiliza amprente depreciate, vă rugăm să actualizați la SHA256"
+msgstr "nu se pot utiliza amprente depreciate, vă rugăm să actualizați la SHA256"
 
 #: src/mtls-libtls.c:231 src/mtls-openssl.c:649
 #, c-format
 msgid "cannot set minimum number of DH prime bits for TLS: %s"
-msgstr ""
-"nu se poate defini numărul minim de biți utilizați pentru numărul prim DH în "
-"sesiunea TLS: %s"
+msgstr "nu se poate defini numărul minim de biți utilizați pentru numărul prim DH în sesiunea TLS: %s"
 
 #: src/mtls-libtls.c:232
 msgid "feature not yet implemented for libtls"
@@ -1383,11 +1308,8 @@ msgstr "nu se poate stabili descriptorul de fișier pentru TLS: %s"
 
 #: src/mtls-openssl.c:92
 #, c-format
-msgid ""
-"no environment variables RANDFILE or HOME, or filename of rand file too long"
-msgstr ""
-"nu există variabile de mediu RANDFILE sau HOME, sau numele fișierului "
-"aleatoriu este prea lung"
+msgid "no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgstr "nu există variabile de mediu RANDFILE sau HOME, sau numele fișierului aleatoriu este prea lung"
 
 #: src/mtls-openssl.c:98 src/uidls.c:351
 #, c-format
@@ -1397,9 +1319,7 @@ msgstr "%s: eroare de intrare"
 #: src/mtls-openssl.c:120
 #, c-format
 msgid "random file + time + pseudo randomness is not enough, giving up"
-msgstr ""
-"fișier aleatoriu + timp + generator de numere pseudo-aleatoare nu este "
-"suficient, se renunță"
+msgstr "fișier aleatoriu + timp + generator de numere pseudo-aleatoare nu este suficient, se renunță"
 
 #: src/mtls-openssl.c:293 src/mtls-openssl.c:579
 #, c-format
@@ -1704,12 +1624,8 @@ msgstr "serverul POP3 a trimis un răspuns nevalid"
 
 #: src/pop3.c:382
 #, c-format
-msgid ""
-"Cannot send POP3 command because it is longer than %d characters. Increase "
-"POP3_BUFSIZE."
-msgstr ""
-"Nu se poate trimite comanda POP3 deoarece este mai lungă de %d caractere. "
-"Măriți valoarea variabilei POP3_BUFSIZE."
+msgid "Cannot send POP3 command because it is longer than %d characters. Increase POP3_BUFSIZE."
+msgstr "Nu se poate trimite comanda POP3 deoarece este mai lungă de %d caractere. Măriți valoarea variabilei POP3_BUFSIZE."
 
 #: src/pop3.c:691
 #, c-format
@@ -1732,9 +1648,7 @@ msgstr "comanda %s a eșuat"
 #: src/pop3.c:1038
 #, c-format
 msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
-msgstr ""
-"Nu se pot gestiona mai mult de %ld mesaje. Măriți  valoarea variabilei "
-"POP3_MAX_MESSAGES."
+msgstr "Nu se pot gestiona mai mult de %ld mesaje. Măriți  valoarea variabilei POP3_MAX_MESSAGES."
 
 #: src/pop3.c:1493 src/pop3.c:1522
 #, c-format
@@ -1787,8 +1701,7 @@ msgstr "autentificarea a eșuat (metoda %s)"
 #: src/pop3.c:2576
 #, c-format
 msgid "authentication method CRAM-MD5: server sent invalid challenge"
-msgstr ""
-"metoda de autentificare CRAM-MD5: serverul a trimis o provocare nevalidă"
+msgstr "metoda de autentificare CRAM-MD5: serverul a trimis o provocare nevalidă"
 
 #: src/pop3.c:2797 src/pop3.c:3150
 #, c-format
@@ -1828,9 +1741,7 @@ msgstr "metoda de autentificare %s necesită o parolă"
 #: src/pop3.c:2946
 #, c-format
 msgid "authentication method %s needs TLS channel binding information"
-msgstr ""
-"metoda de autentificare %s are nevoie de informații de asociere a canalului "
-"TLS"
+msgstr "metoda de autentificare %s are nevoie de informații de asociere a canalului TLS"
 
 #: src/pop3.c:3111
 #, c-format

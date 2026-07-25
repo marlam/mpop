@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"POT-Creation-Date: 2024-06-04 21:45+0200\n"
 "PO-Revision-Date: 2024-06-06 00:33-0400\n"
 "Last-Translator: Keith Bowes <zooplah@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -35,12 +35,8 @@ msgstr "tls_key_file estas postulata de tls_cert_file"
 
 #: src/conf.c:652
 #, c-format
-msgid ""
-"tls requires either tls_trust_file (highly recommended) or tls_fingerprint "
-"or a disabled tls_certcheck"
-msgstr ""
-"aŭ tls_trust_file (ege rekomendinda) aŭ tls_fingerprint aŭ malaktivigita "
-"tls_certcheck estas postulata de TLS"
+msgid "tls requires either tls_trust_file (highly recommended) or tls_fingerprint or a disabled tls_certcheck"
+msgstr "aŭ tls_trust_file (ege rekomendinda) aŭ tls_fingerprint aŭ malaktivigita tls_certcheck estas postulata de TLS"
 
 #: src/conf.c:658
 #, c-format
@@ -123,12 +119,8 @@ msgstr "enhavas sekretojn kaj tial devas esti estrata de vi"
 
 #: src/conf.c:1632
 #, c-format
-msgid ""
-"contains secrets and therefore must have no more than user read/write "
-"permissions"
-msgstr ""
-"enhavas sekretojn kaj tial devas ne esti legebla/skribebla de iu ajn alia ol "
-"la estro"
+msgid "contains secrets and therefore must have no more than user read/write permissions"
+msgstr "enhavas sekretojn kaj tial devas ne esti legebla/skribebla de iu ajn alia ol la estro"
 
 #: src/delivery.c:82
 msgid "EX_OK: no error"
@@ -539,8 +531,7 @@ msgstr "kopii la jenan en vian agordo dosieron %s"
 
 #: src/mpop.c:1240
 msgid "warning: the host does not match the mail domain; please check"
-msgstr ""
-"averto: la retnodo ne kongruas kun la retpoŝta domajno; bonvolu kontroli"
+msgstr "averto: la retnodo ne kongruas kun la retpoŝta domajno; bonvolu kontroli"
 
 #: src/mpop.c:1243 src/mpop.c:1247
 msgid "add your password to the key ring:"
@@ -662,16 +653,13 @@ msgstr "Agordo-dosiernomo: %s\n"
 #, c-format
 msgid ""
 "Copyright (C) %d Martin Lambers and others.\n"
-"This is free software.  You may redistribute copies of it under the terms "
-"of\n"
+"This is free software.  You may redistribute copies of it under the terms of\n"
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Kopirajto (C) %d Martin Lambers kaj aliuloj.\n"
-"Ĉi tio estas libera programo. Vi rajtas distribui ekzemplerojn de ĝi laŭ la "
-"kondiĉoj de\n"
-"la Ĝenerala Publika Permesilo de GNU <http://www.gnu.org/licenses/gpl."
-"html>.\n"
+"Ĉi tio estas libera programo. Vi rajtas distribui ekzemplerojn de ĝi laŭ la kondiĉoj de\n"
+"la Ĝenerala Publika Permesilo de GNU <http://www.gnu.org/licenses/gpl.html>.\n"
 "Ekzistas NENIU GARANTIO, escepte kiom postulata de la leĝaro.\n"
 
 #: src/mpop.c:2251
@@ -756,10 +744,8 @@ msgstr "Por ŝanĝi la operacireĝimo:\n"
 
 #: src/mpop.c:2271
 #, c-format
-msgid ""
-"  --configure=mailaddress      generate and print configuration for address\n"
-msgstr ""
-"  --configure=retpoŝtadreson    generi kaj eligi agordon por retpoŝtadreso\n"
+msgid "  --configure=mailaddress      generate and print configuration for address\n"
+msgstr "  --configure=retpoŝtadreson    generi kaj eligi agordon por retpoŝtadreso\n"
 
 #: src/mpop.c:2272
 #, c-format
@@ -779,12 +765,10 @@ msgstr "  -C, --file=filename          elekti agordo-dosieron\n"
 #: src/mpop.c:2275
 #, c-format
 msgid ""
-"  --host=hostname              set the server, use only command-line "
-"settings;\n"
+"  --host=hostname              set the server, use only command-line settings;\n"
 "                               do not use any configuration file data\n"
 msgstr ""
-"  --host=retrodnomo             elekti la servilon, uzi sole komandliniajn "
-"agordaĵojn\n"
+"  --host=retrodnomo             elekti la servilon, uzi sole komandliniajn agordaĵojn\n"
 "                               ne uzi la agordo-dosieron\n"
 
 #: src/mpop.c:2277
@@ -794,12 +778,8 @@ msgstr "  --port=numero                elekti pordo-numeron\n"
 
 #: src/mpop.c:2278
 #, c-format
-msgid ""
-"  --source-ip=[IP]             set/unset source ip address to bind the "
-"socket to\n"
-msgstr ""
-"  --source-ip=[IP]             elekti/malelekti la adreson al kiu bindi la  "
-"ŝtopilingon\n"
+msgid "  --source-ip=[IP]             set/unset source ip address to bind the socket to\n"
+msgstr "  --source-ip=[IP]             elekti/malelekti la adreson al kiu bindi la  ŝtopilingon\n"
 
 #: src/mpop.c:2279
 #, c-format
@@ -814,16 +794,12 @@ msgstr "  --proxy-port=[numero]        elekti/malelekti prokurilan pordon\n"
 #: src/mpop.c:2281
 #, c-format
 msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
-msgstr ""
-"  --socket=[nomo]              elekti/malelekti la lokan ŝtopilingon al kiu "
-"konektiĝi\n"
+msgstr "  --socket=[nomo]              elekti/malelekti la lokan ŝtopilingon al kiu konektiĝi\n"
 
 #: src/mpop.c:2282
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
-msgstr ""
-"--timeout=(off|sekundoj)       elekti la retan eksvalidiĝon laŭ sekundoj, aŭ "
-"malŝalti ĝin (per ŝlosilvorto off)\n"
+msgstr "--timeout=(off|sekundoj)       elekti la retan eksvalidiĝon laŭ sekundoj, aŭ malŝalti ĝin (per ŝlosilvorto off)\n"
 
 #: src/mpop.c:2283
 #, c-format
@@ -843,9 +819,7 @@ msgstr "  --auth[=(on|metodo)]         elekti la aŭtentigan metodon\n"
 #: src/mpop.c:2286
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
-msgstr ""
-"  --user=[salutnomo]          elekti/malelekti la salutnomon uzeblan por "
-"aŭtentigi\n"
+msgstr "  --user=[salutnomo]          elekti/malelekti la salutnomon uzeblan por aŭtentigi\n"
 
 #: src/mpop.c:2287
 #, c-format
@@ -865,46 +839,32 @@ msgstr "  --tls-starttls[=(on|off)]    aktivigi/malaktivigi STARTTLS por TLS\n"
 #: src/mpop.c:2290
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
-msgstr ""
-"  --tls-trust-file=[dosiero]      elekti/malelekti fido-dosieron por TLS\n"
+msgstr "  --tls-trust-file=[dosiero]      elekti/malelekti fido-dosieron por TLS\n"
 
 #: src/mpop.c:2291
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
-msgstr ""
-"  --tls-crl-file=[dosiero]     elekti/malelekti revokodosieron por TLS\n"
+msgstr "  --tls-crl-file=[dosiero]     elekti/malelekti revokodosieron por TLS\n"
 
 #: src/mpop.c:2292
 #, c-format
-msgid ""
-"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
-"TLS\n"
-msgstr ""
-"  --tls-fingerprint=[f]        elekti/malelekti atestilan fingropremaĵon  "
-"por TLS\n"
+msgid "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for TLS\n"
+msgstr "  --tls-fingerprint=[f]        elekti/malelekti atestilan fingropremaĵon  por TLS\n"
 
 #: src/mpop.c:2293
 #, c-format
-msgid ""
-"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
-"TLS\n"
-msgstr ""
-"  --tls-certcheck[=(on|off)]   aktivigi/malaktivigi kontroladon de servilaj "
-"atestiloj por TLS\n"
+msgid "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"
+msgstr "  --tls-certcheck[=(on|off)]   aktivigi/malaktivigi kontroladon de servilaj atestiloj por TLS\n"
 
 #: src/mpop.c:2294
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
-msgstr ""
-"  --tls-key-file=[file]        elekti/malelekti dosieron privata ŝlosilo por "
-"TLS \n"
+msgstr "  --tls-key-file=[file]        elekti/malelekti dosieron privata ŝlosilo por TLS \n"
 
 #: src/mpop.c:2295
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
-msgstr ""
-"  --tls-cert-file=[file]       elekti/malelekti dosieron de privata atestilo "
-"por TLS\n"
+msgstr "  --tls-cert-file=[file]       elekti/malelekti dosieron de privata atestilo por TLS\n"
 
 #: src/mpop.c:2296
 #, c-format
@@ -913,19 +873,13 @@ msgstr "  --tls-priorities=[prio]      elekti/malelekti TLS-prioritatojn.\n"
 
 #: src/mpop.c:2297
 #, c-format
-msgid ""
-"  --tls-host-override=[host]   set/unset override for TLS host "
-"verification.\n"
-msgstr ""
-"  --tls-host-override=[retnodo] elekti/malelekti superregadon por aŭtentigo "
-"de TLS-retnodo.\n"
+msgid "  --tls-host-override=[host]   set/unset override for TLS host verification.\n"
+msgstr "  --tls-host-override=[retnodo] elekti/malelekti superregadon por aŭtentigo de TLS-retnodo.\n"
 
 #: src/mpop.c:2298
 #, c-format
 msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
-msgstr ""
-"  --tls-min-dh-prime-bits=[b]  elekti/malelekti minimuman bitgrandon de DH-"
-"primo\n"
+msgstr "  --tls-min-dh-prime-bits=[b]  elekti/malelekti minimuman bitgrandon de DH-primo\n"
 
 #: src/mpop.c:2299
 #, c-format
@@ -934,40 +888,28 @@ msgstr "Elektebloj specifaj por la retpoŝtatinga reĝimo:\n"
 
 #: src/mpop.c:2300
 #, c-format
-msgid ""
-"  -q, --quiet                  do not display status or progress "
-"information\n"
-msgstr ""
-"  -q, --quiet                  ne montri statajn aŭ progresajn informojn\n"
+msgid "  -q, --quiet                  do not display status or progress information\n"
+msgstr "  -q, --quiet                  ne montri statajn aŭ progresajn informojn\n"
 
 #: src/mpop.c:2301
 #, c-format
-msgid ""
-"  -Q, --half-quiet             display status but not progress information\n"
-msgstr ""
-"  -Q, --half-quiet             montri statajn sed ne progresajn informojn\n"
+msgid "  -Q, --half-quiet             display status but not progress information\n"
+msgstr "  -Q, --half-quiet             montri statajn sed ne progresajn informojn\n"
 
 #: src/mpop.c:2302
 #, c-format
-msgid ""
-"  -a, --all-accounts           query all accounts in the configuration file\n"
-msgstr ""
-"  -a, --all-accounts           mendi ĉiujn kontojn en la agordo-dosiero\n"
+msgid "  -a, --all-accounts           query all accounts in the configuration file\n"
+msgstr "  -a, --all-accounts           mendi ĉiujn kontojn en la agordo-dosiero\n"
 
 #: src/mpop.c:2303
 #, c-format
-msgid ""
-"  -A, --auth-only              authenticate only; do not retrieve mail\n"
+msgid "  -A, --auth-only              authenticate only; do not retrieve mail\n"
 msgstr "  -A, --auth-only              nur aŭtentigi; ne atingi retpoŝtaĵojn\n"
 
 #: src/mpop.c:2304
 #, c-format
-msgid ""
-"  -s, --status-only            print account status only; do not retrieve "
-"mail\n"
-msgstr ""
-"  -s, --status-only            nur eligi kontan staton; ne atingi "
-"retpoŝtaĵojn\n"
+msgid "  -s, --status-only            print account status only; do not retrieve mail\n"
+msgstr "  -s, --status-only            nur eligi kontan staton; ne atingi retpoŝtaĵojn\n"
 
 #: src/mpop.c:2305
 #, c-format
@@ -997,14 +939,12 @@ msgstr "  --filter=[programo]          elekti/malelekti ĉapo-filtrilon\n"
 #: src/mpop.c:2310
 #, c-format
 msgid "  --delivery=method,arg        set the mail delivery method\n"
-msgstr ""
-"  --delivery=metodo,arg        elekti la metodon por retpoŝta liverado\n"
+msgstr "  --delivery=metodo,arg        elekti la metodon por retpoŝta liverado\n"
 
 #: src/mpop.c:2311
 #, c-format
 msgid "  --uidls-file=filename        set file to store UIDLs\n"
-msgstr ""
-"  --uidls-file=dosiernomo       elekti dosieron en kiun konservi UIDL-ojn\n"
+msgstr "  --uidls-file=dosiernomo       elekti dosieron en kiun konservi UIDL-ojn\n"
 
 #: src/mpop.c:2312
 #, c-format
@@ -1251,11 +1191,8 @@ msgstr "ne eblas generi atestilon por TLS-seancon: %s"
 
 #: src/mtls-gnutls.c:452 src/mtls-libtls.c:312
 #, c-format
-msgid ""
-"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
-msgstr ""
-"ne eblas elekti X509-ŝlosildosieron %s kajaŭ X509-atestildosieron %s por TLS-"
-"seanco: %s"
+msgid "cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+msgstr "ne eblas elekti X509-ŝlosildosieron %s kajaŭ X509-atestildosieron %s por TLS-seanco: %s"
 
 #: src/mtls-gnutls.c:474 src/mtls-openssl.c:720
 #, c-format
@@ -1305,9 +1242,7 @@ msgstr "ne eblas startigi TLS-bibliotekon libtls"
 #: src/mtls-libtls.c:223
 #, c-format
 msgid "cannot use deprecated fingerprints, please update to SHA256"
-msgstr ""
-"ne eblas uzi malaktualajn fingropremojn. Bonvolu anstataŭe uzi la formaton "
-"SHA256"
+msgstr "ne eblas uzi malaktualajn fingropremojn. Bonvolu anstataŭe uzi la formaton SHA256"
 
 #: src/mtls-libtls.c:231 src/mtls-openssl.c:649
 #, c-format
@@ -1334,8 +1269,7 @@ msgstr "ne eblas agordi dosiero-prisklibilon por TLS: %s"
 
 #: src/mtls-openssl.c:92
 #, c-format
-msgid ""
-"no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgid "no environment variables RANDFILE or HOME, or filename of rand file too long"
 msgstr "neniu medivariablo RANDFILE aŭ HOME, aŭ dosiernomo tro longas"
 
 #: src/mtls-openssl.c:98 src/uidls.c:351
@@ -1651,12 +1585,8 @@ msgstr "POP3-servilo sendis nevalidan respondon"
 
 #: src/pop3.c:382
 #, c-format
-msgid ""
-"Cannot send POP3 command because it is longer than %d characters. Increase "
-"POP3_BUFSIZE."
-msgstr ""
-"Ne eblas sendi POP3-komandon ĉar ĝi estas pli longa ol %d signoj. Pliigu la "
-"valoron de POP3_BUFSIZE."
+msgid "Cannot send POP3 command because it is longer than %d characters. Increase POP3_BUFSIZE."
+msgstr "Ne eblas sendi POP3-komandon ĉar ĝi estas pli longa ol %d signoj. Pliigu la valoron de POP3_BUFSIZE."
 
 #: src/pop3.c:691
 #, c-format
@@ -1679,8 +1609,7 @@ msgstr "komando %s malsukcesis"
 #: src/pop3.c:1038
 #, c-format
 msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
-msgstr ""
-"ne eblas trakti pli ol %ld mesaĝojn. Pliigu la valoron de POP3_MAX_MESSAGES."
+msgstr "ne eblas trakti pli ol %ld mesaĝojn. Pliigu la valoron de POP3_MAX_MESSAGES."
 
 #: src/pop3.c:1493 src/pop3.c:1522
 #, c-format

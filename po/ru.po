@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"POT-Creation-Date: 2024-06-04 21:45+0200\n"
 "PO-Revision-Date: 2024-06-05 21:26+0500\n"
 "Last-Translator: Kirill Isakov <k@isakov.net>\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
@@ -17,8 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Poedit 3.4.2\n"
 
@@ -39,12 +38,8 @@ msgstr "tls_cert_file требует назначения tls_key_file"
 
 #: src/conf.c:652
 #, c-format
-msgid ""
-"tls requires either tls_trust_file (highly recommended) or tls_fingerprint "
-"or a disabled tls_certcheck"
-msgstr ""
-"tls требует назначения tls_trust_file (рекомендуется), либо назначения "
-"tls_fingerprint, либо отключения tls_certcheck"
+msgid "tls requires either tls_trust_file (highly recommended) or tls_fingerprint or a disabled tls_certcheck"
+msgstr "tls требует назначения tls_trust_file (рекомендуется), либо назначения tls_fingerprint, либо отключения tls_certcheck"
 
 #: src/conf.c:658
 #, c-format
@@ -95,8 +90,7 @@ msgstr "строка %d: команда %s не принимает аргуме�
 #: src/conf.c:985
 #, c-format
 msgid "line %d: an account name must not contain colons or commas"
-msgstr ""
-"строка %d: название учётной записи не должно содержать двоеточий или запятых"
+msgstr "строка %d: название учётной записи не должно содержать двоеточий или запятых"
 
 #: src/conf.c:995
 #, c-format
@@ -114,8 +108,7 @@ msgstr "строка %d: некорректный аргумент %s коман
 #: src/conf.c:1462 src/conf.c:1487
 #, c-format
 msgid "line %d: invalid size (not a number or out of range): %s"
-msgstr ""
-"строка %d: некорректный размер (не число или выход за пределы диапазона): %s"
+msgstr "строка %d: некорректный размер (не число или выход за пределы диапазона): %s"
 
 #: src/conf.c:1572
 #, c-format
@@ -125,17 +118,12 @@ msgstr "строка %d: неизвестная команда %s"
 #: src/conf.c:1626
 #, c-format
 msgid "contains secrets and therefore must be owned by you"
-msgstr ""
-"содержит конфиденциальные данные, поэтому владельцем должны быть назначены вы"
+msgstr "содержит конфиденциальные данные, поэтому владельцем должны быть назначены вы"
 
 #: src/conf.c:1632
 #, c-format
-msgid ""
-"contains secrets and therefore must have no more than user read/write "
-"permissions"
-msgstr ""
-"содержит конфиденциальные данные, поэтому чтение/запись должны быть доступны "
-"только владельцу"
+msgid "contains secrets and therefore must have no more than user read/write permissions"
+msgstr "содержит конфиденциальные данные, поэтому чтение/запись должны быть доступны только владельцу"
 
 #: src/delivery.c:82
 msgid "EX_OK: no error"
@@ -382,8 +370,7 @@ msgstr "Поддерживаемые методы аутентификации:"
 
 #: src/mpop.c:448 src/mpop.c:454
 msgid "Server error messages in square brackets have a special meaning"
-msgstr ""
-"Сообщения об ошибках сервера в квадратных скобках имеют особое значение"
+msgstr "Сообщения об ошибках сервера в квадратных скобках имеют особое значение"
 
 #: src/mpop.c:463
 #, c-format
@@ -547,8 +534,7 @@ msgstr "скопируйте в ваш файл настроек %s"
 
 #: src/mpop.c:1240
 msgid "warning: the host does not match the mail domain; please check"
-msgstr ""
-"внимание: узел не соответствует почтовому домену; пожалуйста, перепроверьте"
+msgstr "внимание: узел не соответствует почтовому домену; пожалуйста, перепроверьте"
 
 #: src/mpop.c:1243 src/mpop.c:1247
 msgid "add your password to the key ring:"
@@ -670,16 +656,13 @@ msgstr "Название файла настроек: %s\n"
 #, c-format
 msgid ""
 "Copyright (C) %d Martin Lambers and others.\n"
-"This is free software.  You may redistribute copies of it under the terms "
-"of\n"
+"This is free software.  You may redistribute copies of it under the terms of\n"
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "© Martin Lambers и другие, %d.\n"
-"Это свободное программное обеспечение. Вы можете распространять его на "
-"условиях\n"
-"Универсальной общественной лицензии GNU  <http://www.gnu.org/licenses/gpl."
-"html>.\n"
+"Это свободное программное обеспечение. Вы можете распространять его на условиях\n"
+"Универсальной общественной лицензии GNU  <http://www.gnu.org/licenses/gpl.html>.\n"
 "Не предоставляется НИКАКИХ ГАРАНТИЙ, в пределах, допускаемых законом.\n"
 
 #: src/mpop.c:2251
@@ -764,11 +747,8 @@ msgstr "Переключение режима работы:\n"
 
 #: src/mpop.c:2271
 #, c-format
-msgid ""
-"  --configure=mailaddress      generate and print configuration for address\n"
-msgstr ""
-"  --configure=почтовый_адрес   создать и показать настройки для почтового "
-"адреса\n"
+msgid "  --configure=mailaddress      generate and print configuration for address\n"
+msgstr "  --configure=почтовый_адрес   создать и показать настройки для почтового адреса\n"
 
 #: src/mpop.c:2272
 #, c-format
@@ -788,12 +768,10 @@ msgstr "  -C, --file=файл              указать файл настро�
 #: src/mpop.c:2275
 #, c-format
 msgid ""
-"  --host=hostname              set the server, use only command-line "
-"settings;\n"
+"  --host=hostname              set the server, use only command-line settings;\n"
 "                               do not use any configuration file data\n"
 msgstr ""
-"  --host=сервер                указать сервер, используя только параметры "
-"командной строки;\n"
+"  --host=сервер                указать сервер, используя только параметры командной строки;\n"
 "                               не использовать данные из файла настроек\n"
 
 #: src/mpop.c:2277
@@ -803,12 +781,8 @@ msgstr "  --port=номер                 указать номер порта
 
 #: src/mpop.c:2278
 #, c-format
-msgid ""
-"  --source-ip=[IP]             set/unset source ip address to bind the "
-"socket to\n"
-msgstr ""
-"  --source-ip=[IP]             указать/сбросить исходный IP-адрес при "
-"привязки сокета\n"
+msgid "  --source-ip=[IP]             set/unset source ip address to bind the socket to\n"
+msgstr "  --source-ip=[IP]             указать/сбросить исходный IP-адрес при привязки сокета\n"
 
 #: src/mpop.c:2279
 #, c-format
@@ -823,21 +797,17 @@ msgstr "  --proxy-port=[номер]         указать/сбросить по
 #: src/mpop.c:2281
 #, c-format
 msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
-msgstr ""
-"  --socket=[имя_сокета]        указать/сбросить локальный сокет для "
-"подключения\n"
+msgstr "  --socket=[имя_сокета]        указать/сбросить локальный сокет для подключения\n"
 
 #: src/mpop.c:2282
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
-msgstr ""
-"  --timeout=(off|секунд)       указать/сбросить время ожидания в секундах\n"
+msgstr "  --timeout=(off|секунд)       указать/сбросить время ожидания в секундах\n"
 
 #: src/mpop.c:2283
 #, c-format
 msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
-msgstr ""
-"  --pipelining=(auto|on|off)   включить/отключить конвеерную обработку\n"
+msgstr "  --pipelining=(auto|on|off)   включить/отключить конвеерную обработку\n"
 
 #: src/mpop.c:2284
 #, c-format
@@ -852,16 +822,12 @@ msgstr "  --auth[=(on|method)]         выбрать метод аутенти�
 #: src/mpop.c:2286
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
-msgstr ""
-"  --user=[пользователь]        указать/сбросить имя пользователя для "
-"аутентификации\n"
+msgstr "  --user=[пользователь]        указать/сбросить имя пользователя для аутентификации\n"
 
 #: src/mpop.c:2287
 #, c-format
 msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
-msgstr ""
-"  --passwordeval=[eval]        выполнить команду и использовать её результат "
-"как пароль\n"
+msgstr "  --passwordeval=[eval]        выполнить команду и использовать её результат как пароль\n"
 
 #: src/mpop.c:2288
 #, c-format
@@ -876,70 +842,47 @@ msgstr "  --tls-starttls[=(on|off)]    включить/отключить START
 #: src/mpop.c:2290
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
-msgstr ""
-"  --tls-trust-file=[файл]      указать/сбросить файл доверенных сертификатов "
-"для TLS\n"
+msgstr "  --tls-trust-file=[файл]      указать/сбросить файл доверенных сертификатов для TLS\n"
 
 #: src/mpop.c:2291
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
-msgstr ""
-"  --tls-crl-file=[файл]        указать/сбросить файл отзыва сертификатов для "
-"TLS\n"
+msgstr "  --tls-crl-file=[файл]        указать/сбросить файл отзыва сертификатов для TLS\n"
 
 #: src/mpop.c:2292
 #, c-format
-msgid ""
-"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
-"TLS\n"
-msgstr ""
-"  --tls-fingerprint=[f]        указать/сбросить отпечаток доверенного "
-"сертификата для TLS\n"
+msgid "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for TLS\n"
+msgstr "  --tls-fingerprint=[f]        указать/сбросить отпечаток доверенного сертификата для TLS\n"
 
 #: src/mpop.c:2293
 #, c-format
-msgid ""
-"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
-"TLS\n"
-msgstr ""
-"  --tls-certcheck[=(on|off)]   включить/отключить проверку сертификатов для "
-"TLS\n"
+msgid "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"
+msgstr "  --tls-certcheck[=(on|off)]   включить/отключить проверку сертификатов для TLS\n"
 
 #: src/mpop.c:2294
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
-msgstr ""
-"  --tls-key-file=[файл]        указать/сбросить файл закрытого ключа для "
-"TLS\n"
+msgstr "  --tls-key-file=[файл]        указать/сбросить файл закрытого ключа для TLS\n"
 
 #: src/mpop.c:2295
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
-msgstr ""
-"  --tls-cert-file=[файл]       указать/сбросить файл закрытого сертификата "
-"для TLS\n"
+msgstr "  --tls-cert-file=[файл]       указать/сбросить файл закрытого сертификата для TLS\n"
 
 #: src/mpop.c:2296
 #, c-format
 msgid "  --tls-priorities=[prios]     set/unset TLS priorities.\n"
-msgstr ""
-"  --tls-priorities=[prios]     указать/сбросить значения приоритетов TLS.\n"
+msgstr "  --tls-priorities=[prios]     указать/сбросить значения приоритетов TLS.\n"
 
 #: src/mpop.c:2297
 #, c-format
-msgid ""
-"  --tls-host-override=[host]   set/unset override for TLS host "
-"verification.\n"
-msgstr ""
-"  --tls-host-override=[узел]   указать/сбросить переопределение проверки "
-"узла TLS.\n"
+msgid "  --tls-host-override=[host]   set/unset override for TLS host verification.\n"
+msgstr "  --tls-host-override=[узел]   указать/сбросить переопределение проверки узла TLS.\n"
 
 #: src/mpop.c:2298
 #, c-format
 msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
-msgstr ""
-"  --tls-min-dh-prime-bits=[b]  указать/сбросить минимальный размер простого "
-"числа DH (в битах)\n"
+msgstr "  --tls-min-dh-prime-bits=[b]  указать/сбросить минимальный размер простого числа DH (в битах)\n"
 
 #: src/mpop.c:2299
 #, c-format
@@ -948,42 +891,28 @@ msgstr "Параметры режима получения почты:\n"
 
 #: src/mpop.c:2300
 #, c-format
-msgid ""
-"  -q, --quiet                  do not display status or progress "
-"information\n"
+msgid "  -q, --quiet                  do not display status or progress information\n"
 msgstr "  -q, --quiet                  скрыть статус и прогресс выполнения\n"
 
 #: src/mpop.c:2301
 #, c-format
-msgid ""
-"  -Q, --half-quiet             display status but not progress information\n"
-msgstr ""
-"  -Q, --half-quiet             показывать статус, но скрыть прогресс "
-"выполнения\n"
+msgid "  -Q, --half-quiet             display status but not progress information\n"
+msgstr "  -Q, --half-quiet             показывать статус, но скрыть прогресс выполнения\n"
 
 #: src/mpop.c:2302
 #, c-format
-msgid ""
-"  -a, --all-accounts           query all accounts in the configuration file\n"
-msgstr ""
-"  -a, --all-accounts           опросить все учётные записи из файла "
-"настроек\n"
+msgid "  -a, --all-accounts           query all accounts in the configuration file\n"
+msgstr "  -a, --all-accounts           опросить все учётные записи из файла настроек\n"
 
 #: src/mpop.c:2303
 #, c-format
-msgid ""
-"  -A, --auth-only              authenticate only; do not retrieve mail\n"
-msgstr ""
-"  -A, --auth-only              пройти аутентификацию, но не получать почту\n"
+msgid "  -A, --auth-only              authenticate only; do not retrieve mail\n"
+msgstr "  -A, --auth-only              пройти аутентификацию, но не получать почту\n"
 
 #: src/mpop.c:2304
 #, c-format
-msgid ""
-"  -s, --status-only            print account status only; do not retrieve "
-"mail\n"
-msgstr ""
-"  -s, --status-only            вывести статус учётной записи; не получать "
-"почту\n"
+msgid "  -s, --status-only            print account status only; do not retrieve mail\n"
+msgstr "  -s, --status-only            вывести статус учётной записи; не получать почту\n"
 
 #: src/mpop.c:2305
 #, c-format
@@ -998,16 +927,12 @@ msgstr "  -k, --keep[=(on|off)]        не удалять письма с се�
 #: src/mpop.c:2307
 #, c-format
 msgid "  --killsize=(off|number)      set/unset kill size\n"
-msgstr ""
-"  --killsize=(off|число)       указать/сбросить размер, при котором письмо "
-"удаляется\n"
+msgstr "  --killsize=(off|число)       указать/сбросить размер, при котором письмо удаляется\n"
 
 #: src/mpop.c:2308
 #, c-format
 msgid "  --skipsize=(off|number)      set/unset skip size\n"
-msgstr ""
-"  --skipsize=(off|число)       указать/сбросить размер, при котором письмо "
-"пропускается\n"
+msgstr "  --skipsize=(off|число)       указать/сбросить размер, при котором письмо пропускается\n"
 
 #: src/mpop.c:2309
 #, c-format
@@ -1022,9 +947,7 @@ msgstr "  --delivery=способ,аргумент   указать способ
 #: src/mpop.c:2311
 #, c-format
 msgid "  --uidls-file=filename        set file to store UIDLs\n"
-msgstr ""
-"  --uidls-file=имя_файла       указать файл для сохранения идентификаторов "
-"писем (UIDL)\n"
+msgstr "  --uidls-file=имя_файла       указать файл для сохранения идентификаторов писем (UIDL)\n"
 
 #: src/mpop.c:2312
 #, c-format
@@ -1041,8 +964,7 @@ msgstr "нельзя одновременно использовать --host и
 
 #: src/mpop.c:2342
 msgid "cannot use both --all-accounts and a list of accounts"
-msgstr ""
-"нельзя одновременно использовать --all-accounts и список учётных записей"
+msgstr "нельзя одновременно использовать --all-accounts и список учётных записей"
 
 #: src/mpop.c:2437
 #, c-format
@@ -1272,11 +1194,8 @@ msgstr "не удалось разместить сертификат для TLS
 
 #: src/mtls-gnutls.c:452 src/mtls-libtls.c:312
 #, c-format
-msgid ""
-"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
-msgstr ""
-"не удалось назначить файл ключа %s и/или файл сертификата X509 %s для TLS-"
-"сессии: %s"
+msgid "cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+msgstr "не удалось назначить файл ключа %s и/или файл сертификата X509 %s для TLS-сессии: %s"
 
 #: src/mtls-gnutls.c:474 src/mtls-openssl.c:720
 #, c-format
@@ -1326,9 +1245,7 @@ msgstr "не удалось инициализировать libtls"
 #: src/mtls-libtls.c:223
 #, c-format
 msgid "cannot use deprecated fingerprints, please update to SHA256"
-msgstr ""
-"невозможно использовать устаревшие отпечатки; пожалуйста, обновитесь до "
-"SHA256"
+msgstr "невозможно использовать устаревшие отпечатки; пожалуйста, обновитесь до SHA256"
 
 #: src/mtls-libtls.c:231 src/mtls-openssl.c:649
 #, c-format
@@ -1355,11 +1272,8 @@ msgstr "не удалось назначить дескриптор файла �
 
 #: src/mtls-openssl.c:92
 #, c-format
-msgid ""
-"no environment variables RANDFILE or HOME, or filename of rand file too long"
-msgstr ""
-"не указаны переменные окружения RANDFILE или HOME, либо имя файла слишком "
-"длинное"
+msgid "no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgstr "не указаны переменные окружения RANDFILE или HOME, либо имя файла слишком длинное"
 
 #: src/mtls-openssl.c:98 src/uidls.c:351
 #, c-format
@@ -1369,9 +1283,7 @@ msgstr "%s: ошибка ввода"
 #: src/mtls-openssl.c:120
 #, c-format
 msgid "random file + time + pseudo randomness is not enough, giving up"
-msgstr ""
-"случайных данных + времени + псевдослучайные данных недостаточно, прекращаем "
-"работу"
+msgstr "случайных данных + времени + псевдослучайные данных недостаточно, прекращаем работу"
 
 #: src/mtls-openssl.c:293 src/mtls-openssl.c:579
 #, c-format
@@ -1676,12 +1588,8 @@ msgstr "POP3-сервер вернул некорректный ответ"
 
 #: src/pop3.c:382
 #, c-format
-msgid ""
-"Cannot send POP3 command because it is longer than %d characters. Increase "
-"POP3_BUFSIZE."
-msgstr ""
-"Не удалось отправить команду POP3, потому что её длина превышает %d "
-"символов. Увеличьте значение POP3_BUFSIZE."
+msgid "Cannot send POP3 command because it is longer than %d characters. Increase POP3_BUFSIZE."
+msgstr "Не удалось отправить команду POP3, потому что её длина превышает %d символов. Увеличьте значение POP3_BUFSIZE."
 
 #: src/pop3.c:691
 #, c-format
@@ -1704,9 +1612,7 @@ msgstr "сбой команды %s"
 #: src/pop3.c:1038
 #, c-format
 msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
-msgstr ""
-"Невозможно обработать больше %ld сообщений. Увеличьте значение "
-"POP3_MAX_MESSAGES."
+msgstr "Невозможно обработать больше %ld сообщений. Увеличьте значение POP3_MAX_MESSAGES."
 
 #: src/pop3.c:1493 src/pop3.c:1522
 #, c-format

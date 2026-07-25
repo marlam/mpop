@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"POT-Creation-Date: 2024-06-04 21:45+0200\n"
 "PO-Revision-Date: 2024-06-06 11:31-0600\n"
 "Last-Translator: Cristian Othón Martínez Vera <cfuga@cfuga.mx>\n"
 "Language-Team: Spanish <es@tp.org.es>\n"
@@ -36,12 +36,8 @@ msgstr "tls_cert_file requiere tls_key_file"
 
 #: src/conf.c:652
 #, c-format
-msgid ""
-"tls requires either tls_trust_file (highly recommended) or tls_fingerprint "
-"or a disabled tls_certcheck"
-msgstr ""
-"tls requiere o bien tls_trust_file (muy recomendado) o tls_fingerprint o que "
-"tls_certcheck esté desactivado"
+msgid "tls requires either tls_trust_file (highly recommended) or tls_fingerprint or a disabled tls_certcheck"
+msgstr "tls requiere o bien tls_trust_file (muy recomendado) o tls_fingerprint o que tls_certcheck esté desactivado"
 
 #: src/conf.c:658
 #, c-format
@@ -110,8 +106,7 @@ msgstr "línea %d: argumento inválido %s para la orden %s"
 #: src/conf.c:1462 src/conf.c:1487
 #, c-format
 msgid "line %d: invalid size (not a number or out of range): %s"
-msgstr ""
-"línea %d: tamaño inválido (no es un número o está fuera del intervalo): %s"
+msgstr "línea %d: tamaño inválido (no es un número o está fuera del intervalo): %s"
 
 #: src/conf.c:1572
 #, c-format
@@ -125,12 +120,8 @@ msgstr "contiene secretos y por lo tanto debe ser de su propiedad"
 
 #: src/conf.c:1632
 #, c-format
-msgid ""
-"contains secrets and therefore must have no more than user read/write "
-"permissions"
-msgstr ""
-"contiene secretos y por lo tanto no debe tener más que permiso de lectura/"
-"escritura del usuario"
+msgid "contains secrets and therefore must have no more than user read/write permissions"
+msgstr "contiene secretos y por lo tanto no debe tener más que permiso de lectura/escritura del usuario"
 
 #: src/delivery.c:82
 msgid "EX_OK: no error"
@@ -337,8 +328,7 @@ msgstr "Soporte para la orden TOP (pedir los encabezamientos de los correos)"
 
 #: src/mpop.c:357
 msgid "Support for the UIDL command (get unique mail identifiers)"
-msgstr ""
-"Soporte para la orden UIDL (pedir los identificadores únicos de correo)"
+msgstr "Soporte para la orden UIDL (pedir los identificadores únicos de correo)"
 
 #: src/mpop.c:366
 #, c-format
@@ -378,9 +368,7 @@ msgstr "Métodos de autenticación disponibles:"
 
 #: src/mpop.c:448 src/mpop.c:454
 msgid "Server error messages in square brackets have a special meaning"
-msgstr ""
-"Los mensajes de error del servidor entre corchetes tienen un significado "
-"especial"
+msgstr "Los mensajes de error del servidor entre corchetes tienen un significado especial"
 
 #: src/mpop.c:463
 #, c-format
@@ -666,8 +654,7 @@ msgstr "Nombre del archivo de configuración: %s\n"
 #, c-format
 msgid ""
 "Copyright (C) %d Martin Lambers and others.\n"
-"This is free software.  You may redistribute copies of it under the terms "
-"of\n"
+"This is free software.  You may redistribute copies of it under the terms of\n"
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -743,8 +730,7 @@ msgstr "  --help                       muestra la ayuda\n"
 #: src/mpop.c:2268
 #, c-format
 msgid "  -P, --pretend                print configuration info and exit\n"
-msgstr ""
-"  -P, --pretend                muestra la info de configuración y termina\n"
+msgstr "  -P, --pretend                muestra la info de configuración y termina\n"
 
 #: src/mpop.c:2269
 #, c-format
@@ -758,11 +744,8 @@ msgstr "Se cambia el modo de operación:\n"
 
 #: src/mpop.c:2271
 #, c-format
-msgid ""
-"  --configure=mailaddress      generate and print configuration for address\n"
-msgstr ""
-"  --configure=direccionmail     genera y muestra la configuración para la "
-"dirección\n"
+msgid "  --configure=mailaddress      generate and print configuration for address\n"
+msgstr "  --configure=direccionmail     genera y muestra la configuración para la dirección\n"
 
 #: src/mpop.c:2272
 #, c-format
@@ -782,12 +765,10 @@ msgstr "  -C, --file=archivo           establece el archivo de configuración\n"
 #: src/mpop.c:2275
 #, c-format
 msgid ""
-"  --host=hostname              set the server, use only command-line "
-"settings;\n"
+"  --host=hostname              set the server, use only command-line settings;\n"
 "                               do not use any configuration file data\n"
 msgstr ""
-"  --host=nombredehost          establece el servidor, sólo usa opciones de "
-"la\n"
+"  --host=nombredehost          establece el servidor, sólo usa opciones de la\n"
 "                               línea de órdenes; no usa ningún dato de\n"
 "                               ningún archivo de configuración\n"
 
@@ -798,12 +779,8 @@ msgstr "  --port=número                establece el número de puerto\n"
 
 #: src/mpop.c:2278
 #, c-format
-msgid ""
-"  --source-ip=[IP]             set/unset source ip address to bind the "
-"socket to\n"
-msgstr ""
-"  --source-ip=[IP]              activa/desactiva la dirección ip fuente para "
-"unir el zócalo\n"
+msgid "  --source-ip=[IP]             set/unset source ip address to bind the socket to\n"
+msgstr "  --source-ip=[IP]              activa/desactiva la dirección ip fuente para unir el zócalo\n"
 
 #: src/mpop.c:2279
 #, c-format
@@ -818,28 +795,22 @@ msgstr "  --proxy-port=[número]        activa/desactiva el puerto de proxy\n"
 #: src/mpop.c:2281
 #, c-format
 msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
-msgstr ""
-"  --socket=[nombrezócalo]      activa/desactiva el zócalo local para "
-"conexión\n"
+msgstr "  --socket=[nombrezócalo]      activa/desactiva el zócalo local para conexión\n"
 
 #: src/mpop.c:2282
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
-msgstr ""
-"  --timeout=(off|segundos)     activa/desactiva el tiempo de expiración de "
-"red en segundos\n"
+msgstr "  --timeout=(off|segundos)     activa/desactiva el tiempo de expiración de red en segundos\n"
 
 #: src/mpop.c:2283
 #, c-format
 msgid "  --pipelining=(auto|on|off)   enable/disable pipelining\n"
-msgstr ""
-"  --pipelining=(auto|on|off)   activa/desactiva la agrupación de órdenes\n"
+msgstr "  --pipelining=(auto|on|off)   activa/desactiva la agrupación de órdenes\n"
 
 #: src/mpop.c:2284
 #, c-format
 msgid "  --received-header[=(on|off)] enable/disable Received-header\n"
-msgstr ""
-"  --received-header[=(on|off)] activa/desactiva el encabezado Received\n"
+msgstr "  --received-header[=(on|off)] activa/desactiva el encabezado Received\n"
 
 #: src/mpop.c:2285
 #, c-format
@@ -849,15 +820,12 @@ msgstr "  --auth[=(on|método)]         selecciona el método de autenticación\
 #: src/mpop.c:2286
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
-msgstr ""
-"  --user=[nombreusuario]       activa/desactiva el nombre de usuario a "
-"autenticar\n"
+msgstr "  --user=[nombreusuario]       activa/desactiva el nombre de usuario a autenticar\n"
 
 #: src/mpop.c:2287
 #, c-format
 msgid "  --passwordeval=[eval]        evaluate password for authentication\n"
-msgstr ""
-"  --passwordeval=[eval]        evalúa la contraseña para autenticación\n"
+msgstr "  --passwordeval=[eval]        evalúa la contraseña para autenticación\n"
 
 #: src/mpop.c:2288
 #, c-format
@@ -872,48 +840,32 @@ msgstr "  --tls-starttls[=(on|off)]    activa/desactiva STARTTLS para TLS\n"
 #: src/mpop.c:2290
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
-msgstr ""
-"  --tls-trust-file=[archivo]   activa/desactiva el archivo de confianza para "
-"TLS\n"
+msgstr "  --tls-trust-file=[archivo]   activa/desactiva el archivo de confianza para TLS\n"
 
 #: src/mpop.c:2291
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
-msgstr ""
-"  --tls-crl-file=[archivo]     activa/desactiva el archivo de revocación "
-"para TLS\n"
+msgstr "  --tls-crl-file=[archivo]     activa/desactiva el archivo de revocación para TLS\n"
 
 #: src/mpop.c:2292
 #, c-format
-msgid ""
-"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
-"TLS\n"
-msgstr ""
-"  --tls-fingerprint=[f]        activa/desactiva la huella del certificado de "
-"confianza para TLS\n"
+msgid "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for TLS\n"
+msgstr "  --tls-fingerprint=[f]        activa/desactiva la huella del certificado de confianza para TLS\n"
 
 #: src/mpop.c:2293
 #, c-format
-msgid ""
-"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
-"TLS\n"
-msgstr ""
-"  --tls-certcheck[=(on|off)]   activa/desactiva la revisión de certificado "
-"de servidor para TLS\n"
+msgid "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"
+msgstr "  --tls-certcheck[=(on|off)]   activa/desactiva la revisión de certificado de servidor para TLS\n"
 
 #: src/mpop.c:2294
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
-msgstr ""
-"  --tls-key-file=[archivo]     activa/desactiva el archivo de llave privada "
-"para TLS\n"
+msgstr "  --tls-key-file=[archivo]     activa/desactiva el archivo de llave privada para TLS\n"
 
 #: src/mpop.c:2295
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
-msgstr ""
-"  --tls-cert-file=[archivo]    activa/desactiva el archivo de certificado "
-"privado para TLS\n"
+msgstr "  --tls-cert-file=[archivo]    activa/desactiva el archivo de certificado privado para TLS\n"
 
 #: src/mpop.c:2296
 #, c-format
@@ -922,19 +874,13 @@ msgstr "  --tls-priorities=[prios]     activa/desactiva las prioridades TLS.\n"
 
 #: src/mpop.c:2297
 #, c-format
-msgid ""
-"  --tls-host-override=[host]   set/unset override for TLS host "
-"verification.\n"
-msgstr ""
-"  --tls-host-override=[host]   activa/desactiva la sobreescritura para la "
-"verificación del host TLS.\n"
+msgid "  --tls-host-override=[host]   set/unset override for TLS host verification.\n"
+msgstr "  --tls-host-override=[host]   activa/desactiva la sobreescritura para la verificación del host TLS.\n"
 
 #: src/mpop.c:2298
 #, c-format
 msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
-msgstr ""
-"  --tls-min-dh-prime-bits=[b]  activa/desactiva el tamaño mínimo de bit del "
-"primo DH\n"
+msgstr "  --tls-min-dh-prime-bits=[b]  activa/desactiva el tamaño mínimo de bit del primo DH\n"
 
 #: src/mpop.c:2299
 #, c-format
@@ -943,43 +889,28 @@ msgstr "Opciones específicas para el modo de descarga de correo:\n"
 
 #: src/mpop.c:2300
 #, c-format
-msgid ""
-"  -q, --quiet                  do not display status or progress "
-"information\n"
-msgstr ""
-"  -q, --quiet                  no muestra información de estado o progreso\n"
+msgid "  -q, --quiet                  do not display status or progress information\n"
+msgstr "  -q, --quiet                  no muestra información de estado o progreso\n"
 
 #: src/mpop.c:2301
 #, c-format
-msgid ""
-"  -Q, --half-quiet             display status but not progress information\n"
-msgstr ""
-"  -Q, --half-quiet             muestra información de estado pero no de "
-"progreso\n"
+msgid "  -Q, --half-quiet             display status but not progress information\n"
+msgstr "  -Q, --half-quiet             muestra información de estado pero no de progreso\n"
 
 #: src/mpop.c:2302
 #, c-format
-msgid ""
-"  -a, --all-accounts           query all accounts in the configuration file\n"
-msgstr ""
-"  -a, --all-accounts           consulta todas las cuentas del archivo de "
-"configuración\n"
+msgid "  -a, --all-accounts           query all accounts in the configuration file\n"
+msgstr "  -a, --all-accounts           consulta todas las cuentas del archivo de configuración\n"
 
 #: src/mpop.c:2303
 #, c-format
-msgid ""
-"  -A, --auth-only              authenticate only; do not retrieve mail\n"
-msgstr ""
-"  -A, --auth-only              sólo autenticación; no descarga correo\n"
+msgid "  -A, --auth-only              authenticate only; do not retrieve mail\n"
+msgstr "  -A, --auth-only              sólo autenticación; no descarga correo\n"
 
 #: src/mpop.c:2304
 #, c-format
-msgid ""
-"  -s, --status-only            print account status only; do not retrieve "
-"mail\n"
-msgstr ""
-"  -s, --status-only            muestra sólo el estado de la cuenta; no "
-"descarga correo\n"
+msgid "  -s, --status-only            print account status only; do not retrieve mail\n"
+msgstr "  -s, --status-only            muestra sólo el estado de la cuenta; no descarga correo\n"
 
 #: src/mpop.c:2305
 #, c-format
@@ -1004,8 +935,7 @@ msgstr "  --skipsize=(off|número)      activa/desactiva el tamaño de salto\n"
 #: src/mpop.c:2309
 #, c-format
 msgid "  --filter=[program]           set/unset header filter\n"
-msgstr ""
-"  --filter=[programa]          activa/desactiva el filtro de encabezado\n"
+msgstr "  --filter=[programa]          activa/desactiva el filtro de encabezado\n"
 
 #: src/mpop.c:2310
 #, c-format
@@ -1262,23 +1192,18 @@ msgstr "no se puede reservar el certificado para la sesión TLS: %s"
 
 #: src/mtls-gnutls.c:452 src/mtls-libtls.c:312
 #, c-format
-msgid ""
-"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
-msgstr ""
-"no se puede establecer el archivo llave X509 %s y/o el archivo de "
-"certificado X509 %s para la sesión TLS: %s "
+msgid "cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+msgstr "no se puede establecer el archivo llave X509 %s y/o el archivo de certificado X509 %s para la sesión TLS: %s "
 
 #: src/mtls-gnutls.c:474 src/mtls-openssl.c:720
 #, c-format
 msgid "cannot set X509 system trust for TLS session: %s"
-msgstr ""
-"no se puede establecer la confianza del sistema X509 para la sesión TLS: %s"
+msgstr "no se puede establecer la confianza del sistema X509 para la sesión TLS: %s"
 
 #: src/mtls-gnutls.c:489 src/mtls-libtls.c:342
 #, c-format
 msgid "cannot set X509 trust file %s for TLS session: %s"
-msgstr ""
-"no se puede establecer el archivo de confianza X509 %s para la sesión TLS: %s"
+msgstr "no se puede establecer el archivo de confianza X509 %s para la sesión TLS: %s"
 
 #: src/mtls-gnutls.c:504 src/mtls-libtls.c:355
 #, c-format
@@ -1345,11 +1270,8 @@ msgstr "no se puede ajustar el descriptor de archivo para TLS: %s"
 
 #: src/mtls-openssl.c:92
 #, c-format
-msgid ""
-"no environment variables RANDFILE or HOME, or filename of rand file too long"
-msgstr ""
-"no existen las variables de entorno RANDFILE o HOME, or el nombre del "
-"archivorand es demasiado largo"
+msgid "no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgstr "no existen las variables de entorno RANDFILE o HOME, or el nombre del archivorand es demasiado largo"
 
 #: src/mtls-openssl.c:98 src/uidls.c:351
 #, c-format
@@ -1359,8 +1281,7 @@ msgstr "%s: error de entrada"
 #: src/mtls-openssl.c:120
 #, c-format
 msgid "random file + time + pseudo randomness is not enough, giving up"
-msgstr ""
-"archivo alatorio + tiempo + pseudoaleatoriedad no es suficiente, rindiendose"
+msgstr "archivo alatorio + tiempo + pseudoaleatoriedad no es suficiente, rindiendose"
 
 #: src/mtls-openssl.c:293 src/mtls-openssl.c:579
 #, c-format
@@ -1399,8 +1320,7 @@ msgstr "%s: el nombre común del certificado contiene NUL"
 #: src/mtls-openssl.c:617
 #, c-format
 msgid "%s: the certificate owner does not match hostname %s"
-msgstr ""
-"%s: el propietario del certificado no el el mismo que el nombre del host %s"
+msgstr "%s: el propietario del certificado no el el mismo que el nombre del host %s"
 
 #: src/mtls-openssl.c:650 src/mtls-openssl.c:658 src/mtls-openssl.c:666
 msgid "feature not yet implemented for OpenSSL"
@@ -1667,12 +1587,8 @@ msgstr "el servidor POP3 envió una respuesta inválida"
 
 #: src/pop3.c:382
 #, c-format
-msgid ""
-"Cannot send POP3 command because it is longer than %d characters. Increase "
-"POP3_BUFSIZE."
-msgstr ""
-"No se puede enviar una orden POP3 más larga que %d caracteres. Incremente "
-"POP3_BUFSIZE."
+msgid "Cannot send POP3 command because it is longer than %d characters. Increase POP3_BUFSIZE."
+msgstr "No se puede enviar una orden POP3 más larga que %d caracteres. Incremente POP3_BUFSIZE."
 
 #: src/pop3.c:691
 #, c-format
@@ -1695,8 +1611,7 @@ msgstr "falló la orden %s"
 #: src/pop3.c:1038
 #, c-format
 msgid "Cannot handle more than %ld messages. Increase POP3_MAX_MESSAGES."
-msgstr ""
-"no se pueden manejas más de %ld mensajes. Incremente POP3_MAX_MESSAGES."
+msgstr "no se pueden manejas más de %ld mensajes. Incremente POP3_MAX_MESSAGES."
 
 #: src/pop3.c:1493 src/pop3.c:1522
 #, c-format
@@ -1789,8 +1704,7 @@ msgstr "el método de autenticación %s necesita una contraseña"
 #: src/pop3.c:2946
 #, c-format
 msgid "authentication method %s needs TLS channel binding information"
-msgstr ""
-"el método de autenticación %s necesita información de enlace del canal TLS"
+msgstr "el método de autenticación %s necesita información de enlace del canal TLS"
 
 #: src/pop3.c:3111
 #, c-format
@@ -1882,15 +1796,13 @@ msgstr "no se puede mover %s a %s: %s"
 #~ msgstr "%s: el certificado no es confiable"
 
 #~ msgid "%s: cannot get activation time for certificate %u of %u"
-#~ msgstr ""
-#~ "%s: no se puede conseguir la fecha de activación del certificado %u de %u"
+#~ msgstr "%s: no se puede conseguir la fecha de activación del certificado %u de %u"
 
 #~ msgid "%s: certificate %u of %u is not yet activated"
 #~ msgstr "%s: el certificado %u de %u no está activado todavía"
 
 #~ msgid "%s: cannot get expiration time for certificate %u of %u"
-#~ msgstr ""
-#~ "%s: no se puede conseguir la fecha de caducidad del certificado %u de %u"
+#~ msgstr "%s: no se puede conseguir la fecha de caducidad del certificado %u de %u"
 
 #~ msgid "%s: certificate %u of %u has expired"
 #~ msgstr "%s: el certificado %u de %u ha caducado"
@@ -1942,8 +1854,7 @@ msgstr "no se puede mover %s a %s: %s"
 #~ "  -S, --serverinfo             Print information about the POP3 server.\n"
 #~ "Configuration options:\n"
 #~ "  -C, --file=filename          Set configuration file.\n"
-#~ "  --host=hostname              Set POP3 server, use only command line "
-#~ "settings;\n"
+#~ "  --host=hostname              Set POP3 server, use only command line settings;\n"
 #~ "                               do not use any configuration file data.\n"
 #~ "  --port=number                Set port number.\n"
 #~ "  --timeout=(off|seconds)      Set/unset network timeout in seconds.\n"
@@ -1956,26 +1867,20 @@ msgstr "no se puede mover %s a %s: %s"
 #~ "  --tls-starttls[=(on|off)]    Enable/disable STLS for TLS.\n"
 #~ "  --tls-trust-file=[file]      Set/unset trust file for TLS.\n"
 #~ "  --tls-crl-file=[file]        Set/unset revocation file for TLS.\n"
-#~ "  --tls-fingerprint=[f]        Set/unset trusted certificate fingerprint "
-#~ "for\n"
+#~ "  --tls-fingerprint=[f]        Set/unset trusted certificate fingerprint for\n"
 #~ "                               TLS.\n"
 #~ "  --tls-key-file=[file]        Set/unset private key file for TLS.\n"
 #~ "  --tls-cert-file=[file]       Set/unset private cert file for TLS.\n"
-#~ "  --tls-certcheck[=(on|off)]   Enable/disable server certificate checks "
-#~ "for TLS.\n"
+#~ "  --tls-certcheck[=(on|off)]   Enable/disable server certificate checks for TLS.\n"
 #~ "  --tls-force-sslv3[=(on|off)] Enable/disable restriction to SSLv3.\n"
 #~ "  --tls-min-dh-prime-bits=[b]  Set/unset minimum bit size of DH prime.\n"
 #~ "  --tls-priorities=[prios]     Set/unset TLS priorities.\n"
 #~ "Options specific to mail retrieval mode:\n"
-#~ "  -q, --quiet                  Do not display status or progress "
-#~ "information.\n"
-#~ "  -Q, --half-quiet             Display status but not progress "
-#~ "information.\n"
-#~ "  -a, --all-accounts           Query all accounts in the configuration "
-#~ "file.\n"
+#~ "  -q, --quiet                  Do not display status or progress information.\n"
+#~ "  -Q, --half-quiet             Display status but not progress information.\n"
+#~ "  -a, --all-accounts           Query all accounts in the configuration file.\n"
 #~ "  -A, --auth-only              Authenticate only; do not retrieve mail.\n"
-#~ "  -s, --status-only            Print account status only; do not retrieve "
-#~ "mail.\n"
+#~ "  -s, --status-only            Print account status only; do not retrieve mail.\n"
 #~ "  -n, --only-new[=(on|off)]    Process only new messages\n"
 #~ "  -k, --keep[=(on|off)]        Do not delete mails from POP3 servers.\n"
 #~ "  --killsize=(off|number)      Set/unset kill size.\n"
@@ -2005,45 +1910,32 @@ msgstr "no se puede mover %s a %s: %s"
 #~ "  -P, --pretend                Mostrar la configuración y salir.\n"
 #~ "  -d, --debug                  Mostrar información detallada\n"
 #~ "Cambiar de modo:\n"
-#~ "  -S, --serverinfo             Activa el modo de información sobre "
-#~ "servidor.\n"
+#~ "  -S, --serverinfo             Activa el modo de información sobre servidor.\n"
 #~ "Opciones de configuración:\n"
-#~ "  -C, --file=nombreconf        Usar el archivo de configuración "
-#~ "nombreconf.\n"
-#~ "  --host=hostname              Usar este servidor POP3. Usar sólo la "
-#~ "linea\n"
-#~ "                               de ordenes e ignorar el archivo "
-#~ "de                                configuración.\n"
+#~ "  -C, --file=nombreconf        Usar el archivo de configuración nombreconf.\n"
+#~ "  --host=hostname              Usar este servidor POP3. Usar sólo la linea\n"
+#~ "                               de ordenes e ignorar el archivo de                                configuración.\n"
 #~ "  --port=número                Usar el puerto número.\n"
-#~ "  --timeout=(off|segundos)     Seleccionar/desactivar el tiempor de "
-#~ "espera.\n"
-#~ "  --pipelining=(auto|on|off)   Activar/desactivar la agrupación de "
-#~ "órdenes\n"
+#~ "  --timeout=(off|segundos)     Seleccionar/desactivar el tiempor de espera.\n"
+#~ "  --pipelining=(auto|on|off)   Activar/desactivar la agrupación de órdenes\n"
 #~ "                               POP3.\n"
 #~ "  --auth[=(on|método)]         Seleccionar el método de autenticación.\n"
-#~ "  --user=[nombredeusuario]     Seleccionar/desactivar el nombre de "
-#~ "usuario\n"
+#~ "  --user=[nombredeusuario]     Seleccionar/desactivar el nombre de usuario\n"
 #~ "                               para la autenticación.\n"
 #~ "  --tls[=(on|off)]             Activar/desactivar la encriptación TLS.\n"
 #~ "  --tls-starttls[=(on|off)]    Activar/desactivar STLS para TLS.\n"
-#~ "  --tls-trust-file=[archivo]   Seleccionar/borrar el archivo confiado "
-#~ "TLS.\n"
-#~ "  --tls-key-file=[archivo]     Seleccionar/borrar el archivo con la llave "
-#~ "para\n"
+#~ "  --tls-trust-file=[archivo]   Seleccionar/borrar el archivo confiado TLS.\n"
+#~ "  --tls-key-file=[archivo]     Seleccionar/borrar el archivo con la llave para\n"
 #~ "                               TLS.\n"
-#~ "  --tls-cert-file=[archivo]    Seleccionar/borrar el certificado privado "
-#~ "de\n"
+#~ "  --tls-cert-file=[archivo]    Seleccionar/borrar el certificado privado de\n"
 #~ "                               TLS.\n"
-#~ "  --tls-certcheck[=(on|off)]   Activar/desactivar la comprobación del "
-#~ "cert. de\n"
+#~ "  --tls-certcheck[=(on|off)]   Activar/desactivar la comprobación del cert. de\n"
 #~ "                               TLS.\n"
-#~ "  --tls-force-sslv3[=(on|off)] Activar/desactivar la obligación de usar "
-#~ "SSLv3.\n"
+#~ "  --tls-force-sslv3[=(on|off)] Activar/desactivar la obligación de usar SSLv3.\n"
 #~ "Opciones para el modo de descarga de mensajes:\n"
 #~ "  -q, --quiet                  No mostrar información sobre el progreso.\n"
 #~ "  -a, --all-accounts           Preguntar todas las cuentas configuradas.\n"
-#~ "  -A, --auth-only              Sólo autentificar, no descargar el "
-#~ "correo.\n"
+#~ "  -A, --auth-only              Sólo autentificar, no descargar el correo.\n"
 #~ "  -s, --status-only            Sólo mostrar el estado de la cuenta, no\n"
 #~ "                               descargar ningún correo.\n"
 #~ "  -n, --only-new[=(on|off)]    Sólo procesar nuevos correos.\n"

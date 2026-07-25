@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mpop 1.4.19\n"
 "Report-Msgid-Bugs-To: marlam@marlam.de\n"
-"POT-Creation-Date: 2024-08-01 12:23+0200\n"
+"POT-Creation-Date: 2024-06-04 21:45+0200\n"
 "PO-Revision-Date: 2024-06-05 21:15+0200\n"
 "Last-Translator: Kristian Nordin <kristian.po@proton.me>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -37,12 +37,8 @@ msgstr "tls_cert_file kräver tls_key_file"
 
 #: src/conf.c:652
 #, c-format
-msgid ""
-"tls requires either tls_trust_file (highly recommended) or tls_fingerprint "
-"or a disabled tls_certcheck"
-msgstr ""
-"tls kräver antingen tls_trust_file (rekommenderas starkt) eller "
-"tls_fingerprint eller en inaktiverad tls_certcheck"
+msgid "tls requires either tls_trust_file (highly recommended) or tls_fingerprint or a disabled tls_certcheck"
+msgstr "tls kräver antingen tls_trust_file (rekommenderas starkt) eller tls_fingerprint eller en inaktiverad tls_certcheck"
 
 #: src/conf.c:658
 #, c-format
@@ -111,8 +107,7 @@ msgstr "rad %d: ogiltigt argument %s för kommando %s"
 #: src/conf.c:1462 src/conf.c:1487
 #, c-format
 msgid "line %d: invalid size (not a number or out of range): %s"
-msgstr ""
-"rad %d: ogiltigt storlek (inte ett nummer eller utanför intervallet): %s"
+msgstr "rad %d: ogiltigt storlek (inte ett nummer eller utanför intervallet): %s"
 
 #: src/conf.c:1572
 #, c-format
@@ -126,12 +121,8 @@ msgstr "innehåller hemligheter och måste därför ägas av dig"
 
 #: src/conf.c:1632
 #, c-format
-msgid ""
-"contains secrets and therefore must have no more than user read/write "
-"permissions"
-msgstr ""
-"innehåller hemligheter och får därför inte ha mer än användarens läs-/"
-"skrivbehörighet"
+msgid "contains secrets and therefore must have no more than user read/write permissions"
+msgstr "innehåller hemligheter och får därför inte ha mer än användarens läs-/skrivbehörighet"
 
 #: src/delivery.c:82
 msgid "EX_OK: no error"
@@ -664,14 +655,12 @@ msgstr "Konfigurationsfilnamn %s\n"
 #, c-format
 msgid ""
 "Copyright (C) %d Martin Lambers and others.\n"
-"This is free software.  You may redistribute copies of it under the terms "
-"of\n"
+"This is free software.  You may redistribute copies of it under the terms of\n"
 "the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Copyright (C) %d Martin Lambers och andra.\n"
-"Detta är gratis programvara. Du får vidaredistribuera kopior av den enligt "
-"villkoren i\n"
+"Detta är gratis programvara. Du får vidaredistribuera kopior av den enligt villkoren i\n"
 "GNU General Public License <http://www.gnu.org/licenses/gpl.html>.\n"
 "Det finns INGEN GARANTI, i den utsträckning som lagen tillåter.\n"
 
@@ -743,9 +732,7 @@ msgstr "  --help                       skriv ut hjälp\n"
 #: src/mpop.c:2268
 #, c-format
 msgid "  -P, --pretend                print configuration info and exit\n"
-msgstr ""
-"  -P, --pretend                skriv ut konfigurationsinformation och "
-"avsluta\n"
+msgstr "  -P, --pretend                skriv ut konfigurationsinformation och avsluta\n"
 
 #: src/mpop.c:2269
 #, c-format
@@ -759,11 +746,8 @@ msgstr "Ändrar användningsläget:\n"
 
 #: src/mpop.c:2271
 #, c-format
-msgid ""
-"  --configure=mailaddress      generate and print configuration for address\n"
-msgstr ""
-"  --configure=e-postaddress      generera och skriva ut konfiguration för "
-"adress\n"
+msgid "  --configure=mailaddress      generate and print configuration for address\n"
+msgstr "  --configure=e-postaddress      generera och skriva ut konfiguration för adress\n"
 
 #: src/mpop.c:2272
 #, c-format
@@ -783,12 +767,10 @@ msgstr "  -C, --file=filnamn          ställ in konfigurationsfil\n"
 #: src/mpop.c:2275
 #, c-format
 msgid ""
-"  --host=hostname              set the server, use only command-line "
-"settings;\n"
+"  --host=hostname              set the server, use only command-line settings;\n"
 "                               do not use any configuration file data\n"
 msgstr ""
-"  --host=värdnamn              ställ in servern, använd endast "
-"kommandoradsinställningar;\n"
+"  --host=värdnamn              ställ in servern, använd endast kommandoradsinställningar;\n"
 "                               använd inte några konfigurationsfildata\n"
 
 #: src/mpop.c:2277
@@ -798,12 +780,8 @@ msgstr "  --port=nummer                ställer in port nummer\n"
 
 #: src/mpop.c:2278
 #, c-format
-msgid ""
-"  --source-ip=[IP]             set/unset source ip address to bind the "
-"socket to\n"
-msgstr ""
-"  --source-ip=[IP]             ställ in/avaktivera källans ip-adress för att "
-"binda uttaget till\n"
+msgid "  --source-ip=[IP]             set/unset source ip address to bind the socket to\n"
+msgstr "  --source-ip=[IP]             ställ in/avaktivera källans ip-adress för att binda uttaget till\n"
 
 #: src/mpop.c:2279
 #, c-format
@@ -818,15 +796,12 @@ msgstr "  --proxy-port=[nummer]        aktivera/avaktivera proxyport\n"
 #: src/mpop.c:2281
 #, c-format
 msgid "  --socket=[socketname]        set/unset local socket to connect to\n"
-msgstr ""
-"  --socket=[socketname]        ställ in/av lokalt uttag att ansluta till\n"
+msgstr "  --socket=[socketname]        ställ in/av lokalt uttag att ansluta till\n"
 
 #: src/mpop.c:2282
 #, c-format
 msgid "  --timeout=(off|seconds)      set/unset network timeout in seconds\n"
-msgstr ""
-"  --timeout=(av|sekunder)      aktivera/avaktivera nätverkstimeout i "
-"sekunder\n"
+msgstr "  --timeout=(av|sekunder)      aktivera/avaktivera nätverkstimeout i sekunder\n"
 
 #: src/mpop.c:2283
 #, c-format
@@ -846,9 +821,7 @@ msgstr "  --auth[=(på|metod)]         välj autentiseringsmetod\n"
 #: src/mpop.c:2286
 #, c-format
 msgid "  --user=[username]            set/unset user name for authentication\n"
-msgstr ""
-"  --user=[användarnamn]            ställ in/avaktivera användarnamn för "
-"autentisering\n"
+msgstr "  --user=[användarnamn]            ställ in/avaktivera användarnamn för autentisering\n"
 
 #: src/mpop.c:2287
 #, c-format
@@ -868,45 +841,32 @@ msgstr "  --tls-starttls[=(av|på)]    aktivera/inaktivera STARTTLS för TLS\n"
 #: src/mpop.c:2290
 #, c-format
 msgid "  --tls-trust-file=[file]      set/unset trust file for TLS\n"
-msgstr ""
-"  --tls-trust-file=[fil]      aktivera/avaktivera förtroendefil för TLS\n"
+msgstr "  --tls-trust-file=[fil]      aktivera/avaktivera förtroendefil för TLS\n"
 
 #: src/mpop.c:2291
 #, c-format
 msgid "  --tls-crl-file=[file]        set/unset revocation file for TLS\n"
-msgstr ""
-"  --tls-crl-file=[fil]        ställ in/avaktivera återkallningsfil för TLS\n"
+msgstr "  --tls-crl-file=[fil]        ställ in/avaktivera återkallningsfil för TLS\n"
 
 #: src/mpop.c:2292
 #, c-format
-msgid ""
-"  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for "
-"TLS\n"
-msgstr ""
-"  --tls-fingerprint=[f]        ställ in/avaktivera betrodda "
-"certifikatfingeravtryck för TLS\n"
+msgid "  --tls-fingerprint=[f]        set/unset trusted certificate fingerprint for TLS\n"
+msgstr "  --tls-fingerprint=[f]        ställ in/avaktivera betrodda certifikatfingeravtryck för TLS\n"
 
 #: src/mpop.c:2293
 #, c-format
-msgid ""
-"  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for "
-"TLS\n"
-msgstr ""
-"  --tls-certcheck[=(på|av)]   aktivera/avaktivera servercertifikatkontroller "
-"för TLS\n"
+msgid "  --tls-certcheck[=(on|off)]   enable/disable server certificate checks for TLS\n"
+msgstr "  --tls-certcheck[=(på|av)]   aktivera/avaktivera servercertifikatkontroller för TLS\n"
 
 #: src/mpop.c:2294
 #, c-format
 msgid "  --tls-key-file=[file]        set/unset private key file for TLS\n"
-msgstr ""
-"  --tls-key-file=[fil]        ställ in/avaktivera privat nyckelfil för TLS\n"
+msgstr "  --tls-key-file=[fil]        ställ in/avaktivera privat nyckelfil för TLS\n"
 
 #: src/mpop.c:2295
 #, c-format
 msgid "  --tls-cert-file=[file]       set/unset private cert file for TLS\n"
-msgstr ""
-"  --tls-cert-file=[fil]       ställ in/avaktivera privat certifikatfil för "
-"TLS\n"
+msgstr "  --tls-cert-file=[fil]       ställ in/avaktivera privat certifikatfil för TLS\n"
 
 #: src/mpop.c:2296
 #, c-format
@@ -915,19 +875,13 @@ msgstr "  --tls-priorities=[prios]     ställ in/avaktivera TLS-prioriteter.\n"
 
 #: src/mpop.c:2297
 #, c-format
-msgid ""
-"  --tls-host-override=[host]   set/unset override for TLS host "
-"verification.\n"
-msgstr ""
-"  --tls-host-override=[värd]   aktivera/avaktivera åsidosättande för TLS-"
-"värdverifiering.\n"
+msgid "  --tls-host-override=[host]   set/unset override for TLS host verification.\n"
+msgstr "  --tls-host-override=[värd]   aktivera/avaktivera åsidosättande för TLS-värdverifiering.\n"
 
 #: src/mpop.c:2298
 #, c-format
 msgid "  --tls-min-dh-prime-bits=[b]  set/unset minimum bit size of DH prime\n"
-msgstr ""
-"  --tls-min-dh-prime-bits=[b]  ställ in/avaktivera minsta bitstorlek för DH-"
-"prim\n"
+msgstr "  --tls-min-dh-prime-bits=[b]  ställ in/avaktivera minsta bitstorlek för DH-prim\n"
 
 #: src/mpop.c:2299
 #, c-format
@@ -936,41 +890,28 @@ msgstr "Alternativ som är specifika för e-posthämtningsläge:\n"
 
 #: src/mpop.c:2300
 #, c-format
-msgid ""
-"  -q, --quiet                  do not display status or progress "
-"information\n"
-msgstr ""
-"  -q, --quiet                   visa inte status eller förloppsinformation\n"
+msgid "  -q, --quiet                  do not display status or progress information\n"
+msgstr "  -q, --quiet                   visa inte status eller förloppsinformation\n"
 
 #: src/mpop.c:2301
 #, c-format
-msgid ""
-"  -Q, --half-quiet             display status but not progress information\n"
-msgstr ""
-"  -Q, --half-quiet             visa status men inte förloppsinformation\n"
+msgid "  -Q, --half-quiet             display status but not progress information\n"
+msgstr "  -Q, --half-quiet             visa status men inte förloppsinformation\n"
 
 #: src/mpop.c:2302
 #, c-format
-msgid ""
-"  -a, --all-accounts           query all accounts in the configuration file\n"
-msgstr ""
-"  -a, --all-accounts          fråga efter alla konton i konfigurationsfiln\n"
+msgid "  -a, --all-accounts           query all accounts in the configuration file\n"
+msgstr "  -a, --all-accounts          fråga efter alla konton i konfigurationsfiln\n"
 
 #: src/mpop.c:2303
 #, c-format
-msgid ""
-"  -A, --auth-only              authenticate only; do not retrieve mail\n"
-msgstr ""
-"  -A, --auth-only               autentisera endast; men hämta inte e-post\n"
+msgid "  -A, --auth-only              authenticate only; do not retrieve mail\n"
+msgstr "  -A, --auth-only               autentisera endast; men hämta inte e-post\n"
 
 #: src/mpop.c:2304
 #, c-format
-msgid ""
-"  -s, --status-only            print account status only; do not retrieve "
-"mail\n"
-msgstr ""
-"  -s, --status-only             skriv ut kontostatus endast; hämta inte e-"
-"post\n"
+msgid "  -s, --status-only            print account status only; do not retrieve mail\n"
+msgstr "  -s, --status-only             skriv ut kontostatus endast; hämta inte e-post\n"
 
 #: src/mpop.c:2305
 #, c-format
@@ -1252,11 +1193,8 @@ msgstr "kan inte allokera certifikat för TLS-session: %s"
 
 #: src/mtls-gnutls.c:452 src/mtls-libtls.c:312
 #, c-format
-msgid ""
-"cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
-msgstr ""
-"kan inte ställa in X509-nyckelfil %s och/eller X509-certifikatfil %s för TLS-"
-"session: %s"
+msgid "cannot set X509 key file %s and/or X509 cert file %s for TLS session: %s"
+msgstr "kan inte ställa in X509-nyckelfil %s och/eller X509-certifikatfil %s för TLS-session: %s"
 
 #: src/mtls-gnutls.c:474 src/mtls-openssl.c:720
 #, c-format
@@ -1333,11 +1271,8 @@ msgstr "kan inte ställa in filbeskrivningen för TLS: %s"
 
 #: src/mtls-openssl.c:92
 #, c-format
-msgid ""
-"no environment variables RANDFILE or HOME, or filename of rand file too long"
-msgstr ""
-"inga miljövariabler RANDFILE eller HOME, eller filnamnet på rand-filen för "
-"långt"
+msgid "no environment variables RANDFILE or HOME, or filename of rand file too long"
+msgstr "inga miljövariabler RANDFILE eller HOME, eller filnamnet på rand-filen för långt"
 
 #: src/mtls-openssl.c:98 src/uidls.c:351
 #, c-format
@@ -1347,8 +1282,7 @@ msgstr "%s: inmatningsfel"
 #: src/mtls-openssl.c:120
 #, c-format
 msgid "random file + time + pseudo randomness is not enough, giving up"
-msgstr ""
-"slumpmässig fil + tid + pseudo slumpmässighet är inte tillräckligt, ger upp"
+msgstr "slumpmässig fil + tid + pseudo slumpmässighet är inte tillräckligt, ger upp"
 
 #: src/mtls-openssl.c:293 src/mtls-openssl.c:579
 #, c-format
@@ -1653,12 +1587,8 @@ msgstr "POP3 server skickade ett ogiltigt svar"
 
 #: src/pop3.c:382
 #, c-format
-msgid ""
-"Cannot send POP3 command because it is longer than %d characters. Increase "
-"POP3_BUFSIZE."
-msgstr ""
-"Kan inte skicka POP3-kommandot eftersom det är längre än %d tecken. Öka "
-"POP3_BUFSIZE."
+msgid "Cannot send POP3 command because it is longer than %d characters. Increase POP3_BUFSIZE."
+msgstr "Kan inte skicka POP3-kommandot eftersom det är längre än %d tecken. Öka POP3_BUFSIZE."
 
 #: src/pop3.c:691
 #, c-format
@@ -1867,74 +1797,51 @@ msgstr "kan inte byta namn på %s till %s: %s"
 #~ msgstr "Systemkonfigurationsfilens namn: %s\n"
 
 #~ msgid ""
-#~ "  -a, --account=id             use the given account instead of the "
-#~ "account\n"
-#~ "                               named \"default\"; its settings may be "
-#~ "changed\n"
+#~ "  -a, --account=id             use the given account instead of the account\n"
+#~ "                               named \"default\"; its settings may be changed\n"
 #~ "                               with command-line options\n"
 #~ msgstr ""
-#~ "  -a, --account=id             använd det angivna kontot istället för "
-#~ "konto\n"
-#~ "                               med namnet \"standard\"; dess "
-#~ "inställningar kan ändrasn\n"
+#~ "  -a, --account=id             använd det angivna kontot istället för konto\n"
+#~ "                               med namnet \"standard\"; dess inställningar kan ändrasn\n"
 #~ "                               med kommandorads alternativ\n"
 
 #~ msgid "  --protocol=(smtp|lmtp)       use the given sub protocol\n"
 #~ msgstr "  --protocol=(smtp|lmtp)       använd det givna underprotokollet\n"
 
-#~ msgid ""
-#~ "  --domain=string              set the argument of EHLO or LHLO command\n"
-#~ msgstr ""
-#~ "  --domain=string              ställ in argumentet för EHLO eller LHLO "
-#~ "kommando\n"
+#~ msgid "  --domain=string              set the argument of EHLO or LHLO command\n"
+#~ msgstr "  --domain=string              ställ in argumentet för EHLO eller LHLO kommando\n"
 
 #~ msgid ""
-#~ "  --auth[=(on|off|method)]     enable/disable authentication and "
-#~ "optionally\n"
+#~ "  --auth[=(on|off|method)]     enable/disable authentication and optionally\n"
 #~ "                               choose the method\n"
 #~ msgstr ""
-#~ "  --auth[=(av|på|metod)]     aktivera/avaktivera autentisering och "
-#~ "valfritt\n"
+#~ "  --auth[=(av|på|metod)]     aktivera/avaktivera autentisering och valfritt\n"
 #~ "                               välj metod\n"
 
-#~ msgid ""
-#~ "  --auto-from[=(on|off)]       enable/disable automatic envelope-from "
-#~ "addresses\n"
-#~ msgstr ""
-#~ "  --auto-from[=(av|på)]       aktivera/avaktivera automatiska kuvert-från-"
-#~ "adresser\n"
+#~ msgid "  --auto-from[=(on|off)]       enable/disable automatic envelope-from addresses\n"
+#~ msgstr "  --auto-from[=(av|på)]       aktivera/avaktivera automatiska kuvert-från-adresser\n"
 
 #~ msgid "  -f, --from=address           set envelope from address\n"
 #~ msgstr "  -f, --from=address           ställ in kuvert från adress\n"
 
 #~ msgid ""
-#~ "  --maildomain=[domain]        set the domain for automatic envelope "
-#~ "from\n"
+#~ "  --maildomain=[domain]        set the domain for automatic envelope from\n"
 #~ "                               addresses\n"
 #~ msgstr ""
-#~ "  --maildomain=[domän]        ställ in domänen för automatiskt kuvert "
-#~ "från\n"
+#~ "  --maildomain=[domän]        ställ in domänen för automatiskt kuvert från\n"
 #~ "                               adresser\n"
 
-#~ msgid ""
-#~ "  --logfile-time-format=[fmt]  set/unset log file time format for "
-#~ "strftime()\n"
-#~ msgstr ""
-#~ "  --logfile-time-format=[fmt]  ställ in/avaktivera loggfilens tidsformat "
-#~ "för strftime()\n"
+#~ msgid "  --logfile-time-format=[fmt]  set/unset log file time format for strftime()\n"
+#~ msgstr "  --logfile-time-format=[fmt]  ställ in/avaktivera loggfilens tidsformat för strftime()\n"
 
 #, fuzzy
-#~ msgid ""
-#~ "  --syslog[=(on|off|facility)] enable/disable/configure syslog logging\n"
+#~ msgid "  --syslog[=(on|off|facility)] enable/disable/configure syslog logging\n"
 #~ msgstr "\n"
 
-#~ msgid ""
-#~ "  -t, --read-recipients        read additional recipients from the mail\n"
-#~ msgstr ""
-#~ "  -t, --read-recipients        läs ytterligare mottagare från mailet\n"
+#~ msgid "  -t, --read-recipients        read additional recipients from the mail\n"
+#~ msgstr "  -t, --read-recipients        läs ytterligare mottagare från mailet\n"
 
-#~ msgid ""
-#~ "  --read-envelope-from         read envelope from address from the mail\n"
+#~ msgid "  --read-envelope-from         read envelope from address from the mail\n"
 #~ msgstr "  --read-envelope-from         läs kuvert frånadress från mailet\n"
 
 #~ msgid "  --set-from-header[=(auto|on|off)] set From header handling\n"
@@ -1944,27 +1851,20 @@ msgstr "kan inte byta namn på %s till %s: %s"
 #~ msgstr "  --set-date-header[=(auto|av)] ställ in datumrubrikshantering\n"
 
 #~ msgid "  --set-msgid-header[=(auto|off)] set Message-ID header handling\n"
-#~ msgstr ""
-#~ "  --set-msgid-header[=(auto|off)] ställ in meddelandeIDrubrikshantering\n"
+#~ msgstr "  --set-msgid-header[=(auto|off)] ställ in meddelandeIDrubrikshantering\n"
 
 #~ msgid ""
-#~ "  --undisclosed-recipients[=(on|off)] enable/disable replacement of To/Cc/"
-#~ "Bcc\n"
+#~ "  --undisclosed-recipients[=(on|off)] enable/disable replacement of To/Cc/Bcc\n"
 #~ "                               with To: undisclosed-recipients:;\n"
 #~ msgstr ""
-#~ "  --undisclosed-recipients[=(av|på)] enable/disable aktivera/avaktivera "
-#~ "ersättning av Till/Kopia/Hemlig kopia\n"
+#~ "  --undisclosed-recipients[=(av|på)] enable/disable aktivera/avaktivera ersättning av Till/Kopia/Hemlig kopia\n"
 #~ "                               med till: icke avslöjad mottagare:;\n"
 
 #~ msgid "  --                           end of options\n"
 #~ msgstr "  --                           slut på alternativ\n"
 
-#~ msgid ""
-#~ "Accepted but ignored: -A, -B, -bm, -F, -G, -h, -i, -L, -m, -n, -O, -o, -"
-#~ "v\n"
-#~ msgstr ""
-#~ "Godkända men ignorerade: -A, -B, -bm, -F, -G, -h, -i, -L, -m, -n, -O, -o, "
-#~ "-v\n"
+#~ msgid "Accepted but ignored: -A, -B, -bm, -F, -G, -h, -i, -L, -m, -n, -O, -o, -v\n"
+#~ msgstr "Godkända men ignorerade: -A, -B, -bm, -F, -G, -h, -i, -L, -m, -n, -O, -o, -v\n"
 
 #~ msgid "cannot use both --serverinfo and --rmqs"
 #~ msgstr "kan inte både använda --serverinfo och --rmqs"
@@ -2041,9 +1941,7 @@ msgstr "kan inte byta namn på %s till %s: %s"
 #~ msgid "delivery to one or more recipients failed"
 #~ msgstr "leverans till en eller flera mottagare misslyckades"
 
-#~ msgid ""
-#~ "Rejecting server reply that is longer than %d lines. Increase "
-#~ "SMTP_MAXLINES."
+#~ msgid "Rejecting server reply that is longer than %d lines. Increase SMTP_MAXLINES."
 #~ msgstr "Avvisar serversvar som är längre än %d rader. Öka SMTP_MAXLINES."
 
 #~ msgid "SMTP server does not accept EHLO or HELO commands"
