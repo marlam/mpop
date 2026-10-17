@@ -126,6 +126,10 @@ and treats that as if it was @samp{on}.
 Commands are organized in accounts. Each account starts with the @samp{account}
 command and defines the settings for one POP3 account.
 
+Settings that apply to all following accounts can be set in a block starting with
+the @samp{defaults} command. It is highly recommended to start the configuration
+file with this command, then define common defaults (mostly @samp{tls on}),
+and then define your accounts.
 @xref{Examples}.
 
 @section General commands
